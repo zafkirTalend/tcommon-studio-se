@@ -187,7 +187,7 @@ public class ContextUtils {
         }
         if (obj instanceof String) {
             String string = (String) obj;
-            if ("".equals(string.trim())) {
+            if ("".equals(string.trim())) { //$NON-NLS-1$
                 return true;
             }
         }
@@ -411,6 +411,6 @@ public class ContextUtils {
     public static boolean isPropagateContextVariable() {
         // preference name must match TalendDesignerPrefConstants.PROPAGATE_CONTEXT_VARIABLE
         return Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
-                "propagateContextVariable"));
+                "propagateContextVariable")); //$NON-NLS-1$
     }
 }

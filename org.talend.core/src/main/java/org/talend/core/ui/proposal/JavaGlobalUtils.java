@@ -23,8 +23,8 @@ import org.talend.core.i18n.Messages;
 public class JavaGlobalUtils {
 
     public static IContentProposal[] getProposals() {
-        IContentProposal[] cp = new IContentProposal[] { new JavaGlobalVariableProposal("projectName", "Project Name"),
-                new JavaGlobalVariableProposal("jobName", "Job Name"), };
+        IContentProposal[] cp = new IContentProposal[] { new JavaGlobalVariableProposal("projectName", "Project Name"), //$NON-NLS-1$ //$NON-NLS-2$
+                new JavaGlobalVariableProposal("jobName", "Job Name"), }; //$NON-NLS-1$ //$NON-NLS-2$
         return cp;
     }
 
@@ -49,7 +49,7 @@ public class JavaGlobalUtils {
             this.desc = desc;
 
             this.code = name;
-            this.display = "global." + name;
+            this.display = "global." + name; //$NON-NLS-1$
 
         }
 

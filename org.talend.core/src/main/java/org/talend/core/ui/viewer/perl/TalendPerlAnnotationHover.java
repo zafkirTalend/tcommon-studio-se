@@ -46,7 +46,7 @@ public class TalendPerlAnnotationHover implements IAnnotationHover {
 
         List markers = MarkerUtil.getMarkersForLine(resource, line + 1);
         if (markers != null) {
-            info = "";
+            info = ""; //$NON-NLS-1$
             for (int i = 0; i < markers.size(); i++) {
                 IMarker marker = (IMarker) markers.get(i);
                 String message = marker.getAttribute(IMarker.MESSAGE, (String) null);
@@ -58,7 +58,7 @@ public class TalendPerlAnnotationHover implements IAnnotationHover {
                     info += message;
 
                     if (i != markers.size() - 1) {
-                        info += "\n";
+                        info += "\n"; //$NON-NLS-1$
                     }
                 }
             }
@@ -67,7 +67,7 @@ public class TalendPerlAnnotationHover implements IAnnotationHover {
     }
 
     private String splitMessage(String message) {
-        String result = "";
+        String result = ""; //$NON-NLS-1$
 
         if (message.length() <= MAX_INFO_LENGTH) {
             return message;
@@ -77,13 +77,13 @@ public class TalendPerlAnnotationHover implements IAnnotationHover {
 
         while (tmpStr.length() > MAX_INFO_LENGTH) {
 
-            int spacepos = tmpStr.indexOf(" ", MAX_INFO_LENGTH);
+            int spacepos = tmpStr.indexOf(" ", MAX_INFO_LENGTH); //$NON-NLS-1$
 
             if (spacepos != -1) {
-                result += tmpStr.substring(0, spacepos) + "\n";
+                result += tmpStr.substring(0, spacepos) + "\n"; //$NON-NLS-1$
                 tmpStr = tmpStr.substring(spacepos);
             } else {
-                result += tmpStr.substring(0, MAX_INFO_LENGTH) + "\n";
+                result += tmpStr.substring(0, MAX_INFO_LENGTH) + "\n"; //$NON-NLS-1$
                 tmpStr = tmpStr.substring(MAX_INFO_LENGTH);
             }
 

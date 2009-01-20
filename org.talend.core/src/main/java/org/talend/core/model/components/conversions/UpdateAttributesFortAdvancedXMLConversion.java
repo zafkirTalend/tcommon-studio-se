@@ -25,15 +25,15 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
  */
 public class UpdateAttributesFortAdvancedXMLConversion implements IComponentConversion {
 
-    private static final String ROOT_NAME = "ROOT";
+    private static final String ROOT_NAME = "ROOT"; //$NON-NLS-1$
 
-    private static final String GROUP_NAME = "GROUP";
+    private static final String GROUP_NAME = "GROUP"; //$NON-NLS-1$
 
-    private static final String LOOP_NAME = "LOOP";
+    private static final String LOOP_NAME = "LOOP"; //$NON-NLS-1$
 
-    private static final String PATH = "PATH";
+    private static final String PATH = "PATH"; //$NON-NLS-1$
 
-    private static final String ATTRIBUTE = "ATTRIBUTE";
+    private static final String ATTRIBUTE = "ATTRIBUTE"; //$NON-NLS-1$
 
     public void transform(NodeType node) {
         ElementParameterType eleParaRoot = ComponentUtilities.getNodeProperty(node, ROOT_NAME);
@@ -70,14 +70,14 @@ public class UpdateAttributesFortAdvancedXMLConversion implements IComponentConv
                 ElementValueType eValue = (ElementValueType) value;
                 if (eValue.getElementRef().equals(ATTRIBUTE)) {
                     String attri = eValue.getValue();
-                    if (attri.equals("false") || attri.equals("")) {
+                    if (attri.equals("false") || attri.equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
                         if ((loopRootPath != null && loopRootPath.startsWith(path)) || (loopRootPath == null && i == 0)) {
-                            eValue.setValue("main");
+                            eValue.setValue("main"); //$NON-NLS-1$
                         } else {
-                            eValue.setValue("branch");
+                            eValue.setValue("branch"); //$NON-NLS-1$
                         }
-                    } else if (attri.equals("true")) {
-                        eValue.setValue("attri");
+                    } else if (attri.equals("true")) { //$NON-NLS-1$
+                        eValue.setValue("attri"); //$NON-NLS-1$
                     }
                 } else if (eValue.getElementRef().equals(PATH)) {
                     path = eValue.getValue();

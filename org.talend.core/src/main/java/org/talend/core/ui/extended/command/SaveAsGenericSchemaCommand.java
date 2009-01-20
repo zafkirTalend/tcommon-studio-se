@@ -116,8 +116,8 @@ public class SaveAsGenericSchemaCommand extends Command {
             // property.setLabel("test22333333");
 
             GenericSchemaConnection connection = ConnectionFactory.eINSTANCE.createGenericSchemaConnection();
-            connection.setLabel("connectionLabel");
-            connection.setComment("connectionComment");
+            connection.setLabel("connectionLabel"); //$NON-NLS-1$
+            connection.setComment("connectionComment"); //$NON-NLS-1$
 
             if (this.dbmsId != null && this.dbmsId.length() > 0) {
                 connection.setMappingTypeId(this.dbmsId);
@@ -126,13 +126,13 @@ public class SaveAsGenericSchemaCommand extends Command {
 
             MetadataTable createMetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             createMetadataTable.setConnection(connection);
-            createMetadataTable.setLabel("metadata");
+            createMetadataTable.setLabel("metadata"); //$NON-NLS-1$
             for (IMetadataColumn column : listColumns) {
                 MetadataColumn createMetadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                 createMetadataColumn.setComment(column.getComment());
                 createMetadataColumn.setLabel(column.getLabel());
                 createMetadataColumn.setDefaultValue(column.getDefault());
-                createMetadataColumn.setId(column.getId() + "");
+                createMetadataColumn.setId(column.getId() + ""); //$NON-NLS-1$
                 createMetadataColumn.setKey(column.isKey());
                 if (column.getLength() != null) {
                     createMetadataColumn.setLength(column.getLength().intValue());
@@ -155,7 +155,7 @@ public class SaveAsGenericSchemaCommand extends Command {
             // }
             IPath path = CorePlugin.getDefault().getRepositoryService().getPathForSaveAsGenericSchema();
             if (path == null) {
-                this.saveMetaData(item, new Path(""));
+                this.saveMetaData(item, new Path("")); //$NON-NLS-1$
             } else {
                 this.saveMetaData(item, path);
             }

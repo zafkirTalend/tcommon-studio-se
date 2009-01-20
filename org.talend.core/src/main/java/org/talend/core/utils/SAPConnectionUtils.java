@@ -75,14 +75,14 @@ public final class SAPConnectionUtils {
             if (!input) {
                 for (Map<String, Object> value : source) {
                     // Output is base on schema
-                    if (value.get("SCHEMA_COLUMN") == null) {
-                        value.put("SCHEMA_COLUMN", TalendTextUtils.removeQuotes((String) value.get("SAP_PARAMETER_NAME")));
+                    if (value.get("SCHEMA_COLUMN") == null) { //$NON-NLS-1$
+                        value.put("SCHEMA_COLUMN", TalendTextUtils.removeQuotes((String) value.get("SAP_PARAMETER_NAME"))); //$NON-NLS-1$ //$NON-NLS-2$
                     }
                 }
             } else {
                 for (Map<String, Object> value : source) {
-                    if (value.get("SAP_PARAMETER_VALUE") == null) {
-                        value.put("SAP_PARAMETER_VALUE", "");
+                    if (value.get("SAP_PARAMETER_VALUE") == null) { //$NON-NLS-1$
+                        value.put("SAP_PARAMETER_VALUE", ""); //$NON-NLS-1$ //$NON-NLS-2$
                     }
                 }
             }

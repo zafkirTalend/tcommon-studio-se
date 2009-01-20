@@ -96,7 +96,7 @@ public class DateParameter extends Parameter {
     @Override
     public void setType(String type) {
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-            super.setType("Date");
+            super.setType("Date"); //$NON-NLS-1$
         } else {
             super.setType(type);
         }

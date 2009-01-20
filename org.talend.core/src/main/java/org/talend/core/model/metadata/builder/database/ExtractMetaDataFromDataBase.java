@@ -61,9 +61,9 @@ public class ExtractMetaDataFromDataBase {
      * 
      */
     public enum ETableTypes {
-        TABLETYPE_TABLE("TABLE"),
-        TABLETYPE_VIEW("VIEW"),
-        TABLETYPE_SYNONYM("SYNONYM");
+        TABLETYPE_TABLE("TABLE"), //$NON-NLS-1$
+        TABLETYPE_VIEW("VIEW"), //$NON-NLS-1$
+        TABLETYPE_SYNONYM("SYNONYM"); //$NON-NLS-1$
 
         private final String name;
 
@@ -122,14 +122,14 @@ public class ExtractMetaDataFromDataBase {
                     ETableTypes.TABLETYPE_SYNONYM.getName() };
             while (rsTableTypes.next()) {
                 // StringUtils.trimToEmpty(name) is because bug 4547
-                String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE"));
+                String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
                 if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
                     availableTableTypes.add(currentTableType);
                 }
             }
             rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
 
-            if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) {
+            if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) { //$NON-NLS-1$
                 rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
             } else {
                 rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
@@ -165,12 +165,12 @@ public class ExtractMetaDataFromDataBase {
             // See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
             // Must use column index to fetch values.
 
-            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_NAME");
+            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_NAME"); //$NON-NLS-1$
             if (tableName == null) {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
             }
             if (tableName == null) {
-                System.out.println("table name is null");
+                System.out.println(Messages.getString("ExtractMetaDataFromDataBase.nameNull")); //$NON-NLS-1$
             }
 
             medataTable.setLabel(tableName); //$NON-NLS-1$
@@ -178,7 +178,7 @@ public class ExtractMetaDataFromDataBase {
 
             medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
 
-            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM");
+            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM"); //$NON-NLS-1$
             if (schema == null) {
                 schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 2);
             }
@@ -186,11 +186,11 @@ public class ExtractMetaDataFromDataBase {
                 tableSchemaMap.put(medataTable.getLabel(), schema);
             }
 
-            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE");
+            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE"); //$NON-NLS-1$
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
             }
-            if (tableType.equals("T")) {
+            if (tableType.equals("T")) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_TABLE.getName();
             }
 
@@ -308,7 +308,7 @@ public class ExtractMetaDataFromDataBase {
 
         try {
             String originSchema = tableSchemaMap.get(medataTable.getLabel());
-            if (!"".equals(metadataConnection.getSchema()) && (metadataConnection.getSchema() != null)) {
+            if (!"".equals(metadataConnection.getSchema()) && (metadataConnection.getSchema() != null)) { //$NON-NLS-1$
                 originSchema = metadataConnection.getSchema();
             }
 
@@ -340,7 +340,7 @@ public class ExtractMetaDataFromDataBase {
             }
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
-                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME");
+                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME"); //$NON-NLS-1$
                 if (fetchTableName.equals(tableName)) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                     metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
@@ -374,14 +374,14 @@ public class ExtractMetaDataFromDataBase {
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
                             .getMapping());
                     talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils
-                            .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns,
-                            "DECIMAL_DIGITS"));
+                            .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                            "DECIMAL_DIGITS")); //$NON-NLS-1$
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                             talendType = JavaTypesManager.getDefaultJavaType().getId();
                             log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
                         } else {
-                            talendType = "";
+                            talendType = ""; //$NON-NLS-1$
                             log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
                         }
                     } else {
@@ -401,14 +401,14 @@ public class ExtractMetaDataFromDataBase {
                             || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
                         try {
                             PreparedStatement statement = ExtractMetaDataUtils.conn
-                                    .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='"
-                                            + medataTable.getLabel() + "' AND COLUMN_NAME='" + metadataColumn.getLabel() + "'");
+                                    .prepareStatement("SELECT COMMENTS FROM USER_COL_COMMENTS WHERE TABLE_NAME='" //$NON-NLS-1$
+                                            + medataTable.getLabel() + "' AND COLUMN_NAME='" + metadataColumn.getLabel() + "'"); //$NON-NLS-1$ //$NON-NLS-2$
                             ResultSet keys = null;
                             ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                             if (statement.execute()) {
                                 keys = statement.getResultSet();
                                 while (keys.next()) {
-                                    metadataColumn.setComment(keys.getString("COMMENTS"));
+                                    metadataColumn.setComment(keys.getString("COMMENTS")); //$NON-NLS-1$
                                 }
                             }
                             keys.close();
@@ -459,8 +459,8 @@ public class ExtractMetaDataFromDataBase {
             Connection connection) {
         if (connection instanceof com.mysql.jdbc.Connection) {// MySql
             try {
-                PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `"
-                        + medataTable.getLabel() + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';");
+                PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM `" //$NON-NLS-1$
+                        + medataTable.getLabel() + "` WHERE Non_unique=0 AND Key_name != \'PRIMARY\';"); //$NON-NLS-1$
                 ResultSet keys = null;
                 ExtractMetaDataUtils.setQueryStatementTimeout(statement);
                 if (statement.execute()) {
@@ -561,7 +561,7 @@ public class ExtractMetaDataFromDataBase {
      * @return
      */
     private static boolean isValidJarFile(final String driverJarFilePath) {
-        if (driverJarFilePath == null || driverJarFilePath.equals("")) {
+        if (driverJarFilePath == null || driverJarFilePath.equals("")) { //$NON-NLS-1$
             return false;
         }
         // return true;
@@ -700,7 +700,7 @@ public class ExtractMetaDataFromDataBase {
                 .getDbVersionString());
         try {
             if (!tableInfoParameters.isUsedName()) {
-                if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {
+                if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) { //$NON-NLS-1$
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                     ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                     ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
@@ -709,7 +709,7 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 Set<String> nameFiters = tableInfoParameters.getNameFilters();
                 if (nameFiters.isEmpty()) {
-                    itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, ""));
+                    itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, "")); //$NON-NLS-1$
                 } else {
                     for (String s : nameFiters) {
                         List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
@@ -771,8 +771,8 @@ public class ExtractMetaDataFromDataBase {
     }
 
     private static String handleDBtype(String dbtype) {
-        if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) {
-            dbtype = "TIMESTAMP";
+        if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
+            dbtype = "TIMESTAMP"; //$NON-NLS-1$
         }
         return dbtype;
     }
@@ -789,7 +789,7 @@ public class ExtractMetaDataFromDataBase {
         List<String> itemTablesName = new ArrayList<String>();
         if (resultSet != null) {
             while (resultSet.next()) {
-                itemTablesName.add(resultSet.getString("TABLE_NAME"));
+                itemTablesName.add(resultSet.getString("TABLE_NAME")); //$NON-NLS-1$
             }
         }
         return itemTablesName;
@@ -805,7 +805,7 @@ public class ExtractMetaDataFromDataBase {
     private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern) throws SQLException {
         ResultSet rsTables = null;
         Connection conn = ExtractMetaDataUtils.conn;
-        String tableNamePattern = "".equals(namePattern) ? null : namePattern;
+        String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
             types[i] = tableInfo.getTypes().get(i).getName();

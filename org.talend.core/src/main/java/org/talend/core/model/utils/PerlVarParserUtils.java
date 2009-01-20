@@ -33,7 +33,7 @@ import org.talend.core.model.process.INode;
  */
 public final class PerlVarParserUtils {
 
-    public static final String PATTERN = "\\$row\\[\\w+\\]";
+    public static final String PATTERN = "\\$row\\[\\w+\\]"; //$NON-NLS-1$
 
     private PerlVarParserUtils() {
 
@@ -49,10 +49,10 @@ public final class PerlVarParserUtils {
      */
     private static String replaceSingleKeyString(final String origin, final INode node) {
 
-        String key = origin.substring("$row[".length(), origin.length() - 1);
-        StringBuilder builder = new StringBuilder("$"); // Perl
+        String key = origin.substring("$row[".length(), origin.length() - 1); //$NON-NLS-1$
+        StringBuilder builder = new StringBuilder("$"); // Perl //$NON-NLS-1$
         builder.append(node.getUniqueName());
-        builder.append("->[");
+        builder.append("->["); //$NON-NLS-1$
 
         int index = -1;
 
@@ -75,7 +75,7 @@ public final class PerlVarParserUtils {
         }
 
         builder.append(index);
-        builder.append("]");
+        builder.append("]"); //$NON-NLS-1$
 
         return builder.toString();
     }
@@ -90,7 +90,7 @@ public final class PerlVarParserUtils {
      */
     public static String findAndReplacesAll(final String origin, final INode node) {
 
-        if (origin == null || origin.equals("")) {
+        if (origin == null || origin.equals("")) { //$NON-NLS-1$
             return origin;
         }
 

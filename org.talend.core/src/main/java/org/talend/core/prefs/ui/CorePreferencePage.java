@@ -154,8 +154,8 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         if (ok) {
             if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
                 String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-                PerlEditorPlugin.getDefault().setExecutablePreference("\"" + perlInterpreter + "\"");
-                PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\"");
+                PerlEditorPlugin.getDefault().setExecutablePreference("\"" + perlInterpreter + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+                PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\""); //$NON-NLS-1$ //$NON-NLS-2$
             }
             XmlArray.setLimitToDefault();
 

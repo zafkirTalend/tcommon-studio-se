@@ -20,9 +20,9 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
  */
 public class AddPropertyDieOnErrorOptionConversion implements IComponentConversion {
 
-    private String field = "CHECK";
+    private String field = "CHECK"; //$NON-NLS-1$
 
-    private String name = "DIE_ON_ERROR";
+    private String name = "DIE_ON_ERROR"; //$NON-NLS-1$
 
     public AddPropertyDieOnErrorOptionConversion() {
         super();
@@ -33,7 +33,7 @@ public class AddPropertyDieOnErrorOptionConversion implements IComponentConversi
         if (ComponentUtilities.getNodeProperty(node, name) == null) {
 
             ComponentUtilities.addNodeProperty(node, name, field);
-            ComponentUtilities.setNodeValue(node, name, "true");
+            ComponentUtilities.setNodeValue(node, name, "true"); //$NON-NLS-1$
 
         }
     }

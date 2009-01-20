@@ -95,7 +95,7 @@ public class ContextViewerSorter extends ViewerSorter {
                 final String text1 = labelProvider.getColumnText(e1, index);
                 final String text2 = labelProvider.getColumnText(e2, index);
 
-                return getComparator().compare((text1 != null ? text1 : ""), (text2 != null ? text2 : "")) * direction;
+                return getComparator().compare((text1 != null ? text1 : ""), (text2 != null ? text2 : "")) * direction; //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return 0; // keep

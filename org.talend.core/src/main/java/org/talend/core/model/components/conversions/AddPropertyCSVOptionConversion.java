@@ -29,9 +29,9 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
  */
 public class AddPropertyCSVOptionConversion implements IComponentConversion {
 
-	  private String field="CHECK";
+	  private String field="CHECK"; //$NON-NLS-1$
 
-	    private String name = "CSV_OPTION";
+	    private String name = "CSV_OPTION"; //$NON-NLS-1$
 
 	    public AddPropertyCSVOptionConversion() {
 	        super();
@@ -39,7 +39,7 @@ public class AddPropertyCSVOptionConversion implements IComponentConversion {
 
 	    public void transform(NodeType node) {
 	        ComponentUtilities.addNodeProperty(node, name, field);
-	        ComponentUtilities.setNodeValue(node, name, "true");
+	        ComponentUtilities.setNodeValue(node, name, "true"); //$NON-NLS-1$
 	    }
 
 }

@@ -27,7 +27,7 @@ public class RoutinesFunctionProposal implements IContentProposal {
 
     private Function function;
 
-    private String method = "";
+    private String method = ""; //$NON-NLS-1$
 
     /**
      * DOC ggu RoutinesProposal constructor comment.
@@ -85,10 +85,10 @@ public class RoutinesFunctionProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
-        if ("".equals(function.getCategory())) {
+        if ("".equals(function.getCategory())) { //$NON-NLS-1$
             return function.getName();
         }
-        return function.getCategory() + "." + function.getName();
+        return function.getCategory() + "." + function.getName(); //$NON-NLS-1$
     }
 
 }

@@ -25,15 +25,15 @@ import org.talend.commons.utils.io.FilesUtils;
 public class PropertiesCollector {
 
     public static void main(String[] args) throws Exception {
-        File file = new File("");
-        File desFile = new File("c:/talend_properites");
+        File file = new File(""); //$NON-NLS-1$
+        File desFile = new File("c:/talend_properites"); //$NON-NLS-1$
         desFile.mkdir();
-        File workspace = new File(file.getAbsolutePath() + "/../");
+        File workspace = new File(file.getAbsolutePath() + "/../"); //$NON-NLS-1$
         FileFilter folderFilter = new FileFilter() {
 
             public boolean accept(File pathname) {
                 String fileName = pathname.getName();
-                if (fileName.equals("bin") || fileName.equals("class") || fileName.equals("classes")) {
+                if (fileName.equals("bin") || fileName.equals("class") || fileName.equals("classes")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     return false;
                 }
 
@@ -45,10 +45,10 @@ public class PropertiesCollector {
 
             public boolean accept(File pathname) {
                 String fileName = pathname.getName();
-                if (fileName.equals("build.properties")) {
+                if (fileName.equals("build.properties")) { //$NON-NLS-1$
                     return false;
                 }
-                return pathname.getName().endsWith(".properties");
+                return pathname.getName().endsWith(".properties"); //$NON-NLS-1$
             }
         };
 

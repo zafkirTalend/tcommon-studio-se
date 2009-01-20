@@ -287,7 +287,7 @@ public class MetadataSchema {
             });
 
             final Document document = analyseur.parse(file);
-            dbmsId = document.getDocumentElement().getAttribute("dbmsId");
+            dbmsId = document.getDocumentElement().getAttribute("dbmsId"); //$NON-NLS-1$
 
             final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
             Set<String> columnsAlreadyAdded = new HashSet<String>();
@@ -476,7 +476,7 @@ public class MetadataSchema {
             Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
 
-            if (dbmsId != null && dbmsId.trim() != "") {
+            if (dbmsId != null && dbmsId.trim() != "") { //$NON-NLS-1$
                 Attr idAttr = document.createAttribute("dbmsId"); //$NON-NLS-1$
                 idAttr.setNodeValue(dbmsId);
                 racine.setAttributeNode(idAttr);
@@ -668,7 +668,7 @@ public class MetadataSchema {
             Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
 
-            if (table.getDbms() != null && table.getDbms().trim() != "") {
+            if (table.getDbms() != null && table.getDbms().trim() != "") { //$NON-NLS-1$
                 Attr dbmsId = document.createAttribute("dbmsId"); //$NON-NLS-1$
                 dbmsId.setNodeValue(table.getDbms());
                 racine.setAttributeNode(dbmsId);
@@ -804,7 +804,7 @@ public class MetadataSchema {
         //
         // fileWriter.close();
         // fileWriter = null;
-        OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+        OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file), "UTF-8"); //$NON-NLS-1$
         serializer.setOutputCharStream(output);
         serializer.serialize(document);
         output.close();

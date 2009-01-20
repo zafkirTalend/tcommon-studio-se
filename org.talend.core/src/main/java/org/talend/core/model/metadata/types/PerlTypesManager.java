@@ -45,7 +45,7 @@ public class PerlTypesManager {
     private static final String[] PERL_TYPES = MetadataTalendType.getPerlTypes();
 
     // Default TalendTypes, also be old types of Perl.
-    private static final String[] OLD_PERL_TYPES = MetadataTalendType.loadTalendTypes("TALENDDEFAULT", false);
+    private static final String[] OLD_PERL_TYPES = MetadataTalendType.loadTalendTypes("TALENDDEFAULT", false); //$NON-NLS-1$
 
     private static boolean initDone = false;
 

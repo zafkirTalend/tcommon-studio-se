@@ -25,6 +25,7 @@ import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.log4j.Logger;
+import org.talend.core.i18n.Messages;
 
 import com.sun.net.ssl.KeyManagerFactory;
 import com.sun.net.ssl.SSLContext;
@@ -70,10 +71,10 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
     protected AdvancedSocketFactory(InputStream in, String keyStore, String password) throws Exception {
         factory = null;
         KeyStore ks = null;
-        if (keyStore.endsWith(".p12"))
-            ks = KeyStore.getInstance("PKCS12");
+        if (keyStore.endsWith(".p12")) //$NON-NLS-1$
+            ks = KeyStore.getInstance("PKCS12"); //$NON-NLS-1$
         else
-            ks = KeyStore.getInstance("JKS");
+            ks = KeyStore.getInstance("JKS"); //$NON-NLS-1$
         char pwd[] = password.toCharArray();
         ks.load(in, pwd);
         init(ks, pwd);
@@ -224,16 +225,16 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
         try {
             if (ks != null) {
                 KeyManagerFactory kmf = null;
-                kmf = KeyManagerFactory.getInstance("SunX509");
+                kmf = KeyManagerFactory.getInstance("SunX509"); //$NON-NLS-1$
                 kmf.init(ks, password);
                 keyManagers = kmf.getKeyManagers();
             }
-            ctx = SSLContext.getInstance("TLS");
+            ctx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
             trustManagers = getDefaultTrustManager();
             ctx.init(keyManagers, trustManagers, null);
             factory = ctx.getSocketFactory();
         } catch (Exception e) {
-            log.error("Error: failed to initialize : " + e.getMessage());
+            log.error(Messages.getString("AdvancedSocketFactory.failedInitial") + e.getMessage()); //$NON-NLS-1$
         }
     }
 

@@ -32,6 +32,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.talend.core.i18n.Messages;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
@@ -58,7 +59,7 @@ public class XSDValidater {
     public void setXsdFile(String xsdFile) {
         File file = new File(xsdFile);
         if (!file.exists()) {
-            throw new IllegalArgumentException("the input xsd file is not existing.");
+            throw new IllegalArgumentException(Messages.getString("XSDValidater.IllegalArgument")); //$NON-NLS-1$
         }
         this.xsdFile = file;
     }
@@ -117,7 +118,7 @@ public class XSDValidater {
 
     public void validateWithDom(Reader xml) throws Exception {
         if (this.xsdFile == null || !xsdFile.exists()) {
-            throw new IllegalArgumentException("the input xsd file is not existing.");
+            throw new IllegalArgumentException(Messages.getString("XSDValidater.IllegalArgument")); //$NON-NLS-1$
         }
         validateWithDom(new FileReader(xsdFile), xml);
     }

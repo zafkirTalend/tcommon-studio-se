@@ -55,6 +55,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.StringUtils;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
@@ -240,7 +241,7 @@ public class VariableItemEditor implements ISnippetEditor {
         variableComposite.setLayout(sublayout);
 
         Label nameLabel = new Label(variableComposite, SWT.NONE);
-        nameLabel.setText("Variables:");
+        nameLabel.setText(Messages.getString("VariableItemEditor.variable")); //$NON-NLS-1$
         GridData doubleData = new GridData(GridData.FILL_HORIZONTAL);
         nameLabel.setLayoutData(doubleData);
 
@@ -248,7 +249,7 @@ public class VariableItemEditor implements ISnippetEditor {
         throwAway.setLayoutData(new GridData());
 
         // saved and made final here to update the template text area below
-        final String nameProperty = "Name";
+        final String nameProperty = Messages.getString("VariableItemEditor.name"); //$NON-NLS-1$
         fTableViewer = new StringPropertyTableViewer();
         fTableViewer.setColumnNames(new String[] { nameProperty, "Description", "Default Value" }); //$NON-NLS-1$ //$NON-NLS-2$
         fTableViewer.createContents(variableComposite);
@@ -285,7 +286,7 @@ public class VariableItemEditor implements ISnippetEditor {
         // input.
         // TODO: for usability, throw up a dialog in the middle
         addButton = new Button(variableButtons, SWT.PUSH);
-        addButton.setText("New");
+        addButton.setText(Messages.getString("VariableItemEditor.new")); //$NON-NLS-1$
         addButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         addButton.addSelectionListener(new SelectionListener() {
 
@@ -308,11 +309,11 @@ public class VariableItemEditor implements ISnippetEditor {
         // add the Remove button with a listener to enable it only when a
         // cell is selected and in focus
         removeButton = new Button(variableButtons, SWT.PUSH);
-        removeButton.setText("Remove");
+        removeButton.setText(Messages.getString("VariableItemEditor.remove")); //$NON-NLS-1$
         removeButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         nameLabel = new Label(parent, SWT.NONE);
-        nameLabel.setText("Template Pattern:");
+        nameLabel.setText(Messages.getString("VariableItemEditor.twmplatePattern")); //$NON-NLS-1$
         nameLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // create a source viewer for to edit the text (makes it easier to
@@ -409,7 +410,7 @@ public class VariableItemEditor implements ISnippetEditor {
 
         // specifically associate the template pattern label w/ the content
         // styled text so screen reader reads it
-        setAccessible(content, "Template Pattern:");
+        setAccessible(content, "Template Pattern:"); //$NON-NLS-1$
 
         // add a value change listener to the fTableViewer so that changes to
         // the name property of a variable
@@ -433,7 +434,7 @@ public class VariableItemEditor implements ISnippetEditor {
          * the source viewer.
          */
         insertVariableButton = new Button(parent, SWT.PUSH);
-        insertVariableButton.setText("Insert &Variable Placeholder...");
+        insertVariableButton.setText(Messages.getString("VariableItemEditor.insertVariable")); //$NON-NLS-1$
         insertVariableButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
         insertVariableButton.setEnabled(fTableViewer.getTable().getItemCount() > 0);
         insertVariableButton.addSelectionListener(new SelectionListener() {

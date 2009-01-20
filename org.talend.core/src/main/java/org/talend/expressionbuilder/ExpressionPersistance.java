@@ -56,9 +56,9 @@ import org.talend.expressionbuilder.test.shadow.Variable;
  */
 public class ExpressionPersistance {
 
-    public static final String EXPRESSION_FOLDER_NAME = "ExpressionBuilder";
+    public static final String EXPRESSION_FOLDER_NAME = "ExpressionBuilder"; //$NON-NLS-1$
 
-    public static final String CONFIGURATION_FOLDER_NAME = "configuration";
+    public static final String CONFIGURATION_FOLDER_NAME = "configuration"; //$NON-NLS-1$
 
     private String ownerId;
 
@@ -177,7 +177,7 @@ public class ExpressionPersistance {
         boolean fileExist = initContents();
 
         EMFExpression emfExpression = convert(expression);
-        Resource resource = resourceSet.createResource(URI.createURI("http:///My.expression"));
+        Resource resource = resourceSet.createResource(URI.createURI("http:///My.expression")); //$NON-NLS-1$
 
         File file = new File(path);
 
@@ -273,8 +273,8 @@ public class ExpressionPersistance {
      * @param newJobName
      */
     public void jobNameChanged(String oldJobName, String newJobName) {
-        IPath oldFilePath = new Path(getExpressionStoreFolderPath()).append(oldJobName + ".xml");
-        IPath newFilePath = new Path(getExpressionStoreFolderPath()).append(newJobName + ".xml");
+        IPath oldFilePath = new Path(getExpressionStoreFolderPath()).append(oldJobName + ".xml"); //$NON-NLS-1$
+        IPath newFilePath = new Path(getExpressionStoreFolderPath()).append(newJobName + ".xml"); //$NON-NLS-1$
         File oldFile = new File(oldFilePath.toOSString());
         if (!oldFile.exists()) {
             return;
@@ -289,7 +289,7 @@ public class ExpressionPersistance {
      * @param jobName
      */
     public void jobDeleted(String jobName) {
-        IPath filePath = new Path(getExpressionStoreFolderPath()).append(jobName + ".xml");
+        IPath filePath = new Path(getExpressionStoreFolderPath()).append(jobName + ".xml"); //$NON-NLS-1$
         File file = new File(filePath.toOSString());
         if (file.exists()) {
             file.delete();

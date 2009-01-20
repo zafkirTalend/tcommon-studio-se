@@ -167,11 +167,11 @@ public class LDAPSchemaBean {
     }
 
     public void setEncryMethod(String encryMethod) {
-        String ldaps = TalendTextUtils.addQuotes("LDAPS(SSL)");
+        String ldaps = TalendTextUtils.addQuotes("LDAPS(SSL)"); //$NON-NLS-1$
 
         // Repository value is different as UI's.
         if (encryMethod.equals(ldaps)) {
-            this.encryMethod = "LDAPS";
+            this.encryMethod = "LDAPS"; //$NON-NLS-1$
         } else {
             this.encryMethod = encryMethod;
         }

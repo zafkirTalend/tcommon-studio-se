@@ -58,7 +58,7 @@ public abstract class Parameter {
      * @uml.property name="value"
      */
     public String getValue() {
-        int index = this.value.indexOf("{variables}");
+        int index = this.value.indexOf("{variables}"); //$NON-NLS-1$
         if (index != -1) {
             return this.value.substring(0, index);
         } else {
@@ -119,10 +119,10 @@ public abstract class Parameter {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Messages.getString("Parameter.Name") + name).append(
-                Messages.getString("Parameter.Value") + this.getValue()).append(
-                Messages.getString("Parameter.Comment") + this.getComment()).append(
-                Messages.getString("Parameter.Type") + this.getType());
+        sb.append(Messages.getString("Parameter.Name") + name).append( //$NON-NLS-1$
+                Messages.getString("Parameter.Value") + this.getValue()).append( //$NON-NLS-1$
+                Messages.getString("Parameter.Comment") + this.getComment()).append( //$NON-NLS-1$
+                Messages.getString("Parameter.Type") + this.getType()); //$NON-NLS-1$
 
         return sb.toString();
     }

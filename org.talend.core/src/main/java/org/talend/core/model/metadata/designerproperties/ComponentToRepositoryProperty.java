@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -64,12 +65,12 @@ public class ComponentToRepositoryProperty {
             setDatabaseType((DatabaseConnection) connection, node);
         }
         // impossible to use OCI in oracle
-        IElementParameter elementParameter = node.getElementParameter("CONNECTION_TYPE");
+        IElementParameter elementParameter = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
         if (elementParameter != null) {
-            if ("ORACLE_OCI".equals(elementParameter.getValue())) {
+            if ("ORACLE_OCI".equals(elementParameter.getValue())) { //$NON-NLS-1$
                 Shell shell = Display.getCurrent().getActiveShell();
-                String title = "Error";
-                String message = "Impossible to use OCI type in the repository!";
+                String title = Messages.getString("ComponentToRepositoryProperty.error"); //$NON-NLS-1$
+                String message = Messages.getString("ComponentToRepositoryProperty.ImpossibleUseOCI"); //$NON-NLS-1$
                 MessageDialog.openError(shell, title, message);
                 return false;
             }
@@ -170,10 +171,10 @@ public class ComponentToRepositoryProperty {
      * @param node
      */
     private static void setDatabaseType(DatabaseConnection connection, INode node) {
-        IElementParameter parameter = node.getElementParameter("TYPE");
+        IElementParameter parameter = node.getElementParameter("TYPE"); //$NON-NLS-1$
         if (parameter == null) {
             // GreePlum
-            IElementParameter para = node.getElementParameter("PROPERTY");
+            IElementParameter para = node.getElementParameter("PROPERTY"); //$NON-NLS-1$
             if (para.getRepositoryValue().endsWith(EDatabaseTypeName.GREENPLUM.getProduct())) {
                 connection.setDatabaseType(EDatabaseTypeName.GREENPLUM.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.GREENPLUM.getProduct());
@@ -279,8 +280,8 @@ public class ComponentToRepositoryProperty {
         }
         // Sybase
         else if (((String) parameter.getValue()).toLowerCase().startsWith(EDatabaseTypeName.SYBASEASE.getProduct().toLowerCase())) {
-            parameter = node.getElementParameter("TYPE");
-            if ("SybaseASE".equals(parameter.getValue())) {
+            parameter = node.getElementParameter("TYPE"); //$NON-NLS-1$
+            if ("SybaseASE".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.SYBASEASE.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.SYBASEASE.getProduct());
             }
@@ -293,13 +294,13 @@ public class ComponentToRepositoryProperty {
 
         // oracle
         else if (EDatabaseTypeName.ORACLEFORSID.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
-            parameter = node.getElementParameter("CONNECTION_TYPE");
+            parameter = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
             // if ("ORACLE_OCI".equals(parameter.getValue())) {
             // }
-            if ("ORACLE_SERVICE_NAME".equals(parameter.getValue())) {
+            if ("ORACLE_SERVICE_NAME".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.ORACLESN.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
-            } else if ("ORACLE_SID".equals(parameter.getValue())) {
+            } else if ("ORACLE_SID".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.ORACLEFORSID.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
             }
@@ -307,14 +308,14 @@ public class ComponentToRepositoryProperty {
         }
         // HSql
         else if (EDatabaseTypeName.HSQLDB_SERVER.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
-            parameter = node.getElementParameter("RUNNING_MODE");
-            if ("HSQLDB_SERVER".equals(parameter.getValue())) {
+            parameter = node.getElementParameter("RUNNING_MODE"); //$NON-NLS-1$
+            if ("HSQLDB_SERVER".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.HSQLDB_SERVER.getProduct());
-            } else if ("HSQLDB_WEBSERVER".equals(parameter.getValue())) {
+            } else if ("HSQLDB_WEBSERVER".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.HSQLDB_WEBSERVER.getProduct());
-            } else if ("HSQLDB_INPROGRESS_PERSISTENT".equals(parameter.getValue())) {
+            } else if ("HSQLDB_INPROGRESS_PERSISTENT".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getProduct());
             }
@@ -323,14 +324,14 @@ public class ComponentToRepositoryProperty {
 
         // JavaDB
         else if (EDatabaseTypeName.JAVADB_EMBEDED.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
-            parameter = node.getElementParameter("FRAMEWORK_TYPE");
-            if ("EMBEDED".equals(parameter.getValue())) {
+            parameter = node.getElementParameter("FRAMEWORK_TYPE"); //$NON-NLS-1$
+            if ("EMBEDED".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.JAVADB_EMBEDED.getProduct());
-            } else if ("JCCJDBC".equals(parameter.getValue())) {
+            } else if ("JCCJDBC".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.JAVADB_JCCJDBC.getProduct());
-            } else if ("DERBYCLIENT".equals(parameter.getValue())) {
+            } else if ("DERBYCLIENT".equals(parameter.getValue())) { //$NON-NLS-1$
                 connection.setDatabaseType(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.JAVADB_DERBYCLIENT.getProduct());
             }
@@ -338,8 +339,8 @@ public class ComponentToRepositoryProperty {
         }
 
         // DB
-        else if (node.getComponent().getName().startsWith("tDBInput") || node.getComponent().getName().startsWith("tDBOutput")) {
-            parameter = node.getElementParameter("PROPERTY");
+        else if (node.getComponent().getName().startsWith("tDBInput") || node.getComponent().getName().startsWith("tDBOutput")) { //$NON-NLS-1$ //$NON-NLS-2$
+            parameter = node.getElementParameter("PROPERTY"); //$NON-NLS-1$
             if (parameter.getRepositoryValue().endsWith(EDatabaseTypeName.GODBC.getProduct())) {
                 connection.setDatabaseType(EDatabaseTypeName.GODBC.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.GODBC.getProduct());
@@ -359,38 +360,38 @@ public class ComponentToRepositoryProperty {
      * @param repositoryValue
      */
     private static void setDatabaseValue(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("USERNAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "USER");
+        if ("USERNAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "USER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setUsername(value);
             }
         }
-        if ("PASSWORD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PASS");
+        if ("PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PASS"); //$NON-NLS-1$
             if (value != null) {
                 connection.setPassword(value);
             }
         }
-        if ("SERVER_NAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HOST");
+        if ("SERVER_NAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HOST"); //$NON-NLS-1$
             if (value != null) {
                 connection.setServerName(value);
             }
         }
-        if ("PORT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PORT");
+        if ("PORT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PORT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setPort(value);
             }
         }
-        if ("SID".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBNAME");
+        if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSID(value);
             }
         }
-        if ("SCHEMA".equals(repositoryValue)) {
-            String value = getParameterValue(node, "SCHEMA_DB");
+        if ("SCHEMA".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "SCHEMA_DB"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSchema(value.toUpperCase());
             }
@@ -456,21 +457,21 @@ public class ComponentToRepositoryProperty {
      */
     private static void setDatabaseValueForOracleSid(DatabaseConnection connection, INode node, String repositoryValue) {
 
-        if ("DB_VERSION".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DB_VERSION");
+        if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDbVersionString(value);
             }
         }
-        if ("SID".equals(repositoryValue)) {
-            IElementParameter param = node.getElementParameter("CONNECTION_TYPE");
-            if (param != null && "ORACLE_OCI".equals(param.getValue())) {
-                String value = getParameterValue(node, "LOCAL_SERVICE_NAME");
+        if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
+            IElementParameter param = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
+            if (param != null && "ORACLE_OCI".equals(param.getValue())) { //$NON-NLS-1$
+                String value = getParameterValue(node, "LOCAL_SERVICE_NAME"); //$NON-NLS-1$
                 if (value != null) {
                     connection.setSID(value);
                 }
             } else {
-                String value = getParameterValue(node, "DBNAME");
+                String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
                 if (value != null) {
                     connection.setSID(value);
                 }
@@ -479,21 +480,21 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForOracleSeverName(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("DB_VERSION".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DB_VERSION");
+        if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDbVersionString(value);
             }
         }
-        if ("SID".equals(repositoryValue)) {
-            IElementParameter param = node.getElementParameter("CONNECTION_TYPE");
-            if (param != null && "ORACLE_OCI".equals(param.getValue())) {
-                String value = getParameterValue(node, "LOCAL_SERVICE_NAME");
+        if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
+            IElementParameter param = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
+            if (param != null && "ORACLE_OCI".equals(param.getValue())) { //$NON-NLS-1$
+                String value = getParameterValue(node, "LOCAL_SERVICE_NAME"); //$NON-NLS-1$
                 if (value != null) {
                     connection.setServerName(value);
                 }
             } else {
-                String value = getParameterValue(node, "DBNAME");
+                String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
                 if (value != null) {
                     connection.setServerName(value);
                 }
@@ -502,8 +503,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForAs400(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("PROPERTIES_STRING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROPERTIES");
+        if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAdditionalParams(value);
             }
@@ -511,8 +512,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForMysql(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("PROPERTIES_STRING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROPERTIES");
+        if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAdditionalParams(value);
             }
@@ -520,8 +521,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForMSSql(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("PROPERTIES_STRING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROPERTIES");
+        if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAdditionalParams(value);
             }
@@ -529,8 +530,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForDB(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("DATASOURCE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBNAME");
+        if ("DATASOURCE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDatasourceName(value);
             }
@@ -538,8 +539,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForSysbase(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("SERVER_NAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "SERVER");
+        if ("SERVER_NAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "SERVER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setServerName(value);
             }
@@ -547,8 +548,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForAccess(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("FILE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBNAME");
+        if ("FILE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFileFieldName(value);
             }
@@ -556,8 +557,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForFileBird(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("FILE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DB");
+        if ("FILE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DB"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFileFieldName(value);
             }
@@ -565,8 +566,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForSqlite(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("FILE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBNAME");
+        if ("FILE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFileFieldName(value);
             }
@@ -574,8 +575,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForIngres(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("SERVER_NAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "SERVER");
+        if ("SERVER_NAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "SERVER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setServerName(value);
             }
@@ -583,14 +584,14 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForInformix(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("PROPERTIES_STRING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROPERTIES");
+        if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAdditionalParams(value);
             }
         }
-        if ("DATASOURCE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBSERVER");
+        if ("DATASOURCE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBSERVER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDatasourceName(value);
             }
@@ -600,14 +601,14 @@ public class ComponentToRepositoryProperty {
 
     private static void setDatabaseValueForjavadb(DatabaseConnection connection, INode node, String repositoryValue) {
 
-        if ("SID".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DB");
+        if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DB"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSID(value);
             }
         }
-        if ("DIRECTORY".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBPATH");
+        if ("DIRECTORY".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBPATH"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDBRootPath(value);
             }
@@ -615,8 +616,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForNetezza(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("DBNAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DBNAME");
+        if ("DBNAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDatasourceName(value);
             }
@@ -624,20 +625,20 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForJdbc(DatabaseConnection connection, INode node, String repositoryValue) {
-        if ("URL".equals(repositoryValue)) {
-            String value = getParameterValue(node, "URL");
+        if ("URL".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "URL"); //$NON-NLS-1$
             if (value != null) {
                 connection.setURL(value);
             }
         }
-        if ("DRIVER_JAR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DRIVER_JAR");
+        if ("DRIVER_JAR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DRIVER_JAR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDriverJarPath(value);
             }
         }
-        if ("DRIVER_CLASS".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DRIVER_CLASS");
+        if ("DRIVER_CLASS".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DRIVER_CLASS"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDriverClass(value);
             }
@@ -654,14 +655,14 @@ public class ComponentToRepositoryProperty {
      */
     private static void setXmlFileValue(XmlFileConnection connection, INode node, String repositoryValue) {
 
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setXmlFilePath(value);
             }
         }
-        if ("ENCODING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENCODING");
+        if ("ENCODING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENCODING"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncoding(value);
             }
@@ -672,27 +673,27 @@ public class ComponentToRepositoryProperty {
         }
 
         XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) emfSchemaList.get(0);
-        if ("XPATH_QUERY".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LOOP_QUERY");
+        if ("XPATH_QUERY".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LOOP_QUERY"); //$NON-NLS-1$
             if (value != null) {
                 xmlDesc.setAbsoluteXPathQuery(value);
             }
         }
-        if ("LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LIMIT");
+        if ("LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LIMIT"); //$NON-NLS-1$
             if (value != null && value.trim().length() > 0) {
                 xmlDesc.setLimitBoucle(Integer.valueOf(value));
             }
         }
-        if ("XML_MAPPING".equals(repositoryValue)) {
-            IElementParameter param = node.getElementParameter("MAPPING");
+        if ("XML_MAPPING".equals(repositoryValue)) { //$NON-NLS-1$
+            IElementParameter param = node.getElementParameter("MAPPING"); //$NON-NLS-1$
             if (param != null) {
                 EList schemaTargets = xmlDesc.getSchemaTargets();
                 List<Map<String, Object>> tableInfo = (List<Map<String, Object>>) param.getValue();
                 for (Map<String, Object> mapObject : tableInfo) {
-                    String schema = (String) mapObject.get("SCHEMA_COLUMN");
+                    String schema = (String) mapObject.get("SCHEMA_COLUMN"); //$NON-NLS-1$
                     if (schema != null) {
-                        String query = (String) mapObject.get("QUERY");
+                        String query = (String) mapObject.get("QUERY"); //$NON-NLS-1$
                         SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
                         schemaTargets.add(schemaTarget);
                         schemaTarget.setTagName(schema);
@@ -713,33 +714,33 @@ public class ComponentToRepositoryProperty {
      * @param repositoryValue
      */
     private static void setLDAPSchemaValue(LDAPSchemaConnection connection, INode node, String repositoryValue) {
-        if ("HOST".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HOST");
+        if ("HOST".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HOST"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHost(value);
             }
         }
-        if ("PORT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PORT");
+        if ("PORT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PORT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setPort(value);
             }
         }
-        if ("BASEDN".equals(repositoryValue)) {
-            String value = getParameterValue(node, "BASEDN");
+        if ("BASEDN".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "BASEDN"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSelectedDN(value);
             }
         }
-        if ("PROTOCOL".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROTOCOL");
+        if ("PROTOCOL".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROTOCOL"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncryptionMethodName(value);
             }
         }
 
-        if ("AUTHENTIFICATION".equals(repositoryValue)) {
-            IElementParameter param = node.getElementParameter("");
+        if ("AUTHENTIFICATION".equals(repositoryValue)) { //$NON-NLS-1$
+            IElementParameter param = node.getElementParameter(""); //$NON-NLS-1$
             if (param != null) {
                 Object o = param.getValue();
                 if (o != null && o instanceof Boolean) {
@@ -748,44 +749,44 @@ public class ComponentToRepositoryProperty {
             }
         }
 
-        if ("USER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "USER");
+        if ("USER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "USER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setBindPrincipal(value);
             }
         }
-        if ("PASSWD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PASSWD");
+        if ("PASSWD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PASSWD"); //$NON-NLS-1$
             if (value != null) {
                 connection.setBindPassword(value);
             }
         }
-        if ("FILTER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILTER");
+        if ("FILTER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILTER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilter(value);
             }
         }
-        if ("ALIASES".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ALIASES");
+        if ("ALIASES".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ALIASES"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAliases(value);
             }
         }
-        if ("REFERRALS".equals(repositoryValue)) {
-            String value = getParameterValue(node, "REFERRALS");
+        if ("REFERRALS".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "REFERRALS"); //$NON-NLS-1$
             if (value != null) {
                 connection.setReferrals(value);
             }
         }
-        if ("COLUMN_COUNT_LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LIMIT");
+        if ("COLUMN_COUNT_LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LIMIT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setCountLimit(value);
             }
         }
-        if ("TIME_OUT_LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "TIMEOUT");
+        if ("TIME_OUT_LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "TIMEOUT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setTimeOutLimit(value);
             }
@@ -793,68 +794,68 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setWSDLSchemaValue(WSDLSchemaConnection connection, INode node, String repositoryValue) {
-        if ("ENDPOINT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENDPOINT");
+        if ("ENDPOINT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENDPOINT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setWSDL(value);
             }
         }
-        if ("NEED_AUTH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "NEED_AUTH");
+        if ("NEED_AUTH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "NEED_AUTH"); //$NON-NLS-1$
             if (value != null) {
                 connection.setNeedAuth(Boolean.valueOf(value));
             }
         }
-        if ("AUTH_USERNAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "AUTH_USERNAME");
+        if ("AUTH_USERNAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "AUTH_USERNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setUserName(value);
             }
         }
-        if ("AUTH_PASSWORD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "AUTH_PASSWORD");
+        if ("AUTH_PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "AUTH_PASSWORD"); //$NON-NLS-1$
             if (value != null) {
                 connection.setPassword(value);
             }
         }
-        if ("UES_PROXY".equals(repositoryValue)) {
-            String value = getParameterValue(node, "UES_PROXY");
+        if ("UES_PROXY".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "UES_PROXY"); //$NON-NLS-1$
             if (value != null) {
                 connection.setUseProxy(Boolean.valueOf(value));
             }
         }
-        if ("PROXY_HOST".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROXY_HOST");
+        if ("PROXY_HOST".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_HOST"); //$NON-NLS-1$
             if (value != null) {
                 connection.setProxyHost(value);
             }
         }
-        if ("PROXY_PORT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROXY_PORT");
+        if ("PROXY_PORT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_PORT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setProxyPort(value);
             }
         }
-        if ("PROXY_USERNAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROXY_USERNAME");
+        if ("PROXY_USERNAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_USERNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setProxyUser(value);
             }
         }
-        if ("PROXY_PASSWORD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PROXY_PASSWORD");
+        if ("PROXY_PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_PASSWORD"); //$NON-NLS-1$
             if (value != null) {
                 connection.setProxyPassword(value);
             }
         }
-        if ("METHOD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "METHOD");
+        if ("METHOD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "METHOD"); //$NON-NLS-1$
             if (value != null) {
                 connection.setMethodName(value);
             }
         }
-        if ("WSDL_PARAMS".equals(repositoryValue)) {
-            Object value = getParameterObjectValue(node, "PARAMS");
+        if ("WSDL_PARAMS".equals(repositoryValue)) { //$NON-NLS-1$
+            Object value = getParameterObjectValue(node, "PARAMS"); //$NON-NLS-1$
             if (value != null && value instanceof ArrayList) {
                 ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) value;
                 ArrayList<String> result = new ArrayList<String>();
@@ -871,20 +872,20 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setEbcdicValue(EbcdicConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
             }
         }
-        if ("XC2J_FILE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "COPYBOOK");
+        if ("XC2J_FILE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "COPYBOOK"); //$NON-NLS-1$
             if (value != null) {
                 connection.setMidFile(value);
             }
         }
-        if ("ENCODING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENCODING");
+        if ("ENCODING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENCODING"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncoding(value);
             }
@@ -892,8 +893,8 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setLdifFileValue(LdifFileConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
             }
@@ -901,14 +902,14 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setFileExcelValue(FileExcelConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
             }
         }
-        if ("SELECT_ALL_SHEETS".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ALL_SHEETS");
+        if ("SELECT_ALL_SHEETS".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ALL_SHEETS"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSelectAllSheets(Boolean.valueOf(value).booleanValue());
             }
@@ -930,57 +931,57 @@ public class ComponentToRepositoryProperty {
         // }
         // }
 
-        if ("ADVANCED_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ADVANCED_SEPARATOR");
+        if ("ADVANCED_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ADVANCED_SEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setAdvancedSpearator(Boolean.valueOf(value).booleanValue());
             }
         }
-        if ("HEADER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HEADER");
+        if ("HEADER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HEADER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHeaderValue(value);
             }
         }
-        if ("FOOTER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FOOTER");
+        if ("FOOTER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FOOTER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFooterValue(value);
             }
         }
-        if ("LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LIMIT");
+        if ("LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LIMIT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setLimitValue(value);
             }
         }
-        if ("FIRST_COLUMN".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FIRST_COLUMN");
+        if ("FIRST_COLUMN".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FIRST_COLUMN"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFirstColumn(value);
             }
         }
-        if ("LAST_COLUMN".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LAST_COLUMN");
+        if ("LAST_COLUMN".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LAST_COLUMN"); //$NON-NLS-1$
             if (value != null) {
                 connection.setLastColumn(value);
             }
         }
 
-        if ("THOUSANDS_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "THOUSANDS_SEPARATOR");
+        if ("THOUSANDS_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "THOUSANDS_SEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setThousandSeparator(value);
             }
         }
-        if ("DECIMAL_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "DECIMAL_SEPARATOR");
+        if ("DECIMAL_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DECIMAL_SEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setDecimalSeparator(value);
             }
         }
-        if ("ENCODING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENCODING");
+        if ("ENCODING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENCODING"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncoding(value);
             }
@@ -997,81 +998,81 @@ public class ComponentToRepositoryProperty {
      * @param repositoryValue
      */
     private static void setDelimitedFileValue(DelimitedFileConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
             }
         }
-        if ("ROW_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ROWSEPARATOR");
+        if ("ROW_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ROWSEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setRowSeparatorValue(value);
             }
         }
-        if ("FIELD_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FIELDSEPARATOR");
+        if ("FIELD_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FIELDSEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFieldSeparatorValue(value);
             }
         }
-        if ("CSV_OPTION".equals(repositoryValue)) {
-            String value = getParameterValue(node, "CSV_OPTION");
+        if ("CSV_OPTION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "CSV_OPTION"); //$NON-NLS-1$
             if (value != null) {
                 connection.setCsvOption(Boolean.valueOf(value).booleanValue());
             }
         }
-        if ("ESCAPE_CHAR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ESCAPE_CHAR");
+        if ("ESCAPE_CHAR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ESCAPE_CHAR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEscapeChar(value);
             }
         }
-        if ("ESCAPE_CHAR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ESCAPE_CHAR");
+        if ("ESCAPE_CHAR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ESCAPE_CHAR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEscapeChar(value);
             }
         }
-        if ("TEXT_ENCLOSURE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "TEXT_ENCLOSURE");
+        if ("TEXT_ENCLOSURE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "TEXT_ENCLOSURE"); //$NON-NLS-1$
             if (value != null) {
                 connection.setTextEnclosure(value);
             }
         }
-        if ("HEADER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HEADER");
+        if ("HEADER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HEADER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHeaderValue(value);
             }
         }
 
-        if ("FOOTER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FOOTER");
+        if ("FOOTER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FOOTER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFooterValue(value);
             }
         }
-        if ("LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LIMIT");
+        if ("LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LIMIT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setLimitValue(value);
             }
         }
-        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) {
-            String value = getParameterValue(node, "REMOVE_EMPTY_ROW");
+        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "REMOVE_EMPTY_ROW"); //$NON-NLS-1$
             if (value != null) {
                 connection.setRemoveEmptyRow(Boolean.valueOf(value).booleanValue());
             }
         }
-        if ("ENCODING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENCODING");
+        if ("ENCODING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENCODING"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncoding(value);
             }
         }
-        if ("SPLITRECORD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "SPLITRECORD");
+        if ("SPLITRECORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "SPLITRECORD"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSplitRecord(Boolean.valueOf(value).booleanValue());
             }
@@ -1088,44 +1089,44 @@ public class ComponentToRepositoryProperty {
      */
 
     private static void setPositionalFileValue(PositionalFileConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
             }
         }
-        if ("ROW_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ROWSEPARATOR");
+        if ("ROW_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ROWSEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setRowSeparatorValue(value);
             }
         }
-        if ("PATTERN".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PATTERN");
+        if ("PATTERN".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PATTERN"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFieldSeparatorValue(value);
             }
         }
-        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) {
-            String value = getParameterValue(node, "REMOVE_EMPTY_ROW");
+        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "REMOVE_EMPTY_ROW"); //$NON-NLS-1$
             if (value != null) {
                 connection.setRemoveEmptyRow(Boolean.valueOf(value).booleanValue());
             }
         }
-        if ("HEADER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HEADER");
+        if ("HEADER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HEADER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHeaderValue(value);
             }
         }
-        if ("FOOTER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FOOTER");
+        if ("FOOTER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FOOTER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFooterValue(value);
             }
         }
-        if ("LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LIMIT");
+        if ("LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LIMIT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setLimitValue(value);
             }
@@ -1141,20 +1142,20 @@ public class ComponentToRepositoryProperty {
      * @param repositoryValue
      */
     private static void setRegexpFileValue(RegexpFileConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FILENAME");
+        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
             }
         }
-        if ("ROW_SEPARATOR".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ROWSEPARATOR");
+        if ("ROW_SEPARATOR".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ROWSEPARATOR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setRowSeparatorValue(value);
             }
         }
-        if ("REGEXP".equals(repositoryValue)) {
-            IElementParameter param = node.getElementParameter("REGEX");
+        if ("REGEXP".equals(repositoryValue)) { //$NON-NLS-1$
+            IElementParameter param = node.getElementParameter("REGEX"); //$NON-NLS-1$
             if (param != null) {
                 String value = (String) param.getValue();
                 if (value != null) {
@@ -1162,32 +1163,32 @@ public class ComponentToRepositoryProperty {
                 }
             }
         }
-        if ("HEADER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HEADER");
+        if ("HEADER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HEADER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHeaderValue(value);
             }
         }
-        if ("FOOTER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "FOOTER");
+        if ("FOOTER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "FOOTER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFooterValue(value);
             }
         }
-        if ("LIMIT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LIMIT");
+        if ("LIMIT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LIMIT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setLimitValue(value);
             }
         }
-        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) {
-            String value = getParameterValue(node, "REMOVE_EMPTY_ROW");
+        if ("REMOVE_EMPTY_ROW".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "REMOVE_EMPTY_ROW"); //$NON-NLS-1$
             if (value != null) {
                 connection.setRemoveEmptyRow(Boolean.valueOf(value).booleanValue());
             }
         }
-        if ("ENCODING".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENCODING");
+        if ("ENCODING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENCODING"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncoding(value);
             }
@@ -1198,38 +1199,38 @@ public class ComponentToRepositoryProperty {
      * SAP
      */
     private static void setSAPValue(SAPConnection connection, INode node, String repositoryValue) {
-        if ("CLIENT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "CLIENT");
+        if ("CLIENT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "CLIENT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setClient(value);
             }
         }
-        if ("PASSWORD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PASSWORD");
+        if ("PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PASSWORD"); //$NON-NLS-1$
             if (value != null) {
                 connection.setPassword(value);
             }
         }
-        if ("LANGUAGE".equals(repositoryValue)) {
-            String value = getParameterValue(node, "LANGUAGE");
+        if ("LANGUAGE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "LANGUAGE"); //$NON-NLS-1$
             if (value != null) {
                 connection.setLanguage(value);
             }
         }
-        if ("HOSTNAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "HOSTNAME");
+        if ("HOSTNAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "HOSTNAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHost(value);
             }
         }
-        if ("USERID".equals(repositoryValue)) {
-            String value = getParameterValue(node, "USERID");
+        if ("USERID".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "USERID"); //$NON-NLS-1$
             if (value != null) {
                 connection.setUsername(value);
             }
         }
-        if ("SYSTEMNUMBER".equals(repositoryValue)) {
-            String value = getParameterValue(node, "SYSTEMNUMBER");
+        if ("SYSTEMNUMBER".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "SYSTEMNUMBER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSystemNumber(value);
             }
@@ -1246,32 +1247,32 @@ public class ComponentToRepositoryProperty {
      */
     private static void setSalesforceSchema(SalesforceSchemaConnection connection, INode node, String repositoryValue) {
 
-        if ("ENDPOINT".equals(repositoryValue)) {
-            String value = getParameterValue(node, "ENDPOINT");
+        if ("ENDPOINT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "ENDPOINT"); //$NON-NLS-1$
             if (value != null) {
                 connection.setWebServiceUrl(value);
             }
         }
-        if ("USER_NAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "USER");
+        if ("USER_NAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "USER"); //$NON-NLS-1$
             if (value != null) {
                 connection.setUserName(value);
             }
         }
-        if ("PASSWORD".equals(repositoryValue)) {
-            String value = getParameterValue(node, "PASS");
+        if ("PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PASS"); //$NON-NLS-1$
             if (value != null) {
                 connection.setPassword(value);
             }
         }
-        if ("MODULENAME".equals(repositoryValue)) {
-            String value = getParameterValue(node, "MODULENAME");
+        if ("MODULENAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "MODULENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setModuleName(value);
             }
         }
-        if ("QUERY_CONDITION".equals(repositoryValue)) {
-            String value = getParameterValue(node, "CONDITION");
+        if ("QUERY_CONDITION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "CONDITION"); //$NON-NLS-1$
             if (value != null) {
                 connection.setQueryCondition(value);
             }

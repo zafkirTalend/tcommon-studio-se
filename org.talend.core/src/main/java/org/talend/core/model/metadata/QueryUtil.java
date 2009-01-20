@@ -30,13 +30,13 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
  */
 public class QueryUtil {
 
-    public static final String DEFAULT_TABLE_NAME = "_MyTable_";
+    public static final String DEFAULT_TABLE_NAME = "_MyTable_"; //$NON-NLS-1$
 
     // public static final String CONTEXT = "context";
 
-    private static final String ENTER = "\n";
+    private static final String ENTER = "\n"; //$NON-NLS-1$
 
-    private static final String SPACE = " ";
+    private static final String SPACE = " "; //$NON-NLS-1$
 
     private static final String CON = TalendTextUtils.getStringConnect();
 
@@ -72,7 +72,7 @@ public class QueryUtil {
         List<IMetadataColumn> metaDataColumnList = repositoryMetadata.getListColumns();
         int index = metaDataColumnList.size();
         if (index == 0) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         isContextQuery = false;
@@ -80,7 +80,7 @@ public class QueryUtil {
             isContextQuery = true;
         }
 
-        String columnsQuery = "";
+        String columnsQuery = ""; //$NON-NLS-1$
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
             String columnName = TalendTextUtils.addQuotesWithSpaceFieldForSQLString(metaDataColumn.getOriginalDbColumnName(),
@@ -91,16 +91,16 @@ public class QueryUtil {
             String columnStr = columnName;
 
             if (i != index - 1) {
-                columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE));
+                columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE)); //$NON-NLS-1$
             }
-            String declareString = TalendTextUtils.declareString("/");
+            String declareString = TalendTextUtils.declareString("/"); //$NON-NLS-1$
             if (standardSyntax) {
-                declareString = TalendTextUtils.declareString(".");
+                declareString = TalendTextUtils.declareString("."); //$NON-NLS-1$
             }
             columnStr = checkAndConcatString(declareString, columnStr);
             columnStr = checkAndConcatString(tableName, columnStr);
 
-            if ("".equals(columnsQuery.trim())) {
+            if ("".equals(columnsQuery.trim())) { //$NON-NLS-1$
                 columnsQuery = columnStr;
             } else {
                 columnsQuery = checkAndConcatString(columnsQuery, columnStr);
@@ -108,18 +108,18 @@ public class QueryUtil {
 
         }
 
-        String query = TalendTextUtils.declareString("SELECT ");
+        String query = TalendTextUtils.declareString("SELECT "); //$NON-NLS-1$
         if (isContextQuery) { // new line
             String end = ENTER
                     + CON
-                    + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils
+                    + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils //$NON-NLS-1$
                             .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
 
             end = replaceTheSchemaString(end);
 
             query = checkAndConcatString(query, columnsQuery) + end;
         } else {
-            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils
+            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils //$NON-NLS-1$
                     .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
             end = replaceTheSchemaString(end);
 
@@ -132,13 +132,13 @@ public class QueryUtil {
     public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType,
             final String tableNameWithQuoteIfNeed) {
         if (repositoryMetadata == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         List<IMetadataColumn> metaDataColumnList = repositoryMetadata.getListColumns();
         int index = metaDataColumnList.size();
         if (index == 0) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         isContextQuery = false;
@@ -146,7 +146,7 @@ public class QueryUtil {
             isContextQuery = true;
         }
 
-        String columnsQuery = "";
+        String columnsQuery = ""; //$NON-NLS-1$
 
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
@@ -155,13 +155,13 @@ public class QueryUtil {
             String columnStr = columnName;
 
             if (i != index - 1) {
-                columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE));
+                columnStr = checkAndConcatString(columnStr, TalendTextUtils.declareString("," + SPACE)); //$NON-NLS-1$
             }
 
-            columnStr = checkAndConcatString(TalendTextUtils.declareString("."), columnStr);
+            columnStr = checkAndConcatString(TalendTextUtils.declareString("."), columnStr); //$NON-NLS-1$
             columnStr = checkAndConcatString(tableNameWithQuoteIfNeed, columnStr);
 
-            if ("".equals(columnsQuery.trim())) {
+            if ("".equals(columnsQuery.trim())) { //$NON-NLS-1$
                 columnsQuery = columnStr;
             } else {
                 columnsQuery = checkAndConcatString(columnsQuery, columnStr);
@@ -169,15 +169,15 @@ public class QueryUtil {
 
         }
 
-        String query = TalendTextUtils.declareString("SELECT ");
+        String query = TalendTextUtils.declareString("SELECT "); //$NON-NLS-1$
         if (isContextQuery) { // new line
-            String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed);
+            String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
 
             end = replaceTheSchemaString(end);
 
             query = checkAndConcatString(query, columnsQuery) + end;
         } else {
-            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed);
+            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
 
             end = replaceTheSchemaString(end);
 
@@ -197,7 +197,7 @@ public class QueryUtil {
             boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
             if (!isCheck) {
                 String addStr = TalendTextUtils.getStringDeclare();
-                return schema.replaceFirst(addStr + "\\" + CON + addStr, "");
+                return schema.replaceFirst(addStr + "\\" + CON + addStr, ""); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return schema;
@@ -221,7 +221,7 @@ public class QueryUtil {
                     }
                 } else {
                     currentTableName = dbTableName;
-                    if (null != currentTableName && !("".equals(currentTableName))) {
+                    if (null != currentTableName && !("".equals(currentTableName))) { //$NON-NLS-1$
                         flag = true;
                     }
                 }
@@ -237,7 +237,7 @@ public class QueryUtil {
                     }
                 } else {
                     currentTableName = dbTableName;
-                    if (null != currentTableName && !("".equals(currentTableName))) {
+                    if (null != currentTableName && !("".equals(currentTableName))) { //$NON-NLS-1$
                         flag = true;
                     }
                 }
@@ -270,14 +270,14 @@ public class QueryUtil {
         if (EDatabaseTypeName.getTypeFromDbType(dbType).isNeedSchema()) {
             if (isContext(schema)) {
                 if (isContext(currentTableName)) {
-                    prefix = checkAndConcatString(quoteVariableRefrence(schema, dbType), TalendTextUtils.declareString("."));
+                    prefix = checkAndConcatString(quoteVariableRefrence(schema, dbType), TalendTextUtils.declareString(".")); //$NON-NLS-1$
                     suffix = quoteVariableRefrence(currentTableName, dbType);
                 } else {
                     prefix = quoteVariableRefrence(schema, dbType);
-                    suffix = checkAndConcatString(TalendTextUtils.declareString("."), quoteStringValue(currentTableName, dbType));
+                    suffix = checkAndConcatString(TalendTextUtils.declareString("."), quoteStringValue(currentTableName, dbType)); //$NON-NLS-1$
                 }
             } else {
-                prefix = checkAndConcatString(quoteStringValue(schema, dbType), TalendTextUtils.declareString("."));
+                prefix = checkAndConcatString(quoteStringValue(schema, dbType), TalendTextUtils.declareString(".")); //$NON-NLS-1$
                 if (isContext(currentTableName)) {
                     suffix = quoteVariableRefrence(currentTableName, dbType);
                 } else {
@@ -309,10 +309,10 @@ public class QueryUtil {
 
     private static String checkAndConcatString(String str1, String str2) {
         if (str1 == null) {
-            str1 = "";
+            str1 = ""; //$NON-NLS-1$
         }
         if (str2 == null) {
-            str2 = "";
+            str2 = ""; //$NON-NLS-1$
         }
 
         String declareString = TalendTextUtils.getStringDeclare();
@@ -350,7 +350,7 @@ public class QueryUtil {
      */
     public static String checkAndAddQuotes(String query) {
         if (query == null) {
-            query = "";
+            query = ""; //$NON-NLS-1$
         }
         query = query.trim();
         // modified by hyWang
@@ -370,7 +370,7 @@ public class QueryUtil {
      */
     public static String checkAndRemoveQuotes(String query) {
         if (query == null) {
-            query = "";
+            query = ""; //$NON-NLS-1$
         }
         query = query.trim();
         if (query.startsWith(TalendTextUtils.getQuoteChar()) && TalendTextUtils.isCommonString(query)) {
@@ -385,7 +385,7 @@ public class QueryUtil {
      * to check a query if has any quote
      */
     public static boolean checkIfIsNoQuotesAtAll(String query) {
-        if (!query.contains("\"")) {
+        if (!query.contains("\"")) { //$NON-NLS-1$
             return true;
         }
         return false;

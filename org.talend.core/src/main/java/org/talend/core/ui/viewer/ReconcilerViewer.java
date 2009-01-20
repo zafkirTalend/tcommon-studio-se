@@ -247,12 +247,12 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         int curOffset = 0;
         FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(document);
         try {
-            IRegion startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+            IRegion startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false); //$NON-NLS-1$
             while (startRegion != null && startRegion.getOffset() >= curOffset) {
                 int startLine = document.getLineOfOffset(startRegion.getOffset());
                 int startOffset = document.getLineOffset(startLine);
                 curOffset = startOffset + document.getLineLength(startLine);
-                IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false);
+                IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false); //$NON-NLS-1$
                 if (endRegion != null) {
                     actualNbAnnotations++;
                     int endLine = document.getLineOfOffset(endRegion.getOffset());
@@ -272,7 +272,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                     }
                 }
                 if (curOffset < document.getLength()) {
-                    startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+                    startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false); //$NON-NLS-1$
                 }
             }
 
@@ -291,12 +291,12 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         int curOffset = 0;
         FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(document);
         try {
-            IRegion startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+            IRegion startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false); //$NON-NLS-1$
             while (startRegion != null && startRegion.getOffset() >= curOffset) {
                 int startLine = document.getLineOfOffset(startRegion.getOffset());
                 int startOffset = document.getLineOffset(startLine);
                 curOffset = startOffset + document.getLineLength(startLine);
-                IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false);
+                IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false); //$NON-NLS-1$
                 if (endRegion != null) {
                     int endLine = document.getLineOfOffset(endRegion.getOffset());
                     int endOffset = document.getLineOffset(endLine);
@@ -309,7 +309,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                     annotations.put(annotation, new Position(startOffset, endOffset - startOffset));
                 }
                 if (curOffset < document.getLength()) {
-                    startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+                    startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false); //$NON-NLS-1$
                 }
             }
 
@@ -329,7 +329,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         Menu popupMenu = new Menu(this.getTextWidget());
 
         MenuItem undoItem = new MenuItem(popupMenu, SWT.PUSH);
-        undoItem.setText("Undo");
+        undoItem.setText("Undo"); //$NON-NLS-1$
         undoItem.setImage(image);
         undoItem.addListener(SWT.Selection, new Listener() {
 
@@ -341,7 +341,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
         image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
         MenuItem redoItem = new MenuItem(popupMenu, SWT.PUSH);
-        redoItem.setText("Redo");
+        redoItem.setText("Redo"); //$NON-NLS-1$
         redoItem.setData(this);
         redoItem.setImage(image);
         redoItem.addListener(SWT.Selection, new Listener() {
@@ -357,7 +357,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
         image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
         MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
-        copyItem.setText("Copy");
+        copyItem.setText("Copy"); //$NON-NLS-1$
         copyItem.setImage(image);
         copyItem.addListener(SWT.Selection, new Listener() {
 
@@ -368,7 +368,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
         image = ImageProvider.getImage(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE));
         MenuItem pasteItem = new MenuItem(popupMenu, SWT.PUSH);
-        pasteItem.setText("Paste");
+        pasteItem.setText("Paste"); //$NON-NLS-1$
         pasteItem.setData(this);
         pasteItem.setImage(image);
         pasteItem.addListener(SWT.Selection, new Listener() {
@@ -379,7 +379,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         });
 
         MenuItem selectAllItem = new MenuItem(popupMenu, SWT.PUSH);
-        selectAllItem.setText("Select All");
+        selectAllItem.setText("Select All"); //$NON-NLS-1$
         selectAllItem.addListener(SWT.Selection, new Listener() {
 
             public void handleEvent(Event event) {

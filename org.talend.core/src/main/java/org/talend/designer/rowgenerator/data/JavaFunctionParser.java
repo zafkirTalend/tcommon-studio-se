@@ -37,6 +37,7 @@ import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -147,7 +148,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         ProjectManager projectManager = ProjectManager.getInstance();
         Project currentProject = projectManager.getCurrentProject();
         // current project
-        IPackageFragment userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "."
+        IPackageFragment userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "." //$NON-NLS-1$
                 + currentProject.getLabel().toLowerCase());
         if (userRoutinesPkg != null && userRoutinesPkg.exists()) {
             elements.addAll(Arrays.asList(userRoutinesPkg.getChildren()));
@@ -155,7 +156,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         // referenced project.
         projectManager.retrieveReferencedProjects();
         for (Project p : projectManager.getReferencedProjects()) {
-            userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "." + p.getLabel().toLowerCase());
+            userRoutinesPkg = root.getPackageFragment(JavaUtils.JAVA_ROUTINES_DIRECTORY + "." + p.getLabel().toLowerCase()); //$NON-NLS-1$
             if (userRoutinesPkg != null && userRoutinesPkg.exists()) {
                 elements.addAll(Arrays.asList(userRoutinesPkg.getChildren()));
             }
@@ -169,9 +170,9 @@ public class JavaFunctionParser extends AbstractFunctionParser {
      */
     @Override
     protected String parseDescription(String string) {
-        String string2 = "";
-        if (string.indexOf("{talendTypes}") > 0) {
-            string2 = string.substring(0, string.indexOf("{talendTypes}"));
+        String string2 = ""; //$NON-NLS-1$
+        if (string.indexOf("{talendTypes}") > 0) { //$NON-NLS-1$
+            string2 = string.substring(0, string.indexOf("{talendTypes}")); //$NON-NLS-1$
         }
         return string2;
     }
@@ -184,7 +185,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
     @Override
     protected String parseFunctionType(String string) {
         String string2 = super.parseFunctionType(string);
-        if (string2 != null && !string2.trim().equals("")) {
+        if (string2 != null && !string2.trim().equals("")) { //$NON-NLS-1$
             JavaType type = JavaTypesManager.getJavaTypeFromLabel(string2);
             if (type == null) {
                 type = JavaTypesManager.getJavaTypeFromName(string2);
@@ -221,12 +222,12 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                 function.setUserDefined(!isSystem);
                 TalendType talendType = getTalendType(functionType);
                 talendType.addFunctions(function);
-                typeMethods.put(functionType + "." + funcName, className + "." + funcName);
-                typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName);
+                typeMethods.put(functionType + "." + funcName, className + "." + funcName); //$NON-NLS-1$ //$NON-NLS-2$
+                typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName); //$NON-NLS-1$ //$NON-NLS-2$
                 function.setTalendType(talendType);
             }
         } catch (Exception e) {
-            logger.error("Runtines : \"" + fullName + "." + funcName + "\" parse failed. please check your the Method.", e);
+            logger.error(Messages.getString("JavaFunctionParser.checkMethod", fullName + funcName), e); //$NON-NLS-1$
         }
     }
 

@@ -34,7 +34,7 @@ public class HotClassLoader extends URLClassLoader {
         if (paths == null || paths.length() <= 0) {
             return;
         }
-        String separator = System.getProperty("path.separator");
+        String separator = System.getProperty("path.separator"); //$NON-NLS-1$
         String[] pathToAdds = paths.split(separator);
         for (int i = 0; i < pathToAdds.length; i++) {
             if (pathToAdds[i] != null && pathToAdds[i].length() > 0) {

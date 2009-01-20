@@ -43,9 +43,9 @@ public class RemoveQuotesInPropertyComponentConversion implements IComponentConv
             return true;
         }
         boolean isWithin = false;
-        if (string.startsWith("\"") && string.endsWith("\"") && (string.length() > 1)) {
+        if (string.startsWith("\"") && string.endsWith("\"") && (string.length() > 1)) { //$NON-NLS-1$ //$NON-NLS-2$
             isWithin = true;
-        } else if (string.startsWith("\'") && string.endsWith("\'") && (string.length() > 1)) {
+        } else if (string.startsWith("\'") && string.endsWith("\'") && (string.length() > 1)) { //$NON-NLS-1$ //$NON-NLS-2$
             isWithin = true;
         }
         return isWithin;

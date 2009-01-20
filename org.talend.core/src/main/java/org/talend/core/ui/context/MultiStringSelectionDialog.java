@@ -29,13 +29,13 @@ import org.talend.core.i18n.Messages;
  */
 public class MultiStringSelectionDialog extends ObjectSelectionDialog<String> {
 
-    private static String defaultMesage = "Configure value of list";
+    private static String defaultMesage = "Configure value of list"; //$NON-NLS-1$
 
     IInputValidator validator = null;
 
     @SuppressWarnings("restriction")
     public MultiStringSelectionDialog(Shell parentShell, String[] input) {
-        super(parentShell, "Configure Values", defaultMesage, null);
+        super(parentShell, "Configure Values", defaultMesage, null); //$NON-NLS-1$
         setLabelProvider(getLabelProvider());
         if (input == null) {
             input = new String[0];
@@ -78,7 +78,7 @@ public class MultiStringSelectionDialog extends ObjectSelectionDialog<String> {
 
     private String validateContextName(String name) {
         if (name.length() == 0) {
-            return "Name can not be empty";
+            return Messages.getString("MultiStringSelectionDialog.nameEmpty"); //$NON-NLS-1$
         }
         return isContextExisting(name);
     }
@@ -100,7 +100,7 @@ public class MultiStringSelectionDialog extends ObjectSelectionDialog<String> {
             }
         }
         if (exist) {
-            return Messages.getString("ContextProcessSection.30");
+            return Messages.getString("ContextProcessSection.30"); //$NON-NLS-1$
         } else {
             return null;
         }

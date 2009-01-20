@@ -143,7 +143,7 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
             } else if (item instanceof JobletDocumentationItem) {
                 subFolder = ERepositoryObjectType.JOBLETS.toString().toLowerCase();
             } else {
-                subFolder = "";
+                subFolder = ""; //$NON-NLS-1$
             }
 
             targetPath = targetPath + IPath.SEPARATOR + subFolder;
@@ -154,7 +154,7 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
                 || targetPath.endsWith(ERepositoryObjectType.JOBLETS.toString().toLowerCase())) {
             targetPath = targetPath + IPath.SEPARATOR + jobPath + IPath.SEPARATOR + jobName;
         }
-        String version = "";
+        String version = ""; //$NON-NLS-1$
 
         // Checks if the job's version is specified, see it on "Export documentation" Dialog:
         if (jobVersion != null && jobVersion.length == 1) {
@@ -162,7 +162,7 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
         } else {
             version = item.getProperty().getVersion();
         }
-        targetPath = targetPath + "_" + version;
+        targetPath = targetPath + "_" + version; //$NON-NLS-1$
 
         // Store xml and html files:
         List<URL> resultFiles = new ArrayList<URL>(5);

@@ -184,16 +184,16 @@ public abstract class AbstractConnection implements IConnection {
     @SuppressWarnings("unchecked")
     public boolean isUseByMetter() {
         INode sourceNode = this.getSource();
-        List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tFlowMeter");
+        List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tFlowMeter"); //$NON-NLS-1$
         if (metterNodes.size() > 0) {
 
             Iterator<INode> it = (Iterator<INode>) metterNodes.iterator();
             while (it.hasNext()) {
                 INode node = it.next();
-                String absolute = (String) node.getElementParameter("ABSOLUTE").getValue();
-                String reference = (String) node.getElementParameter("CONNECTIONS").getValue();
+                String absolute = (String) node.getElementParameter("ABSOLUTE").getValue(); //$NON-NLS-1$
+                String reference = (String) node.getElementParameter("CONNECTIONS").getValue(); //$NON-NLS-1$
 
-                if (absolute.equals("Relative") && reference.equals(this.getUniqueName())) {
+                if (absolute.equals("Relative") && reference.equals(this.getUniqueName())) { //$NON-NLS-1$
                     return true;
                 }
             }
@@ -208,7 +208,7 @@ public abstract class AbstractConnection implements IConnection {
      */
     @Override
     public String toString() {
-        return "{Name=" + getName() + ", Table=" + getMetadataTable() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
+        return "{Name=" + getName() + ", Table=" + getMetadataTable() + "}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     public List<? extends IElementParameter> getElementParametersWithChildrens() {

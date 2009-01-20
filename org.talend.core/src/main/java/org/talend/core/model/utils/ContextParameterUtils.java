@@ -98,21 +98,21 @@ public final class ContextParameterUtils {
             JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(type);
             String typeToGenerate = ContextParameterJavaTypeManager.getTypeToGenerate(type, true);
             if (javaType.isPrimitive()) {
-                if (typeToGenerate.compareTo("String") == 0) {
+                if (typeToGenerate.compareTo("String") == 0) { //$NON-NLS-1$
                     code = string;
-                } else if (typeToGenerate.compareTo("Integer") == 0) {
-                    code = "Integer.parseInt(" + string + ")";
+                } else if (typeToGenerate.compareTo("Integer") == 0) { //$NON-NLS-1$
+                    code = "Integer.parseInt(" + string + ")"; //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    code = typeToGenerate + ".parse" + typeToGenerate + "(" + string + ")";
+                    code = typeToGenerate + ".parse" + typeToGenerate + "(" + string + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 }
-            } else if (typeToGenerate.compareTo("java.util.Date") == 0) {
+            } else if (typeToGenerate.compareTo("java.util.Date") == 0) { //$NON-NLS-1$
 
-                code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "(" + string
-                        + "))";
-            } else if (typeToGenerate.compareTo("java.lang.Object") == 0) {
-                code = "(" + typeToGenerate + ")" + string;
+                code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "(" + string //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                        + "))"; //$NON-NLS-1$
+            } else if (typeToGenerate.compareTo("java.lang.Object") == 0) { //$NON-NLS-1$
+                code = "(" + typeToGenerate + ")" + string; //$NON-NLS-1$ //$NON-NLS-2$
             } else {
-                code = "(" + typeToGenerate + ")" + string;
+                code = "(" + typeToGenerate + ")" + string; //$NON-NLS-1$ //$NON-NLS-2$
             }
             break;
         default:
@@ -148,7 +148,7 @@ public final class ContextParameterUtils {
 
     public static Date getDate(String s) {
         try {
-            final Date parse = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s);
+            final Date parse = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s); //$NON-NLS-1$
             return parse;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());

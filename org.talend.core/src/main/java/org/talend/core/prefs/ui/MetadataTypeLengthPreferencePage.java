@@ -70,7 +70,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
          * set value Group
          */
         valueGroup = new Group(parent, SWT.NONE);
-        valueGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.VALUE"));
+        valueGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.VALUE")); //$NON-NLS-1$
         GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         valueGroup.setLayoutData(gd);
         Composite com = new Composite(valueGroup, SWT.NONE);
@@ -96,7 +96,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
 
         }
         comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, Messages
-                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com); //$NON-NLS-1$
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 4;
         com.setLayoutData(gridData);
@@ -104,7 +104,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         gridLayout.numColumns = 6;
         com.setLayout(gridLayout);
         valueLengthField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_LENGTH, Messages
-                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH"), valueGroup);
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH"), valueGroup); //$NON-NLS-1$
         addField(comboValueTypeField);
         addField(valueLengthField);
         /**
@@ -112,12 +112,12 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
          * 
          */
         fieldGroup = new Group(parent, SWT.NONE);
-        fieldGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.FIELD"));
+        fieldGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.FIELD")); //$NON-NLS-1$
         GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         fieldGroup.setLayoutData(gd);
         com = new Composite(fieldGroup, SWT.NONE);
         comboFieldTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE, Messages
-                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com);
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com); //$NON-NLS-1$
         gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 4;
         com.setLayoutData(gridData);
@@ -125,22 +125,22 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         gridLayout.numColumns = 6;
         com.setLayout(gridLayout);
         fieldLengthField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH, Messages
-                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH"), fieldGroup);
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH"), fieldGroup); //$NON-NLS-1$
         /**
          * set data Type
          */
         dbTypeGroup = new Group(parent, SWT.NONE);
-        dbTypeGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.DBTYPE"));
+        dbTypeGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.DBTYPE")); //$NON-NLS-1$
         gd = new GridData(GridData.FILL_HORIZONTAL);
         dbTypeGroup.setLayoutData(gd);
         booleanField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_BOOLEAN, Messages
-                .getString("MetadataTypeLengthConstants.BOOLEAN_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.BOOLEAN_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         bigDecimalField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DECIMAL, Messages
-                .getString("MetadataTypeLengthConstants.BIGDECIMAL_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.BIGDECIMAL_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         // byteField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BYTE, Messages
         // .getString("MetadataTypeLengthConstants.BYTE_LENGTH"), dbTypeGroup);
         integerField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_INT, Messages
-                .getString("MetadataTypeLengthConstants.INTEGER_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.INTEGER_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         // bytearrayField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BYTEARRAY, Messages
         // .getString("MetadataTypeLengthConstants.BYTEARRAY_LENGTH"), dbTypeGroup);
         // longField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LONG, Messages
@@ -150,19 +150,19 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         // objectField = new StringFieldEditor(MetadataTypeLengthConstants.ID_OBJECT, Messages
         // .getString("MetadataTypeLengthConstants.OBJECT_LENGTH"), dbTypeGroup);
         dateField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DATE, Messages
-                .getString("MetadataTypeLengthConstants.DATE_LENGHT"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.DATE_LENGHT"), dbTypeGroup); //$NON-NLS-1$
         // shortField = new StringFieldEditor(MetadataTypeLengthConstants.ID_SHORT, Messages
         // .getString("MetadataTypeLengthConstants.SHORT_LENGTH"), dbTypeGroup);
         // doubleField = new StringFieldEditor(MetadataTypeLengthConstants.ID_DOUBLE, Messages
         // .getString("MetadataTypeLengthConstants.DOUBLE_LENGTH"), dbTypeGroup);
         stringField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_STRING, Messages
-                .getString("MetadataTypeLengthConstants.STRING_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.STRING_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         // floatField = new StringFieldEditor(MetadataTypeLengthConstants.ID_FLOAT, Messages
         // .getString("MetadataTypeLengthConstants.FLOAT_LENGTH"), dbTypeGroup);
         // listField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LIST, Messages
         // .getString("MetadataTypeLengthConstants.LIST_LENGTH"), dbTypeGroup);
         datetimeField = new StringFieldEditor(MetadataTypeLengthConstants.PERL_DATETIME, Messages
-                .getString("MetadataTypeLengthConstants.DATETIME_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.DATETIME_LENGTH"), dbTypeGroup); //$NON-NLS-1$
 
         addField(comboFieldTypeField);
         addField(fieldLengthField);
@@ -204,7 +204,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
 
         }
         comboValueTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, Messages
-                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com);
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE"), strvalueType, com); //$NON-NLS-1$
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 4;
         com.setLayoutData(gridData);
@@ -212,7 +212,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         gridLayout.numColumns = 6;
         com.setLayout(gridLayout);
         valueLengthField = new StringFieldEditor(MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH, Messages
-                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH"), valueGroup);
+                .getString("MetadataTypeLengthConstants.VALUE_DEFAULT_LENGTH"), valueGroup); //$NON-NLS-1$
         addField(comboValueTypeField);
         addField(valueLengthField);
 
@@ -221,12 +221,12 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
          * 
          */
         fieldGroup = new Group(parent, SWT.NONE);
-        fieldGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.FIELD"));
+        fieldGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.FIELD")); //$NON-NLS-1$
         GridData gd = new GridData(GridData.FILL_HORIZONTAL);
         fieldGroup.setLayoutData(gd);
         com = new Composite(fieldGroup, SWT.NONE);
         comboFieldTypeField = new ComboFieldEditor(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, Messages
-                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com);
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE"), strvalueType, com); //$NON-NLS-1$
         gridData = new GridData(GridData.FILL_HORIZONTAL);
         gridData.horizontalSpan = 4;
         com.setLayoutData(gridData);
@@ -234,42 +234,42 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
         gridLayout.numColumns = 6;
         com.setLayout(gridLayout);
         fieldLengthField = new StringFieldEditor(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH, Messages
-                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH"), fieldGroup);
+                .getString("MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH"), fieldGroup); //$NON-NLS-1$
         /**
          * set data Type
          */
         dbTypeGroup = new Group(parent, SWT.NONE);
-        dbTypeGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.DBTYPE"));
+        dbTypeGroup.setText(Messages.getString("MetadataTypeLengthPreferencePage.DBTYPE")); //$NON-NLS-1$
         gd = new GridData(GridData.FILL_HORIZONTAL);
         dbTypeGroup.setLayoutData(gd);
         booleanField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BOOLEAN, Messages
-                .getString("MetadataTypeLengthConstants.BOOLEAN_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.BOOLEAN_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         bigDecimalField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BIGDECIMAL, Messages
-                .getString("MetadataTypeLengthConstants.BIGDECIMAL_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.BIGDECIMAL_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         byteField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BYTE, Messages
-                .getString("MetadataTypeLengthConstants.BYTE_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.BYTE_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         integerField = new StringFieldEditor(MetadataTypeLengthConstants.ID_INTEGER, Messages
-                .getString("MetadataTypeLengthConstants.INTEGER_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.INTEGER_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         bytearrayField = new StringFieldEditor(MetadataTypeLengthConstants.ID_BYTEARRAY, Messages
-                .getString("MetadataTypeLengthConstants.BYTEARRAY_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.BYTEARRAY_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         longField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LONG, Messages
-                .getString("MetadataTypeLengthConstants.LONG_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.LONG_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         characterField = new StringFieldEditor(MetadataTypeLengthConstants.ID_CHARACTER, Messages
-                .getString("MetadataTypeLengthConstants.CHARACTER_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.CHARACTER_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         objectField = new StringFieldEditor(MetadataTypeLengthConstants.ID_OBJECT, Messages
-                .getString("MetadataTypeLengthConstants.OBJECT_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.OBJECT_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         dateField = new StringFieldEditor(MetadataTypeLengthConstants.ID_DATE, Messages
-                .getString("MetadataTypeLengthConstants.DATE_LENGHT"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.DATE_LENGHT"), dbTypeGroup); //$NON-NLS-1$
         shortField = new StringFieldEditor(MetadataTypeLengthConstants.ID_SHORT, Messages
-                .getString("MetadataTypeLengthConstants.SHORT_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.SHORT_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         doubleField = new StringFieldEditor(MetadataTypeLengthConstants.ID_DOUBLE, Messages
-                .getString("MetadataTypeLengthConstants.DOUBLE_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.DOUBLE_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         stringField = new StringFieldEditor(MetadataTypeLengthConstants.ID_STRING, Messages
-                .getString("MetadataTypeLengthConstants.STRING_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.STRING_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         floatField = new StringFieldEditor(MetadataTypeLengthConstants.ID_FLOAT, Messages
-                .getString("MetadataTypeLengthConstants.FLOAT_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.FLOAT_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         listField = new StringFieldEditor(MetadataTypeLengthConstants.ID_LIST, Messages
-                .getString("MetadataTypeLengthConstants.LIST_LENGTH"), dbTypeGroup);
+                .getString("MetadataTypeLengthConstants.LIST_LENGTH"), dbTypeGroup); //$NON-NLS-1$
         addField(comboFieldTypeField);
         addField(fieldLengthField);
         gridLayout = (GridLayout) dbTypeGroup.getLayout();

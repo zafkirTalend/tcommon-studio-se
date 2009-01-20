@@ -31,6 +31,7 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -130,16 +131,16 @@ public class SchemaCellEditor extends DialogCellEditor {
                 }
             }
             // built-in
-            InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(), "Give the name for the schema", "Schema Name",
+            InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(), Messages.getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
                     "", new IInputValidator() { //$NON-NLS-1$
 
                         public String isValid(String newText) {
                             if ("".equals(newText.trim())) { //$NON-NLS-1$
-                                return "Input the name";
+                                return Messages.getString("SchemaCellEditor.inputName"); //$NON-NLS-1$
                             }
                             if (MetadataTool.getMetadataTableFromNode(node, newText) != null
                                     || !node.getProcess().checkValidConnectionName(newText)) {
-                                return "This name already exists or is invalid";
+                                return Messages.getString("SchemaCellEditor.nameExistOrInvalid"); //$NON-NLS-1$
                             }
                             return null;
                         }
@@ -163,7 +164,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                             if (data instanceof Map) {
                                 final Map<String, Object> valueMap = (Map<String, Object>) data;
                                 Object code = valueMap.get(IEbcdicConstant.FIELD_CODE);
-                                if (code == null || "".equals(code)) {
+                                if (code == null || "".equals(code)) { //$NON-NLS-1$
                                     valueMap.put(IEbcdicConstant.FIELD_CODE, table.getTableName());
                                     valueMap.put(IEbcdicConstant.FIELD_SCHEMA, table.getTableName());
                                 }

@@ -49,8 +49,8 @@ public class JDBCDriverLoader {
 
             // DriverManager.registerDriver(wapperDriver);
             Properties info = new Properties();
-            info.put("user", username);
-            info.put("password", password);
+            info.put("user", username); //$NON-NLS-1$
+            info.put("password", password); //$NON-NLS-1$
             Connection connection = wapperDriver.connect(url, info);
             // DriverManager.deregisterDriver(wapperDriver);
 
@@ -71,11 +71,11 @@ public class JDBCDriverLoader {
 
     public static void main(String[] args) {
         // test IBM DB2
-        String jarPath = "D:\\YeXiaowei\\workrela\\eclipse_3_3\\lib\\java\\db2jcc.jar";
-        String driverClassName = "com.ibm.db2.jcc.DB2Driver";
-        String url = "jdbc:db2://192.168.0.108:50000/talend";
-        String username = "root";
-        String password = "toor";
+        String jarPath = "D:\\YeXiaowei\\workrela\\eclipse_3_3\\lib\\java\\db2jcc.jar"; //$NON-NLS-1$
+        String driverClassName = "com.ibm.db2.jcc.DB2Driver"; //$NON-NLS-1$
+        String url = "jdbc:db2://192.168.0.108:50000/talend"; //$NON-NLS-1$
+        String username = "root"; //$NON-NLS-1$
+        String password = "toor"; //$NON-NLS-1$
 
         JDBCDriverLoader loader = new JDBCDriverLoader();
         Connection conn;

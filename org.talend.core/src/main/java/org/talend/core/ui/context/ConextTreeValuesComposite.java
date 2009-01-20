@@ -84,19 +84,19 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
      */
     private static final int VARIABLE_COLUMN_INDEX = 4;
 
-    private static final String PRESENTATION_TYPE_KEY = "PRESENTATION_TYPE_KEY";
+    private static final String PRESENTATION_TYPE_KEY = "PRESENTATION_TYPE_KEY"; //$NON-NLS-1$
 
-    private static final String VARIABLE_COLUMN_NAME = "Variable";
+    private static final String VARIABLE_COLUMN_NAME = "Variable"; //$NON-NLS-1$
 
-    private static final String CONTEXT_COLUMN_NAME = "Context";
+    private static final String CONTEXT_COLUMN_NAME = "Context"; //$NON-NLS-1$
 
-    private static final String PROMPTNEEDED_COLUMN_NAME = "PROMPTNEEDED";
+    private static final String PROMPTNEEDED_COLUMN_NAME = "PROMPTNEEDED"; //$NON-NLS-1$
 
     // private static final String COMMENT_COLUMN_NAME = "Comment";
 
-    private static final String VALUE_COLUMN_NAME = "Value";
+    private static final String VALUE_COLUMN_NAME = "Value"; //$NON-NLS-1$
 
-    private static final String PROMPT_COLUMN_NAME = "Prompt";
+    private static final String PROMPT_COLUMN_NAME = "Prompt"; //$NON-NLS-1$
 
     private static final String[] GROUP_BY_VARIABLE_COLUMN_PROPERTIES = new String[] { VARIABLE_COLUMN_NAME, CONTEXT_COLUMN_NAME,
             PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME };
@@ -249,7 +249,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                 IContextParameter para = cellModifier.getRealParameter(item.getData());
                 // see the third note of the bug 3749.
                 if (para != null && para.getType().equalsIgnoreCase(getPerlStringType())) {
-                    return Messages.getString("PromptDialog.stringTip");
+                    return Messages.getString("PromptDialog.stringTip"); //$NON-NLS-1$
                 }
 
                 return null;
@@ -298,9 +298,9 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     public int compare(Viewer viewer, Object e1, Object e2) {
                         ITableLabelProvider labelProvider = (ITableLabelProvider) viewer2.getLabelProvider();
                         String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
-                                index) : "";
+                                index) : ""; //$NON-NLS-1$
                         String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
-                                index) : "";
+                                index) : ""; //$NON-NLS-1$
                         return getComparator().compare(columnText, columnText2) * direction;
                     }
                 });
@@ -433,7 +433,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         pullDownButton.setToolTipText(WorkbenchMessages.Menu);
         pullDownButton.setWidth(5);
 
-        MenuManager menuManager = new MenuManager("Context Presentation");
+        MenuManager menuManager = new MenuManager("Context Presentation"); //$NON-NLS-1$
 
         groupByVariable = new GroupByVariableAction();
         groupByContext = new GroupByContextAction();
@@ -686,7 +686,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return son.parameter.getComment();
                 }
             }
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         /*
@@ -829,7 +829,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return para.isPromptNeeded();
                 }
             }
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         /**
@@ -949,7 +949,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     return ContextParameterUtils.checkAndHideValue(para);
                 }
             }
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         /*
@@ -1025,7 +1025,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
          * bqian GroupByVariableAction constructor comment.
          */
         public GroupByVariableAction() {
-            super("Group by Variable", IAction.AS_RADIO_BUTTON);
+            super("Group by Variable", IAction.AS_RADIO_BUTTON); //$NON-NLS-1$
         }
 
         /*
@@ -1060,7 +1060,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
          * bqian GroupByVariableAction constructor comment.
          */
         public GroupByContextAction() {
-            super("Group by Context", IAction.AS_RADIO_BUTTON);
+            super("Group by Context", IAction.AS_RADIO_BUTTON); //$NON-NLS-1$
         }
 
         /*

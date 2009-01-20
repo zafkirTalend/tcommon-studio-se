@@ -41,7 +41,7 @@ import org.talend.core.model.properties.PropertiesFactory;
  */
 public class ComponentsFactoryProvider {
 
-    public static final String FAMILY_SEPARATOR_REGEX = "\\|";
+    public static final String FAMILY_SEPARATOR_REGEX = "\\|"; //$NON-NLS-1$
 
     private static IComponentsFactory factorySingleton = null;
 
@@ -126,10 +126,10 @@ public class ComponentsFactoryProvider {
      * @return
      */
     public static String getPaletteEntryFamily(PaletteEntry entry) {
-        String family = "";
+        String family = ""; //$NON-NLS-1$
         if (!(entry instanceof PaletteRoot)) {
             family = entry.getLabel();
-            family = getPaletteEntryFamily(entry.getParent()) + "/" + family;
+            family = getPaletteEntryFamily(entry.getParent()) + "/" + family; //$NON-NLS-1$
         }
         return family;
     }

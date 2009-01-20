@@ -17,6 +17,7 @@ import java.util.Date;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.utils.TalendTextUtils;
 
 /**
@@ -29,7 +30,7 @@ public class JavaSimpleDateFormatProposalProvider implements IContentProposalPro
 
     public static void main(String[] args) {
         Date date = new Date(-3000, 11, 31, 0, 0, 0);
-        SimpleDateFormat sdf = new SimpleDateFormat("'G=' G '\ny=' y  '\nyyyy=' yyyy '\nM=' M  '\nMMM=' MMM  '\nMMMM=' MMMM '\nw=' w '\nW=' W '\nD=' D '\nd=' d '\nF=' F '\nE=' E \'\nEEEE=\' EEEE '\na=' a '\nH=' H '\nk=' k '\nK=' K '\nh=' h  '\nhh=' hh  '\nhhh=' hhh '\nm=' m '\ns=' s '\nS=' S '\nz=' z '\nzzzz=' zzzz '\nzzzzz=' zzzzz  '\nzzzzzz=' zzzzzz '\nZ=' Z ");
+        SimpleDateFormat sdf = new SimpleDateFormat("'G=' G '\ny=' y  '\nyyyy=' yyyy '\nM=' M  '\nMMM=' MMM  '\nMMMM=' MMMM '\nw=' w '\nW=' W '\nD=' D '\nd=' d '\nF=' F '\nE=' E \'\nEEEE=\' EEEE '\na=' a '\nH=' H '\nk=' k '\nK=' K '\nh=' h  '\nhh=' hh  '\nhhh=' hhh '\nm=' m '\ns=' s '\nS=' S '\nz=' z '\nzzzz=' zzzz '\nzzzzz=' zzzzz  '\nzzzzzz=' zzzzzz '\nZ=' Z "); //$NON-NLS-1$
         String string = sdf.format(date);
         System.out.println(string);
         
@@ -62,35 +63,35 @@ public class JavaSimpleDateFormatProposalProvider implements IContentProposalPro
     public IContentProposal[] getProposals(String contents, int position) {
 
         IContentProposal[] cp = new IContentProposal[] { 
-                new DateFormatContentProposal("\"dd-MM-yyyy\" : common format", "dd-MM-yyyy", "Date\n Examples : \n  01-01-2007\n  31-12-2007"), 
-                new DateFormatContentProposal("\"MM-dd-yyyy\" : common format", "MM-dd-yyyy", "Date\n Examples : \n  01-01-2007\n  12-31-2007"), 
-                new DateFormatContentProposal("\"dd/MM/yyyy\" : common format", "dd/MM/yyyy", "Date\n Examples : \n  01/01/2007\n  31/12/2007"), 
-                new DateFormatContentProposal("\"MM/dd/yyyy\" : common format", "MM/dd/yyyy", "Date\n Examples : \n  01/01/2007\n  12/31/2007"), 
-                new DateFormatContentProposal("\"HH:mm:ss\" : common format", "HH:mm:ss", "Date\n Examples : \n  00:00:00 \n  23:59:59"), 
-                new DateFormatContentProposal("\"yy\" : Year (00-99)", "yy", "Year \nExamples : \n  98\n  07"), 
-                new DateFormatContentProposal("\"yyyy\" : Year", "yyyy", "Year \nExamples : \n  1998\n  2007"), 
-                new DateFormatContentProposal("\"MM\" : Month in year (01-12)", "MM", "Month in year \nExamples : \n  01 .. 12"), 
-                new DateFormatContentProposal("\"MMM\" : Month in year (Text)", "MMM", "Month in year \nExamples : \n  Dec"), 
-                new DateFormatContentProposal("\"MMMM\" : Month in year (Text)", "MMMM", "Month in year \nExamples : \n  December"), 
-                new DateFormatContentProposal("\"DDD\" : Day in year (001-366)", "DDD", "Day in year \nExamples : 001 .. 366"), 
-                new DateFormatContentProposal("\"dd\" : Day in month (01-31)", "dd", "Day in month \nExamples : 01 .. 31 "), 
-                new DateFormatContentProposal("\"F\" : Week in month (1-5)", "F", "Week in month \nExamples : 1 .. 5"), 
-                new DateFormatContentProposal("\"EEE\" : Day in week (Text)", "EEE", "Day in week (Text)\nExample :  Tue"), 
-                new DateFormatContentProposal("\"EEEE\" : Day in week (Text)", "EEEE", "Day in week (Text)\nExample : Tuesday"), 
-                new DateFormatContentProposal("\"HH\" : Hour in day (00-23) ", "HH", "Hour in day \nExamples : 00 .. 23"), 
-                new DateFormatContentProposal("\"kk\" : Hour in day (01-24) ", "kk", "Hour in day \nExamples : 01 .. 24"), 
-                new DateFormatContentProposal("\"KK\" : Hour in AM/PM (00-11) ", "KK", "Hour in AM/PM \nExamples : 00 .. 11"), 
-                new DateFormatContentProposal("\"hh\" : Hour in AM/PM (01-12) ", "hh", "Hour in day \nExamples : 01 .. 12"), 
-                new DateFormatContentProposal("\"mm\" : Minute in hour (00-59) ", "mm", "Minute in hour \nExamples : 00 .. 59"), 
-                new DateFormatContentProposal("\"ss\" : Second in minute (00-59) ", "ss", "Second in minute \nExamples : 00 .. 59"), 
-                new DateFormatContentProposal("\"SSS\" : Millisecond (000-999) ", "SSS", "Millisecond \nExamples : 000 .. 999"), 
-                new DateFormatContentProposal("\"aa\" : AM/PM marker (Text)", "aa", "AM/PM marker (Text)\nExamples : AM PM"), 
-                new DateFormatContentProposal("\"GG\" : Era designator (Text)", "GG", "Year \nExamples : \n  AD\n  BC"), 
-                new DateFormatContentProposal("\"zzz\" : Time zone", "zzz", "General time zone\nExamples : \n  CET \n  PST \n ..."), 
-                new DateFormatContentProposal("\"zzzz\" : Time zone", "zzzz", "General time zone\nExamples : \n  Pacific Standard Time \n  ..."), 
-                new DateFormatContentProposal("\"Z\" : Time zone", "Z", "RFC 822 time zone\nExamples : \n  -0800 \n  ..."), 
-                new DateFormatContentProposal(" ' : Start/end free text ", "'", "Start/end free text\n Examples : MM-dd-yyyy ; 23:59:59"), 
-                new DateFormatContentProposal(" '' : Display a single quote ", "'", "Two single quotes display only one single quote"), 
+                new DateFormatContentProposal("\"dd-MM-yyyy\" : common format", "dd-MM-yyyy", "Date\n Examples : \n  01-01-2007\n  31-12-2007"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"MM-dd-yyyy\" : common format", "MM-dd-yyyy", "Date\n Examples : \n  01-01-2007\n  12-31-2007"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"dd/MM/yyyy\" : common format", "dd/MM/yyyy", "Date\n Examples : \n  01/01/2007\n  31/12/2007"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"MM/dd/yyyy\" : common format", "MM/dd/yyyy", "Date\n Examples : \n  01/01/2007\n  12/31/2007"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"HH:mm:ss\" : common format", "HH:mm:ss", "Date\n Examples : \n  00:00:00 \n  23:59:59"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"yy\" : Year (00-99)", "yy", "Year \nExamples : \n  98\n  07"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"yyyy\" : Year", "yyyy", "Year \nExamples : \n  1998\n  2007"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"MM\" : Month in year (01-12)", "MM", "Month in year \nExamples : \n  01 .. 12"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"MMM\" : Month in year (Text)", "MMM", "Month in year \nExamples : \n  Dec"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"MMMM\" : Month in year (Text)", "MMMM", "Month in year \nExamples : \n  December"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"DDD\" : Day in year (001-366)", "DDD", "Day in year \nExamples : 001 .. 366"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"dd\" : Day in month (01-31)", "dd", "Day in month \nExamples : 01 .. 31 "),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"F\" : Week in month (1-5)", "F", "Week in month \nExamples : 1 .. 5"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"EEE\" : Day in week (Text)", "EEE", "Day in week (Text)\nExample :  Tue"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"EEEE\" : Day in week (Text)", "EEEE", "Day in week (Text)\nExample : Tuesday"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"HH\" : Hour in day (00-23) ", "HH", "Hour in day \nExamples : 00 .. 23"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"kk\" : Hour in day (01-24) ", "kk", "Hour in day \nExamples : 01 .. 24"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"KK\" : Hour in AM/PM (00-11) ", "KK", "Hour in AM/PM \nExamples : 00 .. 11"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"hh\" : Hour in AM/PM (01-12) ", "hh", "Hour in day \nExamples : 01 .. 12"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"mm\" : Minute in hour (00-59) ", "mm", "Minute in hour \nExamples : 00 .. 59"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"ss\" : Second in minute (00-59) ", "ss", "Second in minute \nExamples : 00 .. 59"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"SSS\" : Millisecond (000-999) ", "SSS", "Millisecond \nExamples : 000 .. 999"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"aa\" : AM/PM marker (Text)", "aa", "AM/PM marker (Text)\nExamples : AM PM"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"GG\" : Era designator (Text)", "GG", "Year \nExamples : \n  AD\n  BC"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"zzz\" : Time zone", "zzz", "General time zone\nExamples : \n  CET \n  PST \n ..."),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"zzzz\" : Time zone", "zzzz", "General time zone\nExamples : \n  Pacific Standard Time \n  ..."),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal("\"Z\" : Time zone", "Z", "RFC 822 time zone\nExamples : \n  -0800 \n  ..."),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal(" ' : Start/end free text ", "'", "Start/end free text\n Examples : MM-dd-yyyy ; 23:59:59"),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                new DateFormatContentProposal(Messages.getString("JavaSimpleDateFormatProposalProvider.displaySingleQuote"), "'", Messages.getString("JavaSimpleDateFormatProposalProvider.quoteDisplayError")),  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 
         };
 

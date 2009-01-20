@@ -51,7 +51,7 @@ public class SnippetCompletionProposal extends TalendCompletionProposal {
      */
     public SnippetCompletionProposal(SnippetItem snippet, int replacementOffset, int replacementLength, Image image,
             String displayString, IContextInformation contextInformation, String additionalProposalInfo) {
-        super("", replacementOffset, replacementLength, 0, image, displayString, contextInformation,
+        super("", replacementOffset, replacementLength, 0, image, displayString, contextInformation, //$NON-NLS-1$
                 additionalProposalInfo);
         this.snippet = snippet;
     }
@@ -84,19 +84,19 @@ public class SnippetCompletionProposal extends TalendCompletionProposal {
     }
 
     public static String getSnippetDescription(SnippetItem snippet) {
-        String msg = Messages.getString("RoutinesFunctionProposal.Description") + "{0}<br>" + "Label:" + "{1}<br><br>";
+        String msg = Messages.getString("RoutinesFunctionProposal.Description") + "{0}<br>" + "Label:" + "{1}<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         MessageFormat format = new MessageFormat(msg);
         Object[] args = new Object[] { snippet.getProperty().getDescription(), snippet.getProperty().getLabel() }; //$NON-NLS-1$
         msg = format.format(args);
 
         StringBuilder sb = new StringBuilder(msg);
-        sb.append("Variables:<br>");
+        sb.append("Variables:<br>"); //$NON-NLS-1$
 
         List<SnippetVariable> vars = (List<SnippetVariable>) snippet.getVariables();
         for (SnippetVariable variable : vars) {
-            sb.append(variable.getName() + " = " + variable.getValue()).append("<br>");
+            sb.append(variable.getName() + " = " + variable.getValue()).append("<br>"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        sb.append("<br>Content:<br>").append(snippet.getContent());
+        sb.append("<br>Content:<br>").append(snippet.getContent()); //$NON-NLS-1$
         // sb.append("<table border=\"true\">");
         // sb.append("<tr><td>Name</td><td>Value</td></tr>");
         // for (SnippetVariable variable : vars) {

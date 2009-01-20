@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -56,7 +57,8 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
                 execute = execute(item);
                 if (execute == ExecutionResult.FAILURE) {
-                    log.warn("Migration task " + this.getName() + " failed on item " + item.getProperty().getLabel());
+                    log.warn(Messages.getString(
+                            "AbstractItemMigrationTask.taskFailed", this.getName(), item.getProperty().getLabel())); //$NON-NLS-1$
                     executeFinal = ExecutionResult.FAILURE;
                 }
                 if (executeFinal != ExecutionResult.FAILURE) {

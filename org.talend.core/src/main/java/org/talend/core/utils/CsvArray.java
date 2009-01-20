@@ -29,7 +29,7 @@ import com.csvreader.CsvReader;
  */
 public class CsvArray {
 
-    private static final String ENCODING = "ISO-8859-15";
+    private static final String ENCODING = "ISO-8859-15"; //$NON-NLS-1$
 
     private List<String[]> rows;
 

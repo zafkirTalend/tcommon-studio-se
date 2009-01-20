@@ -25,6 +25,6 @@ public interface IRepositoryPrefConstants {
 
     public static final String DELETING_REFRESH = "Repository_Deleting_Refresh"; //$NON-NLS-1$
 
-    public static final String MERGE_REFERENCE_PROJECT = "Merge_Reference_Project";
+    public static final String MERGE_REFERENCE_PROJECT = "Merge_Reference_Project"; //$NON-NLS-1$
 
 }

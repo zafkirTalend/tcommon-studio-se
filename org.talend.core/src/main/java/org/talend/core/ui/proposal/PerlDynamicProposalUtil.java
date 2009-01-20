@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.INode;
@@ -68,12 +69,11 @@ public class PerlDynamicProposalUtil {
                     for (int i = 0; i < columns.size(); i++) {
                         IMetadataColumn column = columns.get(i);
                         StringBuilder proposal = new StringBuilder();
-                        proposal.append("$row[");
+                        proposal.append("$row["); //$NON-NLS-1$
                         proposal.append(column.getLabel());
-                        proposal.append("]");
+                        proposal.append("]"); //$NON-NLS-1$
                         res[i] = makeContentProposal(proposal.toString(), proposal.toString(), proposal.toString()
-                                + " would be automatically converted to " + node.getUniqueName()
-                                + "->[index] in the generated code");
+                                + Messages.getString("PerlDynamicProposalUtil.autoConvert", node.getUniqueName())); //$NON-NLS-1$
                     }
                     return res;
                 }

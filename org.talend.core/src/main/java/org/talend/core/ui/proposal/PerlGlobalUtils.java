@@ -27,11 +27,11 @@ public final class PerlGlobalUtils {
     // "job_execution_datetime", };
 
     public static IContentProposal[] getProposals() {
-        IContentProposal[] cp = new IContentProposal[] { new PerlGlobalVariableProposal("father_pid", "Father PID"),
-                new PerlGlobalVariableProposal("pid", "PID"), new PerlGlobalVariableProposal("job_name", "Job Name"),
-                new PerlGlobalVariableProposal("job_version", "Job Version"),
-                new PerlGlobalVariableProposal("system_pid", "System PID"),
-                new PerlGlobalVariableProposal("project_name", "Project Name") };
+        IContentProposal[] cp = new IContentProposal[] { new PerlGlobalVariableProposal("father_pid", "Father PID"), //$NON-NLS-1$ //$NON-NLS-2$
+                new PerlGlobalVariableProposal("pid", "PID"), new PerlGlobalVariableProposal("job_name", "Job Name"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                new PerlGlobalVariableProposal("job_version", "Job Version"), //$NON-NLS-1$ //$NON-NLS-2$
+                new PerlGlobalVariableProposal("system_pid", "System PID"), //$NON-NLS-1$ //$NON-NLS-2$
+                new PerlGlobalVariableProposal("project_name", "Project Name") }; //$NON-NLS-1$ //$NON-NLS-2$
         return cp;
     }
 
@@ -55,8 +55,8 @@ public final class PerlGlobalUtils {
             this.name = name;
             this.desc = desc;
 
-            this.code = "$_globals{" + name + "}";
-            this.display = "global." + name;
+            this.code = "$_globals{" + name + "}"; //$NON-NLS-1$ //$NON-NLS-2$
+            this.display = "global." + name; //$NON-NLS-1$
 
         }
 

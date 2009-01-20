@@ -37,7 +37,7 @@ public class ConfigureContextAction extends Action {
 
     @SuppressWarnings("restriction")
     public ConfigureContextAction(IContextModelManager modelManager, Shell shell) {
-        super("Configure Contexts...");
+        super("Configure Contexts..."); //$NON-NLS-1$
         this.manager = modelManager;
         this.shell = shell;
         this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.CONTEXT_CONF_ICON));

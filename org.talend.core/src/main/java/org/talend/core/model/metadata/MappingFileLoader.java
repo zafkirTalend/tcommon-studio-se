@@ -154,9 +154,9 @@ public class MappingFileLoader {
 					DbPreBeforeLength dbPBeforeL = new DbPreBeforeLength();
 					// default length and precision
 					Node defaultLengthItem = typeNodeAtttributes
-							.getNamedItem("defaultLength");
+							.getNamedItem("defaultLength"); //$NON-NLS-1$
 					Node defaultPrecision = typeNodeAtttributes
-							.getNamedItem("defaultPrecision");
+							.getNamedItem("defaultPrecision"); //$NON-NLS-1$
 
 					if (defaultLengthItem != null)
 						dbDefaultLP.setDefaultLength(Integer
@@ -170,9 +170,9 @@ public class MappingFileLoader {
 
 					// ignore Length and Precision
 					Node ignoreLength = typeNodeAtttributes
-							.getNamedItem("ignoreLen");
+							.getNamedItem("ignoreLen"); //$NON-NLS-1$
 					Node ignorePrecision = typeNodeAtttributes
-							.getNamedItem("ignorePre");
+							.getNamedItem("ignorePre"); //$NON-NLS-1$
 
 					if (ignoreLength != null)
 						dbIgnoreLP.setIgnoreLength(ignoreLength.getNodeValue());
@@ -184,7 +184,7 @@ public class MappingFileLoader {
 
 					// Precision before Length
 					Node preBeforelen = typeNodeAtttributes
-							.getNamedItem("preBeforelen");
+							.getNamedItem("preBeforelen"); //$NON-NLS-1$
 					if (preBeforelen != null)
 						dbPBeforeL.setPreBeforeLen(preBeforelen.getNodeValue());
 					dbPBeforeL.setDbType(typeValue);
@@ -241,7 +241,7 @@ public class MappingFileLoader {
 								// exists
 								String message = Messages
 										.getString(
-												"MappingFileLoader.InvalidTalendType",
+												"MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
 												new Object[] {
 														talendType,
 														codeLanguage.getName(),
@@ -356,7 +356,7 @@ public class MappingFileLoader {
 									// exists
 									String message = Messages
 											.getString(
-													"MappingFileLoader.InvalidTalendType",
+													"MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
 													new Object[] {
 															talendType,
 															codeLanguage
@@ -387,7 +387,7 @@ public class MappingFileLoader {
 					}
 				}
 				if (hDbTypesProcessed.size() > 0) {
-					String dbTypesStr = "";
+					String dbTypesStr = ""; //$NON-NLS-1$
 					for (String dbType : hDbTypesProcessed) {
 						dbTypesStr += "\n" + dbType; //$NON-NLS-1$
 					}
@@ -399,7 +399,7 @@ public class MappingFileLoader {
 				}
 
 				if (hTalendTypesProcessed.size() > 0) {
-					String talendTypesStr = "";
+					String talendTypesStr = ""; //$NON-NLS-1$
 					for (String talendType : hTalendTypesProcessed) {
 						talendTypesStr += "\n" + talendType; //$NON-NLS-1$
 					}

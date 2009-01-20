@@ -19,7 +19,7 @@ import org.talend.core.model.process.Element;
  */
 public interface IComponentSettingsView {
 
-    String ID = "org.talend.designer.core.ui.views.properties.ComponentSettingsView";
+    String ID = "org.talend.designer.core.ui.views.properties.ComponentSettingsView"; //$NON-NLS-1$
 
     void cleanDisplay();
 

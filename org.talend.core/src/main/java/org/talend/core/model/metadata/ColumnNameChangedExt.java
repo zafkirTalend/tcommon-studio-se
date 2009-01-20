@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.INode;
 
 /**
@@ -37,7 +38,8 @@ public class ColumnNameChangedExt extends ColumnNameChanged {
 
     @Override
     public String toString() {
-        return "Node: " + this.changedNode.getUniqueName() + "   Column changed : " + this.getOldName() + "->" + this.getNewName(); //$NON-NLS-1$//$NON-NLS-2$
+        return Messages.getString(
+                "ColumnNameChangedExt.columnChanged", this.changedNode.getUniqueName(), this.getOldName(), this.getNewName()); //$NON-NLS-1$
     }
 
 }

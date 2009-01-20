@@ -303,7 +303,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setWeight(8);
         column.setModifiable(!isReadOnly());
         column.setMinimumWidth(30);
-        column.setDefaultInternalValue("");
+        column.setDefaultInternalValue(""); //$NON-NLS-1$
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
     }
 
@@ -413,7 +413,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                  */
                 public String getLabel(Object bean) {
                     if (!currentBeanHasJavaDateType(bean)) {
-                        return "";
+                        return ""; //$NON-NLS-1$
                     }
                     return null;
                 }
@@ -814,7 +814,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             return null;
         }
         if (dbmsId == null) {
-            return "mysql_id";
+            return "mysql_id"; //$NON-NLS-1$
         }
         return dbmsId;
     }
@@ -830,6 +830,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         if (currentBeanHasJavaDateType(bean)) {
             return new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent();
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
 }

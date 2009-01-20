@@ -65,7 +65,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
-    METADATA_SAP_FUNCTION("repository.SAPFunction", true),
+    METADATA_SAP_FUNCTION("repository.SAPFunction", true), //$NON-NLS-1$
 
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -82,13 +82,13 @@ public enum ERepositoryObjectType {
     METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    GENERATED("repository.generated"),
-    JOBS("repository.jobs"),
-    JOB_DOC("repository.jobdoc"),
-    JOBLET("repository.joblet"),
+    GENERATED("repository.generated"), //$NON-NLS-1$
+    JOBS("repository.jobs"), //$NON-NLS-1$
+    JOB_DOC("repository.jobdoc"), //$NON-NLS-1$
+    JOBLET("repository.joblet"), //$NON-NLS-1$
     METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    JOBLETS("repository.joblets"),
-    JOBLET_DOC("repository.jobletdoc");
+    JOBLETS("repository.joblets"), //$NON-NLS-1$
+    JOBLET_DOC("repository.jobletdoc"); //$NON-NLS-1$
 
     private String key;
 
@@ -167,9 +167,9 @@ public enum ERepositoryObjectType {
         case METADATA_CONNECTIONS:
             return "metadata/connections"; //$NON-NLS-1$
         case METADATA_SAPCONNECTIONS:
-            return "metadata/sapconnections";
+            return "metadata/sapconnections"; //$NON-NLS-1$
         case METADATA_FILE_EBCDIC:
-            return "metadata/fileEBCDIC";
+            return "metadata/fileEBCDIC"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
             return "metadata/fileDelimited"; //$NON-NLS-1$
         case METADATA_FILE_POSITIONAL:
@@ -183,29 +183,29 @@ public enum ERepositoryObjectType {
         case METADATA_FILE_LDIF:
             return "metadata/fileLdif"; //$NON-NLS-1$
         case METADATA_LDAP_SCHEMA:
-            return "metadata/LDAPSchema";
+            return "metadata/LDAPSchema"; //$NON-NLS-1$
         case METADATA_GENERIC_SCHEMA:
-            return "metadata/genericSchema";
+            return "metadata/genericSchema"; //$NON-NLS-1$
         case METADATA_WSDL_SCHEMA:
-            return "metadata/WSDLSchema";
+            return "metadata/WSDLSchema"; //$NON-NLS-1$
         case METADATA_SALESFORCE_SCHEMA:
-            return "metadata/SalesforceSchema";
+            return "metadata/SalesforceSchema"; //$NON-NLS-1$
         default:
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {
-                    return "documentations/generated";
+                    return "documentations/generated"; //$NON-NLS-1$
                 }
                 if (type == JOBS) {
-                    return "documentations/generated/jobs";
+                    return "documentations/generated/jobs"; //$NON-NLS-1$
                 }
                 if (type == JOB_DOC) {
-                    return "documentations/generated/jobs";
+                    return "documentations/generated/jobs"; //$NON-NLS-1$
                 }
                 if (PluginChecker.isJobLetPluginLoaded() && type == JOBLETS) {
-                    return "documentations/generated/joblets";
+                    return "documentations/generated/joblets"; //$NON-NLS-1$
                 }
                 if (PluginChecker.isJobLetPluginLoaded() && type == JOBLET_DOC) {
-                    return "documentations/generated/joblets";
+                    return "documentations/generated/joblets"; //$NON-NLS-1$
                 }
             }
 

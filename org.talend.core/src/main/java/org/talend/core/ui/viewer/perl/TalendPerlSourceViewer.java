@@ -151,11 +151,11 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
                 if (file == null) {
                     IProject perlProject = CorePlugin.getDefault().getRunProcessService().getProject(
                             LanguageManager.getCurrentLanguage());
-                    if (!perlProject.getFolder("internal").exists()) {
-                        perlProject.getFolder("internal").create(true, false, new NullProgressMonitor());
+                    if (!perlProject.getFolder("internal").exists()) { //$NON-NLS-1$
+                        perlProject.getFolder("internal").create(true, false, new NullProgressMonitor()); //$NON-NLS-1$
                     }
 
-                    IPath path = new Path("internal/codeChecker" + currentId++ + ".pl");
+                    IPath path = new Path("internal/codeChecker" + currentId++ + ".pl"); //$NON-NLS-1$ //$NON-NLS-2$
                     file = perlProject.getFile(path);
                     if (!file.exists()) {
                         file.create(codeStream, true, null);

@@ -26,9 +26,9 @@ import org.talend.commons.exception.ExceptionHandler;
  */
 public class ProposalFactory {
 
-    public static final String EXTENSION_ID = "org.talend.core.talend_external_proposals";
+    public static final String EXTENSION_ID = "org.talend.core.talend_external_proposals"; //$NON-NLS-1$
 
-    public static final String ELEM_CLASS = "class";
+    public static final String ELEM_CLASS = "class"; //$NON-NLS-1$
 
     public static List<IExternalProposals> getInstances() {
         List<IExternalProposals> externalProposals = new ArrayList<IExternalProposals>();

@@ -43,18 +43,18 @@ public class TalendPerlTextHover implements ITextHover {
     public String getHoverInfo(ITextViewer textViewer, IRegion hoverRegion) {
         String text = getTextForHover(textViewer, hoverRegion);
         if (text == null) {
-            if (hoverRegion.getLength() == 0 && "true".equals(System.getProperty("org.epic.perleditor.hoverPartitionType"))) {
+            if (hoverRegion.getLength() == 0 && "true".equals(System.getProperty("org.epic.perleditor.hoverPartitionType"))) { //$NON-NLS-1$ //$NON-NLS-2$
                 return getPartitionHover(textViewer, hoverRegion);
             } else
                 return null;
         }
 
         try {
-            ResourceBundle rb = ResourceBundle.getBundle("org.epic.perleditor.editors.quickreference");
+            ResourceBundle rb = ResourceBundle.getBundle("org.epic.perleditor.editors.quickreference"); //$NON-NLS-1$
 
             // Check if only a word (without spaces or tabs) has
             // been selected
-            if (text.length() > 0 && text.indexOf(" ") < 0 && text.indexOf("\t") < 0) {
+            if (text.length() > 0 && text.indexOf(" ") < 0 && text.indexOf("\t") < 0) { //$NON-NLS-1$ //$NON-NLS-2$
                 try {
                     String value = rb.getString(text);
                     return splitMessage(value);
@@ -95,8 +95,8 @@ public class TalendPerlTextHover implements ITextHover {
             IDocument doc = textViewer.getDocument();
             ITypedRegion partition = doc.getPartition(hoverRegion.getOffset());
 
-            return "@" + hoverRegion.getOffset() + ": " + partition.getOffset() + ":" + partition.getLength() + ":"
-                    + partition.getType() + " {" + doc.get(partition.getOffset(), partition.getLength()) + "}";
+            return "@" + hoverRegion.getOffset() + ": " + partition.getOffset() + ":" + partition.getLength() + ":" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                    + partition.getType() + " {" + doc.get(partition.getOffset(), partition.getLength()) + "}"; //$NON-NLS-1$ //$NON-NLS-2$
         } catch (BadLocationException e) {
             return null;
         }
@@ -115,7 +115,7 @@ public class TalendPerlTextHover implements ITextHover {
     }
 
     private String splitMessage(String message) {
-        String result = "";
+        String result = ""; //$NON-NLS-1$
 
         if (message.length() <= MAX_INFO_LENGTH) {
             return message;
@@ -124,7 +124,7 @@ public class TalendPerlTextHover implements ITextHover {
         String tmpStr;
 
         // Index of \n
-        int crIndex = message.indexOf("\n");
+        int crIndex = message.indexOf("\n"); //$NON-NLS-1$
 
         if (crIndex != -1) {
             tmpStr = message.substring(0, crIndex);
@@ -134,13 +134,13 @@ public class TalendPerlTextHover implements ITextHover {
 
         while (tmpStr.length() > MAX_INFO_LENGTH) {
 
-            int spacepos = tmpStr.indexOf(" ", MAX_INFO_LENGTH);
+            int spacepos = tmpStr.indexOf(" ", MAX_INFO_LENGTH); //$NON-NLS-1$
 
             if (spacepos != -1) {
-                result += tmpStr.substring(0, spacepos) + "\n";
+                result += tmpStr.substring(0, spacepos) + "\n"; //$NON-NLS-1$
                 tmpStr = tmpStr.substring(spacepos);
             } else {
-                result += tmpStr.substring(0, MAX_INFO_LENGTH) + "\n";
+                result += tmpStr.substring(0, MAX_INFO_LENGTH) + "\n"; //$NON-NLS-1$
                 tmpStr = tmpStr.substring(MAX_INFO_LENGTH);
             }
 

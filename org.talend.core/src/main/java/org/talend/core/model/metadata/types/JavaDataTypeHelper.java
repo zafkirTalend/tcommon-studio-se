@@ -76,7 +76,7 @@ public final class JavaDataTypeHelper {
     public static String getJavaTypeOfValue(final String value) {
 
         // empty value => type is undef
-        if (value.equals("")) {
+        if (value.equals("")) { //$NON-NLS-1$
             return null;
         }
 
@@ -102,23 +102,23 @@ public final class JavaDataTypeHelper {
         }
         //
         // first char is 0 and no dot just after => force type String needed
-        if (value.substring(0, 1).equals("0") && (!value.substring(1, 2).equals("."))) {
+        if (value.substring(0, 1).equals("0") && (!value.substring(1, 2).equals("."))) { //$NON-NLS-1$ //$NON-NLS-2$
             return JavaTypesManager.STRING.getId();
         }
         //
         // content more one dot => String
-        if (value.contains(".")) {
-            if (value.substring(value.indexOf(".") + 1, value.length()).contains(".")) {
+        if (value.contains(".")) { //$NON-NLS-1$
+            if (value.substring(value.indexOf(".") + 1, value.length()).contains(".")) { //$NON-NLS-1$ //$NON-NLS-2$
                 return JavaTypesManager.STRING.getId();
             }
         }
         // END SPECIFIQUE USE CASE
 
         // content only a dot => float or double
-        if (value.contains(".")) {
+        if (value.contains(".")) { //$NON-NLS-1$
             try {
                 Float nbrFloat = Float.parseFloat(value);
-                if ((!nbrFloat.toString().equals("Infinity")) && (!nbrFloat.toString().equals("-Infinity"))) {
+                if ((!nbrFloat.toString().equals("Infinity")) && (!nbrFloat.toString().equals("-Infinity"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     if ((nbrFloat >= FLOAT_MIN) && (nbrFloat <= FLOAT_MAX)) {
                         return JavaTypesManager.FLOAT.getId();
                     }
@@ -127,7 +127,7 @@ public final class JavaDataTypeHelper {
                 try {
                     // * double flottant double 4.9*10 -324 � 1.7*10 308
                     Double nbrDouble = Double.parseDouble(value);
-                    if ((!nbrDouble.toString().equals("Infinity")) && (!nbrDouble.toString().equals("-Infinity"))) {
+                    if ((!nbrDouble.toString().equals("Infinity")) && (!nbrDouble.toString().equals("-Infinity"))) { //$NON-NLS-1$ //$NON-NLS-2$
                         if ((nbrDouble >= DOUBLE_MIN) && (nbrDouble <= DOUBLE_MAX)) {
                             return JavaTypesManager.DOUBLE.getId();
                         }
@@ -221,9 +221,9 @@ public final class JavaDataTypeHelper {
         Perl5Matcher matcher = new Perl5Matcher();
         Pattern pattern = null;
 
-        String strValidRealPattern = "^([-]|[.]|[-.]|[0-9])[0-9]*[.]*[0-9]+$";
-        String strValidIntegerPattern = "^([-]|[0-9])[0-9]*$";
-        String regex = "(" + strValidRealPattern + ")|(" + strValidIntegerPattern + ")";
+        String strValidRealPattern = "^([-]|[.]|[-.]|[0-9])[0-9]*[.]*[0-9]+$"; //$NON-NLS-1$
+        String strValidIntegerPattern = "^([-]|[0-9])[0-9]*$"; //$NON-NLS-1$
+        String regex = "(" + strValidRealPattern + ")|(" + strValidIntegerPattern + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
         try {
             pattern = compiler.compile(regex);

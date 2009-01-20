@@ -93,7 +93,7 @@ public class ProcessorUtilities {
     // this character is used only when exporting a job in java, this will be
     // replaced by the correct separator
     // corresponding to the selected platform.
-    public static final String TEMP_JAVA_CLASSPATH_SEPARATOR = "@";
+    public static final String TEMP_JAVA_CLASSPATH_SEPARATOR = "@"; //$NON-NLS-1$
 
     /**
      * Process need to be loaded to use this function.
@@ -359,13 +359,13 @@ public class ProcessorUtilities {
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
             // List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
             for (INode node : graphicalNodes) {
-                if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
-                    IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS");
+                if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
+                    IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                     String jobId = (String) processIdparam.getValue();
                     ProcessItem processItem = null;
 
-                    String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
-                    String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
+                    String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue(); //$NON-NLS-1$
+                    String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue(); //$NON-NLS-1$
                     JobInfo subJobInfo = null;
                     subJobInfo = new JobInfo(jobId, context, version);
                     // get processitem from job
@@ -380,7 +380,7 @@ public class ProcessorUtilities {
                         } else {
                             // use the default context of subjob
                             String defaultContext = processItem.getProcess().getDefaultContext();
-                            node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext);
+                            node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext); //$NON-NLS-1$
                             subJobInfo.setContextName(defaultContext);
                         }
                     }
@@ -507,10 +507,10 @@ public class ProcessorUtilities {
         if (jobInfo.isApplyContextToChildren()) {
             for (Iterator<? extends INode> iter = currentProcess.getGeneratingNodes().iterator(); iter.hasNext();) {
                 INode node = iter.next();
-                if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
+                if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
                     // the corresponding parameter is
                     // EParameterName.PROCESS_TYPE_CONTEXT
-                    node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(selectedContextName);
+                    node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(selectedContextName); //$NON-NLS-1$
                 }
             }
         }
@@ -716,7 +716,7 @@ public class ProcessorUtilities {
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, currentContext);
 
-        String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") };
+        String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
         if (codeOptions != null) {
             for (int i = 0; i < codeOptions.length; i++) {
                 String string = codeOptions[i];
@@ -726,13 +726,13 @@ public class ProcessorUtilities {
             }
         }
         if (contextName != null) {
-            cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName);
+            cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName); //$NON-NLS-1$
         }
         if (statisticPort != -1) {
-            cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort);
+            cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort); //$NON-NLS-1$
         }
         if (tracePort != -1) {
-            cmd = (String[]) ArrayUtils.add(cmd, "--trace_port=" + tracePort);
+            cmd = (String[]) ArrayUtils.add(cmd, "--trace_port=" + tracePort); //$NON-NLS-1$
         }
         return cmd;
     }
@@ -745,7 +745,7 @@ public class ProcessorUtilities {
      * @return
      */
     public static List<IRepositoryObject> getAllVersionObjectById(String id) {
-        if (id == null || "".equals(id)) {
+        if (id == null || "".equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
@@ -786,12 +786,12 @@ public class ProcessorUtilities {
         List<? extends INode> graphicalNodes = process.getGeneratingNodes();
 
         for (INode node : graphicalNodes) {
-            if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
+            if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
 
-                IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS");
+                IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                 String jobId = (String) processIdparam.getValue();
-                String jobContext = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue();
-                String jobVersion = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue();
+                String jobContext = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue(); //$NON-NLS-1$
+                String jobVersion = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue(); //$NON-NLS-1$
 
                 ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {

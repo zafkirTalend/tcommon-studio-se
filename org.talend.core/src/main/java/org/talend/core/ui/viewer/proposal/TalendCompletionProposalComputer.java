@@ -55,26 +55,26 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
     private static final String CONTEXT_PREFIX = ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX;
 
-    private static final String PERL_GLOBAL_PREFIX = "global.";
+    private static final String PERL_GLOBAL_PREFIX = "global."; //$NON-NLS-1$
 
     public TalendCompletionProposalComputer() {
     }
 
     public List computeCompletionProposals(ContentAssistInvocationContext context, IProgressMonitor monitor) {
-        String prefix = "";
+        String prefix = ""; //$NON-NLS-1$
         try {
             prefix = context.computeIdentifierPrefix().toString();
 
-            String tmpPrefix = "";
+            String tmpPrefix = ""; //$NON-NLS-1$
             IDocument doc = context.getDocument();
-            if ((!prefix.equals("")) || (doc.get().length() == 0)) {
+            if ((!prefix.equals("")) || (doc.get().length() == 0)) { //$NON-NLS-1$
                 tmpPrefix = prefix;
             } else {
                 int offset = context.getInvocationOffset();
                 if (doc.getChar(offset - 1) == '.') {
                     // set by default to avoid other completions
 
-                    tmpPrefix = ".";
+                    tmpPrefix = "."; //$NON-NLS-1$
 
                     if (offset >= CONTEXT_PREFIX.length()
                             && doc.get(offset - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length()).equals(CONTEXT_PREFIX)) {
@@ -98,7 +98,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                         }
                         List<? extends INode> nodes = process.getGraphicalNodes();
                         for (INode node : nodes) {
-                            String toTest = node.getLabel() + ".";
+                            String toTest = node.getLabel() + "."; //$NON-NLS-1$
                             if (offset >= toTest.length() && doc.get(offset - toTest.length(), toTest.length()).equals(toTest)) {
                                 tmpPrefix = toTest;
                                 break;
@@ -108,8 +108,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 }
             }
             prefix = tmpPrefix;
-            if (".".equals(prefix) && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-                prefix = "";
+            if (".".equals(prefix) && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) { //$NON-NLS-1$
+                prefix = ""; //$NON-NLS-1$
             }
         } catch (BadLocationException e) {
             throw new RuntimeException(e);
@@ -149,7 +149,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             String code = getContextContent(ctxParam);
             String description = getContextDescription(ctxParam, display);
 
-            if (prefix.equals("") || display.startsWith(prefix)) {
+            if (prefix.equals("") || display.startsWith(prefix)) { //$NON-NLS-1$
                 TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
                         replacementLength, code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null,
                         description);
@@ -164,9 +164,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         for (INode node : nodes) {
             List<? extends INodeReturn> nodeReturns = node.getReturns();
             for (INodeReturn nodeReturn : nodeReturns) {
-                String display = node.getLabel() + "." + nodeReturn.getName();
+                String display = node.getLabel() + "." + nodeReturn.getName(); //$NON-NLS-1$
 
-                if (prefix.equals("") || display.startsWith(prefix)) {
+                if (prefix.equals("") || display.startsWith(prefix)) { //$NON-NLS-1$
                     String code = getNodeReturnContent(nodeReturn, node);
 
                     String description = getNodeReturnDescription(nodeReturn, node, display);
@@ -189,7 +189,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             for (int i = 0; i < javavars.length; i++) {
                 String display = javavars[i].getLabel();
 
-                if (prefix.equals("") || display.startsWith(prefix)) {
+                if (prefix.equals("") || display.startsWith(prefix)) { //$NON-NLS-1$
                     String code = javavars[i].getContent();
                     String description = getPerlGlobalVarDescription(javavars[i], display);
                     TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
@@ -206,7 +206,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             for (int i = 0; i < vars.length; i++) {
                 String display = vars[i].getLabel();
 
-                if (prefix.equals("") || display.startsWith(prefix)) {
+                if (prefix.equals("") || display.startsWith(prefix)) { //$NON-NLS-1$
                     String code = vars[i].getContent();
                     String description = getPerlGlobalVarDescription(vars[i], display);
                     TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
@@ -243,8 +243,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         for (TalendType type : talendTypes) {
             for (Object objectFunction : type.getFunctions()) {
                 Function function = (Function) objectFunction;
-                String display = function.getCategory() + "." + function.getName();
-                if (prefix.equals("") || display.startsWith(prefix)) {
+                String display = function.getCategory() + "." + function.getName(); //$NON-NLS-1$
+                if (prefix.equals("") || display.startsWith(prefix)) { //$NON-NLS-1$
                     String code = FunctionManager.getFunctionMethod(function);
 
                     String description = getFunctionDescription(function, display, code);

@@ -20,7 +20,7 @@ package org.talend.core.model.process;
  */
 public interface IContextParameter {
 
-    public static final String BUILT_IN = "built-in";
+    public static final String BUILT_IN = "built-in"; //$NON-NLS-1$
 
     public String[] getValueList();
 

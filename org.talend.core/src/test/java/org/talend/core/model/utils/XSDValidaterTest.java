@@ -71,17 +71,17 @@ public class XSDValidaterTest {
     @Test
     public final void testValidateWithDomFileFileOK() throws Exception {
         XSDValidater validator = new XSDValidater();
-        File validatingFile = new File("mappings/mapping_IBMDB2.xml");
-        File validatorFile = new File("mappings/mapping_validate.xsd");
+        File validatingFile = new File("mappings/mapping_IBMDB2.xml"); //$NON-NLS-1$
+        File validatorFile = new File("mappings/mapping_validate.xsd"); //$NON-NLS-1$
         validator.validateWithDom(validatorFile, validatingFile);
 
-        validatingFile = new File("mappings/mapping_MsOdbc.xml");
+        validatingFile = new File("mappings/mapping_MsOdbc.xml"); //$NON-NLS-1$
         validator.validateWithDom(validatorFile, validatingFile);
 
-        validatingFile = new File("mappings/mapping_Mysql.xml");
+        validatingFile = new File("mappings/mapping_Mysql.xml"); //$NON-NLS-1$
         validator.validateWithDom(validatorFile, validatingFile);
 
-        validatingFile = new File("mappings/mapping_Oracle.xml");
+        validatingFile = new File("mappings/mapping_Oracle.xml"); //$NON-NLS-1$
         validator.validateWithDom(validatorFile, validatingFile);
 
     }
@@ -92,8 +92,8 @@ public class XSDValidaterTest {
     @Test
     public final void testValidateWithDomFileFileInvalid() throws Exception {
         XSDValidater validator = new XSDValidater();
-        File validatingFile = new File(this.getClass().getResource("mapping_InvalidateDB.xml").toURI());
-        File validatorFile = new File("mappings/mapping_validate.xsd");
+        File validatingFile = new File(this.getClass().getResource("mapping_InvalidateDB.xml").toURI()); //$NON-NLS-1$
+        File validatorFile = new File("mappings/mapping_validate.xsd"); //$NON-NLS-1$
         try {
             validator.validateWithDom(validatorFile, validatingFile);
             Assert.fail();

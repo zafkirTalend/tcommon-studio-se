@@ -64,7 +64,7 @@ public final class MetadataTalendType {
     /**
      * 
      */
-    public static final String INTERNAL_MAPPINGS_FOLDER = "mappings";
+    public static final String INTERNAL_MAPPINGS_FOLDER = "mappings"; //$NON-NLS-1$
 
     private static Logger log = Logger.getLogger(MetadataTalendType.class);
 
@@ -375,8 +375,8 @@ public final class MetadataTalendType {
         String temp = product.toUpperCase();
 
         // ORACLE_SID and ORACLE_SERVICE are all ORACLE type dbms
-        if (temp.startsWith("ORACLE")) {
-            return "ORACLE";
+        if (temp.startsWith("ORACLE")) { //$NON-NLS-1$
+            return "ORACLE"; //$NON-NLS-1$
         }
 
         // Other db just return the product name
@@ -401,7 +401,7 @@ public final class MetadataTalendType {
                 return dbms;
             }
         }
-        throw new IllegalArgumentException("DBMS Id : " + dbmsId + " can't be found !");
+        throw new IllegalArgumentException(Messages.getString("MetadataTalendType.dbIdNotFound", dbmsId)); //$NON-NLS-1$
     }
 
     /**
@@ -447,7 +447,7 @@ public final class MetadataTalendType {
                 url = MetadataTalendType.class.getResource(dirPath);
                 IPath path = new Path(url.getPath());
                 path = path.removeLastSegments(2);
-                url = new URL("file:/" + path.toPortableString() + dirPath);
+                url = new URL("file:/" + path.toPortableString() + dirPath); //$NON-NLS-1$
             }
         } catch (IOException e) {
             throw new SystemException(e);
@@ -562,25 +562,25 @@ public final class MetadataTalendType {
 
         String dbmsId = "oracle_id"; //$NON-NLS-1$
         Dbms dbms = getDbms(dbmsId);
-        System.out.println("dbms:" + dbms);
-        System.out.println("types:" + Arrays.asList(getDbTypes(dbmsId)));
+        System.out.println("dbms:" + dbms); //$NON-NLS-1$
+        System.out.println("types:" + Arrays.asList(getDbTypes(dbmsId))); //$NON-NLS-1$
 
         MappingTypeRetriever mappingTypeRetriever = getMappingTypeRetriever(dbmsId);
-        System.out.println("java int(id_Integer) => " + mappingTypeRetriever.getDefaultSelectedDbType("id_Integer"));
+        System.out.println("java int(id_Integer) => " + mappingTypeRetriever.getDefaultSelectedDbType("id_Integer")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("Db INT => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT"));
+        System.out.println("Db INT => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN"));
+        System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN"));
+        System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("java id_byte[] => " + mappingTypeRetriever.getDefaultSelectedDbType("id_byte[]"));
+        System.out.println("java id_byte[] => " + mappingTypeRetriever.getDefaultSelectedDbType("id_byte[]")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("INt => " + mappingTypeRetriever.getAdvicedDbToTalendTypes("INt"));
+        System.out.println("INt => " + mappingTypeRetriever.getAdvicedDbToTalendTypes("INt")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("int => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("int"));
+        System.out.println("int => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("int")); //$NON-NLS-1$ //$NON-NLS-2$
 
-        System.out.println("id_Long => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("id_Long"));
+        System.out.println("id_Long => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("id_Long")); //$NON-NLS-1$ //$NON-NLS-2$
 
         System.out.println();
     }

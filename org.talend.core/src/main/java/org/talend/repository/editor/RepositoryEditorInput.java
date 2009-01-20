@@ -118,7 +118,7 @@ public class RepositoryEditorInput extends FileEditorInput {
         // PTODO SML Removed null test on monitor after assure that in can't be
         try {
             if (monitor != null) {
-                monitor.beginTask("save process", 100);
+                monitor.beginTask("save process", 100); //$NON-NLS-1$
             }
             ProcessType processType = loadedProcess.saveXmlFile();
             if (monitor != null) {

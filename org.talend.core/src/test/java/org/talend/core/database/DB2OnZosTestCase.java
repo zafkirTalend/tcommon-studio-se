@@ -38,24 +38,24 @@ public class DB2OnZosTestCase extends TestCase {
     }
 
     public void testSystemColumns() throws Exception {
-        String url = "jdbc:db2://talend-dbms:50000/Talend";
+        String url = "jdbc:db2://talend-dbms:50000/Talend"; //$NON-NLS-1$
         Properties prop = new Properties();
-        prop.setProperty("user", "root");
-        prop.setProperty("password", "toor");
-        String schema = "ROOT";
-        String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS WHERE NAME='TEXT' ";
+        prop.setProperty("user", "root"); //$NON-NLS-1$ //$NON-NLS-2$
+        prop.setProperty("password", "toor"); //$NON-NLS-1$ //$NON-NLS-2$
+        String schema = "ROOT"; //$NON-NLS-1$
+        String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS WHERE NAME='TEXT' "; //$NON-NLS-1$
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
         try {
 
-            Class.forName("com.ibm.db2.jcc.DB2Driver");
+            Class.forName("com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$
             connection = DriverManager.getConnection(url, prop);
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("NAME");
+                String name = rs.getString("NAME"); //$NON-NLS-1$
 
                 System.out.print(name);
                 System.out.println();
@@ -76,29 +76,29 @@ public class DB2OnZosTestCase extends TestCase {
     }
 
     public static void main(String[] args) {
-        String url = "jdbc:db2://talend-dbms:50000/Talend";
+        String url = "jdbc:db2://talend-dbms:50000/Talend"; //$NON-NLS-1$
         Properties prop = new Properties();
-        prop.setProperty("user", "root");
-        prop.setProperty("password", "toor");
-        String schema = "ROOT";
-        String sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'";
+        prop.setProperty("user", "root"); //$NON-NLS-1$ //$NON-NLS-2$
+        prop.setProperty("password", "toor"); //$NON-NLS-1$ //$NON-NLS-2$
+        String schema = "ROOT"; //$NON-NLS-1$
+        String sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
         try {
 
-            Class.forName("com.ibm.db2.jcc.DB2Driver");
+            Class.forName("com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$
             connection = DriverManager.getConnection(url, prop);
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("2ss");
+                String name = rs.getString("2ss"); //$NON-NLS-1$
                 String creator = rs.getString(2);
                 String type = rs.getString(3);
                 String dbname = rs.getString(4);
 
-                System.out.println(name + "|" + creator + "|" + type + "|" + dbname);
+                System.out.println(name + "|" + creator + "|" + type + "|" + dbname); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 System.out.println();
             }
 

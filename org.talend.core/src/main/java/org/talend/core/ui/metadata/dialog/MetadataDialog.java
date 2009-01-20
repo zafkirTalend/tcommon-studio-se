@@ -119,10 +119,10 @@ public class MetadataDialog extends Dialog {
         this.inputMetaTable = inputMetaTable;
         this.inputNode = inputNode;
         if (inputNode != null) {
-            this.titleInput = inputMetaTable.getTableName() + " (Input)";
+            this.titleInput = inputMetaTable.getTableName() + " (Input)"; //$NON-NLS-1$
             INodeConnector connector = inputNode.getConnectorFromName(inputMetaTable.getAttachedConnector());
             if (!connector.isMultiSchema()) {
-                this.titleInput = inputNode.getLabel() + " (Input - " + connector.getLinkName() + ")";
+                this.titleInput = inputNode.getLabel() + " (Input - " + connector.getLinkName() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         this.outputNode = outputNode;
@@ -176,16 +176,16 @@ public class MetadataDialog extends Dialog {
                 }
             }
 
-            IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE");
+            IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE"); //$NON-NLS-1$
             if (!hasMappingType && schemaParam != null) { // if there is no
                 // mapping type,
                 // then check if a
                 // db
                 // repository schema is used
                 String schemaType = (String) schemaParam.getValue();
-                if (schemaType.equals("REPOSITORY")) {
+                if (schemaType.equals("REPOSITORY")) { //$NON-NLS-1$
                     // repository mode
-                    String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue();
+                    String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue(); //$NON-NLS-1$
                     Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
 
                     boolean isDatabaseConnection = connection instanceof DatabaseConnection;
@@ -194,14 +194,14 @@ public class MetadataDialog extends Dialog {
                         hasRepositoryDbSchema = true;
 
                         for (IMetadataColumn column : metadataTable.getListColumns()) {
-                            if ((column.getType() == "") || (column.getType() == null)) {
+                            if ((column.getType() == "") || (column.getType() == null)) { //$NON-NLS-1$
                                 hasRepositoryDbSchema = false;
                             }
                         }
-                        String componentDbType = "";
+                        String componentDbType = ""; //$NON-NLS-1$
                         for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
                             if (param.getRepositoryValue() != null) {
-                                if (param.getRepositoryValue().equals("TYPE")) {
+                                if (param.getRepositoryValue().equals("TYPE")) { //$NON-NLS-1$
                                     componentDbType = (String) param.getValue();
                                 }
                             }
@@ -315,7 +315,7 @@ public class MetadataDialog extends Dialog {
             // Input => Output(the selection)
             Button copySelectionToOutput = new Button(buttonComposite2, SWT.NONE);
             copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
-            copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput"));
+            copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copySelectionToOutput);
 
             copySelectionToOutput.addListener(SWT.Selection, new Listener() {
@@ -340,7 +340,7 @@ public class MetadataDialog extends Dialog {
             // Input => Output
             Button copyToOutput = new Button(buttonComposite2, SWT.NONE);
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
-            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput"));
+            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
 
             copyToOutput.addListener(SWT.Selection, new Listener() {
@@ -367,7 +367,7 @@ public class MetadataDialog extends Dialog {
             // Output => Input(the selection)
             Button copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
             copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
-            copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText"));
+            copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText")); //$NON-NLS-1$
             gridData.verticalAlignment = GridData.CENTER;
             copySelectionToInput.setLayoutData(gridData);
             copySelectionToInput.addListener(SWT.Selection, new Listener() {
@@ -392,7 +392,7 @@ public class MetadataDialog extends Dialog {
             // Output => Input
             Button copyToInput = new Button(buttonComposite2, SWT.NONE);
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
-            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput.toolTipText"));
+            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput.toolTipText")); //$NON-NLS-1$
             gridData.verticalAlignment = GridData.CENTER;
             copyToInput.setLayoutData(gridData);
             copyToInput.addListener(SWT.Selection, new Listener() {

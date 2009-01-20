@@ -68,13 +68,13 @@ public class PatternCalendarDialog extends DateDialog {
         Calendar calendar = null;
 
         if (!StringUtils.isEmpty(value)) {
-            int pos = value.indexOf(";");
+            int pos = value.indexOf(";"); //$NON-NLS-1$
             if (pos > -1) {
                 pattern = value.substring(0, pos);
                 String date = value.substring(pos + 1);
                 calendar = getCalendar(pattern, date);
             } else {
-                calendar = getCalendar("yyyy-MM-dd HH:mm:ss", value);
+                calendar = getCalendar("yyyy-MM-dd HH:mm:ss", value); //$NON-NLS-1$
             }
         }
         time = new PatternCalendar(control2, SWT.NONE, pattern, calendar);
@@ -103,16 +103,16 @@ public class PatternCalendarDialog extends DateDialog {
         StringBuffer result = new StringBuffer();
 
         String pattern = time.getPatternText();
-        if (pattern == null || pattern == "") {
-            pattern = "yyyy-MM-dd HH:mm:ss";
-        } else if (pattern.startsWith("\"")) {
+        if (pattern == null || pattern == "") { //$NON-NLS-1$
+            pattern = "yyyy-MM-dd HH:mm:ss"; //$NON-NLS-1$
+        } else if (pattern.startsWith("\"")) { //$NON-NLS-1$
             // remove quotes
             pattern = pattern.substring(1, pattern.length() - 1);
 
         }
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         sdf.format(getDate(), result, new FieldPosition(0));
-        return pattern + ";" + result.toString();
+        return pattern + ";" + result.toString(); //$NON-NLS-1$
     }
 
 }

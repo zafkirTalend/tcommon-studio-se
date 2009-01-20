@@ -159,7 +159,7 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
      */
     @Override
     protected Object openDialogBox(Control cellEditorWindow) {
-        String path = "";
+        String path = ""; //$NON-NLS-1$
         if (dialog instanceof FileDialog) {
             path = ((FileDialog) dialog).open();
             if (path != null) {

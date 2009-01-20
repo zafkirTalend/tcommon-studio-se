@@ -156,8 +156,8 @@ public abstract class Element implements Cloneable, IElement {
     }
 
     private IElementParameter findElementParameter(String name, String paramName) {
-        if (name.contains(":")) { // look for the parent first, then will retrieve the children
-            StringTokenizer token = new StringTokenizer(name, ":");
+        if (name.contains(":")) { // look for the parent first, then will retrieve the children //$NON-NLS-1$
+            StringTokenizer token = new StringTokenizer(name, ":"); //$NON-NLS-1$
             String parentId = token.nextToken();
             String childId = token.nextToken();
             for (int i = 0; i < listParam.size(); i++) {
@@ -181,7 +181,7 @@ public abstract class Element implements Cloneable, IElement {
         for (IElementParameter elementParam : listParam) {
             for (String key : elementParam.getChildParameters().keySet()) {
                 IElementParameter param = elementParam.getChildParameters().get(key);
-                if (paramName == null || paramName.equals("")) {
+                if (paramName == null || paramName.equals("")) { //$NON-NLS-1$
                     if (param.getName().equals(name)) {
                         return param;
                     }

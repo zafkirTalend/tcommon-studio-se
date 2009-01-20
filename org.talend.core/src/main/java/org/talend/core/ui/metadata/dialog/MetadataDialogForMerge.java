@@ -325,7 +325,7 @@ public class MetadataDialogForMerge extends Dialog {
             // Input => Output(the selection)
             Button copySelectionToOutput = new Button(buttonComposite2, SWT.NONE);
             copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
-            copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput"));
+            copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copySelectionToOutput);
 
             copySelectionToOutput.addListener(SWT.Selection, new Listener() {
@@ -376,7 +376,7 @@ public class MetadataDialogForMerge extends Dialog {
             // Output => Input(the selection)
             Button copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
             copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
-            copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText"));
+            copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText")); //$NON-NLS-1$
             gridData.verticalAlignment = GridData.CENTER;
             copySelectionToInput.setLayoutData(gridData);
             copySelectionToInput.addListener(SWT.Selection, new Listener() {

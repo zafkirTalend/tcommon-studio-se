@@ -33,13 +33,13 @@ import org.talend.core.model.process.Problem;
  */
 public interface ILibrariesService extends IService {
 
-    public static final String SOURCE_PERL_ROUTINES_FOLDER = "routines";
+    public static final String SOURCE_PERL_ROUTINES_FOLDER = "routines"; //$NON-NLS-1$
 
-    public static final String SOURCE_SQLPATTERN_FOLDER = "sqlpatterns";
+    public static final String SOURCE_SQLPATTERN_FOLDER = "sqlpatterns"; //$NON-NLS-1$
 
-    public static final String SQLPATTERN_FILE_SUFFIX = ".sqlpattern";
+    public static final String SQLPATTERN_FILE_SUFFIX = ".sqlpattern"; //$NON-NLS-1$
 
-    public static final String TEMPLATE_SUFFIX = ".template";
+    public static final String TEMPLATE_SUFFIX = ".template"; //$NON-NLS-1$
 
     public List<URL> getSystemRoutines();
 

@@ -147,15 +147,15 @@ public abstract class ContextComposite extends Composite implements IContextMode
         tab = new CTabFolder(this, SWT.FLAT | SWT.BORDER);
         tab.setLayoutData(new GridData(GridData.FILL_BOTH));
         CTabItem templateItem = new CTabItem(tab, SWT.NONE);
-        templateItem.setText("Variables");
+        templateItem.setText(Messages.getString("ContextComposite.variable")); //$NON-NLS-1$
         creatTemplate(tab, templateItem);
 
         CTabItem treeValuesItem = new CTabItem(tab, SWT.NONE);
-        treeValuesItem.setText("Values as tree");
+        treeValuesItem.setText(Messages.getString("ContextComposite.treeValue")); //$NON-NLS-1$
         creatTreeValues(tab, treeValuesItem);
 
         CTabItem tableValuesItem = new CTabItem(tab, SWT.NONE);
-        tableValuesItem.setText("Values as table");
+        tableValuesItem.setText(Messages.getString("ContextComposite.tableValue")); //$NON-NLS-1$
         creatTableValues(tab, tableValuesItem);
         tab.setSelection(templateItem);
     }

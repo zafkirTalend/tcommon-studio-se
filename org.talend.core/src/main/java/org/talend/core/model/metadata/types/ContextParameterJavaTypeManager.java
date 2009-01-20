@@ -43,7 +43,7 @@ public class ContextParameterJavaTypeManager {
 
     public static final String PERL_PASSWORD = JavaTypesManager.PASSWORD.getLabel();
 
-    public static final String PERL_DAY = "Day";
+    public static final String PERL_DAY = "Day"; //$NON-NLS-1$
 
     private static Map<String, JavaType> shortNameToJavaType;
 

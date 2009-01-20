@@ -17,50 +17,50 @@ package org.talend.core.database;
  * 
  */
 public enum EDatabaseTypeName {
-    MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"),
-    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE"),
-    PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"),
-    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"),
-    ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE"),
-    GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"),
-    MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"),
-    IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"),
-    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"),
+    MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // this Sybase IQ not used.
-    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"),
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"),
+    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     // this don't use in Branch 2.0
-    HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"),
-    HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"),
-    HSQLDB_WEBSERVER("HSQLDB WebServer", "HSQLDB WebServer", new Boolean(false), "HSQLDB"),
-    HSQLDB_IN_PROGRESS("HSQLDB In-Process", "HSQLDB In-Process", new Boolean(false), "HSQLDB"),
+    HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    HSQLDB_WEBSERVER("HSQLDB WebServer", "HSQLDB WebServer", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    HSQLDB_IN_PROGRESS("HSQLDB In-Process", "HSQLDB In-Process", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"),
-    INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"),
-    INTERBASE("Interbase", "Interbase", new Boolean(false), "INTERBASE"), // "INTERBASE"),
-    SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"),
-    FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),
-    INFORMIX("Informix", "Informix", new Boolean(false), "INFORMIX"), // "INFORMIX");
+    JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    INTERBASE("Interbase", "Interbase", new Boolean(false), "INTERBASE"), // "INTERBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    INFORMIX("Informix", "Informix", new Boolean(false), "INFORMIX"), // "INFORMIX"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS");
-    TERADATA("Teradata", "Teradata", new Boolean(true), "TERADATA"), // "TERADATA");
-    AS400("AS400", "AS400", new Boolean(false), "AS400"),
+    ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    TERADATA("Teradata", "Teradata", new Boolean(true), "TERADATA"), // "TERADATA"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    AS400("AS400", "AS400", new Boolean(false), "AS400"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"),
-    JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"),
-    JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB"),
+    JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA"),
+    VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB"),
+    MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    GREENPLUM("Greenplum", "Greenplum", new Boolean(true), "GREENPLUM", "GREENPLUM"),
-    PARACCEL("ParAccel", "ParAccel", new Boolean(true), "PARACCEL", "PARACCEL"),
-    NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"),
+    GREENPLUM("Greenplum", "Greenplum", new Boolean(true), "GREENPLUM", "GREENPLUM"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    PARACCEL("ParAccel", "ParAccel", new Boolean(true), "PARACCEL", "PARACCEL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // General JDBC not support schema defalut
-    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC");
+    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // displayName is used in Java code.
     private String displayName;

@@ -29,35 +29,35 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
  */
 public class UpdateMappingFortAdvancedXMLConversion implements IComponentConversion {
 
-    private static final String OLD_ROOT_TABLE_NAME = "ROOT_TAGS";
+    private static final String OLD_ROOT_TABLE_NAME = "ROOT_TAGS"; //$NON-NLS-1$
 
-    private static final String OLD_GROUPING_TABLE_NAME = "GROUPING";
+    private static final String OLD_GROUPING_TABLE_NAME = "GROUPING"; //$NON-NLS-1$
 
-    private static final String OLD_MAPPING_TABLE_NAME = "MAPPING";
+    private static final String OLD_MAPPING_TABLE_NAME = "MAPPING"; //$NON-NLS-1$
 
-    private static final String OLD_TAG = "TAG";
+    private static final String OLD_TAG = "TAG"; //$NON-NLS-1$
 
-    private static final String OLD_LABEL = "LABEL";
+    private static final String OLD_LABEL = "LABEL"; //$NON-NLS-1$
 
-    private static final String OLD_COLUMN = "COLUMN";
+    private static final String OLD_COLUMN = "COLUMN"; //$NON-NLS-1$
 
-    private static final String OLD_ATTRIBUTE = "ATTRIBUTE";
+    private static final String OLD_ATTRIBUTE = "ATTRIBUTE"; //$NON-NLS-1$
 
-    private static final String OLD_DEPTH = "DEPTH";
+    private static final String OLD_DEPTH = "DEPTH"; //$NON-NLS-1$
 
-    private static final String NEW_ROOT_NAME = "ROOT";
+    private static final String NEW_ROOT_NAME = "ROOT"; //$NON-NLS-1$
 
-    private static final String NEW_GROUP_NAME = "GROUP";
+    private static final String NEW_GROUP_NAME = "GROUP"; //$NON-NLS-1$
 
-    private static final String NEW_LOOP_NAME = "LOOP";
+    private static final String NEW_LOOP_NAME = "LOOP"; //$NON-NLS-1$
 
-    private static final String NEW_PATH = "PATH";
+    private static final String NEW_PATH = "PATH"; //$NON-NLS-1$
 
-    private static final String NEW_COLUMN = "COLUMN";
+    private static final String NEW_COLUMN = "COLUMN"; //$NON-NLS-1$
 
-    private static final String NEW_ATTRIBUTE = "ATTRIBUTE";
+    private static final String NEW_ATTRIBUTE = "ATTRIBUTE"; //$NON-NLS-1$
 
-    private static final String NEW_VALUE = "VALUE";
+    private static final String NEW_VALUE = "VALUE"; //$NON-NLS-1$
 
     public void transform(NodeType node) {
         ElementParameterType eleParaRoot = ComponentUtilities.getNodeProperty(node, OLD_ROOT_TABLE_NAME);
@@ -75,8 +75,8 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
         for (Object value : elist) {
             ElementValueType eValue = (ElementValueType) value;
             if (eValue.getElementRef().equals(OLD_TAG)) {
-                path.append("/").append(eValue.getValue());
-                addOneRecord(newValueListForRoot, path.toString(), "", "", "");
+                path.append("/").append(eValue.getValue()); //$NON-NLS-1$
+                addOneRecord(newValueListForRoot, path.toString(), "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
         }
 
@@ -84,9 +84,9 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
         elist = eleParaGroup.getElementValue();
         List<ElementValueType> newValueListForGroup = new ArrayList<ElementValueType>();
         for (int i = 0; i < elist.size(); i += 3) {
-            String pathValue = "";
-            String columnValue = "";
-            String attributeValue = "";
+            String pathValue = ""; //$NON-NLS-1$
+            String columnValue = ""; //$NON-NLS-1$
+            String attributeValue = ""; //$NON-NLS-1$
             for (Object value : elist.subList(i, i + 3)) {
                 ElementValueType eValue = (ElementValueType) value;
                 if (eValue.getElementRef().equals(OLD_LABEL)) {
@@ -97,10 +97,10 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
                     attributeValue = eValue.getValue();
                 }
             }
-            if (attributeValue.equals("false")) {
-                pathValue = path.append("/").append(pathValue).toString();
+            if (attributeValue.equals("false")) { //$NON-NLS-1$
+                pathValue = path.append("/").append(pathValue).toString(); //$NON-NLS-1$
             }
-            addOneRecord(newValueListForGroup, pathValue, columnValue, "", attributeValue);
+            addOneRecord(newValueListForGroup, pathValue, columnValue, "", attributeValue); //$NON-NLS-1$
         }
 
         // count the values of "MAPPING" to "LOOP".
@@ -108,10 +108,10 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
         List<ElementValueType> newValueListForLoop = new ArrayList<ElementValueType>();
         ArrayList<String> pathStrs = new ArrayList<String>();
         for (int i = 0; i < elist.size(); i += 4) {
-            String pathValue = "";
-            String columnValue = "";
-            String attributeValue = "";
-            String depthValue = "";
+            String pathValue = ""; //$NON-NLS-1$
+            String columnValue = ""; //$NON-NLS-1$
+            String attributeValue = ""; //$NON-NLS-1$
+            String depthValue = ""; //$NON-NLS-1$
             // loop the elist in 4, it's a record of "MAPPING"
             for (Object value : elist.subList(i, i + 4)) {
                 ElementValueType eValue = (ElementValueType) value;
@@ -125,19 +125,19 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
                     depthValue = eValue.getValue();
                 }
             }
-            if (attributeValue.equals("false")) {
+            if (attributeValue.equals("false")) { //$NON-NLS-1$
                 pathValue = getPathByDepth(pathStrs, pathValue, Integer.valueOf(depthValue));
                 pathValue = path.toString() + pathValue;
             }
-            addOneRecord(newValueListForLoop, pathValue, columnValue, "", attributeValue);
+            addOneRecord(newValueListForLoop, pathValue, columnValue, "", attributeValue); //$NON-NLS-1$
         }
         
         // add new Property
-        ComponentUtilities.addNodeProperty(node, NEW_ROOT_NAME, "TABLE");
+        ComponentUtilities.addNodeProperty(node, NEW_ROOT_NAME, "TABLE"); //$NON-NLS-1$
         ComponentUtilities.setNodeProperty(node, NEW_ROOT_NAME, newValueListForRoot);
-        ComponentUtilities.addNodeProperty(node, NEW_GROUP_NAME, "TABLE");
+        ComponentUtilities.addNodeProperty(node, NEW_GROUP_NAME, "TABLE"); //$NON-NLS-1$
         ComponentUtilities.setNodeProperty(node, NEW_GROUP_NAME, newValueListForGroup);
-        ComponentUtilities.addNodeProperty(node, NEW_LOOP_NAME, "TABLE");
+        ComponentUtilities.addNodeProperty(node, NEW_LOOP_NAME, "TABLE"); //$NON-NLS-1$
         ComponentUtilities.setNodeProperty(node, NEW_LOOP_NAME, newValueListForLoop);
 
         // remove old table
@@ -155,7 +155,7 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
      * @return the path in MAPPING table
      */
     private String getPathByDepth(ArrayList<String> pathStrs, String pathValue, int depthValue) {
-        String result = "";
+        String result = ""; //$NON-NLS-1$
         if (depthValue <= pathStrs.size()) {
             pathStrs.set(depthValue - 1, pathValue);
         } else {
@@ -163,7 +163,7 @@ public class UpdateMappingFortAdvancedXMLConversion implements IComponentConvers
         }
 
         for (int i = 0; i < depthValue; i++) {
-            result += "/" + pathStrs.get(i);
+            result += "/" + pathStrs.get(i); //$NON-NLS-1$
         }
         return result;
     }

@@ -315,23 +315,23 @@ public abstract class AbstractNode implements INode {
 	@Override
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
-		buff.append(uniqueName + " - ");
-		buff.append("inputs:(");
+		buff.append(uniqueName + " - "); //$NON-NLS-1$
+		buff.append("inputs:("); //$NON-NLS-1$
 		for (int i = 0; i < incomingConnections.size(); i++) {
 			buff.append(incomingConnections.get(i).getName());
 			if (i < (incomingConnections.size() - 1)) {
-				buff.append(",");
+				buff.append(","); //$NON-NLS-1$
 			}
 		}
-		buff.append(") ");
-		buff.append("outputs:(");
+		buff.append(") "); //$NON-NLS-1$
+		buff.append("outputs:("); //$NON-NLS-1$
 		for (int i = 0; i < outgoingConnections.size(); i++) {
 			buff.append(outgoingConnections.get(i).getName());
 			if (i < (outgoingConnections.size() - 1)) {
-				buff.append(",");
+				buff.append(","); //$NON-NLS-1$
 			}
 		}
-		buff.append(")");
+		buff.append(")"); //$NON-NLS-1$
 		return buff.toString();
 	}
 
@@ -372,9 +372,9 @@ public abstract class AbstractNode implements INode {
 	}
 
 	public IElementParameter getElementParameter(String name) {
-		if (name.contains(":")) { // look for the parent first, then will
+		if (name.contains(":")) { // look for the parent first, then will //$NON-NLS-1$
 			// retrieve the children
-			StringTokenizer token = new StringTokenizer(name, ":");
+			StringTokenizer token = new StringTokenizer(name, ":"); //$NON-NLS-1$
 			String parentId = token.nextToken();
 			String childId = token.nextToken();
 			for (int i = 0; i < elementParameters.size(); i++) {
@@ -512,7 +512,7 @@ public abstract class AbstractNode implements INode {
 	 */
 	private boolean isSQLQueryParameter(final IElementParameter parameter) {
 		return parameter.getField().equals(EParameterFieldType.MEMO_SQL)
-				&& parameter.getName().equals("QUERY");
+				&& parameter.getName().equals("QUERY"); //$NON-NLS-1$
 	}
 
 	private boolean valueContains(String value, String toTest) {
@@ -523,7 +523,7 @@ public abstract class AbstractNode implements INode {
 
 			try {
 				pattern = compiler
-						.compile("\\b(" + UpdateContextVariablesHelper.replaceSpecialChar(toTest) + ")(\\b|\\_)"); //$NON-NLS-1$
+						.compile("\\b(" + UpdateContextVariablesHelper.replaceSpecialChar(toTest) + ")(\\b|\\_)"); //$NON-NLS-1$ //$NON-NLS-2$
 				if (matcher.contains(value, pattern)) {
 					return true;
 				}
@@ -722,14 +722,14 @@ public abstract class AbstractNode implements INode {
 		PatternCompiler compiler = new Perl5Compiler();
 		Perl5Matcher matcher = new Perl5Matcher();
 		matcher.setMultiline(true);
-		Perl5Substitution substitution = new Perl5Substitution(newName + "$2",
+		Perl5Substitution substitution = new Perl5Substitution(newName + "$2", //$NON-NLS-1$
 				Perl5Substitution.INTERPOLATE_ALL);
 
 		Pattern pattern;
 		try {
-			pattern = compiler.compile("\\b("
+			pattern = compiler.compile("\\b(" //$NON-NLS-1$
 					+ UpdateContextVariablesHelper.replaceSpecialChar(oldName)
-					+ ")(\\b|\\_)");
+					+ ")(\\b|\\_)"); //$NON-NLS-1$
 		} catch (MalformedPatternException e) {
 			return value; // keep original value
 		}
@@ -774,7 +774,7 @@ public abstract class AbstractNode implements INode {
 	 */
 	public boolean isELTComponent() {
 		if (getComponent() != null) {
-			return getComponent().getFamily().startsWith("ELT");
+			return getComponent().getFamily().startsWith("ELT"); //$NON-NLS-1$
 		}
 		return false;
 	}

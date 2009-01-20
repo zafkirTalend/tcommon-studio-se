@@ -43,7 +43,7 @@ import org.talend.repository.model.RepositoryConstants;
  */
 public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContext> {
 
-    private static String defaultMesage = "Configure Contexts for Job. Click to Set Default Context.         ";
+    private static String defaultMesage = "Configure Contexts for Job. Click to Set Default Context.         "; //$NON-NLS-1$
 
     IContextModelManager manager = null;
 
@@ -63,7 +63,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
             IContext context = (IContext) object;
             IContext defaultContext = manager.getContextManager().getDefaultContext();
             if (context.equals(defaultContext)) {
-                return context.getName() + " (Default)";
+                return context.getName() + " (Default)"; //$NON-NLS-1$
             } else {
                 return context.getName();
             }
@@ -72,7 +72,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
 
     @SuppressWarnings("restriction")
     public ContextSetConfigurationDialog(Shell parentShell, IContextModelManager manager) {
-        super(parentShell, "Configure Contexts", defaultMesage, null);
+        super(parentShell, "Configure Contexts", defaultMesage, null); //$NON-NLS-1$
         this.manager = manager;
         setLabelProvider(getLabelProvider());
         List<IContext> list = new ArrayList<IContext>(manager.getContextManager().getListContext());
@@ -155,7 +155,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
     }
 
     private boolean validateContextName(String name) {
-        if (name.equals("") || !name.matches(RepositoryConstants.CODE_ITEM_PATTERN)) {
+        if (name.equals("") || !name.matches(RepositoryConstants.CODE_ITEM_PATTERN)) { //$NON-NLS-1$
             MessageDialog.openWarning(new Shell(), Messages.getString(Messages.getString("ContextProcessSection.50")), Messages //$NON-NLS-1$
                     .getString(Messages.getString("ContextProcessSection.51"))); //$NON-NLS-1$
             return false;
@@ -247,7 +247,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         if (selectDefaultContext) {
             fRemoveButton.setEnabled(false);
             String contextNname = manager.getContextManager().getDefaultContext().getName();
-            setDisplayMessage(Messages.getString("ContextProcessSection.RemoveInformation", contextNname));
+            setDisplayMessage(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
         } else {
             setDisplayMessage(defaultMesage);
         }

@@ -32,9 +32,9 @@ public class RepositoryConstants {
 
     public static final String IMG_DIRECTORY_OF_JOBLET_OUTLINE = "images/joblet_outlines"; //$NON-NLS-1$
 
-    public static final String JOB_DOCUMENTATION_PATH = "documentations/generated/jobs";
+    public static final String JOB_DOCUMENTATION_PATH = "documentations/generated/jobs"; //$NON-NLS-1$
 
-    public static final String JOBLET_DOCUMENTATION_PATH = "documentations/generated/joblets";
+    public static final String JOBLET_DOCUMENTATION_PATH = "documentations/generated/joblets"; //$NON-NLS-1$
 
     public static final String SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
@@ -50,7 +50,7 @@ public class RepositoryConstants {
 
     public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]=]+$"; //$NON-NLS-1$
 
-    public static final String PORT_ITEM_PATTERN = "^[0-9]";
+    public static final String PORT_ITEM_PATTERN = "^[0-9]"; //$NON-NLS-1$
 
     public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)"; //$NON-NLS-1$
 

@@ -436,10 +436,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             if (value2 == null) {
                 return true;
             } else {
-                return value2.equals("");
+                return value2.equals(""); //$NON-NLS-1$
             }
         } else {
-            if (value1.equals("") && value2 == null) {
+            if (value1.equals("") && value2 == null) { //$NON-NLS-1$
                 return true;
             } else {
                 return value1.equals(value2);

@@ -45,7 +45,7 @@ public class CorePlugin extends AbstractUIPlugin {
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
 
-    public static final String PROJECT_LANGUAGE_TYPE = "PROJECT_LANGUAGE_TYPE";
+    public static final String PROJECT_LANGUAGE_TYPE = "PROJECT_LANGUAGE_TYPE"; //$NON-NLS-1$
 
     private static Logger logger = Logger.getLogger(CorePlugin.class);
 

@@ -107,7 +107,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             Element componentElement = generateComponentDetailsInfo(true, externalNode, this.externalNodeElement,
                     this.picFilePathMap, this.sourceConnectionMap, this.targetConnectionMap, this.repositoryDBIdAndNameMap);
 
-            Element parametersElement = componentElement.addElement("parameters");
+            Element parametersElement = componentElement.addElement("parameters"); //$NON-NLS-1$
             List elementParameterList = externalNode.getElementParameters();
 
             String componentName = externalNode.getUniqueName();
@@ -143,9 +143,9 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             for (int j = 0; j < elementParameterList.size(); j++) {
                 IElementParameter type = (IElementParameter) elementParameterList.get(j);
                 if (type.getName().equals(IHTMLDocConstants.REPOSITORY_COMMENT)) {
-                    parameterElement = parametersElement.addElement("parameter");
-                    Element columnElement = parameterElement.addElement("column");
-                    columnElement.addAttribute("name", IHTMLDocConstants.DISPLAY_COMMENT);
+                    parameterElement = parametersElement.addElement("parameter"); //$NON-NLS-1$
+                    Element columnElement = parameterElement.addElement("column"); //$NON-NLS-1$
+                    columnElement.addAttribute("name", IHTMLDocConstants.DISPLAY_COMMENT); //$NON-NLS-1$
                     columnElement.setText(type.getValue().toString());
                     break;
                 }
@@ -186,15 +186,15 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
                         || elemparameter.getCategory().equals(EComponentCategory.MAIN)
                         || elemparameter.getCategory().equals(EComponentCategory.VIEW)
                         || elemparameter.getName().equals(IHTMLDocConstants.REPOSITORY)
-                        || elemparameter.getName().equals("SCHEMA")
-                        || elemparameter.getName().equals("QUERYSTORE")
-                        || elemparameter.getName().equals("PROPERTY")
+                        || elemparameter.getName().equals("SCHEMA") //$NON-NLS-1$
+                        || elemparameter.getName().equals("QUERYSTORE") //$NON-NLS-1$
+                        || elemparameter.getName().equals("PROPERTY") //$NON-NLS-1$
                         || elemparameter.getName().equals(EParameterFieldType.ENCODING_TYPE.getName())) {
                     continue;
                 }
                 // String value = HTMLDocUtils.checkString(elemparameter.getValue().toString());
                 Object eleObj = elemparameter.getValue();
-                String value = "";
+                String value = ""; //$NON-NLS-1$
                 if (eleObj != null) {
                     value = eleObj.toString();
                 }
@@ -202,39 +202,39 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
                 if (elemparameter.getName().equals(EParameterFieldType.PROPERTY_TYPE.getName())
                         && value.equals(IHTMLDocConstants.REPOSITORY)) {
                     String repositoryValueForPropertyType = getRepositoryValueForPropertyType(copyElementParameterList,
-                            "REPOSITORY_PROPERTY_TYPE");
+                            "REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-1$
                     value = repositoryValueForPropertyType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
                             .toLowerCase()
-                            + ": " + repositoryValueForPropertyType;
+                            + ": " + repositoryValueForPropertyType; //$NON-NLS-1$
                 } else if (elemparameter.getName().equals(EParameterFieldType.SCHEMA_TYPE.getName())
                         && value.equals(IHTMLDocConstants.REPOSITORY)) {
                     String repositoryValueForSchemaType = getRepositoryValueForSchemaType(copyElementParameterList,
-                            "REPOSITORY_SCHEMA_TYPE");
+                            "REPOSITORY_SCHEMA_TYPE"); //$NON-NLS-1$
                     value = repositoryValueForSchemaType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
                             .toLowerCase()
-                            + ": " + repositoryValueForSchemaType;
+                            + ": " + repositoryValueForSchemaType; //$NON-NLS-1$
                 }
 
                 else if (elemparameter.getName().equals(EParameterFieldType.QUERYSTORE_TYPE.getName())
                         && value.equals(IHTMLDocConstants.REPOSITORY)) {
 
                     String repositoryValueForQueryStoreType = getRepositoryValueForQueryStoreType(copyElementParameterList,
-                            "REPOSITORY_QUERYSTORE_TYPE");
+                            "REPOSITORY_QUERYSTORE_TYPE"); //$NON-NLS-1$
                     value = repositoryValueForQueryStoreType == null ? IHTMLDocConstants.REPOSITORY_BUILT_IN : value.toString()
                             .toLowerCase()
-                            + ": " + repositoryValueForQueryStoreType;
+                            + ": " + repositoryValueForQueryStoreType; //$NON-NLS-1$
                 }
                 // } else if (type.getName().equals("TYPE")) {
                 // int index = type.getIndexOfItemFromList(type.getDisplayName());
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
-                else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD")
+                else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
                         && CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)
                         && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
-                    value = "******";
+                    value = "******"; //$NON-NLS-1$
                 }
-                Element columnElement = parametersElement.addElement("column");
-                columnElement.addAttribute("name", HTMLDocUtils.checkString(elemparameter.getDisplayName()));
+                Element columnElement = parametersElement.addElement("column"); //$NON-NLS-1$
+                columnElement.addAttribute("name", HTMLDocUtils.checkString(elemparameter.getDisplayName())); //$NON-NLS-1$
 
                 if (value.equalsIgnoreCase(IHTMLDocConstants.REPOSITORY_BUILT_IN)) {
                     value = IHTMLDocConstants.DISPLAY_BUILT_IN;
@@ -258,7 +258,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
                 ConnectionItem connectionItem = repositoryConnectionItemMap.get(elemParameter.getValue());
                 if (connectionItem != null) {
                     String aliasName = designerCoreService.getRepositoryAliasName(connectionItem);
-                    value = aliasName + ":" + connectionItem.getProperty().getLabel();
+                    value = aliasName + ":" + connectionItem.getProperty().getLabel(); //$NON-NLS-1$
                     return value;
                 }
             }
@@ -279,7 +279,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             if (elemParameter.getName().equals(repositoryName)) {
                 if (elemParameter.getValue() != null && elemParameter.getValue().toString().length() > 0) {
                     value = elemParameter.getValue().toString();
-                    String newValue = value.substring(0, value.indexOf("-")).trim();
+                    String newValue = value.substring(0, value.indexOf("-")).trim(); //$NON-NLS-1$
                     if (repositoryDBIdAndNameMap.containsKey(newValue)) {
                         value = value.replace(newValue, repositoryDBIdAndNameMap.get(newValue));
                         return value;
@@ -305,7 +305,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             if (elemParameter.getName().equals(repositoryName)) {
                 if (elemParameter.getValue() != null && elemParameter.getValue().toString().length() > 0) {
                     value = elemParameter.getValue().toString();
-                    String newValue = value.substring(0, value.indexOf("-")).trim();
+                    String newValue = value.substring(0, value.indexOf("-")).trim(); //$NON-NLS-1$
                     if (repositoryDBIdAndNameMap.containsKey(newValue)) {
                         value = value.replace(newValue, repositoryDBIdAndNameMap.get(newValue));
                         return value;

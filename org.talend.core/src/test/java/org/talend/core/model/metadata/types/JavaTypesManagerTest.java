@@ -76,8 +76,8 @@ public class JavaTypesManagerTest {
      */
     @Test
     public final void testGetTypeToGenerate() {
-        assertEquals(JavaTypesManager.getTypeToGenerate("id_Boolean", true), "Boolean"); //$NON-NLS-1$
-        assertEquals(JavaTypesManager.getTypeToGenerate("id_Boolean", false), "boolean"); //$NON-NLS-1$
+        assertEquals(JavaTypesManager.getTypeToGenerate("id_Boolean", true), "Boolean"); //$NON-NLS-1$ //$NON-NLS-2$
+        assertEquals(JavaTypesManager.getTypeToGenerate("id_Boolean", false), "boolean"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -112,8 +112,8 @@ public class JavaTypesManagerTest {
      */
     @Test
     public final void testGetDefaultValueFromJavaTypeString() {
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaType("Boolean"), "null"); //$NON-NLS-1$
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaType("boolean"), "false"); //$NON-NLS-1$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaType("Boolean"), "null"); //$NON-NLS-1$ //$NON-NLS-2$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaType("boolean"), "false"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -121,7 +121,7 @@ public class JavaTypesManagerTest {
      */
     @Test
     public final void testGetDefaultValueFromJavaTypeStringString() {
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaType("boolean", "test"), "test"); //$NON-NLS-1$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaType("boolean", "test"), "test"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     /**
@@ -129,8 +129,8 @@ public class JavaTypesManagerTest {
      */
     @Test
     public final void testGetDefaultValueFromJavaIdTypeStringBoolean() {
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false), "false"); //$NON-NLS-1$
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", true), "null"); //$NON-NLS-1$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false), "false"); //$NON-NLS-1$ //$NON-NLS-2$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", true), "null"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -138,8 +138,8 @@ public class JavaTypesManagerTest {
      */
     @Test
     public final void testGetDefaultValueFromJavaIdTypeStringBooleanString() {
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false, "test"), "test"); //$NON-NLS-1$
-        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", true, "test"), "test"); //$NON-NLS-1$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false, "test"), "test"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        assertEquals(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", true, "test"), "test"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     /**

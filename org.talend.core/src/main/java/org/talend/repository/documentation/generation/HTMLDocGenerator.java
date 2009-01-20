@@ -182,7 +182,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
             }
 
-            List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName + "_" + jobVersion, xslFilePath);
+            List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName + "_" + jobVersion, xslFilePath); //$NON-NLS-1$
 
             addResources(resource, resultFiles);
 
@@ -221,7 +221,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (targetPath.endsWith(this.repositoryObjectType.toString().toLowerCase())) {
             targetPath = targetPath + IPath.SEPARATOR + jobPath + IPath.SEPARATOR + jobName;
         }
-        String version = "";
+        String version = ""; //$NON-NLS-1$
 
         // Checks if the job's version is specified, see it on "Export documentation" Dialog:
         if (jobVersion != null && jobVersion.length == 1) {
@@ -229,7 +229,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         } else {
             version = resource.getItem().getProperty().getVersion();
         }
-        targetPath = targetPath + "_" + version;
+        targetPath = targetPath + "_" + version; //$NON-NLS-1$
 
         File file = new File(targetPath);
 
@@ -245,7 +245,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         String picFolderPath = checkPicDirIsExists(resource, targetPath);
 
         // Gets the "org.talend.repository" plug-in:
-        final Bundle b = Platform.getBundle("org.talend.repository");
+        final Bundle b = Platform.getBundle("org.talend.repository"); //$NON-NLS-1$
 
         final URL xslFileUrl = FileLocator.toFileURL(FileLocator.find(b, new Path(IHTMLDocConstants.MAIN_XSL_FILE_PATH), null));
         // final URL logoFileUrl = FileLocator.toFileURL(FileLocator.find(b,
@@ -268,7 +268,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
         }
 
-        List<URL> resultFiles = parseXML2HTML(targetPath, jobName + "_" + version, xslFilePath);
+        List<URL> resultFiles = parseXML2HTML(targetPath, jobName + "_" + version, xslFilePath); //$NON-NLS-1$
 
         resource.addResources(resultFiles);
 
@@ -303,7 +303,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return
      */
     private String checkTempDirIsExists(ExportFileResource resource) {
-        String tempDirPath = HTMLDocUtils.getTmpFolder() + File.separator + resource.getDirectoryName() + "_"
+        String tempDirPath = HTMLDocUtils.getTmpFolder() + File.separator + resource.getDirectoryName() + "_" //$NON-NLS-1$
                 + resource.getItem().getProperty().getVersion();
         File file = new File(tempDirPath);
         if (!file.exists()) {
@@ -377,8 +377,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             generateAllComponentsSummaryInfo(item, jobElement, allComponentsList);
         }
 
-        Element internalNodeElement = jobElement.addElement("internalNodeComponents");
-        Element externalNodeElement = jobElement.addElement("externalNodeComponents");
+        Element internalNodeElement = jobElement.addElement("internalNodeComponents"); //$NON-NLS-1$
+        Element externalNodeElement = jobElement.addElement("externalNodeComponents"); //$NON-NLS-1$
 
         if (internalNodeComponentsList.size() > 0) {
             InternalNodeComponentHandler internalNodeComponentHandler = new InternalNodeComponentHandler(this.picFilePathMap,
@@ -413,7 +413,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             generateConnectionsInfo(jobElement, connectionList);
         }
 
-        String versionPath = "_";
+        String versionPath = "_"; //$NON-NLS-1$
         if (version != null && version.length == 1) {
 
             versionPath = versionPath + version[0];
@@ -449,18 +449,18 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Element sourceCodeInfoElement = DocumentHelper.createElement("sourcecodes");
+            Element sourceCodeInfoElement = DocumentHelper.createElement("sourcecodes"); //$NON-NLS-1$
             ITalendSynchronizer synchronizer = CorePlugin.getDefault().getCodeGeneratorService().createRoutineSynchronizer();
             // StringBuffer componentsCode = new StringBuffer();
             try {
                 IFile codeFile = synchronizer.getFile(item);
-                String tempStr = "";
+                String tempStr = ""; //$NON-NLS-1$
                 InputStream in = codeFile.getContents();
                 BufferedReader buffer = new BufferedReader(new InputStreamReader(in));
                 while ((tempStr = buffer.readLine()) != null) {
-                    Element codeElement = DocumentHelper.createElement("code");
+                    Element codeElement = DocumentHelper.createElement("code"); //$NON-NLS-1$
                     // componentsCode.append(tempStr).append("\n");
-                    codeElement.addAttribute("content", tempStr);
+                    codeElement.addAttribute("content", tempStr); //$NON-NLS-1$
                     sourceCodeInfoElement.add(codeElement);
                 }
                 buffer.close();
@@ -481,9 +481,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     private void hideSourcecodePassword(IProcess process) {
         List<? extends IElementParameter> processParam = process.getElementParameters();
         for (IElementParameter elementParameter : processParam) {
-            if (elementParameter.getRepositoryValue() != null && elementParameter.getRepositoryValue().equals("PASSWORD")
+            if (elementParameter.getRepositoryValue() != null && elementParameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
                     && !ContextParameterUtils.containContextVariables((String) elementParameter.getValue())) {
-                elementParameter.setValue("******");
+                elementParameter.setValue("******"); //$NON-NLS-1$
 
             }
 
@@ -492,9 +492,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         for (INode node : nodes) {
             List<? extends IElementParameter> nodeParamList = node.getElementParameters();
             for (IElementParameter nodeParam : nodeParamList) {
-                if (nodeParam.getRepositoryValue() != null && nodeParam.getRepositoryValue().equals("PASSWORD")
+                if (nodeParam.getRepositoryValue() != null && nodeParam.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
                         && !ContextParameterUtils.containContextVariables((String) nodeParam.getValue())) {
-                    nodeParam.setValue("******");
+                    nodeParam.setValue("******"); //$NON-NLS-1$
 
                 }
 
@@ -510,7 +510,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return
      */
     private void generateJobSettingInfo(final Item item, final Element element) {
-        Element jobSettingInfoElement = DocumentHelper.createElement("jobSetting");
+        Element jobSettingInfoElement = DocumentHelper.createElement("jobSetting"); //$NON-NLS-1$
 
         ParametersType jobDirectParams = null;
 
@@ -536,7 +536,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         // Main settinparam info
 
         // Extra setting
-        Element extraElement = DocumentHelper.createElement("extra");
+        Element extraElement = DocumentHelper.createElement("extra"); //$NON-NLS-1$
         jobSettingInfoElement.add(extraElement);
 
         if (item instanceof JobletProcessItem) {
@@ -550,16 +550,16 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.MULTI_THREAD_EXECATION));
 
         createSingleJobParameter(extraElement, makeNameValue(nameValueMap, IJobSettingConstants.IMPLICIT_TCONTEXTLOAD));
-        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.IMPLICIT_TCONTEXTLOAD), "true")) {
+        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.IMPLICIT_TCONTEXTLOAD), "true")) { //$NON-NLS-1$
 
-            if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT), "true")) {
+            if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT), "true")) { //$NON-NLS-1$
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.FROM_FILE_FLAG_IMPLICIT_CONTEXT));
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.IMPLICIT_TCONTEXTLOAD_FILE));
             }
 
-            if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT), "true")) {
+            if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT), "true")) { //$NON-NLS-1$
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.FROM_DATABASE_FLAG_IMPLICIT_CONTEXT));
 
@@ -567,7 +567,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 createSingleJobParameter(extraElement, makeNameValue(nameValueMap,
                         IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE));
                 if (!StringUtils.equalsIgnoreCase(nameValueMap
-                        .get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE), "built_in")) {
+                        .get(IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_PROPERTY_TYPE), "built_in")) { //$NON-NLS-1$
                     createSingleJobParameter(extraElement, getConnectionLabelById(makeNameValue(nameValueMap,
                             IJobSettingConstants.PROPERTY_TYPE_IMPLICIT_CONTEXT_REPOSITORY_PROPERTY_TYPE), null));
                 }
@@ -595,7 +595,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         }
 
         // Stats & logs setting
-        Element statsAndLotsElement = DocumentHelper.createElement("Statslogs");
+        Element statsAndLotsElement = DocumentHelper.createElement("Statslogs"); //$NON-NLS-1$
         jobSettingInfoElement.add(statsAndLotsElement);
 
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_STATCATCHER_FLAG));
@@ -605,7 +605,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_CONSOLE_FLAG));
 
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_FILES_FLAG));
-        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_FILES_FLAG), "true")) {
+        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_FILES_FLAG), "true")) { //$NON-NLS-1$
             // add on file details
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILE_PATH));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.FILENAME_LOGS));
@@ -614,12 +614,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         }
 
         createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.ON_DATABASE_FLAG));
-        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_DATABASE_FLAG), "true")) {
+        if (StringUtils.equals(nameValueMap.get(IJobSettingConstants.ON_DATABASE_FLAG), "true")) { //$NON-NLS-1$
             // add on database details
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap, IJobSettingConstants.PROPERTY_TYPE));
             createSingleJobParameter(statsAndLotsElement, makeNameValue(nameValueMap,
                     IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE));
-            if (!StringUtils.equalsIgnoreCase(nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE), "built_in")) {
+            if (!StringUtils.equalsIgnoreCase(nameValueMap.get(IJobSettingConstants.PROPERTY_TYPE_PROPERTY_TYPE), "built_in")) { //$NON-NLS-1$
                 createSingleJobParameter(statsAndLotsElement, getConnectionLabelById(makeNameValue(nameValueMap,
                         IJobSettingConstants.PROPERTY_TYPE_REPOSITORY_PROPERTY_TYPE), null));
             }
@@ -659,12 +659,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return
      */
     private Element createSingleJobParameter(final Element root, final String... nameValue) {
-        Element param = DocumentHelper.createElement("jobParameter");
+        Element param = DocumentHelper.createElement("jobParameter"); //$NON-NLS-1$
 
         // Use label replace name
         String displayName = CorePlugin.getDefault().getDesignerCoreService().getDisplayForProcessParameterFromName(nameValue[0]);
-        param.addAttribute("name", displayName);
-        param.addAttribute("value", nameValue[1]);
+        param.addAttribute("name", displayName); //$NON-NLS-1$
+        param.addAttribute("value", nameValue[1]); //$NON-NLS-1$
         root.add(param);
         return param;
     }
@@ -705,7 +705,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      */
     private String[] makeNameValue(Map<String, String> map, final String key) {
         if (key.equals(IJobSettingConstants.PASS)) {
-            return new String[] { key, "******" };
+            return new String[] { key, "******" }; //$NON-NLS-1$
         } else {
             return new String[] { key, map.get(key) };
         }
@@ -730,15 +730,15 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             return;
         }
 
-        Element contextListElement = DocumentHelper.createElement("contextList"); // Context root
+        Element contextListElement = DocumentHelper.createElement("contextList"); // Context root //$NON-NLS-1$
 
         for (int i = 0, n = contexts.size(); i < n; i++) {
             // export single context infomation
-            Element contextElement = DocumentHelper.createElement("context");
+            Element contextElement = DocumentHelper.createElement("context"); //$NON-NLS-1$
             ContextType context = (ContextType) contexts.get(i);
 
             // Attributes
-            contextElement.addAttribute("name", HTMLDocUtils.checkString(context.getName()));
+            contextElement.addAttribute("name", HTMLDocUtils.checkString(context.getName())); //$NON-NLS-1$
 
             IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
             // Context parameters as children
@@ -751,20 +751,20 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                      * value="'192.168.0.109'"/>
                      */
                     ContextParameterType param = (ContextParameterType) params.get(j);
-                    Element contextParamElement = DocumentHelper.createElement("contextParameter");
-                    contextParamElement.addAttribute("name", HTMLDocUtils.checkString(param.getName()));
-                    contextParamElement.addAttribute("prompt", HTMLDocUtils.checkString(param.getPrompt()));
-                    contextParamElement.addAttribute("promptNeeded", HTMLDocUtils.checkString(Boolean.toString(param
+                    Element contextParamElement = DocumentHelper.createElement("contextParameter"); //$NON-NLS-1$
+                    contextParamElement.addAttribute("name", HTMLDocUtils.checkString(param.getName())); //$NON-NLS-1$
+                    contextParamElement.addAttribute("prompt", HTMLDocUtils.checkString(param.getPrompt())); //$NON-NLS-1$
+                    contextParamElement.addAttribute("promptNeeded", HTMLDocUtils.checkString(Boolean.toString(param //$NON-NLS-1$
                             .isPromptNeeded())));
-                    contextParamElement.addAttribute("type", HTMLDocUtils.checkString(param.getType()));
-                    contextParamElement.addAttribute("value", HTMLDocUtils.checkString(param.getValue()));
+                    contextParamElement.addAttribute("type", HTMLDocUtils.checkString(param.getType())); //$NON-NLS-1$
+                    contextParamElement.addAttribute("value", HTMLDocUtils.checkString(param.getValue())); //$NON-NLS-1$
 
                     // replace repository id with context label
                     if (param.getRepositoryContextId() != null) {
                         ContextItem contextItem = ContextUtils.getContextItemById(param.getRepositoryContextId());
                         if (contextItem != null) { // bug 5978: repository link to context item might be lost.
                             String label = contextItem.getProperty().getLabel();
-                            contextParamElement.addAttribute("source", HTMLDocUtils.checkString(label));
+                            contextParamElement.addAttribute("source", HTMLDocUtils.checkString(label)); //$NON-NLS-1$
                         }
                     }
                     contextElement.add(contextParamElement);
@@ -822,17 +822,17 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             }
 
             if (componentNameListElement == null) {
-                componentNameListElement = inputJobElement.addElement("componentList");
+                componentNameListElement = inputJobElement.addElement("componentList"); //$NON-NLS-1$
             }
             Element componentItemElement = null;
-            componentItemElement = componentNameListElement.addElement("componentItem");
-            componentItemElement.addAttribute("name", node.getUniqueName());
-            componentItemElement.addAttribute("link", node.getUniqueName());
-            componentItemElement.addAttribute("type", node.getComponent().getName());
-            componentItemElement.addAttribute("leftTopX", x + "");
-            componentItemElement.addAttribute("leftTopY", y + "");
-            componentItemElement.addAttribute("rightBottomX", x + width + "");
-            componentItemElement.addAttribute("rightBottomY", y + height + "");
+            componentItemElement = componentNameListElement.addElement("componentItem"); //$NON-NLS-1$
+            componentItemElement.addAttribute("name", node.getUniqueName()); //$NON-NLS-1$
+            componentItemElement.addAttribute("link", node.getUniqueName()); //$NON-NLS-1$
+            componentItemElement.addAttribute("type", node.getComponent().getName()); //$NON-NLS-1$
+            componentItemElement.addAttribute("leftTopX", x + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            componentItemElement.addAttribute("leftTopY", y + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            componentItemElement.addAttribute("rightBottomX", x + width + ""); //$NON-NLS-1$ //$NON-NLS-2$
+            componentItemElement.addAttribute("rightBottomY", y + height + ""); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -845,10 +845,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     protected void getScreenShotOffset(Point screenshotOffset, List<ElementParameterType> elemParamList) {
         for (ElementParameterType curElem : elemParamList) {
             if (curElem.getName().equals(IProcess.SCREEN_OFFSET_X)) {
-                screenshotOffset.x = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem
+                screenshotOffset.x = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem //$NON-NLS-1$ //$NON-NLS-2$
                         .getValue());
             } else if (curElem.getName().equals(IProcess.SCREEN_OFFSET_Y)) {
-                screenshotOffset.y = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem
+                screenshotOffset.y = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem //$NON-NLS-1$ //$NON-NLS-2$
                         .getValue());
             }
         }
@@ -920,17 +920,17 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @param connectionList
      */
     private void generateConnectionsInfo(Element jobElement, EList connectionList) {
-        Element connectionsElement = jobElement.addElement("connections");
+        Element connectionsElement = jobElement.addElement("connections"); //$NON-NLS-1$
         for (int j = 0; j < connectionList.size(); j++) {
             ConnectionType type = (ConnectionType) connectionList.get(j);
-            Element connectionElement = connectionsElement.addElement("connection");
-            connectionElement.addAttribute("label", HTMLDocUtils.checkString(type.getLabel()));
-            connectionElement.addAttribute("lineStyle", HTMLDocUtils.checkString(type.getLineStyle() + ""));
-            connectionElement.addAttribute("metaname", HTMLDocUtils.checkString(type.getMetaname()));
-            connectionElement.addAttribute("offsetLabelX", HTMLDocUtils.checkString(type.getOffsetLabelX() + ""));
-            connectionElement.addAttribute("offsetLabelY", HTMLDocUtils.checkString(type.getOffsetLabelY() + ""));
-            connectionElement.addAttribute("source", HTMLDocUtils.checkString(type.getSource()));
-            connectionElement.addAttribute("target", HTMLDocUtils.checkString(type.getTarget()));
+            Element connectionElement = connectionsElement.addElement("connection"); //$NON-NLS-1$
+            connectionElement.addAttribute("label", HTMLDocUtils.checkString(type.getLabel())); //$NON-NLS-1$
+            connectionElement.addAttribute("lineStyle", HTMLDocUtils.checkString(type.getLineStyle() + "")); //$NON-NLS-1$ //$NON-NLS-2$
+            connectionElement.addAttribute("metaname", HTMLDocUtils.checkString(type.getMetaname())); //$NON-NLS-1$
+            connectionElement.addAttribute("offsetLabelX", HTMLDocUtils.checkString(type.getOffsetLabelX() + "")); //$NON-NLS-1$ //$NON-NLS-2$
+            connectionElement.addAttribute("offsetLabelY", HTMLDocUtils.checkString(type.getOffsetLabelY() + "")); //$NON-NLS-1$ //$NON-NLS-2$
+            connectionElement.addAttribute("source", HTMLDocUtils.checkString(type.getSource())); //$NON-NLS-1$
+            connectionElement.addAttribute("target", HTMLDocUtils.checkString(type.getTarget())); //$NON-NLS-1$
         }
     }
 
@@ -950,23 +950,23 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         Property property = item.getProperty();
         String jobName = property.getLabel();
         String jobVersion = property.getVersion();
-        Element jobElement = projectElement.addElement("job");
-        jobElement.addAttribute("name", HTMLDocUtils.checkString(jobName));
+        Element jobElement = projectElement.addElement("job"); //$NON-NLS-1$
+        jobElement.addAttribute("name", HTMLDocUtils.checkString(jobName)); //$NON-NLS-1$
 
-        jobElement.addAttribute("author", HTMLDocUtils.checkString(property.getAuthor().toString()));
+        jobElement.addAttribute("author", HTMLDocUtils.checkString(property.getAuthor().toString())); //$NON-NLS-1$
 
         if (version != null && version.length == 1) {
             jobVersion = version[0];
         }
-        jobElement.addAttribute("version", HTMLDocUtils.checkString(jobVersion));
-        jobElement.addAttribute("purpose", HTMLDocUtils.checkString(property.getPurpose()));
-        jobElement.addAttribute("status", HTMLDocUtils.checkString(property.getStatusCode()));
-        jobElement.addAttribute("description", HTMLDocUtils.checkString(property.getDescription()));
+        jobElement.addAttribute("version", HTMLDocUtils.checkString(jobVersion)); //$NON-NLS-1$
+        jobElement.addAttribute("purpose", HTMLDocUtils.checkString(property.getPurpose())); //$NON-NLS-1$
+        jobElement.addAttribute("status", HTMLDocUtils.checkString(property.getStatusCode())); //$NON-NLS-1$
+        jobElement.addAttribute("description", HTMLDocUtils.checkString(property.getDescription())); //$NON-NLS-1$
 
-        jobElement.addAttribute("creation", HTMLDocUtils.checkDate(property.getCreationDate()));
-        jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate()));
+        jobElement.addAttribute("creation", HTMLDocUtils.checkDate(property.getCreationDate())); //$NON-NLS-1$
+        jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate())); //$NON-NLS-1$
 
-        String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+        String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
         IPath filePath = null;
         if (item instanceof ProcessItem) {
             filePath = DocumentationPathProvider.getPathFileName(item, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
@@ -975,14 +975,14 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     picName);
         }
 
-        Element previewElement = jobElement.addElement("preview");
+        Element previewElement = jobElement.addElement("preview"); //$NON-NLS-1$
         if (filePath == null) {
-            previewElement.addAttribute("picture", "");
+            previewElement.addAttribute("picture", ""); //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             String filePathStr = filePath.toOSString();
             File file = new File(filePathStr);
             if (file.exists()) {
-                previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName);
+                previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName); //$NON-NLS-1$
                 picFilePathMap.put(picName, filePathStr);
             }
         }
@@ -996,17 +996,17 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * @return an instance of <code>Element</code>
      */
     protected Element generateProjectInfo(Document document) {
-        Element projectElement = document.addElement("project");
-        projectElement.addAttribute("name", getProject().getLabel());
-        projectElement.addAttribute("logo", IHTMLDocConstants.PICTUREFOLDERPATH + IHTMLDocConstants.TALEND_LOGO_FILE_NAME);
-        projectElement.addAttribute("title", IHTMLDocConstants.TITLE_GEN + getFullProductName());
-        projectElement.addAttribute("link", IHTMLDocConstants.WEBSITE_LINK);
-        projectElement.addAttribute("language", getProject().getLanguage().getName());
-        projectElement.addAttribute("description", getProject().getDescription());
-        projectElement.addAttribute("generatedDate", DateFormat.getDateTimeInstance().format(new Date()));
-        projectElement.addAttribute("versionName", getProductVersionName());
-        projectElement.addAttribute("version", getCurrentTOSVersion());
-        projectElement.addAttribute("docType", getDocTypeAttribute());
+        Element projectElement = document.addElement("project"); //$NON-NLS-1$
+        projectElement.addAttribute("name", getProject().getLabel()); //$NON-NLS-1$
+        projectElement.addAttribute("logo", IHTMLDocConstants.PICTUREFOLDERPATH + IHTMLDocConstants.TALEND_LOGO_FILE_NAME); //$NON-NLS-1$
+        projectElement.addAttribute("title", IHTMLDocConstants.TITLE_GEN + getFullProductName()); //$NON-NLS-1$
+        projectElement.addAttribute("link", IHTMLDocConstants.WEBSITE_LINK); //$NON-NLS-1$
+        projectElement.addAttribute("language", getProject().getLanguage().getName()); //$NON-NLS-1$
+        projectElement.addAttribute("description", getProject().getDescription()); //$NON-NLS-1$
+        projectElement.addAttribute("generatedDate", DateFormat.getDateTimeInstance().format(new Date())); //$NON-NLS-1$
+        projectElement.addAttribute("versionName", getProductVersionName()); //$NON-NLS-1$
+        projectElement.addAttribute("version", getCurrentTOSVersion()); //$NON-NLS-1$
+        projectElement.addAttribute("docType", getDocTypeAttribute()); //$NON-NLS-1$
         return projectElement;
     }
 

@@ -28,6 +28,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.calendar.SWTCalendarWithTime;
 import org.talend.commons.ui.swt.proposal.ContentProposalAdapterExtended;
 import org.talend.commons.ui.swt.proposal.ProposalUtils;
+import org.talend.core.i18n.Messages;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 
 /**
@@ -61,7 +62,7 @@ public class PatternCalendar extends SWTCalendarWithTime {
         composite.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
         Label patternLabel = new Label(composite, SWT.NONE);
-        patternLabel.setText("Pattern: ");
+        patternLabel.setText(Messages.getString("PatternCalendar.pattern")); //$NON-NLS-1$
         patternLabel.setBackground(patternLabel.getParent().getBackground());
 
         patternText = new Text(composite, SWT.BORDER);
@@ -81,19 +82,19 @@ public class PatternCalendar extends SWTCalendarWithTime {
         contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
 
         Label exampleLabel = new Label(composite, SWT.NONE);
-        exampleLabel.setText("Example: ");
+        exampleLabel.setText(Messages.getString("PatternCalendar.example")); //$NON-NLS-1$
         exampleLabel.setBackground(patternLabel.getParent().getBackground());
 
         exampleValue = new Label(composite, SWT.NONE);
-        exampleValue.setText("");
+        exampleValue.setText(""); //$NON-NLS-1$
         exampleValue.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         if (calendar != null) {
             setCalendar(calendar);
         }
         if (pattern != null) {
-            patternText.setText("\"" + pattern + "\"");
+            patternText.setText("\"" + pattern + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         } else {
-            patternText.setText("\"yyyy-MM-dd HH:mm:ss\"");
+            patternText.setText(Messages.getString("PatternCalendar.dateFormat")); //$NON-NLS-1$
         }
 
     }

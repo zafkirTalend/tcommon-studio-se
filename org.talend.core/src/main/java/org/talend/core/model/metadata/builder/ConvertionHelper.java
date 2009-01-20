@@ -104,7 +104,7 @@ public final class ConvertionHelper {
             }
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
-            if (column.getOriginalField() == null || column.getOriginalField().equals("")) {
+            if (column.getOriginalField() == null || column.getOriginalField().equals("")) { //$NON-NLS-1$
                 newColumn.setOriginalDbColumnName(column.getLabel());
             } else {
                 newColumn.setOriginalDbColumnName(column.getOriginalField());
@@ -151,7 +151,7 @@ public final class ConvertionHelper {
             }
             newColumn.setTalendType(column.getTalendType());
             newColumn.setSourceType(column.getType());
-            if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) {
+            if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) { //$NON-NLS-1$
                 newColumn.setOriginalField(column.getLabel());
             } else {
                 newColumn.setOriginalField(column.getOriginalDbColumnName());

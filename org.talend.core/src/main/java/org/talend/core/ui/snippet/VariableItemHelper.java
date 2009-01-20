@@ -29,7 +29,7 @@ import org.talend.core.model.properties.SnippetItem;
  */
 public class VariableItemHelper {
 
-    public static String systemEOL = System.getProperty("line.separator");
+    public static String systemEOL = System.getProperty("line.separator"); //$NON-NLS-1$
 
     /*
      * Append the generated code comments
@@ -42,34 +42,34 @@ public class VariableItemHelper {
     /* SNIPPET_END:test */
     public static String getInsertString(Shell host, SnippetItem item) {
         String[] paras = getInsertSnippetCode(host, item, true);
-        String paraDefinition = "";
+        String paraDefinition = ""; //$NON-NLS-1$
         String idDefinition = null;
         StringBuilder sb = new StringBuilder();
         sb.append(systemEOL);
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-            sb.append("#SNIPPET_START:{0}");
+            sb.append("#SNIPPET_START:{0}"); //$NON-NLS-1$
             sb.append(systemEOL);
-            sb.append("{1}");
+            sb.append("{1}"); //$NON-NLS-1$
             sb.append(systemEOL);
-            sb.append("#SNIPPET_END");
+            sb.append("#SNIPPET_END"); //$NON-NLS-1$
             for (String para : paras) {
-                paraDefinition += "#";
+                paraDefinition += "#"; //$NON-NLS-1$
                 paraDefinition += para;
                 paraDefinition += systemEOL;
             }
-            idDefinition = "#{ID}=" + item.getProperty().getId();
+            idDefinition = "#{ID}=" + item.getProperty().getId(); //$NON-NLS-1$
         } else {
             // Java comment format
-            sb.append("/*SNIPPET_START:{0}*/");
+            sb.append("/*SNIPPET_START:{0}*/"); //$NON-NLS-1$
             sb.append(systemEOL);
-            sb.append("{1}");
+            sb.append("{1}"); //$NON-NLS-1$
             sb.append(systemEOL);
-            sb.append("/*SNIPPET_END*/");
+            sb.append("/*SNIPPET_END*/"); //$NON-NLS-1$
             for (String para : paras) {
                 paraDefinition += para;
                 paraDefinition += systemEOL;
             }
-            idDefinition = "{ID}=" + item.getProperty().getId();
+            idDefinition = "{ID}=" + item.getProperty().getId(); //$NON-NLS-1$
         }
         sb.append(systemEOL);
 

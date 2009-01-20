@@ -100,8 +100,8 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
 
     public static void main(String[] args) {
         try {
-            FileSystemExporterFullPath fs = new FileSystemExporterFullPath("c:/qqq");
-            fs.write("C:\\RavBin\\DESKTOP.INI", "aaa/bbb/ccc/DESKTOP.INI");
+            FileSystemExporterFullPath fs = new FileSystemExporterFullPath("c:/qqq"); //$NON-NLS-1$
+            fs.write("C:\\RavBin\\DESKTOP.INI", "aaa/bbb/ccc/DESKTOP.INI"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,7 +139,7 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
 
     public void exportResource(String rootName, String directory, String exportResource, int leadupDepth)
             throws InterruptedException {
-        final String separator = "/";
+        final String separator = "/"; //$NON-NLS-1$
         File file = new File(exportResource);
         if (file.isFile()) {
             String destinationName = file.getName();

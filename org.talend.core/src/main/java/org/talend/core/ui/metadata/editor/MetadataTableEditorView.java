@@ -206,11 +206,11 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 
                 switch (LanguageManager.getCurrentLanguage()) {
                 case JAVA:
-                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) { //$NON-NLS-1$ //$NON-NLS-2$
                         if (returnValue == null || returnValue.length() == 0) {
                             returnValue = null;
-                        } else if (returnValue.equalsIgnoreCase("null")) {
-                            returnValue = "null";
+                        } else if (returnValue.equalsIgnoreCase("null")) { //$NON-NLS-1$
+                            returnValue = "null"; //$NON-NLS-1$
                         }/*
                           * else { returnValue = returnValue.replaceAll("\"", ""); returnValue =
                           * returnValue.replaceAll("\'", ""); returnValue = "\"" + returnValue + "\""; }
@@ -361,7 +361,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                 bean.setTalendType(value);
                 if (!oldTalendType.equals(value)) {
                     String typeLength = getCurrentTypeLength(value);
-                    if (typeLength != null && !typeLength.equals("")) {
+                    if (typeLength != null && !typeLength.equals("")) { //$NON-NLS-1$
                         bean.setLength(Integer.parseInt(typeLength));
                     }
                 }
@@ -369,10 +369,10 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                 if (showDbTypeColumn && dbTypeColumnWritable && (dbms != null)) {
                     String oldDbType = bean.getType();
                     String oldDefaultDbType = null;
-                    if ((oldDbType != null) && !oldDbType.equals("")) {
+                    if ((oldDbType != null) && !oldDbType.equals("")) { //$NON-NLS-1$
                         oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
                     }
-                    if ((oldDbType == null) || oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) {
+                    if ((oldDbType == null) || oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) { //$NON-NLS-1$
                         bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }

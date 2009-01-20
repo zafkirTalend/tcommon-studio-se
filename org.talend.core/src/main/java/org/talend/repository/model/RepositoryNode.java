@@ -34,7 +34,7 @@ import org.talend.repository.model.nodes.IProjectRepositoryNode;
  */
 public class RepositoryNode {
 
-    public static final String NO_ID = "-1";
+    public static final String NO_ID = "-1"; //$NON-NLS-1$
 
     /**
      * Represents differents type of node.<br/>

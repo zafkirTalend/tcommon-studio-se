@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -53,11 +54,11 @@ public final class JavaTypesManager {
 
     public static final JavaType DATE = new JavaType(Date.class, true);
 
-    public static final JavaType FILE = new JavaType(String.class, true, "File");
+    public static final JavaType FILE = new JavaType(String.class, true, "File"); //$NON-NLS-1$
 
-    public static final JavaType DIRECTORY = new JavaType(String.class, true, "Directory");
+    public static final JavaType DIRECTORY = new JavaType(String.class, true, "Directory"); //$NON-NLS-1$
 
-    public static final JavaType VALUE_LIST = new JavaType(String.class, true, "List Of Value");
+    public static final JavaType VALUE_LIST = new JavaType(String.class, true, "List Of Value"); //$NON-NLS-1$
 
     public static final JavaType DOUBLE = new JavaType(Double.class, double.class);
 
@@ -77,7 +78,7 @@ public final class JavaTypesManager {
 
     public static final JavaType BIGDECIMAL = new JavaType(BigDecimal.class);
 
-    public static final JavaType PASSWORD = new JavaType(String.class, true, "Password");
+    public static final JavaType PASSWORD = new JavaType(String.class, true, "Password"); //$NON-NLS-1$
 
     public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, BYTE, BYTE_ARRAY, CHARACTER, DATE, DOUBLE, FLOAT,
             BIGDECIMAL, INTEGER, LONG, OBJECT, SHORT, STRING, LIST };
@@ -407,13 +408,13 @@ public final class JavaTypesManager {
 
         JavaType[] javaTypes2 = getJavaTypes();
         for (JavaType javaType : javaTypes2) {
-            System.out.println("id = " + javaType.getId());
+            System.out.println("id = " + javaType.getId()); //$NON-NLS-1$
         }
 
-        System.out.println("INTEGER is number:" + isNumberType(INTEGER));
-        System.out.println("BIGDECIMAL is number:" + isNumberType(BIGDECIMAL));
-        System.out.println("LIST is number:" + isNumberType(LIST));
-        System.out.println("STRING is number:" + isNumberType(STRING));
+        System.out.println(Messages.getString("JavaTypesManager.integer") + isNumberType(INTEGER)); //$NON-NLS-1$
+        System.out.println(Messages.getString("JavaTypesManager.bigDecimal") + isNumberType(BIGDECIMAL)); //$NON-NLS-1$
+        System.out.println(Messages.getString("JavaTypesManager.list") + isNumberType(LIST)); //$NON-NLS-1$
+        System.out.println(Messages.getString("JavaTypesManager.string") + isNumberType(STRING)); //$NON-NLS-1$
 
         System.out.println(JavaTypesManager.getJavaTypeFromName("String")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("int")); //$NON-NLS-1$

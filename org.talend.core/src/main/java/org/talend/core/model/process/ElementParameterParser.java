@@ -116,18 +116,18 @@ public final class ElementParameterParser {
         if (javaType == JavaTypesManager.CHARACTER) {
             // 5 cases: null(no this parameter in shadow process), String.length()=0(nothing in GUI), "", '', null(this
             // means null directly in GUI)
-            if (trimValue.equals("") || trimValue.equals("\"\"") || trimValue.equals("''") || trimValue.equals("null")) {
+            if (trimValue.equals("") || trimValue.equals("\"\"") || trimValue.equals("''") || trimValue.equals("null")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
                 return null;
-            } else if (trimValue.length() >= 3 && trimValue.startsWith("\"") && trimValue.endsWith("\"")) {
+            } else if (trimValue.length() >= 3 && trimValue.startsWith("\"") && trimValue.endsWith("\"")) { //$NON-NLS-1$ //$NON-NLS-2$
                 // "a", "ab", "a, 'a', 'ab', 'a, 93, '\042', '\u0022', '\'', "\u0022"
 
                 String substring = trimValue.substring(1, trimValue.length() - 1);
 
                 if (substring.length() == 1 && (substring.charAt(0) == '\\' || substring.charAt(0) == '\'')) {
                     // support to input like that: "\", "'"
-                    result = "'" + "\\" + substring + "'";
+                    result = "'" + "\\" + substring + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 } else {
-                    result = "'" + substring + "'";
+                    result = "'" + substring + "'"; //$NON-NLS-1$ //$NON-NLS-2$
                 }
             }
         }
@@ -188,12 +188,12 @@ public final class ElementParameterParser {
                 }
             } else {
                 if (o instanceof String) {
-                    if (param.getName().equals("SQLPATTERN_VALUE")) {
+                    if (param.getName().equals("SQLPATTERN_VALUE")) { //$NON-NLS-1$
                         SQLPatternItem item = SQLPatternUtils.getItemFromCompoundId(param.getElement(), ((String) o));
                         if (item != null) {
                             newLine.put(items[i], new String(item.getContent().getInnerContent()));
                         } else {
-                            newLine.put(items[i], "");
+                            newLine.put(items[i], ""); //$NON-NLS-1$
                         }
                     } else {
                         newLine.put(items[i], (String) o);
@@ -303,7 +303,7 @@ public final class ElementParameterParser {
      */
     public static String replaceWithExistingConnection(String text, Map<String, IElementParameter> variableMap) {
         if (text == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         String newText = text;
 
@@ -324,11 +324,11 @@ public final class ElementParameterParser {
 
         if (value instanceof String) {
 
-            if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(ItemCacheManager.LATEST_VERSION)) {
-                String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue();
+            if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(ItemCacheManager.LATEST_VERSION)) { //$NON-NLS-1$
+                String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
-                    return "";
+                    return ""; //$NON-NLS-1$
                 }
                 return processItem.getProperty().getVersion();
             }

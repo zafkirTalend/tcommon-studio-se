@@ -64,7 +64,7 @@ public class TalendProblem extends Problem {
     }
 
     public String getProblemResource() {
-        return this.type.getTypeName() + ":" + this.getName() + " (line:" + this.getLineNumber() + ")";
+        return this.type.getTypeName() + ":" + this.getName() + " (line:" + this.getLineNumber() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     //    

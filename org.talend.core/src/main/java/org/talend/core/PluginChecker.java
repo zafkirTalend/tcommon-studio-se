@@ -22,21 +22,21 @@ import org.osgi.framework.Bundle;
  */
 public class PluginChecker {
 
-    private static final String DOCUMENTATION_PLUGIN_ID = "org.talend.repository.documentation";
+    private static final String DOCUMENTATION_PLUGIN_ID = "org.talend.repository.documentation"; //$NON-NLS-1$
 
-    private static final String SNIPPET_PLUGIN_ID = "org.talend.snippets";
+    private static final String SNIPPET_PLUGIN_ID = "org.talend.snippets"; //$NON-NLS-1$
 
-    private static final String JOBLET_PLUGIN_ID = "org.talend.designer.joblet";
+    private static final String JOBLET_PLUGIN_ID = "org.talend.designer.joblet"; //$NON-NLS-1$
 
-    private static final String WSDL_PLUGIN_ID = "org.talend.wsdl.advancement";
+    private static final String WSDL_PLUGIN_ID = "org.talend.wsdl.advancement"; //$NON-NLS-1$
 
-    private static final String CDC_PLUGIN_ID = "org.talend.designer.cdc";
+    private static final String CDC_PLUGIN_ID = "org.talend.designer.cdc"; //$NON-NLS-1$
 
-    private static final String SAP_WZIARD_PLUGIN_ID = "org.talend.repository.sapwizard";
+    private static final String SAP_WZIARD_PLUGIN_ID = "org.talend.repository.sapwizard"; //$NON-NLS-1$
 
-    private static final String EBCDIC_PLUGIN_ID = "org.talend.repository.ebcdic";
+    private static final String EBCDIC_PLUGIN_ID = "org.talend.repository.ebcdic"; //$NON-NLS-1$
 
-    private static final String REF_PROJECT_PLUGIN_ID = "org.talend.repository.refproject";
+    private static final String REF_PROJECT_PLUGIN_ID = "org.talend.repository.refproject"; //$NON-NLS-1$
 
     /**
      * Check if specific plug-in is loaded.

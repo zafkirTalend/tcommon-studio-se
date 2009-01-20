@@ -44,7 +44,7 @@ import org.talend.core.model.utils.TalendTextUtils;
  */
 public final class DefaultCellEditorFactory {
 
-    public static final String[] BOOLEANS = new String[] { "false", "true" };
+    public static final String[] BOOLEANS = new String[] { "false", "true" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     IContextParameter para = null;
 
@@ -140,7 +140,7 @@ public final class DefaultCellEditorFactory {
                 return boxCellEditor;
             }
         } else {
-            if ("boolean".equals(type)) {
+            if ("boolean".equals(type)) { //$NON-NLS-1$
 
                 ComboBoxCellEditor boxCellEditor = new ComboBoxCellEditor(table, BOOLEANS, SWT.READ_ONLY) {
 

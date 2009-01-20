@@ -275,7 +275,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 bean.setTalendType(value);
                 if (!oldTalendType.equals(value)) {
                     String typeLength = getCurrentTypeLength(value);
-                    if (typeLength != null && !typeLength.equals("")) {
+                    if (typeLength != null && !typeLength.equals("")) { //$NON-NLS-1$
                         bean.setLength(Integer.parseInt(typeLength));
                     }
                 }
@@ -283,10 +283,10 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 if (showDbTypeColumn && (dbms != null)) {
                     String oldDbType = bean.getSourceType();
                     String oldDefaultDbType = null;
-                    if (!"".equals(oldDbType)) {
+                    if (!"".equals(oldDbType)) { //$NON-NLS-1$
                         oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
                     }
-                    if (oldDbType == null || oldDbType.equals(oldDefaultDbType) || "".equals(oldDbType)) {
+                    if (oldDbType == null || oldDbType.equals(oldDefaultDbType) || "".equals(oldDbType)) { //$NON-NLS-1$
                         bean.setSourceType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }

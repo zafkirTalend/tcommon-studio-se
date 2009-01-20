@@ -64,7 +64,7 @@ public class SnippetFunctionProposal implements IContentProposal {
      */
     public String getDescription() {
         String des = SnippetCompletionProposal.getSnippetDescription(snippet);
-        return des.replaceAll("<br>", "\n");
+        return des.replaceAll("<br>", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*

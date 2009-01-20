@@ -32,7 +32,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public class ItemCacheManager {
 
-    public static final String LATEST_VERSION = "Latest";
+    public static final String LATEST_VERSION = "Latest"; //$NON-NLS-1$
 
     // cache will be cleared at the begining of any code generation, to ensure
     // there is no problem and that old items are not kept.
@@ -46,10 +46,10 @@ public class ItemCacheManager {
     }
 
     public static ProcessItem getProcessItem(Project project, String processId) {
-        if (processId == null || "".equals(processId)) {
+        if (processId == null || "".equals(processId)) { //$NON-NLS-1$
             return null;
         }
-        ProcessItem lastVersionOfProcess = processItemCache.get(processId + " -- " + LATEST_VERSION);
+        ProcessItem lastVersionOfProcess = processItemCache.get(processId + " -- " + LATEST_VERSION); //$NON-NLS-1$
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
@@ -58,8 +58,8 @@ public class ItemCacheManager {
                 return null;
             }
             lastVersionOfProcess = (ProcessItem) object.getProperty().getItem();
-            processItemCache.put(processId + " -- " + LATEST_VERSION, lastVersionOfProcess);
-            processItemCache.put(processId + " -- " + lastVersionOfProcess.getProperty().getVersion(), lastVersionOfProcess);
+            processItemCache.put(processId + " -- " + LATEST_VERSION, lastVersionOfProcess); //$NON-NLS-1$
+            processItemCache.put(processId + " -- " + lastVersionOfProcess.getProperty().getVersion(), lastVersionOfProcess); //$NON-NLS-1$
             return lastVersionOfProcess;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -96,13 +96,13 @@ public class ItemCacheManager {
     }
 
     public static ProcessItem getProcessItem(Project project, String processId, String version) {
-        if (processId == null || "".equals(processId)) {
+        if (processId == null || "".equals(processId)) { //$NON-NLS-1$
             return null;
         }
         if (version == null || LATEST_VERSION.equals(version)) {
             return getProcessItem(project, processId);
         }
-        ProcessItem selectedProcessItem = processItemCache.get(processId + " -- " + version);
+        ProcessItem selectedProcessItem = processItemCache.get(processId + " -- " + version); //$NON-NLS-1$
         if (selectedProcessItem != null) {
             return selectedProcessItem;
         }
@@ -112,7 +112,7 @@ public class ItemCacheManager {
             List<IRepositoryObject> allVersions = factory.getAllVersion(project, processId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.PROCESS) {
-                    processItemCache.put(processId + " -- " + ro.getVersion(), (ProcessItem) ro.getProperty().getItem());
+                    processItemCache.put(processId + " -- " + ro.getVersion(), (ProcessItem) ro.getProperty().getItem()); //$NON-NLS-1$
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
                     }
@@ -134,10 +134,10 @@ public class ItemCacheManager {
     }
 
     public static JobletProcessItem getJobletProcessItem(Project project, String jobletId) {
-        if (jobletId == null || "".equals(jobletId)) {
+        if (jobletId == null || "".equals(jobletId)) { //$NON-NLS-1$
             return null;
         }
-        JobletProcessItem lastVersionOfJoblet = jobletItemCache.get(jobletId + " -- " + LATEST_VERSION);
+        JobletProcessItem lastVersionOfJoblet = jobletItemCache.get(jobletId + " -- " + LATEST_VERSION); //$NON-NLS-1$
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
@@ -146,8 +146,8 @@ public class ItemCacheManager {
                 return null;
             }
             lastVersionOfJoblet = (JobletProcessItem) object.getProperty().getItem();
-            jobletItemCache.put(jobletId + " -- " + LATEST_VERSION, lastVersionOfJoblet);
-            jobletItemCache.put(jobletId + " -- " + lastVersionOfJoblet.getProperty().getVersion(), lastVersionOfJoblet);
+            jobletItemCache.put(jobletId + " -- " + LATEST_VERSION, lastVersionOfJoblet); //$NON-NLS-1$
+            jobletItemCache.put(jobletId + " -- " + lastVersionOfJoblet.getProperty().getVersion(), lastVersionOfJoblet); //$NON-NLS-1$
             return lastVersionOfJoblet;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -171,13 +171,13 @@ public class ItemCacheManager {
     }
 
     public static JobletProcessItem getJobletProcessItem(Project project, String jobletId, String version) {
-        if (jobletId == null || "".equals(jobletId)) {
+        if (jobletId == null || "".equals(jobletId)) { //$NON-NLS-1$
             return null;
         }
         if (version == null || LATEST_VERSION.equals(version)) {
             return getJobletProcessItem(jobletId);
         }
-        JobletProcessItem selectedProcessItem = jobletItemCache.get(jobletId + " -- " + version);
+        JobletProcessItem selectedProcessItem = jobletItemCache.get(jobletId + " -- " + version); //$NON-NLS-1$
         if (selectedProcessItem != null) {
             return selectedProcessItem;
         }
@@ -187,7 +187,7 @@ public class ItemCacheManager {
             List<IRepositoryObject> allVersions = factory.getAllVersion(project, jobletId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.JOBLET) {
-                    jobletItemCache.put(jobletId + " -- " + ro.getVersion(), (JobletProcessItem) ro.getProperty().getItem());
+                    jobletItemCache.put(jobletId + " -- " + ro.getVersion(), (JobletProcessItem) ro.getProperty().getItem()); //$NON-NLS-1$
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (JobletProcessItem) ro.getProperty().getItem();
                     }

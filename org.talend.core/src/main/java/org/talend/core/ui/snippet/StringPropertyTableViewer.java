@@ -258,7 +258,7 @@ public class StringPropertyTableViewer {
      */
     public String[] getColumnNames() {
         if (fColumnNames == null)
-            return new String[] { "Variable Name", "Value" };
+            return new String[] { "Variable Name", "Value" }; //$NON-NLS-1$ //$NON-NLS-2$
         return fColumnNames;
     }
 

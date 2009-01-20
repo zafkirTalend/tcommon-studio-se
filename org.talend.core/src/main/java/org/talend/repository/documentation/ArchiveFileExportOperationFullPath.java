@@ -151,8 +151,8 @@ public class ArchiveFileExportOperationFullPath implements IRunnableWithProgress
 
             if (createLeadupStructure) {
                 if (rootName != null && !"".equals(destinationName)) { //$NON-NLS-1$
-                    if (file.getName().equals(Messages.getString("ArchiveFileExportOperationFullPath.SpecialFile"))) {
-                        destinationName = rootName.substring(0, rootName.indexOf("/")) + SEPARATOR + destinationName;
+                    if (file.getName().equals(Messages.getString("ArchiveFileExportOperationFullPath.SpecialFile"))) { //$NON-NLS-1$
+                        destinationName = rootName.substring(0, rootName.indexOf("/")) + SEPARATOR + destinationName; //$NON-NLS-1$
                     } else {
                         destinationName = rootName + SEPARATOR + destinationName;
                     }

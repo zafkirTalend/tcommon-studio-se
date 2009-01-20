@@ -25,9 +25,9 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBa
  */
 public class TableInfoParameters {
 
-    public static final String DEFAULT_FILTER = "%";
+    public static final String DEFAULT_FILTER = "%"; //$NON-NLS-1$
 
-    public static final String ORACLE_10G_RECBIN_SQL = "select object_name from recyclebin;";
+    public static final String ORACLE_10G_RECBIN_SQL = "select object_name from recyclebin;"; //$NON-NLS-1$
 
     private boolean usedName = true;
 

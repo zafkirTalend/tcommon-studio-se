@@ -198,28 +198,28 @@ public final class UpdateContextVariablesHelper {
                     oldSyntax);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                 // add this for bug 3455
-                returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""), false);
+                returnValue = migrateContextPropertySetter(returnValue, contextNameFullName.replaceAll("context\\.", ""), false); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return returnValue;
     }
 
     private static String migrateContextPropertySetter(String fullContent, String varName, boolean isExtension) {
-        String beginString = "context.setProperty(";
+        String beginString = "context.setProperty("; //$NON-NLS-1$
 
         if (!fullContent.contains(beginString)) {
             return fullContent;
         }
 
-        String regex = beginString + "\"" + varName + "\",";
+        String regex = beginString + "\"" + varName + "\","; //$NON-NLS-1$ //$NON-NLS-2$
         regex = replaceSpecialChar(regex);
         if (isExtension) {
-            regex = regex.replaceAll("\"", "&quot;");
+            regex = regex.replaceAll("\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        regex = "(.*?)(" + regex + ")(.*?)\\);";
+        regex = "(.*?)(" + regex + ")(.*?)\\);"; //$NON-NLS-1$ //$NON-NLS-2$
 
-        String out = ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX + varName + "=";
-        out = "$1" + out + "$3;";
+        String out = ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX + varName + "="; //$NON-NLS-1$
+        out = "$1" + out + "$3;"; //$NON-NLS-1$ //$NON-NLS-2$
 
         return fullContent.replaceAll(regex, out);
     }
@@ -337,7 +337,7 @@ public final class UpdateContextVariablesHelper {
             oldScriptCode = oldScriptCode.replaceAll("\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
             varScriptCodeMapExt.put(oldScriptCode, newScriptCode);
 
-            data = migrateContextPropertySetter(data, newScriptCode.replaceAll("context\\.", ""), true);
+            data = migrateContextPropertySetter(data, newScriptCode.replaceAll("context\\.", ""), true); //$NON-NLS-1$ //$NON-NLS-2$
 
         }
         return hasAndReplaceValue(data, varScriptCodeMapExt, oldSyntax);

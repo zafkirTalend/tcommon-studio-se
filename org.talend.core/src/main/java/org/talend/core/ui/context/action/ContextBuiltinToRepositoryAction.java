@@ -35,7 +35,7 @@ import org.talend.repository.ui.actions.AContextualAction;
  */
 public class ContextBuiltinToRepositoryAction extends AContextualAction {
 
-    public final static String ID = "org.talend.core.ui.context.actions.ContextBuiltinToRepositoryAction";
+    public final static String ID = "org.talend.core.ui.context.actions.ContextBuiltinToRepositoryAction"; //$NON-NLS-1$
 
     private TreeViewer viewer = null;
 

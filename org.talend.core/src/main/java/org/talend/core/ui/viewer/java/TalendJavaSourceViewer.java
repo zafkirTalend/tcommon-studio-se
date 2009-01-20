@@ -85,41 +85,41 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
     private String filename;
 
-    public static final String VIEWER_CLASS_NAME = "TalendJavaSourceViewer";
+    public static final String VIEWER_CLASS_NAME = "TalendJavaSourceViewer"; //$NON-NLS-1$
 
     private static int currentId = 0;
 
     private ICompilationUnit compilationUnit;
 
-    private static final String NL = "\n";
+    private static final String NL = "\n"; //$NON-NLS-1$
 
-    private static final String TEXT_1 = NL + "    // create and load default properties" + NL
-            + "\tprivate static java.util.Properties defaultProps = new java.util.Properties();" + NL
-            + "\t// create application properties with default" + NL
-            + "\tprivate static class ContextProperties extends java.util.Properties {" + NL + "\t    " + NL
-            + "\t    public ContextProperties(java.util.Properties properties){" + NL + "\t        super(properties);" + NL
-            + "\t    }" + NL + "\t    public ContextProperties(){" + NL + "\t        super();" + NL + "\t    }" + NL + "\t    "
-            + NL + "\t\tpublic void synchronizeContext(){" + NL + "\t\t\t";
+    private static final String TEXT_1 = NL + "    // create and load default properties" + NL //$NON-NLS-1$
+            + "\tprivate static java.util.Properties defaultProps = new java.util.Properties();" + NL //$NON-NLS-1$
+            + "\t// create application properties with default" + NL //$NON-NLS-1$
+            + "\tprivate static class ContextProperties extends java.util.Properties {" + NL + "\t    " + NL //$NON-NLS-1$ //$NON-NLS-2$
+            + "\t    public ContextProperties(java.util.Properties properties){" + NL + "\t        super(properties);" + NL //$NON-NLS-1$ //$NON-NLS-2$
+            + "\t    }" + NL + "\t    public ContextProperties(){" + NL + "\t        super();" + NL + "\t    }" + NL + "\t    " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+            + NL + "\t\tpublic void synchronizeContext(){" + NL + "\t\t\t"; //$NON-NLS-1$ //$NON-NLS-2$
 
-    private static final String TEXT_2 = NL + "\t\t\tthis.put(\"";
+    private static final String TEXT_2 = NL + "\t\t\tthis.put(\""; //$NON-NLS-1$
 
-    private static final String TEXT_3 = "\", ";
+    private static final String TEXT_3 = "\", "; //$NON-NLS-1$
 
-    private static final String TEXT_4 = ");" + NL + "\t\t\t";
+    private static final String TEXT_4 = ");" + NL + "\t\t\t"; //$NON-NLS-1$ //$NON-NLS-2$
 
-    private static final String TEXT_5 = NL + "\t\t}" + NL + "\t\t\t    ";
+    private static final String TEXT_5 = NL + "\t\t}" + NL + "\t\t\t    "; //$NON-NLS-1$ //$NON-NLS-2$
 
-    private static final String TEXT_6 = NL + "     public  static String ";
+    private static final String TEXT_6 = NL + "     public  static String "; //$NON-NLS-1$
 
-    private static final String TEXT_7 = ";";
+    private static final String TEXT_7 = ";"; //$NON-NLS-1$
 
-    private static final String TEXT_8 = "      " + NL + " public  static ";
+    private static final String TEXT_8 = "      " + NL + " public  static "; //$NON-NLS-1$ //$NON-NLS-2$
 
-    private static final String TEXT_9 = "  ";
+    private static final String TEXT_9 = "  "; //$NON-NLS-1$
 
-    private static final String TEXT_10 = ";";
+    private static final String TEXT_10 = ";"; //$NON-NLS-1$
 
-    private static final String TEXT_11 = NL + "\t}";
+    private static final String TEXT_11 = NL + "\t}"; //$NON-NLS-1$
 
     /**
      * DOC nrousseau TalendJavaSourceViewer2 constructor comment.
@@ -139,8 +139,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, annotationAccess, sharedColors, checkCode,
                 document, null);
 
-        IPath packagePath = new Path("/.Java/src/internal");
-        filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java";
+        IPath packagePath = new Path("/.Java/src/internal"); //$NON-NLS-1$
+        filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java"; //$NON-NLS-1$
         IPackageFragment packageFragment;
         try {
             packageFragment = CorePlugin.getDefault().getRunProcessService().getJavaProject().findPackageFragment(packagePath);
@@ -155,19 +155,19 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
     public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
         StringBuffer buff = new StringBuffer();
-        buff.append("package internal;\n\n");
+        buff.append("package internal;\n\n"); //$NON-NLS-1$
         buff.append(getImports());
-        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
-        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n"); //$NON-NLS-1$
         buff
-                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
+                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
-        buff.append("\tpublic void myFunction(){\n");
-        buff.append("\t  if( \n");
+        buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
+        buff.append("\t  if( \n"); //$NON-NLS-1$
 
         int documentOffset = buff.toString().length();
-        buff.append("){\n\t}");
-        buff.append("\n\t\n}\n}");
+        buff.append("){\n\t}"); //$NON-NLS-1$
+        buff.append("\n\t\n}\n}"); //$NON-NLS-1$
 
         IDocument document = new Document();
         document.set(buff.toString());
@@ -176,19 +176,19 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
     public static ISourceViewer createViewerForIfConnection(Composite composite) {
         StringBuffer buff = new StringBuffer();
-        buff.append("package internal;\n\n");
+        buff.append("package internal;\n\n"); //$NON-NLS-1$
         buff.append(getImports());
-        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
-        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n"); //$NON-NLS-1$
         buff
-                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
+                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
-        buff.append("\tpublic void myFunction(){\n");
-        buff.append("\t  if( \n");
+        buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
+        buff.append("\t  if( \n"); //$NON-NLS-1$
 
         int documentOffset = buff.toString().length();
-        buff.append("){\n\t}");
-        buff.append("\n\t\n}\n}");
+        buff.append("){\n\t}"); //$NON-NLS-1$
+        buff.append("\n\t\n}\n}"); //$NON-NLS-1$
 
         IDocument document = new Document();
         document.set(buff.toString());
@@ -200,9 +200,9 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     public static ReconcilerViewer createViewerWithVariables(Composite composite, int styles, IExpressionDataBean dataBean) {
         IDocument document = new Document();
         StringBuffer buff = new StringBuffer();
-        buff.append("\npackage internal;\n\n");
+        buff.append("\npackage internal;\n\n"); //$NON-NLS-1$
         buff.append(getImports());
-        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
         List<IContextParameter> params = CorePlugin.getDefault().getRunProcessService().getSelectedContext()
                 .getContextParameterList();
@@ -217,8 +217,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff.append(TEXT_5);
         for (IContextParameter ctxParam : params) {
 
-            if (ctxParam.getType().equals("id_List Of Value") || ctxParam.getType().equals("id_File")
-                    || ctxParam.getType().equals("id_Directory") || ctxParam.getType().equals("id_Character")) {
+            if (ctxParam.getType().equals("id_List Of Value") || ctxParam.getType().equals("id_File") //$NON-NLS-1$ //$NON-NLS-2$
+                    || ctxParam.getType().equals("id_Directory") || ctxParam.getType().equals("id_Character")) { //$NON-NLS-1$ //$NON-NLS-2$
 
                 buff.append(TEXT_6);
                 buff.append(ctxParam.getName());
@@ -235,17 +235,17 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         }
         buff.append(TEXT_11);
 
-        buff.append("\tprivate static ContextProperties context = new ContextProperties();\n");
+        buff.append("\tprivate static ContextProperties context = new ContextProperties();\n"); //$NON-NLS-1$
         buff
-                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
+                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
         buff.append(parseVariables(dataBean.getVariables()));
-        buff.append("\tpublic " + dataBean.getExpressionType() + " myFunction(){\n");
-        buff.append("\t\treturn \n");
+        buff.append("\tpublic " + dataBean.getExpressionType() + " myFunction(){\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        buff.append("\t\treturn \n"); //$NON-NLS-1$
 
         int length = buff.toString().length();
-        String defaultValue = "";
-        buff.append(defaultValue + "\n;\t\n}\n}");
+        String defaultValue = ""; //$NON-NLS-1$
+        buff.append(defaultValue + "\n;\t\n}\n}"); //$NON-NLS-1$
 
         document.set(buff.toString());
 
@@ -255,14 +255,14 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     public static ISourceViewer createViewerForComponent(Composite composite, int styles, CompilationUnitEditor editor,
             List<Variable> variableList, String uniqueName, String codePart) {
 
-        String selectedPart = "[" + uniqueName + " " + codePart + " ] start";
+        String selectedPart = "[" + uniqueName + " " + codePart + " ] start"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
         IDocument originalDocument = editor.getDocumentProvider().getDocument(editor.getEditorInput());
         int documentOffset = -1;
-        String globalFields = "";
-        String localFields = "";
-        globalFields = "\tprivate static java.util.Properties context = new java.util.Properties();\n";
-        globalFields += "\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n";
+        String globalFields = ""; //$NON-NLS-1$
+        String localFields = ""; //$NON-NLS-1$
+        globalFields = "\tprivate static java.util.Properties context = new java.util.Properties();\n"; //$NON-NLS-1$
+        globalFields += "\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"; //$NON-NLS-1$
 
         IDocument newDoc = new Document();
         boolean checkCode = false;
@@ -277,7 +277,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                         IDocument.DEFAULT_CONTENT_TYPE);
 
                 boolean globalFieldsDone = false;
-                globalFields = "";
+                globalFields = ""; //$NON-NLS-1$
                 String className = editor.getPartName().substring(0, editor.getPartName().indexOf('.') + 1);
 
                 ICompletionProposal[] proposals = processor.computeCompletionProposals(editor.getViewer(), documentOffset);
@@ -288,20 +288,20 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                         if (javaProposal.getJavaElement() instanceof SourceField) {
                             globalFieldsDone = true;
                             SourceField sourceField = (SourceField) javaProposal.getJavaElement();
-                            globalFields += "\t" + sourceField.getSource() + "\n";
+                            globalFields += "\t" + sourceField.getSource() + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
                             // System.out.println();
                         }
                         if (javaProposal.getJavaElement() == null && !globalFieldsDone) {
-                            String[] str = javaProposal.getSortString().split(" ");
-                            String variable = "";
+                            String[] str = javaProposal.getSortString().split(" "); //$NON-NLS-1$
+                            String variable = ""; //$NON-NLS-1$
                             for (int i = str.length - 1; i >= 0; i--) {
-                                variable += str[i].length() == 0 ? " " : str[i];
+                                variable += str[i].length() == 0 ? " " : str[i]; //$NON-NLS-1$
                             }
                             if (variable.contains(className)) {
                                 continue;
                             }
-                            variable += ";";
-                            localFields += "\t\t" + variable + "\n";
+                            variable += ";"; //$NON-NLS-1$
+                            localFields += "\t\t" + variable + "\n"; //$NON-NLS-1$ //$NON-NLS-2$
                             // System.out.println(variable);
                         }
                     }
@@ -313,15 +313,15 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
             e.printStackTrace();
         }
         StringBuffer buff = new StringBuffer();
-        buff.append("package internal;\n\n");
+        buff.append("package internal;\n\n"); //$NON-NLS-1$
         buff.append(getImports());
-        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n"); //$NON-NLS-1$ //$NON-NLS-2$
         buff.append(globalFields);
-        buff.append("\tpublic void myFunction(){\n");
+        buff.append("\tpublic void myFunction(){\n"); //$NON-NLS-1$
         buff.append(localFields);
 
         documentOffset = buff.toString().length();
-        buff.append("\n\t\n}\n}");
+        buff.append("\n\t\n}\n}"); //$NON-NLS-1$
 
         newDoc.set(buff.toString());
 
@@ -356,7 +356,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     }
 
     private static String getImports() {
-        String imports = "";
+        String imports = ""; //$NON-NLS-1$
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         Project project = ProjectManager.getInstance().getProject(null);
         try {
@@ -365,22 +365,22 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                 if (routine.getProperty().getItem() instanceof RoutineItem
                         && ((RoutineItem) routine.getProperty().getItem()).isBuiltIn()) {
 
-                    imports += "import routines." + routine.getLabel() + ";\n";
+                    imports += "import routines." + routine.getLabel() + ";\n"; //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    imports += "import routines." + project.getTechnicalLabel().toLowerCase() + "." + routine.getLabel() + ";\n";
+                    imports += "import routines." + project.getTechnicalLabel().toLowerCase() + "." + routine.getLabel() + ";\n"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 }
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
-        imports += "import routines.system.*;\n";
-        imports += "import java.text.ParseException;\n";
-        imports += "import java.text.SimpleDateFormat;\n";
-        imports += "import java.util.Date;\n";
-        imports += "import java.util.List;\n";
-        imports += "import java.math.BigDecimal;\n";
+        imports += "import routines.system.*;\n"; //$NON-NLS-1$
+        imports += "import java.text.ParseException;\n"; //$NON-NLS-1$
+        imports += "import java.text.SimpleDateFormat;\n"; //$NON-NLS-1$
+        imports += "import java.util.Date;\n"; //$NON-NLS-1$
+        imports += "import java.util.List;\n"; //$NON-NLS-1$
+        imports += "import java.math.BigDecimal;\n"; //$NON-NLS-1$
         return imports;
     }
 
@@ -439,7 +439,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
      */
     @Override
     public void updateContents() {
-        IPath filePath = new Path("src/internal/" + filename);
+        IPath filePath = new Path("src/internal/" + filename); //$NON-NLS-1$
         if (getDocument() == null) {
             return;
         }
@@ -472,9 +472,9 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         if (variables != null) {
             for (Variable var : variables) {
                 if (var.getName() != null && var.getTalendType() != null) {
-                    if (var.getName().contains(".")) {
+                    if (var.getName().contains(".")) { //$NON-NLS-1$
                         // class
-                        StringTokenizer token = new StringTokenizer(var.getName(), ".");
+                        StringTokenizer token = new StringTokenizer(var.getName(), "."); //$NON-NLS-1$
                         String className = token.nextToken();
                         String newVarName = token.nextToken();
                         Variable newVar = new Variable(newVarName, var.getValue(), var.getTalendType(), var.isNullable());
@@ -484,30 +484,30 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                         classesToGenerate.get(className).add(newVar);
                     } else {
                         String typeToGenerate = JavaTypesManager.getTypeToGenerate(var.getTalendType(), var.isNullable());
-                        buff.append("\tprivate " + typeToGenerate + " " + var.getName() + ";\\n");
+                        buff.append("\tprivate " + typeToGenerate + " " + var.getName() + ";\\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     }
                 }
             }
             for (String className : classesToGenerate.keySet()) {
-                buff.append("\tprivate class " + className + "Struct {\n");
+                buff.append("\tprivate class " + className + "Struct {\n"); //$NON-NLS-1$ //$NON-NLS-2$
                 for (Variable var : classesToGenerate.get(className)) {
                     String typeToGenerate = JavaTypesManager.getTypeToGenerate(var.getTalendType(), var.isNullable());
-                    buff.append("\t\tprivate " + typeToGenerate + " " + var.getName() + ";\n");
+                    buff.append("\t\tprivate " + typeToGenerate + " " + var.getName() + ";\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 }
-                buff.append("\t};\n");
-                buff.append("\tprivate " + className + "Struct " + className + "= new " + className + "Struct();\n");
+                buff.append("\t};\n"); //$NON-NLS-1$
+                buff.append("\tprivate " + className + "Struct " + className + "= new " + className + "Struct();\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             }
         }
-        buff.append("\t" + VIEWER_CLASS_NAME + currentId + "() {\n");
-        buff.append("\t\tglobalMap.put(\"NULL\", null);\n");
+        buff.append("\t" + VIEWER_CLASS_NAME + currentId + "() {\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        buff.append("\t\tglobalMap.put(\"NULL\", null);\n"); //$NON-NLS-1$
         if (variables != null) {
             for (String className : classesToGenerate.keySet()) {
                 for (Variable var : classesToGenerate.get(className)) {
-                    buff.append("\t\t" + className + "." + var.getName() + " =  " + className + "." + var.getName() + ";\n");
+                    buff.append("\t\t" + className + "." + var.getName() + " =  " + className + "." + var.getName() + ";\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
                 }
             }
         }
-        buff.append("\t}\n");
+        buff.append("\t}\n"); //$NON-NLS-1$
 
         return buff.toString();
     }

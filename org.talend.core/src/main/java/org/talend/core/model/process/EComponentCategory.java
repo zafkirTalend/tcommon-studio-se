@@ -19,20 +19,20 @@ package org.talend.core.model.process;
  * 
  */
 public enum EComponentCategory {
-    MAIN("Main", 1),
-    VIEW("View", 3),
-    DOC("Documentation", 4),
-    CONTEXT("Context", 5),
-    VERSIONS("Version", 9),
-    LOGS("Logs", 6),
-    STATSANDLOGS("Stats & Logs", 7),
-    TECHNICAL("Technical", 8), // for non displayed parameters
-    ADVANCED("Advanced settings", 9),
-    BASIC("Basic settings", 10),
-    ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED),
-    EXTRA("Extra", 12),
-    DYNAMICS_SETTINGS("Dynamic settings", 13),
-    SQL_PATTERN("SQL Pattern", 14);
+    MAIN("Main", 1), //$NON-NLS-1$
+    VIEW("View", 3), //$NON-NLS-1$
+    DOC("Documentation", 4), //$NON-NLS-1$
+    CONTEXT("Context", 5), //$NON-NLS-1$
+    VERSIONS("Version", 9), //$NON-NLS-1$
+    LOGS("Logs", 6), //$NON-NLS-1$
+    STATSANDLOGS("Stats & Logs", 7), //$NON-NLS-1$
+    TECHNICAL("Technical", 8), // for non displayed parameters //$NON-NLS-1$
+    ADVANCED("Advanced settings", 9), //$NON-NLS-1$
+    BASIC("Basic settings", 10), //$NON-NLS-1$
+    ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED), //$NON-NLS-1$
+    EXTRA("Extra", 12), //$NON-NLS-1$
+    DYNAMICS_SETTINGS("Dynamic settings", 13), //$NON-NLS-1$
+    SQL_PATTERN("SQL Pattern", 14); //$NON-NLS-1$
 
     private String title;
 

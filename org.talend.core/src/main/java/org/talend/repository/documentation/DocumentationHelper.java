@@ -116,7 +116,7 @@ public class DocumentationHelper {
         List<ExportFileResource> list = new ArrayList<ExportFileResource>();
         if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER
                 || node.getType() == ENodeType.STABLE_SYSTEM_FOLDER) {
-            String folderName = "";
+            String folderName = ""; //$NON-NLS-1$
             boolean isNotProcess = !node.getProperties(EProperties.LABEL).toString().equals(
                     ERepositoryObjectType.PROCESS.toString());
             boolean isNotJoblet = !node.getProperties(EProperties.LABEL).toString().equals(
@@ -161,7 +161,7 @@ public class DocumentationHelper {
                     }
                 }
                 for (Item toGenerate : docsToGenerate) {
-                    ExportFileResource resource = new ExportFileResource(toGenerate, toGenerate.getProperty().getLabel() + "_"
+                    ExportFileResource resource = new ExportFileResource(toGenerate, toGenerate.getProperty().getLabel() + "_" //$NON-NLS-1$
                             + toGenerate.getProperty().getVersion());
                     resource.setNode(node);
                     list.add(resource);
@@ -203,7 +203,7 @@ public class DocumentationHelper {
                 version = object.getProperty().getVersion();
             }
             String nodePath = ""; //$NON-NLS-1$
-            if (path != null && !"".equals(path)) {
+            if (path != null && !"".equals(path)) { //$NON-NLS-1$
                 nodePath = path + "/"; //$NON-NLS-1$
             }
             if (version.equals("")) { //$NON-NLS-1$
@@ -216,14 +216,14 @@ public class DocumentationHelper {
                         List<IRepositoryObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
                         for (IRepositoryObject curObj : objects) {
                             RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) nodes[i]).getType());
-                            addTreeNode(repNode, nodePath + curObj.getProperty().getLabel() + "_"
+                            addTreeNode(repNode, nodePath + curObj.getProperty().getLabel() + "_" //$NON-NLS-1$
                                     + curObj.getProperty().getVersion(), list, allVersions);
                         }
                     } catch (PersistenceException e) {
                         ExceptionHandler.process(e);
                     }
                 } else {
-                    addTreeNode((RepositoryNode) nodes[i], nodePath + label + "_" + version, list, allVersions);
+                    addTreeNode((RepositoryNode) nodes[i], nodePath + label + "_" + version, list, allVersions); //$NON-NLS-1$
                 }
             }
         }
@@ -244,7 +244,7 @@ public class DocumentationHelper {
             Item item = currentNode.getObject().getProperty().getItem();
             String currentJobPath = item.getState().getPath();
             jobNodeDocRootPath = getJobNodeDocumentationRoot(item, docRootPath);
-            currentJobPath = currentJobPath == null ? "" : IPath.SEPARATOR + currentJobPath;
+            currentJobPath = currentJobPath == null ? "" : IPath.SEPARATOR + currentJobPath; //$NON-NLS-1$
 
             jobNodeDocRootPath = jobNodeDocRootPath + currentJobPath + IPath.SEPARATOR + jobName;
         } else {
@@ -299,7 +299,7 @@ public class DocumentationHelper {
      * @return
      */
     public static RepositoryNode getDocumentationNodeInRecycleBin(RepositoryNode sourceNode) {
-        String documentationNodeName = sourceNode.getObject().getProperty().getLabel() + "_"
+        String documentationNodeName = sourceNode.getObject().getProperty().getLabel() + "_" //$NON-NLS-1$
                 + sourceNode.getObject().getProperty().getVersion();
         IRepositoryView repositoryView = (IRepositoryView) (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                 .findView(IRepositoryView.VIEW_ID));
@@ -310,7 +310,7 @@ public class DocumentationHelper {
             }
             if (node.isBin()) {
                 for (RepositoryNode subNode : node.getChildren()) {
-                    String nodeName = subNode.getObject().getProperty().getLabel() + "_"
+                    String nodeName = subNode.getObject().getProperty().getLabel() + "_" //$NON-NLS-1$
                             + subNode.getObject().getProperty().getVersion();
                     if (nodeName.equals(documentationNodeName)) {
                         return subNode;
@@ -359,20 +359,20 @@ public class DocumentationHelper {
                 for (RepositoryNode grandChildNode : subNode.getChildren()) {
 
                     IRepositoryObject object = selectedJobNode.getObject();
-                    String path = "";
+                    String path = ""; //$NON-NLS-1$
                     if (object != null) {
                         path = object.getProperty().getItem().getState().getPath();
                     }
 
                     // Under the first layer of root node
-                    if (path.equals("")) {
+                    if (path.equals("")) { //$NON-NLS-1$
                         String label = grandChildNode.getObject().getProperty().getLabel();
                         String version = grandChildNode.getObject().getProperty().getVersion();
                         if (label.equals(object.getProperty().getLabel()) && version.equals(object.getProperty().getVersion())) {
                             return grandChildNode;
                         }
                     } else { // a/b/c
-                        String[] pathArray = path.split("/");
+                        String[] pathArray = path.split("/"); //$NON-NLS-1$
                         int layerCount = pathArray.length;
                         for (RepositoryNode repositoryNode : grandChildNode.getChildren()) {
 
@@ -473,9 +473,9 @@ public class DocumentationHelper {
             return;
         }
 
-        String picName = "";
+        String picName = ""; //$NON-NLS-1$
         for (String version : versionList) {
-            picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+            picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
             IPath filePath = DocumentationPathProvider.getPathFileName(item, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE,
                     picName);
             if (filePath == null) {

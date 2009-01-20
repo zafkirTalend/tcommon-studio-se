@@ -144,8 +144,8 @@ public class ModuleNeeded {
 
     public String getModuleName() {
         if (moduleName != null) {
-            return moduleName.replaceAll(TalendTextUtils.QUOTATION_MARK, "").replaceAll(TalendTextUtils.SINGLE_QUOTE,
-                    "");
+            return moduleName.replaceAll(TalendTextUtils.QUOTATION_MARK, "").replaceAll(TalendTextUtils.SINGLE_QUOTE, //$NON-NLS-1$
+                    ""); //$NON-NLS-1$
         }
         return this.moduleName;
     }

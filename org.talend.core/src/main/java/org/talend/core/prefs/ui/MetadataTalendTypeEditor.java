@@ -91,7 +91,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
 
     private Button editButton;
 
-    private String selectId = "mysql_id"; // default_id
+    private String selectId = "mysql_id"; // default_id //$NON-NLS-1$
 
     TmpFilesManager tmpFileManager = new TmpFilesManager();
 
@@ -519,10 +519,10 @@ public class MetadataTalendTypeEditor extends FieldEditor {
             FileInfo info = (FileInfo) select.getFirstElement();
             if (info != null) {
                 String infoName = info.fileName;
-                int begin = "mapping_".length();
-                int end = infoName.lastIndexOf(".");
+                int begin = "mapping_".length(); //$NON-NLS-1$
+                int end = infoName.lastIndexOf("."); //$NON-NLS-1$
                 String id = infoName.substring(begin, end);
-                setSelectId(id.toLowerCase() + "_id");
+                setSelectId(id.toLowerCase() + "_id"); //$NON-NLS-1$
             }
         }
     }

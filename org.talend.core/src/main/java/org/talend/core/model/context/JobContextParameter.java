@@ -26,7 +26,7 @@ import org.talend.core.ui.context.DefaultCellEditorFactory;
  */
 public class JobContextParameter implements IContextParameter, Cloneable {
 
-    public static final String LIST_SEPARATOR = ",";
+    public static final String LIST_SEPARATOR = ","; //$NON-NLS-1$
 
     String name;
 
@@ -46,7 +46,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     String[] valueList;
 
-    String source = "";
+    String source = ""; //$NON-NLS-1$
 
     public JobContextParameter() {
 
@@ -58,7 +58,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
         }
 
         if (valueList == null && value.length() != 0) {
-            valueList = getValue().split(",");
+            valueList = getValue().split(","); //$NON-NLS-1$
             return valueList;
         }
 
@@ -67,7 +67,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     public void setValueList(String[] list) {
         valueList = list;
-        value = "";
+        value = ""; //$NON-NLS-1$
         if (valueList.length != 0) {
             value = combineStrings(valueList);
         }
@@ -145,7 +145,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     public void setType(final String type) {
         this.type = type;
         valueList = null;
-        value = "";
+        value = ""; //$NON-NLS-1$
         // if (isList() && getValue() != null && getValue().length() != 0) {
         // valueList = getValue().split(",");
         // }
@@ -184,10 +184,10 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     public String getDisplayValue() {
         if (isList()) {
             if (valueList == null || valueList.length == 0) {
-                return "(Empty)";
+                return "(Empty)"; //$NON-NLS-1$
 
             } else {
-                return "<" + combineStrings(valueList) + ">";
+                return "<" + combineStrings(valueList) + ">"; //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return getValue();
@@ -377,7 +377,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
      * @see org.talend.core.model.process.IContextParameter#checkBuiltIn(org.talend.core.model.process.IContextParameter)
      */
     public boolean isBuiltIn() {
-        if (getSource() != null && !"".equals(getSource()) && !IContextParameter.BUILT_IN.equals(getSource())) {
+        if (getSource() != null && !"".equals(getSource()) && !IContextParameter.BUILT_IN.equals(getSource())) { //$NON-NLS-1$
             return false;
         }
         return true;

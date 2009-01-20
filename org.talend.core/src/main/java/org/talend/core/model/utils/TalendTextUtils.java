@@ -32,40 +32,40 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
  */
 public class TalendTextUtils {
 
-    public static final String SQL_BUILDER_TITLE_COMP_PREFIX = "SQL Builder [Component Mode] - Job:";
+    public static final String SQL_BUILDER_TITLE_COMP_PREFIX = "SQL Builder [Component Mode] - Job:"; //$NON-NLS-1$
 
-    public static final String SQL_BUILDER_TITLE_COMP_NAME = " - Component:";
+    public static final String SQL_BUILDER_TITLE_COMP_NAME = " - Component:"; //$NON-NLS-1$
 
-    public static final String SQL_BUILDER_TITLE_REP = "SQL Builder [Repository Mode]";
+    public static final String SQL_BUILDER_TITLE_REP = "SQL Builder [Repository Mode]"; //$NON-NLS-1$
 
-    public static final String SQL_BUILDER_TITLE_COMP_MODPREFIX = "SQL Builder - Component Mode - Job:";
+    public static final String SQL_BUILDER_TITLE_COMP_MODPREFIX = "SQL Builder - Component Mode - Job:"; //$NON-NLS-1$
 
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
-    public static final String ANTI_QUOTE = "`";
+    public static final String ANTI_QUOTE = "`"; //$NON-NLS-1$
 
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
 
-    public static final String LBRACKET = "[";
+    public static final String LBRACKET = "["; //$NON-NLS-1$
 
-    public static final String RBRACKET = "]";
+    public static final String RBRACKET = "]"; //$NON-NLS-1$
 
     private static final int LINE_MAX_NUM = 100;
 
-    private static final String JAVA_DECLARE_STRING = "\"";
+    private static final String JAVA_DECLARE_STRING = "\""; //$NON-NLS-1$
 
-    private static final String PERL_DECLARE_STRING = "'";
+    private static final String PERL_DECLARE_STRING = "'"; //$NON-NLS-1$
 
-    private static final String JAVA_CONNECT_STRING = "+";
+    private static final String JAVA_CONNECT_STRING = "+"; //$NON-NLS-1$
 
-    private static final String PERL_CONNECT_STRING = ".";
+    private static final String PERL_CONNECT_STRING = "."; //$NON-NLS-1$
 
-    private static final String PASS_COVER = "*";
+    private static final String PASS_COVER = "*"; //$NON-NLS-1$
 
     /*
      * ((?<!\\)".*?(?<!\\)") or ((?<!\\)'.?(?<!\\)')
      */
-    private static final String QUOTE_PATTERN = "((?<!\\\\)" + getQuoteChar() + ".*?(?<!\\\\)" + getQuoteChar() + ")";
+    private static final String QUOTE_PATTERN = "((?<!\\\\)" + getQuoteChar() + ".*?(?<!\\\\)" + getQuoteChar() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     public static String addQuotes(String text) {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
@@ -141,8 +141,8 @@ public class TalendTextUtils {
         String newString;
 
         String tempText = text;
-        tempText = tempText.replaceAll("\r", " ");
-        tempText = tempText.replaceAll("\n", " ");
+        tempText = tempText.replaceAll("\r", " "); //$NON-NLS-1$ //$NON-NLS-2$
+        tempText = tempText.replaceAll("\n", " "); //$NON-NLS-1$ //$NON-NLS-2$
         tempText = tempText.trim();
 
         if (quoteStyle.equals(SINGLE_QUOTE)) {
@@ -189,14 +189,14 @@ public class TalendTextUtils {
      * @return
      */
     private static String widenSQLRestrict(String newString, String quoteStyle) {
-        String after = "";
-        final String[] split = newString.split("\n");
+        String after = ""; //$NON-NLS-1$
+        final String[] split = newString.split("\n"); //$NON-NLS-1$
         for (int i = 0; i < split.length; i++) {
             String string = split[i];
             if (i == 0) {
                 after += getAfterString(quoteStyle, string);
             } else {
-                after += getAfterString(quoteStyle, "\n" + string);
+                after += getAfterString(quoteStyle, "\n" + string); //$NON-NLS-1$
             }
         }
         return after;
@@ -210,11 +210,11 @@ public class TalendTextUtils {
      * @return
      */
     private static String getAfterString(String quoteStyle, String string) {
-        String after = "";
+        String after = ""; //$NON-NLS-1$
         if (string.length() > LINE_MAX_NUM) {
             String substring = string.substring(0, LINE_MAX_NUM);
             substring = substring.substring(0, getLastWord(string, substring, quoteStyle));
-            after += substring + "\n";
+            after += substring + "\n"; //$NON-NLS-1$
             after += getAfterString(quoteStyle, string.substring(substring.length()));
         } else {
             after += string;
@@ -230,14 +230,14 @@ public class TalendTextUtils {
      * @return
      */
     private static int getLastWord(String fullString, String substring, String quoteStyle) {
-        if (substring.contains(",")) {
-            int lastIndexOf3 = substring.lastIndexOf(",");
+        if (substring.contains(",")) { //$NON-NLS-1$
+            int lastIndexOf3 = substring.lastIndexOf(","); //$NON-NLS-1$
             if ((lastIndexOf3 + 1) < fullString.length()) {
                 lastIndexOf3++;
             }
             return lastIndexOf3;
-        } else if (substring.contains(" ")) {
-            int lastIndexOf3 = substring.lastIndexOf(" ");
+        } else if (substring.contains(" ")) { //$NON-NLS-1$
+            int lastIndexOf3 = substring.lastIndexOf(" "); //$NON-NLS-1$
             if ((lastIndexOf3 + 1) < fullString.length()) {
                 lastIndexOf3++;
             }
@@ -264,9 +264,9 @@ public class TalendTextUtils {
 
     public static String addQuotesWithSpaceField(String fieldName, String dbType) {
         if (fieldName == null) {
-            fieldName = "";
+            fieldName = ""; //$NON-NLS-1$
         }
-        if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
+        if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) { //$NON-NLS-1$ //$NON-NLS-2$
             return fieldName;
         }
         boolean b = true;
@@ -290,7 +290,7 @@ public class TalendTextUtils {
     }
 
     public static String addQuotesWithSpaceFieldForSQLString(String fieldName, String dbType, boolean simple) {
-        if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
+        if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) { //$NON-NLS-1$ //$NON-NLS-2$
             return fieldName;
         }
         boolean b = true;
@@ -371,9 +371,9 @@ public class TalendTextUtils {
              * quote is specific
              */
             if (simple) {
-                newString = declareString("\\" + QUOTATION_MARK + text + "\\" + QUOTATION_MARK);
+                newString = declareString("\\" + QUOTATION_MARK + text + "\\" + QUOTATION_MARK); //$NON-NLS-1$ //$NON-NLS-2$
             } else {
-                newString = declareString("\\" + QUOTATION_MARK) + con + text + con + declareString("\\" + QUOTATION_MARK);
+                newString = declareString("\\" + QUOTATION_MARK) + con + text + con + declareString("\\" + QUOTATION_MARK); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return newString;
@@ -456,7 +456,7 @@ public class TalendTextUtils {
             if (text.length() > 2) {
                 newText = text.substring(1, text.length() - 1);
                 if (text.contains(RBRACKET)) {
-                    newText = newText.replaceAll(RBRACKET, "");
+                    newText = newText.replaceAll(RBRACKET, ""); //$NON-NLS-1$
                 } else {
                     newText = text;
                 }
@@ -465,7 +465,7 @@ public class TalendTextUtils {
             }
 
         } else {
-            newText = text.replaceAll(quoteByDBType, "");
+            newText = text.replaceAll(quoteByDBType, ""); //$NON-NLS-1$
         }
         return newText;
     }
@@ -488,7 +488,7 @@ public class TalendTextUtils {
         int r = 0;
         int g = 0;
         int b = 0;
-        StringTokenizer token = new StringTokenizer(string, ";");
+        StringTokenizer token = new StringTokenizer(string, ";"); //$NON-NLS-1$
         if (token.hasMoreTokens()) {
             r = new Integer(token.nextToken());
         }
@@ -573,17 +573,17 @@ public class TalendTextUtils {
     public static String trimParameter(String value) {
         int length = value.length();
         String result = removeQuotes(value);
-        if (length > 1 && ((value.startsWith("\"") && value.endsWith("\""))) || (value.startsWith("\'") && value.endsWith("\'"))) {
+        if (length > 1 && ((value.startsWith("\"") && value.endsWith("\""))) || (value.startsWith("\'") && value.endsWith("\'"))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             result = value.substring(1, length - 1);
 
-            if (result.contains("\\")) {
-                result = result.replaceAll("\\\\n", "\n");
-                result = result.replaceAll("\\\\b", "\b");
-                result = result.replaceAll("\\\\f", "\f");
-                result = result.replaceAll("\\\\r", "\r");
-                result = result.replaceAll("\\\\t", "\t");
-                result = result.replaceAll("\\\\\"", "\"");
-                result = result.replaceAll("\\\\\\\\", "\\\\");
+            if (result.contains("\\")) { //$NON-NLS-1$
+                result = result.replaceAll("\\\\n", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                result = result.replaceAll("\\\\b", "\b"); //$NON-NLS-1$ //$NON-NLS-2$
+                result = result.replaceAll("\\\\f", "\f"); //$NON-NLS-1$ //$NON-NLS-2$
+                result = result.replaceAll("\\\\r", "\r"); //$NON-NLS-1$ //$NON-NLS-2$
+                result = result.replaceAll("\\\\t", "\t"); //$NON-NLS-1$ //$NON-NLS-2$
+                result = result.replaceAll("\\\\\"", "\""); //$NON-NLS-1$ //$NON-NLS-2$
+                result = result.replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
 
             }
         }
@@ -620,12 +620,12 @@ public class TalendTextUtils {
 
     private static String replaceNewLine(final String str) {
         if (str == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         String newStr = str;
 
-        newStr = newStr.replaceAll("\r", " ");
-        newStr = newStr.replaceAll("\n", " ");
+        newStr = newStr.replaceAll("\r", " "); //$NON-NLS-1$ //$NON-NLS-2$
+        newStr = newStr.replaceAll("\n", " "); //$NON-NLS-1$ //$NON-NLS-2$
         newStr = newStr.trim();
 
         return newStr;
@@ -645,7 +645,7 @@ public class TalendTextUtils {
         Matcher regexMatcher = regex.matcher(newStr);
         if (regexMatcher.find()) { // has quote
             String non = filterQuote(newStr);
-            if (!"".equals(non.trim())) { // has variables or is expression
+            if (!"".equals(non.trim())) { // has variables or is expression //$NON-NLS-1$
                 return false;
             }
         }
@@ -662,7 +662,7 @@ public class TalendTextUtils {
     public static String hidePassword(final String password) {
 
         if (password == null) {
-            return "**"; // Means two quote
+            return "**"; // Means two quote //$NON-NLS-1$
         }
 
         int length = password.length() + 2;
@@ -714,7 +714,7 @@ public class TalendTextUtils {
 
         @Override
         public String toString() {
-            return string + " ---> " + key;
+            return string + " ---> " + key; //$NON-NLS-1$
         }
     }
 }

@@ -44,9 +44,9 @@ public class Problem {
      * bqian Problem class global comment. Detailled comment <br/>
      */
     public enum ProblemType {
-        JOB("Job"),
-        ROUTINE("Routine"),
-        NONE("");
+        JOB("Job"), //$NON-NLS-1$
+        ROUTINE("Routine"), //$NON-NLS-1$
+        NONE(""); //$NON-NLS-1$
 
         private String typeName;
 
@@ -226,7 +226,7 @@ public class Problem {
      */
     public String getProblemResource() {
         if (getType().equals(ProblemType.JOB)) {
-            return "Job:" + job.getLabel() + "  (component:" + element.getElementName() + ")";
+            return "Job:" + job.getLabel() + "  (component:" + element.getElementName() + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         } else {
             // TODO need to prcess the display of routine here.
         }

@@ -218,7 +218,7 @@ public class CustomTableManager {
                 return TABLE_READ_ONLY_COLOR;
             }
             if (tableEditorView.isShowTalendTypeColumn()) {
-                if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE) && !"".equals(column.getType())
+                if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE) && !"".equals(column.getType()) //$NON-NLS-1$
                         && !TypesManager.checkDBType(tableEditorView.getCurrentDbms(), column.getTalendType(), column.getType())) {
                     return CELL_WRONG_DB_TYPE_COLOR;
                 }

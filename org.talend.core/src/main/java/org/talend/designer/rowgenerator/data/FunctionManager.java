@@ -30,7 +30,7 @@ import org.talend.core.language.LanguageManager;
  */
 public class FunctionManager {
 
-    public static final String PURE_PERL_NAME = "...";
+    public static final String PURE_PERL_NAME = "..."; //$NON-NLS-1$
 
     public static final String PURE_PERL_DESC = Messages.getString("FunctionManager.PurePerl.Desc"); //$NON-NLS-1$
 
@@ -38,17 +38,17 @@ public class FunctionManager {
 
     private List<TalendType> talendTypes = null;
 
-    public static final String PERL_FUN_PREFIX = "sub{";
+    public static final String PERL_FUN_PREFIX = "sub{"; //$NON-NLS-1$
 
-    public static final String PERL_FUN_SUFFIX = ")}";
+    public static final String PERL_FUN_SUFFIX = ")}"; //$NON-NLS-1$
 
-    public static final String FUN_PARAM_SEPARATED = ",";
+    public static final String FUN_PARAM_SEPARATED = ","; //$NON-NLS-1$
 
-    public static final String JAVA_METHOD_SEPARATED = ".";
+    public static final String JAVA_METHOD_SEPARATED = "."; //$NON-NLS-1$
 
-    public static final String FUN_PREFIX = "(";
+    public static final String FUN_PREFIX = "("; //$NON-NLS-1$
 
-    public static final String FUN_SUFFIX = ")";
+    public static final String FUN_SUFFIX = ")"; //$NON-NLS-1$
 
     /**
      * qzhang Comment method "getFunctionByName".
@@ -126,7 +126,7 @@ public class FunctionManager {
      * @param f
      */
     public static String getFunctionMethod(Function f) {
-        String newValue = "";
+        String newValue = ""; //$NON-NLS-1$
         if (f != null) {
 
             final List<Parameter> parameters = f.getParameters();

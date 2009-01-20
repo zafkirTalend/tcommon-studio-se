@@ -77,7 +77,7 @@ public class MetadataEmfImportXmlCommand extends Command {
             if (extendedTableModel instanceof MetadataEmfTableEditor) {
                 MetadataEmfTableEditor editor = (MetadataEmfTableEditor) extendedTableModel;
                 String dbmsId = metadataColumnsAndDbmsId.getDbmsId();
-                if (dbmsId != null && dbmsId.trim() != "" && editor.getEditorView() != null) {
+                if (dbmsId != null && dbmsId.trim() != "" && editor.getEditorView() != null) { //$NON-NLS-1$
                     editor.getEditorView().setCurrentDbms(dbmsId);
                 }
             }

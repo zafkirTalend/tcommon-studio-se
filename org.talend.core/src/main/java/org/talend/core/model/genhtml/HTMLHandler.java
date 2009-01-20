@@ -78,14 +78,14 @@ public class HTMLHandler {
 
             mainHTMLReader = new BufferedReader(new FileReader(originalHtmlFile));
 
-            newMainHTMLFile = new File(htmlFilePath + "temp");
+            newMainHTMLFile = new File(htmlFilePath + "temp"); //$NON-NLS-1$
 
             newMainHTMLWriter = new BufferedWriter(new FileWriter(newMainHTMLFile));
-            String lineStr = "";
+            String lineStr = ""; //$NON-NLS-1$
             while ((lineStr = mainHTMLReader.readLine()) != null) {
                 newMainHTMLWriter.write(lineStr);
                 for (String key : htmlFileMap.keySet()) {
-                    String compareStr = "<!--" + key + "ended-->"; // tMap_1ended-->
+                    String compareStr = "<!--" + key + "ended-->"; // tMap_1ended--> //$NON-NLS-1$ //$NON-NLS-2$
                     if (lineStr.indexOf(compareStr) != -1) {
                         File externalNodeHTMLFile = new File(nodeHTMLMap.get(key).getPath());
 
@@ -153,7 +153,7 @@ public class HTMLHandler {
 
             // Note that if the are chinese in the file, should set the encoding
             // type to "UTF-8", this is caused by DOM4J.
-            writer = new BufferedWriter(new OutputStreamWriter(output, "UTF-8"));
+            writer = new BufferedWriter(new OutputStreamWriter(output, "UTF-8")); //$NON-NLS-1$
 
             javax.xml.transform.Result result = new javax.xml.transform.stream.StreamResult(writer);
 

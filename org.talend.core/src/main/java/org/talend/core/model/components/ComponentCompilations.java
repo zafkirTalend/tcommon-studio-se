@@ -59,7 +59,7 @@ public class ComponentCompilations {
         try {
             if (f == null) {
                 String filePath = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
-                f = new File(filePath + File.separator + ".JETEmitters" + File.separator + "FirstCompilationMarker");
+                f = new File(filePath + File.separator + ".JETEmitters" + File.separator + "FirstCompilationMarker"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         } catch (Exception e) {
             // do nothing

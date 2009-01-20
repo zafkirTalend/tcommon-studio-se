@@ -25,7 +25,7 @@ import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvi
  */
 public abstract class AbstractContextTabEditComposite extends Composite {
 
-    private static final String PERL_STRING_TYPE = "string";
+    private static final String PERL_STRING_TYPE = "string"; //$NON-NLS-1$
 
     /**
      * DOC YeXiaowei AbstractContextTabEditComposite constructor comment.

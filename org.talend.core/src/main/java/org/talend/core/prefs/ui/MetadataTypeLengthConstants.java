@@ -17,60 +17,60 @@ package org.talend.core.prefs.ui;
  */
 public class MetadataTypeLengthConstants {
 
-    public static final String VALUE_DEFAULT_TYPE = "VALUE_DEFAULT_TYPE";
+    public static final String VALUE_DEFAULT_TYPE = "VALUE_DEFAULT_TYPE"; //$NON-NLS-1$
 
-    public static final String PERL_VALUE_DEFAULT_TYPE = "PERL_VALUE_DEFAULT_TYPE";
+    public static final String PERL_VALUE_DEFAULT_TYPE = "PERL_VALUE_DEFAULT_TYPE"; //$NON-NLS-1$
 
-    public static final String VALUE_DEFAULT_LENGTH = "VALUE_DEFAULT_LENGTH";
+    public static final String VALUE_DEFAULT_LENGTH = "VALUE_DEFAULT_LENGTH"; //$NON-NLS-1$
 
-    public static final String PERL_VALUE_DEFAULT_LENGTH = "PERL_VALUE_DEFAULT_LENGTH";
+    public static final String PERL_VALUE_DEFAULT_LENGTH = "PERL_VALUE_DEFAULT_LENGTH"; //$NON-NLS-1$
 
-    public static final String FIELD_DEFAULT_TYPE = "FIELD_DEFAULT_TYPE";
+    public static final String FIELD_DEFAULT_TYPE = "FIELD_DEFAULT_TYPE"; //$NON-NLS-1$
 
-    public static final String PERL_FIELD_DEFAULT_TYPE = "PERL_FIELD_DEFAULT_TYPE";
+    public static final String PERL_FIELD_DEFAULT_TYPE = "PERL_FIELD_DEFAULT_TYPE"; //$NON-NLS-1$
 
-    public static final String FIELD_DEFAULT_LENGTH = "FIELD_DEFAULT_LENGTH";
+    public static final String FIELD_DEFAULT_LENGTH = "FIELD_DEFAULT_LENGTH"; //$NON-NLS-1$
 
-    public static final String PERL_FIELD_DEFAULT_LENGTH = "PERL_FIELD_DEFAULT_LENGTH";
+    public static final String PERL_FIELD_DEFAULT_LENGTH = "PERL_FIELD_DEFAULT_LENGTH"; //$NON-NLS-1$
 
-    public static final String ID_BOOLEAN = "ID_BOOLEAN";
+    public static final String ID_BOOLEAN = "ID_BOOLEAN"; //$NON-NLS-1$
 
-    public static final String ID_BIGDECIMAL = "ID_BIGDECIMAL";
+    public static final String ID_BIGDECIMAL = "ID_BIGDECIMAL"; //$NON-NLS-1$
 
-    public static final String ID_BYTE = "ID_BYTE";
+    public static final String ID_BYTE = "ID_BYTE"; //$NON-NLS-1$
 
-    public static final String ID_INTEGER = "ID_INTEGER";
+    public static final String ID_INTEGER = "ID_INTEGER"; //$NON-NLS-1$
 
-    public static final String ID_BYTEARRAY = "ID_BYTEARRAY";
+    public static final String ID_BYTEARRAY = "ID_BYTEARRAY"; //$NON-NLS-1$
 
-    public static final String ID_LONG = "ID_LONG";
+    public static final String ID_LONG = "ID_LONG"; //$NON-NLS-1$
 
-    public static final String ID_CHARACTER = "ID_CHARACTER";
+    public static final String ID_CHARACTER = "ID_CHARACTER"; //$NON-NLS-1$
 
-    public static final String ID_OBJECT = "ID_OBJECT";
+    public static final String ID_OBJECT = "ID_OBJECT"; //$NON-NLS-1$
 
-    public static final String ID_DATE = "ID_DATE";
+    public static final String ID_DATE = "ID_DATE"; //$NON-NLS-1$
 
-    public static final String ID_SHORT = "ID_SHORT";
+    public static final String ID_SHORT = "ID_SHORT"; //$NON-NLS-1$
 
-    public static final String ID_DOUBLE = "ID_DOUBLE";
+    public static final String ID_DOUBLE = "ID_DOUBLE"; //$NON-NLS-1$
 
-    public static final String ID_STRING = "ID_STRING";
+    public static final String ID_STRING = "ID_STRING"; //$NON-NLS-1$
 
-    public static final String ID_FLOAT = "ID_FLOAT";
+    public static final String ID_FLOAT = "ID_FLOAT"; //$NON-NLS-1$
 
-    public static final String ID_LIST = "ID_LIST";
+    public static final String ID_LIST = "ID_LIST"; //$NON-NLS-1$
 
-    public static final String PERL_DATE = "DATE";
+    public static final String PERL_DATE = "DATE"; //$NON-NLS-1$
 
-    public static final String PERL_BOOLEAN = "BOOLEAN";
+    public static final String PERL_BOOLEAN = "BOOLEAN"; //$NON-NLS-1$
 
-    public static final String PERL_DATETIME = "DATETIME";
+    public static final String PERL_DATETIME = "DATETIME"; //$NON-NLS-1$
 
-    public static final String PERL_INT = "INT";
+    public static final String PERL_INT = "INT"; //$NON-NLS-1$
 
-    public static final String PERL_DECIMAL = "DECIMAL";
+    public static final String PERL_DECIMAL = "DECIMAL"; //$NON-NLS-1$
 
-    public static final String PERL_STRING = "STRING";
+    public static final String PERL_STRING = "STRING"; //$NON-NLS-1$
 
 }

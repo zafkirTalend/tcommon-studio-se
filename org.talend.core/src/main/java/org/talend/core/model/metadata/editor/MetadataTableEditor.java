@@ -160,12 +160,12 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         if (codeLanguage == ECodeLanguage.JAVA) {
             if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE) != null
                     && !CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE)
-                            .equals("")) {
+                            .equals("")) { //$NON-NLS-1$
                 metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
                         MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE));
                 if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH) != null
                         && !CorePlugin.getDefault().getPreferenceStore().getString(
-                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) {
+                                MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
                     metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
                             MetadataTypeLengthConstants.FIELD_DEFAULT_LENGTH)));
                 }
@@ -179,12 +179,12 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         } else {
             if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE) != null
                     && !CorePlugin.getDefault().getPreferenceStore().getString(
-                            MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE).equals("")) {
+                            MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE).equals("")) { //$NON-NLS-1$
                 metadataColumn.setTalendType(CorePlugin.getDefault().getPreferenceStore().getString(
                         MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE));
                 if (CorePlugin.getDefault().getPreferenceStore().getString(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH) != null
                         && !CorePlugin.getDefault().getPreferenceStore().getString(
-                                MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH).equals("")) {
+                                MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH).equals("")) { //$NON-NLS-1$
                     metadataColumn.setLength(Integer.parseInt(CorePlugin.getDefault().getPreferenceStore().getString(
                             MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_LENGTH)));
                 }

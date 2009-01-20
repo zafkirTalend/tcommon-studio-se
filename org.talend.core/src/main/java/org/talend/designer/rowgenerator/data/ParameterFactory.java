@@ -37,19 +37,19 @@ public class ParameterFactory {
 
     public static final String PARAMETER_TYPE_LIST = "list"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_DOUBLE = "double";
+    public static final String PARAMETER_TYPE_DOUBLE = "double"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_OBJECT = "object";
+    public static final String PARAMETER_TYPE_OBJECT = "object"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_BOOLEAN = "boolean";
+    public static final String PARAMETER_TYPE_BOOLEAN = "boolean"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_LONG = "long";
+    public static final String PARAMETER_TYPE_LONG = "long"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_DATE = "date";
+    public static final String PARAMETER_TYPE_DATE = "date"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_CHAR = "char";
+    public static final String PARAMETER_TYPE_CHAR = "char"; //$NON-NLS-1$
 
-    public static final String PARAMETER_TYPE_SHORT = "short";
+    public static final String PARAMETER_TYPE_SHORT = "short"; //$NON-NLS-1$
 
     /**
      * s qzhang Comment method "getParameter". <br/>.
@@ -64,7 +64,7 @@ public class ParameterFactory {
         Parameter p = createParameter(type);
         if (p != null) {
             string = string.replaceFirst(type, PerlFunctionParser.EMPTY_STRING).trim();
-            if (string.endsWith(":")) {
+            if (string.endsWith(":")) { //$NON-NLS-1$
                 string = string.substring(0, string.length() - 1);
             }
             String[] s = string.split(":"); //$NON-NLS-1$
@@ -74,8 +74,8 @@ public class ParameterFactory {
             }
 
             if (string.startsWith("(")) { //$NON-NLS-1$
-                String defaultValue = string.replaceAll("(\\((.*)\\)).*", "$2");
-                String temp = string.replaceAll("(\\((.*)\\)).*", "$1");
+                String defaultValue = string.replaceAll("(\\((.*)\\)).*", "$2"); //$NON-NLS-1$ //$NON-NLS-2$
+                String temp = string.replaceAll("(\\((.*)\\)).*", "$1"); //$NON-NLS-1$ //$NON-NLS-2$
 
                 setDefaultValue(p, defaultValue);
                 string = string.substring(temp.length());

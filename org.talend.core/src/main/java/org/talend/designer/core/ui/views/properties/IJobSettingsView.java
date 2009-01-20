@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ISelection;
  */
 public interface IJobSettingsView {
 
-    public static final String ID = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView";
+    public static final String ID = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
 
     public void cleanDisplay();
 

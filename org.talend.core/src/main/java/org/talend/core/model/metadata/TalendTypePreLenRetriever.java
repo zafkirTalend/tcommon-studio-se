@@ -37,10 +37,10 @@ public class TalendTypePreLenRetriever {
         this.dbPrecion = dbPrecion;
         this.talendTypeNew = mappingType.getTalendType();
         List<TalendTypePrecisionLength> list = new ArrayList();
-        TalendTypePrecisionLength talendTypeFloat = new TalendTypePrecisionLength("id_Float", 32, 0, 32, 1);
-        TalendTypePrecisionLength talendTypeInt = new TalendTypePrecisionLength("id_Integer", 16, 0, 0, 0);
-        TalendTypePrecisionLength talendTypeLong = new TalendTypePrecisionLength("id_Long", 64, 17, 0, 0);
-        TalendTypePrecisionLength talendTypeDouble = new TalendTypePrecisionLength("id_Double", 64, 0, 64, 33);
+        TalendTypePrecisionLength talendTypeFloat = new TalendTypePrecisionLength("id_Float", 32, 0, 32, 1); //$NON-NLS-1$
+        TalendTypePrecisionLength talendTypeInt = new TalendTypePrecisionLength("id_Integer", 16, 0, 0, 0); //$NON-NLS-1$
+        TalendTypePrecisionLength talendTypeLong = new TalendTypePrecisionLength("id_Long", 64, 17, 0, 0); //$NON-NLS-1$
+        TalendTypePrecisionLength talendTypeDouble = new TalendTypePrecisionLength("id_Double", 64, 0, 64, 33); //$NON-NLS-1$
         list.add(talendTypeFloat);
         list.add(talendTypeInt);
         list.add(talendTypeDouble);
@@ -49,8 +49,8 @@ public class TalendTypePreLenRetriever {
     }
 
     public void init(List<TalendTypePrecisionLength> talendTypeList) {
-        if (mappingtype.getTalendType().equals("id_Float") || mappingtype.getTalendType().equals("id_Integer")
-                || mappingtype.getTalendType().equals("id_Long") || mappingtype.getTalendType().equals("id_Double")) {
+        if (mappingtype.getTalendType().equals("id_Float") || mappingtype.getTalendType().equals("id_Integer") //$NON-NLS-1$ //$NON-NLS-2$
+                || mappingtype.getTalendType().equals("id_Long") || mappingtype.getTalendType().equals("id_Double")) { //$NON-NLS-1$ //$NON-NLS-2$
             for (TalendTypePrecisionLength talendtype : talendTypeList) {
                 if ((talendtype.getLengthMin() <= dbLength && dbLength <= talendtype.getLengthMax())
                         && (talendtype.getPrecMin() <= dbPrecion && dbPrecion <= talendtype.getPrecMax())) {

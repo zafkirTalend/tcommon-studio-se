@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.ui.metadata.dialog.DbTableSelectorObject.ObjectType;
 
 /**
@@ -42,11 +43,11 @@ import org.talend.core.ui.metadata.dialog.DbTableSelectorObject.ObjectType;
  */
 public class DbTableSelectorDialog extends Dialog {
 
-    private static Image dbImage = ImageProvider.getImage(CorePlugin.getImageDescriptor("/icons/database/connection.png"));
+    private static Image dbImage = ImageProvider.getImage(CorePlugin.getImageDescriptor("/icons/database/connection.png")); //$NON-NLS-1$
 
-    private static Image columnImage = ImageProvider.getImage(CorePlugin.getImageDescriptor("/icons/database/columns.gif"));
+    private static Image columnImage = ImageProvider.getImage(CorePlugin.getImageDescriptor("/icons/database/columns.gif")); //$NON-NLS-1$
 
-    private static Image tableImage = ImageProvider.getImage(CorePlugin.getImageDescriptor("/icons/database/table.gif"));
+    private static Image tableImage = ImageProvider.getImage(CorePlugin.getImageDescriptor("/icons/database/table.gif")); //$NON-NLS-1$
 
     private final DbTableSelectorObject object;
 
@@ -74,7 +75,7 @@ public class DbTableSelectorDialog extends Dialog {
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
-        newShell.setText("Select Table Name");
+        newShell.setText(Messages.getString("DbTableSelectorDialog.textContent")); //$NON-NLS-1$
         newShell.setSize(400, 300);
         newShell.setLocation(getParentShell().getLocation().x + getParentShell().getSize().x / 2,
                 getParentShell().getLocation().y + getParentShell().getSize().y / 2);

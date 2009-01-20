@@ -68,13 +68,13 @@ public final class PerlDataTypeHelper {
     public static String getTalendTypeOfValue(final String value) {
         String perlType = getPerlTypeOfValue(value);
         if (perlType != null) {
-            if (perlType.equals("Integer")) {
-                return "NUMBER";
-            } else if (perlType.equals("Character")) {
-                return "CHAR";
+            if (perlType.equals("Integer")) { //$NON-NLS-1$
+                return "NUMBER"; //$NON-NLS-1$
+            } else if (perlType.equals("Character")) { //$NON-NLS-1$
+                return "CHAR"; //$NON-NLS-1$
             }
         } else {
-            return "String";
+            return "String"; //$NON-NLS-1$
         }
         return perlType.toUpperCase();
     }
@@ -89,7 +89,7 @@ public final class PerlDataTypeHelper {
     public static String getPerlTypeOfValue(final String value) {
 
         // empty value => type is undef
-        if (value.equals("")) {
+        if (value.equals("")) { //$NON-NLS-1$
             return null;
         }
 
@@ -99,50 +99,50 @@ public final class PerlDataTypeHelper {
                 // * int Entier -2 147 483 648 � 2 147 483 647
                 Integer nbr = Integer.parseInt(value);
                 if ((nbr >= INT_MIN) && (nbr <= INT_MAX)) {
-                    return "Integer";
+                    return "Integer"; //$NON-NLS-1$
                 }
             } catch (Exception e) {
                 //
             }
-            return "Character";
+            return "Character"; //$NON-NLS-1$
         }
 
         // SPECIFIQUE USE CASE (integer begin by 0; multiple dot use ; use of char E in scientific notation)
         //
         if (!isNumber(value)) {
             // Warning : 1.7E38 is interpreted like a float !
-            return "String";
+            return "String"; //$NON-NLS-1$
         }
         //
         // first char is 0 and no dot just after => force type String needed
-        if (value.substring(0, 1).equals("0") && (!value.substring(1, 2).equals("."))) {
-            return "String";
+        if (value.substring(0, 1).equals("0") && (!value.substring(1, 2).equals("."))) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "String"; //$NON-NLS-1$
         }
         //
         // content more one dot => String
-        if (value.contains(".")) {
-            if (value.substring(value.indexOf(".") + 1, value.length()).contains(".")) {
-                return "String";
+        if (value.contains(".")) { //$NON-NLS-1$
+            if (value.substring(value.indexOf(".") + 1, value.length()).contains(".")) { //$NON-NLS-1$ //$NON-NLS-2$
+                return "String"; //$NON-NLS-1$
             }
         }
         // END SPECIFIQUE USE CASE
 
         // content only a dot => float or double
-        if (value.contains(".")) {
+        if (value.contains(".")) { //$NON-NLS-1$
             try {
                 Float nbrFloat = Float.parseFloat(value);
-                if ((!nbrFloat.toString().equals("Infinity")) && (!nbrFloat.toString().equals("-Infinity"))) {
+                if ((!nbrFloat.toString().equals("Infinity")) && (!nbrFloat.toString().equals("-Infinity"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     if ((nbrFloat >= FLOAT_MIN) && (nbrFloat <= FLOAT_MAX)) {
-                        return "Float";
+                        return "Float"; //$NON-NLS-1$
                     }
                 }
 
                 try {
                     // * double flottant double 4.9*10 -324 � 1.7*10 308
                     Double nbrDouble = Double.parseDouble(value);
-                    if ((!nbrDouble.toString().equals("Infinity")) && (!nbrDouble.toString().equals("-Infinity"))) {
+                    if ((!nbrDouble.toString().equals("Infinity")) && (!nbrDouble.toString().equals("-Infinity"))) { //$NON-NLS-1$ //$NON-NLS-2$
                         if ((nbrDouble >= DOUBLE_MIN) && (nbrDouble <= DOUBLE_MAX)) {
-                            return "Double";
+                            return "Double"; //$NON-NLS-1$
                         }
                     }
                 } catch (Exception e) {
@@ -157,25 +157,25 @@ public final class PerlDataTypeHelper {
         // is not a char, not a float : parseMethod is usable
         try {
             Integer.parseInt(value);
-            return "Integer";
+            return "Integer"; //$NON-NLS-1$
         } catch (Exception e) {
             // 
         }
         try {
             Long.parseLong(value);
-            return "Long";
+            return "Long"; //$NON-NLS-1$
         } catch (Exception e) {
             // 
         }
         try {
             Double.parseDouble(value);
-            return "Double";
+            return "Double"; //$NON-NLS-1$
         } catch (Exception e) {
             // 
         }
 
         // by default the type is string
-        return "String";
+        return "String"; //$NON-NLS-1$
     }
 
     /**
@@ -187,19 +187,19 @@ public final class PerlDataTypeHelper {
      * @deprecated not use the old type.
      */
     public static String getCommonType(final String type1, final String type2) {
-        if ((type1 == "String") || (type2 == "String")) {
-            return "String";
+        if ((type1 == "String") || (type2 == "String")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "String"; //$NON-NLS-1$
         }
-        if ((type1 == "Double") || (type2 == "Double")) {
-            return "Double";
+        if ((type1 == "Double") || (type2 == "Double")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "Double"; //$NON-NLS-1$
         }
-        if ((type1 == "Float") || (type2 == "Float")) {
-            return "Float";
+        if ((type1 == "Float") || (type2 == "Float")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "Float"; //$NON-NLS-1$
         }
-        if ((type1 == "Long") || (type2 == "Long")) {
-            return "Long";
+        if ((type1 == "Long") || (type2 == "Long")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "Long"; //$NON-NLS-1$
         }
-        return "String";
+        return "String"; //$NON-NLS-1$
     }
 
     public static String getNewCommonType(final String type1, final String type2) {
@@ -220,9 +220,9 @@ public final class PerlDataTypeHelper {
         Perl5Matcher matcher = new Perl5Matcher();
         Pattern pattern = null;
 
-        String strValidRealPattern = "^([-]|[.]|[-.]|[0-9])[0-9]*[.]*[0-9]+$";
-        String strValidIntegerPattern = "^([-]|[0-9])[0-9]*$";
-        String regex = "(" + strValidRealPattern + ")|(" + strValidIntegerPattern + ")";
+        String strValidRealPattern = "^([-]|[.]|[-.]|[0-9])[0-9]*[.]*[0-9]+$"; //$NON-NLS-1$
+        String strValidIntegerPattern = "^([-]|[0-9])[0-9]*$"; //$NON-NLS-1$
+        String regex = "(" + strValidRealPattern + ")|(" + strValidIntegerPattern + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
         try {
             pattern = compiler.compile(regex);

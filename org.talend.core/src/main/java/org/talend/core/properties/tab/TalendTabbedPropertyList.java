@@ -62,7 +62,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
  */
 public class TalendTabbedPropertyList extends Composite {
 
-    private static final String PROPERTIES_NOT_AVAILABLE = "Properties not available.";
+    private static final String PROPERTIES_NOT_AVAILABLE = "Properties not available."; //$NON-NLS-1$
 
     private static final ListElement[] ELEMENTS_EMPTY = new ListElement[0];
 

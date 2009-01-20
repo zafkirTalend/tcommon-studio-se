@@ -25,7 +25,7 @@ import org.talend.core.model.properties.RoutineItem;
  */
 public interface ITalendSynchronizer {
 
-    public final static String TEMPLATE = "__TEMPLATE__";
+    public final static String TEMPLATE = "__TEMPLATE__"; //$NON-NLS-1$
 
     public void syncAllRoutines() throws SystemException;
 

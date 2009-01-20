@@ -86,7 +86,7 @@ public class StringParameter extends Parameter {
     @Override
     public void setType(String type) {
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
-            super.setType("String");
+            super.setType("String"); //$NON-NLS-1$
         } else {
             super.setType(type);
         }

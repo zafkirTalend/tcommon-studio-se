@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.talend.core.i18n.Messages;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -32,7 +33,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class PaletteContentDialog extends Dialog {
 
-    private static final String DIALOG_TITLE = "Select the items in palette";
+    private static final String DIALOG_TITLE = "Select the items in palette"; //$NON-NLS-1$
 
     private TreeViewer viewer;
 
@@ -101,17 +102,17 @@ public class PaletteContentDialog extends Dialog {
         panel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label labelHint = new Label(panel, SWT.NONE);
-        labelHint.setText("Format hint default:");
+        labelHint.setText(Messages.getString("PaletteContentDialog.hint")); //$NON-NLS-1$
         Text textHint = new Text(panel, SWT.BORDER);
         textHint.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label labelLabel = new Label(panel, SWT.NONE);
-        labelLabel.setText("Format label default:");
+        labelLabel.setText(Messages.getString("PaletteContentDialog.lable")); //$NON-NLS-1$
         Text textLabel = new Text(panel, SWT.BORDER);
         textLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label labelConnection = new Label(panel, SWT.NONE);
-        labelConnection.setText("Format connection default:");
+        labelConnection.setText(Messages.getString("PaletteContentDialog.connection")); //$NON-NLS-1$
         Text textConnection = new Text(panel, SWT.BORDER);
         textConnection.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 

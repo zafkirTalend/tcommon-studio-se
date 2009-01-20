@@ -174,7 +174,7 @@ public class MetadataTool {
     public static Query getQueryFromRepository(String metaRepositoryId) {
         org.talend.core.model.metadata.builder.connection.Connection connection;
 
-        String[] names = metaRepositoryId.split(" - ");
+        String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
         if (names.length != 2) {
             return null;
         }
@@ -201,7 +201,7 @@ public class MetadataTool {
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
         org.talend.core.model.metadata.builder.connection.Connection connection;
 
-        String[] names = metaRepositoryId.split(" - ");
+        String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
         if (names.length != 2) {
             return null;
         }
@@ -252,7 +252,7 @@ public class MetadataTool {
         String connectionId = metaRepositoryid;
         // some calls can be done either with only the connection Id or with
         // informations from query or table
-        String[] names = metaRepositoryid.split(" - ");
+        String[] names = metaRepositoryid.split(" - "); //$NON-NLS-1$
         if (names.length == 2) {
             connectionId = names[0];
         }
@@ -293,7 +293,7 @@ public class MetadataTool {
                 }
             }
             if (isNew) {
-                list.add(new ColumnNameChanged("", column.getLabel()));
+                list.add(new ColumnNameChanged("", column.getLabel())); //$NON-NLS-1$
             }
         }
         return list;
@@ -319,7 +319,7 @@ public class MetadataTool {
                 }
             }
             if (isNew) {
-                list.add(new ColumnNameChanged(column.getLabel(), ""));
+                list.add(new ColumnNameChanged(column.getLabel(), "")); //$NON-NLS-1$
             }
         }
         return list;
@@ -336,7 +336,7 @@ public class MetadataTool {
                     param.setValueToDefault(elementParameters);
                     IMetadataTable table = (IMetadataTable) param.getValue();
                     if (mappingParameter != null) {
-                        if (mappingParameter.getValue() != null && (!mappingParameter.getValue().equals(""))) {
+                        if (mappingParameter.getValue() != null && (!mappingParameter.getValue().equals(""))) { //$NON-NLS-1$
                             table.setDbms((String) mappingParameter.getValue());
                         }
                     }

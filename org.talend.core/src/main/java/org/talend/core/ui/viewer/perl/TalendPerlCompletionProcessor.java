@@ -57,9 +57,9 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
     private static final IPerlCompletionProposal[] NO_PROPOSALS = new IPerlCompletionProposal[0];
 
     // package-scope to enable unit testing
-    private static final Pattern MODULE_PREFIX_PATTERN = Pattern.compile("([A-Za-z0-9_]+(::|->))+");
+    private static final Pattern MODULE_PREFIX_PATTERN = Pattern.compile("([A-Za-z0-9_]+(::|->))+"); //$NON-NLS-1$
 
-    private static final Pattern VAR_PREFIX_PATTERN = Pattern.compile("\\$[A-Za-z0-9_]+(::|->)$");
+    private static final Pattern VAR_PREFIX_PATTERN = Pattern.compile("\\$[A-Za-z0-9_]+(::|->)$"); //$NON-NLS-1$
 
     private final IContextInformationValidator fValidator = new Validator();
 
@@ -99,7 +99,7 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
 
         ICompletionProposal[] externalProposals = new ICompletionProposal[0];
         for (IExternalProposals externalProposal : ProposalFactory.getInstances()) {
-            concatenate(externalProposal.getAdvancedProposals(documentOffset, "").toArray(new ICompletionProposal[0]),
+            concatenate(externalProposal.getAdvancedProposals(documentOffset, "").toArray(new ICompletionProposal[0]), //$NON-NLS-1$
                     externalProposals);
         }
 
@@ -190,8 +190,8 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
         List variablesModel = new ArrayList();
         Set variables = new HashSet();
 
-        String variableChars = "%$@";
-        String filehandleChars = "<";
+        String variableChars = "%$@"; //$NON-NLS-1$
+        String filehandleChars = "<"; //$NON-NLS-1$
 
         try {
             documentOffset = getCompletionStartOffset(viewer.getDocument(), documentOffset, variableChars + filehandleChars);
@@ -199,11 +199,11 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
             if (documentOffset < viewer.getDocument().getLength()) {
                 String key = viewer.getDocument().get(documentOffset, 1);
                 if (variableChars.indexOf(key) != -1) {
-                    variablesModel = SourceParser.getElements(viewer.getDocument(), "([$@%][a-z0-9A-Z_]+)\\s*[,)=;]", "", "",
+                    variablesModel = SourceParser.getElements(viewer.getDocument(), "([$@%][a-z0-9A-Z_]+)\\s*[,)=;]", "", "", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                             true);
                 } else if (filehandleChars.indexOf(key) != -1) {
                     variablesModel = SourceParser.getElements(viewer.getDocument(),
-                            "open[a-z]*\\s*?\\s*?[(]\\s*?([A-Z_0-9]+)\\s*?[,]", "<", ">", true);
+                            "open[a-z]*\\s*?\\s*?[(]\\s*?([A-Z_0-9]+)\\s*?[,]", "<", ">", true); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 }
             }
 
@@ -215,10 +215,10 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
                 if (!variables.contains(name)) {
                     variables.add(name);
 
-                    if (name.startsWith("@"))
-                        variables.add("$" + name.substring(1) + "[]");
-                    else if (name.startsWith("%"))
-                        variables.add("$" + name.substring(1) + "{}");
+                    if (name.startsWith("@")) //$NON-NLS-1$
+                        variables.add("$" + name.substring(1) + "[]"); //$NON-NLS-1$ //$NON-NLS-2$
+                    else if (name.startsWith("%")) //$NON-NLS-1$
+                        variables.add("$" + name.substring(1) + "{}"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
             }
         } catch (BadLocationException ex) {
@@ -231,10 +231,10 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
         try {
             // Find offset just after the -> or :: for which completion is
             // requested
-            documentOffset = getCompletionStartOffset(document, documentOffset, "_");
+            documentOffset = getCompletionStartOffset(document, documentOffset, "_"); //$NON-NLS-1$
 
             String text = document.get(0, documentOffset);
-            if (!text.endsWith("->") && !text.endsWith("::"))
+            if (!text.endsWith("->") && !text.endsWith("::")) //$NON-NLS-1$ //$NON-NLS-2$
                 return null;
 
             // Get the object name
@@ -245,11 +245,11 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
             if (VAR_PREFIX_PATTERN.matcher(line).find()) {
                 String objName = line.substring(line.lastIndexOf('$'));
 
-                objName = objName.indexOf("->") != -1 ? objName.substring(0, objName.indexOf("->")) : objName.substring(0,
-                        objName.indexOf("::"));
+                objName = objName.indexOf("->") != -1 ? objName.substring(0, objName.indexOf("->")) : objName.substring(0, //$NON-NLS-1$ //$NON-NLS-2$
+                        objName.indexOf("::")); //$NON-NLS-1$
 
                 // **** Get the classname ***
-                Pattern p = Pattern.compile("\\" + objName + "\\s*=\\s*([a-zA-Z:->]+)(->|::|;)");
+                Pattern p = Pattern.compile("\\" + objName + "\\s*=\\s*([a-zA-Z:->]+)(->|::|;)"); //$NON-NLS-1$ //$NON-NLS-2$
                 Matcher m = p.matcher(text);
 
                 String className = null;
@@ -271,10 +271,10 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
     }
 
     private List getProposalsForClassname(String className) {
-        String perlCode = "use " + className + ";\n\n" + "foreach $name (sort keys %" + className + "::) {\n"
-                + " next if($name !~ /[a-z]/ || $name =~ /^_/);\n" + "   if(defined &{\"" + className + "::$name\"}) {\n"
-                + "       print \"$name()\\n\";\n" + "   }\n" + "   else {\n" + "       #print \"$name\\n\";\n" + "   }\n"
-                + "}\n";
+        String perlCode = "use " + className + ";\n\n" + "foreach $name (sort keys %" + className + "::) {\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                + " next if($name !~ /[a-z]/ || $name =~ /^_/);\n" + "   if(defined &{\"" + className + "::$name\"}) {\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                + "       print \"$name()\\n\";\n" + "   }\n" + "   else {\n" + "       #print \"$name\\n\";\n" + "   }\n" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                + "}\n"; //$NON-NLS-1$
 
         PerlExecutor executor = new PerlExecutor();
         // try {
@@ -320,7 +320,7 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
     }
 
     private String getModuleNamePrefix(String line) {
-        Pattern pattern = Pattern.compile(".*use\\s*(.*)$", Pattern.MULTILINE | Pattern.DOTALL);
+        Pattern pattern = Pattern.compile(".*use\\s*(.*)$", Pattern.MULTILINE | Pattern.DOTALL); //$NON-NLS-1$
         Matcher matcher = pattern.matcher(line);
         return matcher.matches() ? matcher.group(1) : null;
     }

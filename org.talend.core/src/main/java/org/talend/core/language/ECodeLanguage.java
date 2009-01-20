@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.language;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * Enum for available Code Languages in the application.
  * 
@@ -19,8 +21,8 @@ package org.talend.core.language;
  * 
  */
 public enum ECodeLanguage {
-    PERL("perl", "perl", "Perl"), //$NON-NLS-1$ //$NON-NLS-2$
-    JAVA("java", "java", "Java"); //$NON-NLS-1$ //$NON-NLS-2$
+    PERL("perl", "perl", "Perl"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    JAVA("java", "java", "Java"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     private ECodeLanguage(String name, String extension, String caseName) {
         this.name = name;
@@ -34,7 +36,7 @@ public enum ECodeLanguage {
                 return codeLanguage;
             }
         }
-        throw new UnsupportedOperationException("Unknown language");
+        throw new UnsupportedOperationException(Messages.getString("ECodeLanguage.unknowLanguage")); //$NON-NLS-1$
     }
 
     private String name;

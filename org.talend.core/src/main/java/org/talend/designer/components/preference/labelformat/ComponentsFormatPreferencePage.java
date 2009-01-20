@@ -56,6 +56,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.ComponentUtilities;
 import org.talend.designer.components.IComponentsLocalProviderService;
 
@@ -79,13 +80,13 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
 
     private PaletteRoot paletteRoot;
 
-    private static final String DEFAULT_HINT = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore("defaultHint");
+    private static final String DEFAULT_HINT = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore("defaultHint"); //$NON-NLS-1$
 
     private static final String DEFAULT_LABEL = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
-            "defaultLabel");
+            "defaultLabel"); //$NON-NLS-1$
 
     private static final String DEFAULT_CONNECTION = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
-            "defaultConnection");
+            "defaultConnection"); //$NON-NLS-1$
 
     /**
      * yzhang Comment method "getPaletteRoot".
@@ -136,11 +137,11 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         buttonPanel.setLayout(new GridLayout());
 
         buttonAdd = new Button(buttonPanel, SWT.NONE);
-        buttonAdd.setText("Add");
+        buttonAdd.setText(Messages.getString("ComponentsFormatPreferencePage.add")); //$NON-NLS-1$
         buttonAdd.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         buttonRemove = new Button(buttonPanel, SWT.NONE);
-        buttonRemove.setText("Remove");
+        buttonRemove.setText(Messages.getString("ComponentsFormatPreferencePage.remove")); //$NON-NLS-1$
         buttonRemove.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Composite footerPanel = new Composite(panel, SWT.NONE);
@@ -150,20 +151,20 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         footerPanel.setLayoutData(footerPanelGD);
 
         Label labelHint = new Label(footerPanel, SWT.NONE);
-        labelHint.setText("Format hint default:");
+        labelHint.setText(Messages.getString("ComponentsFormatPreferencePage.formatHint")); //$NON-NLS-1$
         textHint = new Text(footerPanel, SWT.BORDER);
         textHint.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         configTextModifyListener(textHint, IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
 
         Label labelLabel = new Label(footerPanel, SWT.NONE);
-        labelLabel.setText("Format label default:");
+        labelLabel.setText(Messages.getString("ComponentsFormatPreferencePage.formatLable")); //$NON-NLS-1$
         textLabel = new Text(footerPanel, SWT.BORDER);
         textLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         configTextModifyListener(textLabel, IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
 
         Label labelConnection = new Label(footerPanel, SWT.NONE);
-        labelConnection.setText("Format connection default:");
+        labelConnection.setText(Messages.getString("ComponentsFormatPreferencePage.formatConnection")); //$NON-NLS-1$
         textConnection = new Text(footerPanel, SWT.BORDER);
         textConnection.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         configTextModifyListener(textConnection, IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
@@ -349,7 +350,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
             family = formContainerName(container.getParent());
         }
 
-        return family != null ? family + "/" + container.getLabel() : container.getLabel();
+        return family != null ? family + "/" + container.getLabel() : container.getLabel(); //$NON-NLS-1$
 
     }
 
@@ -366,9 +367,9 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
             setText(textLabel, format.getLabel(), label);
             setText(textHint, format.getHint(), hint);
         } else {
-            setText(textConnection, "", connection);
-            setText(textLabel, "", label);
-            setText(textHint, "", hint);
+            setText(textConnection, "", connection); //$NON-NLS-1$
+            setText(textLabel, "", label); //$NON-NLS-1$
+            setText(textHint, "", hint); //$NON-NLS-1$
         }
 
         connection = true;
@@ -388,7 +389,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         if (flag) {
             text.setText(content);
         } else {
-            text.setText("");
+            text.setText(""); //$NON-NLS-1$
         }
     }
 
@@ -444,7 +445,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * @param defaultValue
      */
     private void setDefaultValueToPreferenceCach(String id, String type, String defaultValue, boolean forceDefault) {
-        if (forceDefault || "".equals(preferenceStore.getString(id + type))) {
+        if (forceDefault || "".equals(preferenceStore.getString(id + type))) { //$NON-NLS-1$
             preferenceCach.put(id + type, defaultValue);
         } else {
             preferenceCach.put(id + type, preferenceStore.getString(id + type));
@@ -489,12 +490,12 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         preferenceCach = new HashMap<String, String>();
 
         String ids = preferenceStore.getString(IComponentsLocalProviderService.FORMAT_IDS);
-        if (!"".equals(ids)) {
-            String[] idArray = ids.split(";");
+        if (!"".equals(ids)) { //$NON-NLS-1$
+            String[] idArray = ids.split(";"); //$NON-NLS-1$
             idSet = new HashSet<String>();
             for (String id : idArray) {
-                String[] items = id.split(":");
-                idSet.add(items[0] + ":" + items[1]);
+                String[] items = id.split(":"); //$NON-NLS-1$
+                idSet.add(items[0] + ":" + items[1]); //$NON-NLS-1$
             }
             iteratePaletteEntriesToInitViewerInput(getPaletteRoot());
         }
@@ -638,7 +639,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         StringBuffer key = new StringBuffer();
         for (String id : preferenceCach.keySet()) {
             preferenceStore.putValue(id, preferenceCach.get(id));
-            key.append(id + ";");
+            key.append(id + ";"); //$NON-NLS-1$
         }
         preferenceStore.putValue(IComponentsLocalProviderService.FORMAT_IDS, key.toString());
         return super.performOk();

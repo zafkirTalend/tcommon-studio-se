@@ -41,9 +41,9 @@ import org.talend.core.model.utils.TalendTextUtils;
  */
 public class SQLFormatUtil {
 
-    private static final String LINE_SEP = System.getProperty("line.separator");
+    private static final String LINE_SEP = System.getProperty("line.separator"); //$NON-NLS-1$
 
-    private static final String SPACE = " ";
+    private static final String SPACE = " "; //$NON-NLS-1$
 
     private static final Collection<String> KEYWORDS = new ArrayList<String>();
 
@@ -64,9 +64,9 @@ public class SQLFormatUtil {
         Collection<String> words = new ArrayList<String>();
         try {
             Collection<String> organs = separate(temp, generateRegexByKeyWords(KEYWORDS));
-            Collection<String> molecule = spillByRegex(organs, "\\s{1,}"); // spill by space
+            Collection<String> molecule = spillByRegex(organs, "\\s{1,}"); // spill by space //$NON-NLS-1$
             for (String str : molecule) {
-                words.addAll(separate(str, ",")); // spill by space;
+                words.addAll(separate(str, ",")); // spill by space; //$NON-NLS-1$
             }
         } catch (MalformedPatternException e) {
             ExceptionHandler.process(e);
@@ -120,7 +120,7 @@ public class SQLFormatUtil {
         }
         // String trimSql = TalendTextUtils.trimParameter(sql);
         // Remove all multi-space
-        String temp = sql.replaceAll("\\s{2,}", SPACE);
+        String temp = sql.replaceAll("\\s{2,}", SPACE); //$NON-NLS-1$
         return temp;
     }
 
@@ -128,7 +128,7 @@ public class SQLFormatUtil {
         if (sql == null) {
             return null;
         }
-        String temp = sql.replaceAll("\\s{1,},", ","); // Remove blank before the ,
+        String temp = sql.replaceAll("\\s{1,},", ","); // Remove blank before the , //$NON-NLS-1$ //$NON-NLS-2$
         return temp;
     }
 
@@ -141,7 +141,7 @@ public class SQLFormatUtil {
             return true;
         }
 
-        if (pre.endsWith(",")) {
+        if (pre.endsWith(",")) { //$NON-NLS-1$
             return true;
         }
         return false;
@@ -152,7 +152,7 @@ public class SQLFormatUtil {
             return false;
         }
         String temp = str;
-        if (str.startsWith("\"")) {
+        if (str.startsWith("\"")) { //$NON-NLS-1$
             temp = TalendTextUtils.removeQuotes(str);
         }
 
@@ -161,7 +161,7 @@ public class SQLFormatUtil {
 
     private String lengthSpaces(int length) {
         if (length <= 0) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -174,10 +174,10 @@ public class SQLFormatUtil {
         StringBuilder builder = new StringBuilder();
 
         for (String key : keys) {
-            builder.append("\b[\"]*");
+            builder.append("\b[\"]*"); //$NON-NLS-1$
             builder.append(key);
-            builder.append("\b");
-            builder.append("|");
+            builder.append("\b"); //$NON-NLS-1$
+            builder.append("|"); //$NON-NLS-1$
         }
 
         String res = builder.toString();
@@ -188,14 +188,14 @@ public class SQLFormatUtil {
         SAXReader saxReader = new SAXReader();
         Document document = null;
         try {
-            document = saxReader.read(CommonsPlugin.class.getClassLoader().getResourceAsStream("/modes/tsql.xml"));
-            List list = document.selectNodes("//MODE/RULES/KEYWORDS/KEYWORD1");
+            document = saxReader.read(CommonsPlugin.class.getClassLoader().getResourceAsStream("/modes/tsql.xml")); //$NON-NLS-1$
+            List list = document.selectNodes("//MODE/RULES/KEYWORDS/KEYWORD1"); //$NON-NLS-1$
             Iterator iter = list.iterator();
             Collection<String> res = new HashSet<String>();
             while (iter.hasNext()) {
                 Element element = (Element) iter.next();
                 String key = element.getTextTrim();
-                if (key != null && !key.equals("")) {
+                if (key != null && !key.equals("")) { //$NON-NLS-1$
                     res.add(key.toUpperCase());
                 }
             }
@@ -269,7 +269,7 @@ public class SQLFormatUtil {
     public void testSep() {
         SQLFormatUtil util = new SQLFormatUtil();
         try {
-            Collection<String> res = util.separate("select * from table", "sel|table");
+            Collection<String> res = util.separate("select * from table", "sel|table"); //$NON-NLS-1$ //$NON-NLS-2$
             System.out.println(res);
         } catch (MalformedPatternException e) {
             e.printStackTrace();

@@ -112,11 +112,11 @@ public class TalendTabbedPropertyComposite extends Composite {
             composite = new Composite(mainComposite, SWT.NONE);
             compactButton = new Button(composite, SWT.PUSH);
             compactButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-            compactButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.compactButton.toolTip"));
+            compactButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.compactButton.toolTip")); //$NON-NLS-1$
 
             tableButton = new Button(composite, SWT.PUSH);
             tableButton.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
-            tableButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.tableButton.toolTip"));
+            tableButton.setToolTipText(Messages.getString("TalendTabbedPropertyComposite.tableButton.toolTip")); //$NON-NLS-1$
 
             if (isCompactView()) {
                 compactButton.setImage(ImageProvider.getImage(EImage.COMPACT_VIEW));

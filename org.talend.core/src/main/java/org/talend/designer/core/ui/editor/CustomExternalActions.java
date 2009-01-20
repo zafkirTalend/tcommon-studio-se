@@ -33,13 +33,13 @@ public abstract class CustomExternalActions extends SelectionAction {
 
     public static final int OUTPUT = 0223;
 
-    public static final String ELEM_CLASS = "class";
+    public static final String ELEM_CLASS = "class"; //$NON-NLS-1$
 
-    public static final String ELEM_LABEL = "label";
+    public static final String ELEM_LABEL = "label"; //$NON-NLS-1$
 
-    public static final String ELEM_ID = "id";
+    public static final String ELEM_ID = "id"; //$NON-NLS-1$
 
-    public static final String EXTENSION_ID = "org.talend.core.component_custom_action";
+    public static final String EXTENSION_ID = "org.talend.core.component_custom_action"; //$NON-NLS-1$
 
     private static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
             .getActiveEditor();

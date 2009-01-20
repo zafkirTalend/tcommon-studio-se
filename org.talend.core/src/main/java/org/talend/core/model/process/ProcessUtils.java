@@ -70,7 +70,7 @@ public class ProcessUtils {
                 ContextType contextType = (ContextType) process.getContext().get(0);
                 for (ContextParameterType param : (List<ContextParameterType>) contextType.getContextParameter()) {
                     String repositoryContextId = param.getRepositoryContextId();
-                    if (repositoryContextId != null && !"".equals(repositoryContextId)) {
+                    if (repositoryContextId != null && !"".equals(repositoryContextId)) { //$NON-NLS-1$
                         try {
                             IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
                             IRepositoryObject lastVersion = factory.getLastVersion(repositoryContextId);
@@ -111,23 +111,23 @@ public class ProcessUtils {
                 for (INode node : nodes) {
                     List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
                     for (IElementParameter elementParameter : eleParams) {
-                        String repositoryMetadataId = "";
-                        if (elementParameter.getName().equals("PROPERTY")) {
-                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_PROPERTY_TYPE")
+                        String repositoryMetadataId = ""; //$NON-NLS-1$
+                        if (elementParameter.getName().equals("PROPERTY")) { //$NON-NLS-1$
+                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_PROPERTY_TYPE") //$NON-NLS-1$
                                     .getValue();
                         }
-                        if (elementParameter.getName().equals("SCHEMA")) {
-                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_SCHEMA_TYPE")
+                        if (elementParameter.getName().equals("SCHEMA")) { //$NON-NLS-1$
+                            repositoryMetadataId = (String) elementParameter.getChildParameters().get("REPOSITORY_SCHEMA_TYPE") //$NON-NLS-1$
                                     .getValue();
                         }
-                        if (elementParameter.getName().equals("QUERYSTORE")) {
+                        if (elementParameter.getName().equals("QUERYSTORE")) { //$NON-NLS-1$
                             repositoryMetadataId = (String) elementParameter.getChildParameters().get(
-                                    "REPOSITORY_QUERYSTORE_TYPE").getValue();
+                                    "REPOSITORY_QUERYSTORE_TYPE").getValue(); //$NON-NLS-1$
                         }
-                        String[] id = repositoryMetadataId.split(" - ");
+                        String[] id = repositoryMetadataId.split(" - "); //$NON-NLS-1$
                         if (id.length > 0) {
 
-                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) {
+                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                                 try {
                                     IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
                                     IRepositoryObject lastVersion = factory.getLastVersion(id[0].trim());
@@ -174,10 +174,10 @@ public class ProcessUtils {
                     List<IElementParameter> eleParams = (List<IElementParameter>) node.getElementParameters();
                     for (IElementParameter elementParameter : eleParams) {
 
-                        if (elementParameter.getName().equals("PROCESS")) {
+                        if (elementParameter.getName().equals("PROCESS")) { //$NON-NLS-1$
                             String repositoryMetadataId = (String) elementParameter.getChildParameters().get(
-                                    "PROCESS_TYPE_PROCESS").getValue();
-                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) {
+                                    "PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
+                            if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                                 try {
                                     IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
                                     IRepositoryObject lastVersion = factory.getLastVersion(repositoryMetadataId);

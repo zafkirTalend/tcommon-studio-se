@@ -372,7 +372,7 @@ public class Function implements Cloneable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Messages.getString("Function.FunctionName", name))
+        sb.append(Messages.getString("Function.FunctionName", name)) //$NON-NLS-1$
                 .append("   " + this.getDescription()).append("\n").append("    "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         Parameter[] p = this.parametersToArray();
 

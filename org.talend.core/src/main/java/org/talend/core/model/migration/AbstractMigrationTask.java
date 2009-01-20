@@ -24,7 +24,7 @@ public abstract class AbstractMigrationTask {
 
     private String name;
 
-    private String description = "";
+    private String description = ""; //$NON-NLS-1$
 
     /**
      * DOC smallet AbstractMigrationTask constructor comment.

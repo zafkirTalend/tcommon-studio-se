@@ -65,8 +65,8 @@ public final class CodeGeneratorRoutine {
 
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
 
-        String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::";
-        String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::";
+        String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::"; //$NON-NLS-1$ //$NON-NLS-2$
         try {
             List<IRepositoryObject> routines = repositoryFactory.getAll(currentProject, ERepositoryObjectType.ROUTINES);
             for (IRepositoryObject routine : routines) {

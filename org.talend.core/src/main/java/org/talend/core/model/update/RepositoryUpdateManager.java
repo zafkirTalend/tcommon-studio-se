@@ -401,7 +401,7 @@ public abstract class RepositoryUpdateManager {
             parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
             checkMonitorCanceled(parentMonitor);
             MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
-            parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate"));
+            parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
 
             for (IRepositoryObject repositoryObj : allVersionList) {
                 checkMonitorCanceled(parentMonitor);

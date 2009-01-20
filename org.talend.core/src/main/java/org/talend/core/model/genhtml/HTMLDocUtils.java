@@ -34,7 +34,7 @@ public class HTMLDocUtils {
      */
     public static String checkString(String str) {
         if (str == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         return str;
     }
@@ -47,7 +47,7 @@ public class HTMLDocUtils {
      */
     public static String checkDate(Date date) {
         if (date == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         DateFormat formatter = DateFormat.getDateTimeInstance();
         return formatter.format(date);
@@ -80,7 +80,7 @@ public class HTMLDocUtils {
     }
 
     public static String getPreviewPicPath(INode node) {
-        String previewImagePath = "";
+        String previewImagePath = ""; //$NON-NLS-1$
         previewImagePath = getPreviewImagePath(node.getElementParameters());
         if (previewImagePath == null || previewImagePath.length() == 0) {
             return previewImagePath;
@@ -98,10 +98,10 @@ public class HTMLDocUtils {
 
         for (IElementParameter parameter : elementParameters) {
             IElementParameter type = parameter;
-            if (type.getName().equals("PREVIEW")) {
+            if (type.getName().equals("PREVIEW")) { //$NON-NLS-1$
                 return type.getValue().toString();
             }
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
 }

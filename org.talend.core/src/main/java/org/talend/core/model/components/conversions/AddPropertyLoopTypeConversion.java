@@ -20,9 +20,9 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
  */
 public class AddPropertyLoopTypeConversion implements IComponentConversion {
 
-    private String field = "CLOSED_LIST";
+    private String field = "CLOSED_LIST"; //$NON-NLS-1$
 
-    private String name = "LOOPTYPE";
+    private String name = "LOOPTYPE"; //$NON-NLS-1$
 
     public AddPropertyLoopTypeConversion() {
         super();
@@ -30,7 +30,7 @@ public class AddPropertyLoopTypeConversion implements IComponentConversion {
 
     public void transform(NodeType node) {
         ComponentUtilities.addNodeProperty(node, name, field);
-        ComponentUtilities.setNodeValue(node, name, "FORLOOP");
+        ComponentUtilities.setNodeValue(node, name, "FORLOOP"); //$NON-NLS-1$
     }
 
 }

@@ -30,7 +30,7 @@ import org.talend.repository.ProjectManager;
  */
 public class PerlResourcesHelper {
 
-    private static final String FILE_SUFFIX = ".pl";
+    private static final String FILE_SUFFIX = ".pl"; //$NON-NLS-1$
 
     public static final boolean USE_VERSIONING = true;
 
@@ -83,7 +83,7 @@ public class PerlResourcesHelper {
     public static String getJobFileName(String projectName, String jobName, String version) {
         String jobFileName = projectName + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
         if (USE_VERSIONING) {
-            jobFileName += "_" + version;
+            jobFileName += "_" + version; //$NON-NLS-1$
         }
         jobFileName += FILE_SUFFIX;
 
@@ -101,9 +101,9 @@ public class PerlResourcesHelper {
     public static String getContextFileName(String projectName, String jobName, String version, String context) {
         String contextFileName = projectName + ".job_" + escapeSpace(jobName); //$NON-NLS-1$
         if (USE_VERSIONING) {
-            contextFileName += "_" + version;
+            contextFileName += "_" + version; //$NON-NLS-1$
         }
-        contextFileName += "_" + escapeSpace(context);
+        contextFileName += "_" + escapeSpace(context); //$NON-NLS-1$
         contextFileName += FILE_SUFFIX;
 
         return contextFileName;

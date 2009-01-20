@@ -58,6 +58,6 @@ public class KeywordsValidator {
     }
 
     public static void main(String[] args) {
-        System.out.println(isKeyword(ECodeLanguage.JAVA, "class"));
+        System.out.println(isKeyword(ECodeLanguage.JAVA, "class")); //$NON-NLS-1$
     }
 }

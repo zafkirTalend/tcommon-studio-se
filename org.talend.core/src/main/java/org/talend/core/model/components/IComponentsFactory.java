@@ -30,7 +30,7 @@ public interface IComponentsFactory {
 
     String EXTERNAL_COMPONENTS_INNER_FOLDER = "ext"; //$NON-NLS-1$
 
-    String COMPONENT_DEFINITION = "org.talend.core.component_definition";
+    String COMPONENT_DEFINITION = "org.talend.core.component_definition"; //$NON-NLS-1$
 
     public void reset();
 

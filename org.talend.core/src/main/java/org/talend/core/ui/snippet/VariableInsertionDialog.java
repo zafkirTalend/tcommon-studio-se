@@ -327,7 +327,7 @@ public class VariableInsertionDialog extends Dialog {
         for (String key : keys) {
             String name = (String) fTableViewer.getColumnData()[0].get(key);
             String value = (String) fTableViewer.getColumnData()[1].get(key);
-            result[i] = name + "=" + value;
+            result[i] = name + "=" + value; //$NON-NLS-1$
             i++;
         }
         return result;

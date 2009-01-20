@@ -21,9 +21,9 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
  */
 public class AddRenameOnFileCopyConversion implements IComponentConversion {
 
-    private String field = "CHECK";
+    private String field = "CHECK"; //$NON-NLS-1$
 
-    private String name = "RENAME";
+    private String name = "RENAME"; //$NON-NLS-1$
 
     /**
      * DOC Administrator AddRenameOnFileCopyConversion constructor comment.
@@ -38,16 +38,16 @@ public class AddRenameOnFileCopyConversion implements IComponentConversion {
      * @see org.talend.core.model.components.conversions.IComponentConversion#transform(org.talend.designer.core.model.utils.emf.talendfile.NodeType)
      */
     public void transform(NodeType node) {
-        ElementParameterType nodeProperty = ComponentUtilities.getNodeProperty(node, "DESTINATION_RENAME");
-        String destinationFileName = "";
+        ElementParameterType nodeProperty = ComponentUtilities.getNodeProperty(node, "DESTINATION_RENAME"); //$NON-NLS-1$
+        String destinationFileName = ""; //$NON-NLS-1$
         if (nodeProperty != null) {
             destinationFileName = nodeProperty.getValue();
         }
         // the old tFileCopy, if the property "DESTINATION_RENAME" is "", it means "don't rename"
-        if (ComponentUtilities.getNodeProperty(node, name) == null && !destinationFileName.trim().equals("\"\"")) {
+        if (ComponentUtilities.getNodeProperty(node, name) == null && !destinationFileName.trim().equals("\"\"")) { //$NON-NLS-1$
 
             ComponentUtilities.addNodeProperty(node, name, field);
-            ComponentUtilities.setNodeValue(node, name, "true");
+            ComponentUtilities.setNodeValue(node, name, "true"); //$NON-NLS-1$
         }
     }
 }

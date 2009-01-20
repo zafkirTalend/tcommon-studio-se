@@ -124,7 +124,7 @@ public final class ContextManagerHelper {
         }
         if (obj instanceof String) {
             String str = (String) obj;
-            if ("".equals(str)) {
+            if ("".equals(str)) { //$NON-NLS-1$
                 return false;
             }
         }
@@ -660,7 +660,7 @@ public final class ContextManagerHelper {
         final String value = param.getValue();
         final String type = param.getType();
 
-        if (param.isBuiltIn() && (value == null || "".equals(value.trim()))) {
+        if (param.isBuiltIn() && (value == null || "".equals(value.trim()))) { //$NON-NLS-1$
             final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
             switch (codeLanguage) {
             case JAVA:

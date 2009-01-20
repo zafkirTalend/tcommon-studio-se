@@ -94,7 +94,7 @@ public class TalendPerlSourceViewerConfiguration extends SourceViewerConfigurati
     }
 
     public String[] getDefaultPrefixes(ISourceViewer sourceViewer, String contentType) {
-        return new String[] { "#", "" }; //$NON-NLS-1$
+        return new String[] { "#", "" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     }
 
@@ -103,7 +103,7 @@ public class TalendPerlSourceViewerConfiguration extends SourceViewerConfigurati
     }
 
     public String[] getIndentPrefixes(ISourceViewer sourceViewer, String contentType) {
-        return new String[] { PreferenceUtil.getTab(0), "\t" };
+        return new String[] { PreferenceUtil.getTab(0), "\t" }; //$NON-NLS-1$
     }
 
     public int getTabWidth(ISourceViewer sourceViewer) {

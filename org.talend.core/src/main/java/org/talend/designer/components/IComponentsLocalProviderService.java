@@ -22,19 +22,19 @@ import org.talend.core.IService;
  */
 public interface IComponentsLocalProviderService extends IService {
 
-    public static final String FORMAT_IDS = "formatIds";
+    public static final String FORMAT_IDS = "formatIds"; //$NON-NLS-1$
 
-    public static final String IDS_SEPARATOR = ";";
+    public static final String IDS_SEPARATOR = ";"; //$NON-NLS-1$
 
-    public static final String PALETTE_ENTRY_TYPE = ":ToolEntry";
+    public static final String PALETTE_ENTRY_TYPE = ":ToolEntry"; //$NON-NLS-1$
 
-    public static final String PALETTE_CONTAINER_TYPE = ":PaletteContainer";
+    public static final String PALETTE_CONTAINER_TYPE = ":PaletteContainer"; //$NON-NLS-1$
 
-    public final static String PREFERENCE_TYPE_HINT = ":HINT";
+    public final static String PREFERENCE_TYPE_HINT = ":HINT"; //$NON-NLS-1$
 
-    public final static String PREFERENCE_TYPE_LABEL = ":LABEL";
+    public final static String PREFERENCE_TYPE_LABEL = ":LABEL"; //$NON-NLS-1$
 
-    public final static String PREFERENCE_TYPE_CONNECTION = ":CONNECTION";
+    public final static String PREFERENCE_TYPE_CONNECTION = ":CONNECTION"; //$NON-NLS-1$
 
     public boolean isAvoidToShowJobAfterDoubleClick();
 

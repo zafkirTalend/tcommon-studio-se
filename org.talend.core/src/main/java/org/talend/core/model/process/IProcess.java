@@ -26,9 +26,9 @@ import org.talend.designer.runprocess.IProcessor;
  */
 public interface IProcess extends IRepositoryObject, IElement {
 
-    public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X";
+    public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X"; //$NON-NLS-1$
 
-    public static final String SCREEN_OFFSET_Y = "SCREEN_OFFSET_Y";
+    public static final String SCREEN_OFFSET_Y = "SCREEN_OFFSET_Y"; //$NON-NLS-1$
 
     public String getName();
 

@@ -27,6 +27,7 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 
 /***/
 public abstract class AbstractComponentsProvider {
@@ -68,14 +69,15 @@ public abstract class AbstractComponentsProvider {
             if (externalComponentsLocation.exists()) {
                 try {
                     FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
-                    if (installationFolder.getPath().endsWith("components\\ext\\user")) {
+                    if (installationFolder.getPath().endsWith("components\\ext\\user")) { //$NON-NLS-1$
                         CorePlugin.getDefault().getLibrariesService().syncLibraries();
                     }
                 } catch (IOException e) {
                     ExceptionHandler.process(e);
                 }
             } else {
-                logger.warn("Folder " + externalComponentsLocation.toString() + " does not exist.");
+                logger.warn(Messages
+                        .getString("AbstractComponentsProvider.folderNotExist", externalComponentsLocation.toString())); //$NON-NLS-1$
             }
         }
     }
@@ -86,7 +88,7 @@ public abstract class AbstractComponentsProvider {
         Bundle b = Platform.getBundle(IComponentsFactory.COMPONENTS_LOCATION);
 
         File installationFolder = null;
-        IPath nullPath = new Path("");
+        IPath nullPath = new Path(""); //$NON-NLS-1$
         URL url = FileLocator.find(b, nullPath, null);
         URL fileUrl = FileLocator.toFileURL(url);
         File bundleFolder = new File(fileUrl.getPath());
@@ -97,7 +99,7 @@ public abstract class AbstractComponentsProvider {
         // bug fix : several headless instance should not use the same folder
         if (CommonsPlugin.isHeadless()) {
             String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
-            path = path.append(folderName + "-" + workspaceName);
+            path = path.append(folderName + "-" + workspaceName); //$NON-NLS-1$
         } else {
             path = path.append(folderName);
         }

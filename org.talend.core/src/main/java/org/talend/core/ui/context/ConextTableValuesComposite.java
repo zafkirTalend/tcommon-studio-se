@@ -74,7 +74,7 @@ import org.talend.core.i18n.Messages;
  */
 public class ConextTableValuesComposite extends AbstractContextTabEditComposite {
 
-    private static final String COLUMN_NAME_PROPERTY = "Name";
+    private static final String COLUMN_NAME_PROPERTY = "Name"; //$NON-NLS-1$
 
     public static final int CONTEXT_COLUMN_WIDTH = 200;
 
@@ -224,14 +224,14 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             @Override
             public String getTooltipContent(TreeItem item) {
 
-                String property = "";
+                String property = ""; //$NON-NLS-1$
                 if (properties != null && properties.length > VALUES_INDEX ) {
                     property = properties[VALUES_INDEX];
                 }
 
                 IContextParameter para = cellModifier.getRealParameter(property, item.getData());
                 if (para.getType().equalsIgnoreCase(getPerlStringType())) {
-                    return Messages.getString("PromptDialog.stringTip");
+                    return Messages.getString("PromptDialog.stringTip"); //$NON-NLS-1$
                 }
 
                 return null;
@@ -279,9 +279,9 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     public int compare(Viewer viewer, Object e1, Object e2) {
                         ITableLabelProvider labelProvider = (ITableLabelProvider) viewer2.getLabelProvider();
                         String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
-                                index) : "";
+                                index) : ""; //$NON-NLS-1$
                         String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
-                                index) : "";
+                                index) : ""; //$NON-NLS-1$
                         return getComparator().compare(columnText, columnText2) * direction;
                     }
                 });
@@ -583,7 +583,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     }
                 }
             }
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         /**
@@ -759,7 +759,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     }
                 }
             }
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         /*
@@ -905,16 +905,16 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                                 .getContextParameterList()) {
                                             if (son.parameter.getName().equals(contextParameter.getName())) {
                                                 if (ContextConstant.NULL_STRING.equals(contextParameter.getValue())) {
-                                                    sb.append("" + "/");
+                                                    sb.append("" + "/"); //$NON-NLS-1$ //$NON-NLS-2$
                                                 } else {
-                                                    sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/");
+                                                    sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/"); //$NON-NLS-1$
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                if (sb.toString().lastIndexOf("/") != -1) {
-                                    return sb.toString().substring(0, sb.toString().lastIndexOf("/"));
+                                if (sb.toString().lastIndexOf("/") != -1) { //$NON-NLS-1$
+                                    return sb.toString().substring(0, sb.toString().lastIndexOf("/")); //$NON-NLS-1$
                                 }
                             }
                         }
@@ -936,16 +936,16 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                                                 .getContextParameterList()) {
                                             if (son.parameter.getName().equals(contextParameter.getName())) {
                                                 if (ContextConstant.NULL_STRING.equals(contextParameter.getValue())) {
-                                                    sb.append("" + "/");
+                                                    sb.append("" + "/"); //$NON-NLS-1$ //$NON-NLS-2$
                                                 } else {
-                                                    sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/");
+                                                    sb.append(ContextParameterUtils.checkAndHideValue(contextParameter) + "/"); //$NON-NLS-1$
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                if (sb.toString().lastIndexOf("/") != -1) {
-                                    return sb.toString().substring(0, sb.toString().lastIndexOf("/"));
+                                if (sb.toString().lastIndexOf("/") != -1) { //$NON-NLS-1$
+                                    return sb.toString().substring(0, sb.toString().lastIndexOf("/")); //$NON-NLS-1$
                                 }
                             }
                         }
@@ -988,7 +988,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     }
                 }
             }
-            return "";
+            return ""; //$NON-NLS-1$
         }
 
         /*

@@ -60,9 +60,9 @@ public class JavaResourcesHelper {
 
     public static String getJobFolderName(String jobName, String version) {
         if (version != null) {
-            return jobName.replaceAll(" ", "_").toLowerCase() + "_" + version.replace(".", "_");
+            return jobName.replaceAll(" ", "_").toLowerCase() + "_" + version.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
         } else {
-            return jobName.replaceAll(" ", "_").toLowerCase();
+            return jobName.replaceAll(" ", "_").toLowerCase(); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 

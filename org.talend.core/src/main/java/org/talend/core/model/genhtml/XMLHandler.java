@@ -43,7 +43,7 @@ public class XMLHandler {
         try {
             // OutputFormat format = OutputFormat.createPrettyPrint();
             out = new java.io.FileOutputStream(filePath);
-            writer = new OutputStreamWriter(out, "UTF-8");
+            writer = new OutputStreamWriter(out, "UTF-8"); //$NON-NLS-1$
 
             OutputFormat format = OutputFormat.createPrettyPrint();
             output = new XMLWriter(writer, format) {
@@ -60,22 +60,22 @@ public class XMLHandler {
                     // Only print of declaration is not suppressed
                     if (!formatTmp.isSuppressDeclaration()) {
                         // Assume 1.0 version
-                        if (encoding.equals("UTF8")) {
-                            writer.write("<?xml version=\"1.1\"");
+                        if (encoding.equals("UTF8")) { //$NON-NLS-1$
+                            writer.write("<?xml version=\"1.1\""); //$NON-NLS-1$
 
                             if (!formatTmp.isOmitEncoding()) {
-                                writer.write(" encoding=\"UTF-8\"");
+                                writer.write(" encoding=\"UTF-8\""); //$NON-NLS-1$
                             }
 
-                            writer.write("?>");
+                            writer.write("?>"); //$NON-NLS-1$
                         } else {
-                            writer.write("<?xml version=\"1.1\"");
+                            writer.write("<?xml version=\"1.1\""); //$NON-NLS-1$
 
                             if (!formatTmp.isOmitEncoding()) {
-                                writer.write(" encoding=\"" + encoding + "\"");
+                                writer.write(" encoding=\"" + encoding + "\""); //$NON-NLS-1$ //$NON-NLS-2$
                             }
 
-                            writer.write("?>");
+                            writer.write("?>"); //$NON-NLS-1$
                         }
 
                         if (formatTmp.isNewLineAfterDeclaration()) {

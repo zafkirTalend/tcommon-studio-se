@@ -26,9 +26,9 @@ public enum ECoreImage implements IImage {
 
     PROJECT_ICON("/icons/prj_obj.gif"), //$NON-NLS-1$
 
-    STANDARD_ICON("/icons/unknown.gif"),
+    STANDARD_ICON("/icons/unknown.gif"), //$NON-NLS-1$
 
-    FAVORITE_ICON("/icons/unknown.gif"),
+    FAVORITE_ICON("/icons/unknown.gif"), //$NON-NLS-1$
 
     TALEND_PICTO("/icons/talend-picto-small.gif"), //$NON-NLS-1$
 
@@ -69,8 +69,8 @@ public enum ECoreImage implements IImage {
     METADATA_EBCDIC_CONNECTION_ICON(),
     METADATA_EBCDIC_CONNECTION_WIZ(),
 
-    METADATA_SAPCONNECTION_ICON("/icons/sapconnection.png"),
-    METADATA_SAPCONNECTION_WIZ("/icons/connection_wiz.gif"),
+    METADATA_SAPCONNECTION_ICON("/icons/sapconnection.png"), //$NON-NLS-1$
+    METADATA_SAPCONNECTION_WIZ("/icons/connection_wiz.gif"), //$NON-NLS-1$
 
     METADATA_SQLPATTERN_ICON("/icons/SQLPattern.png"), //$NON-NLS-1$
     METADATA_SQLPATTERN_WIZ("/icons/defaultWizard.png"), //$NON-NLS-1$
@@ -117,17 +117,17 @@ public enum ECoreImage implements IImage {
     IMPORT_JAR("/icons/importjar.gif"), //$NON-NLS-1$
     REFERENCED_ICON("/icons/referenced.png"), //$NON-NLS-1$
 
-    CDC_ADDED_OVERLAY("/icons/cdc_added_overlay.png"),
-    CDC_ACTIVATED_OVERLAY("/icons/cdc_activated_overlay.png"),
+    CDC_ADDED_OVERLAY("/icons/cdc_added_overlay.png"), //$NON-NLS-1$
+    CDC_ACTIVATED_OVERLAY("/icons/cdc_activated_overlay.png"), //$NON-NLS-1$
 
     ERROR_OVERLAY("/icons/error_co.gif"), //$NON-NLS-1$
     WARN_OVERLAY("/icons/warning_co.gif"), //$NON-NLS-1$
 
-    TOGGLE_SUBJOB("/icons/toggleSubjobs.png"),
-    TOGGLE_SUBJOB_DISABLED("/icons/toggleSubjobDisabled.png"),
+    TOGGLE_SUBJOB("/icons/toggleSubjobs.png"), //$NON-NLS-1$
+    TOGGLE_SUBJOB_DISABLED("/icons/toggleSubjobDisabled.png"), //$NON-NLS-1$
 
-    PALETTE_OK_ICON("/icons/palette_ok.png"),
-    PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"),
+    PALETTE_OK_ICON("/icons/palette_ok.png"), //$NON-NLS-1$
+    PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"), //$NON-NLS-1$
     UNKNOWN();
 
     private String path;

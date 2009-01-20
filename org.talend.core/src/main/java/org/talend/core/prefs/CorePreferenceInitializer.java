@@ -71,8 +71,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         IEclipsePreferences node = new DefaultScope().getNode(CorePlugin.getDefault().getBundle().getSymbolicName());
 
         // Building temporary files directory path
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); // NON-NLS-1$// NON-NLS-2$
-        // //$NON-NLS-1$ //$NON-NLS-2$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); // NON-NLS-1$// NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();
@@ -81,7 +80,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         // TODO CCA : Change this default value
         String os = Platform.getOS();
-        String javaPath = System.getProperty("java.home"); // NON-NLS-1$
+        String javaPath = System.getProperty("java.home"); // NON-NLS-1$ //$NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             String perlPath;
             perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
@@ -123,10 +122,10 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.AS400_SQL_SEG, true);
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, "id_String");
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, "id_String");
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE, "string");
-        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, "string");
+        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.FIELD_DEFAULT_TYPE, "id_String"); //$NON-NLS-1$
+        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.VALUE_DEFAULT_TYPE, "id_String"); //$NON-NLS-1$
+        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.PERL_FIELD_DEFAULT_TYPE, "string"); //$NON-NLS-1$
+        CorePlugin.getDefault().getPreferenceStore().setDefault(MetadataTypeLengthConstants.PERL_VALUE_DEFAULT_TYPE, "string"); //$NON-NLS-1$
 
         // As default, sets the choice which automatic generate corresponding documentation files if job is saved to
         // true:
@@ -144,7 +143,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
     // unused method : call remove for 2.3
     public void initializeUpdatePreference() {
-        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
+        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$ //$NON-NLS-1$
         // //$NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_SCHEDULE);

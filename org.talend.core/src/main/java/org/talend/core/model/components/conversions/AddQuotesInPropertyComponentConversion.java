@@ -35,7 +35,7 @@ public class AddQuotesInPropertyComponentConversion implements IComponentConvers
     public void transform(NodeType node) {
         String value = ComponentUtilities.getNodePropertyValue(node, propertyToModify);
         if (!isWithinQuote(value)) {
-            String newValue = "\"" + value + "\"";
+            String newValue = "\"" + value + "\""; //$NON-NLS-1$ //$NON-NLS-2$
             ComponentUtilities.setNodeValue(node, propertyToModify, newValue);
         }
     }
@@ -45,9 +45,9 @@ public class AddQuotesInPropertyComponentConversion implements IComponentConvers
             return true;
         }
         boolean isWithin = false;
-        if (string.startsWith("\"") && string.endsWith("\"") && (string.length() > 1)) {
+        if (string.startsWith("\"") && string.endsWith("\"") && (string.length() > 1)) { //$NON-NLS-1$ //$NON-NLS-2$
             isWithin = true;
-        } else if (string.startsWith("\'") && string.endsWith("\'") && (string.length() > 1)) {
+        } else if (string.startsWith("\'") && string.endsWith("\'") && (string.length() > 1)) { //$NON-NLS-1$ //$NON-NLS-2$
             isWithin = true;
         }
         return isWithin;

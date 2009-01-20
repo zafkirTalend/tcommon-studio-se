@@ -169,9 +169,9 @@ public class TalendProposalProvider implements IContentProposalProvider {
      * @return
      */
     private int compareRowAndContextProposal(String label0, String label1) {
-        if (label0.startsWith("$row[") && label1.startsWith("context")) {
+        if (label0.startsWith("$row[") && label1.startsWith("context")) { //$NON-NLS-1$ //$NON-NLS-2$
             return 1;
-        } else if (label1.startsWith("$row[") && label0.startsWith("context")) {
+        } else if (label1.startsWith("$row[") && label0.startsWith("context")) { //$NON-NLS-1$ //$NON-NLS-2$
             return -1;
         } else {
             return label0.compareToIgnoreCase(label1);

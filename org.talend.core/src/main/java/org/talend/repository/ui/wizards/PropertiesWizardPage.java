@@ -403,7 +403,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             if (parent == null) {
                 return null;
             }
-            return parent.getName() + "/" + name;
+            return parent.getName() + "/" + name; //$NON-NLS-1$
         }
 
         /**
@@ -478,7 +478,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         Folder root = new Folder(Folder.ROOT_FOLDER);
         for (String path : paths) {
-            String[] splitedPaths = path.split("/");
+            String[] splitedPaths = path.split("/"); //$NON-NLS-1$
             Folder lastFolder = null;
             for (int i = 0; i < splitedPaths.length; i++) {
                 String folderLabel = splitedPaths[i];
@@ -663,7 +663,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             Folder folder = (Folder) dialog.getResult()[0];
             String pathString = folder.getPath();
             if (pathString == null) {
-                pathText.setText("");
+                pathText.setText(""); //$NON-NLS-1$
             } else {
                 pathText.setText(pathString);
                 this.path = pathString;
@@ -724,7 +724,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             purposeText.setText(StringUtils.trimToEmpty(property.getPurpose()));
             descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
             authorText.setText(StringUtils.trimToEmpty(property.getAuthor().getLogin()));
-            lockerText.setText("");
+            lockerText.setText(""); //$NON-NLS-1$
             try {
                 lockerText.setText(property.getItem().getState().getLocker().getLogin());
             } catch (Exception e) {

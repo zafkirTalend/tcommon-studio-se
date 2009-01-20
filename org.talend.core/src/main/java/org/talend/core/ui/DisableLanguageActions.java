@@ -53,7 +53,7 @@ public class DisableLanguageActions implements IStartup {
 
         switch (lan) {
         case JAVA:
-            ids = Arrays.asList(new String[] { "org.talend.help.perl.OpenPerlHelpAction" });
+            ids = Arrays.asList(new String[] { "org.talend.help.perl.OpenPerlHelpAction" }); //$NON-NLS-1$
             break;
         case PERL:
             ids = null;

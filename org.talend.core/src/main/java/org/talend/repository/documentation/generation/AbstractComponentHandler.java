@@ -75,12 +75,12 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
 
         for (IElementParameter parameter : elementParameters) {
             IElementParameter type = parameter;
-            if (type.getName().equals("PREVIEW")) {
+            if (type.getName().equals("PREVIEW")) { //$NON-NLS-1$
                 return type.getValue().toString();
             }
         }
 
-        return "";
+        return ""; //$NON-NLS-1$
     }
 
     /**
@@ -97,13 +97,13 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
             Map picFilePathMap, Map<String, List> sourceConnectionMap, Map<String, List> targetConnectionMap,
             Map<String, String> repositoryDBIdAndNameMap) {
 
-        Element componentElement = nodeElement.addElement("component");
+        Element componentElement = nodeElement.addElement("component"); //$NON-NLS-1$
         String relativePath = getComponentIconPath(node);
-        String componentIconFileName = relativePath.substring(relativePath.lastIndexOf("/") + 1);
+        String componentIconFileName = relativePath.substring(relativePath.lastIndexOf("/") + 1); //$NON-NLS-1$
 
         String uniqueName = node.getUniqueName();
-        componentElement.addAttribute("icon", IHTMLDocConstants.PICTUREFOLDERPATH + componentIconFileName);
-        componentElement.addAttribute("uniqueName", uniqueName);
+        componentElement.addAttribute("icon", IHTMLDocConstants.PICTUREFOLDERPATH + componentIconFileName); //$NON-NLS-1$
+        componentElement.addAttribute("uniqueName", uniqueName); //$NON-NLS-1$
 
         // Stores the path of component icon.
         picFilePathMap.put(componentIconFileName, relativePath);
@@ -111,21 +111,21 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
 
         String componentLabel = getLabelFromElemParameters(elementParameters);
 
-        componentElement.addAttribute("label", componentLabel == null ? "" : componentLabel);
+        componentElement.addAttribute("label", componentLabel == null ? "" : componentLabel); //$NON-NLS-1$ //$NON-NLS-2$
 
-        String previewImagePath, storedPreviewImagePath = "";
+        String previewImagePath, storedPreviewImagePath = ""; //$NON-NLS-1$
 
         // If component is external node component, gets its preview picture.
         if (isExternalNodeComponent) {
             previewImagePath = getPreviewImagePath(elementParameters);
-            if (!previewImagePath.equals("")) {
+            if (!previewImagePath.equals("")) { //$NON-NLS-1$
                 IPath filePath = DocumentationPathProvider.getPathFileName(node.getProcess().getProperty().getItem(),
                         RepositoryConstants.IMG_DIRECTORY, previewImagePath);
                 File file = new File(filePath.toOSString());
                 if (file.exists()) {
                     storedPreviewImagePath = filePath.toOSString();
                     picFilePathMap.put(previewImagePath, storedPreviewImagePath);
-                    componentElement.addAttribute("preview", IHTMLDocConstants.PICTUREFOLDERPATH + previewImagePath);
+                    componentElement.addAttribute("preview", IHTMLDocConstants.PICTUREFOLDERPATH + previewImagePath); //$NON-NLS-1$
                 }
             }
         }
@@ -135,12 +135,12 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         // Gets the input of current component.
         if (sourceList != null && sourceList.size() > 0) {
             for (String string : sourceList) {
-                Element inputElement = componentElement.addElement("input");
-                inputElement.addAttribute("link", string);
+                Element inputElement = componentElement.addElement("input"); //$NON-NLS-1$
+                inputElement.addAttribute("link", string); //$NON-NLS-1$
                 inputElement.setText(HTMLDocUtils.checkString(string));
             }
         } else {// Sets the value of input to 'none'.
-            Element inputElement = componentElement.addElement("input");
+            Element inputElement = componentElement.addElement("input"); //$NON-NLS-1$
             inputElement.setText(IHTMLDocConstants.EMPTY_ELEMENT_VALUE);
         }
 
@@ -148,16 +148,16 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         // Gets the output of current component.
         if (targetList != null && targetList.size() > 0) {
             for (String string : targetList) {
-                Element outputElement = componentElement.addElement("output");
-                outputElement.addAttribute("link", string);
+                Element outputElement = componentElement.addElement("output"); //$NON-NLS-1$
+                outputElement.addAttribute("link", string); //$NON-NLS-1$
                 outputElement.setText(string);
             }
         } else {// Sets the value of output to 'none'.
-            Element inputElement = componentElement.addElement("output");
+            Element inputElement = componentElement.addElement("output"); //$NON-NLS-1$
             inputElement.setText(IHTMLDocConstants.EMPTY_ELEMENT_VALUE);
         }
 
-        Element componentTypeElement = componentElement.addElement("componentType");
+        Element componentTypeElement = componentElement.addElement("componentType"); //$NON-NLS-1$
         componentTypeElement.setText(HTMLDocUtils.checkString(node.getComponent().getName()));
 
         return componentElement;
@@ -172,7 +172,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
     private String getLabelFromElemParameters(List<? extends IElementParameter> elementParameters) {
 
         for (IElementParameter parameter : elementParameters) {
-            if (parameter.getCategory() == EComponentCategory.VIEW && parameter.getName().equals("LABEL")) {
+            if (parameter.getCategory() == EComponentCategory.VIEW && parameter.getName().equals("LABEL")) { //$NON-NLS-1$
                 return parameter.getValue().toString();
             }
         }
@@ -201,7 +201,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
         List metaDataList = node.getMetadataList();
         Element schemasElement = null;
         if (metaDataList != null && metaDataList.size() != 0) {
-            schemasElement = componentElement.addElement("schemas");
+            schemasElement = componentElement.addElement("schemas"); //$NON-NLS-1$
             boolean isBuiltIn = node.getConnectorFromName(EConnectionType.FLOW_MAIN.getName()).isMultiSchema()
                     || node.getConnectorFromName(EConnectionType.TABLE.getName()).isMultiSchema();
 
@@ -212,56 +212,56 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
                 }
                 IMetadataTable table = (IMetadataTable) metaDataList.get(j);
                 List columnTypeList = table.getListColumns();
-                Element schemaElement = schemasElement.addElement("schema");
+                Element schemaElement = schemasElement.addElement("schema"); //$NON-NLS-1$
 
                 String metaName = table.getLabel();
                 if (metaName == null) {
                     metaName = table.getTableName();
                 }
-                schemaElement.addAttribute("name", HTMLDocUtils.checkString(metaName));
+                schemaElement.addAttribute("name", HTMLDocUtils.checkString(metaName)); //$NON-NLS-1$
                 boolean dbComponent = false;
-                if (node.getComponent().getFamily().startsWith("Database") || node.getComponent().getFamily().startsWith("ELT")) {
+                if (node.getComponent().getFamily().startsWith("Database") || node.getComponent().getFamily().startsWith("ELT")) { //$NON-NLS-1$ //$NON-NLS-2$
                     dbComponent = true;
                 }
 
                 for (int k = 0; k < columnTypeList.size(); k++) {
                     IMetadataColumn columnType = (IMetadataColumn) columnTypeList.get(k);
-                    Element columnElement = schemaElement.addElement("column");
+                    Element columnElement = schemaElement.addElement("column"); //$NON-NLS-1$
 
-                    columnElement.addAttribute("name", HTMLDocUtils.checkString(columnType.getLabel()));
+                    columnElement.addAttribute("name", HTMLDocUtils.checkString(columnType.getLabel())); //$NON-NLS-1$
                     // if (dbComponent) {
                     // columnElement.addAttribute("dbColumn",
                     // HTMLDocUtils.checkString(columnType.getOriginalDbColumnName()));
                     // }
 
-                    columnElement.addAttribute("key", HTMLDocUtils.checkString(columnType.isKey() + ""));
+                    columnElement.addAttribute("key", HTMLDocUtils.checkString(columnType.isKey() + "")); //$NON-NLS-1$ //$NON-NLS-2$
                     String type = HTMLDocUtils.checkString(columnType.getTalendType());
-                    if (node.getComponent().getFamily().startsWith("ELT")) {
+                    if (node.getComponent().getFamily().startsWith("ELT")) { //$NON-NLS-1$
                         // if ELT then use the db type
                         type = HTMLDocUtils.checkString(columnType.getType());
                     } else if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
                         type = JavaTypesManager.getTypeToGenerate(columnType.getTalendType(), columnType.isNullable());
                     }
-                    columnElement.addAttribute("type", type);
+                    columnElement.addAttribute("type", type); //$NON-NLS-1$
                     // if (dbComponent) {
                     // columnElement.addAttribute("dbType", HTMLDocUtils.checkString(columnType.getType()));
                     // }
                     String length;
                     if ((columnType.getLength() == null) || (columnType.getLength() == 0)) {
-                        length = "";
+                        length = ""; //$NON-NLS-1$
                     } else {
                         length = String.valueOf(columnType.getLength());
                     }
-                    columnElement.addAttribute("length", length);
+                    columnElement.addAttribute("length", length); //$NON-NLS-1$
                     String precision;
                     if ((columnType.getPrecision() == null) || (columnType.getPrecision() == 0)) {
-                        precision = "";
+                        precision = ""; //$NON-NLS-1$
                     } else {
                         precision = String.valueOf(columnType.getPrecision());
                     }
-                    columnElement.addAttribute("precision", precision);
-                    columnElement.addAttribute("nullable", HTMLDocUtils.checkString(columnType.isNullable() + ""));
-                    columnElement.addAttribute("comment", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType
+                    columnElement.addAttribute("precision", precision); //$NON-NLS-1$
+                    columnElement.addAttribute("nullable", HTMLDocUtils.checkString(columnType.isNullable() + "")); //$NON-NLS-1$ //$NON-NLS-2$
+                    columnElement.addAttribute("comment", HTMLDocUtils.checkString(ElementParameterParser.parse(node, columnType //$NON-NLS-1$
                             .getComment())));
                 }
             }

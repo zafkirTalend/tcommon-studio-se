@@ -29,9 +29,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public final class SQLPatternUtils {
 
-    public static final String ID_SEPARATOR = "--";
+    public static final String ID_SEPARATOR = "--"; //$NON-NLS-1$
 
-    public static final String SQLPATTERNLIST = "SQLPATTERNLIST";
+    public static final String SQLPATTERNLIST = "SQLPATTERNLIST"; //$NON-NLS-1$
 
     public static SQLPatternItem getItemFromCompoundId(IElement element, String compoundId) {
         if (!compoundId.contains(ID_SEPARATOR)) {
@@ -61,7 +61,7 @@ public final class SQLPatternUtils {
      * @return
      */
     public static SQLPatternItem getSQLPatternItem(IElement element, String sqlpatternName) {
-        String eltNodeName = (String) element.getElementParameter("SQLPATTERN_DB_NAME").getValue();
+        String eltNodeName = (String) element.getElementParameter("SQLPATTERN_DB_NAME").getValue(); //$NON-NLS-1$
 
         SQLPatternItem sqlpatternItem = null;
         try {
@@ -91,7 +91,7 @@ public final class SQLPatternUtils {
      */
     public static IRepositoryObject getLastVersionRepositoryObjectById(String id) {
 
-        if (id == null || "".equals(id)) {
+        if (id == null || "".equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();

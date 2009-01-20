@@ -583,9 +583,9 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
                 ProjectManager projectManager = ProjectManager.getInstance();
                 Project project = projectManager.getProject(item);
-                String suffix = "";
+                String suffix = ""; //$NON-NLS-1$
                 if (!projectManager.getCurrentProject().getEmfProject().equals(project)) {
-                    suffix = " (" + project.getLabel() + ")";
+                    suffix = " (" + project.getLabel() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 return "Context: " + item.getProperty().getLabel() + suffix; //$NON-NLS-1$
             }

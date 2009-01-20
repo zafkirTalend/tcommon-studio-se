@@ -149,14 +149,14 @@ public class MappingTypeRetriever {
     public boolean isLengthIgnored(String dbmsId, String dbType) {
         Dbms dbms = MetadataTalendType.getDbms(dbmsId);
         List ignoreLP = dbms.getIgnoreLengthPrecision();
-        String ignore = new String("");
+        String ignore = new String(""); //$NON-NLS-1$
         for (int i = 0; i < ignoreLP.size(); i++) {
             DbIgnoreLengthAndPrecision dbIgnore = (DbIgnoreLengthAndPrecision) ignoreLP.get(i);
             if (dbIgnore.getDbType().equals(dbType)) {
                 ignore = dbIgnore.getIgnoreLength();
                 if (ignore == null) {
                     return false;
-                } else if (ignore.equals("true")) {
+                } else if (ignore.equals("true")) { //$NON-NLS-1$
                     return true;
                 } else {
                     return false;
@@ -169,14 +169,14 @@ public class MappingTypeRetriever {
     public boolean isPrecisionIgnored(String dbmsId, String dbType) {
         Dbms dbms = MetadataTalendType.getDbms(dbmsId);
         List ignoreLP = dbms.getIgnoreLengthPrecision();
-        String ignore = new String("");
+        String ignore = new String(""); //$NON-NLS-1$
         for (int i = 0; i < ignoreLP.size(); i++) {
             DbIgnoreLengthAndPrecision dbIgnore = (DbIgnoreLengthAndPrecision) ignoreLP.get(i);
             if (dbIgnore.getDbType().equals(dbType)) {
                 ignore = dbIgnore.getIgnorePrecision();
                 if (ignore == null) {
                     return false;
-                } else if (ignore.equals("true")) {
+                } else if (ignore.equals("true")) { //$NON-NLS-1$
                     return true;
                 } else {
                     return false;
@@ -189,14 +189,14 @@ public class MappingTypeRetriever {
     public boolean isPreBeforeLength(String dbmsId, String dbType) {
         Dbms dbms = MetadataTalendType.getDbms(dbmsId);
         List preBeforeLen = dbms.getPrebeforelength();
-        String before = new String("");
+        String before = new String(""); //$NON-NLS-1$
         for (int i = 0; i < preBeforeLen.size(); i++) {
             DbPreBeforeLength dbPBL = (DbPreBeforeLength) preBeforeLen.get(i);
             if (dbPBL.getDbType().equals(dbType)) {
                 before = dbPBL.getPreBeforeLen();
                 if (before == null)
                     return false;
-                if (before.equals("true"))
+                if (before.equals("true")) //$NON-NLS-1$
                     return true;
                 else
                     return false;
