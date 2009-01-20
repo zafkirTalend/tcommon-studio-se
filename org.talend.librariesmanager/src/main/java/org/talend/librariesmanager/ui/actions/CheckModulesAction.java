@@ -31,7 +31,7 @@ public class CheckModulesAction extends Action {
         setText(Messages.getString("CheckModulesAction.CheckRefrshBtn.Text")); //$NON-NLS-1$
         setToolTipText(Messages.getString("CheckModulesAction.CheckRefrshBtn.Text")); //$NON-NLS-1$
         setImageDescriptor(ImageProvider.getImageDesc(EImage.REFRESH_ICON));
-        this.setActionDefinitionId("refreshModules");
+        this.setActionDefinitionId("refreshModules"); //$NON-NLS-1$
     }
 
     /*

@@ -32,12 +32,12 @@ public class LocaleProvider {
 
     public static void main(String[] args) {
 
-        System.out.println("FR => " + getLocale("FR"));
-        System.out.println("fr => " + getLocale("fr"));
-        System.out.println("tw => " + getLocale("tw"));
-        System.out.println("TW => " + getLocale("TW"));
-        System.out.println("zh => " + getLocale("zh"));
-        System.out.println("ZH => " + getLocale("ZH"));
+        System.out.println("FR => " + getLocale("FR")); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println("fr => " + getLocale("fr")); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println("tw => " + getLocale("tw")); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println("TW => " + getLocale("TW")); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println("zh => " + getLocale("zh")); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out.println("ZH => " + getLocale("ZH")); //$NON-NLS-1$ //$NON-NLS-2$
 
     }
 

@@ -58,20 +58,20 @@ public class BufferedOutput extends java.io.Writer {
     public BufferedOutput(Writer out, int sz) {
         super(out);
         if (sz <= 0)
-            throw new IllegalArgumentException("Buffer size <= 0");
+            throw new IllegalArgumentException("Buffer size <= 0"); //$NON-NLS-1$
         this.out = out;
         cb = new char[sz];
         nChars = sz;
         nextChar = 0;
 
         lineSeparator = (String) java.security.AccessController.doPrivileged(new sun.security.action.GetPropertyAction(
-                "line.separator"));
+                "line.separator")); //$NON-NLS-1$
     }
 
     /** Check to make sure that the stream has not been closed */
     private void ensureOpen() throws IOException {
         if (out == null)
-            throw new IOException("Stream closed");
+            throw new IOException("Stream closed"); //$NON-NLS-1$
     }
 
     /**

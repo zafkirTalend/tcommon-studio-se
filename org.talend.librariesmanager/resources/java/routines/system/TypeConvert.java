@@ -61,11 +61,11 @@ public class TypeConvert {
         }
 
         static ConvertTypeIllegalArgumentException forInputArgument(Object argument) {
-            return new ConvertTypeIllegalArgumentException("For input argument: \"" + argument + "\"");
+            return new ConvertTypeIllegalArgumentException("For input argument: \"" + argument + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         static ConvertTypeIllegalArgumentException forInputArgument(Object argument, Throwable cause) {
-            return new ConvertTypeIllegalArgumentException("For input argument: \"" + argument + "\"", cause);
+            return new ConvertTypeIllegalArgumentException("For input argument: \"" + argument + "\"", cause); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -90,7 +90,7 @@ public class TypeConvert {
      * 
      */
     public static byte boolean2byte(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -98,7 +98,7 @@ public class TypeConvert {
      * 
      */
     public static Byte boolean2Byte(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -106,7 +106,7 @@ public class TypeConvert {
      * 
      */
     public static byte[] boolean2byteArray(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to byte[]  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to byte[]  "); //$NON-NLS-1$
     }
 
     /**
@@ -114,7 +114,7 @@ public class TypeConvert {
      * 
      */
     public static char boolean2char(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to char  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to char  "); //$NON-NLS-1$
     }
 
     /**
@@ -122,7 +122,7 @@ public class TypeConvert {
      * 
      */
     public static Character boolean2Character(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Character  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Character  "); //$NON-NLS-1$
     }
 
     /**
@@ -130,7 +130,7 @@ public class TypeConvert {
      * 
      */
     public static Date boolean2Date(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -138,7 +138,7 @@ public class TypeConvert {
      * 
      */
     public static double boolean2double(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to double  "); //$NON-NLS-1$
     }
 
     /**
@@ -146,7 +146,7 @@ public class TypeConvert {
      * 
      */
     public static Double boolean2Double(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Double  "); //$NON-NLS-1$
     }
 
     /**
@@ -154,7 +154,7 @@ public class TypeConvert {
      * 
      */
     public static float boolean2float(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to float  "); //$NON-NLS-1$
     }
 
     /**
@@ -162,7 +162,7 @@ public class TypeConvert {
      * 
      */
     public static Float boolean2Float(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Float  "); //$NON-NLS-1$
     }
 
     /**
@@ -170,7 +170,7 @@ public class TypeConvert {
      * 
      */
     public static BigDecimal boolean2BigDecimal(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to BigDecimal  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to BigDecimal  "); //$NON-NLS-1$
     }
 
     /**
@@ -178,7 +178,7 @@ public class TypeConvert {
      * 
      */
     public static int boolean2int(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to int  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to int  "); //$NON-NLS-1$
     }
 
     /**
@@ -186,7 +186,7 @@ public class TypeConvert {
      * 
      */
     public static Integer boolean2Integer(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Integer  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Integer  "); //$NON-NLS-1$
     }
 
     /**
@@ -194,7 +194,7 @@ public class TypeConvert {
      * 
      */
     public static long boolean2long(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to long  "); //$NON-NLS-1$
     }
 
     /**
@@ -202,7 +202,7 @@ public class TypeConvert {
      * 
      */
     public static Long boolean2Long(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Long  "); //$NON-NLS-1$
     }
 
     /**
@@ -218,7 +218,7 @@ public class TypeConvert {
      * 
      */
     public static short boolean2short(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to short  "); //$NON-NLS-1$
     }
 
     /**
@@ -226,7 +226,7 @@ public class TypeConvert {
      * 
      */
     public static Short boolean2Short(boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert boolean to Short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert boolean to Short  "); //$NON-NLS-1$
     }
 
     /**
@@ -271,7 +271,7 @@ public class TypeConvert {
      * 
      */
     public static byte Boolean2byte(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -279,7 +279,7 @@ public class TypeConvert {
      * 
      */
     public static Byte Boolean2Byte(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -287,7 +287,7 @@ public class TypeConvert {
      * 
      */
     public static byte[] Boolean2byteArray(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to byte[]  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to byte[]  "); //$NON-NLS-1$
     }
 
     /**
@@ -295,7 +295,7 @@ public class TypeConvert {
      * 
      */
     public static char Boolean2char(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to char  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to char  "); //$NON-NLS-1$
     }
 
     /**
@@ -303,7 +303,7 @@ public class TypeConvert {
      * 
      */
     public static Character Boolean2Character(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Character  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Character  "); //$NON-NLS-1$
     }
 
     /**
@@ -311,7 +311,7 @@ public class TypeConvert {
      * 
      */
     public static Date Boolean2Date(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -319,7 +319,7 @@ public class TypeConvert {
      * 
      */
     public static double Boolean2double(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to double  "); //$NON-NLS-1$
     }
 
     /**
@@ -327,7 +327,7 @@ public class TypeConvert {
      * 
      */
     public static Double Boolean2Double(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Double  "); //$NON-NLS-1$
     }
 
     /**
@@ -335,7 +335,7 @@ public class TypeConvert {
      * 
      */
     public static float Boolean2float(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to float  "); //$NON-NLS-1$
     }
 
     /**
@@ -343,7 +343,7 @@ public class TypeConvert {
      * 
      */
     public static Float Boolean2Float(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Float  "); //$NON-NLS-1$
     }
 
     /**
@@ -351,7 +351,7 @@ public class TypeConvert {
      * 
      */
     public static BigDecimal Boolean2BigDecimal(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to BigDecimal  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to BigDecimal  "); //$NON-NLS-1$
     }
 
     /**
@@ -359,7 +359,7 @@ public class TypeConvert {
      * 
      */
     public static int Boolean2int(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to int  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to int  "); //$NON-NLS-1$
     }
 
     /**
@@ -367,7 +367,7 @@ public class TypeConvert {
      * 
      */
     public static Integer Boolean2Integer(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Integer  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Integer  "); //$NON-NLS-1$
     }
 
     /**
@@ -375,7 +375,7 @@ public class TypeConvert {
      * 
      */
     public static long Boolean2long(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to long  "); //$NON-NLS-1$
     }
 
     /**
@@ -383,7 +383,7 @@ public class TypeConvert {
      * 
      */
     public static Long Boolean2Long(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Long  "); //$NON-NLS-1$
     }
 
     /**
@@ -399,7 +399,7 @@ public class TypeConvert {
      * 
      */
     public static short Boolean2short(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to short  "); //$NON-NLS-1$
     }
 
     /**
@@ -407,7 +407,7 @@ public class TypeConvert {
      * 
      */
     public static Short Boolean2Short(Boolean o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Boolean to Short  "); //$NON-NLS-1$
     }
 
     /**
@@ -437,7 +437,7 @@ public class TypeConvert {
      * 
      */
     public static boolean byte2boolean(byte o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -445,7 +445,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean byte2Boolean(byte o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -493,7 +493,7 @@ public class TypeConvert {
      * 
      */
     public static Date byte2Date(byte o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -615,7 +615,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Byte2boolean(Byte o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Byte to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Byte to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -623,7 +623,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Byte2Boolean(Byte o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Byte to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Byte to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -681,7 +681,7 @@ public class TypeConvert {
      * 
      */
     public static Date Byte2Date(Byte o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Byte to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Byte to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -829,7 +829,7 @@ public class TypeConvert {
      * 
      */
     public static boolean byteArray2boolean(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -837,7 +837,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean byteArray2Boolean(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -845,7 +845,7 @@ public class TypeConvert {
      * 
      */
     public static byte byteArray2byte(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -853,7 +853,7 @@ public class TypeConvert {
      * 
      */
     public static Byte byteArray2Byte(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -869,7 +869,7 @@ public class TypeConvert {
      * 
      */
     public static char byteArray2char(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to char  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to char  "); //$NON-NLS-1$
     }
 
     /**
@@ -877,7 +877,7 @@ public class TypeConvert {
      * 
      */
     public static Character byteArray2Character(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Character  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Character  "); //$NON-NLS-1$
     }
 
     /**
@@ -885,7 +885,7 @@ public class TypeConvert {
      * 
      */
     public static Date byteArray2Date(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -893,7 +893,7 @@ public class TypeConvert {
      * 
      */
     public static double byteArray2double(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to double  "); //$NON-NLS-1$
     }
 
     /**
@@ -901,7 +901,7 @@ public class TypeConvert {
      * 
      */
     public static Double byteArray2Double(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Double  "); //$NON-NLS-1$
     }
 
     /**
@@ -909,7 +909,7 @@ public class TypeConvert {
      * 
      */
     public static float byteArray2float(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to float  "); //$NON-NLS-1$
     }
 
     /**
@@ -917,7 +917,7 @@ public class TypeConvert {
      * 
      */
     public static Float byteArray2Float(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Float  "); //$NON-NLS-1$
     }
 
     /**
@@ -925,7 +925,7 @@ public class TypeConvert {
      * 
      */
     public static BigDecimal byteArray2BigDecimal(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to BigDecimal  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to BigDecimal  "); //$NON-NLS-1$
     }
 
     /**
@@ -933,7 +933,7 @@ public class TypeConvert {
      * 
      */
     public static int byteArray2int(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to int  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to int  "); //$NON-NLS-1$
     }
 
     /**
@@ -941,7 +941,7 @@ public class TypeConvert {
      * 
      */
     public static Integer byteArray2Integer(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Integer  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Integer  "); //$NON-NLS-1$
     }
 
     /**
@@ -949,7 +949,7 @@ public class TypeConvert {
      * 
      */
     public static long byteArray2long(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to long  "); //$NON-NLS-1$
     }
 
     /**
@@ -957,7 +957,7 @@ public class TypeConvert {
      * 
      */
     public static Long byteArray2Long(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Long  "); //$NON-NLS-1$
     }
 
     /**
@@ -973,7 +973,7 @@ public class TypeConvert {
      * 
      */
     public static short byteArray2short(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to short  "); //$NON-NLS-1$
     }
 
     /**
@@ -981,7 +981,7 @@ public class TypeConvert {
      * 
      */
     public static Short byteArray2Short(byte[] o) {
-        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert byte[] to Short  "); //$NON-NLS-1$
     }
 
     /**
@@ -1013,7 +1013,7 @@ public class TypeConvert {
      * 
      */
     public static boolean char2boolean(char o) {
-        throw new ConvertTypeNotSupportException("Can't support convert char to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert char to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1021,7 +1021,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean char2Boolean(char o) {
-        throw new ConvertTypeNotSupportException("Can't support convert char to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert char to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1069,7 +1069,7 @@ public class TypeConvert {
      * 
      */
     public static Date char2Date(char o) {
-        throw new ConvertTypeNotSupportException("Can't support convert char to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert char to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -1191,7 +1191,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Character2boolean(Character o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Character to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Character to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1199,7 +1199,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Character2Boolean(Character o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Character to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Character to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1257,7 +1257,7 @@ public class TypeConvert {
      * 
      */
     public static Date Character2Date(Character o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Character to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Character to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -1405,7 +1405,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Date2boolean(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1413,7 +1413,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Date2Boolean(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1421,7 +1421,7 @@ public class TypeConvert {
      * 
      */
     public static byte Date2byte(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -1429,7 +1429,7 @@ public class TypeConvert {
      * 
      */
     public static Byte Date2Byte(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -1437,7 +1437,7 @@ public class TypeConvert {
      * 
      */
     public static byte[] Date2byteArray(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to byte[]  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to byte[]  "); //$NON-NLS-1$
     }
 
     /**
@@ -1445,7 +1445,7 @@ public class TypeConvert {
      * 
      */
     public static char Date2char(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to char  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to char  "); //$NON-NLS-1$
     }
 
     /**
@@ -1453,7 +1453,7 @@ public class TypeConvert {
      * 
      */
     public static Character Date2Character(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Character  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Character  "); //$NON-NLS-1$
     }
 
     /**
@@ -1469,7 +1469,7 @@ public class TypeConvert {
      * 
      */
     public static double Date2double(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to double  "); //$NON-NLS-1$
     }
 
     /**
@@ -1477,7 +1477,7 @@ public class TypeConvert {
      * 
      */
     public static Double Date2Double(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Double  "); //$NON-NLS-1$
     }
 
     /**
@@ -1485,7 +1485,7 @@ public class TypeConvert {
      * 
      */
     public static float Date2float(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to float  "); //$NON-NLS-1$
     }
 
     /**
@@ -1493,7 +1493,7 @@ public class TypeConvert {
      * 
      */
     public static Float Date2Float(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Float  "); //$NON-NLS-1$
     }
 
     /**
@@ -1501,7 +1501,7 @@ public class TypeConvert {
      * 
      */
     public static BigDecimal Date2BigDecimal(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to BigDecimal  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to BigDecimal  "); //$NON-NLS-1$
     }
 
     /**
@@ -1509,7 +1509,7 @@ public class TypeConvert {
      * 
      */
     public static int Date2int(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to int  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to int  "); //$NON-NLS-1$
     }
 
     /**
@@ -1517,7 +1517,7 @@ public class TypeConvert {
      * 
      */
     public static Integer Date2Integer(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Integer  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Integer  "); //$NON-NLS-1$
     }
 
     /**
@@ -1553,7 +1553,7 @@ public class TypeConvert {
      * 
      */
     public static short Date2short(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to short  "); //$NON-NLS-1$
     }
 
     /**
@@ -1561,7 +1561,7 @@ public class TypeConvert {
      * 
      */
     public static Short Date2Short(Date o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Date to Short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Date to Short  "); //$NON-NLS-1$
     }
 
     /**
@@ -1591,7 +1591,7 @@ public class TypeConvert {
      * 
      */
     public static boolean double2boolean(double o) {
-        throw new ConvertTypeNotSupportException("Can't support convert double to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert double to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1599,7 +1599,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean double2Boolean(double o) {
-        throw new ConvertTypeNotSupportException("Can't support convert double to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert double to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1647,7 +1647,7 @@ public class TypeConvert {
      * 
      */
     public static Date double2Date(double o) {
-        throw new ConvertTypeNotSupportException("Can't support convert double to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert double to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -1769,7 +1769,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Double2boolean(Double o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Double to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Double to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1777,7 +1777,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Double2Boolean(Double o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Double to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Double to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1835,7 +1835,7 @@ public class TypeConvert {
      * 
      */
     public static Date Double2Date(Double o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Double to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Double to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -1984,7 +1984,7 @@ public class TypeConvert {
      * 
      */
     public static boolean float2boolean(float o) {
-        throw new ConvertTypeNotSupportException("Can't support convert float to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert float to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -1992,7 +1992,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean float2Boolean(float o) {
-        throw new ConvertTypeNotSupportException("Can't support convert float to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert float to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2040,7 +2040,7 @@ public class TypeConvert {
      * 
      */
     public static Date float2Date(float o) {
-        throw new ConvertTypeNotSupportException("Can't support convert float to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert float to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -2162,7 +2162,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Float2boolean(Float o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Float to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Float to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2170,7 +2170,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Float2Boolean(Float o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Float to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Float to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2230,7 +2230,7 @@ public class TypeConvert {
      * 
      */
     public static Date Float2Date(Float o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Float to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Float to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -2378,7 +2378,7 @@ public class TypeConvert {
      * 
      */
     public static boolean BigDecimal2boolean(BigDecimal o) {
-        throw new ConvertTypeNotSupportException("Can't support convert BigDecimal to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert BigDecimal to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2386,7 +2386,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean BigDecimal2Boolean(BigDecimal o) {
-        throw new ConvertTypeNotSupportException("Can't support convert BigDecimal to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert BigDecimal to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2444,7 +2444,7 @@ public class TypeConvert {
      * 
      */
     public static Date BigDecimal2Date(BigDecimal o) {
-        throw new ConvertTypeNotSupportException("Can't support convert BigDecimal to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert BigDecimal to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -2590,7 +2590,7 @@ public class TypeConvert {
      * 
      */
     public static boolean int2boolean(int o) {
-        throw new ConvertTypeNotSupportException("Can't support convert int to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert int to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2598,7 +2598,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean int2Boolean(int o) {
-        throw new ConvertTypeNotSupportException("Can't support convert int to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert int to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2646,7 +2646,7 @@ public class TypeConvert {
      * 
      */
     public static Date int2Date(int o) {
-        throw new ConvertTypeNotSupportException("Can't support convert int to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert int to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -2768,7 +2768,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Integer2boolean(Integer o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Integer to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Integer to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2776,7 +2776,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Integer2Boolean(Integer o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Integer to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Integer to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2835,7 +2835,7 @@ public class TypeConvert {
      * 
      */
     public static Date Integer2Date(Integer o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Integer to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Integer to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -2981,7 +2981,7 @@ public class TypeConvert {
      * 
      */
     public static boolean long2boolean(long o) {
-        throw new ConvertTypeNotSupportException("Can't support convert long to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert long to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -2989,7 +2989,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean long2Boolean(long o) {
-        throw new ConvertTypeNotSupportException("Can't support convert long to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert long to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3037,7 +3037,7 @@ public class TypeConvert {
      * 
      */
     public static Date long2Date(long o) {
-        throw new ConvertTypeNotSupportException("Can't support convert long to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert long to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -3159,7 +3159,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Long2boolean(Long o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Long to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Long to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3167,7 +3167,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Long2Boolean(Long o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Long to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Long to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3225,7 +3225,7 @@ public class TypeConvert {
      * 
      */
     public static Date Long2Date(Long o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Long to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Long to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -3631,7 +3631,7 @@ public class TypeConvert {
      * 
      */
     public static boolean short2boolean(short o) {
-        throw new ConvertTypeNotSupportException("Can't support convert short to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert short to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3639,7 +3639,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean short2Boolean(short o) {
-        throw new ConvertTypeNotSupportException("Can't support convert short to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert short to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3687,7 +3687,7 @@ public class TypeConvert {
      * 
      */
     public static Date short2Date(short o) {
-        throw new ConvertTypeNotSupportException("Can't support convert short to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert short to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -3809,7 +3809,7 @@ public class TypeConvert {
      * 
      */
     public static boolean Short2boolean(Short o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Short to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Short to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3817,7 +3817,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean Short2Boolean(Short o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Short to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Short to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -3875,7 +3875,7 @@ public class TypeConvert {
      * 
      */
     public static Date Short2Date(Short o) {
-        throw new ConvertTypeNotSupportException("Can't support convert Short to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert Short to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -4024,7 +4024,7 @@ public class TypeConvert {
     public static boolean String2boolean(String o) {
         if (o == null)
             return false;
-        if (o.equalsIgnoreCase("true") || o.equalsIgnoreCase("false"))
+        if (o.equalsIgnoreCase("true") || o.equalsIgnoreCase("false")) //$NON-NLS-1$ //$NON-NLS-2$
             return Boolean.getBoolean(o);
         throw ConvertTypeIllegalArgumentException.forInputArgument(o);
     }
@@ -4036,7 +4036,7 @@ public class TypeConvert {
     public static Boolean String2Boolean(String o) {
         if (o == null)
             return Boolean.FALSE;
-        if (o.equalsIgnoreCase("true") || o.equalsIgnoreCase("false"))
+        if (o.equalsIgnoreCase("true") || o.equalsIgnoreCase("false")) //$NON-NLS-1$ //$NON-NLS-2$
             return Boolean.valueOf(o);
         throw ConvertTypeIllegalArgumentException.forInputArgument(o);
     }
@@ -4264,7 +4264,7 @@ public class TypeConvert {
      * 
      */
     public static boolean List2boolean(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -4272,7 +4272,7 @@ public class TypeConvert {
      * 
      */
     public static Boolean List2Boolean(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Boolean  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Boolean  "); //$NON-NLS-1$
     }
 
     /**
@@ -4280,7 +4280,7 @@ public class TypeConvert {
      * 
      */
     public static byte List2byte(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -4288,7 +4288,7 @@ public class TypeConvert {
      * 
      */
     public static Byte List2Byte(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Byte  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Byte  "); //$NON-NLS-1$
     }
 
     /**
@@ -4296,7 +4296,7 @@ public class TypeConvert {
      * 
      */
     public static byte[] List2byteArray(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to byte[]  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to byte[]  "); //$NON-NLS-1$
     }
 
     /**
@@ -4304,7 +4304,7 @@ public class TypeConvert {
      * 
      */
     public static char List2char(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to char  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to char  "); //$NON-NLS-1$
     }
 
     /**
@@ -4312,7 +4312,7 @@ public class TypeConvert {
      * 
      */
     public static Character List2Character(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Character  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Character  "); //$NON-NLS-1$
     }
 
     /**
@@ -4320,7 +4320,7 @@ public class TypeConvert {
      * 
      */
     public static Date List2Date(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Date  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Date  "); //$NON-NLS-1$
     }
 
     /**
@@ -4328,7 +4328,7 @@ public class TypeConvert {
      * 
      */
     public static double List2double(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to double  "); //$NON-NLS-1$
     }
 
     /**
@@ -4336,7 +4336,7 @@ public class TypeConvert {
      * 
      */
     public static Double List2Double(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Double  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Double  "); //$NON-NLS-1$
     }
 
     /**
@@ -4344,7 +4344,7 @@ public class TypeConvert {
      * 
      */
     public static float List2float(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to float  "); //$NON-NLS-1$
     }
 
     /**
@@ -4352,7 +4352,7 @@ public class TypeConvert {
      * 
      */
     public static Float List2Float(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Float  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Float  "); //$NON-NLS-1$
     }
 
     /**
@@ -4360,7 +4360,7 @@ public class TypeConvert {
      * 
      */
     public static BigDecimal List2BigDecimal(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to BigDecimal  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to BigDecimal  "); //$NON-NLS-1$
     }
 
     /**
@@ -4368,7 +4368,7 @@ public class TypeConvert {
      * 
      */
     public static int List2int(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to int  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to int  "); //$NON-NLS-1$
     }
 
     /**
@@ -4376,7 +4376,7 @@ public class TypeConvert {
      * 
      */
     public static Integer List2Integer(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Integer  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Integer  "); //$NON-NLS-1$
     }
 
     /**
@@ -4384,7 +4384,7 @@ public class TypeConvert {
      * 
      */
     public static long List2long(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to long  "); //$NON-NLS-1$
     }
 
     /**
@@ -4392,7 +4392,7 @@ public class TypeConvert {
      * 
      */
     public static Long List2Long(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Long  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Long  "); //$NON-NLS-1$
     }
 
     /**
@@ -4408,7 +4408,7 @@ public class TypeConvert {
      * 
      */
     public static short List2short(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to short  "); //$NON-NLS-1$
     }
 
     /**
@@ -4416,7 +4416,7 @@ public class TypeConvert {
      * 
      */
     public static Short List2Short(List o) {
-        throw new ConvertTypeNotSupportException("Can't support convert List to Short  ");
+        throw new ConvertTypeNotSupportException("Can't support convert List to Short  "); //$NON-NLS-1$
     }
 
     /**

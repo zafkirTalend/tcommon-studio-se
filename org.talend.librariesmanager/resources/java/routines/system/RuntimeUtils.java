@@ -19,7 +19,7 @@ import routines.TalendDate;
 public class RuntimeUtils {
 
     public static boolean isDateType(Object o) {
-        return getRuntimeType(o).equals("java.util.Date");
+        return getRuntimeType(o).equals("java.util.Date"); //$NON-NLS-1$
     }
 
     /**
@@ -45,7 +45,7 @@ public class RuntimeUtils {
 
         // when tRunJob transmit the date to child job, it should format with "yyyy-MM-dd HH:mm:ss"
         if (isDateType(o)) {
-            return TalendDate.formatDate("yyyy-MM-dd HH:mm:ss", (Date) o);
+            return TalendDate.formatDate("yyyy-MM-dd HH:mm:ss", (Date) o); //$NON-NLS-1$
         }
 
         return o;

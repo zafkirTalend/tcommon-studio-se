@@ -106,16 +106,16 @@ public class RunStat implements Runnable {
 
     private boolean jobIsFinished = false;
 
-    private String str = "";
+    private String str = ""; //$NON-NLS-1$
 
     public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
         if (!openSocket) {
             return;
         }
-        System.out.println("[statistics] connecting to socket on port " + portStats);
+        System.out.println("[statistics] connecting to socket on port " + portStats); //$NON-NLS-1$
         s = new java.net.Socket(clientHost, portStats);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
-        System.out.println("[statistics] connected");
+        System.out.println("[statistics] connected"); //$NON-NLS-1$
         Thread t = new Thread(this);
         t.start();
 
@@ -129,7 +129,7 @@ public class RunStat implements Runnable {
                     wait(1000);
                 }
             } catch (InterruptedException e) {
-                System.out.println("[statistics] interrupted");
+                System.out.println("[statistics] interrupted"); //$NON-NLS-1$
             }
         }
     }
@@ -143,7 +143,7 @@ public class RunStat implements Runnable {
             sendMessages();
             pred.close();
             s.close();
-            System.out.println("[statistics] disconnected");
+            System.out.println("[statistics] disconnected"); //$NON-NLS-1$
         } catch (java.io.IOException ie) {
         }
     }
@@ -155,16 +155,16 @@ public class RunStat implements Runnable {
         for (StatBean sb : processStats.values()) {
             str = sb.getConnectionId();
             if (sb.getState() == RunStat.CLEAR) {
-                str += "|" + "clear";
+                str += "|" + "clear"; //$NON-NLS-1$ //$NON-NLS-2$
             } else {
 
                 if (sb.getExec() == null) {
-                    str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime());
+                    str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime()); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    str += "|" + sb.getExec();
+                    str += "|" + sb.getExec(); //$NON-NLS-1$
                 }
                 if (sb.getState() != RunStat.RUNNING) {
-                    str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop");
+                    str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     processStats.remove(sb.getConnectionId());
                 }
             }

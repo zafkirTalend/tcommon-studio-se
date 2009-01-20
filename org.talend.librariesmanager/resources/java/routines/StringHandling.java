@@ -125,7 +125,7 @@ public class StringHandling {
      * {example} DQUOTE("hello") # "hello"
      */
     public static String DQUOTE(String string) {
-        return "\"" + string + "\"";
+        return "\"" + string + "\""; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -230,7 +230,7 @@ public class StringHandling {
     public static String SPACE(int i) {
         StringBuffer buffer = new StringBuffer();
         for (int j = 0; j < i; j++) {
-            buffer.append(" ");
+            buffer.append(" "); //$NON-NLS-1$
         }
         return buffer.toString();
     }
@@ -247,7 +247,7 @@ public class StringHandling {
      * {example} SQUOTE("hellow world!") # 'hello world!'
      */
     public static String SQUOTE(String string) {
-        return "'" + string + "'";
+        return "'" + string + "'"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

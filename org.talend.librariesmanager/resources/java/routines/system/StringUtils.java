@@ -52,22 +52,22 @@ public class StringUtils {
 
     public static String list(String[] stringArray, String separator, String startEnclosure, String endEnclosure, String escaper) {
         if (separator == null) {
-            separator = "";
+            separator = ""; //$NON-NLS-1$
         } else {
             separator = separator.trim();
         }
         if (startEnclosure == null) {
-            startEnclosure = "";
+            startEnclosure = ""; //$NON-NLS-1$
         } else {
             startEnclosure = startEnclosure.trim();
         }
         if (endEnclosure == null) {
-            endEnclosure = "";
+            endEnclosure = ""; //$NON-NLS-1$
         } else {
             endEnclosure = endEnclosure.trim();
         }
         if (escaper == null) {
-            escaper = "";
+            escaper = ""; //$NON-NLS-1$
         } else {
             escaper = escaper.trim();
         }

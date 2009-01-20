@@ -10,7 +10,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     public void initializeDefaultPreferences() {
         IPreferenceStore store = PreferencesUtilities.getPreferenceStore();
         store.setDefault(PreferencesUtilities.EXTERNAL_LIB_PATH, Platform.getInstallLocation().getURL().getFile()
-                + "lib");
+                + "lib"); //$NON-NLS-1$
         store.setDefault(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE, true);
     }
 

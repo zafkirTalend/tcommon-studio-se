@@ -27,6 +27,7 @@ import org.talend.core.model.process.Element;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.Problem;
+import org.talend.librariesmanager.i18n.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -48,7 +49,7 @@ public class LibrariesService implements ILibrariesService {
         case PERL:
             return perlService;
         default:
-            throw new UnsupportedOperationException("Unknow language");
+            throw new UnsupportedOperationException(Messages.getString("LibrariesService.unknowLanguage")); //$NON-NLS-1$
         }
     }
 

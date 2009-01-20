@@ -38,6 +38,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
+import org.talend.librariesmanager.i18n.Messages;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -57,7 +58,7 @@ public class ModulesNeededProvider {
     public static List<ModuleNeeded> getModulesNeeded() {
         // TimeMeasure.measureActive = true;
         // TimeMeasure.display = true;
-        TimeMeasure.begin("ModulesNeededProvider.getAllMoudlesNeeded");
+        TimeMeasure.begin(Messages.getString("ModulesNeededProvider.0")); //$NON-NLS-1$
 
         /*
          * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForRoutines");
@@ -75,21 +76,21 @@ public class ModulesNeededProvider {
         if (componentImportNeedsList.isEmpty()) {
             // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
             componentImportNeedsList.addAll(getModulesNeededForRoutines());
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForRoutines");
+            TimeMeasure.step(Messages.getString("ModulesNeededProvider.1"), "ModulesNeededProvider.getModulesNeededForRoutines"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
             componentImportNeedsList.addAll(getModulesNeededForApplication());
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForJobs");
             if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
                 componentImportNeedsList.addAll(getModulesNeededForJobs());
             }
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForJobs");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForJobs"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForComponents");
             componentImportNeedsList.addAll(getModulesNeededForComponents());
-            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForComponents");
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForComponents"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         /*
@@ -102,7 +103,7 @@ public class ModulesNeededProvider {
          * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
          */// TimeMeasure.measureActive = false;
         // TimeMeasure.display = false;
-        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded");
+        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded"); //$NON-NLS-1$
 
         return componentImportNeedsList;
     }
@@ -128,7 +129,7 @@ public class ModulesNeededProvider {
         // Step 1: remove all modules for current job;
         List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
         for (ModuleNeeded module : componentImportNeedsList) {
-            if (module.getContext().equals("Job " + process.getProperty().getLabel())) {
+            if (module.getContext().equals("Job " + process.getProperty().getLabel())) { //$NON-NLS-1$
                 moduleForCurrentJobList.add(module);
             }
         }
@@ -146,8 +147,8 @@ public class ModulesNeededProvider {
             }
 
             // Step 2: re-add specific modules
-            ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), neededLibrary,
-                    "Required for the job " + process.getProperty().getLabel() + ".", true);
+            ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), neededLibrary, //$NON-NLS-1$
+                    "Required for the job " + process.getProperty().getLabel() + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
 
             componentImportNeedsList.add(toAdd);
 
@@ -201,7 +202,7 @@ public class ModulesNeededProvider {
                     for (Object o : imports) {
                         IMPORTType currentImport = (IMPORTType) o;
                         // FIXME SML i18n
-                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(),
+                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(), //$NON-NLS-1$
                                 currentImport.getMESSAGE(), currentImport.isREQUIRED());
                         // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
                         importNeedsList.add(toAdd);
@@ -256,7 +257,7 @@ public class ModulesNeededProvider {
      */
     public static void userAddImportModules(String context, String name, ELibraryInstallStatus status) {
         boolean required = true;
-        String message = "User Import Module";
+        String message = Messages.getString("ModulesNeededProvider.importModule"); //$NON-NLS-1$
         ModuleNeeded needed = new ModuleNeeded(context, name, message, required);
         needed.setStatus(status);
         componentImportNeedsList.add(needed);
@@ -264,7 +265,7 @@ public class ModulesNeededProvider {
 
     public static void userAddUnusedModules(String context, String name) {
         boolean required = false;
-        String message = "User Unused Module";
+        String message = Messages.getString("ModulesNeededProvider.unusedModule"); //$NON-NLS-1$
         ModuleNeeded needed = new ModuleNeeded(context, name, message, required);
         needed.setStatus(ELibraryInstallStatus.UNUSED);
         unUsedModules.add(needed);

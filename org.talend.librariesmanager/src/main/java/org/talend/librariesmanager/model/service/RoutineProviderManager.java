@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.Platform;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.routines.IRoutineProviderCreator;
 import org.talend.core.model.routines.IRoutinesProvider;
+import org.talend.librariesmanager.i18n.Messages;
 
 /**
  * DOC bqian class global comment. Detailled comment
@@ -63,17 +64,17 @@ public class RoutineProviderManager {
         providerCreators = new ArrayList<IRoutineProviderCreator>();
 
         IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-        IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.routines_provider");
+        IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.routines_provider"); //$NON-NLS-1$
         IExtension[] extensions = extensionPoint.getExtensions();
         for (IExtension extension : extensions) {
             IConfigurationElement[] configurationElements = extension.getConfigurationElements();
             for (IConfigurationElement configurationElement : configurationElements) {
                 try {
                     IRoutineProviderCreator componentsProviderCreator = (IRoutineProviderCreator) configurationElement
-                            .createExecutableExtension("class");
+                            .createExecutableExtension("class"); //$NON-NLS-1$
                     providerCreators.add(componentsProviderCreator);
                 } catch (CoreException e) {
-                    log.error("unable to load routine provider ", e);
+                    log.error(Messages.getString("RoutineProviderManager.unableLoad"), e); //$NON-NLS-1$
                 }
             }
         }

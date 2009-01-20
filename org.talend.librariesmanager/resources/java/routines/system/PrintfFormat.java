@@ -407,8 +407,8 @@ public class PrintfFormat {
      * @return the substring from the start position to the beginning of the control string.
      */
     private String nonControl(String s, int start) {
-        String ret = "";
-        cPos = s.indexOf("%", start);
+        String ret = ""; //$NON-NLS-1$
+        cPos = s.indexOf("%", start); //$NON-NLS-1$
         if (cPos == -1)
             cPos = s.length();
         return s.substring(start, cPos);
@@ -433,7 +433,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
             else {
                 if (cs.isPositionalSpecification()) {
                     i = cs.getArgumentPosition() - 1;
@@ -496,7 +496,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
         }
         return sb.toString();
     }
@@ -519,7 +519,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
             else
                 sb.append(cs.internalsprintf(x));
         }
@@ -544,7 +544,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
             else
                 sb.append(cs.internalsprintf(x));
         }
@@ -569,7 +569,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
             else
                 sb.append(cs.internalsprintf(x));
         }
@@ -594,7 +594,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
             else
                 sb.append(cs.internalsprintf(x));
         }
@@ -622,7 +622,7 @@ public class PrintfFormat {
             if (c == '\0')
                 sb.append(cs.getLiteral());
             else if (c == '%')
-                sb.append("%");
+                sb.append("%"); //$NON-NLS-1$
             else {
                 if (x instanceof Byte)
                     sb.append(cs.internalsprintf(((Byte) x).byteValue()));
@@ -691,7 +691,7 @@ public class PrintfFormat {
             if (fmtArg == null)
                 throw new NullPointerException();
             if (fmtArg.length() == 0)
-                throw new IllegalArgumentException("Control strings must have positive" + " lengths.");
+                throw new IllegalArgumentException("Control strings must have positive" + " lengths."); //$NON-NLS-1$ //$NON-NLS-2$
             if (fmtArg.charAt(0) == '%') {
                 fmt = fmtArg;
                 pos = 1;
@@ -711,11 +711,11 @@ public class PrintfFormat {
                             }
                         }
                     } else
-                        throw new IllegalArgumentException("Malformed conversion specification=" + fmtArg);
+                        throw new IllegalArgumentException("Malformed conversion specification=" + fmtArg); //$NON-NLS-1$
                 } else
-                    throw new IllegalArgumentException("Malformed conversion specification=" + fmtArg);
+                    throw new IllegalArgumentException("Malformed conversion specification=" + fmtArg); //$NON-NLS-1$
             } else
-                throw new IllegalArgumentException("Control strings must begin with %.");
+                throw new IllegalArgumentException("Control strings must begin with %."); //$NON-NLS-1$
         }
 
         /**
@@ -751,7 +751,7 @@ public class PrintfFormat {
                             sb.append('\f');
                             break;
                         case 'n':
-                            sb.append(System.getProperty("line.separator"));
+                            sb.append(System.getProperty("line.separator")); //$NON-NLS-1$
                             break;
                         case 'r':
                             sb.append('\r');
@@ -833,7 +833,7 @@ public class PrintfFormat {
          * @exception IllegalArgumentException if the conversion character is f, e, E, g, or G.
          */
         String internalsprintf(int s) throws IllegalArgumentException {
-            String s2 = "";
+            String s2 = ""; //$NON-NLS-1$
             switch (conversionCharacter) {
             case 'd':
             case 'i':
@@ -866,8 +866,8 @@ public class PrintfFormat {
                 s2 = printCFormat((char) s);
                 break;
             default:
-                throw new IllegalArgumentException("Cannot format a int with a format using a " + conversionCharacter
-                        + " conversion character.");
+                throw new IllegalArgumentException("Cannot format a int with a format using a " + conversionCharacter //$NON-NLS-1$
+                        + " conversion character."); //$NON-NLS-1$
             }
             return s2;
         }
@@ -880,7 +880,7 @@ public class PrintfFormat {
          * @exception IllegalArgumentException if the conversion character is f, e, E, g, or G.
          */
         String internalsprintf(long s) throws IllegalArgumentException {
-            String s2 = "";
+            String s2 = ""; //$NON-NLS-1$
             switch (conversionCharacter) {
             case 'd':
             case 'i':
@@ -913,8 +913,8 @@ public class PrintfFormat {
                 s2 = printCFormat((char) s);
                 break;
             default:
-                throw new IllegalArgumentException("Cannot format a long with a format using a " + conversionCharacter
-                        + " conversion character.");
+                throw new IllegalArgumentException("Cannot format a long with a format using a " + conversionCharacter //$NON-NLS-1$
+                        + " conversion character."); //$NON-NLS-1$
             }
             return s2;
         }
@@ -927,7 +927,7 @@ public class PrintfFormat {
          * @exception IllegalArgumentException if the conversion character is c, C, s, S, i, d, x, X, or o.
          */
         String internalsprintf(double s) throws IllegalArgumentException {
-            String s2 = "";
+            String s2 = ""; //$NON-NLS-1$
             switch (conversionCharacter) {
             case 'f':
                 s2 = printFFormat(s);
@@ -941,8 +941,8 @@ public class PrintfFormat {
                 s2 = printGFormat(s);
                 break;
             default:
-                throw new IllegalArgumentException("Cannot " + "format a double with a format using a "
-                        + conversionCharacter + " conversion character.");
+                throw new IllegalArgumentException("Cannot " + "format a double with a format using a " //$NON-NLS-1$ //$NON-NLS-2$
+                        + conversionCharacter + " conversion character."); //$NON-NLS-1$
             }
             return s2;
         }
@@ -955,12 +955,12 @@ public class PrintfFormat {
          * @exception IllegalArgumentException if the conversion character is neither s nor S.
          */
         String internalsprintf(String s) throws IllegalArgumentException {
-            String s2 = "";
+            String s2 = ""; //$NON-NLS-1$
             if (conversionCharacter == 's' || conversionCharacter == 'S')
                 s2 = printSFormat(s);
             else
-                throw new IllegalArgumentException("Cannot " + "format a String with a format using a "
-                        + conversionCharacter + " conversion character.");
+                throw new IllegalArgumentException("Cannot " + "format a String with a format using a " //$NON-NLS-1$ //$NON-NLS-2$
+                        + conversionCharacter + " conversion character."); //$NON-NLS-1$
             return s2;
         }
 
@@ -972,12 +972,12 @@ public class PrintfFormat {
          * @exception IllegalArgumentException if the conversion character is neither s nor S.
          */
         String internalsprintf(Object s) {
-            String s2 = "";
+            String s2 = ""; //$NON-NLS-1$
             if (conversionCharacter == 's' || conversionCharacter == 'S')
                 s2 = printSFormat(s.toString());
             else
-                throw new IllegalArgumentException("Cannot format a String with a format using" + " a "
-                        + conversionCharacter + " conversion character.");
+                throw new IllegalArgumentException("Cannot format a String with a format using" + " a " //$NON-NLS-1$ //$NON-NLS-2$
+                        + conversionCharacter + " conversion character."); //$NON-NLS-1$
             return s2;
         }
 
@@ -1204,21 +1204,21 @@ public class PrintfFormat {
             if (Double.isInfinite(x)) {
                 if (x == Double.POSITIVE_INFINITY) {
                     if (leadingSign)
-                        ca6 = "+Inf".toCharArray();
+                        ca6 = "+Inf".toCharArray(); //$NON-NLS-1$
                     else if (leadingSpace)
-                        ca6 = " Inf".toCharArray();
+                        ca6 = " Inf".toCharArray(); //$NON-NLS-1$
                     else
-                        ca6 = "Inf".toCharArray();
+                        ca6 = "Inf".toCharArray(); //$NON-NLS-1$
                 } else
-                    ca6 = "-Inf".toCharArray();
+                    ca6 = "-Inf".toCharArray(); //$NON-NLS-1$
                 noDigits = true;
             } else if (Double.isNaN(x)) {
                 if (leadingSign)
-                    ca6 = "+NaN".toCharArray();
+                    ca6 = "+NaN".toCharArray(); //$NON-NLS-1$
                 else if (leadingSpace)
-                    ca6 = " NaN".toCharArray();
+                    ca6 = " NaN".toCharArray(); //$NON-NLS-1$
                 else
-                    ca6 = "NaN".toCharArray();
+                    ca6 = "NaN".toCharArray(); //$NON-NLS-1$
                 noDigits = true;
             } else
                 ca6 = fFormatDigits(x);
@@ -1635,21 +1635,21 @@ public class PrintfFormat {
             if (Double.isInfinite(x)) {
                 if (x == Double.POSITIVE_INFINITY) {
                     if (leadingSign)
-                        ca4 = "+Inf".toCharArray();
+                        ca4 = "+Inf".toCharArray(); //$NON-NLS-1$
                     else if (leadingSpace)
-                        ca4 = " Inf".toCharArray();
+                        ca4 = " Inf".toCharArray(); //$NON-NLS-1$
                     else
-                        ca4 = "Inf".toCharArray();
+                        ca4 = "Inf".toCharArray(); //$NON-NLS-1$
                 } else
-                    ca4 = "-Inf".toCharArray();
+                    ca4 = "-Inf".toCharArray(); //$NON-NLS-1$
                 noDigits = true;
             } else if (Double.isNaN(x)) {
                 if (leadingSign)
-                    ca4 = "+NaN".toCharArray();
+                    ca4 = "+NaN".toCharArray(); //$NON-NLS-1$
                 else if (leadingSpace)
-                    ca4 = " NaN".toCharArray();
+                    ca4 = " NaN".toCharArray(); //$NON-NLS-1$
                 else
-                    ca4 = "NaN".toCharArray();
+                    ca4 = "NaN".toCharArray(); //$NON-NLS-1$
                 noDigits = true;
             } else
                 ca4 = eFormatDigits(x, eChar);
@@ -1757,21 +1757,21 @@ public class PrintfFormat {
             if (Double.isInfinite(x)) {
                 if (x == Double.POSITIVE_INFINITY) {
                     if (leadingSign)
-                        ca4 = "+Inf".toCharArray();
+                        ca4 = "+Inf".toCharArray(); //$NON-NLS-1$
                     else if (leadingSpace)
-                        ca4 = " Inf".toCharArray();
+                        ca4 = " Inf".toCharArray(); //$NON-NLS-1$
                     else
-                        ca4 = "Inf".toCharArray();
+                        ca4 = "Inf".toCharArray(); //$NON-NLS-1$
                 } else
-                    ca4 = "-Inf".toCharArray();
+                    ca4 = "-Inf".toCharArray(); //$NON-NLS-1$
                 noDigits = true;
             } else if (Double.isNaN(x)) {
                 if (leadingSign)
-                    ca4 = "+NaN".toCharArray();
+                    ca4 = "+NaN".toCharArray(); //$NON-NLS-1$
                 else if (leadingSpace)
-                    ca4 = " NaN".toCharArray();
+                    ca4 = " NaN".toCharArray(); //$NON-NLS-1$
                 else
-                    ca4 = "NaN".toCharArray();
+                    ca4 = "NaN".toCharArray(); //$NON-NLS-1$
                 noDigits = true;
             } else {
                 if (!precisionSet)
@@ -1818,9 +1818,9 @@ public class PrintfFormat {
                     if (i >= 0 && sy.charAt(i) == '.')
                         i--;
                     if (i == -1)
-                        sz = "0";
+                        sz = "0"; //$NON-NLS-1$
                     else if (!Character.isDigit(sy.charAt(i)))
-                        sz = sy.substring(0, i + 1) + "0";
+                        sz = sy.substring(0, i + 1) + "0"; //$NON-NLS-1$
                     else
                         sz = sy.substring(0, i + 1);
                     if (expon >= -4 && expon < precision)
@@ -1837,7 +1837,7 @@ public class PrintfFormat {
                 // construction
                 if (leadingSpace)
                     if (x >= 0)
-                        ret = " " + ret;
+                        ret = " " + ret; //$NON-NLS-1$
                 ca4 = ret.toCharArray();
             }
             // Pad with blanks or zeros.
@@ -1920,8 +1920,8 @@ public class PrintfFormat {
             int nBlanks = 0, n = 0;
             int i = 0, jFirst = 0;
             boolean neg = sx.charAt(0) == '-';
-            if (sx.equals("0") && precisionSet && precision == 0)
-                sx = "";
+            if (sx.equals("0") && precisionSet && precision == 0) //$NON-NLS-1$
+                sx = ""; //$NON-NLS-1$
             if (!neg) {
                 if (precisionSet && sx.length() < precision)
                     nLeadingZeros = precision - sx.length();
@@ -2008,11 +2008,11 @@ public class PrintfFormat {
         private String printXFormat(short x) {
             String sx = null;
             if (x == Short.MIN_VALUE)
-                sx = "8000";
+                sx = "8000"; //$NON-NLS-1$
             else if (x < 0) {
                 String t;
                 if (x == Short.MIN_VALUE)
-                    t = "0";
+                    t = "0"; //$NON-NLS-1$
                 else {
                     t = Integer.toString((~(-x - 1)) ^ Short.MIN_VALUE, 16);
                     if (t.charAt(0) == 'F' || t.charAt(0) == 'f')
@@ -2020,36 +2020,36 @@ public class PrintfFormat {
                 }
                 switch (t.length()) {
                 case 1:
-                    sx = "800" + t;
+                    sx = "800" + t; //$NON-NLS-1$
                     break;
                 case 2:
-                    sx = "80" + t;
+                    sx = "80" + t; //$NON-NLS-1$
                     break;
                 case 3:
-                    sx = "8" + t;
+                    sx = "8" + t; //$NON-NLS-1$
                     break;
                 case 4:
                     switch (t.charAt(0)) {
                     case '1':
-                        sx = "9" + t.substring(1, 4);
+                        sx = "9" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     case '2':
-                        sx = "a" + t.substring(1, 4);
+                        sx = "a" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     case '3':
-                        sx = "b" + t.substring(1, 4);
+                        sx = "b" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     case '4':
-                        sx = "c" + t.substring(1, 4);
+                        sx = "c" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     case '5':
-                        sx = "d" + t.substring(1, 4);
+                        sx = "d" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     case '6':
-                        sx = "e" + t.substring(1, 4);
+                        sx = "e" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     case '7':
-                        sx = "f" + t.substring(1, 4);
+                        sx = "f" + t.substring(1, 4); //$NON-NLS-1$
                         break;
                     }
                     break;
@@ -2076,77 +2076,77 @@ public class PrintfFormat {
         private String printXFormat(long x) {
             String sx = null;
             if (x == Long.MIN_VALUE)
-                sx = "8000000000000000";
+                sx = "8000000000000000"; //$NON-NLS-1$
             else if (x < 0) {
                 String t = Long.toString((~(-x - 1)) ^ Long.MIN_VALUE, 16);
                 switch (t.length()) {
                 case 1:
-                    sx = "800000000000000" + t;
+                    sx = "800000000000000" + t; //$NON-NLS-1$
                     break;
                 case 2:
-                    sx = "80000000000000" + t;
+                    sx = "80000000000000" + t; //$NON-NLS-1$
                     break;
                 case 3:
-                    sx = "8000000000000" + t;
+                    sx = "8000000000000" + t; //$NON-NLS-1$
                     break;
                 case 4:
-                    sx = "800000000000" + t;
+                    sx = "800000000000" + t; //$NON-NLS-1$
                     break;
                 case 5:
-                    sx = "80000000000" + t;
+                    sx = "80000000000" + t; //$NON-NLS-1$
                     break;
                 case 6:
-                    sx = "8000000000" + t;
+                    sx = "8000000000" + t; //$NON-NLS-1$
                     break;
                 case 7:
-                    sx = "800000000" + t;
+                    sx = "800000000" + t; //$NON-NLS-1$
                     break;
                 case 8:
-                    sx = "80000000" + t;
+                    sx = "80000000" + t; //$NON-NLS-1$
                     break;
                 case 9:
-                    sx = "8000000" + t;
+                    sx = "8000000" + t; //$NON-NLS-1$
                     break;
                 case 10:
-                    sx = "800000" + t;
+                    sx = "800000" + t; //$NON-NLS-1$
                     break;
                 case 11:
-                    sx = "80000" + t;
+                    sx = "80000" + t; //$NON-NLS-1$
                     break;
                 case 12:
-                    sx = "8000" + t;
+                    sx = "8000" + t; //$NON-NLS-1$
                     break;
                 case 13:
-                    sx = "800" + t;
+                    sx = "800" + t; //$NON-NLS-1$
                     break;
                 case 14:
-                    sx = "80" + t;
+                    sx = "80" + t; //$NON-NLS-1$
                     break;
                 case 15:
-                    sx = "8" + t;
+                    sx = "8" + t; //$NON-NLS-1$
                     break;
                 case 16:
                     switch (t.charAt(0)) {
                     case '1':
-                        sx = "9" + t.substring(1, 16);
+                        sx = "9" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     case '2':
-                        sx = "a" + t.substring(1, 16);
+                        sx = "a" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     case '3':
-                        sx = "b" + t.substring(1, 16);
+                        sx = "b" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     case '4':
-                        sx = "c" + t.substring(1, 16);
+                        sx = "c" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     case '5':
-                        sx = "d" + t.substring(1, 16);
+                        sx = "d" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     case '6':
-                        sx = "e" + t.substring(1, 16);
+                        sx = "e" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     case '7':
-                        sx = "f" + t.substring(1, 16);
+                        sx = "f" + t.substring(1, 16); //$NON-NLS-1$
                         break;
                     }
                     break;
@@ -2173,53 +2173,53 @@ public class PrintfFormat {
         private String printXFormat(int x) {
             String sx = null;
             if (x == Integer.MIN_VALUE)
-                sx = "80000000";
+                sx = "80000000"; //$NON-NLS-1$
             else if (x < 0) {
                 String t = Integer.toString((~(-x - 1)) ^ Integer.MIN_VALUE, 16);
                 switch (t.length()) {
                 case 1:
-                    sx = "8000000" + t;
+                    sx = "8000000" + t; //$NON-NLS-1$
                     break;
                 case 2:
-                    sx = "800000" + t;
+                    sx = "800000" + t; //$NON-NLS-1$
                     break;
                 case 3:
-                    sx = "80000" + t;
+                    sx = "80000" + t; //$NON-NLS-1$
                     break;
                 case 4:
-                    sx = "8000" + t;
+                    sx = "8000" + t; //$NON-NLS-1$
                     break;
                 case 5:
-                    sx = "800" + t;
+                    sx = "800" + t; //$NON-NLS-1$
                     break;
                 case 6:
-                    sx = "80" + t;
+                    sx = "80" + t; //$NON-NLS-1$
                     break;
                 case 7:
-                    sx = "8" + t;
+                    sx = "8" + t; //$NON-NLS-1$
                     break;
                 case 8:
                     switch (t.charAt(0)) {
                     case '1':
-                        sx = "9" + t.substring(1, 8);
+                        sx = "9" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     case '2':
-                        sx = "a" + t.substring(1, 8);
+                        sx = "a" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     case '3':
-                        sx = "b" + t.substring(1, 8);
+                        sx = "b" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     case '4':
-                        sx = "c" + t.substring(1, 8);
+                        sx = "c" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     case '5':
-                        sx = "d" + t.substring(1, 8);
+                        sx = "d" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     case '6':
-                        sx = "e" + t.substring(1, 8);
+                        sx = "e" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     case '7':
-                        sx = "f" + t.substring(1, 8);
+                        sx = "f" + t.substring(1, 8); //$NON-NLS-1$
                         break;
                     }
                     break;
@@ -2238,8 +2238,8 @@ public class PrintfFormat {
         private String printXFormat(String sx) {
             int nLeadingZeros = 0;
             int nBlanks = 0;
-            if (sx.equals("0") && precisionSet && precision == 0)
-                sx = "";
+            if (sx.equals("0") && precisionSet && precision == 0) //$NON-NLS-1$
+                sx = ""; //$NON-NLS-1$
             if (precisionSet)
                 nLeadingZeros = precision - sx.length();
             if (nLeadingZeros < 0)
@@ -2312,24 +2312,24 @@ public class PrintfFormat {
         private String printOFormat(short x) {
             String sx = null;
             if (x == Short.MIN_VALUE)
-                sx = "100000";
+                sx = "100000"; //$NON-NLS-1$
             else if (x < 0) {
                 String t = Integer.toString((~(-x - 1)) ^ Short.MIN_VALUE, 8);
                 switch (t.length()) {
                 case 1:
-                    sx = "10000" + t;
+                    sx = "10000" + t; //$NON-NLS-1$
                     break;
                 case 2:
-                    sx = "1000" + t;
+                    sx = "1000" + t; //$NON-NLS-1$
                     break;
                 case 3:
-                    sx = "100" + t;
+                    sx = "100" + t; //$NON-NLS-1$
                     break;
                 case 4:
-                    sx = "10" + t;
+                    sx = "10" + t; //$NON-NLS-1$
                     break;
                 case 5:
-                    sx = "1" + t;
+                    sx = "1" + t; //$NON-NLS-1$
                     break;
                 }
             } else
@@ -2355,72 +2355,72 @@ public class PrintfFormat {
         private String printOFormat(long x) {
             String sx = null;
             if (x == Long.MIN_VALUE)
-                sx = "1000000000000000000000";
+                sx = "1000000000000000000000"; //$NON-NLS-1$
             else if (x < 0) {
                 String t = Long.toString((~(-x - 1)) ^ Long.MIN_VALUE, 8);
                 switch (t.length()) {
                 case 1:
-                    sx = "100000000000000000000" + t;
+                    sx = "100000000000000000000" + t; //$NON-NLS-1$
                     break;
                 case 2:
-                    sx = "10000000000000000000" + t;
+                    sx = "10000000000000000000" + t; //$NON-NLS-1$
                     break;
                 case 3:
-                    sx = "1000000000000000000" + t;
+                    sx = "1000000000000000000" + t; //$NON-NLS-1$
                     break;
                 case 4:
-                    sx = "100000000000000000" + t;
+                    sx = "100000000000000000" + t; //$NON-NLS-1$
                     break;
                 case 5:
-                    sx = "10000000000000000" + t;
+                    sx = "10000000000000000" + t; //$NON-NLS-1$
                     break;
                 case 6:
-                    sx = "1000000000000000" + t;
+                    sx = "1000000000000000" + t; //$NON-NLS-1$
                     break;
                 case 7:
-                    sx = "100000000000000" + t;
+                    sx = "100000000000000" + t; //$NON-NLS-1$
                     break;
                 case 8:
-                    sx = "10000000000000" + t;
+                    sx = "10000000000000" + t; //$NON-NLS-1$
                     break;
                 case 9:
-                    sx = "1000000000000" + t;
+                    sx = "1000000000000" + t; //$NON-NLS-1$
                     break;
                 case 10:
-                    sx = "100000000000" + t;
+                    sx = "100000000000" + t; //$NON-NLS-1$
                     break;
                 case 11:
-                    sx = "10000000000" + t;
+                    sx = "10000000000" + t; //$NON-NLS-1$
                     break;
                 case 12:
-                    sx = "1000000000" + t;
+                    sx = "1000000000" + t; //$NON-NLS-1$
                     break;
                 case 13:
-                    sx = "100000000" + t;
+                    sx = "100000000" + t; //$NON-NLS-1$
                     break;
                 case 14:
-                    sx = "10000000" + t;
+                    sx = "10000000" + t; //$NON-NLS-1$
                     break;
                 case 15:
-                    sx = "1000000" + t;
+                    sx = "1000000" + t; //$NON-NLS-1$
                     break;
                 case 16:
-                    sx = "100000" + t;
+                    sx = "100000" + t; //$NON-NLS-1$
                     break;
                 case 17:
-                    sx = "10000" + t;
+                    sx = "10000" + t; //$NON-NLS-1$
                     break;
                 case 18:
-                    sx = "1000" + t;
+                    sx = "1000" + t; //$NON-NLS-1$
                     break;
                 case 19:
-                    sx = "100" + t;
+                    sx = "100" + t; //$NON-NLS-1$
                     break;
                 case 20:
-                    sx = "10" + t;
+                    sx = "10" + t; //$NON-NLS-1$
                     break;
                 case 21:
-                    sx = "1" + t;
+                    sx = "1" + t; //$NON-NLS-1$
                     break;
                 }
             } else
@@ -2446,42 +2446,42 @@ public class PrintfFormat {
         private String printOFormat(int x) {
             String sx = null;
             if (x == Integer.MIN_VALUE)
-                sx = "20000000000";
+                sx = "20000000000"; //$NON-NLS-1$
             else if (x < 0) {
                 String t = Integer.toString((~(-x - 1)) ^ Integer.MIN_VALUE, 8);
                 switch (t.length()) {
                 case 1:
-                    sx = "2000000000" + t;
+                    sx = "2000000000" + t; //$NON-NLS-1$
                     break;
                 case 2:
-                    sx = "200000000" + t;
+                    sx = "200000000" + t; //$NON-NLS-1$
                     break;
                 case 3:
-                    sx = "20000000" + t;
+                    sx = "20000000" + t; //$NON-NLS-1$
                     break;
                 case 4:
-                    sx = "2000000" + t;
+                    sx = "2000000" + t; //$NON-NLS-1$
                     break;
                 case 5:
-                    sx = "200000" + t;
+                    sx = "200000" + t; //$NON-NLS-1$
                     break;
                 case 6:
-                    sx = "20000" + t;
+                    sx = "20000" + t; //$NON-NLS-1$
                     break;
                 case 7:
-                    sx = "2000" + t;
+                    sx = "2000" + t; //$NON-NLS-1$
                     break;
                 case 8:
-                    sx = "200" + t;
+                    sx = "200" + t; //$NON-NLS-1$
                     break;
                 case 9:
-                    sx = "20" + t;
+                    sx = "20" + t; //$NON-NLS-1$
                     break;
                 case 10:
-                    sx = "2" + t;
+                    sx = "2" + t; //$NON-NLS-1$
                     break;
                 case 11:
-                    sx = "3" + t.substring(1);
+                    sx = "3" + t.substring(1); //$NON-NLS-1$
                     break;
                 }
             } else
@@ -2498,8 +2498,8 @@ public class PrintfFormat {
         private String printOFormat(String sx) {
             int nLeadingZeros = 0;
             int nBlanks = 0;
-            if (sx.equals("0") && precisionSet && precision == 0)
-                sx = "";
+            if (sx.equals("0") && precisionSet && precision == 0) //$NON-NLS-1$
+                sx = ""; //$NON-NLS-1$
             if (precisionSet)
                 nLeadingZeros = precision - sx.length();
             if (alternateForm)

@@ -60,7 +60,7 @@ public class RunTrace implements Runnable {
 
     private boolean jobIsFinished = false;
 
-    private String str = "";
+    private String str = ""; //$NON-NLS-1$
 
     private Thread t;
 
@@ -68,10 +68,10 @@ public class RunTrace implements Runnable {
         if (!openSocket) {
             return;
         }
-        System.out.println("[trace] connecting to socket on port " + portTraces);
+        System.out.println("[trace] connecting to socket on port " + portTraces); //$NON-NLS-1$
         s = new java.net.Socket(clientHost, portTraces);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
-        System.out.println("[trace] connected");
+        System.out.println("[trace] connected"); //$NON-NLS-1$
         t = new Thread(this);
         t.start();
 
@@ -84,7 +84,7 @@ public class RunTrace implements Runnable {
                     wait(100);
                 }
             } catch (InterruptedException e) {
-                System.out.println("[trace] interrupted");
+                System.out.println("[trace] interrupted"); //$NON-NLS-1$
             }
         }
     }
@@ -97,7 +97,7 @@ public class RunTrace implements Runnable {
         try {
             pred.close();
             s.close();
-            System.out.println("[trace] disconnected");
+            System.out.println("[trace] disconnected"); //$NON-NLS-1$
         } catch (java.io.IOException ie) {
         }
     }
@@ -111,7 +111,7 @@ public class RunTrace implements Runnable {
             askForStatus();
             in = s.getInputStream();
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
-            return "PAUSE".equals(reader.readLine());
+            return "PAUSE".equals(reader.readLine()); //$NON-NLS-1$
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -119,7 +119,7 @@ public class RunTrace implements Runnable {
     }
 
     private void askForStatus() {
-        pred.println("ID_STATUS");
+        pred.println("ID_STATUS"); //$NON-NLS-1$
     }
 
     public void sendTrace(String componentId, String datas) {
@@ -135,7 +135,7 @@ public class RunTrace implements Runnable {
         bean.setNbLine(bean.getNbLine() + 1);
         processTraces.put(componentId, bean);
 
-        str = bean.getComponentId() + "|" + bean.getNbLine() + "|" + datas;
+        str = bean.getComponentId() + "|" + bean.getNbLine() + "|" + datas; //$NON-NLS-1$ //$NON-NLS-2$
         pred.println(str); // envoi d'un message
     }
 }

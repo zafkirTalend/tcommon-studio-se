@@ -107,8 +107,8 @@ public class ParserUtils {
         if (s == null) {
             return null;
         }
-        if (s.equals("1")) {
-            return Boolean.parseBoolean("true");
+        if (s.equals("1")) { //$NON-NLS-1$
+            return Boolean.parseBoolean("true"); //$NON-NLS-1$
         }
         return Boolean.parseBoolean(s);
     }
@@ -148,7 +148,7 @@ public class ParserUtils {
         pp.setIndex(0);
         date = format.parse(s, pp);
         if (pp.getIndex() != s.length() || date == null) {
-            throw new RuntimeException("Unparseable date: \"" + s + "\"");
+            throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         return date;
@@ -174,7 +174,7 @@ public class ParserUtils {
         pp.setIndex(0);
         date = format.parse(s, pp);
         if (pp.getIndex() != s.length() || date == null) {
-            throw new RuntimeException("Unparseable date: \"" + s + "\"");
+            throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         return date;

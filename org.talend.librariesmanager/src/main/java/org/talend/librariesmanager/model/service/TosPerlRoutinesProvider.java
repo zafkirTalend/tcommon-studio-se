@@ -34,8 +34,8 @@ public class TosPerlRoutinesProvider implements IRoutinesProvider {
     }
 
     public List<URL> getSystemRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/"
-                + ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "/system/", ".pm");
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" //$NON-NLS-1$
+                + ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "/system/", ".pm"); //$NON-NLS-1$ //$NON-NLS-2$
 
         return toReturn;
     }
@@ -46,12 +46,12 @@ public class TosPerlRoutinesProvider implements IRoutinesProvider {
      * @see org.talend.core.model.routines.IRoutinesProvider#getTalendRoutinesFolder()
      */
     public URL getTalendRoutinesFolder() throws IOException {
-        URL url = Activator.BUNDLE.getEntry("resources/perl/talend");
+        URL url = Activator.BUNDLE.getEntry("resources/perl/talend"); //$NON-NLS-1$
         return FileLocator.toFileURL(url);
     }
 
     public List<URL> getTalendRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", "");
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", ""); //$NON-NLS-1$ //$NON-NLS-2$
         return toReturn;
     }
 }

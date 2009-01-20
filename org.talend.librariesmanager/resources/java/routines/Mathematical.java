@@ -346,7 +346,7 @@ public class Mathematical {
      * 
      */
     public static int NUM(String e) {
-        if (e.matches("/d+")) {
+        if (e.matches("/d+")) { //$NON-NLS-1$
             return 1;
         }
         return 0;

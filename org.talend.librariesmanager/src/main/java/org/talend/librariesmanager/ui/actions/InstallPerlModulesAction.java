@@ -123,7 +123,7 @@ public class InstallPerlModulesAction extends Action {
                 List<String> InstallModuleAll = module.getInstallURL();
                 if (InstallModuleAll != null) {
                     if (InstallModuleAll.size() != 0
-                            && System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
+                            && System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
                         for (String installModule : InstallModuleAll) {
                             execSpecialInstall(installModule);
                         }
@@ -144,11 +144,11 @@ public class InstallPerlModulesAction extends Action {
         Runtime runTime = Runtime.getRuntime();
         Process process = null;
         try {
-            if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
+            if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
                 String path = CorePlugin.getDefault().getPreferenceStore().getString(
                         ITalendCorePrefConstants.PERL_INTERPRETER);
-                path = path.substring(0, path.lastIndexOf("\\"));
-                process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + installModule);
+                path = path.substring(0, path.lastIndexOf("\\")); //$NON-NLS-1$
+                process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + installModule); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
             // else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
             // String command = "perl -MCPAN -e " + "'install " + installModule + "'\n";
@@ -164,14 +164,14 @@ public class InstallPerlModulesAction extends Action {
         Runtime runTime = Runtime.getRuntime();
         Process process = null;
         try {
-            if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
-                modulename = modulename.replaceAll("::", "-");
+            if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
+                modulename = modulename.replaceAll("::", "-"); //$NON-NLS-1$ //$NON-NLS-2$
                 String path = CorePlugin.getDefault().getPreferenceStore().getString(
                         ITalendCorePrefConstants.PERL_INTERPRETER);
-                path = path.substring(0, path.lastIndexOf("\\"));
-                process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
-            } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
-                String command = "perl -MCPAN -e 'install " + modulename + "'";
+                path = path.substring(0, path.lastIndexOf("\\")); //$NON-NLS-1$
+                process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) { //$NON-NLS-1$ //$NON-NLS-2$
+                String command = "perl -MCPAN -e 'install " + modulename + "'"; //$NON-NLS-1$ //$NON-NLS-2$
                 openTerminal(command, process);
             }
         } catch (Exception e) {
@@ -180,9 +180,9 @@ public class InstallPerlModulesAction extends Action {
     }
 
     public static void openTerminal(String command, Process process) {
-        String terminal = System.getenv("TERM");
+        String terminal = System.getenv("TERM"); //$NON-NLS-1$
         try {
-            process = Runtime.getRuntime().exec(new String[] { terminal, "-e", command + "; $SHELL" });
+            process = Runtime.getRuntime().exec(new String[] { terminal, "-e", command + "; $SHELL" }); //$NON-NLS-1$ //$NON-NLS-2$
             process.waitFor();
         } catch (IOException e) {
             System.out.println(e.getMessage());

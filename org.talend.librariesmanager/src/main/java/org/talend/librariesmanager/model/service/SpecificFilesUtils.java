@@ -19,6 +19,7 @@ import java.io.IOException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.librariesmanager.i18n.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -46,7 +47,7 @@ public class SpecificFilesUtils {
 
         for (File current : source.listFiles(folderFilter)) {
             if (monitor != null && monitor.isCanceled()) {
-                throw new OperationCanceledException("Operation is canceled during copying folders or files");
+                throw new OperationCanceledException(Messages.getString("SpecificFilesUtils.operationCanceled")); //$NON-NLS-1$
             }
             if (current.getName().equals(searchFolderName)) {
                 FilesUtils.copyFolder(current, target, false, sourceFolderFilter, sourceFileFilter, true, monitor);

@@ -168,19 +168,19 @@ public class TalendDate {
         Calendar c1 = Calendar.getInstance();
         c1.setTime(date);
 
-        if (dateType.equalsIgnoreCase("yyyy")) {
+        if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             c1.add(Calendar.YEAR, nb);
-        } else if (dateType.equals("MM")) {
+        } else if (dateType.equals("MM")) { //$NON-NLS-1$
             c1.add(Calendar.MONTH, nb);
-        } else if (dateType.equalsIgnoreCase("dd")) {
+        } else if (dateType.equalsIgnoreCase("dd")) { //$NON-NLS-1$
             c1.add(Calendar.DAY_OF_MONTH, nb);
-        } else if (dateType.equals("HH")) {
+        } else if (dateType.equals("HH")) { //$NON-NLS-1$
             c1.add(Calendar.HOUR, nb);
-        } else if (dateType.equals("mm")) {
+        } else if (dateType.equals("mm")) { //$NON-NLS-1$
             c1.add(Calendar.MINUTE, nb);
-        } else if (dateType.equalsIgnoreCase("ss")) {
+        } else if (dateType.equalsIgnoreCase("ss")) { //$NON-NLS-1$
             c1.add(Calendar.SECOND, nb);
-        } else if (dateType.equalsIgnoreCase("SSS")) {
+        } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
             c1.add(Calendar.MILLISECOND, nb);
         }
 
@@ -215,24 +215,24 @@ public class TalendDate {
      */
     public static long diffDate(Date date1, Date date2, String dateType) {
 
-        dateType = dateType == null ? "" : dateType;
+        dateType = dateType == null ? "" : dateType; //$NON-NLS-1$
 
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         c1.setTime(date1);
         c2.setTime(date2);
 
-        if (dateType.equalsIgnoreCase("yyyy")) {
+        if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             return c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
-        } else if (dateType.equals("MM")) {
+        } else if (dateType.equals("MM")) { //$NON-NLS-1$
             return (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)) * 12 + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH));
-        } else if (dateType.equalsIgnoreCase("HH")) {
+        } else if (dateType.equalsIgnoreCase("HH")) { //$NON-NLS-1$
             return (date1.getTime() - date2.getTime()) / (1000 * 60 * 60);
-        } else if (dateType.equals("mm")) {
+        } else if (dateType.equals("mm")) { //$NON-NLS-1$
             return (date1.getTime() - date2.getTime()) / (1000 * 60);
-        } else if (dateType.equalsIgnoreCase("ss")) {
+        } else if (dateType.equalsIgnoreCase("ss")) { //$NON-NLS-1$
             return (date1.getTime() - date2.getTime()) / 1000;
-        } else if (dateType.equalsIgnoreCase("SSS")) {
+        } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
             return date1.getTime() - date2.getTime();
         } else {
             return (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
@@ -339,13 +339,13 @@ public class TalendDate {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
 
-        if (dateType.equalsIgnoreCase("yyyy")) {
+        if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             c.set(Calendar.YEAR, nb);
-        } else if (dateType.equals("MM")) {
+        } else if (dateType.equals("MM")) { //$NON-NLS-1$
             c.set(Calendar.MONTH, nb - 1);
-        } else if (dateType.equalsIgnoreCase("dd")) {
+        } else if (dateType.equalsIgnoreCase("dd")) { //$NON-NLS-1$
             c.set(Calendar.DATE, nb);
-        } else if (dateType.equalsIgnoreCase("HH")) {
+        } else if (dateType.equalsIgnoreCase("HH")) { //$NON-NLS-1$
             c.set(Calendar.HOUR_OF_DAY, nb);
         }
         return c.getTime();
@@ -457,11 +457,11 @@ public class TalendDate {
     public static String getDate(String pattern) {
         StringBuffer result = new StringBuffer();
 
-        pattern = pattern.replace("CC", "yy");
-        pattern = pattern.replace("YY", "yy");
-        pattern = pattern.replace("MM", "MM");
-        pattern = pattern.replace("DD", "dd");
-        pattern = pattern.replace("hh", "HH");
+        pattern = pattern.replace("CC", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("YY", "yy"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("MM", "MM"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("DD", "dd"); //$NON-NLS-1$ //$NON-NLS-2$
+        pattern = pattern.replace("hh", "HH"); //$NON-NLS-1$ //$NON-NLS-2$
 
         // not needed
         // pattern.replace("mm", "mm");
@@ -638,8 +638,8 @@ public class TalendDate {
         // test4.start();
         // test5.start();
 
-        System.out.println("isDate: " + TalendDate.isDate("2008-11-35 12:15:25", "yyyy-MM-dd HH:mm"));
-        System.out.println("compareDate: " + TalendDate.compareDate(new Date(), new Date(System.currentTimeMillis() - 10000)));
+        System.out.println("isDate: " + TalendDate.isDate("2008-11-35 12:15:25", "yyyy-MM-dd HH:mm")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        System.out.println("compareDate: " + TalendDate.compareDate(new Date(), new Date(System.currentTimeMillis() - 10000))); //$NON-NLS-1$
 
     }
 }

@@ -139,9 +139,9 @@ public class MetterCatcherUtils {
     java.util.List<MetterCatcherMessage> messages = java.util.Collections
             .synchronizedList(new java.util.ArrayList<MetterCatcherMessage>());
 
-    String jobId = "";
+    String jobId = ""; //$NON-NLS-1$
 
-    String jobVersion = "";
+    String jobVersion = ""; //$NON-NLS-1$
 
     public MetterCatcherUtils(String jobId, String jobVersion) {
         this.jobId = jobId;
@@ -185,7 +185,7 @@ public class MetterCatcherUtils {
 
     public static long getPid() {
         RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
-        String[] mxNameTable = mx.getName().split("@");
+        String[] mxNameTable = mx.getName().split("@"); //$NON-NLS-1$
         if (mxNameTable.length == 2) {
             return Long.parseLong(mxNameTable[0]);
         } else {

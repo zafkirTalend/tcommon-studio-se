@@ -42,6 +42,7 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
 import org.talend.resource.IResourceService;
@@ -56,7 +57,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(JavaLibrariesService.class);
 
-    public static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines";
+    public static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines"; //$NON-NLS-1$
 
     private static boolean isLibSynchronized;
 
@@ -67,7 +68,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public URL getRoutineTemplate() {
-        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java");
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -76,7 +77,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
      */
     public URL getSqlPatternTemplate() {
-        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX);
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_SQLPATTERN_FOLDER + "/__TEMPLATE__" + TEMPLATE_SUFFIX); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -94,7 +95,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     }
 
     public List<URL> getSystemSQLPatterns() {
-        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER,
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/" + SOURCE_SQLPATTERN_FOLDER, //$NON-NLS-1$
                 SQLPATTERN_FILE_SUFFIX, false, true);
     }
 
@@ -172,7 +173,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
-            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
+            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile()); //$NON-NLS-1$
             FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), true, monitorWrap);
 
@@ -190,7 +191,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false, monitorWrap);
 
-            log.debug("Java libraries synchronization done");
+            log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
             isLibSynchronized = true;
         } catch (IOException e) {
             ExceptionHandler.process(e);

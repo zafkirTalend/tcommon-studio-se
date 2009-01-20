@@ -32,7 +32,7 @@ public class FormatterUtils {
             return null;
         }
         String result = s;
-        int decimalIndex = s.indexOf(".");
+        int decimalIndex = s.indexOf("."); //$NON-NLS-1$
 
         if (decimalIndex == -1) {
             if (thousandsSeparator != null) {

@@ -105,7 +105,7 @@ public class ModulesViewComposite extends Composite {
                     str = Messages.getString("ModulesViewComposite.hint.notInstalled"); //$NON-NLS-1$
                     break;
                 case UNUSED:
-                    str = "Unused";
+                    str = "Unused"; //$NON-NLS-1$
                     break;
                 default:
                     str = Messages.getString("ModulesViewComposite.hint.unknown"); //$NON-NLS-1$

@@ -125,9 +125,9 @@ public class StatCatcherUtils {
     java.util.List<StatCatcherMessage> messages = java.util.Collections
             .synchronizedList(new java.util.ArrayList<StatCatcherMessage>());
 
-    String jobId = "";
+    String jobId = ""; //$NON-NLS-1$
 
-    String jobVersion = "";
+    String jobVersion = ""; //$NON-NLS-1$
 
     public StatCatcherUtils(String jobId, String jobVersion) {
         this.jobId = jobId;
@@ -135,15 +135,15 @@ public class StatCatcherUtils {
     }
 
     public void addMessage(String message, String origin, Long duration) {
-        String messageType = "";
-        if (message.compareTo("begin") == 0) {
+        String messageType = ""; //$NON-NLS-1$
+        if (message.compareTo("begin") == 0) { //$NON-NLS-1$
             messageType = message;
             message = null;
-        } else if (message.compareTo("end") == 0) {
+        } else if (message.compareTo("end") == 0) { //$NON-NLS-1$
             messageType = message;
-            message = "success";
-        } else if (message.compareTo("failure") == 0) {
-            messageType = "end";
+            message = "success"; //$NON-NLS-1$
+        } else if (message.compareTo("failure") == 0) { //$NON-NLS-1$
+            messageType = "end"; //$NON-NLS-1$
         }
         StatCatcherMessage scm = new StatCatcherMessage(message, messageType, origin, duration, this.jobVersion, this.jobId);
         messages.add(scm);
@@ -154,11 +154,11 @@ public class StatCatcherUtils {
     }
 
     public void addMessage(String message, Long duration) {
-        addMessage(message, "", duration);
+        addMessage(message, "", duration); //$NON-NLS-1$
     }
 
     public void addMessage(String message) {
-        addMessage(message, "", null);
+        addMessage(message, "", null); //$NON-NLS-1$
     }
 
     public java.util.List<StatCatcherMessage> getMessages() {
@@ -172,7 +172,7 @@ public class StatCatcherUtils {
 
     public static long getPid() {
         RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
-        String[] mxNameTable = mx.getName().split("@");
+        String[] mxNameTable = mx.getName().split("@"); //$NON-NLS-1$
         if (mxNameTable.length == 2) {
             return Long.parseLong(mxNameTable[0]);
         } else {

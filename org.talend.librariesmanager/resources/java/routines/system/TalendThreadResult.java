@@ -16,7 +16,7 @@ public class TalendThreadResult {
 
     private Integer errorCode = null;
 
-    private String status = "";
+    private String status = ""; //$NON-NLS-1$
 
     public Integer getErrorCode() {
         return errorCode;

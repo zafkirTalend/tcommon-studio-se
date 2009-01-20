@@ -13,9 +13,9 @@ import org.talend.librariesmanager.i18n.Messages;
 
 public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-    private static final String SINGLE_MODE = "true";
+    private static final String SINGLE_MODE = "true"; //$NON-NLS-1$
 
-    private static final String SEPARATE_MODE = "false";
+    private static final String SEPARATE_MODE = "false"; //$NON-NLS-1$
 
     // private String oldPath;
 
@@ -34,9 +34,9 @@ public class LibrariesMainPreferencesPage extends FieldEditorPreferencePage impl
     @Override
     protected void createFieldEditors() {
         choice = new RadioGroupFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH_MODE_SINGLE, Messages
-                .getString("MainPreferencesPage.folderSelectionMode"), 1, new String[][] {
-                { Messages.getString("MainPreferencesPage.sameRootFolder"), SINGLE_MODE },
-                { Messages.getString("MainPreferencesPage.separateRootFolder"), SEPARATE_MODE } },
+                .getString("MainPreferencesPage.folderSelectionMode"), 1, new String[][] { //$NON-NLS-1$
+                { Messages.getString("MainPreferencesPage.sameRootFolder"), SINGLE_MODE }, //$NON-NLS-1$
+                { Messages.getString("MainPreferencesPage.separateRootFolder"), SEPARATE_MODE } }, //$NON-NLS-1$
                 getFieldEditorParent());
 
         externalLibrariesPath = new DirectoryFieldEditor(PreferencesUtilities.EXTERNAL_LIB_PATH, Messages

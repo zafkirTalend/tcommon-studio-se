@@ -24,12 +24,12 @@ public class ShowModulesViewAction extends AbstractShowViewAction {
 
     @Override
     public String getDefinitionId() {
-        return "showModulesView";
+        return "showModulesView"; //$NON-NLS-1$
     }
 
     @Override
     public String getViewId() {
-        return "org.talend.designer.codegen.perlmodule.ModulesView";
+        return "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
     }
 
 }

@@ -39,6 +39,7 @@ import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
 
@@ -52,7 +53,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(PerlLibrariesService.class);
 
-    private static final String START_T = "t";
+    private static final String START_T = "t"; //$NON-NLS-1$
 
     private static boolean isLibSynchronized;
 
@@ -63,7 +64,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
     @Override
     public URL getRoutineTemplate() {
-        return Activator.BUNDLE.getEntry("resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER + "/Template.pm");
+        return Activator.BUNDLE.getEntry("resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER + "/Template.pm"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -72,7 +73,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSqlPatternTemplate()
      */
     public URL getSqlPatternTemplate() {
-        return Activator.BUNDLE.getEntry("resources/perl/" + SOURCE_SQLPATTERN_FOLDER + "/Template" + TEMPLATE_SUFFIX);
+        return Activator.BUNDLE.getEntry("resources/perl/" + SOURCE_SQLPATTERN_FOLDER + "/Template" + TEMPLATE_SUFFIX); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
@@ -90,7 +91,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
     }
 
     public List<URL> getSystemSQLPatterns() {
-        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_SQLPATTERN_FOLDER,
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_SQLPATTERN_FOLDER, //$NON-NLS-1$
                 SQLPATTERN_FILE_SUFFIX, false, true);
     }
 
@@ -128,7 +129,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
-            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/")).getFile());
+            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/")).getFile()); //$NON-NLS-1$
             FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSystemFilesFilter(), null, true, monitorWrap);
 
             // 2. Components libraries
@@ -136,9 +137,9 @@ public class PerlLibrariesService extends AbstractLibrariesService {
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
             SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSystemFilesFilter(),
-                    FilesUtils.getAcceptPMFilesFilter(), "modules", monitorWrap);
+                    FilesUtils.getAcceptPMFilesFilter(), "modules", monitorWrap); //$NON-NLS-1$
 
-            log.debug("Perl libraries synchronization done");
+            log.debug(Messages.getString("PerlLibrariesService.synchronization")); //$NON-NLS-1$
             this.isLibSynchronized = true;
 
         } catch (IOException e) {
@@ -186,7 +187,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
             IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
-            service.perlExec(out, err, new Path(checkPerlModuleAbsolutePath), null, Level.DEBUG, "", null, -1, -1, params);
+            service.perlExec(out, err, new Path(checkPerlModuleAbsolutePath), null, Level.DEBUG, "", null, -1, -1, params); //$NON-NLS-1$
 
             analyzeResponse(out, componentsByModules);
 
@@ -202,27 +203,27 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
     }
 
-    private static final String CHECK_PERL_MODULE_RELATIVE_PATH = "/check_modules.pl";
+    private static final String CHECK_PERL_MODULE_RELATIVE_PATH = "/check_modules.pl"; //$NON-NLS-1$
 
-    private static final String MODULE_PARAM_KEY = "--module=";
+    private static final String MODULE_PARAM_KEY = "--module="; //$NON-NLS-1$
 
-    private static final String RESULT_SEPARATOR = " => ";
+    private static final String RESULT_SEPARATOR = " => "; //$NON-NLS-1$
 
-    private static final String RESULT_KEY_KO = "KO";
+    private static final String RESULT_KEY_KO = "KO"; //$NON-NLS-1$
 
-    private static final String RESULT_KEY_OK = "OK";
+    private static final String RESULT_KEY_OK = "OK"; //$NON-NLS-1$
 
     private void analyzeResponse(StringBuffer buff, Map<String, List<ModuleNeeded>> componentsByModules) {
 
-        String[] lines = buff.toString().split("\n");
+        String[] lines = buff.toString().split("\n"); //$NON-NLS-1$
         for (int i = 0; i < lines.length; i++) {
             if (lines[i] != null && lines[i].length() > 0) {
                 String path = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
                 if (lines[i].indexOf(PerlLibrariesService.START_T) == 0) {
-                    String[] filePiece = lines[i].split("::");
+                    String[] filePiece = lines[i].split("::"); //$NON-NLS-1$
                     if (filePiece.length > 1) {
                         File file = new File(path + File.separatorChar + filePiece[0] + File.separatorChar
-                                + filePiece[1].substring(0, filePiece[1].indexOf(RESULT_SEPARATOR)) + ".pm");
+                                + filePiece[1].substring(0, filePiece[1].indexOf(RESULT_SEPARATOR)) + ".pm"); //$NON-NLS-1$
                         if (file.exists()) {
                             lines[i] = lines[i].substring(0, lines[i].indexOf(RESULT_SEPARATOR) + 4) + RESULT_KEY_OK
                                     + lines[i].substring(lines[i].indexOf(RESULT_SEPARATOR) + 6, lines[i].length());

@@ -51,9 +51,9 @@ public class FastDateParser {
         dateFormatKey.locale = locale;
         java.text.DateFormat format = cache.get(dateFormatKey);
         if (format == null) {
-            if (pattern.equals("yyyy-MM-dd")) {
+            if (pattern.equals("yyyy-MM-dd")) { //$NON-NLS-1$
                 format = new DateParser();
-            } else if (pattern.equals("yyyy-MM-dd HH:mm:ss")) {
+            } else if (pattern.equals("yyyy-MM-dd HH:mm:ss")) { //$NON-NLS-1$
                 format = new DateTimeParser();
             } else {
                 if (locale != null) {
@@ -86,20 +86,20 @@ public class FastDateParser {
             // Year
             toAppendTo.append(calendar.get(java.util.Calendar.YEAR));
             while (toAppendTo.length() < 4)
-                toAppendTo.insert(0, "0");
-            toAppendTo.append("-");
+                toAppendTo.insert(0, "0"); //$NON-NLS-1$
+            toAppendTo.append("-"); //$NON-NLS-1$
 
             // Month
             month = calendar.get(java.util.Calendar.MONTH) + 1;
             if (month < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(month);
-            toAppendTo.append("-");
+            toAppendTo.append("-"); //$NON-NLS-1$
 
             // Day
             day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
             if (day < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(day);
 
             return toAppendTo;
@@ -144,41 +144,41 @@ public class FastDateParser {
             // Year
             toAppendTo.append(calendar.get(java.util.Calendar.YEAR));
             while (toAppendTo.length() < 4)
-                toAppendTo.insert(0, "0");
-            toAppendTo.append("-");
+                toAppendTo.insert(0, "0"); //$NON-NLS-1$
+            toAppendTo.append("-"); //$NON-NLS-1$
 
             // Month
             month = calendar.get(java.util.Calendar.MONTH) + 1;
             if (month < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(month);
-            toAppendTo.append("-");
+            toAppendTo.append("-"); //$NON-NLS-1$
 
             // Day
             day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
             if (day < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(day);
-            toAppendTo.append(" ");
+            toAppendTo.append(" "); //$NON-NLS-1$
 
             // Hour
             hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
             if (hour < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(hour);
-            toAppendTo.append(":");
+            toAppendTo.append(":"); //$NON-NLS-1$
 
             // Minute
             minute = calendar.get(java.util.Calendar.MINUTE);
             if (minute < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(minute);
-            toAppendTo.append(":");
+            toAppendTo.append(":"); //$NON-NLS-1$
 
             // Second
             second = calendar.get(java.util.Calendar.SECOND);
             if (second < 10)
-                toAppendTo.append("0");
+                toAppendTo.append("0"); //$NON-NLS-1$
             toAppendTo.append(second);
 
             return toAppendTo;

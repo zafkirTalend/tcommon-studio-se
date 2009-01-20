@@ -11,7 +11,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.librariesmanager";
+    public static final String PLUGIN_ID = "org.talend.librariesmanager"; //$NON-NLS-1$
 
     public static final Bundle BUNDLE = Platform.getBundle(PLUGIN_ID);
 
