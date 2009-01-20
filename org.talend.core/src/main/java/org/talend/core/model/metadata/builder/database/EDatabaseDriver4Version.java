@@ -83,7 +83,7 @@ public enum EDatabaseDriver4Version {
     public static String getDriver(final String dbType, final String versionName) {
         if (versionName != null) {
             for (EDatabaseDriver4Version driverVersion : values()) {
-                if (driverVersion.getDbVersionName().equals(versionName)) {
+                if (versionName.equals(driverVersion.getDbVersionName())) {
                     return driverVersion.getDriverName();
                 }
             }
