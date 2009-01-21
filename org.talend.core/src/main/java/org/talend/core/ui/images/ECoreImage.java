@@ -128,6 +128,7 @@ public enum ECoreImage implements IImage {
 
     PALETTE_OK_ICON("/icons/palette_ok.png"), //$NON-NLS-1$
     PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"), //$NON-NLS-1$
+    JOBLET_COMPONENT_ICON("/icons/joblet_component.png"),
     UNKNOWN();
 
     private String path;
