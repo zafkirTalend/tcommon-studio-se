@@ -69,6 +69,10 @@ public final class Java2SqlType {
         }
     }
 
+    public static boolean isDateTimeSQL(int type) {
+        return type == Types.TIMESTAMP;
+    }
+
     public static boolean isOtheTypeInSQL(int type) {
 
         if (isTextInSQL(type)) {
