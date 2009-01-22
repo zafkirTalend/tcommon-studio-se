@@ -29,6 +29,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -217,6 +218,10 @@ public class ProcessorUtilities {
      * @return
      */
     private static boolean isJobModified() {
+        if (CommonsPlugin.isHeadless()) {
+            return false;
+        }
+        
         IEditorPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
         if (part != null && part instanceof IMultiPageTalendEditor) {
             return part.isDirty();
