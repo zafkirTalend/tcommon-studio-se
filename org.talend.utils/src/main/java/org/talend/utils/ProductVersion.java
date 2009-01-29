@@ -26,11 +26,11 @@ public class ProductVersion implements Comparable<ProductVersion> {
 
     private int micro;
 
-    public ProductVersion(int major, int micro, int minor) {
+    public ProductVersion(int major, int minor, int micro) {
         super();
         this.major = major;
-        this.micro = micro;
         this.minor = minor;
+        this.micro = micro;
     }
 
     public static ProductVersion fromString(String version) {
@@ -85,15 +85,16 @@ public class ProductVersion implements Comparable<ProductVersion> {
         if (major != other.major) {
             return false;
         }
-        if (micro != other.micro) {
-            return false;
-        }
         if (minor != other.minor) {
             return false;
         }
+        if (micro != other.micro) {
+            return false;
+        }
+
         return true;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
