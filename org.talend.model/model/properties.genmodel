@@ -301,6 +301,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/lastJobGenerationDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/jobArchiveFilename"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/fileTriggerFileMask"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/fileTriggerFileName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/fileTriggerFolderPath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/fileTriggerTriggeredFilePath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/expectedTriggeringDate"/>

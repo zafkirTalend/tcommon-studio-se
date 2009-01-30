@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getLastJobGenerationDate <em>Last Job Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getJobArchiveFilename <em>Job Archive Filename</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFileMask <em>File Trigger File Mask</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFileName <em>File Trigger File Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFolderPath <em>File Trigger Folder Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerTriggeredFilePath <em>File Trigger Triggered File Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
@@ -684,6 +685,32 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setFileTriggerFileMask(String value);
+
+    /**
+     * Returns the value of the '<em><b>File Trigger File Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>File Trigger File Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>File Trigger File Name</em>' attribute.
+     * @see #setFileTriggerFileName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_FileTriggerFileName()
+     * @model
+     * @generated
+     */
+    String getFileTriggerFileName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getFileTriggerFileName <em>File Trigger File Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>File Trigger File Name</em>' attribute.
+     * @see #getFileTriggerFileName()
+     * @generated
+     */
+    void setFileTriggerFileName(String value);
 
     /**
      * Returns the value of the '<em><b>File Trigger Folder Path</b></em>' attribute.

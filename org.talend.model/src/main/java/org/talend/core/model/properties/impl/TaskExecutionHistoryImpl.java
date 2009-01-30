@@ -49,6 +49,7 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getLastJobGenerationDate <em>Last Job Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getJobArchiveFilename <em>Job Archive Filename</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileMask <em>File Trigger File Mask</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileName <em>File Trigger File Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFolderPath <em>File Trigger Folder Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerTriggeredFilePath <em>File Trigger Triggered File Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
@@ -545,6 +546,26 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * @ordered
      */
     protected String fileTriggerFileMask = FILE_TRIGGER_FILE_MASK_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getFileTriggerFileName() <em>File Trigger File Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileTriggerFileName()
+     * @generated
+     * @ordered
+     */
+    protected static final String FILE_TRIGGER_FILE_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFileTriggerFileName() <em>File Trigger File Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileTriggerFileName()
+     * @generated
+     * @ordered
+     */
+    protected String fileTriggerFileName = FILE_TRIGGER_FILE_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getFileTriggerFolderPath() <em>File Trigger Folder Path</em>}' attribute.
@@ -1293,6 +1314,27 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getFileTriggerFileName() {
+        return fileTriggerFileName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFileTriggerFileName(String newFileTriggerFileName) {
+        String oldFileTriggerFileName = fileTriggerFileName;
+        fileTriggerFileName = newFileTriggerFileName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME, oldFileTriggerFileName, fileTriggerFileName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getFileTriggerFolderPath() {
         return fileTriggerFolderPath;
     }
@@ -1574,6 +1616,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getJobArchiveFilename();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
                 return getFileTriggerFileMask();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                return getFileTriggerFileName();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
                 return getFileTriggerFolderPath();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
@@ -1678,6 +1722,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
                 setFileTriggerFileMask((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                setFileTriggerFileName((String)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
                 setFileTriggerFolderPath((String)newValue);
@@ -1795,6 +1842,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
                 setFileTriggerFileMask(FILE_TRIGGER_FILE_MASK_EDEFAULT);
                 return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                setFileTriggerFileName(FILE_TRIGGER_FILE_NAME_EDEFAULT);
+                return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
                 setFileTriggerFolderPath(FILE_TRIGGER_FOLDER_PATH_EDEFAULT);
                 return;
@@ -1887,6 +1937,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return JOB_ARCHIVE_FILENAME_EDEFAULT == null ? jobArchiveFilename != null : !JOB_ARCHIVE_FILENAME_EDEFAULT.equals(jobArchiveFilename);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
                 return FILE_TRIGGER_FILE_MASK_EDEFAULT == null ? fileTriggerFileMask != null : !FILE_TRIGGER_FILE_MASK_EDEFAULT.equals(fileTriggerFileMask);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                return FILE_TRIGGER_FILE_NAME_EDEFAULT == null ? fileTriggerFileName != null : !FILE_TRIGGER_FILE_NAME_EDEFAULT.equals(fileTriggerFileName);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
                 return FILE_TRIGGER_FOLDER_PATH_EDEFAULT == null ? fileTriggerFolderPath != null : !FILE_TRIGGER_FOLDER_PATH_EDEFAULT.equals(fileTriggerFolderPath);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
@@ -1970,6 +2022,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(jobArchiveFilename);
         result.append(", fileTriggerFileMask: ");
         result.append(fileTriggerFileMask);
+        result.append(", fileTriggerFileName: ");
+        result.append(fileTriggerFileName);
         result.append(", fileTriggerFolderPath: ");
         result.append(fileTriggerFolderPath);
         result.append(", fileTriggerTriggeredFilePath: ");
