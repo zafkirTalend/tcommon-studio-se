@@ -221,7 +221,11 @@ public class ProcessorUtilities {
         if (CommonsPlugin.isHeadless()) {
             return false;
         }
-        
+        if (PlatformUI.getWorkbench().getActiveWorkbenchWindow() == null) {
+            // no job opened, wizard mode.
+            return false;
+        }
+
         IEditorPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
         if (part != null && part instanceof IMultiPageTalendEditor) {
             return part.isDirty();
@@ -322,14 +326,6 @@ public class ProcessorUtilities {
         ProcessItem selectedProcessItem;
 
         selectedProcessItem = jobInfo.getProcessItem();
-        // if (selectedProcessItem == null) {
-        // if (jobInfo.getJobVersion() != null) {
-        // selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
-        // } else {
-        // // child job
-        // selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
-        // }
-        // }
 
         if (selectedProcessItem == null && jobInfo.getJobVersion() == null) {
             // child job
@@ -611,9 +607,14 @@ public class ProcessorUtilities {
 
         // achen modify to fix 0006107
         ProcessItem pItem = (ProcessItem) process.getProperty().getItem();
-        JobInfo jobInfo = new JobInfo(pItem, context.getName());
-        jobInfo.setProcess(process);
-        jobInfo.setContext(context);
+        JobInfo jobInfo;
+        if (pItem != null) { // ProcessItem is null for shadow process
+            jobInfo = new JobInfo(pItem, context.getName());
+            jobInfo.setProcess(process);
+            jobInfo.setContext(context);
+        } else {
+            jobInfo = new JobInfo(process, context);
+        }
         if (!isNeedReGenerateCode(jobInfo)) {
             return false;
         }
