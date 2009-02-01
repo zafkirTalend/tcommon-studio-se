@@ -3,6 +3,7 @@
 	<dbms product="ODBC" id="MSODBC" label="Mapping MSODBC" default="true">
 		<dbTypes>
 			<dbType type="ANSIDATE" />
+			<dbType type="B" />
 			<dbType type="BIGINT"/>
 			<dbType type="BIGINT UNSIGNED" />
 			<dbType type="BINARY"/>
@@ -22,6 +23,7 @@
 			<dbType type="CIDR" />
 			<dbType type="CIRCLE" />
 			<dbType type="CLOB"/>
+			<dbType type="D" />
 			<dbType type="DATE" />
 			<dbType type="DATETIME"/>
 			<dbType type="DECIMAL" />
@@ -33,6 +35,7 @@
 			<dbType type="FLOAT UNSIGNED" />			
 			<dbType type="FLOAT4" />
 			<dbType type="FLOAT8" />
+			<dbType type="G"/>
 			<dbType type="GEOMETRY" />
 			<dbType type="GEOMETRYCOLLECTION" />
 			<dbType type="GRAPHIC"/>
@@ -43,6 +46,7 @@
 			<dbType type="IMAGE" />
 			<dbType type="INET" />
 			<dbType type="INGRESDATE" />
+			<dbType type="I"/>
 			<dbType type="INT"/>
 			<dbType type="INT UNSIGNED" />
 			<dbType type="INT1" />
@@ -54,6 +58,7 @@
 			<dbType type="INTEGER2" />
 			<dbType type="INTEGER4" />			
 			<dbType type="INTERVAL" />
+			<dbType type="L" />
 			<dbType type="LINE" />
 			<dbType type="LINESTRING" />
 			<dbType type="LONG" />
@@ -67,12 +72,14 @@
 			<dbType type="LONG RAW" />
 			<dbType type="LSEG" />
 			<dbType type="LVARCHAR" />
+			<dbType type="M" />
 			<dbType type="MEDIUMTEXT" />
 			<dbType type="MEDIUMBLOB" />						
 			<dbType type="MONEY" />
 			<dbType type="MULTILINESTRING" />
 			<dbType type="MULTIPOINT" />
 			<dbType type="MULTIPOLYGON" />
+			<dbType type="N" />
 			<dbType type="NCHAR VARYING" />
 			<dbType type="NCLOB" />
 			<dbType type="NTEXT" />
@@ -85,6 +92,7 @@
 			<dbType type="PATH" />
 			<dbType type="POINT" />
 			<dbType type="POLYGON" />
+			<dbType type="Q" />
 			<dbType type="RAW" />
 			<dbType type="REAL" />
 			<dbType type="ROWID" />
@@ -99,6 +107,7 @@
 			<dbType type="SQL_VARIANT" />
 			<dbType type="TABLE_KEY" />	
 			<dbType type="TEXT" />
+			<dbType type="T" />
 			<dbType type="TIME" />
 			<dbType type="TIMESTAMP" />
 			<dbType type="TIMETZ" />
@@ -117,6 +126,7 @@
 			<dbType type="VARGRAPHIC"/>	
 			<dbType type="XML"/>
 			<dbType type="XMLTYPE" />
+			<dbType type="Y" />
 			<dbType type="YEAR" />			
 		</dbTypes>
 
@@ -125,7 +135,8 @@
 				<talendType type="id_List"/>
 				<talendType type="id_Boolean">				
 					<dbType type="BIT" default="true"/>
-					<dbType type="BOOLEAN" />	
+					<dbType type="BOOLEAN" />
+					<dbType type="L" />
 				</talendType>
 				<talendType type="id_Byte">
 					<dbType type="BYTE" default="true" />
@@ -156,7 +167,8 @@
 				<talendType type="id_byte[]">
 					<dbType type="BINARY" default="true" />
 					<dbType type="VARBINARY"/>
-					<dbType type="LONGVARBINARY"/>				
+					<dbType type="LONGVARBINARY"/>
+					<dbType type="Q"/>			
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true" />
@@ -197,7 +209,9 @@
 					<dbType type="TIMETZ" />						
 					<dbType type="INGRESDATE" />
 					<dbType type="ANSIDATE" />
-					<dbType type="INTERVAL" />					
+					<dbType type="INTERVAL" />
+					<dbType type="D" />
+					<dbType type="T" />			
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="DECIMAL" default="true" />
@@ -210,7 +224,9 @@
 					<dbType type="FLOAT" />
 					<dbType type="FLOAT UNSIGNED" />			
 					<dbType type="FLOAT4" />
-					<dbType type="FLOAT8" />										
+					<dbType type="FLOAT8" />
+					<dbType type="Y" />
+					<dbType type="B" />
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DOUBLE" default="true" />
@@ -223,7 +239,9 @@
 					<dbType type="FLOAT" />
 					<dbType type="FLOAT UNSIGNED" />			
 					<dbType type="FLOAT4" />
-					<dbType type="FLOAT8" />										
+					<dbType type="FLOAT8" />
+					<dbType type="Y" />
+					<dbType type="B" />
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="SMALLFLOAT" />									
@@ -236,7 +254,8 @@
 					<dbType type="DOUBLE PRECISION" />			
 					<dbType type="DECIMAL" />
 					<dbType type="NUMERIC" />
-					<dbType type="REAL" />										
+					<dbType type="REAL" />
+					<dbType type="Y" />						
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="BYTE" />
@@ -263,6 +282,7 @@
 					<dbType type="LONG" />			
 					<dbType type="NUMBER" />
 					<dbType type="INT8" />
+					<dbType type="I" />
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="BYTE" />
@@ -289,6 +309,7 @@
 					<dbType type="LONG" />			
 					<dbType type="NUMBER" />
 					<dbType type="INT8" />
+					<dbType type="I" />
 				</talendType>
 				<talendType type="id_Object">
 					<dbType type="BLOB" />
@@ -330,6 +351,7 @@
 					<dbType type="IMAGE" />
 					<dbType type="SQL_VARIANT" />
 					<dbType type="LINE" />
+					<dbType type="G" />
 				</talendType>
 				<talendType type="id_Short">
 					<dbType type="BYTE" />
@@ -380,11 +402,16 @@
 					<dbType type="MEDIUMTEXT" />
 					<dbType type="MULTILINESTRING" />						
 					<dbType type="UNIQUEIDENTIFIERSTR" />
+					<dbType type="C" />
+					<dbType type="M" />
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
 				<!--id_Boolean-->
 				<dbType type="BIT">
+					<talendType type="id_Boolean" default="true" />
+				</dbType>
+				<dbType type="L">
 					<talendType type="id_Boolean" default="true" />
 				</dbType>
 				<dbType type="BOOLEAN">
@@ -429,6 +456,10 @@
 					<talendType type="id_Short" default="true" />
 				</dbType>
 				<!--id_int-->
+				<dbType type="I">
+					<talendType type="id_Integer" default="true" />
+					<talendType type="id_Long" />
+				</dbType>
 				<dbType type="INT">
 					<talendType type="id_Integer" default="true" />
 				</dbType>
@@ -469,6 +500,20 @@
 				<!--id_Float-->
 				<dbType type="SMALLFLOAT">
 					<talendType type="id_Float" default="true" />
+					<talendType type="id_BigDecimal"/>
+				</dbType>
+				<dbType type="B">
+					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>
+				</dbType>
+				<dbType type="Y">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double" />
+					<talendType type="id_BigDecimal"/>
+				</dbType>
+				<dbType type="N">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double" />
 					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="FLOAT">
@@ -526,6 +571,9 @@
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="C">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="M">
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<!--id_String-->
@@ -596,6 +644,12 @@
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<!--id_Date-->
+				<dbType type="D">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="T">
+					<talendType type="id_Date" default="true" />
+				</dbType>
 				<dbType type="TIME">
 					<talendType type="id_Date" default="true" />
 				</dbType>
@@ -630,13 +684,19 @@
 				<dbType type="BINARY">
 					<talendType type="id_byte[]" default="true" />
 				</dbType>
+				<dbType type="Q">
+					<talendType type="id_byte[]" default="true" />
+				</dbType>
 				<dbType type="VARBINARY">
 					<talendType type="id_byte[]" default="true" />
 				</dbType>
 				<dbType type="LONGVARBINARY">
 					<talendType type="id_byte[]" default="true" />
 				</dbType>
-				<!--id_Object-->				
+				<!--id_Object-->
+				<dbType type="G">
+					<talendType type="id_Object" default="true" />
+				</dbType>		
 				<dbType type="BLOB">
 					<talendType type="id_Object" default="true" />
 				</dbType>
