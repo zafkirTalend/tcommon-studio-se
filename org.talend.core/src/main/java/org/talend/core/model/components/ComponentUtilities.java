@@ -68,6 +68,8 @@ public class ComponentUtilities {
 
     // public static int histate = 0;
 
+    private static boolean jobletFlag = false;
+
     public static int histate = 0;
 
     public static PaletteRoot getPaletteRoot() {
@@ -78,6 +80,7 @@ public class ComponentUtilities {
     }
 
     public static void setExtraEntryVisible(boolean visible) {
+        jobletFlag = visible;
         if (extraPaletteEntry != null) {
             for (PaletteEntry entry : extraPaletteEntry) {
                 entry.setVisible(visible);
@@ -90,6 +93,9 @@ public class ComponentUtilities {
     }
 
     public static void updatePalette() {
+        if (jobletFlag == true) {
+            setExtraEntryVisible(true);
+        }
         if (skipUpdatePalette) {
             return;
         }
@@ -99,10 +105,9 @@ public class ComponentUtilities {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
 
             for (Object obj : oldRoots) {
-                // if (obj instanceof PaletteGroup) {
-                // continue;
-                // // paletteRoot.remove((PaletteGroup) obj);
-                // }
+                if (obj instanceof TalendPaletteGroup) {
+                    continue;
+                }
                 paletteRoot.remove((PaletteEntry) obj);
             }
 
@@ -119,6 +124,9 @@ public class ComponentUtilities {
     }
 
     public static void updatePalette(boolean isFavorite) {
+        // if (jobletFlag == true) {
+        // setExtraEntryVisible(true);
+        // }
         faState = isFavorite;
         if (skipUpdatePalette) {
             return;
@@ -128,10 +136,9 @@ public class ComponentUtilities {
             List oldRoots = new ArrayList(paletteRoot.getChildren());
 
             for (Object obj : oldRoots) {
-                // if (obj instanceof PaletteGroup) {
-                // // continue;
-                // paletteRoot.remove((PaletteGroup) obj);
-                // }
+                if (obj instanceof TalendPaletteGroup) {
+                    continue;
+                }
                 paletteRoot.remove((PaletteEntry) obj);
             }
             // if (histate == 1) {
