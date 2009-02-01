@@ -120,11 +120,11 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
                     String projectLanguage = codeLanguage.getName();
 
                     // OS
-                    String osName = System.getProperty("os.name");
-                    String osVersion = System.getProperty("os.version");
+                    String osName = System.getProperty("os.name"); //$NON-NLS-1$
+                    String osVersion = System.getProperty("os.version"); //$NON-NLS-1$
 
                     // Java version
-                    String javaVersion = System.getProperty("java.version");
+                    String javaVersion = System.getProperty("java.version"); //$NON-NLS-1$
 
                     // Java Memory
                     long totalMemory = Runtime.getRuntime().totalMemory();

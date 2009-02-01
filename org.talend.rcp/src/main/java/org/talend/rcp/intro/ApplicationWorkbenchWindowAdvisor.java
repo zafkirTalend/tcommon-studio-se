@@ -83,7 +83,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         configurer
                 .setTitle(appName
-                        + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
     }
 

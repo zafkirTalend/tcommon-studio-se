@@ -17,7 +17,7 @@ public class Activator extends AbstractUIPlugin {
     private static Logger log = Logger.getLogger(Activator.class);
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.platform.logging";
+    public static final String PLUGIN_ID = "org.talend.platform.logging"; //$NON-NLS-1$
 
     // The shared instance
     private static Activator plugin;
@@ -45,11 +45,11 @@ public class Activator extends AbstractUIPlugin {
                     version = headers.get(Constants.BUNDLE_VERSION);
                 }
             }
-            String mess = "Starting Talend's platform log system.";
+            String mess = "Starting Talend's platform log system."; //$NON-NLS-1$
             if (version != null) {
-                mess += ("VERSION= " + version);
+                mess += ("VERSION= " + version); //$NON-NLS-1$
             }
-            PresentableBox box = new PresentableBox("TALEND", mess, 0);
+            PresentableBox box = new PresentableBox("TALEND", mess, 0); //$NON-NLS-1$
             log.info(box.getFullBox());
         }
         plugin = this;

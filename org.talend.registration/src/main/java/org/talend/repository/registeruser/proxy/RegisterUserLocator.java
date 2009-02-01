@@ -32,14 +32,14 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
     }
 
     // Use to get a proxy class for RegisterUserPort
-    private java.lang.String registerUserPortAddress = "http://localhost/TalendRegisterWS/registerws.php";
+    private java.lang.String registerUserPortAddress = "http://localhost/TalendRegisterWS/registerws.php"; //$NON-NLS-1$
 
     public java.lang.String getRegisterUserPortAddress() {
         return registerUserPortAddress;
     }
 
     // The WSDD service name defaults to the port name.
-    private java.lang.String registerUserPortWSDDServiceName = "RegisterUserPort";
+    private java.lang.String registerUserPortWSDDServiceName = "RegisterUserPort"; //$NON-NLS-1$
 
     /**
      * DOC mhirt Comment method "getRegisterUserPortWSDDServiceName".
@@ -118,8 +118,8 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
         } catch (java.lang.Throwable t) {
             throw new javax.xml.rpc.ServiceException(t);
         }
-        throw new javax.xml.rpc.ServiceException("There is no stub implementation for the interface:  "
-                + (serviceEndpointInterface == null ? "null" : serviceEndpointInterface.getName()));
+        throw new javax.xml.rpc.ServiceException("There is no stub implementation for the interface:  " //$NON-NLS-1$
+                + (serviceEndpointInterface == null ? "null" : serviceEndpointInterface.getName())); //$NON-NLS-1$
     }
 
     /**
@@ -133,7 +133,7 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
             return getPort(serviceEndpointInterface);
         }
         java.lang.String inputPortName = portName.getLocalPart();
-        if ("RegisterUserPort".equals(inputPortName)) {
+        if ("RegisterUserPort".equals(inputPortName)) { //$NON-NLS-1$
             return getRegisterUserPort();
         } else {
             java.rmi.Remote stub = getPort(serviceEndpointInterface);
@@ -149,7 +149,7 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
      */
     @Override
     public javax.xml.namespace.QName getServiceName() {
-        return new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "RegisterUser");
+        return new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "RegisterUser"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     private java.util.HashSet ports = null;
@@ -163,7 +163,7 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
-            ports.add(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "RegisterUserPort"));
+            ports.add(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", "RegisterUserPort")); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return ports.iterator();
     }
@@ -174,10 +174,10 @@ public class RegisterUserLocator extends org.apache.axis.client.Service implemen
     public void setEndpointAddress(java.lang.String portName, java.lang.String address)
             throws javax.xml.rpc.ServiceException {
 
-        if ("RegisterUserPort".equals(portName)) {
+        if ("RegisterUserPort".equals(portName)) { //$NON-NLS-1$
             setRegisterUserPortEndpointAddress(address);
         } else { // Unknown Port Name
-            throw new javax.xml.rpc.ServiceException(" Cannot set Endpoint Address for Unknown Port" + portName);
+            throw new javax.xml.rpc.ServiceException(" Cannot set Endpoint Address for Unknown Port" + portName); //$NON-NLS-1$
         }
     }
 

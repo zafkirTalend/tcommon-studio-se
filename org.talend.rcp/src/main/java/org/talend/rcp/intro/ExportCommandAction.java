@@ -24,6 +24,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.internal.IWorkbenchHelpContextIds;
+import org.talend.rcp.i18n.Messages;
 
 /**
  * ggu class global comment. Detailled comment
@@ -48,7 +49,7 @@ public class ExportCommandAction extends Action {
         // qli comment
         // see the bug "0005942",the IRunnableWithProgress can't run on the linux.so the Job is used on here.
         if (exportAction != null) {
-            Job job = new Job("Refresh workspace") {
+            Job job = new Job(Messages.getString("ExportCommandAction.refreshWorkspace")) { //$NON-NLS-1$
 
                 @Override
                 protected IStatus run(IProgressMonitor monitor) {

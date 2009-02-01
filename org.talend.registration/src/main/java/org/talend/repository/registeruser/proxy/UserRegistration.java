@@ -217,42 +217,42 @@ public class UserRegistration implements java.io.Serializable {
             UserRegistration.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl",
-                "UserRegistration"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://www.talend.com/TalendRegisterWS/wsdl", //$NON-NLS-1$
+                "UserRegistration")); //$NON-NLS-1$
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("id");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "id"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setFieldName("id"); //$NON-NLS-1$
+        elemField.setXmlName(new javax.xml.namespace.QName("", "id")); //$NON-NLS-1$ //$NON-NLS-2$
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int")); //$NON-NLS-1$ //$NON-NLS-2$
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("email");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "email"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setFieldName("email"); //$NON-NLS-1$
+        elemField.setXmlName(new javax.xml.namespace.QName("", "email")); //$NON-NLS-1$ //$NON-NLS-2$
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string")); //$NON-NLS-1$ //$NON-NLS-2$
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("country");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "country"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setFieldName("country"); //$NON-NLS-1$
+        elemField.setXmlName(new javax.xml.namespace.QName("", "country")); //$NON-NLS-1$ //$NON-NLS-2$
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string")); //$NON-NLS-1$ //$NON-NLS-2$
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("designer_version");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "designer_version"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setFieldName("designer_version"); //$NON-NLS-1$
+        elemField.setXmlName(new javax.xml.namespace.QName("", "designer_version")); //$NON-NLS-1$ //$NON-NLS-2$
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string")); //$NON-NLS-1$ //$NON-NLS-2$
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("productname");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "productname"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setFieldName("productname"); //$NON-NLS-1$
+        elemField.setXmlName(new javax.xml.namespace.QName("", "productname")); //$NON-NLS-1$ //$NON-NLS-2$
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string")); //$NON-NLS-1$ //$NON-NLS-2$
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("registration_date");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "registration_date"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setFieldName("registration_date"); //$NON-NLS-1$
+        elemField.setXmlName(new javax.xml.namespace.QName("", "registration_date")); //$NON-NLS-1$ //$NON-NLS-2$
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string")); //$NON-NLS-1$ //$NON-NLS-2$
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
     }

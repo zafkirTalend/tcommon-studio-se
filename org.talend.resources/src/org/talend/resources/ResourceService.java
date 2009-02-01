@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006 Talend ¨C www.talend.com
+// Copyright (C) 2006 Talend ï¿½C www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -39,9 +39,9 @@ import org.talend.resource.IResourceService;
  */
 public class ResourceService implements IResourceService {
 
-    private final static String RESOURCE_LOCATION = "org.talend.resources";
+    private final static String RESOURCE_LOCATION = "org.talend.resources"; //$NON-NLS-1$
 
-    private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java";
+    private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
 
     /*
      * (non-Javadoc)

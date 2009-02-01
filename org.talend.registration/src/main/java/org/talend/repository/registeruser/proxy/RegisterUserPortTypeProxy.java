@@ -40,11 +40,11 @@ public class RegisterUserPortTypeProxy implements org.talend.repository.register
                     .getRegisterUserPort();
             if (registerUserPortType != null) {
                 if (endpoint != null) {
-                    ((javax.xml.rpc.Stub) registerUserPortType)._setProperty("javax.xml.rpc.service.endpoint.address",
+                    ((javax.xml.rpc.Stub) registerUserPortType)._setProperty("javax.xml.rpc.service.endpoint.address", //$NON-NLS-1$
                             endpoint);
                 } else {
                     endpoint = (String) ((javax.xml.rpc.Stub) registerUserPortType)
-                            ._getProperty("javax.xml.rpc.service.endpoint.address");
+                            ._getProperty("javax.xml.rpc.service.endpoint.address"); //$NON-NLS-1$
                 }
             }
         } catch (javax.xml.rpc.ServiceException serviceException) {
@@ -70,7 +70,7 @@ public class RegisterUserPortTypeProxy implements org.talend.repository.register
         this.endpoint = endpoint;
         if (registerUserPortType != null) {
             ((javax.xml.rpc.Stub) registerUserPortType)
-                    ._setProperty("javax.xml.rpc.service.endpoint.address", endpoint);
+                    ._setProperty("javax.xml.rpc.service.endpoint.address", endpoint); //$NON-NLS-1$
         }
     }
 

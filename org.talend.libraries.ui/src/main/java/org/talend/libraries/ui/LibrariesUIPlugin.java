@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class LibrariesUIPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.libraries.ui";
+    public static final String PLUGIN_ID = "org.talend.libraries.ui"; //$NON-NLS-1$
 
     // The shared instance
     private static LibrariesUIPlugin plugin;

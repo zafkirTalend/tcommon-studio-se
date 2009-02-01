@@ -30,6 +30,7 @@ import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IWorkspaceMigrationTask;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.migrationtool.i18n.Messages;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.migrationtool.model.summary.AlertUserOnLogin;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -55,12 +56,13 @@ public class MigrationToolService implements IMigrationToolService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.migration.IMigrationToolService#executeProjectTasks(org.talend.core.model.general.Project,
+     * @see
+     * org.talend.core.model.migration.IMigrationToolService#executeProjectTasks(org.talend.core.model.general.Project,
      * boolean, org.eclipse.core.runtime.IProgressMonitor)
      */
     public void executeProjectTasks(Project project, boolean beforeLogon, IProgressMonitor monitorWrap) {
 
-        String taskDesc = "Migration tool: project [" + project.getLabel() + "] tasks";
+        String taskDesc = "Migration tool: project [" + project.getLabel() + "] tasks"; //$NON-NLS-1$ //$NON-NLS-2$
         log.trace(taskDesc); //$NON-NLS-1$ //$NON-NLS-2$ 
 
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
@@ -77,10 +79,10 @@ public class MigrationToolService implements IMigrationToolService {
 
         for (IProjectMigrationTask task : toExecute) {
             if (monitorWrap.isCanceled()) {
-                throw new OperationCanceledException("Migration task is canceled during " + task.getName() + ".");
+                throw new OperationCanceledException(Messages.getString("MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
             }
             if (!done.contains(task.getId())) {
-                monitorWrap.setTaskName("Migration task " + task.getName() + " run in progress...");
+                monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress") + task.getName()); //$NON-NLS-1$
                 monitorWrap.worked(2);
                 try {
                     switch (task.execute(project)) {

@@ -145,7 +145,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
             "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$
+            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     @Override
     protected void fillMenuBar(final IMenuManager menuBar) {
@@ -158,7 +158,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
             list.add(item);
         }
         if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
-            list.add("org.talend.repository.CreateactionSet");
+            list.add("org.talend.repository.CreateactionSet"); //$NON-NLS-1$
         }
         for (int i = 0; i < actionSets.length; i++) {
             if (list.contains(actionSets[i].getId())) {
@@ -227,7 +227,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // see bug 0005492: Could not read the editor (XML Editor)
         navigateMenu.add(new GroupMarker(IWorkbenchActionConstants.OPEN_EXT));
 
-        MenuManager gotoMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.gotoLabel"),
+        MenuManager gotoMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.gotoLabel"), //$NON-NLS-1$
                 IWorkbenchActionConstants.GO_TO);
         navigateMenu.add(gotoMenu);
 
@@ -279,7 +279,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // toolbar.add(action);
         // }
         IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
-        coolBar.add(new ToolBarContributionItem(toolBar, "save"));
+        coolBar.add(new ToolBarContributionItem(toolBar, Messages.getString("ApplicationActionBarAdvisor.save"))); //$NON-NLS-1$
         toolBar.add(ActionFactory.SAVE.create(window));
 
     }
