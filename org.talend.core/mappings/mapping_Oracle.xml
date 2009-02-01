@@ -42,6 +42,8 @@
 				<talendType type="id_Byte">						
 				</talendType>
 				<talendType type="id_byte[]">
+					<dbType type="RAW"/>
+					<dbType type="LONG RAW"/>
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true"/>
@@ -72,7 +74,6 @@
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="NUMBER" default="true"/>
-					<dbType type="LONG" />
 					<dbType type="REAL"/>
 				</talendType>
 				<talendType type="id_Object">
@@ -80,8 +81,6 @@
 					<dbType type="CLOB"/>
 					<dbType type="BFILE"/>
 					<dbType type="XMLTYPE"/>
-					<dbType type="RAW"/>
-					<dbType type="LONG RAW"/>
 					<dbType type="ROWID"/>
 					<dbType type="UROWID"/>
 				</talendType>
@@ -94,6 +93,7 @@
 					<dbType type="VARCHAR"/>
 					<dbType type="CHAR"/>
 					<dbType type="NCHAR"/>
+					<dbType type="LONG"/>
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
@@ -114,6 +114,9 @@
 					<talendType type="id_String" default="true" />
 					<talendType type="id_Character" />
 				</dbType>
+				<dbType type="LONG">
+					<talendType type="id_String" default="true" />
+				</dbType>				
 				<dbType type="DEC">
 					<talendType type="id_BigDecimal" default="true" />
 				</dbType>
@@ -139,9 +142,6 @@
 					<talendType type="id_Integer" default="true" />
 				</dbType>
 				<dbType type="REAL">
-					<talendType type="id_Long" default="true" />
-				</dbType>
-				<dbType type="LONG">
 					<talendType type="id_Long" default="true" />
 				</dbType>
 				<dbType type="FLOAT">
@@ -175,10 +175,10 @@
 					<talendType type="id_Object" default="true" />				
 				</dbType>
 				<dbType type="RAW">
-					<talendType type="id_Object" default="true" />				
+					<talendType type="id_byte[]" default="true" />				
 				</dbType>
 				<dbType type="LONG RAW">
-					<talendType type="id_Object" default="true" />				
+					<talendType type="id_byte[]" default="true" />				
 				</dbType>
 				<dbType type="ROWID">
 					<talendType type="id_Object" default="true" />				
