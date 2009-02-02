@@ -111,7 +111,7 @@ public interface IDesignerCoreService extends IService {
 
     public boolean executeUpdatesManager(List<UpdateResult> results);
 
-    public Map<String, Date> getJobModificationDateMap(IProcess process);
+    public Map<String, Date> getLastGeneratedJobsDateMap();
 
     /**
      * 

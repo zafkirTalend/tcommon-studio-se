@@ -27,9 +27,9 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -45,7 +45,6 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.core.properties.tab.IMultiPageTalendEditor;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.ui.editor.ITalendJobEditor;
@@ -168,7 +167,6 @@ public class ProcessorUtilities {
     }
 
     private static boolean isCodeGenerationNeeded(JobInfo jobInfo) {
-
         // if we do any export, the code generation will always be needed.
         if (exportConfig && (!(jobInfo.getProcess() instanceof IProcess2))) {
             return true;
@@ -177,73 +175,18 @@ public class ProcessorUtilities {
             return true;
         }
         IProcess attachedProcess = jobInfo.getProcess();
-
-        if (jobInfo.getFatherJobInfo() != null) {
-            JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
-            IProcessor processorFromFather = null;
-            while (fatherJobInfo != null && fatherJobInfo.getProcess().getProcessor() == null) {
-                fatherJobInfo = fatherJobInfo.getFatherJobInfo();
-            }
-            if (fatherJobInfo == null) {
+        if (attachedProcess != null && attachedProcess instanceof IProcess2) {
+            if (((IProcess2) attachedProcess).isProcessModified()) {
                 return true;
             }
-            processorFromFather = fatherJobInfo.getProcess().getProcessor();
-            if (processorFromFather.isCodeGenerated()) {
-                // if the code has been generated already for the father, the code of the children should be up to date.
-                Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
-                String jobId = jobInfo.getJobId();
-                Date originalDate = designerCoreService.getJobModificationDateMap(getTopJobInfo(fatherJobInfo).getProcess()).get(
-                        jobId);
-                if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
-                    jobInfo.getFatherJobInfo().setForceRegenerate(true);
-                    return true;
-                }
-                return false;
+        }
+
+        Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
+        Date originalDate = designerCoreService.getLastGeneratedJobsDateMap().get(jobInfo.getJobId());
+        if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
+            if (jobInfo.getFatherJobInfo() != null) {
+                jobInfo.getFatherJobInfo().setForceRegenerate(true);
             }
-        }
-
-        // if the code has never been generated or if the process has been modified, generate the code
-        if (attachedProcess.getProcessor() == null || !attachedProcess.getProcessor().isCodeGenerated()
-                || attachedProcess.isNeedRegenerateCode()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * 
-     * DOC achen Comment method "isJobModified".
-     * 
-     * @return
-     */
-    private static boolean isJobModified() {
-        if (CommonsPlugin.isHeadless()) {
-            return false;
-        }
-        if (PlatformUI.getWorkbench().getActiveWorkbenchWindow() == null) {
-            // no job opened, wizard mode.
-            return false;
-        }
-
-        IEditorPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-        if (part != null && part instanceof IMultiPageTalendEditor) {
-            return part.isDirty();
-        }
-        return false;
-    }
-
-    /**
-     * 
-     * DOC achen Comment method "isNeedReGenerateCode".
-     * 
-     * @param jobInfo
-     * @return
-     * @throws CoreException
-     * @throws IOException
-     */
-    private static boolean isNeedReGenerateCode(JobInfo jobInfo) {
-        if (isJobModified()) {
             return true;
         }
         JobResourceManager manager = JobResourceManager.getInstance();
@@ -265,14 +208,14 @@ public class ProcessorUtilities {
                     IFolder f = (IFolder) resource;
                     String jobName = jobInfo.getJobName() + ".java";
                     IFile codeFile = f.getFile(jobName);
-                    if (isFileModified(codeFile, jobInfo)) {
+                    if (!isFileExist(codeFile)) {
                         return true;
                     }
                 }
             } else if (language == ECodeLanguage.PERL) {
                 if (resource.getType() == IResource.FILE) {
                     IFile codeFile = (IFile) resource;
-                    if (isFileModified(codeFile, jobInfo)) {
+                    if (!isFileExist(codeFile)) {
                         return true;
                     }
                 }
@@ -281,20 +224,12 @@ public class ProcessorUtilities {
         return false;
     }
 
-    /**
-     * 
-     * DOC achen Comment method "isFileModified".
-     * 
-     * @param codeFile
-     * @param jobInfo
-     * @return
-     */
-    private static boolean isFileModified(IFile codeFile, JobInfo jobInfo) {
+    private static boolean isFileExist(IFile codeFile) {
         if (codeFile != null && codeFile.exists()) {
             try {
                 InputStream io = codeFile.getContents(false);
                 if (io.read() == -1) {
-                    return true;
+                    return false;
                 }
                 io.close();
             } catch (IOException e) {
@@ -302,17 +237,16 @@ public class ProcessorUtilities {
             } catch (CoreException e) {
                 ExceptionHandler.process(e);
             }
-            Date rDate = new Date(codeFile.getLocalTimeStamp());
-            Date jDate = jobInfo.getProcessItem().getProperty().getModificationDate();
-            if (rDate.after(jDate)) {
-                return true;
-            }
+            return true;
         }
         return false;
     }
 
     private static boolean generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
-            boolean properties, int option) throws ProcessorException {
+            boolean properties, int option, IProgressMonitor progressMonitor) throws ProcessorException {
+        if (progressMonitor.isCanceled()) {
+            return false;
+        }
         if (jobInfo.getFatherJobInfo() == null) {
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
@@ -326,7 +260,7 @@ public class ProcessorUtilities {
         ProcessItem selectedProcessItem;
 
         selectedProcessItem = jobInfo.getProcessItem();
-
+        String currentJobName = null;
         if (selectedProcessItem == null && jobInfo.getJobVersion() == null) {
             // child job
             selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
@@ -339,6 +273,11 @@ public class ProcessorUtilities {
         if (selectedProcessItem == null && jobInfo.getProcess() == null) {
             return false;
         }
+        if (selectedProcessItem != null) {
+            currentJobName = selectedProcessItem.getProperty().getLabel();
+        }
+        progressMonitor.subTask("Loading job... " + currentJobName);
+
         if (jobInfo.getProcess() == null) {
             if (selectedProcessItem != null) {
                 IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
@@ -391,26 +330,30 @@ public class ProcessorUtilities {
                         processItems.add(processItem);
                         // children won't have stats / traces
                         if (option == GENERATE_WITH_FIRST_CHILD) {
-                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_MAIN_ONLY);
+                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_MAIN_ONLY,
+                                    progressMonitor);
                         } else {
-                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS);
+                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS,
+                                    progressMonitor);
                         }
                     }
                 }
             }
         }
 
+        IProcessor processor = getProcessor(currentProcess);
+
         // generate the code of the father after the childrens
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
         if (isCodeGenerationNeeded(jobInfo)) {
+            progressMonitor.subTask("Generating job... " + currentJobName);
             IContext currentContext;
             if (jobInfo.getContext() == null) {
                 currentContext = getContext(currentProcess, jobInfo.getContextName());
             } else {
                 currentContext = jobInfo.getContext();
             }
-            IProcessor processor = getProcessor(currentProcess);
 
             // always generate all context files.
             List<IContext> list = currentProcess.getContextManager().getListContext();
@@ -425,20 +368,21 @@ public class ProcessorUtilities {
                 } catch (ProcessorException pe) {
                     ExceptionHandler.process(pe);
                 }
-
             }
 
             processor.setContext(currentContext);
             // main job will use stats / traces
             processor.generateCode(statistics, trace, properties);
             if (jobInfo.getProcessItem() != null) {
-                designerCoreService.getJobModificationDateMap(getTopJobInfo(jobInfo).getProcess()).put(jobInfo.getJobId(),
+                designerCoreService.getLastGeneratedJobsDateMap().put(jobInfo.getJobId(),
                         jobInfo.getProcessItem().getProperty().getModificationDate());
             }
 
             if (currentProcess instanceof IProcess2) {
                 ((IProcess2) currentProcess).setNeedRegenerateCode(false);
             }
+        } else {
+            processor.setCodeGenerated(true);
         }
 
         boolean isMainJob = jobInfo.getFatherJobInfo() == null;
@@ -446,9 +390,10 @@ public class ProcessorUtilities {
          * Set classpath for current job. If current job include some child-jobs, the child job SHARE farther job
          * libraries.
          */
-        getProcessor(currentProcess).computeLibrariesPath(isMainJob);
 
         if (isMainJob) {
+            progressMonitor.subTask("Finalize build... ");
+            getProcessor(currentProcess).computeLibrariesPath(true);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                 try {
                     CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject().build(
@@ -458,21 +403,7 @@ public class ProcessorUtilities {
                 }
             }
         }
-
         return toReturn;
-    }
-
-    /**
-     * ftang Comment method "getTopJobInfo".
-     * 
-     * @param jobInfo
-     * @return
-     */
-    private static JobInfo getTopJobInfo(JobInfo jobInfo) {
-        if (jobInfo.getFatherJobInfo() != null) {
-            return getTopJobInfo(jobInfo.getFatherJobInfo());
-        }
-        return jobInfo;
     }
 
     /**
@@ -531,7 +462,8 @@ public class ProcessorUtilities {
             throws ProcessorException {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName, version);
-        boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
+                new NullProgressMonitor());
         jobList.clear();
         return genCode;
     }
@@ -548,11 +480,9 @@ public class ProcessorUtilities {
             boolean applyContextToChildren) throws ProcessorException {
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        if (!isNeedReGenerateCode(jobInfo)) {
-            return false;
-        }
         jobList.clear();
-        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
+                new NullProgressMonitor());
         jobList.clear();
         return result;
     }
@@ -561,11 +491,9 @@ public class ProcessorUtilities {
             boolean applyContextToChildren) throws ProcessorException {
         JobInfo jobInfo = new JobInfo(process, contextName);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        if (!isNeedReGenerateCode(jobInfo)) {
-            return false;
-        }
         jobList.clear();
-        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
+                new NullProgressMonitor());
         jobList.clear();
         return result;
     }
@@ -574,11 +502,9 @@ public class ProcessorUtilities {
             boolean trace, boolean applyContextToChildren) throws ProcessorException {
         JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        if (!isNeedReGenerateCode(jobInfo)) {
-            return false;
-        }
         jobList.clear();
-        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS);
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
+                new NullProgressMonitor());
         jobList.clear();
         return result;
     }
@@ -604,6 +530,11 @@ public class ProcessorUtilities {
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties)
             throws ProcessorException {
+        return generateCode(process, context, statistics, trace, properties, new NullProgressMonitor());
+    }
+
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
+            IProgressMonitor progressMonitor) throws ProcessorException {
 
         // achen modify to fix 0006107
         ProcessItem pItem = (ProcessItem) process.getProperty().getItem();
@@ -615,14 +546,11 @@ public class ProcessorUtilities {
         } else {
             jobInfo = new JobInfo(process, context);
         }
-        if (!isNeedReGenerateCode(jobInfo)) {
-            return false;
-        }
         processItems.clear();
         processItems.add(pItem);
         jobList.clear();
         boolean genCode = false;
-        genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, GENERATE_ALL_CHILDS);
+        genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, GENERATE_ALL_CHILDS, progressMonitor);
         jobList.clear();
         return genCode;
     }
@@ -631,11 +559,9 @@ public class ProcessorUtilities {
             int option) throws ProcessorException {
         // achen modify to fix 0006107
         JobInfo jobInfo = new JobInfo(process, context);
-        if (!isNeedReGenerateCode(jobInfo)) {
-            return false;
-        }
         jobList.clear();
-        boolean genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, option);
+        boolean genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, option,
+                new NullProgressMonitor());
         jobList.clear();
         return genCode;
     }
