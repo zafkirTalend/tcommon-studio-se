@@ -125,6 +125,8 @@ public class MetadataDialogForMerge extends Dialog {
 
     Button copyToInput;
 
+    Button copySelectionToInput;
+
     public void init(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
             INode outputNode, CommandStack commandStack) {
 
@@ -289,8 +291,10 @@ public class MetadataDialogForMerge extends Dialog {
 
                     if (inputReadOnly || inputMetaTable.isReadOnly()) {
                         copyToInput.setEnabled(false);
+                        copySelectionToInput.setEnabled(false);
                     } else {
                         copyToInput.setEnabled(true);
+                        copySelectionToInput.setEnabled(true);
                     }
                 }
             });
@@ -324,7 +328,7 @@ public class MetadataDialogForMerge extends Dialog {
             // qli comment
             // Input => Output(the selection)
             Button copySelectionToOutput = new Button(buttonComposite2, SWT.NONE);
-            copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
+            copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
             copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copySelectionToOutput);
 
@@ -349,7 +353,7 @@ public class MetadataDialogForMerge extends Dialog {
 
             // Input => Output
             Button copyToOutput = new Button(buttonComposite2, SWT.NONE);
-            copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
+            copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
             copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
             copyToOutput.addListener(SWT.Selection, new Listener() {
@@ -374,8 +378,8 @@ public class MetadataDialogForMerge extends Dialog {
 
             // qli comment
             // Output => Input(the selection)
-            Button copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
-            copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
+            copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
+            copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
             copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText")); //$NON-NLS-1$
             gridData.verticalAlignment = GridData.CENTER;
             copySelectionToInput.setLayoutData(gridData);
@@ -400,7 +404,7 @@ public class MetadataDialogForMerge extends Dialog {
 
             // Output => Input
             copyToInput = new Button(buttonComposite2, SWT.NONE);
-            copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
+            copyToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
             copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput.toolTipText")); //$NON-NLS-1$
             gridData = new GridData();
             gridData.verticalAlignment = GridData.CENTER;
@@ -420,6 +424,7 @@ public class MetadataDialogForMerge extends Dialog {
 
             if (inputReadOnly || inputMetaTable.isReadOnly()) {
                 copyToInput.setEnabled(false);
+                copySelectionToInput.setEnabled(false);
             }
 
             // make sure there only one output schema
@@ -450,6 +455,7 @@ public class MetadataDialogForMerge extends Dialog {
 
             if (outputReadOnly || outputMetaTable.isReadOnly()) {
                 copyToOutput.setEnabled(false);
+                copySelectionToOutput.setEnabled(false);
             }
             compositesSachForm.setGridDatas();
 

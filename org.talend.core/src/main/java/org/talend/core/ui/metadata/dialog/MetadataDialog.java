@@ -314,7 +314,7 @@ public class MetadataDialog extends Dialog {
             // qli comment
             // Input => Output(the selection)
             Button copySelectionToOutput = new Button(buttonComposite2, SWT.NONE);
-            copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
+            copySelectionToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
             copySelectionToOutput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copySelectionToOutput);
 
@@ -339,7 +339,7 @@ public class MetadataDialog extends Dialog {
 
             // Input => Output
             Button copyToOutput = new Button(buttonComposite2, SWT.NONE);
-            copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
+            copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHTX_ICON));
             copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput")); //$NON-NLS-1$
             GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
 
@@ -366,7 +366,7 @@ public class MetadataDialog extends Dialog {
             // qli comment
             // Output => Input(the selection)
             Button copySelectionToInput = new Button(buttonComposite2, SWT.NONE);
-            copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
+            copySelectionToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
             copySelectionToInput.setToolTipText(Messages.getString("MetadataDialog.CopySelectionToInput.toolTipText")); //$NON-NLS-1$
             gridData.verticalAlignment = GridData.CENTER;
             copySelectionToInput.setLayoutData(gridData);
@@ -391,7 +391,7 @@ public class MetadataDialog extends Dialog {
 
             // Output => Input
             Button copyToInput = new Button(buttonComposite2, SWT.NONE);
-            copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
+            copyToInput.setImage(ImageProvider.getImage(EImage.LEFTX_ICON));
             copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput.toolTipText")); //$NON-NLS-1$
             gridData.verticalAlignment = GridData.CENTER;
             copyToInput.setLayoutData(gridData);
@@ -410,6 +410,7 @@ public class MetadataDialog extends Dialog {
 
             if (inputReadOnly || inputMetaTable.isReadOnly()) {
                 copyToInput.setEnabled(false);
+                copySelectionToInput.setEnabled(false);
             }
 
             outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
@@ -422,6 +423,7 @@ public class MetadataDialog extends Dialog {
 
             if (outputReadOnly || outputMetaTable.isReadOnly()) {
                 copyToOutput.setEnabled(false);
+                copySelectionToOutput.setEnabled(false);
             }
             compositesSachForm.setGridDatas();
             CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
