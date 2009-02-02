@@ -36,6 +36,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.IContext;
@@ -176,7 +177,7 @@ public class ProcessorUtilities {
         }
         IProcess attachedProcess = jobInfo.getProcess();
         if (attachedProcess != null && attachedProcess instanceof IProcess2) {
-            if (((IProcess2) attachedProcess).isProcessModified()) {
+            if (((IProcess2) attachedProcess).isNeedRegenerateCode()) {
                 return true;
             }
         }
@@ -206,7 +207,7 @@ public class ProcessorUtilities {
             if (language == ECodeLanguage.JAVA) {
                 if (resource.getType() == IResource.FOLDER) {
                     IFolder f = (IFolder) resource;
-                    String jobName = jobInfo.getJobName() + ".java";
+                    String jobName = jobInfo.getJobName() + ".java"; //$NON-NLS-1$
                     IFile codeFile = f.getFile(jobName);
                     if (!isFileExist(codeFile)) {
                         return true;
@@ -276,7 +277,7 @@ public class ProcessorUtilities {
         if (selectedProcessItem != null) {
             currentJobName = selectedProcessItem.getProperty().getLabel();
         }
-        progressMonitor.subTask("Loading job... " + currentJobName);
+        progressMonitor.subTask(Messages.getString("ProcessorUtilities.loadingJob") + currentJobName); //$NON-NLS-1$
 
         if (jobInfo.getProcess() == null) {
             if (selectedProcessItem != null) {
@@ -347,7 +348,7 @@ public class ProcessorUtilities {
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
         if (isCodeGenerationNeeded(jobInfo)) {
-            progressMonitor.subTask("Generating job... " + currentJobName);
+            progressMonitor.subTask(Messages.getString("ProcessorUtilities.generatingJob") + currentJobName); //$NON-NLS-1$
             IContext currentContext;
             if (jobInfo.getContext() == null) {
                 currentContext = getContext(currentProcess, jobInfo.getContextName());
@@ -392,7 +393,7 @@ public class ProcessorUtilities {
          */
 
         if (isMainJob) {
-            progressMonitor.subTask("Finalize build... ");
+            progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild")); //$NON-NLS-1$
             getProcessor(currentProcess).computeLibrariesPath(true);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                 try {
