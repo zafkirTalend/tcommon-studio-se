@@ -312,7 +312,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         if (param != null && !param.isBuiltIn()) {
             // not built-in, not update
             return false;
-
         }
 
         if (!getContextManager().checkValidParameterName(newParamName)) {

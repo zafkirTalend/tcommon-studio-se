@@ -234,7 +234,6 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                 return null;
             }
         };
-
     }
 
     private IPreferenceStore getPreferenceStore() {
