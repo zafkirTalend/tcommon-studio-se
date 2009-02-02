@@ -477,7 +477,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         do { // look for a new name
             paramNameFound = true;
             paramName = NEW_PARAM_NAME + numParam;
-            for (int i = 0; i < listParams.size() && paramNameFound; i++) {
+            for (int i = 0; i < listParams.size(); i++) {
                 if (paramName.equals(listParams.get(i).getName())) {
                     paramNameFound = false;
                 }

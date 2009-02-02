@@ -53,6 +53,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContextManager;
@@ -61,12 +62,8 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier;
-import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Parent;
-import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
 import org.talend.core.ui.context.model.ContextValueErrorChecker;
 import org.talend.core.ui.context.model.template.ContextConstant;
-import org.talend.core.i18n.Messages;
 
 /**
  * DOC zwang class global comment. Detailled comment <br/>
@@ -225,7 +222,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
             public String getTooltipContent(TreeItem item) {
 
                 String property = ""; //$NON-NLS-1$
-                if (properties != null && properties.length > VALUES_INDEX ) {
+                if (properties != null && properties.length > VALUES_INDEX) {
                     property = properties[VALUES_INDEX];
                 }
 
@@ -722,9 +719,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         public String getColumnText(Object element, int columnIndex) {
             int count = 0;
             List<IContext> contextList = getContexts();
-            for (IContext context : contextList) {
-                count++;
-            }
+            count = contextList.size();
 
             if (element instanceof Parent) {
                 if (columnIndex == 0) {
@@ -865,9 +860,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
         public String getColumnText(Object element, int columnIndex) {
             int count = 0;
             List<IContext> contextList = getContexts();
-            for (IContext context : contextList) {
-                count++;
-            }
+            count = contextList.size();
 
             if (element instanceof Parent) {
                 if (columnIndex == 0) {
@@ -1006,6 +999,7 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
          * 
          * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
          */
+        @SuppressWarnings("unchecked")
         public Object[] getElements(Object inputElement) {
             boolean flag = false;
             boolean b = false;
@@ -1017,14 +1011,10 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
 
             List<IContextParameter> contexts = (List<IContextParameter>) inputElement;
 
-            int count = 0;
-            for (IContext context : getContexts()) {
-                count++;
-            }
-
             if (!contexts.isEmpty()) {
                 // because all the contexts have the save templ
                 for (IContextParameter para : contexts) {
+                    nameContainers.add(para.getName());
                     flag = false;
                     if (!containers.isEmpty()) {
                         for (String source : containers) {
@@ -1040,12 +1030,6 @@ public class ConextTableValuesComposite extends AbstractContextTabEditComposite 
                     } else {
                         containers.add(para.getSource());
                     }
-                }
-            }
-
-            if (!contexts.isEmpty()) {
-                for (IContextParameter para : contexts) {
-                    nameContainers.add(para.getName());
                 }
             }
 
