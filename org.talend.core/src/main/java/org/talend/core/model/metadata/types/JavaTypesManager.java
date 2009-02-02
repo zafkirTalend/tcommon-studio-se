@@ -368,8 +368,6 @@ public final class JavaTypesManager {
     public static String getDefaultValueFromJavaType(String type, String defaultValue) {
         if (defaultValue != null && defaultValue.length() > 0) {
             return defaultValue;
-        } else if (isJavaPrimitiveType(type)) {
-            return null;
         } else {
             return getDefaultValueFromJavaType(type);
         }
