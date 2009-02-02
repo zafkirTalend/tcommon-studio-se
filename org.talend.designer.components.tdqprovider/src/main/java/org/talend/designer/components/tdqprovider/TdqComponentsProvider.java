@@ -35,7 +35,7 @@ public class TdqComponentsProvider extends AbstractComponentsProvider {
 
     protected File getExternalComponentsLocation() {
         URL url = FileLocator
-                .find(TdqComponentProviderActivator.getDefault().getBundle(), new Path("components"), null);
+                .find(TdqComponentProviderActivator.getDefault().getBundle(), new Path("components"), null); //$NON-NLS-1$
         URL fileUrl;
         try {
             fileUrl = FileLocator.toFileURL(url);

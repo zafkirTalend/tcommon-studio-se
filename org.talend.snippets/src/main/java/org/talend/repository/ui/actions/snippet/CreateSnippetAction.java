@@ -23,6 +23,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.images.OverlayImageProvider;
+import org.talend.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -38,7 +39,7 @@ import org.talend.repository.ui.wizards.snippet.SnippetWizard;
  */
 public class CreateSnippetAction extends AContextualAction {
 
-    private static final String CREATE_LABEL = "Create Snippet";
+    private static final String CREATE_LABEL = Messages.getString("CreateSnippetAction.createSnippet"); //$NON-NLS-1$
 
     /**
      * DOC nrousseau CreateContextAction constructor comment.

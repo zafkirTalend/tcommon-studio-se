@@ -22,6 +22,7 @@ import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -37,7 +38,7 @@ import org.talend.repository.ui.wizards.snippet.SnippetWizard;
  */
 public class EditSnippetAction extends AContextualAction {
 
-    private static final String EDIT_LABEL = "Edit Snippet";
+    private static final String EDIT_LABEL = Messages.getString("EditSnippetAction.editSnippet"); //$NON-NLS-1$
 
     private RepositoryNode node = null;
 

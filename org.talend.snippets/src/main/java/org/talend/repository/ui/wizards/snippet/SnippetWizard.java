@@ -144,7 +144,7 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
      * Adding the page to the wizard.
      */
     public void addPages() {
-        setWindowTitle("Create / Edit a snippet");
+        setWindowTitle(org.talend.i18n.Messages.getString("SnippetWizard.titleContent")); //$NON-NLS-1$
         if (isToolbar) {
             pathToSave = null;
         }
@@ -159,7 +159,7 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
 
         snippetPage = new SnippetPage("snippet_wizard_page", snippetItem, snippetManager, !isRepositoryObjectEditable()); //$NON-NLS-1$
         snippetPage.setTitle(Messages.getString("ContextWizard.contextPageTitle")); //$NON-NLS-1$
-        snippetPage.setDescription("Define the content, and variables");
+        snippetPage.setDescription(org.talend.i18n.Messages.getString("SnippetWizard.define")); //$NON-NLS-1$
         addPage(snippetPage);
     }
 
@@ -188,7 +188,7 @@ public class SnippetWizard extends RepositoryWizard implements INewWizard {
             String detailError = e.toString();
             new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("CommonWizard.persistenceException"), //$NON-NLS-1$
                     detailError);
-            log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
+            log.error(Messages.getString("CommonWizard.persistenceException", detailError)); //$NON-NLS-1$
             return false;
         }
         return true;
