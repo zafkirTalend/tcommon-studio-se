@@ -18,8 +18,10 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
@@ -39,6 +41,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.rcp.Activator;
+import org.talend.rcp.i18n.Messages;
 import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
@@ -143,5 +146,25 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
         }
         super.postWindowClose();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowShellClose()
+     */
+    @Override
+    public boolean preWindowShellClose() {
+
+        Object shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
+        MessageBox box = new MessageBox((Shell) shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+        box.setText(Messages.getString("ApplicationWorkbenchWindowAdvisor.title")); //$NON-NLS-1$
+        box.setMessage(Messages.getString("ApplicationWorkbenchWindowAdvisor.messages")); //$NON-NLS-1$
+        int choice = box.open();
+        if (choice == SWT.YES) {
+            return super.preWindowShellClose();
+        } else {
+            return false;
+        }
     }
 }
