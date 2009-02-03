@@ -222,7 +222,8 @@ public class ExtractMetaDataFromDataBase {
                     .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
                     .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
                     iMetadataConnection.getDbVersionString());
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
+            String dbType = iMetadataConnection.getDbType();
+            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
                     .getSchema());
@@ -534,7 +535,7 @@ public class ExtractMetaDataFromDataBase {
                 final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
                 final boolean equals = product.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
                 // We have to check schema
-                if (!checkSchemaConnection(schema, connection, equals)) {
+                if (!checkSchemaConnection(schema, connection, equals, dbType)) {
                     connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
                     return connectionStatus;
                 }
@@ -577,9 +578,9 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive)
+    public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive, String dbType)
             throws SQLException {
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection, dbType);
         if (dbMetaData != null) {
             ResultSet rs = dbMetaData.getSchemas();
             while (rs.next()) {
@@ -615,8 +616,8 @@ public class ExtractMetaDataFromDataBase {
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
                 .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
                 .getDbVersionString());
-
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
+        String dbType = iMetadataConnection.getDbType();
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
                 .getSchema());
@@ -645,8 +646,8 @@ public class ExtractMetaDataFromDataBase {
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
                 .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
                 .getDbVersionString());
-
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
+        String dbType = iMetadataConnection.getDbType();
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
                 .getSchema());

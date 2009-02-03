@@ -29,7 +29,6 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.i18n.Messages;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
@@ -54,13 +53,13 @@ public class ExtractMetaDataUtils {
      * @param AbstractConnection conn
      * @return DatabaseMetaData
      */
-    public static DatabaseMetaData getDatabaseMetaData(Connection conn) {
+    public static DatabaseMetaData getDatabaseMetaData(Connection conn, String dbType) {
 
         DatabaseMetaData dbMetaData = null;
         try {
 
             dbMetaData = conn.getMetaData();
-            if (needFakeDatabaseMetaData(dbMetaData)) {
+            if (needFakeDatabaseMetaData(dbType)) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             }
 
@@ -80,15 +79,10 @@ public class ExtractMetaDataUtils {
      * @param dbMetaData
      * @return
      */
-    private static boolean needFakeDatabaseMetaData(DatabaseMetaData dbMetaData) {
+    private static boolean needFakeDatabaseMetaData(String dbType) {
         // TODO check if it's db2 for z/os
-        try {
-            if (dbMetaData.getDatabaseProductName().equals("db2 for z/os")) { //$NON-NLS-1$
-                return true;
-            }
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
+        if (dbType.equals("IBM DB2 ZOS")) {
+            return true;
         }
         return false;
     }
@@ -241,13 +235,13 @@ public class ExtractMetaDataUtils {
 
             hashTable.put("Teradata", "com.ncr.teradata.TeraDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
-            hashTable.put("JavaDB Embeded", "org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("JavaDB Embeded", "org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
             //$NON-NLS-2$
-            hashTable.put("JavaDB JCCJDBC", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("JavaDB JCCJDBC", "com.ibm.db2.jcc.DB2Driver");
             //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("JavaDB DerbyClient", "org.apache.derby.jdbc.ClientDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("JavaDB DerbyClient", "org.apache.derby.jdbc.ClientDriver"); //$NON-NLS-1$
             //$NON-NLS-2$
-            hashTable.put("AS400", "com.ibm.as400.access.AS400JDBCDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("AS400", "com.ibm.as400.access.AS400JDBCDriver"); //$NON-NLS-1$
 
             hashTable.put("HSQLDB", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -278,7 +272,7 @@ public class ExtractMetaDataUtils {
      * @return
      */
     private static boolean isValidJarFile(final String driverJarFilePath) {
-        if (driverJarFilePath == null || driverJarFilePath.equals("")) { //$NON-NLS-1$
+        if (driverJarFilePath == null || driverJarFilePath.equals("")) {
             return false;
         }
         File jarFile = new File(driverJarFilePath);
@@ -312,7 +306,7 @@ public class ExtractMetaDataUtils {
                 if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
                     final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
                             EDatabaseTypeName.ORACLEFORSID.getProduct());
-                    if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals)) {
+                    if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals, dbType)) {
                         schema = null;
                     }
                 } else {
@@ -354,14 +348,14 @@ public class ExtractMetaDataUtils {
     }
 
     public static void checkAccessDbq(String connString) throws Exception {
-        for (String s : connString.split(";")) { //$NON-NLS-1$
+        for (String s : connString.split(";")) {
             s = s.toLowerCase();
-            int pos = s.indexOf("dbq"); //$NON-NLS-1$
+            int pos = s.indexOf("dbq");
             if (pos > -1) {
-                s = s.substring(pos + 3).replaceAll("=", "").trim(); //$NON-NLS-1$ //$NON-NLS-2$
+                s = s.substring(pos + 3).replaceAll("=", "").trim();
                 // check the value of dbp
-                if (!s.endsWith(".mdb") && !s.endsWith(".accdb")) { //$NON-NLS-1$ //$NON-NLS-2$
-                    throw new Exception(Messages.getString("ExtractMetaDataUtils.noData")); //$NON-NLS-1$
+                if (!s.endsWith(".mdb") && !s.endsWith(".accdb")) {
+                    throw new Exception("No data found.");
                 }
                 return;
             }
@@ -423,7 +417,7 @@ public class ExtractMetaDataUtils {
         String driverClassName = driverClassNameArg;
         String driverJarPath = driverJarPathArg;
         // see feature 4720&4722
-        if ((driverJarPath == null || driverJarPath.equals(""))) { //$NON-NLS-1$
+        if ((driverJarPath == null || driverJarPath.equals(""))) {
             String driverName = EDatabaseDriver4Version.getDriver(dbType, dbVersion);
             if (driverName != null) {
                 driverJarPath = getJavaLibPath() + driverName;
@@ -433,7 +427,7 @@ public class ExtractMetaDataUtils {
         /*
          * For general jdbc, driver class is specific by user.
          */
-        if (driverClassName == null || driverClassName.equals("")) { //$NON-NLS-1$
+        if (driverClassName == null || driverClassName.equals("")) {
             driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             // see bug 4404: Exit TOS when Edit Access Schema in repository
             if (dbType.equals(EDatabaseTypeName.ACCESS.getXmlName())) {
@@ -453,8 +447,8 @@ public class ExtractMetaDataUtils {
             // Don't use DriverManager
             Class<?> klazz = Class.forName(driverClassName);
             Properties info = new Properties();
-            info.put("user", username); //$NON-NLS-1$
-            info.put("password", pwd); //$NON-NLS-1$
+            info.put("user", username);
+            info.put("password", pwd);
 
             connection = ((Driver) klazz.newInstance()).connect(url, info);
         }
