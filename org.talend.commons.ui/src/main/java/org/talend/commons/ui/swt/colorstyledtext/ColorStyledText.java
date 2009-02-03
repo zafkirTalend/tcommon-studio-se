@@ -215,7 +215,8 @@ public class ColorStyledText extends StyledText {
             if (this.isDisposed()) {
                 return;
             }
-            scanner.parse(this.getText());
+
+            scanner.parse(this.getText().replaceAll("\"", " ").replaceAll("'", " "));
 
             do {
                 token = scanner.nextToken();
@@ -256,8 +257,8 @@ public class ColorStyledText extends StyledText {
 
         for (int i = 0; i < styles.size(); i++) {
             StyleRange styleRange = styles.get(i);
-            // System.out.println("styleRange.start="+styleRange.start);
-            // System.out.println("styleRange.length="+styleRange.length);
+            // System.out.println("styleRange.start=" + styleRange.start);
+            // System.out.println("styleRange.length=" + styleRange.length);
             if (!(0 <= styleRange.start && styleRange.start + styleRange.length <= countChars)) {
                 continue;
             }
