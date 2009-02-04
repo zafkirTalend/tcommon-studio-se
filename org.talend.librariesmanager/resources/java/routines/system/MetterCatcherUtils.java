@@ -164,23 +164,23 @@ public class MetterCatcherUtils {
         return messagesToSend;
     }
 
-    private static Map<String, Integer> connCountMap = java.util.Collections.synchronizedMap(new HashMap<String, Integer>());
+    private Map<String, Integer> connCountMap = java.util.Collections.synchronizedMap(new HashMap<String, Integer>());
 
-    public static void clearConnCountMap() {
+    public void clearConnCountMap() {
         connCountMap.clear();
     }
 
-    public static void addLineToRow(String connName) {
+    public void addLineToRow(String connName) {
         if (connCountMap.containsKey(connName)) {
-            Integer count = MetterCatcherUtils.connCountMap.get(connName);
-            MetterCatcherUtils.connCountMap.put(connName, new Integer(count.intValue() + 1));
+            Integer count = this.connCountMap.get(connName);
+            this.connCountMap.put(connName, new Integer(count.intValue() + 1));
         } else {
-            MetterCatcherUtils.connCountMap.put(connName, new Integer(1));
+            this.connCountMap.put(connName, new Integer(1));
         }
     }
 
-    public static Integer getConnLinesCount(String connName) {
-        return MetterCatcherUtils.connCountMap.get(connName);
+    public Integer getConnLinesCount(String connName) {
+        return this.connCountMap.get(connName);
     }
 
     public static long getPid() {
