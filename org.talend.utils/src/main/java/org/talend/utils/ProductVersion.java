@@ -105,4 +105,16 @@ public class ProductVersion implements Comparable<ProductVersion> {
         stringBuilder.append(micro);
         return stringBuilder.toString();
     }
+
+    public int getMajor() {
+        return major;
+    }
+
+    public int getMicro() {
+        return micro;
+    }
+
+    public int getMinor() {
+        return minor;
+    }
 }
