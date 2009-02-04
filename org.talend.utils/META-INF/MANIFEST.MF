@@ -21,7 +21,7 @@ Export-Package:
 Bundle-ClassPath: .
 Require-Bundle: org.talend.libraries.apache;visibility:=reexport,
  org.apache.log4j;bundle-version="1.2.13",
- org.junit;resolution:=optional
+ org.junit4;bundle-version="4.3.1";resolution:=optional
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

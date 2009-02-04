@@ -15,30 +15,92 @@ package org.talend.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/***/
+/**
+ * Handles version numbers such as 1.1.3 or 2.1.3r12345. A product version is given by three numbers: major, minor and
+ * micro. The version is given "major.minor.micro".
+ */
 public class ProductVersion implements Comparable<ProductVersion> {
 
-    private static Pattern pattern = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+).*");
+    private static final Pattern THREE_DIGIT_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+).*");
+
+    private static final Pattern EXTENDED_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+))?.*");
 
     private int major;
 
     private int minor;
 
-    private int micro;
+    private int micro = 0;
 
+    private boolean setMicro = false;
+
+    /**
+     * ProductVersion constructor.
+     * 
+     * @param major
+     * @param minor
+     * @param micro
+     */
     public ProductVersion(int major, int minor, int micro) {
         super();
         this.major = major;
         this.minor = minor;
         this.micro = micro;
+        this.setMicro = true;
     }
 
+    /**
+     * ProductVersion constructor.
+     * 
+     * @param major
+     * @param minor
+     * @param micro
+     */
+    public ProductVersion(int major, int minor) {
+        super();
+        this.major = major;
+        this.minor = minor;
+        this.setMicro = false;
+    }
+
+    /**
+     * Method "fromString".
+     * 
+     * @param version the version to parse
+     * @param extendedVersion true if the version could be a 2 or 3 digit version
+     * @return the product version
+     */
+    public static ProductVersion fromString(String version, boolean extendedVersion) {
+        if (!extendedVersion) {
+            return fromString(version);
+        }
+        Matcher matcher = EXTENDED_PATTERN.matcher(version);
+        if (matcher.find()) {
+            int major = Integer.parseInt(matcher.group(1));
+            int minor = Integer.parseInt(matcher.group(2));
+            String microStr = matcher.group(3);
+            if (microStr != null) {
+                int micro = Integer.parseInt(microStr);
+                return new ProductVersion(major, minor, micro);
+            } else {
+                return new ProductVersion(major, minor);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Method "fromString".
+     * 
+     * @param version a version number in the format 1.2.3xx where xx can be anything else
+     * @return the product version
+     */
     public static ProductVersion fromString(String version) {
-        Matcher matcher = pattern.matcher(version);
+        Matcher matcher = THREE_DIGIT_PATTERN.matcher(version);
         if (matcher.matches()) {
             int major = Integer.parseInt(matcher.group(1));
             int minor = Integer.parseInt(matcher.group(2));
-            int micro = Integer.parseInt(matcher.group(3));
+            String microStr = matcher.group(3);
+            int micro = Integer.parseInt(microStr);
             return new ProductVersion(major, minor, micro);
         }
         return null;
@@ -53,9 +115,11 @@ public class ProductVersion implements Comparable<ProductVersion> {
         if (diff != 0) {
             return diff;
         }
-        diff = micro - other.micro;
-        if (diff != 0) {
-            return diff;
+        if (setMicro && other.setMicro) {
+            diff = micro - other.micro;
+            if (diff != 0) {
+                return diff;
+            }
         }
         return 0;
     }
@@ -101,8 +165,10 @@ public class ProductVersion implements Comparable<ProductVersion> {
         stringBuilder.append(major);
         stringBuilder.append(".");
         stringBuilder.append(minor);
-        stringBuilder.append(".");
-        stringBuilder.append(micro);
+        if (setMicro) {
+            stringBuilder.append(".");
+            stringBuilder.append(micro);
+        }
         return stringBuilder.toString();
     }
 

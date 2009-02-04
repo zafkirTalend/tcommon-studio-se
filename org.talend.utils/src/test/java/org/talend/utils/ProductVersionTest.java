@@ -31,6 +31,14 @@ public class ProductVersionTest extends TestCase {
         assertEquals(new ProductVersion(1, 2, 3), ProductVersion.fromString("1.2.3.r12345"));
         assertEquals(new ProductVersion(1, 2, 3), ProductVersion.fromString("1.2.3RC1"));
         assertEquals(new ProductVersion(1, 2, 3), ProductVersion.fromString("1.2.3RC1.r12345"));
+        assertEquals(new ProductVersion(1, 2), ProductVersion.fromString("1.2RC2", true));
+        assertEquals(new ProductVersion(1, 2, 3), ProductVersion.fromString("1.2.3.r12345", true));
+        assertEquals(new ProductVersion(1, 2, 3), ProductVersion.fromString("1.2.3RC1", true));
+        assertEquals(new ProductVersion(1, 2), ProductVersion.fromString("1.2.RC1.r12345", true));
+        assertEquals(new ProductVersion(9, 2), ProductVersion.fromString("Oracle9i Release 9.2.0.1.0", true));
+        assertEquals(new ProductVersion(9, 2), ProductVersion.fromString("Oracle9i Release 9.2.0.1.0 - Production", true));
+        assertEquals(new ProductVersion(9, 2), ProductVersion.fromString("Oracle9i Release 9.2.0.1.0 - Production\n"
+                + "JServer Release 9.2.0.1.0 - Production", true));
     }
     
     public void testCompare() {
@@ -47,6 +55,18 @@ public class ProductVersionTest extends TestCase {
         }
 
         if (new ProductVersion(2, 3, 4).compareTo(new ProductVersion(2, 3, 4)) != 0) {
+            fail();
+        }
+        
+        if (new ProductVersion(1, 2).compareTo(new ProductVersion(2, 0)) > 0) {
+            fail();
+        }
+
+        if (new ProductVersion(2, 3).compareTo(new ProductVersion(2, 4)) > 0) {
+            fail();
+        }
+
+        if (new ProductVersion(2, 3, 4).compareTo(new ProductVersion(2, 3)) != 0) {
             fail();
         }
 
