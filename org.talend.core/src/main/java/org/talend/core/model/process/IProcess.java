@@ -15,6 +15,7 @@ package org.talend.core.model.process;
 import java.util.List;
 import java.util.Set;
 
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.runprocess.IProcessor;
 
@@ -87,4 +88,6 @@ public interface IProcess extends IRepositoryObject, IElement {
     public boolean isNeedRegenerateCode();
 
     public void setNeedRegenerateCode(boolean regenerateCode);
+
+    public IMetadataTable getOutputMetadataTable();
 }
