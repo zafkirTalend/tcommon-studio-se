@@ -40,6 +40,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getPreviousFireTime <em>Previous Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getFinalFireTime <em>Final Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getIdQuartzTrigger <em>Id Quartz Trigger</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getResumePauseUpdated <em>Resume Pause Updated</em>}</li>
  * </ul>
  * </p>
  *
@@ -245,6 +246,26 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * @ordered
      */
     protected int idQuartzTrigger = ID_QUARTZ_TRIGGER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getResumePauseUpdated() <em>Resume Pause Updated</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getResumePauseUpdated()
+     * @generated
+     * @ordered
+     */
+    protected static final Date RESUME_PAUSE_UPDATED_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getResumePauseUpdated() <em>Resume Pause Updated</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getResumePauseUpdated()
+     * @generated
+     * @ordered
+     */
+    protected Date resumePauseUpdated = RESUME_PAUSE_UPDATED_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -520,6 +541,27 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Date getResumePauseUpdated() {
+        return resumePauseUpdated;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setResumePauseUpdated(Date newResumePauseUpdated) {
+        Date oldResumePauseUpdated = resumePauseUpdated;
+        resumePauseUpdated = newResumePauseUpdated;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__RESUME_PAUSE_UPDATED, oldResumePauseUpdated, resumePauseUpdated));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
@@ -585,6 +627,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return getFinalFireTime();
             case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
                 return new Integer(getIdQuartzTrigger());
+            case PropertiesPackage.TALEND_TRIGGER__RESUME_PAUSE_UPDATED:
+                return getResumePauseUpdated();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -628,6 +672,9 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return;
             case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
                 setIdQuartzTrigger(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TALEND_TRIGGER__RESUME_PAUSE_UPDATED:
+                setResumePauseUpdated((Date)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -673,6 +720,9 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
             case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
                 setIdQuartzTrigger(ID_QUARTZ_TRIGGER_EDEFAULT);
                 return;
+            case PropertiesPackage.TALEND_TRIGGER__RESUME_PAUSE_UPDATED:
+                setResumePauseUpdated(RESUME_PAUSE_UPDATED_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -706,6 +756,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return FINAL_FIRE_TIME_EDEFAULT == null ? finalFireTime != null : !FINAL_FIRE_TIME_EDEFAULT.equals(finalFireTime);
             case PropertiesPackage.TALEND_TRIGGER__ID_QUARTZ_TRIGGER:
                 return idQuartzTrigger != ID_QUARTZ_TRIGGER_EDEFAULT;
+            case PropertiesPackage.TALEND_TRIGGER__RESUME_PAUSE_UPDATED:
+                return RESUME_PAUSE_UPDATED_EDEFAULT == null ? resumePauseUpdated != null : !RESUME_PAUSE_UPDATED_EDEFAULT.equals(resumePauseUpdated);
         }
         return super.eIsSet(featureID);
     }
@@ -739,6 +791,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
         result.append(finalFireTime);
         result.append(", idQuartzTrigger: ");
         result.append(idQuartzTrigger);
+        result.append(", resumePauseUpdated: ");
+        result.append(resumePauseUpdated);
         result.append(')');
         return result.toString();
     }

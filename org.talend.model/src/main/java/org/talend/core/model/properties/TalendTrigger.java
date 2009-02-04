@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getPreviousFireTime <em>Previous Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getFinalFireTime <em>Final Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getIdQuartzTrigger <em>Id Quartz Trigger</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getResumePauseUpdated <em>Resume Pause Updated</em>}</li>
  * </ul>
  * </p>
  *
@@ -324,5 +325,31 @@ public interface TalendTrigger extends EObject {
      * @generated
      */
     void setIdQuartzTrigger(int value);
+
+    /**
+     * Returns the value of the '<em><b>Resume Pause Updated</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Resume Pause Updated</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Resume Pause Updated</em>' attribute.
+     * @see #setResumePauseUpdated(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_ResumePauseUpdated()
+     * @model
+     * @generated
+     */
+    Date getResumePauseUpdated();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getResumePauseUpdated <em>Resume Pause Updated</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Resume Pause Updated</em>' attribute.
+     * @see #getResumePauseUpdated()
+     * @generated
+     */
+    void setResumePauseUpdated(Date value);
 
 } // TalendTrigger

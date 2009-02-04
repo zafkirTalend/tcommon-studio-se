@@ -326,6 +326,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/previousFireTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/finalFireTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/idQuartzTrigger"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/resumePauseUpdated"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//CronTalendTrigger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronTalendTrigger/cronExpression"/>
