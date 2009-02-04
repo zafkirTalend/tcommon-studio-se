@@ -82,11 +82,11 @@ public abstract class ContextComposite extends Composite implements IContextMode
         refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
-            clearChildrenUI();
+            template.clear();
         } else {
             this.setEnabled(true);
             setTabEnable(!isReadOnly());
-            refreshChildrenUI();
+             toolgeRefreshContextRelitiveComposite(template);
         }
 
         if (getContextManager() != null) {
@@ -94,17 +94,39 @@ public abstract class ContextComposite extends Composite implements IContextMode
         }
     }
 
-    /**
-     * Set the current context Manager and refresh the UI.
-     * 
-     * @param jobContextManager
-     */
-    public void refreshChildrenUI() {
-        toolgeRefreshContextRelitiveComposite(template);
-        toolgeRefreshContextRelitiveComposite(treeValues);
-        toolgeRefreshContextRelitiveComposite(tableValues);
+    public void refreshTableTab() {
+        refreshChoiceComposite();
+        if (getContextManager() == null) {
+            this.setEnabled(false);
+            tableValues.clear();
+        } else {
+            this.setEnabled(true);
+            setTabEnable(!isReadOnly());
+            toolgeRefreshContextRelitiveComposite(tableValues);
+        }
+
+        if (getContextManager() != null) {
+            getContextManager().fireContextsChangedEvent();
+        }
     }
 
+    public void refreshTreeTab() {
+        refreshChoiceComposite();
+        if (getContextManager() == null) {
+            this.setEnabled(false);
+            treeValues.clear();
+        } else {
+            this.setEnabled(true);
+            setTabEnable(!isReadOnly());
+            toolgeRefreshContextRelitiveComposite(treeValues);
+        }
+
+        if (getContextManager() != null) {
+            getContextManager().fireContextsChangedEvent();
+        }
+    }
+
+     
     /**
      * 
      * DOC YeXiaowei Comment method "refreshContextEditComposite".
@@ -123,18 +145,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         composite.setNeedRefresh(true);
     }
 
-    /**
-     * Set the current context Manager and refresh the UI.
-     * 
-     * @param jobContextManager
-     */
-    public void clearChildrenUI() {
-        template.clear();
-        treeValues.clear();
-        tableValues.clear();
-    }
-
-    public abstract IContextManager getContextManager();
+     public abstract IContextManager getContextManager();
 
     /**
      * bqian Comment method "initializeUI".
@@ -145,6 +156,19 @@ public abstract class ContextComposite extends Composite implements IContextMode
         }
 
         tab = new CTabFolder(this, SWT.FLAT | SWT.BORDER);
+        tab.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                CTabItem cTabItem = (CTabItem) e.item;
+                if (cTabItem.getText().equals(Messages.getString("ContextComposite.treeValue"))) {
+                    refreshTreeTab();
+                }
+                if (cTabItem.getText().equals(Messages.getString("ContextComposite.tableValue"))) {
+                    refreshTableTab();
+                }
+            }
+
+        });
         tab.setLayoutData(new GridData(GridData.FILL_BOTH));
         CTabItem templateItem = new CTabItem(tab, SWT.NONE);
         templateItem.setText(Messages.getString("ContextComposite.variable")); //$NON-NLS-1$
@@ -215,6 +239,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
     private void creatTemplate(CTabFolder tab, CTabItem templateItem) {
         template = new ContextTemplateComposite(tab, this);
         templateItem.setControl(template);
+
     }
 
     private void creatTreeValues(CTabFolder tab, CTabItem treeValuesItem) {
