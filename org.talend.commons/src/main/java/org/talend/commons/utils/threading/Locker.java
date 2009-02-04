@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import org.apache.commons.collections.list.SynchronizedList;
 import org.apache.log4j.Logger;
@@ -42,6 +45,8 @@ public class Locker<B, KP> {
             .synchronizedMap(new HashMap<InternalKeyLock, Thread>());
 
     private InternalKeyLock<KP> matchingKey = new InternalKeyLock<KP>();
+
+    private Executor treadsPool;
 
     /**
      * 
@@ -457,32 +462,108 @@ public class Locker<B, KP> {
      * @throws InterruptedException
      * @throws IllegalArgumentException if bean is null
      */
+    public boolean waitForLock(KP key, Long waitTimeMax) throws InterruptedException {
+        return waitForLock(key, waitTimeMax, UNDEFINED_CONTEXT_INFO);
+    }
+
+    /**
+     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * 
+     * @param bean
+     * @return true if thread has wait a time, else false.
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     */
     public boolean waitForLock(KP key, String contextInfo) throws InterruptedException {
+        return waitForLock(key, null, contextInfo);
+    }
+
+    /**
+     * Lock if it is unlocked, else waiting for unlocked to lock.
+     * 
+     * @param bean
+     * @return true if thread has wait a time, else false.
+     * @throws InterruptedException
+     * @throws IllegalArgumentException if bean is null
+     */
+    public boolean waitForLock(KP key, final Long waitTimeMax, String contextInfo) throws InterruptedException {
         check(key);
         if (!lockIfUnlocked(key, contextInfo)) {
-            synchronized (Thread.currentThread()) {
 
-                waitingThreadsByKey.put(key, Thread.currentThread());
-                try {
-                    if (Locker.verbose) {
-                        log.info(Messages.getString("Locker.waitForUnlock2") + Thread.currentThread().toString() //$NON-NLS-1$
-                                + key + contextInfo);
-                    }
-                    Thread.currentThread().wait();
-                    if (Locker.verbose) {
-                        log.info(Messages.getString("Locker.waitEndForUnlock2") + Thread.currentThread().toString() + key //$NON-NLS-1$
-                                + contextInfo);
-                    }
-                    waitForLock(key, contextInfo);
-                } catch (InterruptedException e) {
-                    throw e;
-                } finally {
-                    waitingThreadsByKey.removeValue(key, Thread.currentThread());
+            waitingThreadsByKey.put(key, Thread.currentThread());
+            try {
+                if (Locker.verbose) {
+                    log.info(Messages.getString("Locker.waitForUnlock2") + Thread.currentThread().toString() //$NON-NLS-1$
+                            + key + contextInfo);
                 }
+                final Thread mainThread = Thread.currentThread();
+                if (waitTimeMax != null) {
+                    if (treadsPool == null) {
+                        initThreadsPool();
+                    }
+
+                    final Thread[] threadInterruptor = new Thread[1];
+                    final boolean[] threadAlreadyNotified = new boolean[1];
+
+                    treadsPool.execute(new Runnable() {
+
+                        public void run() {
+                            Thread internalThread = Thread.currentThread();
+                            threadInterruptor[0] = internalThread;
+                            synchronized (Thread.currentThread()) {
+                                try {
+                                    Thread.currentThread().wait(waitTimeMax);
+                                    if (!threadAlreadyNotified[0]) {
+                                        mainThread.interrupt();
+                                    }
+                                } catch (InterruptedException e) {
+                                }
+                            }
+                        }
+
+                    });
+                    try {
+                        synchronized (mainThread) {
+                            mainThread.wait();
+                            if (threadInterruptor[0] != null) {
+                                threadInterruptor[0].interrupt();
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        throw e;
+                    } finally {
+                        threadAlreadyNotified[0] = true;
+                    }
+                } else {
+                    synchronized (mainThread) {
+                        mainThread.wait();
+                    }
+                }
+                if (Locker.verbose) {
+                    log.info(Messages.getString("Locker.waitEndForUnlock2") + Thread.currentThread().toString() + key //$NON-NLS-1$
+                            + contextInfo);
+                }
+                waitForLock(key, contextInfo);
+            } catch (InterruptedException e) {
+                throw e;
+            } finally {
+                waitingThreadsByKey.removeValue(key, Thread.currentThread());
             }
             return true;
         }
         return false;
+    }
+
+    private void initThreadsPool() {
+        treadsPool = Executors.newCachedThreadPool(new ThreadFactory() {
+
+            public Thread newThread(Runnable r) {
+                Thread newThread = Executors.defaultThreadFactory().newThread(r);
+                newThread.setName(newThread.getName() + "_" + Locker.class.getSimpleName()); //$NON-NLS-1$
+                return newThread;
+            }
+
+        });
     }
 
     public synchronized void shutdown() {
