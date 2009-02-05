@@ -193,6 +193,10 @@ public class ExtractMetaDataFromDataBase {
             if (tableType.equals("T")) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_TABLE.getName();
             }
+            if (tableType.equals("V")) { //$NON-NLS-1$
+                tableType = ETableTypes.TABLETYPE_VIEW.getName();
+                ;
+            }
 
             try {
                 tableTypeMap.put(medataTable.getLabel(), tableType); //$NON-NLS-1$    

@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -58,11 +59,12 @@ public class ExtractMetaDataUtils {
         DatabaseMetaData dbMetaData = null;
         try {
 
-            dbMetaData = conn.getMetaData();
             if (needFakeDatabaseMetaData(dbType)) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
+            } else if (teradataNeedFakeDatabaseMetaData(dbType)) {
+                dbMetaData = createTeradataFakeDatabaseMetaData(conn);
             }
-
+            dbMetaData = conn.getMetaData();
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -81,7 +83,22 @@ public class ExtractMetaDataUtils {
      */
     private static boolean needFakeDatabaseMetaData(String dbType) {
         // TODO check if it's db2 for z/os
-        if (dbType.equals("IBM DB2 ZOS")) {
+        if (dbType.equals(EDatabaseTypeName.IBMDB2ZOS.getXmlName())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * check if a FakeDatabaseMetaData is needed. only for Teradata right now.
+     * 
+     * @param dbMetaData
+     * @return
+     */
+
+    private static boolean teradataNeedFakeDatabaseMetaData(String dbType) {
+        // TODO check if it's teradata
+        if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())) {
             return true;
         }
         return false;
@@ -96,6 +113,11 @@ public class ExtractMetaDataUtils {
     private static DatabaseMetaData createFakeDatabaseMetaData(Connection conn) {
         DB2ForZosDataBaseMetadata dmd = new DB2ForZosDataBaseMetadata(conn);
         return dmd;
+    }
+
+    private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
+        TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
+        return tmd;
     }
 
     /**

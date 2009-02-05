@@ -116,7 +116,12 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String schema, String tableNamePattern, String[] types) throws SQLException {
-        String sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+        String sql;
+        if (schema != null) {
+            sql = "SELECT * FROM SYSIBM.SYSTABLES where CREATOR = '" + schema + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+        } else {
+            sql = "SELECT * FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
+        }
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -181,7 +186,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
             throws SQLException {
         // for real
         String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS where TBNAME='" + tableNamePattern + "' AND  TBCREATOR = '" //$NON-NLS-1$ //$NON-NLS-2$
-                + tableNamePattern + "' ORDER BY TBCREATOR, TBNAME, COLNO"; //$NON-NLS-1$
+                + schemaPattern + "' ORDER BY TBCREATOR, TBNAME, COLNO"; //$NON-NLS-1$
 
         // for test
         // String sql = "SELECT * FROM SYSIBM.SYSCOLUMNS where NAME='NAME'";
@@ -197,10 +202,16 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
                 // For real db2 for zos, should use these code.
                 String tableName = rs.getString("TBNAME"); //$NON-NLS-1$
                 String columnName = rs.getString("NAME"); //$NON-NLS-1$
-                String typeName = rs.getString("COLTYPES"); //$NON-NLS-1$
+                String typeName = rs.getString("COLTYPE"); //$NON-NLS-1$
                 String columnSize = rs.getString("LENGTH"); //$NON-NLS-1$
                 String decimalDigits = rs.getString("SCALE"); //$NON-NLS-1$
-                String isNullable = rs.getString("NULLS"); //$NON-NLS-1$
+                String isNullable;
+                if (rs.getString("NULLS").equals("Y")) {
+                    isNullable = "YES";
+                } else {
+                    isNullable = rs.getString("NULLS"); //$NON-NLS-1$
+                }
+                // String keys = rs.getString("keys");
                 String remarks = ""; //$NON-NLS-1$
                 String columnDef = ""; //$NON-NLS-1$
 
@@ -214,8 +225,9 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
                 // String remarks = "remarks";
                 // String columnDef = "columnDef";
 
-                String[] r = new String[] { tableName, columnName, typeName, columnSize, decimalDigits, isNullable, remarks,
-                        columnDef };
+                String[] r = new String[] { tableName, columnName, typeName, columnSize, decimalDigits, isNullable, // keys
+                                                                                                                    // ,
+                        remarks, columnDef };
                 list.add(r);
             }
 
