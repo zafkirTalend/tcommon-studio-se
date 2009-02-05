@@ -5,13 +5,13 @@ import java.util.Vector;
 
 public class TalendString {
 
-    /** Index du 1er caractere accentué **/
+    /** Index of the first accent character **/
     private static final int MIN = 192;
 
-    /** Index du dernier caractere accentué **/
+    /** Index of the last accent character **/
     private static final int MAX = 255;
 
-    /** Vecteur de correspondance entre accent / sans accent **/
+    /** used to save the link between with or without accents **/
     private static final Vector map = initMap();
 
     /**
@@ -143,7 +143,7 @@ public class TalendString {
     }
 
     /**
-     * Initialisation du tableau de correspondance entre les caractéres accentués et leur homologues non accentués
+     * Initialisation of the map for the accents.
      */
     private static Vector initMap() {
         Vector result = new Vector();
@@ -247,16 +247,23 @@ public class TalendString {
     }
 
     /**
-     * Transforme une chaine pouvant contenir des accents dans une version sans accent
+     * removeAccents: remove accents from the string given.
      * 
-     * @param chaine Chaine a convertir sans accent
-     * @return Chaine dont les accents ont été supprimé
-     **/
-    public static String sansAccent(String chaine) {
-        StringBuffer result = new StringBuffer(chaine);
+     * 
+     * {talendTypes} String
+     * 
+     * {Category} TalendString
+     * 
+     * {param} string("") text: Text to remove accents.
+     * 
+     * 
+     * {example} removeAccents("Accès à la base")
+     */
+    public static String removeAccents(String text) {
+        StringBuffer result = new StringBuffer(text);
 
         for (int bcl = 0; bcl < result.length(); bcl++) {
-            int carVal = chaine.charAt(bcl);
+            int carVal = text.charAt(bcl);
             if (carVal >= MIN && carVal <= MAX) { // Remplacement
                 String newVal = (String) map.get(carVal - MIN);
                 result.replace(bcl, bcl + 1, newVal);
