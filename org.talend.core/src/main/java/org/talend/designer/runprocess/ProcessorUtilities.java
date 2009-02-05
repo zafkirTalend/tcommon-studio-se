@@ -39,6 +39,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -71,6 +72,8 @@ public class ProcessorUtilities {
     private static String interpreter, codeLocation, libraryPath;
 
     private static boolean exportConfig = false;
+
+    public static boolean isRefreshComponents = false; // use to record when user press Ctrl+Shift+F3 to fix bug 0006107
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
@@ -167,6 +170,25 @@ public class ProcessorUtilities {
         }
     }
 
+    /**
+     * 
+     * DOC aiming Comment method "isContainsJoblet".
+     * 
+     * @param jobInfo
+     * @return
+     */
+    private static boolean isContainsJoblet(JobInfo jobInfo) {
+        if (jobInfo.getProcess() != null) {
+            List<? extends INode> gNodes = jobInfo.getProcess().getGraphicalNodes();
+            for (INode node : gNodes) {
+                if (IComponent.FAMILY.equalsIgnoreCase(node.getComponent().getFamily())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private static boolean isCodeGenerationNeeded(JobInfo jobInfo) {
         // if we do any export, the code generation will always be needed.
         if (exportConfig && (!(jobInfo.getProcess() instanceof IProcess2))) {
@@ -175,6 +197,15 @@ public class ProcessorUtilities {
         if (jobInfo.isForceRegenerate()) {
             return true;
         }
+        // achen modify if job contains a joblet always regeneration
+        if (isContainsJoblet(jobInfo)) {
+            return true;
+        }
+        // if ctrl+shift+F3 pressed always regeneraion
+        if (isRefreshComponents) {
+            return true;
+        }
+        // end
         IProcess attachedProcess = jobInfo.getProcess();
         if (attachedProcess != null && attachedProcess instanceof IProcess2) {
             if (((IProcess2) attachedProcess).isNeedRegenerateCode()) {
@@ -298,7 +329,7 @@ public class ProcessorUtilities {
         if (option != GENERATE_MAIN_ONLY) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
-            // List<? extends INode> graphicalNodes = currentProcess.getGraphicalNodes();
+            List<? extends INode> gNodes = currentProcess.getGraphicalNodes();
             for (INode node : graphicalNodes) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
@@ -466,6 +497,7 @@ public class ProcessorUtilities {
         boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
+        isRefreshComponents = !genCode;
         return genCode;
     }
 
@@ -485,6 +517,7 @@ public class ProcessorUtilities {
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
+        isRefreshComponents = !result;
         return result;
     }
 
@@ -496,6 +529,7 @@ public class ProcessorUtilities {
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
+        isRefreshComponents = !result;
         return result;
     }
 
@@ -507,6 +541,7 @@ public class ProcessorUtilities {
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
+        isRefreshComponents = !result;
         return result;
     }
 
@@ -552,6 +587,8 @@ public class ProcessorUtilities {
         jobList.clear();
         boolean genCode = false;
         genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, GENERATE_ALL_CHILDS, progressMonitor);
+        // reset isRefreshComponents
+        isRefreshComponents = !genCode;
         jobList.clear();
         return genCode;
     }
@@ -564,6 +601,8 @@ public class ProcessorUtilities {
         boolean genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, option,
                 new NullProgressMonitor());
         jobList.clear();
+        // reset isRefreshComponents
+        isRefreshComponents = !genCode;
         return genCode;
     }
 
