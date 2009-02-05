@@ -27,7 +27,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
-import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -98,9 +97,9 @@ public class ExtractMetaDataUtils {
 
     private static boolean teradataNeedFakeDatabaseMetaData(String dbType) {
         // TODO check if it's teradata
-        if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())) {
-            return true;
-        }
+        // if (dbType.equals(EDatabaseTypeName.TERADATA.getXmlName())) {
+        // return true;
+        // }
         return false;
     }
 
@@ -116,8 +115,8 @@ public class ExtractMetaDataUtils {
     }
 
     private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
-        TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
-        return tmd;
+        // TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
+        return null;
     }
 
     /**
