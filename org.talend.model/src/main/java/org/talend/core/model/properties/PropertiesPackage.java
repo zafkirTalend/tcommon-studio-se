@@ -4707,13 +4707,430 @@ public interface PropertiesPackage extends EPackage {
     int IMPLICIT_CONTEXT_SETTINGS_FEATURE_COUNT = 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaOperationImpl <em>Soa Operation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SoaOperationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaOperation()
+     * @generated
+     */
+    int SOA_OPERATION = 62;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__PROJECT = 3;
+
+    /**
+     * The feature id for the '<em><b>Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__CONTEXT = 4;
+
+    /**
+     * The feature id for the '<em><b>Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__JOB_VERSION = 5;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__ACTIVE = 6;
+
+    /**
+     * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE = 7;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__STATUS = 8;
+
+    /**
+     * The feature id for the '<em><b>Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__JOB_ID = 9;
+
+    /**
+     * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN = 10;
+
+    /**
+     * The feature id for the '<em><b>Input Parameters</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__INPUT_PARAMETERS = 11;
+
+    /**
+     * The feature id for the '<em><b>Jvm Parameters</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__JVM_PARAMETERS = 12;
+
+    /**
+     * The feature id for the '<em><b>Xms</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__XMS = 13;
+
+    /**
+     * The feature id for the '<em><b>Xmx</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__XMX = 14;
+
+    /**
+     * The feature id for the '<em><b>Min Job Instances</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__MIN_JOB_INSTANCES = 15;
+
+    /**
+     * The feature id for the '<em><b>Max Job Instances</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__MAX_JOB_INSTANCES = 16;
+
+    /**
+     * The feature id for the '<em><b>Idle TTL for All Instances</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__IDLE_TTL_FOR_ALL_INSTANCES = 17;
+
+    /**
+     * The feature id for the '<em><b>Idle TTL for Additional Instances</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__IDLE_TTL_FOR_ADDITIONAL_INSTANCES = 18;
+
+    /**
+     * The feature id for the '<em><b>Queue Max Size</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__QUEUE_MAX_SIZE = 19;
+
+    /**
+     * The feature id for the '<em><b>Request In Queue TTL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__REQUEST_IN_QUEUE_TTL = 20;
+
+    /**
+     * The feature id for the '<em><b>Service</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__SERVICE = 21;
+
+    /**
+     * The number of structural features of the '<em>Soa Operation</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION_FEATURE_COUNT = 22;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SoaInputParameterImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaInputParameter()
+     * @generated
+     */
+    int SOA_INPUT_PARAMETER = 63;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Operation</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER__OPERATION = 2;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER__DEFAULT_VALUE = 3;
+
+    /**
+     * The feature id for the '<em><b>Exposed Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER__EXPOSED_NAME = 4;
+
+    /**
+     * The feature id for the '<em><b>Exposed</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER__EXPOSED = 5;
+
+    /**
+     * The number of structural features of the '<em>Soa Input Parameter</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_INPUT_PARAMETER_FEATURE_COUNT = 6;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaServiceImpl <em>Soa Service</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SoaServiceImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaService()
+     * @generated
+     */
+    int SOA_SERVICE = 64;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Name Space</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__NAME_SPACE = 2;
+
+    /**
+     * The feature id for the '<em><b>Contact</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__CONTACT = 3;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__DESCRIPTION = 4;
+
+    /**
+     * The feature id for the '<em><b>Creation</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__CREATION = 5;
+
+    /**
+     * The feature id for the '<em><b>Modification</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__MODIFICATION = 6;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__TYPE = 7;
+
+    /**
+     * The feature id for the '<em><b>Style</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__STYLE = 8;
+
+    /**
+     * The feature id for the '<em><b>Used Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__USED_TYPE = 9;
+
+    /**
+     * The feature id for the '<em><b>Param Style</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__PARAM_STYLE = 10;
+
+    /**
+     * The feature id for the '<em><b>Operations</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__OPERATIONS = 11;
+
+    /**
+     * The number of structural features of the '<em>Soa Service</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE_FEATURE_COUNT = 12;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 62;
+    int FOLDER_TYPE = 65;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -4723,7 +5140,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 63;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 66;
 
 
     /**
@@ -4734,7 +5151,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 64;
+    int USER_MODULE_AUTHORIZATION_TYPE = 67;
 
 
     /**
@@ -4745,7 +5162,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 65;
+    int INFORMATION_LEVEL = 68;
 
 
     /**
@@ -7717,6 +8134,476 @@ public interface PropertiesPackage extends EPackage {
     EReference getImplicitContextSettings_Parameters();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SoaOperation <em>Soa Operation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Soa Operation</em>'.
+     * @see org.talend.core.model.properties.SoaOperation
+     * @generated
+     */
+    EClass getSoaOperation();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getId()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getLabel()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getDescription()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Description();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.SoaOperation#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Project</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getProject()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EReference getSoaOperation_Project();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getContext <em>Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getContext()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Context();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getJobVersion <em>Job Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Version</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getJobVersion()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_JobVersion();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#isActive()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Active();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getLastScriptGenerationDate <em>Last Script Generation Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Script Generation Date</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getLastScriptGenerationDate()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_LastScriptGenerationDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getStatus <em>Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Status</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getStatus()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Status();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getJobId <em>Job Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Id</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getJobId()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_JobId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#isApplyContextToChildren <em>Apply Context To Children</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Apply Context To Children</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#isApplyContextToChildren()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_ApplyContextToChildren();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.SoaOperation#getInputParameters <em>Input Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Input Parameters</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getInputParameters()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EReference getSoaOperation_InputParameters();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getJvmParameters <em>Jvm Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Jvm Parameters</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getJvmParameters()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_JvmParameters();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getXms <em>Xms</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Xms</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getXms()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Xms();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getXmx <em>Xmx</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Xmx</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getXmx()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Xmx();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getMinJobInstances <em>Min Job Instances</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Min Job Instances</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getMinJobInstances()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_MinJobInstances();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getMaxJobInstances <em>Max Job Instances</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Max Job Instances</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getMaxJobInstances()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_MaxJobInstances();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getIdleTTL_forAllInstances <em>Idle TTL for All Instances</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Idle TTL for All Instances</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getIdleTTL_forAllInstances()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_IdleTTL_forAllInstances();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getIdleTTL_forAdditionalInstances <em>Idle TTL for Additional Instances</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Idle TTL for Additional Instances</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getIdleTTL_forAdditionalInstances()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_IdleTTL_forAdditionalInstances();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getQueueMaxSize <em>Queue Max Size</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Queue Max Size</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getQueueMaxSize()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_QueueMaxSize();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getRequestInQueueTTL <em>Request In Queue TTL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Request In Queue TTL</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getRequestInQueueTTL()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_RequestInQueueTTL();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.SoaOperation#getService <em>Service</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Service</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getService()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EReference getSoaOperation_Service();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SoaInputParameter <em>Soa Input Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Soa Input Parameter</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter
+     * @generated
+     */
+    EClass getSoaInputParameter();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaInputParameter#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter#getId()
+     * @see #getSoaInputParameter()
+     * @generated
+     */
+    EAttribute getSoaInputParameter_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaInputParameter#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter#getLabel()
+     * @see #getSoaInputParameter()
+     * @generated
+     */
+    EAttribute getSoaInputParameter_Label();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.SoaInputParameter#getOperation <em>Operation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Operation</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter#getOperation()
+     * @see #getSoaInputParameter()
+     * @generated
+     */
+    EReference getSoaInputParameter_Operation();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaInputParameter#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter#getDefaultValue()
+     * @see #getSoaInputParameter()
+     * @generated
+     */
+    EAttribute getSoaInputParameter_DefaultValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaInputParameter#getExposedName <em>Exposed Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Exposed Name</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter#getExposedName()
+     * @see #getSoaInputParameter()
+     * @generated
+     */
+    EAttribute getSoaInputParameter_ExposedName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaInputParameter#isExposed <em>Exposed</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Exposed</em>'.
+     * @see org.talend.core.model.properties.SoaInputParameter#isExposed()
+     * @see #getSoaInputParameter()
+     * @generated
+     */
+    EAttribute getSoaInputParameter_Exposed();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SoaService <em>Soa Service</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Soa Service</em>'.
+     * @see org.talend.core.model.properties.SoaService
+     * @generated
+     */
+    EClass getSoaService();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.SoaService#getId()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.SoaService#getLabel()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getNameSpace <em>Name Space</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name Space</em>'.
+     * @see org.talend.core.model.properties.SoaService#getNameSpace()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_NameSpace();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getContact <em>Contact</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Contact</em>'.
+     * @see org.talend.core.model.properties.SoaService#getContact()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Contact();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.SoaService#getDescription()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getCreation <em>Creation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Creation</em>'.
+     * @see org.talend.core.model.properties.SoaService#getCreation()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Creation();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getModification <em>Modification</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Modification</em>'.
+     * @see org.talend.core.model.properties.SoaService#getModification()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Modification();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.SoaService#getType()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getStyle <em>Style</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Style</em>'.
+     * @see org.talend.core.model.properties.SoaService#getStyle()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Style();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getUsedType <em>Used Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Used Type</em>'.
+     * @see org.talend.core.model.properties.SoaService#getUsedType()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_UsedType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getParamStyle <em>Param Style</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Param Style</em>'.
+     * @see org.talend.core.model.properties.SoaService#getParamStyle()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_ParamStyle();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.SoaService#getOperations <em>Operations</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Operations</em>'.
+     * @see org.talend.core.model.properties.SoaService#getOperations()
+     * @see #getSoaService()
+     * @generated
+     */
+    EReference getSoaService_Operations();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10574,6 +11461,356 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference IMPLICIT_CONTEXT_SETTINGS__PARAMETERS = eINSTANCE.getImplicitContextSettings_Parameters();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SoaOperationImpl <em>Soa Operation</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SoaOperationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaOperation()
+         * @generated
+         */
+        EClass SOA_OPERATION = eINSTANCE.getSoaOperation();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__ID = eINSTANCE.getSoaOperation_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__LABEL = eINSTANCE.getSoaOperation_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__DESCRIPTION = eINSTANCE.getSoaOperation_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Project</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SOA_OPERATION__PROJECT = eINSTANCE.getSoaOperation_Project();
+
+        /**
+         * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__CONTEXT = eINSTANCE.getSoaOperation_Context();
+
+        /**
+         * The meta object literal for the '<em><b>Job Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__JOB_VERSION = eINSTANCE.getSoaOperation_JobVersion();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__ACTIVE = eINSTANCE.getSoaOperation_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Last Script Generation Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE = eINSTANCE.getSoaOperation_LastScriptGenerationDate();
+
+        /**
+         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__STATUS = eINSTANCE.getSoaOperation_Status();
+
+        /**
+         * The meta object literal for the '<em><b>Job Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__JOB_ID = eINSTANCE.getSoaOperation_JobId();
+
+        /**
+         * The meta object literal for the '<em><b>Apply Context To Children</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN = eINSTANCE.getSoaOperation_ApplyContextToChildren();
+
+        /**
+         * The meta object literal for the '<em><b>Input Parameters</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SOA_OPERATION__INPUT_PARAMETERS = eINSTANCE.getSoaOperation_InputParameters();
+
+        /**
+         * The meta object literal for the '<em><b>Jvm Parameters</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__JVM_PARAMETERS = eINSTANCE.getSoaOperation_JvmParameters();
+
+        /**
+         * The meta object literal for the '<em><b>Xms</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__XMS = eINSTANCE.getSoaOperation_Xms();
+
+        /**
+         * The meta object literal for the '<em><b>Xmx</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__XMX = eINSTANCE.getSoaOperation_Xmx();
+
+        /**
+         * The meta object literal for the '<em><b>Min Job Instances</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__MIN_JOB_INSTANCES = eINSTANCE.getSoaOperation_MinJobInstances();
+
+        /**
+         * The meta object literal for the '<em><b>Max Job Instances</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__MAX_JOB_INSTANCES = eINSTANCE.getSoaOperation_MaxJobInstances();
+
+        /**
+         * The meta object literal for the '<em><b>Idle TTL for All Instances</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__IDLE_TTL_FOR_ALL_INSTANCES = eINSTANCE.getSoaOperation_IdleTTL_forAllInstances();
+
+        /**
+         * The meta object literal for the '<em><b>Idle TTL for Additional Instances</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__IDLE_TTL_FOR_ADDITIONAL_INSTANCES = eINSTANCE.getSoaOperation_IdleTTL_forAdditionalInstances();
+
+        /**
+         * The meta object literal for the '<em><b>Queue Max Size</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__QUEUE_MAX_SIZE = eINSTANCE.getSoaOperation_QueueMaxSize();
+
+        /**
+         * The meta object literal for the '<em><b>Request In Queue TTL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__REQUEST_IN_QUEUE_TTL = eINSTANCE.getSoaOperation_RequestInQueueTTL();
+
+        /**
+         * The meta object literal for the '<em><b>Service</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SOA_OPERATION__SERVICE = eINSTANCE.getSoaOperation_Service();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SoaInputParameterImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaInputParameter()
+         * @generated
+         */
+        EClass SOA_INPUT_PARAMETER = eINSTANCE.getSoaInputParameter();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_INPUT_PARAMETER__ID = eINSTANCE.getSoaInputParameter_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_INPUT_PARAMETER__LABEL = eINSTANCE.getSoaInputParameter_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Operation</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SOA_INPUT_PARAMETER__OPERATION = eINSTANCE.getSoaInputParameter_Operation();
+
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_INPUT_PARAMETER__DEFAULT_VALUE = eINSTANCE.getSoaInputParameter_DefaultValue();
+
+        /**
+         * The meta object literal for the '<em><b>Exposed Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_INPUT_PARAMETER__EXPOSED_NAME = eINSTANCE.getSoaInputParameter_ExposedName();
+
+        /**
+         * The meta object literal for the '<em><b>Exposed</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_INPUT_PARAMETER__EXPOSED = eINSTANCE.getSoaInputParameter_Exposed();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SoaServiceImpl <em>Soa Service</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SoaServiceImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaService()
+         * @generated
+         */
+        EClass SOA_SERVICE = eINSTANCE.getSoaService();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__ID = eINSTANCE.getSoaService_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__LABEL = eINSTANCE.getSoaService_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Name Space</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__NAME_SPACE = eINSTANCE.getSoaService_NameSpace();
+
+        /**
+         * The meta object literal for the '<em><b>Contact</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__CONTACT = eINSTANCE.getSoaService_Contact();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__DESCRIPTION = eINSTANCE.getSoaService_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Creation</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__CREATION = eINSTANCE.getSoaService_Creation();
+
+        /**
+         * The meta object literal for the '<em><b>Modification</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__MODIFICATION = eINSTANCE.getSoaService_Modification();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__TYPE = eINSTANCE.getSoaService_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Style</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__STYLE = eINSTANCE.getSoaService_Style();
+
+        /**
+         * The meta object literal for the '<em><b>Used Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__USED_TYPE = eINSTANCE.getSoaService_UsedType();
+
+        /**
+         * The meta object literal for the '<em><b>Param Style</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__PARAM_STYLE = eINSTANCE.getSoaService_ParamStyle();
+
+        /**
+         * The meta object literal for the '<em><b>Operations</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SOA_SERVICE__OPERATIONS = eINSTANCE.getSoaService_Operations();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.

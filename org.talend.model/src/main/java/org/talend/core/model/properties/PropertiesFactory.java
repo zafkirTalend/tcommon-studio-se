@@ -526,6 +526,33 @@ public interface PropertiesFactory extends EFactory {
     ImplicitContextSettings createImplicitContextSettings();
 
     /**
+     * Returns a new object of class '<em>Soa Operation</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Soa Operation</em>'.
+     * @generated
+     */
+    SoaOperation createSoaOperation();
+
+    /**
+     * Returns a new object of class '<em>Soa Input Parameter</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Soa Input Parameter</em>'.
+     * @generated
+     */
+    SoaInputParameter createSoaInputParameter();
+
+    /**
+     * Returns a new object of class '<em>Soa Service</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Soa Service</em>'.
+     * @generated
+     */
+    SoaService createSoaService();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

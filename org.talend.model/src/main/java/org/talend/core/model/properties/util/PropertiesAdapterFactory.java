@@ -256,6 +256,15 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseImplicitContextSettings(ImplicitContextSettings object) {
                 return createImplicitContextSettingsAdapter();
             }
+            public Object caseSoaOperation(SoaOperation object) {
+                return createSoaOperationAdapter();
+            }
+            public Object caseSoaInputParameter(SoaInputParameter object) {
+                return createSoaInputParameterAdapter();
+            }
+            public Object caseSoaService(SoaService object) {
+                return createSoaServiceAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1125,6 +1134,48 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createImplicitContextSettingsAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SoaOperation <em>Soa Operation</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SoaOperation
+     * @generated
+     */
+    public Adapter createSoaOperationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SoaInputParameter <em>Soa Input Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SoaInputParameter
+     * @generated
+     */
+    public Adapter createSoaInputParameterAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SoaService <em>Soa Service</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SoaService
+     * @generated
+     */
+    public Adapter createSoaServiceAdapter() {
         return null;
     }
 

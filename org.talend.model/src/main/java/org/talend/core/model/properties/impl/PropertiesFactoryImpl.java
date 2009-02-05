@@ -149,6 +149,9 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.COMPONENT_SETTING: return createComponentSetting();
             case PropertiesPackage.STAT_AND_LOGS_SETTINGS: return createStatAndLogsSettings();
             case PropertiesPackage.IMPLICIT_CONTEXT_SETTINGS: return createImplicitContextSettings();
+            case PropertiesPackage.SOA_OPERATION: return createSoaOperation();
+            case PropertiesPackage.SOA_INPUT_PARAMETER: return createSoaInputParameter();
+            case PropertiesPackage.SOA_SERVICE: return createSoaService();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -741,6 +744,36 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ImplicitContextSettings createImplicitContextSettings() {
         ImplicitContextSettingsImpl implicitContextSettings = new ImplicitContextSettingsImpl();
         return implicitContextSettings;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SoaOperation createSoaOperation() {
+        SoaOperationImpl soaOperation = new SoaOperationImpl();
+        return soaOperation;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SoaInputParameter createSoaInputParameter() {
+        SoaInputParameterImpl soaInputParameter = new SoaInputParameterImpl();
+        return soaInputParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SoaService createSoaService() {
+        SoaServiceImpl soaService = new SoaServiceImpl();
+        return soaService;
     }
 
     /**

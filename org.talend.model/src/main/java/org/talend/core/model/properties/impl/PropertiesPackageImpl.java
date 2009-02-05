@@ -70,6 +70,9 @@ import org.talend.core.model.properties.SchemaInformation;
 import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
+import org.talend.core.model.properties.SoaInputParameter;
+import org.talend.core.model.properties.SoaOperation;
+import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
@@ -468,6 +471,27 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass implicitContextSettingsEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass soaOperationEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass soaInputParameterEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass soaServiceEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -2896,6 +2920,393 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getSoaOperation() {
+        return soaOperationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Id() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Label() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Description() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSoaOperation_Project() {
+        return (EReference)soaOperationEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Context() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_JobVersion() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Active() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_LastScriptGenerationDate() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Status() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_JobId() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_ApplyContextToChildren() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSoaOperation_InputParameters() {
+        return (EReference)soaOperationEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_JvmParameters() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Xms() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Xmx() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_MinJobInstances() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_MaxJobInstances() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_IdleTTL_forAllInstances() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(17);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_IdleTTL_forAdditionalInstances() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(18);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_QueueMaxSize() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(19);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_RequestInQueueTTL() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(20);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSoaOperation_Service() {
+        return (EReference)soaOperationEClass.getEStructuralFeatures().get(21);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSoaInputParameter() {
+        return soaInputParameterEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaInputParameter_Id() {
+        return (EAttribute)soaInputParameterEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaInputParameter_Label() {
+        return (EAttribute)soaInputParameterEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSoaInputParameter_Operation() {
+        return (EReference)soaInputParameterEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaInputParameter_DefaultValue() {
+        return (EAttribute)soaInputParameterEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaInputParameter_ExposedName() {
+        return (EAttribute)soaInputParameterEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaInputParameter_Exposed() {
+        return (EAttribute)soaInputParameterEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSoaService() {
+        return soaServiceEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Id() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Label() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_NameSpace() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Contact() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Description() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Creation() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Modification() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Type() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_Style() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_UsedType() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaService_ParamStyle() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSoaService_Operations() {
+        return (EReference)soaServiceEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getTaskExecutionHistory() {
         return taskExecutionHistoryEClass;
     }
@@ -3699,6 +4110,52 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         implicitContextSettingsEClass = createEClass(IMPLICIT_CONTEXT_SETTINGS);
         createEReference(implicitContextSettingsEClass, IMPLICIT_CONTEXT_SETTINGS__PARAMETERS);
 
+        soaOperationEClass = createEClass(SOA_OPERATION);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__ID);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__LABEL);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__DESCRIPTION);
+        createEReference(soaOperationEClass, SOA_OPERATION__PROJECT);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__CONTEXT);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__JOB_VERSION);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__ACTIVE);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__STATUS);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__JOB_ID);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN);
+        createEReference(soaOperationEClass, SOA_OPERATION__INPUT_PARAMETERS);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__JVM_PARAMETERS);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__XMS);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__XMX);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__MIN_JOB_INSTANCES);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__MAX_JOB_INSTANCES);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__IDLE_TTL_FOR_ALL_INSTANCES);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__IDLE_TTL_FOR_ADDITIONAL_INSTANCES);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__QUEUE_MAX_SIZE);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__REQUEST_IN_QUEUE_TTL);
+        createEReference(soaOperationEClass, SOA_OPERATION__SERVICE);
+
+        soaInputParameterEClass = createEClass(SOA_INPUT_PARAMETER);
+        createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__ID);
+        createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__LABEL);
+        createEReference(soaInputParameterEClass, SOA_INPUT_PARAMETER__OPERATION);
+        createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__DEFAULT_VALUE);
+        createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__EXPOSED_NAME);
+        createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__EXPOSED);
+
+        soaServiceEClass = createEClass(SOA_SERVICE);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__ID);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__LABEL);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__NAME_SPACE);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__CONTACT);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__DESCRIPTION);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__CREATION);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__MODIFICATION);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__TYPE);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__STYLE);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__USED_TYPE);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__PARAM_STYLE);
+        createEReference(soaServiceEClass, SOA_SERVICE__OPERATIONS);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -4156,6 +4613,52 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(implicitContextSettingsEClass, ImplicitContextSettings.class, "ImplicitContextSettings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getImplicitContextSettings_Parameters(), theTalendFilePackage.getParametersType(), null, "parameters", null, 0, 1, ImplicitContextSettings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(soaOperationEClass, SoaOperation.class, "SoaOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSoaOperation_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Label(), theEcorePackage.getEString(), "label", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Description(), theEcorePackage.getEString(), "description", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSoaOperation_Project(), this.getProject(), null, "project", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Context(), theEcorePackage.getEString(), "context", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_JobVersion(), theEcorePackage.getEString(), "jobVersion", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_LastScriptGenerationDate(), theEcorePackage.getEDate(), "lastScriptGenerationDate", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Status(), theEcorePackage.getEString(), "status", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_JobId(), ecorePackage.getEString(), "jobId", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_ApplyContextToChildren(), theEcorePackage.getEBoolean(), "applyContextToChildren", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSoaOperation_InputParameters(), this.getSoaInputParameter(), null, "inputParameters", null, 0, -1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEAttribute(getSoaOperation_JvmParameters(), theEcorePackage.getEString(), "jvmParameters", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Xms(), theEcorePackage.getEInt(), "xms", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Xmx(), theEcorePackage.getEInt(), "xmx", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_MinJobInstances(), theEcorePackage.getEInt(), "minJobInstances", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_MaxJobInstances(), theEcorePackage.getEInt(), "maxJobInstances", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_IdleTTL_forAllInstances(), theEcorePackage.getEInt(), "idleTTL_forAllInstances", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_IdleTTL_forAdditionalInstances(), theEcorePackage.getEInt(), "idleTTL_forAdditionalInstances", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_QueueMaxSize(), theEcorePackage.getEInt(), "queueMaxSize", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_RequestInQueueTTL(), theEcorePackage.getEInt(), "requestInQueueTTL", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSoaOperation_Service(), this.getSoaService(), null, "service", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(soaInputParameterEClass, SoaInputParameter.class, "SoaInputParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSoaInputParameter_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaInputParameter_Label(), theEcorePackage.getEString(), "label", null, 0, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSoaInputParameter_Operation(), this.getSoaOperation(), null, "operation", null, 0, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaInputParameter_DefaultValue(), theEcorePackage.getEString(), "defaultValue", null, 0, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaInputParameter_ExposedName(), theEcorePackage.getEString(), "exposedName", null, 0, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaInputParameter_Exposed(), theEcorePackage.getEBoolean(), "exposed", null, 0, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(soaServiceEClass, SoaService.class, "SoaService", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSoaService_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Label(), theEcorePackage.getEString(), "label", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_NameSpace(), theEcorePackage.getEString(), "nameSpace", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Contact(), theEcorePackage.getEString(), "contact", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Description(), theEcorePackage.getEString(), "description", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Creation(), theEcorePackage.getEDate(), "creation", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Modification(), theEcorePackage.getEDate(), "modification", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Type(), theEcorePackage.getEString(), "type", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Style(), theEcorePackage.getEString(), "style", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_UsedType(), theEcorePackage.getEString(), "usedType", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_ParamStyle(), theEcorePackage.getEString(), "paramStyle", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSoaService_Operations(), this.getSoaOperation(), null, "operations", null, 0, -1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
