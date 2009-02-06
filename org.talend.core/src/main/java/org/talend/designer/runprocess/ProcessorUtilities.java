@@ -73,7 +73,8 @@ public class ProcessorUtilities {
 
     private static boolean exportConfig = false;
 
-    public static boolean isRefreshComponents = false; // use to record when user press Ctrl+Shift+F3 to fix bug 0006107
+    // public static boolean isRefreshComponents = false; // use to record when user press Ctrl+Shift+F3 to fix bug
+    // 0006107
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
@@ -199,10 +200,6 @@ public class ProcessorUtilities {
         }
         // achen modify if job contains a joblet always regeneration
         if (isContainsJoblet(jobInfo)) {
-            return true;
-        }
-        // if ctrl+shift+F3 pressed always regeneraion
-        if (isRefreshComponents) {
             return true;
         }
         // end
@@ -497,7 +494,6 @@ public class ProcessorUtilities {
         boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
-        isRefreshComponents = !genCode;
         return genCode;
     }
 
@@ -517,7 +513,6 @@ public class ProcessorUtilities {
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
-        isRefreshComponents = !result;
         return result;
     }
 
@@ -529,7 +524,6 @@ public class ProcessorUtilities {
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
-        isRefreshComponents = !result;
         return result;
     }
 
@@ -541,7 +535,6 @@ public class ProcessorUtilities {
         boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
                 new NullProgressMonitor());
         jobList.clear();
-        isRefreshComponents = !result;
         return result;
     }
 
@@ -587,8 +580,6 @@ public class ProcessorUtilities {
         jobList.clear();
         boolean genCode = false;
         genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, GENERATE_ALL_CHILDS, progressMonitor);
-        // reset isRefreshComponents
-        isRefreshComponents = !genCode;
         jobList.clear();
         return genCode;
     }
@@ -601,8 +592,6 @@ public class ProcessorUtilities {
         boolean genCode = generateCode(jobInfo, context.getName(), statistics, trace, properties, option,
                 new NullProgressMonitor());
         jobList.clear();
-        // reset isRefreshComponents
-        isRefreshComponents = !genCode;
         return genCode;
     }
 
