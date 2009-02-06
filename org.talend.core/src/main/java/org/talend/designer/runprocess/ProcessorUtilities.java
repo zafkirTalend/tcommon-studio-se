@@ -273,6 +273,9 @@ public class ProcessorUtilities {
 
     private static boolean generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean properties, int option, IProgressMonitor progressMonitor) throws ProcessorException {
+        if (progressMonitor == null) {
+            progressMonitor = new NullProgressMonitor();
+        }
         if (progressMonitor.isCanceled()) {
             return false;
         }
@@ -487,12 +490,15 @@ public class ProcessorUtilities {
      * @param version null if no specific version required
      * @throws ProcessorException
      */
-    public static boolean generateCode(String processName, String contextName, String version, boolean statistics, boolean trace)
-            throws ProcessorException {
+    public static boolean generateCode(String processName, String contextName, String version, boolean statistics, boolean trace,
+            IProgressMonitor... monitors) throws ProcessorException {
+        IProgressMonitor monitor = null;
+        if (monitors == null) {
+            monitor = new NullProgressMonitor();
+        }
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName, version);
-        boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
-                new NullProgressMonitor());
+        boolean genCode = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS, monitor);
         jobList.clear();
         return genCode;
     }
@@ -506,34 +512,43 @@ public class ProcessorUtilities {
      * @throws ProcessorException
      */
     public static boolean generateCode(String processId, String contextName, String version, boolean statistics, boolean trace,
-            boolean applyContextToChildren) throws ProcessorException {
+            boolean applyContextToChildren, IProgressMonitor... monitors) throws ProcessorException {
+        IProgressMonitor monitor = null;
+        if (monitors == null) {
+            monitor = new NullProgressMonitor();
+        }
         JobInfo jobInfo = new JobInfo(processId, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         jobList.clear();
-        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
-                new NullProgressMonitor());
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS, monitor);
         jobList.clear();
         return result;
     }
 
     public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace,
-            boolean applyContextToChildren) throws ProcessorException {
+            boolean applyContextToChildren, IProgressMonitor... monitors) throws ProcessorException {
+        IProgressMonitor monitor = null;
+        if (monitors == null) {
+            monitor = new NullProgressMonitor();
+        }
         JobInfo jobInfo = new JobInfo(process, contextName);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         jobList.clear();
-        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
-                new NullProgressMonitor());
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS, monitor);
         jobList.clear();
         return result;
     }
 
     public static boolean generateCode(ProcessItem process, String contextName, String version, boolean statistics,
-            boolean trace, boolean applyContextToChildren) throws ProcessorException {
+            boolean trace, boolean applyContextToChildren, IProgressMonitor... monitors) throws ProcessorException {
+        IProgressMonitor monitor = null;
+        if (monitors == null) {
+            monitor = new NullProgressMonitor();
+        }
         JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
         jobList.clear();
-        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS,
-                new NullProgressMonitor());
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS, monitor);
         jobList.clear();
         return result;
     }
