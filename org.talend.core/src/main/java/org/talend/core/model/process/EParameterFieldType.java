@@ -57,7 +57,8 @@ public enum EParameterFieldType {
     MODULE_LIST,
     COMMAND,
     PALO_DIM_SELECTION,
-    WSDL2JAVA;
+    WSDL2JAVA,
+    ICON_SELECTION;
 
     public String getName() {
         return toString();
