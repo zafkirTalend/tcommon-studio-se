@@ -22,21 +22,21 @@ import org.talend.designer.business.model.business.SapFunctionMetadata;
  */
 public class SapFunctionMetadataImpl extends TalendItemImpl implements SapFunctionMetadata {
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected SapFunctionMetadataImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected EClass eStaticClass() {
-		return BusinessPackage.Literals.SAP_FUNCTION_METADATA;
-	}
+        return BusinessPackage.Literals.SAP_FUNCTION_METADATA;
+    }
 
 } //SapFunctionMetadataImpl

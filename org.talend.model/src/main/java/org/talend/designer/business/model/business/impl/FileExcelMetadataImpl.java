@@ -22,21 +22,21 @@ import org.talend.designer.business.model.business.FileExcelMetadata;
  */
 public class FileExcelMetadataImpl extends TalendItemImpl implements FileExcelMetadata {
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected FileExcelMetadataImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return BusinessPackage.Literals.FILE_EXCEL_METADATA;
-	}
+        return BusinessPackage.Literals.FILE_EXCEL_METADATA;
+    }
 
 } //FileExcelMetadataImpl

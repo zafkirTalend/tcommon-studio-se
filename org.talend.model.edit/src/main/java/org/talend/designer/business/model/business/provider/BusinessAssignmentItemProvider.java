@@ -33,7 +33,9 @@ import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
+import org.talend.designer.business.model.business.Joblet;
 import org.talend.designer.business.model.business.Process;
+import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Routine;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
@@ -46,12 +48,6 @@ import org.talend.designer.business.model.business.util.BusinessSwitch;
 public class BusinessAssignmentItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource,
         ITableItemLabelProvider {
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -78,45 +74,35 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
     }
 
     /**
-     * This adds a property descriptor for the Talend Item feature.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This adds a property descriptor for the Talend Item feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated NOT
      */
     protected void addTalendItemPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_BusinessAssignment_talendItem_feature"), //$NON-NLS-1$
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_talendItem_feature", "_UI_BusinessAssignment_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                 BusinessPackage.Literals.BUSINESS_ASSIGNMENT__TALEND_ITEM,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_BusinessAssignment_talendItem_feature"), //$NON-NLS-1$
+                        getString(
+                                "_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_talendItem_feature", "_UI_BusinessAssignment_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        BusinessPackage.Literals.BUSINESS_ASSIGNMENT__TALEND_ITEM, true, false, true, null, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Comment feature.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This adds a property descriptor for the Comment feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated NOT
      */
     protected void addCommentPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_BusinessAssignment_comment_feature"), //$NON-NLS-1$
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_comment_feature", "_UI_BusinessAssignment_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                 BusinessPackage.Literals.BUSINESS_ASSIGNMENT__COMMENT,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(
+                        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(),
+                        getString("_UI_BusinessAssignment_comment_feature"), //$NON-NLS-1$
+                        getString(
+                                "_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_comment_feature", "_UI_BusinessAssignment_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        BusinessPackage.Literals.BUSINESS_ASSIGNMENT__COMMENT, true, false, false,
+                        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -168,8 +154,8 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
     }
 
     /**
-     * This adds to the collection of {@link org.eclipse.emf.edit.command.CommandParameter}s
-     * describing all of the children that can be created under this object.
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+     * that can be created under this object.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -212,7 +198,9 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 /*
                  * (non-Javadoc)
                  * 
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseBusinessProcess(org.talend.designer.business.model.business.BusinessProcess)
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseBusinessProcess(org.talend.designer
+                 * .business.model.business.BusinessProcess)
                  */
                 @Override
                 public Object caseBusinessProcess(BusinessProcess object) {
@@ -222,7 +210,9 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 /*
                  * (non-Javadoc)
                  * 
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseDatabaseMetadata(org.talend.designer.business.model.business.DatabaseMetadata)
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseDatabaseMetadata(org.talend.designer
+                 * .business.model.business.DatabaseMetadata)
                  */
                 @Override
                 public Object caseDatabaseMetadata(DatabaseMetadata object) {
@@ -232,33 +222,45 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 /*
                  * (non-Javadoc)
                  * 
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseDocumentation(org.talend.designer.business.model.business.Documentation)
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseDocumentation(org.talend.designer
+                 * .business.model.business.Documentation)
                  */
                 @Override
                 public Object caseDocumentation(Documentation object) {
                     return getString("_UI_Documentation_type"); //$NON-NLS-1$
                 }
 
-                /* (non-Javadoc)
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFileDelimitedMetadata(org.talend.designer.business.model.business.FileDelimitedMetadata)
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseFileDelimitedMetadata(org.talend
+                 * .designer.business.model.business.FileDelimitedMetadata)
                  */
                 @Override
                 public Object caseFileDelimitedMetadata(FileDelimitedMetadata object) {
                     return getString("_UI_FileDelimitedMetadata_type"); //$NON-NLS-1$
                 }
 
-                /* (non-Javadoc)
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFilePositionalMetadata(org.talend.designer.business.model.business.FilePositionalMetadata)
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseFilePositionalMetadata(org.talend
+                 * .designer.business.model.business.FilePositionalMetadata)
                  */
                 @Override
                 public Object caseFilePositionalMetadata(FilePositionalMetadata object) {
                     return getString("_UI_FilePositionalMetadata_type"); //$NON-NLS-1$
                 }
-                
+
                 /*
                  * (non-Javadoc)
                  * 
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseProcess(org.talend.designer.business.model.business.Process)
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseProcess(org.talend.designer.business
+                 * .model.business.Process)
                  */
                 @Override
                 public Object caseProcess(Process object) {
@@ -268,7 +270,9 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 /*
                  * (non-Javadoc)
                  * 
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseRoutine(org.talend.designer.business.model.business.Routine)
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseRoutine(org.talend.designer.business
+                 * .model.business.Routine)
                  */
                 @Override
                 public Object caseRoutine(Routine object) {
@@ -278,37 +282,51 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 /*
                  * (non-Javadoc)
                  * 
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseTableMetadata(org.talend.designer.business.model.business.TableMetadata)
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseTableMetadata(org.talend.designer
+                 * .business.model.business.TableMetadata)
                  */
                 @Override
                 public Object caseTableMetadata(TableMetadata object) {
                     return getString("_UI_TableMetadata_type"); //$NON-NLS-1$
                 }
 
-                /* (non-Javadoc)
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend.designer.business.model.business.FileRegexpMetadata)
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend
+                 * .designer.business.model.business.FileRegexpMetadata)
                  */
                 @Override
                 public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
                     return getString("_UI_FileRegexpMetadata_type"); //$NON-NLS-1$
                 }
 
-                /* (non-Javadoc)
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend.designer.business.model.business.FileRegexpMetadata)
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend
+                 * .designer.business.model.business.FileRegexpMetadata)
                  */
                 @Override
                 public Object caseFileXmlMetadata(FileXmlMetadata object) {
                     return getString("_UI_FileXmlMetadata_type"); //$NON-NLS-1$
                 }
 
-                /* (non-Javadoc)
-                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend.designer.business.model.business.FileRegexpMetadata)
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend
+                 * .designer.business.model.business.FileRegexpMetadata)
                  */
                 @Override
                 public Object caseFileLdifMetadata(FileLdifMetadata object) {
                     return getString("_UI_FileLdifMetadata_type"); //$NON-NLS-1$
                 }
-                
+
                 @Override
                 public Object caseContext(Context object) {
                     return getString("_UI_Context_type"); //$NON-NLS-1$
@@ -317,6 +335,18 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 @Override
                 public Object caseGenericSchemaMetadata(GenericSchemaMetadata object) {
                     return getString("_UI_GenericSchemaMetadata_type"); //$NON-NLS-1$
+                }
+
+                @Override
+                public Object caseJoblet(Joblet object) {
+                    // TODO Auto-generated method stub
+                    return getString("_UI_Joblet_type");
+                }
+
+                @Override
+                public Object caseQuery(Query object) {
+                    // TODO Auto-generated method stub
+                    return getString("_UI_Query_type");
                 }
 
             }.doSwitch(businessAssignment.getTalendItem());

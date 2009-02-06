@@ -44,13 +44,13 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getName()
+     * @generated
+     * @ordered
+     */
     protected static final String NAME_EDEFAULT = null;
 
     /**
@@ -74,38 +74,38 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
     protected EList assignments;
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected BusinessItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return BusinessPackage.Literals.BUSINESS_ITEM;
-	}
+        return BusinessPackage.Literals.BUSINESS_ITEM;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public BusinessProcess getBusinessProcess() {
-		if (eContainerFeatureID != BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS) return null;
-		return (BusinessProcess)eContainer();
-	}
+        if (eContainerFeatureID != BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS) return null;
+        return (BusinessProcess)eContainer();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain basicSetBusinessProcess(BusinessProcess newBusinessProcess, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newBusinessProcess, BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS, msgs);
-		return msgs;
-	}
+        msgs = eBasicSetContainer((InternalEObject)newBusinessProcess, BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS, msgs);
+        return msgs;
+    }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -128,147 +128,147 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
     }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BusinessPackage.BUSINESS_ITEM__NAME, oldName, name));
-	}
+        String oldName = name;
+        name = newName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessPackage.BUSINESS_ITEM__NAME, oldName, name));
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EList getAssignments() {
-		if (assignments == null) {
-			assignments = new EObjectContainmentWithInverseEList(BusinessAssignment.class, this, BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS, BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM);
-		}
-		return assignments;
-	}
+        if (assignments == null) {
+            assignments = new EObjectContainmentWithInverseEList(BusinessAssignment.class, this, BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS, BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM);
+        }
+        return assignments;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetBusinessProcess((BusinessProcess)otherEnd, msgs);
-			case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
-				return ((InternalEList)getAssignments()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetBusinessProcess((BusinessProcess)otherEnd, msgs);
+            case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
+                return ((InternalEList)getAssignments()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				return basicSetBusinessProcess(null, msgs);
-			case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
-				return ((InternalEList)getAssignments()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                return basicSetBusinessProcess(null, msgs);
+            case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
+                return ((InternalEList)getAssignments()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				return eInternalContainer().eInverseRemove(this, BusinessPackage.BUSINESS_PROCESS__BUSINESS_ITEMS, BusinessProcess.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
+        switch (eContainerFeatureID) {
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                return eInternalContainer().eInverseRemove(this, BusinessPackage.BUSINESS_PROCESS__BUSINESS_ITEMS, BusinessProcess.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case BusinessPackage.BUSINESS_ITEM__NAME:
-				return getName();
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				return getBusinessProcess();
-			case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
-				return getAssignments();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case BusinessPackage.BUSINESS_ITEM__NAME:
+                return getName();
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                return getBusinessProcess();
+            case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
+                return getAssignments();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case BusinessPackage.BUSINESS_ITEM__NAME:
-				setName((String)newValue);
-				return;
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				setBusinessProcess((BusinessProcess)newValue);
-				return;
-			case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
-				getAssignments().clear();
-				getAssignments().addAll((Collection)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case BusinessPackage.BUSINESS_ITEM__NAME:
+                setName((String)newValue);
+                return;
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                setBusinessProcess((BusinessProcess)newValue);
+                return;
+            case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
+                getAssignments().clear();
+                getAssignments().addAll((Collection)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public void eUnset(int featureID) {
-		switch (featureID) {
-			case BusinessPackage.BUSINESS_ITEM__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				setBusinessProcess((BusinessProcess)null);
-				return;
-			case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
-				getAssignments().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case BusinessPackage.BUSINESS_ITEM__NAME:
+                setName(NAME_EDEFAULT);
+                return;
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                setBusinessProcess((BusinessProcess)null);
+                return;
+            case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
+                getAssignments().clear();
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case BusinessPackage.BUSINESS_ITEM__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
-				return getBusinessProcess() != null;
-			case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
-				return assignments != null && !assignments.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case BusinessPackage.BUSINESS_ITEM__NAME:
+                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+            case BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS:
+                return getBusinessProcess() != null;
+            case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
+                return assignments != null && !assignments.isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -31,39 +31,39 @@ public interface BusinessItemShape extends BusinessItem {
     String copyright = ""; //$NON-NLS-1$
 
     /**
-	 * Returns the value of the '<em><b>Incoming Relationships</b></em>' reference list.
-	 * The list contents are of type {@link org.talend.designer.business.model.business.BaseBusinessItemRelationship}.
-	 * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Incoming Relationships</b></em>' reference list.
+     * The list contents are of type {@link org.talend.designer.business.model.business.BaseBusinessItemRelationship}.
+     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship#getTarget <em>Target</em>}'.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Incoming Relationships</em>' reference list isn't clear, there really should be
      * more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming Relationships</em>' reference list.
-	 * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItemShape_IncomingRelationships()
-	 * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship#getTarget
-	 * @model type="org.talend.designer.business.model.business.BaseBusinessItemRelationship" opposite="target"
-	 * @generated
-	 */
+     * @return the value of the '<em>Incoming Relationships</em>' reference list.
+     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItemShape_IncomingRelationships()
+     * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship#getTarget
+     * @model type="org.talend.designer.business.model.business.BaseBusinessItemRelationship" opposite="target"
+     * @generated
+     */
     EList getIncomingRelationships();
 
     /**
-	 * Returns the value of the '<em><b>Outgoing Relationships</b></em>' reference list.
-	 * The list contents are of type {@link org.talend.designer.business.model.business.BaseBusinessItemRelationship}.
-	 * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Outgoing Relationships</b></em>' reference list.
+     * The list contents are of type {@link org.talend.designer.business.model.business.BaseBusinessItemRelationship}.
+     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship#getSource <em>Source</em>}'.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Outgoing Relationships</em>' reference list isn't clear, there really should be
      * more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing Relationships</em>' reference list.
-	 * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItemShape_OutgoingRelationships()
-	 * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship#getSource
-	 * @model type="org.talend.designer.business.model.business.BaseBusinessItemRelationship" opposite="source"
-	 * @generated
-	 */
+     * @return the value of the '<em>Outgoing Relationships</em>' reference list.
+     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItemShape_OutgoingRelationships()
+     * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship#getSource
+     * @model type="org.talend.designer.business.model.business.BaseBusinessItemRelationship" opposite="source"
+     * @generated
+     */
     EList getOutgoingRelationships();
 
 } // BusinessItemShape

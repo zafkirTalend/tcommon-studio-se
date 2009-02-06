@@ -33,12 +33,6 @@ public class BusinessProcessItemProvider extends TalendItemItemProvider implemen
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public static final String copyright = ""; //$NON-NLS-1$
-
-    /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -122,8 +116,8 @@ public class BusinessProcessItemProvider extends TalendItemItemProvider implemen
     }
 
     /**
-     * This adds to the collection of {@link org.eclipse.emf.edit.command.CommandParameter}s
-     * describing all of the children that can be created under this object.
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+     * that can be created under this object.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -204,15 +198,6 @@ public class BusinessProcessItemProvider extends TalendItemItemProvider implemen
             (createChildParameter
                 (BusinessPackage.Literals.BUSINESS_PROCESS__LOCAL_REPOSITORY_COPY,
                  BusinessFactory.eINSTANCE.createRepository()));
-    }
-
-    /**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public ResourceLocator getResourceLocator() {
-        return BusinessEditPlugin.INSTANCE;
     }
 
 }

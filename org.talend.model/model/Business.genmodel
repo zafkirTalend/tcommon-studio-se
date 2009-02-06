@@ -70,5 +70,7 @@
     <genClasses ecoreClass="Business.ecore#//ActorBusinessItem"/>
     <genClasses ecoreClass="Business.ecore#//EllipseBusinessItem"/>
     <genClasses ecoreClass="Business.ecore#//GearBusinessItem"/>
+    <genClasses ecoreClass="Business.ecore#//Query"/>
+    <genClasses ecoreClass="Business.ecore#//Joblet"/>
   </genPackages>
 </genmodel:GenModel>

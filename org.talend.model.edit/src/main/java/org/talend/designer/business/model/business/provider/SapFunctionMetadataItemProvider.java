@@ -13,44 +13,35 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
-import org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship;
+import org.talend.designer.business.model.business.SapFunctionMetadata;
 
 /**
- * This is the item provider adapter for a {@link org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship} object.
+ * This is the item provider adapter for a {@link org.talend.designer.business.model.business.SapFunctionMetadata} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class BidirectionalBusinessItemRelationshipItemProvider
-    extends BaseBusinessItemRelationshipItemProvider
-    implements	
-        IEditingDomainItemProvider,	
-        IStructuredItemContentProvider,	
-        ITreeItemContentProvider,	
-        IItemLabelProvider,	
+public class SapFunctionMetadataItemProvider
+    extends TalendItemItemProvider
+    implements
+        IEditingDomainItemProvider,
+        IStructuredItemContentProvider,
+        ITreeItemContentProvider,
+        IItemLabelProvider,
         IItemPropertySource {
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public static final String copyright = ""; //$NON-NLS-1$
-
     /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public BidirectionalBusinessItemRelationshipItemProvider(AdapterFactory adapterFactory) {
+    public SapFunctionMetadataItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -69,26 +60,26 @@ public class BidirectionalBusinessItemRelationshipItemProvider
     }
 
     /**
-     * This returns BidirectionalBusinessItemRelationship.gif.
+     * This returns SapFunctionMetadata.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/BidirectionalBusinessItemRelationship")); //$NON-NLS-1$
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/SapFunctionMetadata"));
     }
 
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated NOT
+     * @generated
      */
     public String getText(Object object) {
-        String label = ((BidirectionalBusinessItemRelationship)object).getName();
+        String label = ((SapFunctionMetadata)object).getId();
         return label == null || label.length() == 0 ?
-            getString("_UI_BidirectionalBusinessItemRelationship_type") : //$NON-NLS-1$
-            getString("_UI_BidirectionalBusinessItemRelationship_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+            getString("_UI_SapFunctionMetadata_type") :
+            getString("_UI_SapFunctionMetadata_type") + " " + label;
     }
 
     /**

@@ -25,19 +25,19 @@ public class RoutineImpl extends TalendItemImpl implements Routine {
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected RoutineImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return BusinessPackage.Literals.ROUTINE;
-	}
+        return BusinessPackage.Literals.ROUTINE;
+    }
 
 } // RoutineImpl

@@ -26,19 +26,19 @@ public class DataBusinessItemImpl extends BusinessItemShapeImpl implements DataB
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected DataBusinessItemImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return BusinessPackage.Literals.DATA_BUSINESS_ITEM;
-	}
+        return BusinessPackage.Literals.DATA_BUSINESS_ITEM;
+    }
 
 } // DataBusinessItemImpl

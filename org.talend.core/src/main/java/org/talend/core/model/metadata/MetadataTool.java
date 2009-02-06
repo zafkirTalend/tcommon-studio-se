@@ -198,7 +198,7 @@ public class MetadataTool {
 
     }
 
-    public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
+    public static MetadataTable getMetadataTableFromRepository(String metaRepositoryId) {
         org.talend.core.model.metadata.builder.connection.Connection connection;
 
         String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
@@ -212,9 +212,17 @@ public class MetadataTool {
             for (Object tableObj : getMetadataTableFromConnection(connection)) {
                 MetadataTable table = (MetadataTable) tableObj;
                 if (table.getLabel().equals(names[1])) {
-                    return ConvertionHelper.convert(table);
+                    return table;
                 }
             }
+        }
+        return null;
+    }
+
+    public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
+        MetadataTable table = getMetadataTableFromRepository(metaRepositoryId);
+        if (table != null) {
+            ConvertionHelper.convert(table);
         }
         return null;
 

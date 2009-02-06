@@ -37,12 +37,6 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         IChangeNotifier, IDisposable {
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public static final String copyright = ""; //$NON-NLS-1$
-
-    /**
      * This keeps track of the root adapter factory that delegates to this adapter factory.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -205,6 +199,28 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         }
 
         return databaseMetadataItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.SapFunctionMetadata} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SapFunctionMetadataItemProvider sapFunctionMetadataItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.SapFunctionMetadata}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createSapFunctionMetadataAdapter() {
+        if (sapFunctionMetadataItemProvider == null) {
+            sapFunctionMetadataItemProvider = new SapFunctionMetadataItemProvider(this);
+        }
+
+        return sapFunctionMetadataItemProvider;
     }
 
     /**
@@ -626,6 +642,50 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Query} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected QueryItemProvider queryItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Query}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createQueryAdapter() {
+        if (queryItemProvider == null) {
+            queryItemProvider = new QueryItemProvider(this);
+        }
+
+        return queryItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Joblet} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected JobletItemProvider jobletItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Joblet}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createJobletAdapter() {
+        if (jobletItemProvider == null) {
+            jobletItemProvider = new JobletItemProvider(this);
+        }
+
+        return jobletItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Context} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -667,6 +727,28 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         }
 
         return fileXmlMetadataItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.FileExcelMetadata} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected FileExcelMetadataItemProvider fileExcelMetadataItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.FileExcelMetadata}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createFileExcelMetadataAdapter() {
+        if (fileExcelMetadataItemProvider == null) {
+            fileExcelMetadataItemProvider = new FileExcelMetadataItemProvider(this);
+        }
+
+        return fileExcelMetadataItemProvider;
     }
 
     /**
@@ -808,11 +890,13 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (routineItemProvider != null) routineItemProvider.dispose();
         if (documentationItemProvider != null) documentationItemProvider.dispose();
         if (databaseMetadataItemProvider != null) databaseMetadataItemProvider.dispose();
+        if (sapFunctionMetadataItemProvider != null) sapFunctionMetadataItemProvider.dispose();
         if (tableMetadataItemProvider != null) tableMetadataItemProvider.dispose();
         if (fileDelimitedMetadataItemProvider != null) fileDelimitedMetadataItemProvider.dispose();
         if (filePositionalMetadataItemProvider != null) filePositionalMetadataItemProvider.dispose();
         if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
         if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
+        if (fileExcelMetadataItemProvider != null) fileExcelMetadataItemProvider.dispose();
         if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
         if (genericSchemaMetadataItemProvider != null) genericSchemaMetadataItemProvider.dispose();
         if (contextItemProvider != null) contextItemProvider.dispose();
@@ -831,6 +915,8 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (actorBusinessItemItemProvider != null) actorBusinessItemItemProvider.dispose();
         if (ellipseBusinessItemItemProvider != null) ellipseBusinessItemItemProvider.dispose();
         if (gearBusinessItemItemProvider != null) gearBusinessItemItemProvider.dispose();
+        if (queryItemProvider != null) queryItemProvider.dispose();
+        if (jobletItemProvider != null) jobletItemProvider.dispose();
     }
 
 }

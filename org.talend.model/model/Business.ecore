@@ -84,4 +84,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="ActorBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="EllipseBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="GearBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Query" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Joblet" eSuperTypes="#//TalendItem"/>
 </ecore:EPackage>

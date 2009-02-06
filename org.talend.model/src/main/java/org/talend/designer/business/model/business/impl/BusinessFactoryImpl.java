@@ -36,7 +36,9 @@ import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
+import org.talend.designer.business.model.business.Joblet;
 import org.talend.designer.business.model.business.ListBusinessItem;
+import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
@@ -74,364 +76,386 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     }
 
     /**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public BusinessFactoryImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EObject create(EClass eClass) {
-		switch (eClass.getClassifierID()) {
-			case BusinessPackage.REPOSITORY: return createRepository();
-			case BusinessPackage.BUSINESS_PROCESS: return createBusinessProcess();
-			case BusinessPackage.PROCESS: return createProcess();
-			case BusinessPackage.ROUTINE: return createRoutine();
-			case BusinessPackage.DOCUMENTATION: return createDocumentation();
-			case BusinessPackage.DATABASE_METADATA: return createDatabaseMetadata();
-			case BusinessPackage.SAP_FUNCTION_METADATA: return createSapFunctionMetadata();
-			case BusinessPackage.TABLE_METADATA: return createTableMetadata();
-			case BusinessPackage.FILE_DELIMITED_METADATA: return createFileDelimitedMetadata();
-			case BusinessPackage.FILE_POSITIONAL_METADATA: return createFilePositionalMetadata();
-			case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
-			case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
-			case BusinessPackage.FILE_EXCEL_METADATA: return createFileExcelMetadata();
-			case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
-			case BusinessPackage.GENERIC_SCHEMA_METADATA: return createGenericSchemaMetadata();
-			case BusinessPackage.CONTEXT: return createContext();
-			case BusinessPackage.BUSINESS_ASSIGNMENT: return createBusinessAssignment();
-			case BusinessPackage.BUSINESS_ITEM_RELATIONSHIP: return createBusinessItemRelationship();
-			case BusinessPackage.DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createDirectionalBusinessItemRelationship();
-			case BusinessPackage.BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createBidirectionalBusinessItemRelationship();
-			case BusinessPackage.DECISION_BUSINESS_ITEM: return createDecisionBusinessItem();
-			case BusinessPackage.ACTION_BUSINESS_ITEM: return createActionBusinessItem();
-			case BusinessPackage.TERMINAL_BUSINESS_ITEM: return createTerminalBusinessItem();
-			case BusinessPackage.DATA_BUSINESS_ITEM: return createDataBusinessItem();
-			case BusinessPackage.DOCUMENT_BUSINESS_ITEM: return createDocumentBusinessItem();
-			case BusinessPackage.INPUT_BUSINESS_ITEM: return createInputBusinessItem();
-			case BusinessPackage.LIST_BUSINESS_ITEM: return createListBusinessItem();
-			case BusinessPackage.DATABASE_BUSINESS_ITEM: return createDatabaseBusinessItem();
-			case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
-			case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
-			case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+        switch (eClass.getClassifierID()) {
+            case BusinessPackage.REPOSITORY: return createRepository();
+            case BusinessPackage.BUSINESS_PROCESS: return createBusinessProcess();
+            case BusinessPackage.PROCESS: return createProcess();
+            case BusinessPackage.ROUTINE: return createRoutine();
+            case BusinessPackage.DOCUMENTATION: return createDocumentation();
+            case BusinessPackage.DATABASE_METADATA: return createDatabaseMetadata();
+            case BusinessPackage.SAP_FUNCTION_METADATA: return createSapFunctionMetadata();
+            case BusinessPackage.TABLE_METADATA: return createTableMetadata();
+            case BusinessPackage.FILE_DELIMITED_METADATA: return createFileDelimitedMetadata();
+            case BusinessPackage.FILE_POSITIONAL_METADATA: return createFilePositionalMetadata();
+            case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
+            case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
+            case BusinessPackage.FILE_EXCEL_METADATA: return createFileExcelMetadata();
+            case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
+            case BusinessPackage.GENERIC_SCHEMA_METADATA: return createGenericSchemaMetadata();
+            case BusinessPackage.CONTEXT: return createContext();
+            case BusinessPackage.BUSINESS_ASSIGNMENT: return createBusinessAssignment();
+            case BusinessPackage.BUSINESS_ITEM_RELATIONSHIP: return createBusinessItemRelationship();
+            case BusinessPackage.DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createDirectionalBusinessItemRelationship();
+            case BusinessPackage.BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createBidirectionalBusinessItemRelationship();
+            case BusinessPackage.DECISION_BUSINESS_ITEM: return createDecisionBusinessItem();
+            case BusinessPackage.ACTION_BUSINESS_ITEM: return createActionBusinessItem();
+            case BusinessPackage.TERMINAL_BUSINESS_ITEM: return createTerminalBusinessItem();
+            case BusinessPackage.DATA_BUSINESS_ITEM: return createDataBusinessItem();
+            case BusinessPackage.DOCUMENT_BUSINESS_ITEM: return createDocumentBusinessItem();
+            case BusinessPackage.INPUT_BUSINESS_ITEM: return createInputBusinessItem();
+            case BusinessPackage.LIST_BUSINESS_ITEM: return createListBusinessItem();
+            case BusinessPackage.DATABASE_BUSINESS_ITEM: return createDatabaseBusinessItem();
+            case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
+            case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
+            case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
+            case BusinessPackage.QUERY: return createQuery();
+            case BusinessPackage.JOBLET: return createJoblet();
+            default:
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        }
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public Repository createRepository() {
-		RepositoryImpl repository = new RepositoryImpl();
-		return repository;
-	}
+        RepositoryImpl repository = new RepositoryImpl();
+        return repository;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public BusinessProcess createBusinessProcess() {
-		BusinessProcessImpl businessProcess = new BusinessProcessImpl();
-		return businessProcess;
-	}
+        BusinessProcessImpl businessProcess = new BusinessProcessImpl();
+        return businessProcess;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public org.talend.designer.business.model.business.Process createProcess() {
-		ProcessImpl process = new ProcessImpl();
-		return process;
-	}
+        ProcessImpl process = new ProcessImpl();
+        return process;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public Routine createRoutine() {
-		RoutineImpl routine = new RoutineImpl();
-		return routine;
-	}
+        RoutineImpl routine = new RoutineImpl();
+        return routine;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public Documentation createDocumentation() {
-		DocumentationImpl documentation = new DocumentationImpl();
-		return documentation;
-	}
+        DocumentationImpl documentation = new DocumentationImpl();
+        return documentation;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public DatabaseMetadata createDatabaseMetadata() {
-		DatabaseMetadataImpl databaseMetadata = new DatabaseMetadataImpl();
-		return databaseMetadata;
-	}
+        DatabaseMetadataImpl databaseMetadata = new DatabaseMetadataImpl();
+        return databaseMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public SapFunctionMetadata createSapFunctionMetadata() {
-		SapFunctionMetadataImpl sapFunctionMetadata = new SapFunctionMetadataImpl();
-		return sapFunctionMetadata;
-	}
+        SapFunctionMetadataImpl sapFunctionMetadata = new SapFunctionMetadataImpl();
+        return sapFunctionMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public TableMetadata createTableMetadata() {
-		TableMetadataImpl tableMetadata = new TableMetadataImpl();
-		return tableMetadata;
-	}
+        TableMetadataImpl tableMetadata = new TableMetadataImpl();
+        return tableMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FileDelimitedMetadata createFileDelimitedMetadata() {
-		FileDelimitedMetadataImpl fileDelimitedMetadata = new FileDelimitedMetadataImpl();
-		return fileDelimitedMetadata;
-	}
+        FileDelimitedMetadataImpl fileDelimitedMetadata = new FileDelimitedMetadataImpl();
+        return fileDelimitedMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FilePositionalMetadata createFilePositionalMetadata() {
-		FilePositionalMetadataImpl filePositionalMetadata = new FilePositionalMetadataImpl();
-		return filePositionalMetadata;
-	}
+        FilePositionalMetadataImpl filePositionalMetadata = new FilePositionalMetadataImpl();
+        return filePositionalMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public BusinessAssignment createBusinessAssignment() {
-		BusinessAssignmentImpl businessAssignment = new BusinessAssignmentImpl();
-		return businessAssignment;
-	}
+        BusinessAssignmentImpl businessAssignment = new BusinessAssignmentImpl();
+        return businessAssignment;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public BusinessItemRelationship createBusinessItemRelationship() {
-		BusinessItemRelationshipImpl businessItemRelationship = new BusinessItemRelationshipImpl();
-		return businessItemRelationship;
-	}
+        BusinessItemRelationshipImpl businessItemRelationship = new BusinessItemRelationshipImpl();
+        return businessItemRelationship;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public DirectionalBusinessItemRelationship createDirectionalBusinessItemRelationship() {
-		DirectionalBusinessItemRelationshipImpl directionalBusinessItemRelationship = new DirectionalBusinessItemRelationshipImpl();
-		return directionalBusinessItemRelationship;
-	}
+        DirectionalBusinessItemRelationshipImpl directionalBusinessItemRelationship = new DirectionalBusinessItemRelationshipImpl();
+        return directionalBusinessItemRelationship;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public BidirectionalBusinessItemRelationship createBidirectionalBusinessItemRelationship() {
-		BidirectionalBusinessItemRelationshipImpl bidirectionalBusinessItemRelationship = new BidirectionalBusinessItemRelationshipImpl();
-		return bidirectionalBusinessItemRelationship;
-	}
+        BidirectionalBusinessItemRelationshipImpl bidirectionalBusinessItemRelationship = new BidirectionalBusinessItemRelationshipImpl();
+        return bidirectionalBusinessItemRelationship;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public DecisionBusinessItem createDecisionBusinessItem() {
-		DecisionBusinessItemImpl decisionBusinessItem = new DecisionBusinessItemImpl();
-		return decisionBusinessItem;
-	}
+        DecisionBusinessItemImpl decisionBusinessItem = new DecisionBusinessItemImpl();
+        return decisionBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public ActionBusinessItem createActionBusinessItem() {
-		ActionBusinessItemImpl actionBusinessItem = new ActionBusinessItemImpl();
-		return actionBusinessItem;
-	}
+        ActionBusinessItemImpl actionBusinessItem = new ActionBusinessItemImpl();
+        return actionBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public TerminalBusinessItem createTerminalBusinessItem() {
-		TerminalBusinessItemImpl terminalBusinessItem = new TerminalBusinessItemImpl();
-		return terminalBusinessItem;
-	}
+        TerminalBusinessItemImpl terminalBusinessItem = new TerminalBusinessItemImpl();
+        return terminalBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public DataBusinessItem createDataBusinessItem() {
-		DataBusinessItemImpl dataBusinessItem = new DataBusinessItemImpl();
-		return dataBusinessItem;
-	}
+        DataBusinessItemImpl dataBusinessItem = new DataBusinessItemImpl();
+        return dataBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public DocumentBusinessItem createDocumentBusinessItem() {
-		DocumentBusinessItemImpl documentBusinessItem = new DocumentBusinessItemImpl();
-		return documentBusinessItem;
-	}
+        DocumentBusinessItemImpl documentBusinessItem = new DocumentBusinessItemImpl();
+        return documentBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public InputBusinessItem createInputBusinessItem() {
-		InputBusinessItemImpl inputBusinessItem = new InputBusinessItemImpl();
-		return inputBusinessItem;
-	}
+        InputBusinessItemImpl inputBusinessItem = new InputBusinessItemImpl();
+        return inputBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public ListBusinessItem createListBusinessItem() {
-		ListBusinessItemImpl listBusinessItem = new ListBusinessItemImpl();
-		return listBusinessItem;
-	}
+        ListBusinessItemImpl listBusinessItem = new ListBusinessItemImpl();
+        return listBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public DatabaseBusinessItem createDatabaseBusinessItem() {
-		DatabaseBusinessItemImpl databaseBusinessItem = new DatabaseBusinessItemImpl();
-		return databaseBusinessItem;
-	}
+        DatabaseBusinessItemImpl databaseBusinessItem = new DatabaseBusinessItemImpl();
+        return databaseBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FileRegexpMetadata createFileRegexpMetadata() {
-		FileRegexpMetadataImpl fileRegexpMetadata = new FileRegexpMetadataImpl();
-		return fileRegexpMetadata;
-	}
+        FileRegexpMetadataImpl fileRegexpMetadata = new FileRegexpMetadataImpl();
+        return fileRegexpMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public ActorBusinessItem createActorBusinessItem() {
-		ActorBusinessItemImpl actorBusinessItem = new ActorBusinessItemImpl();
-		return actorBusinessItem;
-	}
+        ActorBusinessItemImpl actorBusinessItem = new ActorBusinessItemImpl();
+        return actorBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public EllipseBusinessItem createEllipseBusinessItem() {
-		EllipseBusinessItemImpl ellipseBusinessItem = new EllipseBusinessItemImpl();
-		return ellipseBusinessItem;
-	}
+        EllipseBusinessItemImpl ellipseBusinessItem = new EllipseBusinessItemImpl();
+        return ellipseBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public GearBusinessItem createGearBusinessItem() {
-		GearBusinessItemImpl gearBusinessItem = new GearBusinessItemImpl();
-		return gearBusinessItem;
-	}
+        GearBusinessItemImpl gearBusinessItem = new GearBusinessItemImpl();
+        return gearBusinessItem;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
+    public Query createQuery() {
+        QueryImpl query = new QueryImpl();
+        return query;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Joblet createJoblet() {
+        JobletImpl joblet = new JobletImpl();
+        return joblet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Context createContext() {
-		ContextImpl context = new ContextImpl();
-		return context;
-	}
+        ContextImpl context = new ContextImpl();
+        return context;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FileXmlMetadata createFileXmlMetadata() {
-		FileXmlMetadataImpl fileXmlMetadata = new FileXmlMetadataImpl();
-		return fileXmlMetadata;
-	}
+        FileXmlMetadataImpl fileXmlMetadata = new FileXmlMetadataImpl();
+        return fileXmlMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FileExcelMetadata createFileExcelMetadata() {
-		FileExcelMetadataImpl fileExcelMetadata = new FileExcelMetadataImpl();
-		return fileExcelMetadata;
-	}
+        FileExcelMetadataImpl fileExcelMetadata = new FileExcelMetadataImpl();
+        return fileExcelMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public FileLdifMetadata createFileLdifMetadata() {
-		FileLdifMetadataImpl fileLdifMetadata = new FileLdifMetadataImpl();
-		return fileLdifMetadata;
-	}
+        FileLdifMetadataImpl fileLdifMetadata = new FileLdifMetadataImpl();
+        return fileLdifMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
     public GenericSchemaMetadata createGenericSchemaMetadata() {
-		GenericSchemaMetadataImpl genericSchemaMetadata = new GenericSchemaMetadataImpl();
-		return genericSchemaMetadata;
-	}
+        GenericSchemaMetadataImpl genericSchemaMetadata = new GenericSchemaMetadataImpl();
+        return genericSchemaMetadata;
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public BusinessPackage getBusinessPackage() {
-		return (BusinessPackage)getEPackage();
-	}
+        return (BusinessPackage)getEPackage();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @deprecated
+     * @generated
+     */
     public static BusinessPackage getPackage() {
-		return BusinessPackage.eINSTANCE;
-	}
+        return BusinessPackage.eINSTANCE;
+    }
 
 } // BusinessFactoryImpl

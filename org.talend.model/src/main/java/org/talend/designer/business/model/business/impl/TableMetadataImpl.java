@@ -26,19 +26,19 @@ public class TableMetadataImpl extends TalendItemImpl implements TableMetadata {
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected TableMetadataImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return BusinessPackage.Literals.TABLE_METADATA;
-	}
+        return BusinessPackage.Literals.TABLE_METADATA;
+    }
 
 } // TableMetadataImpl

@@ -26,19 +26,19 @@ public class DocumentationImpl extends TalendItemImpl implements Documentation {
     public static final String copyright = ""; //$NON-NLS-1$
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected DocumentationImpl() {
-		super();
-	}
+        super();
+    }
 
     /**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     protected EClass eStaticClass() {
-		return BusinessPackage.Literals.DOCUMENTATION;
-	}
+        return BusinessPackage.Literals.DOCUMENTATION;
+    }
 
 } // DocumentationImpl

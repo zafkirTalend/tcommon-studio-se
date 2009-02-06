@@ -10,20 +10,22 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.talend.designer.business.model.business.ListBusinessItem;
+import org.talend.designer.business.model.business.Query;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.talend.core.ui.images.ECoreImage;
 
 /**
- * This is the item provider adapter for a {@link org.talend.designer.business.model.business.ListBusinessItem} object.
- * <!-- begin-user-doc --> <!-- end-user-doc -->
+ * This is the item provider adapter for a {@link org.talend.designer.business.model.business.Query} object. <!--
+ * begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @generated
  */
-public class ListBusinessItemItemProvider extends BusinessItemShapeItemProvider implements IEditingDomainItemProvider,
+public class QueryItemProvider extends TalendItemItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -31,7 +33,7 @@ public class ListBusinessItemItemProvider extends BusinessItemShapeItemProvider 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public ListBusinessItemItemProvider(AdapterFactory adapterFactory) {
+    public QueryItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -49,24 +51,21 @@ public class ListBusinessItemItemProvider extends BusinessItemShapeItemProvider 
     }
 
     /**
-     * This returns ListBusinessItem.gif.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This returns Query.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated NOT
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/ListBusinessItem")); //$NON-NLS-1$
+        return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.METADATA_QUERY_ICON.getPath()).createImage();
     }
 
     /**
-     * This returns the label text for the adapted class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated NOT
      */
     public String getText(Object object) {
-        String label = ((ListBusinessItem)object).getName();
-        return label == null || label.length() == 0 ?
-            getString("_UI_ListBusinessItem_type") : //$NON-NLS-1$
-            getString("_UI_ListBusinessItem_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+        return super.getText(object);
     }
 
     /**
