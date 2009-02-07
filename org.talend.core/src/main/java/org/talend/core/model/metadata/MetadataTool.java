@@ -222,7 +222,7 @@ public class MetadataTool {
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
         MetadataTable table = getMetadataTableFromRepository(metaRepositoryId);
         if (table != null) {
-            ConvertionHelper.convert(table);
+            return ConvertionHelper.convert(table);
         }
         return null;
 
