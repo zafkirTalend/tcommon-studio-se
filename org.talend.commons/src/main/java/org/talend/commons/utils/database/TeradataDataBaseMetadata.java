@@ -22,7 +22,7 @@ import java.util.List;
 import org.talend.fakejdbc.FakeDatabaseMetaData;
 
 /**
- * DOC bqian class global comment. Detailled comment
+ * DOC gcui TeradataDataBaseMetadata.
  */
 public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
 
@@ -125,10 +125,9 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("NAME"); //$NON-NLS-1$
-                String creator = rs.getString("CREATOR"); //$NON-NLS-1$
-                String type = rs.getString("TYPE"); //$NON-NLS-1$
-                // String dbname = rs.getString("DBNAME");
+                String name = rs.getString("TableName"); //$NON-NLS-1$
+                String creator = rs.getString("CreatorName"); //$NON-NLS-1$
+                String type = rs.getString("tablekind"); //$NON-NLS-1$
 
                 String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
@@ -191,16 +190,16 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
 
-                String tableName = rs.getString("TBNAME"); //$NON-NLS-1$
-                String columnName = rs.getString("NAME"); //$NON-NLS-1$
-                String typeName = rs.getString("COLTYPES"); //$NON-NLS-1$
-                String columnSize = rs.getString("LENGTH"); //$NON-NLS-1$
-                String decimalDigits = rs.getString("SCALE"); //$NON-NLS-1$
+                String tableName = rs.getString("TableName"); //$NON-NLS-1$
+                String columnName = rs.getString("ColumnName"); //$NON-NLS-1$
+                String typeName = rs.getString("ColumnType"); //$NON-NLS-1$
+                String columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
+                String decimalDigits = rs.getString("DecimalFractio"); //$NON-NLS-1$
                 String isNullable;
-                if (rs.getString("NULLS").equals("Y")) {
+                if (rs.getString("Nullable").equals("Y")) {
                     isNullable = "YES";
                 } else {
-                    isNullable = rs.getString("NULLS"); //$NON-NLS-1$
+                    isNullable = rs.getString("Nullable"); //$NON-NLS-1$
                 }
                 String remarks = ""; //$NON-NLS-1$
                 String columnDef = ""; //$NON-NLS-1$

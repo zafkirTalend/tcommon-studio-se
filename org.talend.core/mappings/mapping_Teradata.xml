@@ -9,6 +9,23 @@
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="FLOAT" ignorePre="true" />
+			<dbType type="I" ignoreLen="true" ignorePre="true" />
+			<dbType type="AT" ignoreLen="true" ignorePre="true" />
+			<dbType type="BF" ignoreLen="true" ignorePre="true" />
+			<dbType type="BO" ignoreLen="true" ignorePre="true" />
+			<dbType type="BV" ignoreLen="true" ignorePre="true" />
+			<dbType type="CF" ignoreLen="true" ignorePre="true" />
+			<dbType type="CO" ignoreLen="true" ignorePre="true" />
+			<dbType type="CV" ignoreLen="true" ignorePre="true" />
+			<dbType type="D" ignoreLen="true" ignorePre="true" />
+			<dbType type="DA" ignoreLen="true" ignorePre="true" />
+			<dbType type="F" ignoreLen="true" ignorePre="true" />
+			<dbType type="GF" ignoreLen="true" ignorePre="true" />
+			<dbType type="GV" ignoreLen="true" ignorePre="true" />
+			<dbType type="I1" ignoreLen="true" ignorePre="true" />
+			<dbType type="I2" ignoreLen="true" ignorePre="true" />
+			<dbType type="TS" ignoreLen="true" ignorePre="true" />
+			<dbType type="TZ" ignoreLen="true" ignorePre="true" />
 			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
 			<dbType type="LONG" ignoreLen="true" ignorePre="true" />
 			<dbType type="LONG RAW" ignoreLen="true" ignorePre="true" />
@@ -29,22 +46,26 @@
 					
 				</talendType>
 				<talendType type="id_Byte">
-					
+					<dbType type="BF" default="true"/>
 				</talendType>
 				<talendType type="id_byte[]">
+					<dbType type="BF" default="true"/>
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true"/>
 					<dbType type="VARCHAR"/>
 					<dbType type="NCHAR"/>
 					<dbType type="VARCHAR"/>
+					<dbType type="CV"/>
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true" />
+					<dbType type="DA" default="true" />
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="DECIMAL" default="true" />
 					<dbType type="FLOAT" />
+					<dbType type="D"/>
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DECIMAL" default="true" />
@@ -53,9 +74,11 @@
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
 					<dbType type="DECIMAL"/>
+					<dbType type="F"  />
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="INTEGER" default="true" />
+					<dbType type="I" default="true" />
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="INTEGER" default="true" />
@@ -70,6 +93,17 @@
 					<dbType type="RAW"/>
 					<dbType type="LONG RAW"/>
 					<dbType type="ROWID"/>
+					<dbType type="AT"/>
+					<dbType type="BF"/>
+					<dbType type="BO"/>
+					<dbType type="BV"/>
+					<dbType type="CO"/>
+					<dbType type="I1"/>
+					<dbType type="I2"/>
+					<dbType type="TS"/>
+					<dbType type="TZ"/>
+					<dbType type="GF"/>
+					<dbType type="GV"/>
 				</talendType>
 				<talendType type="id_Short">
 					<dbType type="INTEGER" default="true" />
@@ -78,7 +112,8 @@
 					<dbType type="VARCHAR" default="true" />
 					<dbType type="NCHAR" />
 					<dbType type="VARCHAR"/>	
-					<dbType type="CHAR" />		
+					<dbType type="CHAR" />
+					<dbType type="CF"  />		
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
@@ -97,6 +132,9 @@
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />
 				</dbType>
+				<dbType type="AT">
+					<talendType type="id_Object" default="true" />
+				</dbType>
 				<dbType type="DECIMAL">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>
@@ -106,6 +144,65 @@
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>				
 					<talendType type="id_BigDecimal"/>				
+				</dbType>
+				<dbType type="I">
+					<talendType type="id_Long"/>
+					<talendType type="id_Integer" default="true"/>
+					<talendType type="id_Short"/>
+					<talendType type="id_Float" />
+					<talendType type="id_Double"/>
+				</dbType>
+				<dbType type="BF">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BO">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BV">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="CF">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="CO">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="CV">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="D">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>
+					<talendType type="id_BigDecimal"/>	
+				</dbType>
+				<dbType type="DA">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="F">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>				
+					<talendType type="id_BigDecimal"/>	
+				</dbType>
+				<dbType type="GF">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BF">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="GV">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="I1">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="I2">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="TS">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="TZ">
+					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="id_Long"/>
