@@ -117,7 +117,7 @@ public class ExtractMetaDataUtils {
 
     private static DatabaseMetaData createTeradataFakeDatabaseMetaData(Connection conn) {
         TeradataDataBaseMetadata tmd = new TeradataDataBaseMetadata(conn);
-        return null;
+        return tmd;
     }
 
     /**
