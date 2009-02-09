@@ -57,8 +57,7 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
      * org.eclipse.core.runtime.IProgressMonitor, org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext)
      */
     @Override
-    protected List filterAndSortProposals(List proposals, IProgressMonitor monitor,
-            ContentAssistInvocationContext context) {
+    protected List filterAndSortProposals(List proposals, IProgressMonitor monitor, ContentAssistInvocationContext context) {
         List newProposals = super.filterAndSortProposals(proposals, monitor, context);
 
         List toRemove = new ArrayList();
@@ -67,10 +66,15 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
             boolean globalFieldsDone = false;
             for (Object o : newProposals) {
                 ICompletionProposal proposal = (ICompletionProposal) o;
-
+                String longna = proposal.getDisplayString();
+                int indexna = longna.indexOf("-");
+                if (indexna > 0) {
+                    if (longna.substring(indexna + 2, longna.length()).equals(TalendJavaSourceViewer.getClassName())) {
+                        toRemove.add(proposal);
+                    }
+                }
                 if (proposal instanceof JavaCompletionProposal) {
                     JavaCompletionProposal javaProposal = ((JavaCompletionProposal) proposal);
-
                     if (javaProposal.getJavaElement() instanceof SourceField) {
                         globalFieldsDone = true;
                     }
@@ -112,7 +116,8 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor#createContext(org.eclipse.jface.text.ITextViewer,
+     * @see
+     * org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor#createContext(org.eclipse.jface.text.ITextViewer,
      * int)
      */
     @Override
@@ -294,8 +299,9 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jdt.internal.ui.text.java.ContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer,
-     * int)
+     * @see
+     * org.eclipse.jdt.internal.ui.text.java.ContentAssistProcessor#computeContextInformation(org.eclipse.jface.text
+     * .ITextViewer, int)
      */
     @Override
     public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {

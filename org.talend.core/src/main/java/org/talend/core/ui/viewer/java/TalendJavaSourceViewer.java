@@ -85,6 +85,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
     private String filename;
 
+    private static String className;
+
     public static final String VIEWER_CLASS_NAME = "TalendJavaSourceViewer"; //$NON-NLS-1$
 
     private static int currentId = 0;
@@ -140,6 +142,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                 document, null);
 
         IPath packagePath = new Path("/.Java/src/internal"); //$NON-NLS-1$
+        className = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++;
         filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java"; //$NON-NLS-1$
         IPackageFragment packageFragment;
         try {
@@ -528,5 +531,9 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
      */
     public void setCompilationUnit(ICompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
+    }
+
+    public static String getClassName() {
+        return className;
     }
 }
