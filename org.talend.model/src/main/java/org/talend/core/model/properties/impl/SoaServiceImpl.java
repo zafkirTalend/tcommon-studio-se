@@ -41,6 +41,7 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getCreation <em>Creation</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getModification <em>Modification</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getPort <em>Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getStyle <em>Style</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getUsedType <em>Used Type</em>}</li>
@@ -191,6 +192,26 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
      * @ordered
      */
     protected Date modification = MODIFICATION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPort()
+     * @generated
+     * @ordered
+     */
+    protected static final int PORT_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getPort() <em>Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPort()
+     * @generated
+     * @ordered
+     */
+    protected int port = PORT_EDEFAULT;
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -452,6 +473,27 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getPort() {
+        return port;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPort(int newPort) {
+        int oldPort = port;
+        port = newPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_SERVICE__PORT, oldPort, port));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getType() {
         return type;
     }
@@ -577,6 +619,8 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
                 return getCreation();
             case PropertiesPackage.SOA_SERVICE__MODIFICATION:
                 return getModification();
+            case PropertiesPackage.SOA_SERVICE__PORT:
+                return new Integer(getPort());
             case PropertiesPackage.SOA_SERVICE__TYPE:
                 return getType();
             case PropertiesPackage.SOA_SERVICE__STYLE:
@@ -618,6 +662,9 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
                 return;
             case PropertiesPackage.SOA_SERVICE__MODIFICATION:
                 setModification((Date)newValue);
+                return;
+            case PropertiesPackage.SOA_SERVICE__PORT:
+                setPort(((Integer)newValue).intValue());
                 return;
             case PropertiesPackage.SOA_SERVICE__TYPE:
                 setType((String)newValue);
@@ -667,6 +714,9 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
             case PropertiesPackage.SOA_SERVICE__MODIFICATION:
                 setModification(MODIFICATION_EDEFAULT);
                 return;
+            case PropertiesPackage.SOA_SERVICE__PORT:
+                setPort(PORT_EDEFAULT);
+                return;
             case PropertiesPackage.SOA_SERVICE__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
@@ -707,6 +757,8 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
                 return CREATION_EDEFAULT == null ? creation != null : !CREATION_EDEFAULT.equals(creation);
             case PropertiesPackage.SOA_SERVICE__MODIFICATION:
                 return MODIFICATION_EDEFAULT == null ? modification != null : !MODIFICATION_EDEFAULT.equals(modification);
+            case PropertiesPackage.SOA_SERVICE__PORT:
+                return port != PORT_EDEFAULT;
             case PropertiesPackage.SOA_SERVICE__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
             case PropertiesPackage.SOA_SERVICE__STYLE:
@@ -744,6 +796,8 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
         result.append(creation);
         result.append(", modification: ");
         result.append(modification);
+        result.append(", port: ");
+        result.append(port);
         result.append(", type: ");
         result.append(type);
         result.append(", style: ");

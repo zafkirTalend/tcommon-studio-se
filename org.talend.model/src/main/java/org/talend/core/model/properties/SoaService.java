@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.SoaService#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getCreation <em>Creation</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getModification <em>Modification</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.SoaService#getPort <em>Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getStyle <em>Style</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getUsedType <em>Used Type</em>}</li>
@@ -221,6 +222,32 @@ public interface SoaService extends EObject {
      * @generated
      */
     void setModification(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Port</em>' attribute.
+     * @see #setPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getSoaService_Port()
+     * @model
+     * @generated
+     */
+    int getPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.SoaService#getPort <em>Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Port</em>' attribute.
+     * @see #getPort()
+     * @generated
+     */
+    void setPort(int value);
 
     /**
      * Returns the value of the '<em><b>Type</b></em>' attribute.

@@ -5070,13 +5070,22 @@ public interface PropertiesPackage extends EPackage {
     int SOA_SERVICE__MODIFICATION = 6;
 
     /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_SERVICE__PORT = 7;
+
+    /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SOA_SERVICE__TYPE = 7;
+    int SOA_SERVICE__TYPE = 8;
 
     /**
      * The feature id for the '<em><b>Style</b></em>' attribute.
@@ -5085,7 +5094,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_SERVICE__STYLE = 8;
+    int SOA_SERVICE__STYLE = 9;
 
     /**
      * The feature id for the '<em><b>Used Type</b></em>' attribute.
@@ -5094,7 +5103,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_SERVICE__USED_TYPE = 9;
+    int SOA_SERVICE__USED_TYPE = 10;
 
     /**
      * The feature id for the '<em><b>Param Style</b></em>' attribute.
@@ -5103,7 +5112,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_SERVICE__PARAM_STYLE = 10;
+    int SOA_SERVICE__PARAM_STYLE = 11;
 
     /**
      * The feature id for the '<em><b>Operations</b></em>' containment reference list.
@@ -5112,7 +5121,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_SERVICE__OPERATIONS = 11;
+    int SOA_SERVICE__OPERATIONS = 12;
 
     /**
      * The number of structural features of the '<em>Soa Service</em>' class.
@@ -5121,7 +5130,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_SERVICE_FEATURE_COUNT = 12;
+    int SOA_SERVICE_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
@@ -8549,6 +8558,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSoaService_Modification();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.properties.SoaService#getPort()
+     * @see #getSoaService()
+     * @generated
+     */
+    EAttribute getSoaService_Port();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaService#getType <em>Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -11771,6 +11791,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SOA_SERVICE__MODIFICATION = eINSTANCE.getSoaService_Modification();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_SERVICE__PORT = eINSTANCE.getSoaService_Port();
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' attribute feature.

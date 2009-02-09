@@ -3262,7 +3262,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaService_Type() {
+    public EAttribute getSoaService_Port() {
         return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(7);
     }
 
@@ -3271,7 +3271,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaService_Style() {
+    public EAttribute getSoaService_Type() {
         return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(8);
     }
 
@@ -3280,7 +3280,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaService_UsedType() {
+    public EAttribute getSoaService_Style() {
         return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(9);
     }
 
@@ -3289,7 +3289,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaService_ParamStyle() {
+    public EAttribute getSoaService_UsedType() {
         return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(10);
     }
 
@@ -3298,8 +3298,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getSoaService_ParamStyle() {
+        return (EAttribute)soaServiceEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getSoaService_Operations() {
-        return (EReference)soaServiceEClass.getEStructuralFeatures().get(11);
+        return (EReference)soaServiceEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -4150,6 +4159,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(soaServiceEClass, SOA_SERVICE__DESCRIPTION);
         createEAttribute(soaServiceEClass, SOA_SERVICE__CREATION);
         createEAttribute(soaServiceEClass, SOA_SERVICE__MODIFICATION);
+        createEAttribute(soaServiceEClass, SOA_SERVICE__PORT);
         createEAttribute(soaServiceEClass, SOA_SERVICE__TYPE);
         createEAttribute(soaServiceEClass, SOA_SERVICE__STYLE);
         createEAttribute(soaServiceEClass, SOA_SERVICE__USED_TYPE);
@@ -4654,6 +4664,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getSoaService_Description(), theEcorePackage.getEString(), "description", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaService_Creation(), theEcorePackage.getEDate(), "creation", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaService_Modification(), theEcorePackage.getEDate(), "modification", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaService_Port(), theEcorePackage.getEInt(), "port", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaService_Type(), theEcorePackage.getEString(), "type", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaService_Style(), theEcorePackage.getEString(), "style", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaService_UsedType(), theEcorePackage.getEString(), "usedType", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

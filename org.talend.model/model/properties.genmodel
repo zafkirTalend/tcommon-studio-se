@@ -435,6 +435,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/creation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/modification"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/port"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/style"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/usedType"/>
