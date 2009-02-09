@@ -33,22 +33,15 @@ import org.talend.commons.exception.ExceptionHandler;
 public class ImageUtils {
 
     public enum ICON_SIZE {
-        ICON_32(1024, 32),
-        ICON_16(1000, 16),
+        ICON_32(32),
+        ICON_16(16),
 
         ;
 
-        private int factor;
-
         private int size;
 
-        ICON_SIZE(int factor, int size) {
-            this.factor = factor;
+        ICON_SIZE(int size) {
             this.size = size;
-        }
-
-        public int getFactor() {
-            return this.factor;
         }
 
         public int getSize() {
