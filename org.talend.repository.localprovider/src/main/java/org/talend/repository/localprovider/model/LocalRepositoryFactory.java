@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2009 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -14,7 +14,6 @@ package org.talend.repository.localprovider.model;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,14 +40,17 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
+import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
@@ -83,6 +85,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemUtil;
@@ -94,7 +97,6 @@ import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.URIHelper;
 import org.talend.repository.model.VersionList;
-import org.talend.repository.ui.views.RepositoryLabelProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -1143,13 +1145,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (item.getIcon() != null) {
             itemResource.getContents().add(item.getIcon());
         } else {
-            File image = RepositoryLabelProvider.getDefaultJobletImage();
             item.setIcon(PropertiesFactory.eINSTANCE.createByteArray());
-            try {
-                item.getIcon().setInnerContentFromFile(image);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
+            ImageDescriptor imageDesc = ImageProvider.getImageDesc(ECoreImage.JOBLET_COMPONENT_ICON);
+            item.getIcon().setInnerContent(ImageUtils.saveImageToData(imageDesc));
         }
         return itemResource;
     }
