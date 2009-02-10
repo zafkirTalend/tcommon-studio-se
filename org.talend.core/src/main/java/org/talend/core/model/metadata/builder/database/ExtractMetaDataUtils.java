@@ -191,7 +191,8 @@ public class ExtractMetaDataUtils {
     }
 
     /**
-     * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
+     * Return boolean value, used only to check if one field is nullable or not. If used to something else than nullable
+     * check, take care of the default values returned. Actually returns null if there is any error during the check.
      * 
      * @param ResultSet columns
      * @param String infoType
@@ -206,10 +207,10 @@ public class ExtractMetaDataUtils {
             }
         } catch (SQLException e) {
             // log.error(e.toString());
-            return metaDataInfo;
+            return true;
         } catch (Exception e) {
             // log.error(e.toString());
-            return metaDataInfo;
+            return true;
         }
         return metaDataInfo;
     }
