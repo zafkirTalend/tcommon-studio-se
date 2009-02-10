@@ -13,6 +13,7 @@
 package org.talend.designer.business.diagram.custom;
 
 import org.eclipse.jface.action.IAction;
+import org.eclipse.ui.IEditorReference;
 import org.talend.core.IService;
 
 /**
@@ -25,5 +26,7 @@ import org.talend.core.IService;
 public interface IDiagramModelService extends IService {
 
     public IAction getCreateDiagramAction(boolean isToolbar);
+
+    public void refreshBusinessModel(IEditorReference editors);
 
 }
