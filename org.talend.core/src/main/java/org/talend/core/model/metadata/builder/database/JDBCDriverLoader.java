@@ -33,12 +33,14 @@ public class JDBCDriverLoader {
      * @param password
      * @return
      */
-    public Connection getConnection(String jarPath, String driverClassName, String url, String username, String password)
+    public Connection getConnection(String[] jarPath, String driverClassName, String url, String username, String password)
             throws Exception {
 
         HotClassLoader loader = new HotClassLoader();
 
-        loader.addPath(jarPath);
+        for (int i = 0; i < jarPath.length; i++) {
+            loader.addPath(jarPath[i]);
+        }
 
         DriverShim wapperDriver = null;
 
@@ -69,22 +71,22 @@ public class JDBCDriverLoader {
 
     }
 
-    public static void main(String[] args) {
-        // test IBM DB2
-        String jarPath = "D:\\YeXiaowei\\workrela\\eclipse_3_3\\lib\\java\\db2jcc.jar"; //$NON-NLS-1$
-        String driverClassName = "com.ibm.db2.jcc.DB2Driver"; //$NON-NLS-1$
-        String url = "jdbc:db2://192.168.0.108:50000/talend"; //$NON-NLS-1$
-        String username = "root"; //$NON-NLS-1$
-        String password = "toor"; //$NON-NLS-1$
-
-        JDBCDriverLoader loader = new JDBCDriverLoader();
-        Connection conn;
-        try {
-            conn = loader.getConnection(jarPath, driverClassName, url, username, password);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        // System.out.println(conn.getClass());
-    }
+    // public static void main(String[] args) {
+    // // test IBM DB2
+    //        String jarPath = "D:\\YeXiaowei\\workrela\\eclipse_3_3\\lib\\java\\db2jcc.jar"; //$NON-NLS-1$
+    //        String driverClassName = "com.ibm.db2.jcc.DB2Driver"; //$NON-NLS-1$
+    //        String url = "jdbc:db2://192.168.0.108:50000/talend"; //$NON-NLS-1$
+    //        String username = "root"; //$NON-NLS-1$
+    //        String password = "toor"; //$NON-NLS-1$
+    //
+    // JDBCDriverLoader loader = new JDBCDriverLoader();
+    // Connection conn;
+    // try {
+    // conn = loader.getConnection(String[] jarPath, driverClassName, url, username, password);
+    // } catch (Throwable e) {
+    // e.printStackTrace();
+    // }
+    // // System.out.println(conn.getClass());
+    // }
 
 }

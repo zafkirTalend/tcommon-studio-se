@@ -20,7 +20,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -291,15 +293,20 @@ public class ExtractMetaDataUtils {
      * 
      * DOC YeXiaowei Comment method "isValidJarFile".
      * 
-     * @param driverJarFilePath
+     * @param driverJarPath
      * @return
      */
-    private static boolean isValidJarFile(final String driverJarFilePath) {
-        if (driverJarFilePath == null || driverJarFilePath.equals("")) {
-            return false;
+    private static boolean isValidJarFile(final String[] driverJarPath) {
+        File jarFile = null;
+        for (int i = 0; i < driverJarPath.length; i++) {
+            if (driverJarPath[i] == null || driverJarPath[i].equals("")) {
+                return false;
+            }
+            jarFile = new File(driverJarPath[i]);
+
         }
-        File jarFile = new File(driverJarFilePath);
         return jarFile.exists() && jarFile.isFile();
+
     }
 
     /**
@@ -438,12 +445,16 @@ public class ExtractMetaDataUtils {
         Connection connection;
 
         String driverClassName = driverClassNameArg;
-        String driverJarPath = driverJarPathArg;
+        String[] driverJarPath = null;
         // see feature 4720&4722
         if ((driverJarPath == null || driverJarPath.equals(""))) {
-            String driverName = EDatabaseDriver4Version.getDriver(dbType, dbVersion);
-            if (driverName != null) {
-                driverJarPath = getJavaLibPath() + driverName;
+            List<String> driverNames = EDatabaseDriver4Version.getDrivers(dbType, dbVersion);
+            if (driverNames != null) {
+                List<String> jarPathList = new ArrayList<String>();
+                for (String jarName : driverNames) {
+                    jarPathList.add(getJavaLibPath() + jarName);
+                }
+                driverJarPath = jarPathList.toArray(new String[0]);
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             }
         }
@@ -486,7 +497,7 @@ public class ExtractMetaDataUtils {
      * @return
      */
     private static String getJavaLibPath() {
-        String separator = File.separator;
+        String separator = "/";
         String javaLibPath = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
         return javaLibPath + separator;
     }

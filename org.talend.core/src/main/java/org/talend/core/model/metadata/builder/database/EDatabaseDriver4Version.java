@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
  * 
@@ -31,7 +35,7 @@ public enum EDatabaseDriver4Version {
     INTERBASE("Interbase", null, "interclient.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     SQLITE("SQLite", null, "sqlitejdbc_v037_nested.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     FIREBIRD("FireBird", null, "jaybird-full-2.1.1.jar"), //$NON-NLS-1$ //$NON-NLS-2$
-    TERADATA("Teradata", null, "terajdbc4.jar"), //$NON-NLS-1$ //$NON-NLS-2$
+    TERADATA("Teradata", null, "terajdbc4.jar;tdgssconfig.jar;tdgssjava.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     JAVADB_DERBYCLIENT("JavaDB DerbyClient", null, "derbyclient.jar"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
@@ -96,4 +100,17 @@ public enum EDatabaseDriver4Version {
         return null;
     }
 
+    public static List<String> getDrivers(final String dbType, final String versionName) {
+        return getDrivers(getDriver(dbType, versionName));
+    }
+
+    private static List<String> getDrivers(String driverNames) {
+        if (driverNames != null) {
+            String[] s = driverNames.split(";");
+            if (s != null) {
+                return Arrays.asList(s);
+            }
+        }
+        return Collections.emptyList();
+    }
 }
