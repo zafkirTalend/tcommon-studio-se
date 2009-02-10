@@ -58,4 +58,6 @@ public interface IUpdateManager {
     public List<UpdateResult> getUpdatesNeeded(EUpdateItemType type);
 
     public boolean executeUpdates(List<UpdateResult> results);
+
+    public void retrieveRefInformation();
 }

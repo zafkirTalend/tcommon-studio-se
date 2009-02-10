@@ -81,9 +81,15 @@ public abstract class RepositoryUpdateManager {
 
     private Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
 
+    private boolean onlyOpeningJob = false;
+
     public RepositoryUpdateManager(Object parameter) {
         super();
         this.parameter = parameter;
+    }
+
+    public void setOnlyOpeningJob(boolean onlyOpeningJob) {
+        this.onlyOpeningJob = onlyOpeningJob;
     }
 
     /*
@@ -142,6 +148,7 @@ public abstract class RepositoryUpdateManager {
         return getContextRenamedMap() != null && !getContextRenamedMap().isEmpty();
     }
 
+    @SuppressWarnings("restriction")
     public boolean doWork(boolean show) {
         // check the dialog.
         boolean checked = true;
@@ -193,7 +200,7 @@ public abstract class RepositoryUpdateManager {
             List<UpdateResult> checkedResults = null;
 
             if (parameter == null) { // update all job
-                checkedResults = results;
+                checkedResults = filterSpecialCheckedResult(results);
             } else { // filter
                 checkedResults = filterCheckedResult(results);
             }
@@ -207,6 +214,27 @@ public abstract class RepositoryUpdateManager {
             openNoModificationDialog();
         }
         return false;
+    }
+
+    private List<UpdateResult> filterSpecialCheckedResult(List<UpdateResult> results) {
+        if (results == null) {
+            return null;
+        }
+        List<IProcess> openedProcessList = CorePlugin.getDefault().getDesignerCoreService().getOpenedProcess(getEditors());
+
+        List<UpdateResult> checkedResults = new ArrayList<UpdateResult>();
+        for (UpdateResult result : results) {
+            if (result.getParameter() instanceof JobletProcessItem) {
+                if (result.getJob() instanceof IProcess2) { // only opening job
+                    if (openedProcessList.contains(result.getJob())) {
+                        checkedResults.add(result);
+                    }
+                }
+            } else {
+                checkedResults.add(result); // ignore others
+            }
+        }
+        return checkedResults;
     }
 
     private List<UpdateResult> filterCheckedResult(List<UpdateResult> results) {
@@ -362,62 +390,69 @@ public abstract class RepositoryUpdateManager {
 
         try {
             List<UpdateResult> resultList = new ArrayList<UpdateResult>();
+            int size = openedProcessList.size();
+            List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>();
             //
-            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-            List<IRepositoryObject> processList = factory.getAll(ERepositoryObjectType.PROCESS, true);
-            if (processList == null) {
-                processList = new ArrayList<IRepositoryObject>();
-            }
-            List<IRepositoryObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
-            if (jobletList != null) {
-                processList.addAll(jobletList);
-            }
-            // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
-            boolean checkOnlyLastVersion = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService()
-                    .getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
-            // get all version
-            List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>((int) (processList.size() * 1.1));
-            for (IRepositoryObject repositoryObj : processList) {
-                if (!checkOnlyLastVersion) {
-                    List<IRepositoryObject> allVersion = factory.getAllVersion(repositoryObj.getId());
-                    for (IRepositoryObject object : allVersion) {
-                        if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
-                                && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
-                            allVersionList.add(object);
+            if (!onlyOpeningJob) {
+                IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                List<IRepositoryObject> processList = factory.getAll(ERepositoryObjectType.PROCESS, true);
+                if (processList == null) {
+                    processList = new ArrayList<IRepositoryObject>();
+                }
+                List<IRepositoryObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
+                if (jobletList != null) {
+                    processList.addAll(jobletList);
+                }
+                // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
+                boolean checkOnlyLastVersion = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService()
+                        .getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
+                // get all version
+                allVersionList = new ArrayList<IRepositoryObject>((int) (processList.size() * 1.1));
+                for (IRepositoryObject repositoryObj : processList) {
+                    if (!checkOnlyLastVersion) {
+                        List<IRepositoryObject> allVersion = factory.getAllVersion(repositoryObj.getId());
+                        for (IRepositoryObject object : allVersion) {
+                            if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
+                                    && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
+                                allVersionList.add(object);
+                            }
+                        }
+                    } else {
+                        // assume that repositoryObj is the last version, otherwise we should call
+                        // factory.getLastVersion(repositoryObj.getId());
+                        IRepositoryObject lastVersion = repositoryObj; // factory.getLastVersion(repositoryObj.getId());
+                        ERepositoryStatus status = factory.getStatus(lastVersion);
+                        if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
+                            allVersionList.add(lastVersion);
                         }
                     }
-                } else {
-                    // assume that repositoryObj is the last version, otherwise we should call
-                    // factory.getLastVersion(repositoryObj.getId());
-                    IRepositoryObject lastVersion = repositoryObj; // factory.getLastVersion(repositoryObj.getId());
-                    ERepositoryStatus status = factory.getStatus(lastVersion);
-                    if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
-                        allVersionList.add(lastVersion);
-                    }
+                    size = allVersionList.size() + openedProcessList.size();
                 }
+
             }
             //
-            int size = allVersionList.size() + openedProcessList.size();
             parentMonitor.beginTask(Messages.getString("RepositoryUpdateManager.Check"), size); //$NON-NLS-1$
-            checkMonitorCanceled(parentMonitor);
-            MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
             parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
+            checkMonitorCanceled(parentMonitor);
 
-            for (IRepositoryObject repositoryObj : allVersionList) {
-                checkMonitorCanceled(parentMonitor);
-                Item item = repositoryObj.getProperty().getItem();
-                // avoid the opened job
-                if (isOpenedItem(item, openProcessMap)) {
-                    continue;
+            if (!onlyOpeningJob) {
+                MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
+
+                for (IRepositoryObject repositoryObj : allVersionList) {
+                    checkMonitorCanceled(parentMonitor);
+                    Item item = repositoryObj.getProperty().getItem();
+                    // avoid the opened job
+                    if (isOpenedItem(item, openProcessMap)) {
+                        continue;
+                    }
+                    parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
+                    List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types);
+                    if (updatesNeededFromItems != null) {
+                        resultList.addAll(updatesNeededFromItems);
+                    }
+                    parentMonitor.worked(1);
                 }
-                parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
-                List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types);
-                if (updatesNeededFromItems != null) {
-                    resultList.addAll(updatesNeededFromItems);
-                }
-                parentMonitor.worked(1);
             }
-
             // opened job
             for (IProcess process : openedProcessList) {
                 checkMonitorCanceled(parentMonitor);
@@ -430,12 +465,13 @@ public abstract class RepositoryUpdateManager {
                 parentMonitor.worked(1);
             }
 
-            // Ok, you also need to update the job setting in "create job with template"
-            List<UpdateResult> templateSetUpdate = checkSettingInJobTemplateWizard();
-            if (templateSetUpdate != null) {
-                resultList.addAll(templateSetUpdate);
+            if (!onlyOpeningJob) {
+                // Ok, you also need to update the job setting in "create job with template"
+                List<UpdateResult> templateSetUpdate = checkSettingInJobTemplateWizard();
+                if (templateSetUpdate != null) {
+                    resultList.addAll(templateSetUpdate);
+                }
             }
-
             parentMonitor.done();
             return resultList;
         } catch (PersistenceException e) {
@@ -983,4 +1019,19 @@ public abstract class RepositoryUpdateManager {
         return tables;
     }
 
+    public static boolean updateJoblet(JobletProcessItem item, boolean show) {
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.RELOAD);
+                return types;
+            }
+
+        };
+        repositoryUpdateManager.setOnlyOpeningJob(true);
+
+        return repositoryUpdateManager.doWork(show);
+    }
 }
