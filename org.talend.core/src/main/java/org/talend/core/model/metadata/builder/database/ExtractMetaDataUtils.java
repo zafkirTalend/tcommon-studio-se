@@ -297,15 +297,15 @@ public class ExtractMetaDataUtils {
      * @return
      */
     private static boolean isValidJarFile(final String[] driverJarPath) {
-        File jarFile = null;
+        boolean a = false;
         for (int i = 0; i < driverJarPath.length; i++) {
             if (driverJarPath[i] == null || driverJarPath[i].equals("")) {
-                return false;
+                return a;
             }
-            jarFile = new File(driverJarPath[i]);
-
+            File jarFile = new File(driverJarPath[i]);
+            a = jarFile.exists() && jarFile.isFile();
         }
-        return jarFile.exists() && jarFile.isFile();
+        return a;
 
     }
 
