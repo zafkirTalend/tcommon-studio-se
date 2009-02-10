@@ -34,6 +34,7 @@ public class ImageUtils {
 
     public enum ICON_SIZE {
         ICON_32(32),
+        ICON_24(24),
         ICON_16(16),
 
         ;
@@ -95,8 +96,10 @@ public class ImageUtils {
 
     public static ImageDescriptor scale(ImageDescriptor imageDes, ICON_SIZE size) {
         if (imageDes != null) {
-            ImageData imageData = imageDes.getImageData().scaledTo(size.getSize(), size.getSize());
-            return ImageDescriptor.createFromImageData(imageData);
+            if (!checkSize(imageDes, size)) {
+                ImageData imageData = imageDes.getImageData().scaledTo(size.getSize(), size.getSize());
+                return ImageDescriptor.createFromImageData(imageData);
+            }
         }
         return imageDes;
     }

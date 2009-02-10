@@ -1141,13 +1141,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getJobletProcess());
-
-        if (item.getIcon() != null) {
-            itemResource.getContents().add(item.getIcon());
-        } else {
+        if (item.getIcon() == null) {
             item.setIcon(PropertiesFactory.eINSTANCE.createByteArray());
             ImageDescriptor imageDesc = ImageProvider.getImageDesc(ECoreImage.JOBLET_COMPONENT_ICON);
             item.getIcon().setInnerContent(ImageUtils.saveImageToData(imageDesc));
+        }
+        if (item.getIcon() != null) {
+            itemResource.getContents().add(item.getIcon());
         }
         return itemResource;
     }
