@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
+import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 
 /**
@@ -53,5 +55,24 @@ public class ProviderManager extends ResourcesManager {
             }
         }
         return true;
+    }
+
+    public void closeResource() {
+        if (provider instanceof ZipLeveledStructureProvider) {
+            ((ZipLeveledStructureProvider) provider).closeArchive();
+        }
+
+        if (provider instanceof TarLeveledStructureProvider) {
+            ((TarLeveledStructureProvider) provider).closeArchive();
+        }
+    }
+
+    /**
+     * Getter for provider.
+     * 
+     * @return the provider
+     */
+    public IImportStructureProvider getProvider() {
+        return this.provider;
     }
 }

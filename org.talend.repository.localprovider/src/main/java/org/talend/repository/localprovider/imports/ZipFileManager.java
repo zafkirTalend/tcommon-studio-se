@@ -19,6 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 
 /**
  */
@@ -42,4 +43,27 @@ public class ZipFileManager extends ResourcesManager {
         }
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.localprovider.imports.ResourcesManager#getProvider()
+     */
+    @Override
+    public IImportStructureProvider getProvider() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.localprovider.imports.ResourcesManager#closeResource()
+     */
+    @Override
+    public void closeResource() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

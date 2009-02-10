@@ -815,6 +815,9 @@ class ImportItemWizardPage extends WizardPage {
         } catch (InterruptedException e) {
             //
         }
+        ResourcesManager curManager = (ResourcesManager) this.manager;
+        if (curManager instanceof ProviderManager)
+            curManager.closeResource();
         return true;
     }
 

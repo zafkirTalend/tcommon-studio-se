@@ -20,6 +20,7 @@ import java.io.InputStream;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage;
+import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 
 /**
  */
@@ -51,5 +52,27 @@ public class FilesManager extends ResourcesManager {
             }
         }
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.localprovider.imports.ResourcesManager#getProvider()
+     */
+    @Override
+    public IImportStructureProvider getProvider() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.localprovider.imports.ResourcesManager#closeResource()
+     */
+    @Override
+    public void closeResource() {
+        // TODO Auto-generated method stub
+
     }
 }

@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 
 /**
  */
@@ -39,4 +40,7 @@ public abstract class ResourcesManager {
 
     public abstract boolean collectPath2Object(Object root);
 
+    public abstract IImportStructureProvider getProvider();
+
+    public abstract void closeResource();
 }
