@@ -424,7 +424,7 @@ public class ProcessorUtilities {
          */
 
         if (isMainJob) {
-            progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild")); //$NON-NLS-1$
+            progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
             getProcessor(currentProcess).computeLibrariesPath(true);
             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                 try {
@@ -544,6 +544,8 @@ public class ProcessorUtilities {
         IProgressMonitor monitor = null;
         if (monitors == null) {
             monitor = new NullProgressMonitor();
+        } else {
+            monitor = monitors[0];
         }
         JobInfo jobInfo = new JobInfo(process, contextName, version);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
