@@ -4,7 +4,7 @@
 		default="true">
 		<dbTypes>
 			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
-			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" ignoreLen="true" ignorePre="true" />
 			<dbType type="COUNTER"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
@@ -24,7 +24,8 @@
 			<talendToDbTypes><!-- Adviced mappings  -->
 				<talendType type="id_List"/>
 				<talendType type="id_Boolean">	
-					<dbType type="BOOLEAN" default="true" />				
+					<dbType type="CHAR" default="true" />
+					<dbType type="INTEGER"  />					
 				</talendType>
 				<talendType type="id_Byte">
 					<dbType type="TINYINT" default="true" />
@@ -90,8 +91,10 @@
 				<dbType type="BIT">
 					<talendType type="id_Boolean" default="true" />
 				</dbType>
-				<dbType type="BOOLEAN">
+				<dbType type="CHAR">
 					<talendType type="id_Boolean" default="true" />
+					<talendType type="id_Integer" />
+					<talendType type="id_Char" />
 				</dbType>
 				<dbType type="COUNTER">
 					<talendType type="id_Integer" default="true"/>
@@ -152,8 +155,9 @@
 					<talendType type="id_String" default="true" />
 				</dbType>
 			</dbToTalendTypes>
-		</language>
-		<language name="perl">
+		</language>4
+		
+		<language name="perl">-*41
 			<talendToDbTypes>
 				<talendType type="int">	
 					<dbType type="INTEGER" default="true" />	
@@ -168,7 +172,8 @@
 					<dbType type="NUMERIC"/>
 				</talendType>
 				<talendType type="boolean">
-					<dbType type="BOOLEAN" default="true" />	
+					<dbType type="CHAR" default="true" />
+					<dbType type="INT"  />	
 					<dbType type="BIT"/>	
 				</talendType>
 				<talendType type="string">
@@ -189,8 +194,10 @@
 				<dbType type="BIT">
 					<talendType type="boolean" default="true"/>
 				</dbType>
-				<dbType type="BOOLEAN">
-					<talendType type="boolean" default="true" />
+				<dbType type="CHAR">
+					<talendType type="int"  />
+					<talendType type="string" />
+					<talendType type="boolean" default="true"/>
 				</dbType>
 				<dbType type="COUNTER">
 					<talendType type="int" default="true"/>
