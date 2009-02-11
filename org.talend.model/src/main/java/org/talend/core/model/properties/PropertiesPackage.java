@@ -4771,13 +4771,22 @@ public interface PropertiesPackage extends EPackage {
     int SOA_OPERATION__JOB_VERSION = 5;
 
     /**
+     * The feature id for the '<em><b>Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__JOB_NAME = 6;
+
+    /**
      * The feature id for the '<em><b>Active</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__ACTIVE = 6;
+    int SOA_OPERATION__ACTIVE = 7;
 
     /**
      * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
@@ -4786,7 +4795,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE = 7;
+    int SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE = 8;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -4795,7 +4804,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__STATUS = 8;
+    int SOA_OPERATION__STATUS = 9;
 
     /**
      * The feature id for the '<em><b>Job Id</b></em>' attribute.
@@ -4804,7 +4813,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__JOB_ID = 9;
+    int SOA_OPERATION__JOB_ID = 10;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -4813,7 +4822,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN = 10;
+    int SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN = 11;
 
     /**
      * The feature id for the '<em><b>Input Parameters</b></em>' containment reference list.
@@ -4822,7 +4831,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__INPUT_PARAMETERS = 11;
+    int SOA_OPERATION__INPUT_PARAMETERS = 12;
 
     /**
      * The feature id for the '<em><b>Jvm Parameters</b></em>' attribute.
@@ -4831,7 +4840,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__JVM_PARAMETERS = 12;
+    int SOA_OPERATION__JVM_PARAMETERS = 13;
 
     /**
      * The feature id for the '<em><b>Xms</b></em>' attribute.
@@ -4840,7 +4849,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__XMS = 13;
+    int SOA_OPERATION__XMS = 14;
 
     /**
      * The feature id for the '<em><b>Xmx</b></em>' attribute.
@@ -4849,7 +4858,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__XMX = 14;
+    int SOA_OPERATION__XMX = 15;
 
     /**
      * The feature id for the '<em><b>Min Job Instances</b></em>' attribute.
@@ -4858,7 +4867,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__MIN_JOB_INSTANCES = 15;
+    int SOA_OPERATION__MIN_JOB_INSTANCES = 16;
 
     /**
      * The feature id for the '<em><b>Max Job Instances</b></em>' attribute.
@@ -4867,7 +4876,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__MAX_JOB_INSTANCES = 16;
+    int SOA_OPERATION__MAX_JOB_INSTANCES = 17;
 
     /**
      * The feature id for the '<em><b>Idle TTL for All Instances</b></em>' attribute.
@@ -4876,7 +4885,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__IDLE_TTL_FOR_ALL_INSTANCES = 17;
+    int SOA_OPERATION__IDLE_TTL_FOR_ALL_INSTANCES = 18;
 
     /**
      * The feature id for the '<em><b>Idle TTL for Additional Instances</b></em>' attribute.
@@ -4885,7 +4894,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__IDLE_TTL_FOR_ADDITIONAL_INSTANCES = 18;
+    int SOA_OPERATION__IDLE_TTL_FOR_ADDITIONAL_INSTANCES = 19;
 
     /**
      * The feature id for the '<em><b>Queue Max Size</b></em>' attribute.
@@ -4894,7 +4903,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__QUEUE_MAX_SIZE = 19;
+    int SOA_OPERATION__QUEUE_MAX_SIZE = 20;
 
     /**
      * The feature id for the '<em><b>Request In Queue TTL</b></em>' attribute.
@@ -4903,7 +4912,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__REQUEST_IN_QUEUE_TTL = 20;
+    int SOA_OPERATION__REQUEST_IN_QUEUE_TTL = 21;
 
     /**
      * The feature id for the '<em><b>Service</b></em>' reference.
@@ -4912,7 +4921,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION__SERVICE = 21;
+    int SOA_OPERATION__SERVICE = 22;
+
+    /**
+     * The feature id for the '<em><b>Return Style</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__RETURN_STYLE = 23;
 
     /**
      * The number of structural features of the '<em>Soa Operation</em>' class.
@@ -4921,7 +4939,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SOA_OPERATION_FEATURE_COUNT = 22;
+    int SOA_OPERATION_FEATURE_COUNT = 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.
@@ -8219,6 +8237,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSoaOperation_JobVersion();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getJobName <em>Job Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Name</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getJobName()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_JobName();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#isActive <em>Active</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8393,6 +8422,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getSoaOperation_Service();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getReturnStyle <em>Return Style</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Return Style</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getReturnStyle()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_ReturnStyle();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.SoaInputParameter <em>Soa Input Parameter</em>}'.
@@ -11541,6 +11581,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute SOA_OPERATION__JOB_VERSION = eINSTANCE.getSoaOperation_JobVersion();
 
         /**
+         * The meta object literal for the '<em><b>Job Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__JOB_NAME = eINSTANCE.getSoaOperation_JobName();
+
+        /**
          * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -11667,6 +11715,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference SOA_OPERATION__SERVICE = eINSTANCE.getSoaOperation_Service();
+
+        /**
+         * The meta object literal for the '<em><b>Return Style</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__RETURN_STYLE = eINSTANCE.getSoaOperation_ReturnStyle();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.

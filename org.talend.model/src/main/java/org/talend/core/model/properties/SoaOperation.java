@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getProject <em>Project</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getJobVersion <em>Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.SoaOperation#getJobName <em>Job Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getStatus <em>Status</em>}</li>
@@ -42,6 +43,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getQueueMaxSize <em>Queue Max Size</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getRequestInQueueTTL <em>Request In Queue TTL</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getService <em>Service</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.SoaOperation#getReturnStyle <em>Return Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -205,6 +207,32 @@ public interface SoaOperation extends EObject {
      * @generated
      */
     void setJobVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Job Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Job Name</em>' attribute.
+     * @see #setJobName(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getSoaOperation_JobName()
+     * @model
+     * @generated
+     */
+    String getJobName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.SoaOperation#getJobName <em>Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Job Name</em>' attribute.
+     * @see #getJobName()
+     * @generated
+     */
+    void setJobName(String value);
 
     /**
      * Returns the value of the '<em><b>Active</b></em>' attribute.
@@ -611,5 +639,31 @@ public interface SoaOperation extends EObject {
      * @generated
      */
     void setService(SoaService value);
+
+    /**
+     * Returns the value of the '<em><b>Return Style</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Return Style</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Return Style</em>' attribute.
+     * @see #setReturnStyle(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getSoaOperation_ReturnStyle()
+     * @model
+     * @generated
+     */
+    String getReturnStyle();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.SoaOperation#getReturnStyle <em>Return Style</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Return Style</em>' attribute.
+     * @see #getReturnStyle()
+     * @generated
+     */
+    void setReturnStyle(String value);
 
 } // SoaOperation

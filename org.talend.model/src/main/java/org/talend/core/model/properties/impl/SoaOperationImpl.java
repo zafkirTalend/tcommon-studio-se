@@ -42,6 +42,7 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getProject <em>Project</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getJobVersion <em>Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getJobName <em>Job Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getStatus <em>Status</em>}</li>
@@ -58,6 +59,7 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getQueueMaxSize <em>Queue Max Size</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getRequestInQueueTTL <em>Request In Queue TTL</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getService <em>Service</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getReturnStyle <em>Return Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -173,6 +175,26 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @ordered
      */
     protected String jobVersion = JOB_VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getJobName() <em>Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJobName()
+     * @generated
+     * @ordered
+     */
+    protected static final String JOB_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getJobName() <em>Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJobName()
+     * @generated
+     * @ordered
+     */
+    protected String jobName = JOB_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
@@ -475,6 +497,26 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected SoaService service;
 
     /**
+     * The default value of the '{@link #getReturnStyle() <em>Return Style</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReturnStyle()
+     * @generated
+     * @ordered
+     */
+    protected static final String RETURN_STYLE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getReturnStyle() <em>Return Style</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReturnStyle()
+     * @generated
+     * @ordered
+     */
+    protected String returnStyle = RETURN_STYLE_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -633,6 +675,27 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         jobVersion = newJobVersion;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__JOB_VERSION, oldJobVersion, jobVersion));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getJobName() {
+        return jobName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJobName(String newJobName) {
+        String oldJobName = jobName;
+        jobName = newJobName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__JOB_NAME, oldJobName, jobName));
     }
 
     /**
@@ -984,6 +1047,27 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getReturnStyle() {
+        return returnStyle;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setReturnStyle(String newReturnStyle) {
+        String oldReturnStyle = returnStyle;
+        returnStyle = newReturnStyle;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__RETURN_STYLE, oldReturnStyle, returnStyle));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.SOA_OPERATION__INPUT_PARAMETERS:
@@ -1012,6 +1096,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return getContext();
             case PropertiesPackage.SOA_OPERATION__JOB_VERSION:
                 return getJobVersion();
+            case PropertiesPackage.SOA_OPERATION__JOB_NAME:
+                return getJobName();
             case PropertiesPackage.SOA_OPERATION__ACTIVE:
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE:
@@ -1045,6 +1131,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__SERVICE:
                 if (resolve) return getService();
                 return basicGetService();
+            case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
+                return getReturnStyle();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1073,6 +1161,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return;
             case PropertiesPackage.SOA_OPERATION__JOB_VERSION:
                 setJobVersion((String)newValue);
+                return;
+            case PropertiesPackage.SOA_OPERATION__JOB_NAME:
+                setJobName((String)newValue);
                 return;
             case PropertiesPackage.SOA_OPERATION__ACTIVE:
                 setActive(((Boolean)newValue).booleanValue());
@@ -1123,6 +1214,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__SERVICE:
                 setService((SoaService)newValue);
                 return;
+            case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
+                setReturnStyle((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1151,6 +1245,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return;
             case PropertiesPackage.SOA_OPERATION__JOB_VERSION:
                 setJobVersion(JOB_VERSION_EDEFAULT);
+                return;
+            case PropertiesPackage.SOA_OPERATION__JOB_NAME:
+                setJobName(JOB_NAME_EDEFAULT);
                 return;
             case PropertiesPackage.SOA_OPERATION__ACTIVE:
                 setActive(ACTIVE_EDEFAULT);
@@ -1200,6 +1297,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__SERVICE:
                 setService((SoaService)null);
                 return;
+            case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
+                setReturnStyle(RETURN_STYLE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1223,6 +1323,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
             case PropertiesPackage.SOA_OPERATION__JOB_VERSION:
                 return JOB_VERSION_EDEFAULT == null ? jobVersion != null : !JOB_VERSION_EDEFAULT.equals(jobVersion);
+            case PropertiesPackage.SOA_OPERATION__JOB_NAME:
+                return JOB_NAME_EDEFAULT == null ? jobName != null : !JOB_NAME_EDEFAULT.equals(jobName);
             case PropertiesPackage.SOA_OPERATION__ACTIVE:
                 return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE:
@@ -1255,6 +1357,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return requestInQueueTTL != REQUEST_IN_QUEUE_TTL_EDEFAULT;
             case PropertiesPackage.SOA_OPERATION__SERVICE:
                 return service != null;
+            case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
+                return RETURN_STYLE_EDEFAULT == null ? returnStyle != null : !RETURN_STYLE_EDEFAULT.equals(returnStyle);
         }
         return super.eIsSet(featureID);
     }
@@ -1278,6 +1382,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         result.append(context);
         result.append(", jobVersion: ");
         result.append(jobVersion);
+        result.append(", jobName: ");
+        result.append(jobName);
         result.append(", active: ");
         result.append(active);
         result.append(", lastScriptGenerationDate: ");
@@ -1306,6 +1412,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         result.append(queueMaxSize);
         result.append(", requestInQueueTTL: ");
         result.append(requestInQueueTTL);
+        result.append(", returnStyle: ");
+        result.append(returnStyle);
         result.append(')');
         return result.toString();
     }

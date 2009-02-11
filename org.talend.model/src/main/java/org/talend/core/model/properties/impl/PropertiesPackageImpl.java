@@ -2983,7 +2983,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_Active() {
+    public EAttribute getSoaOperation_JobName() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(6);
     }
 
@@ -2992,7 +2992,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_LastScriptGenerationDate() {
+    public EAttribute getSoaOperation_Active() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(7);
     }
 
@@ -3001,7 +3001,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_Status() {
+    public EAttribute getSoaOperation_LastScriptGenerationDate() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(8);
     }
 
@@ -3010,7 +3010,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_JobId() {
+    public EAttribute getSoaOperation_Status() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(9);
     }
 
@@ -3019,7 +3019,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_ApplyContextToChildren() {
+    public EAttribute getSoaOperation_JobId() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(10);
     }
 
@@ -3028,8 +3028,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getSoaOperation_ApplyContextToChildren() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getSoaOperation_InputParameters() {
-        return (EReference)soaOperationEClass.getEStructuralFeatures().get(11);
+        return (EReference)soaOperationEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -3038,15 +3047,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getSoaOperation_JvmParameters() {
-        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(12);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getSoaOperation_Xms() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(13);
     }
 
@@ -3055,7 +3055,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_Xmx() {
+    public EAttribute getSoaOperation_Xms() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(14);
     }
 
@@ -3064,7 +3064,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_MinJobInstances() {
+    public EAttribute getSoaOperation_Xmx() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(15);
     }
 
@@ -3073,7 +3073,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_MaxJobInstances() {
+    public EAttribute getSoaOperation_MinJobInstances() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(16);
     }
 
@@ -3082,7 +3082,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_IdleTTL_forAllInstances() {
+    public EAttribute getSoaOperation_MaxJobInstances() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(17);
     }
 
@@ -3091,7 +3091,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_IdleTTL_forAdditionalInstances() {
+    public EAttribute getSoaOperation_IdleTTL_forAllInstances() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(18);
     }
 
@@ -3100,7 +3100,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_QueueMaxSize() {
+    public EAttribute getSoaOperation_IdleTTL_forAdditionalInstances() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(19);
     }
 
@@ -3109,7 +3109,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSoaOperation_RequestInQueueTTL() {
+    public EAttribute getSoaOperation_QueueMaxSize() {
         return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(20);
     }
 
@@ -3118,8 +3118,26 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getSoaOperation_RequestInQueueTTL() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(21);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getSoaOperation_Service() {
-        return (EReference)soaOperationEClass.getEStructuralFeatures().get(21);
+        return (EReference)soaOperationEClass.getEStructuralFeatures().get(22);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_ReturnStyle() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(23);
     }
 
     /**
@@ -4126,6 +4144,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(soaOperationEClass, SOA_OPERATION__PROJECT);
         createEAttribute(soaOperationEClass, SOA_OPERATION__CONTEXT);
         createEAttribute(soaOperationEClass, SOA_OPERATION__JOB_VERSION);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__JOB_NAME);
         createEAttribute(soaOperationEClass, SOA_OPERATION__ACTIVE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__STATUS);
@@ -4142,6 +4161,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(soaOperationEClass, SOA_OPERATION__QUEUE_MAX_SIZE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__REQUEST_IN_QUEUE_TTL);
         createEReference(soaOperationEClass, SOA_OPERATION__SERVICE);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__RETURN_STYLE);
 
         soaInputParameterEClass = createEClass(SOA_INPUT_PARAMETER);
         createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__ID);
@@ -4631,6 +4651,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getSoaOperation_Project(), this.getProject(), null, "project", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_Context(), theEcorePackage.getEString(), "context", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_JobVersion(), theEcorePackage.getEString(), "jobVersion", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_JobName(), theEcorePackage.getEString(), "jobName", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_LastScriptGenerationDate(), theEcorePackage.getEDate(), "lastScriptGenerationDate", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_Status(), theEcorePackage.getEString(), "status", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4647,6 +4668,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getSoaOperation_QueueMaxSize(), theEcorePackage.getEInt(), "queueMaxSize", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_RequestInQueueTTL(), theEcorePackage.getEInt(), "requestInQueueTTL", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSoaOperation_Service(), this.getSoaService(), null, "service", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_ReturnStyle(), ecorePackage.getEString(), "returnStyle", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(soaInputParameterEClass, SoaInputParameter.class, "SoaInputParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSoaInputParameter_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -402,6 +402,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//SoaOperation/project"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/context"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/jobVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/jobName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/active"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/lastScriptGenerationDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/status"/>
@@ -418,6 +419,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/queueMaxSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/requestInQueueTTL"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//SoaOperation/service"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/returnStyle"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//SoaInputParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaInputParameter/id"/>
