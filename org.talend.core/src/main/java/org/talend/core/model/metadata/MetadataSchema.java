@@ -141,8 +141,8 @@ public class MetadataSchema {
      * @throws IOException if file cannot be read
      */
     @Deprecated
-    public static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException,
-            SAXException, IOException {
+    public static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException, SAXException,
+            IOException {
         return instance.initializeAllColumns(file);
     }
 
@@ -155,8 +155,8 @@ public class MetadataSchema {
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public List<IMetadataColumn> initializeAllColumns(final File file) throws IOException,
-            ParserConfigurationException, SAXException {
+    public List<IMetadataColumn> initializeAllColumns(final File file) throws IOException, ParserConfigurationException,
+            SAXException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         Set<String> columnsAlreadyAdded = new HashSet<String>();
         if (file != null) {
@@ -200,8 +200,13 @@ public class MetadataSchema {
         final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
         final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
         final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
+        // see feature 4456
+        String nodeValue = label.getNodeValue();
+        final String underLine = "_"; //$NON-NLS-1$
+        nodeValue = nodeValue.replaceAll("[^(\\w|_)]", underLine); //$NON-NLS-1$
+        nodeValue = nodeValue.replaceFirst("\\d", underLine); //$NON-NLS-1$
 
-        metadataColumn.setLabel(label.getNodeValue());
+        metadataColumn.setLabel(nodeValue);
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
         metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
         if (sourceType != null) {
@@ -210,7 +215,7 @@ public class MetadataSchema {
         if (originalDbColumnName != null) {
             metadataColumn.setOriginalDbColumnName(originalDbColumnName.getNodeValue());
         } else {
-            metadataColumn.setOriginalDbColumnName(label.getNodeValue());
+            metadataColumn.setOriginalDbColumnName(nodeValue);
         }
         if (length.getNodeValue() != null) {
             try {
@@ -249,8 +254,8 @@ public class MetadataSchema {
      * @throws SAXException if sax exception occured
      * @throws IOException if file cannot be read
      */
-    private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(
-            final File file) throws ParserConfigurationException, SAXException, IOException {
+    private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(final File file)
+            throws ParserConfigurationException, SAXException, IOException {
         return loadMetadataColumnsAndDbmsIdFromFile(file).getMetadataColumns();
     }
 
@@ -363,8 +368,7 @@ public class MetadataSchema {
                 }
             }
         }
-        return new MetadataColumnsAndDbmsId<org.talend.core.model.metadata.builder.connection.MetadataColumn>(
-                listColumns, dbmsId);
+        return new MetadataColumnsAndDbmsId<org.talend.core.model.metadata.builder.connection.MetadataColumn>(listColumns, dbmsId);
     }
 
     /**
@@ -376,8 +380,8 @@ public class MetadataSchema {
      * @throws SAXException if sax exception occured
      * @throws IOException if file cannot be read
      */
-    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(
-            final File file) throws ParserConfigurationException, SAXException, IOException {
+    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(final File file)
+            throws ParserConfigurationException, SAXException, IOException {
         final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
@@ -551,9 +555,8 @@ public class MetadataSchema {
      * @throws IOException if file cannot be saved
      * @throws ParserConfigurationException if dom is not fully respected
      */
-    public static boolean saveSchemaTargetToFile(File file,
-            org.talend.core.model.metadata.builder.connection.MetadataSchema table) throws IOException,
-            ParserConfigurationException {
+    public static boolean saveSchemaTargetToFile(File file, org.talend.core.model.metadata.builder.connection.MetadataSchema table)
+            throws IOException, ParserConfigurationException {
 
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
