@@ -26,10 +26,10 @@ public enum EDatabaseTypeName {
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     IBMDB2ZOS("IBM DB2 ZOS", "IBM DB2 ZOS", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // this Sybase IQ not used.
-    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
