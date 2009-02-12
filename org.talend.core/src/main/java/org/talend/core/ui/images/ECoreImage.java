@@ -100,6 +100,7 @@ public enum ECoreImage implements IImage {
     MODULE_INSTALLED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
     MODULE_WARNING_ICON("/icons/warning.gif"), //$NON-NLS-1$
+    MODULE_INFORMATION_ICON("/icons/unknown.gif"), //$NON-NLS-1$
     MODULE_UNKNOWN_ICON("/icons/unknown.gif"), //$NON-NLS-1$
     MODULE_REQUIRED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_NOTREQUIRED_ICON("/icons/empty.gif"), //$NON-NLS-1$
