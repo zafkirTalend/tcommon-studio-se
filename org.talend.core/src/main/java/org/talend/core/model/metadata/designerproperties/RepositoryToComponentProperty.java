@@ -430,6 +430,29 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(connection.getPort());
             }
         }
+        if (value.equals("FRAMEWORK_TYPE")) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getDatabaseType())) {
+                if (connection.getDatabaseType().equals("JavaDB Embeded")) { //$NON-NLS-1$
+                    return "EMBEDED"; //$NON-NLS-1$
+                }
+                if (connection.getDatabaseType().equals("JavaDB JCCJDBC")) { //$NON-NLS-1$
+                    return "JCCJDBC"; //$NON-NLS-1$
+                }
+                if (connection.getDatabaseType().equals("JavaDB DerbyClient")) { //$NON-NLS-1$
+                    return "DERBYCLIENT"; //$NON-NLS-1$
+                }
+            } else {
+                if (connection.getDatabaseType().equals("JavaDB Embeded")) { //$NON-NLS-1$
+                    return "EMBEDED"; //$NON-NLS-1$
+                }
+                if (connection.getDatabaseType().equals("JavaDB JCCJDBC")) { //$NON-NLS-1$
+                    return "JCCJDBC"; //$NON-NLS-1$
+                }
+                if (connection.getDatabaseType().equals("JavaDB DerbyClient")) { //$NON-NLS-1$
+                    return "DERBYCLIENT"; //$NON-NLS-1$
+                }
+            }
+        }
         if (value.equals("SID")) { //$NON-NLS-1$
             if (("").equals(connection.getSID()) || connection.getSID() == null) { //$NON-NLS-1$
                 if (isConetxtMode(connection, connection.getDatasourceName())) {
