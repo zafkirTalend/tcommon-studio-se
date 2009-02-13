@@ -24,8 +24,8 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.ui.context.ContextTemplateComposite;
 import org.talend.core.ui.context.ContextManagerHelper;
+import org.talend.core.ui.context.ContextTemplateComposite;
 import org.talend.core.ui.context.IContextModelManager;
 
 /**
@@ -35,9 +35,20 @@ public class ContextCellModifier implements ICellModifier {
 
     private ContextTemplateComposite parentTool;
 
+    private boolean reposFlag = false;
+
     public ContextCellModifier(ContextTemplateComposite parentComposite) {
         super();
         this.parentTool = parentComposite;
+        if (parentComposite == null) {
+            throw new NullPointerException();
+        }
+    }
+
+    public ContextCellModifier(ContextTemplateComposite parentComposite, boolean reposFlag) {
+        super();
+        this.parentTool = parentComposite;
+        this.reposFlag = reposFlag;
         if (parentComposite == null) {
             throw new NullPointerException();
         }
@@ -71,7 +82,7 @@ public class ContextCellModifier implements ICellModifier {
             return false;
         }
 
-        if (!para.isBuiltIn()) {
+        if (!para.isBuiltIn() && !reposFlag) {
             // not built-in, not update
             return false;
 
@@ -167,7 +178,7 @@ public class ContextCellModifier implements ICellModifier {
                 return;
             }
             String name = para.getName();
-            parentTool.renameParameter(name, (String) value);
+            parentTool.renameParameter(name, (String) value, reposFlag);
         } else if (property.equals(ContextConstant.TYPE_COLUMN_NAME)) {
             int index = -1;
             String s = ContextManagerHelper.convertFormat(para.getType());

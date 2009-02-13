@@ -209,7 +209,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
             ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
         }
 
-        cellModifier = new ContextCellModifier(this);
+        cellModifier = new ContextCellModifier(this, isRepositoryContext);
         viewer.setCellModifier(cellModifier);
 
         provider = new ContextViewerProvier(modelManager);
@@ -231,8 +231,9 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                 checkButtonEnableState();
             }
         });
-
-        createPopupMenu();
+        if (!isRepositoryContext) {
+            createPopupMenu();
+        }
 
         final Composite buttonsComposite = new Composite(this, SWT.NONE);
         buttonsComposite.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(7).create());
@@ -307,9 +308,9 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
     }
 
-    public boolean renameParameter(final String oldParamName, final String newParamName) {
+    public boolean renameParameter(final String oldParamName, final String newParamName, boolean reposFlag) {
         IContextParameter param = getContextManager().getDefaultContext().getContextParameter(oldParamName);
-        if (param != null && !param.isBuiltIn()) {
+        if (param != null && !param.isBuiltIn() && !reposFlag) {
             // not built-in, not update
             return false;
         }
@@ -433,7 +434,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
     }
 
     private Button createAddPushButton(final Composite parent) {
-
         Button addPushButton = new Button(parent, SWT.PUSH);
         addPushButton.addSelectionListener(new SelectionAdapter() {
 

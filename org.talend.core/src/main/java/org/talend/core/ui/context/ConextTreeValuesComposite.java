@@ -36,13 +36,10 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TreeEditor;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -183,9 +180,12 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         column.setText(VALUE_COLUMN_NAME);
         column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
 
+        boolean isRepositoryContext = (modelManager instanceof ContextComposite)
+                && ((ContextComposite) modelManager).isRepositoryContext();
+
         viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),
                 new TextCellEditor(tree) });
-        cellModifier = new CellModifier();
+        cellModifier = new CellModifier(isRepositoryContext);
         viewer.setCellModifier(cellModifier);
 
         provider = new ViewerProvier();
@@ -199,27 +199,27 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         final TreeEditor treeEditor = new TreeEditor(tree);
         createEditorListener(treeEditor);
 
-        tree.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseDown(MouseEvent e) {
-                if (modelManager.isReadOnly()) {
-                    return;
-                }
-                Point pt = new Point(e.x, e.y);
-                TreeItem item = tree.getItem(pt);
-                // deactivate the current cell editor
-                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-                    deactivateCellEditor(treeEditor);
-                }
-                if (item != null && !item.isDisposed()) {
-                    Rectangle rect = item.getBounds(VARIABLE_COLUMN_INDEX);
-                    if (rect.contains(pt)) {
-                        handleSelect(item, tree, treeEditor);
-                    }
-                }
-            }
-        });
+        // tree.addMouseListener(new MouseAdapter() {
+        //
+        // @Override
+        // public void mouseDown(MouseEvent e) {
+        // if (modelManager.isReadOnly()) {
+        // return;
+        // }
+        // Point pt = new Point(e.x, e.y);
+        // TreeItem item = tree.getItem(pt);
+        // // deactivate the current cell editor
+        // if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+        // deactivateCellEditor(treeEditor);
+        // }
+        // if (item != null && !item.isDisposed()) {
+        // Rectangle rect = item.getBounds(VARIABLE_COLUMN_INDEX);
+        // if (rect.contains(pt)) {
+        // handleSelect(item, tree, treeEditor);
+        // }
+        // }
+        // }
+        // });
 
         valueChecker = new ContextValueErrorChecker(viewer);
 
@@ -363,7 +363,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         treeEditor.minimumWidth = layout.minimumWidth;
         treeEditor.setEditor(control, item, VARIABLE_COLUMN_INDEX);
         // give focus to the cell editor
-        cellEditor.setFocus();
+        // cellEditor.setFocus();
 
     }
 
@@ -786,6 +786,12 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
      */
     class CellModifier implements ICellModifier {
 
+        private boolean respoFlag = false;
+
+        public CellModifier(boolean respoFlag) {
+            this.respoFlag = respoFlag;
+        }
+
         /*
          * (non-Javadoc)
          * 
@@ -800,7 +806,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                 return false;
             }
 
-            if (!para.isBuiltIn()) {
+            if (!para.isBuiltIn() && !respoFlag) {
                 // not built-in, not update
                 return false;
 
@@ -863,13 +869,14 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
             if (para == null) {
                 return;
             }
-
             if (property.equals(VALUE_COLUMN_NAME)) {
                 if (para.getDisplayValue().equals(value)) {
+                    viewer.getTree().update();
                     return;
                 }
                 para.setValue((String) value);
                 valueChecker.checkErrors(item, VARIABLE_COLUMN_INDEX, para);
+                // viewer.getTree().update();
             } else if (property.equals(PROMPT_COLUMN_NAME)) {
                 if (para.getPrompt().equals(value)) {
                     return;
@@ -907,6 +914,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     }
                 }
             }
+
         }
     }
 
