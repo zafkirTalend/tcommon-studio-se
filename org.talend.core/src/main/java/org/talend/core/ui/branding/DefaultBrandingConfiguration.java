@@ -22,10 +22,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.application.IActionBarConfigurer;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNode.ENodeType;
-import org.talend.repository.model.RepositoryNode.EProperties;
 
 /**
  * DefaultBrandingConfiguration is as TOS BrandingConfiguration,all other brandingConfigure should subclass of this one
@@ -70,30 +67,34 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getHiddenRepositoryCategory()
      */
     public List<RepositoryNode> getHiddenRepositoryCategory(RepositoryNode parent) {
-        // 2.1 Joblet
+
         List<RepositoryNode> nodes = new ArrayList<RepositoryNode>();
-        RepositoryNode jobletNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        jobletNode.setProperties(EProperties.LABEL, ERepositoryObjectType.JOBLET);
-        jobletNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.JOBLET);
-        nodes.add(jobletNode);
 
-        // SAP
-        RepositoryNode metadataSAPConnectionNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        metadataSAPConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_SAPCONNECTIONS);
-        metadataSAPConnectionNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_SAPCONNECTIONS);
-        nodes.add(metadataSAPConnectionNode);
-
-        // EBCDIC
-        RepositoryNode metadataEbcdicConnectionNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        metadataEbcdicConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_FILE_EBCDIC);
-        metadataEbcdicConnectionNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.METADATA_FILE_EBCDIC);
-        nodes.add(metadataEbcdicConnectionNode);
-
-        // Reference Projects
-        RepositoryNode refProject = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
-        refProject.setProperties(EProperties.LABEL, ERepositoryObjectType.REFERENCED_PROJECTS);
-        refProject.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
-        nodes.add(refProject);
+        // // 2.1 Joblet
+        // RepositoryNode jobletNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        // jobletNode.setProperties(EProperties.LABEL, ERepositoryObjectType.JOBLET);
+        // jobletNode.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.JOBLET);
+        // nodes.add(jobletNode);
+        //
+        // // SAP
+        // RepositoryNode metadataSAPConnectionNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        // metadataSAPConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_SAPCONNECTIONS);
+        // metadataSAPConnectionNode.setProperties(EProperties.CONTENT_TYPE,
+        // ERepositoryObjectType.METADATA_SAPCONNECTIONS);
+        // nodes.add(metadataSAPConnectionNode);
+        //
+        // // EBCDIC
+        // RepositoryNode metadataEbcdicConnectionNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        // metadataEbcdicConnectionNode.setProperties(EProperties.LABEL, ERepositoryObjectType.METADATA_FILE_EBCDIC);
+        // metadataEbcdicConnectionNode.setProperties(EProperties.CONTENT_TYPE,
+        // ERepositoryObjectType.METADATA_FILE_EBCDIC);
+        // nodes.add(metadataEbcdicConnectionNode);
+        //
+        // // Reference Projects
+        // RepositoryNode refProject = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);
+        // refProject.setProperties(EProperties.LABEL, ERepositoryObjectType.REFERENCED_PROJECTS);
+        // refProject.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.REFERENCED_PROJECTS);
+        // nodes.add(refProject);
 
         return nodes;
     }
