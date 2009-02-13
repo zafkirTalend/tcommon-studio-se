@@ -7,6 +7,7 @@ Bundle-Vendor: .Talend SA.
 Export-Package: 
  org.talend.utils,
  org.talend.utils.collections,
+ org.talend.utils.color,
  org.talend.utils.dates,
  org.talend.utils.files,
  org.talend.utils.format,
