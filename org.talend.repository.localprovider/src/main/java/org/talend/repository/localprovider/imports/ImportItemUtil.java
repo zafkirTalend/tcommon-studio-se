@@ -37,7 +37,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -50,21 +52,36 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IProjectMigrationTask.ExecutionResult;
+import org.talend.core.model.properties.BusinessProcessItem;
+import org.talend.core.model.properties.ByteArray;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.LinkDocumentationItem;
+import org.talend.core.model.properties.LinkType;
+import org.talend.core.model.properties.NotationHolder;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.business.model.business.BusinessPackage;
+import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.constants.FileConstants;
@@ -285,13 +302,16 @@ public class ImportItemUtil {
         ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
 
         monitor.done();
-
         deletedItems.clear();
         cache.clear();
         for (ItemRecord itemRecord : itemRecords) {
             itemRecord.clear();
+             //bug 6252
+            itemRecord.getResourceSet().getResources().clear();
         }
-
+         //bug 6252
+        XmiResourceManager.resourceSet.getResources().clear();
+        XmiResourceManager.resetResourceSet();
         return itemRecords;
     }
 
@@ -596,6 +616,7 @@ public class ImportItemUtil {
         toReturn.add("org.talend.repository.documentation.migrationtask.generatejobdocmigrationtask"); //$NON-NLS-1$
         // old task, added for an old version of TOS, not used anymore.
         toReturn.add("org.talend.repository.migration.ReplaceOldContextScriptCodeMigrationTask"); //$NON-NLS-1$
+        toReturn.add("org.talend.designer.core.model.process.migration.SynchronizeSchemaOnlyForPerlDemo"); //$NON-NLS-1$
 
         return toReturn;
     }
@@ -707,6 +728,7 @@ public class ImportItemUtil {
             stream = manager.getStream(itemPath);
             Resource resource = createResource(itemRecord.getResourceSet(), itemPath, byteArray);
             resource.load(stream, null);
+            resetItemReference(itemRecord, resource);
             EcoreUtil.resolveAll(itemRecord.getResourceSet());
         } catch (IOException e) {
             // ignore
@@ -721,6 +743,84 @@ public class ImportItemUtil {
         }
 
         itemRecord.setResolved(true);
+    }
+
+    /**
+     * 
+     * cLi Comment method "resetItemReference".
+     * 
+     * resolve the encode some special character(bug 6252), maybe, It's not better to resolve this by manually.
+     * 
+     * such as, "[" is "%5B", "]" is "%5D", etc.
+     */
+    @SuppressWarnings("unchecked")
+    private void resetItemReference(ItemRecord itemRecord, Resource resource) {
+        Item item = itemRecord.getItem();
+        EList<EObject> contents = resource.getContents();
+        /*
+         * ignore job. no need, because it can't be allowed input special char for name.
+         */
+        if (item instanceof ProcessItem) {
+            // ((ProcessItem) item).setProcess((ProcessType) EcoreUtil.getObjectByType(contents,
+            // TalendFilePackage.eINSTANCE
+            // .getProcessType()));
+        } else
+        /*
+         * ignore joblet. no need, because it can't be allowed input special char for name.
+         */
+        if (item instanceof JobletProcessItem) {
+            // JobletProcessItem jobletProcessItem = (JobletProcessItem) item;
+            //
+            // jobletProcessItem.setJobletProcess((JobletProcess) EcoreUtil.getObjectByType(contents,
+            // JobletPackage.eINSTANCE
+            // .getJobletProcess()));
+            // jobletProcessItem
+            // .setIcon((ByteArray) EcoreUtil.getObjectByType(contents, PropertiesPackage.eINSTANCE.getByteArray()));
+        } else
+        // connectionItem
+        if (item instanceof ConnectionItem) {
+            ((ConnectionItem) item).setConnection((Connection) EcoreUtil.getObjectByType(contents, ConnectionPackage.eINSTANCE
+                    .getConnection()));
+        } else
+        // context
+        if (item instanceof ContextItem) {
+            EList contexts = ((ContextItem) item).getContext();
+            contexts.clear();
+            contexts.addAll(EcoreUtil.getObjectsByType(contents, TalendFilePackage.eINSTANCE.getContextType()));
+        } else
+        // file
+        if (item instanceof FileItem) {
+            /*
+             * ignore routine, no need, because it can't be allowed input special char for name.
+             */
+            if (item instanceof RoutineItem) {
+                return;
+            }
+            FileItem fileItem = (FileItem) item;
+            fileItem.setContent((ByteArray) EcoreUtil.getObjectByType(contents, PropertiesPackage.eINSTANCE.getByteArray()));
+        } else
+        // snippet
+        if (item instanceof SnippetItem) {
+            EList variables = ((SnippetItem) item).getVariables();
+            variables.clear();
+            variables.addAll(EcoreUtil.getObjectsByType(contents, PropertiesPackage.eINSTANCE.getSnippetVariable()));
+        } else
+        // link doc
+        if (item instanceof LinkDocumentationItem) {
+            ((LinkDocumentationItem) item).setLink((LinkType) EcoreUtil.getObjectByType(contents, PropertiesPackage.eINSTANCE
+                    .getLinkType()));
+        } else
+        // business
+        if (item instanceof BusinessProcessItem) {
+            BusinessProcessItem businessProcessItem = (BusinessProcessItem) item;
+
+            businessProcessItem.setSemantic((BusinessProcess) EcoreUtil.getObjectByType(contents, BusinessPackage.eINSTANCE
+                    .getBusinessProcess()));
+
+            businessProcessItem.setNotationHolder((NotationHolder) EcoreUtil.getObjectByType(contents,
+                    PropertiesPackage.eINSTANCE.getNotationHolder()));
+        }
+
     }
 
     private Project computeProject(ResourcesManager manager, ItemRecord itemRecord, IPath path) {
