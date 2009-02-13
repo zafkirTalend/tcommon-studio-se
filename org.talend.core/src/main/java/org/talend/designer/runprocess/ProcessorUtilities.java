@@ -208,15 +208,15 @@ public class ProcessorUtilities {
             if (((IProcess2) attachedProcess).isNeedRegenerateCode()) {
                 return true;
             }
-        }
 
-        Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
-        Date originalDate = designerCoreService.getLastGeneratedJobsDateMap().get(jobInfo.getJobId());
-        if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
-            if (jobInfo.getFatherJobInfo() != null) {
-                jobInfo.getFatherJobInfo().setForceRegenerate(true);
+            Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
+            Date originalDate = designerCoreService.getLastGeneratedJobsDateMap().get(jobInfo.getJobId());
+            if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
+                if (jobInfo.getFatherJobInfo() != null) {
+                    jobInfo.getFatherJobInfo().setForceRegenerate(true);
+                }
+                return true;
             }
-            return true;
         }
         JobResourceManager manager = JobResourceManager.getInstance();
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
