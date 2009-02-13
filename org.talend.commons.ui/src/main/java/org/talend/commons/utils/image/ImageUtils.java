@@ -122,7 +122,7 @@ public class ImageUtils {
                         baos = new ByteArrayOutputStream();
                         ImageLoader imageLoader = new ImageLoader();
                         imageLoader.data = new ImageData[] { imageDes.getImageData() };
-                        imageLoader.save(baos, img.type);
+                        imageLoader.save(baos, 5);
                         byte[] imageByteArray = baos.toByteArray();
                         return imageByteArray;
                     } catch (Exception e) {
