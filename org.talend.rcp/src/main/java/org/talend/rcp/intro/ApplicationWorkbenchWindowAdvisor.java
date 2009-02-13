@@ -55,6 +55,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     private List<IAction> actions = new ArrayList<IAction>();
 
+    ApplicationActionBarAdvisor adviser = null;
+
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
             "GlobalAction"); //$NON-NLS-1$
 
@@ -64,7 +66,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
-        return new ApplicationActionBarAdvisor(configurer);
+        return adviser = new ApplicationActionBarAdvisor(configurer);
     }
 
     @Override
@@ -99,6 +101,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowOpen() {
         createActions();
         registerActions();
+        adviser.getHelper().hideActions();
     }
 
     /**

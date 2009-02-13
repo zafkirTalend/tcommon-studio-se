@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.i18n.Messages;
+import org.talend.core.ui.branding.IBrandingService;
 
 /**
  * DOC qian class global comment. A global service register provides the service registration and acquirement. <br/>
@@ -76,8 +77,17 @@ public class GlobalServiceRegister {
             IConfigurationElement element = configurationElements[i];
             String id = element.getAttribute("serviceId"); //$NON-NLS-1$
 
-            if (!key.endsWith(id)) {
-                continue;
+            // achen modify to support IBrandingService
+            if (klass == IBrandingService.class) {
+                // serviceId is the same as productId
+                String productId = Platform.getProduct().getId();
+                if (!id.equalsIgnoreCase(productId)) {
+                    continue;
+                }
+            } else {
+                if (!key.endsWith(id)) {
+                    continue;
+                }
             }
             try {
                 Object service = element.createExecutableExtension("class"); //$NON-NLS-1$

@@ -35,4 +35,7 @@ public interface IBrandingService extends IService {
     public ImageDescriptor getLoginHImage();
 
     public URL getLicenseFile() throws IOException;
+
+    public IBrandingConfiguration getBrandingConfiguration();
+
 }
