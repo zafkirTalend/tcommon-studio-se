@@ -496,7 +496,7 @@ public class ExtractMetaDataUtils {
      * 
      * @return
      */
-    private static String getJavaLibPath() {
+    public static String getJavaLibPath() {
         String separator = "/";
         String javaLibPath = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
         return javaLibPath + separator;
