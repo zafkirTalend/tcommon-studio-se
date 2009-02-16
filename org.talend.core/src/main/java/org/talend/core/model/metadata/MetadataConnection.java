@@ -457,4 +457,59 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
         this.dbVersionString = dbVersionString;
     }
 
+    @Override
+    /*
+     * qli comment the method equals. rewrite the method equals.
+     */
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof MetadataConnection)) {
+            return false;
+        }
+        MetadataConnection otherConnection = (MetadataConnection) obj;
+        if (!checkString(otherConnection.getDbRootPath(), this.getDbRootPath())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getDbType(), this.getDbType())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getDbVersionString(), this.getDbVersionString())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getDriverClass(), this.getDriverClass())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getDriverJarPath(), this.getDriverJarPath())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getPassword(), this.getPassword())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getUrl(), this.getUrl())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getUsername(), this.getUsername())) {
+            return false;
+        }
+        if (!checkString(otherConnection.getSchema(), this.getSchema())) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * qli comment the method checkString.
+     * */
+    private boolean checkString(String first, String second) {
+        if (first == null && second == null) {
+            return true;
+        }
+        if (first != null && first.equals(second)) {
+            return true;
+        }
+        return false;
+    }
 }
