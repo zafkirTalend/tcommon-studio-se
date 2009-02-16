@@ -34,6 +34,7 @@ import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationAccess;
+import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IOverviewRuler;
 import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -616,5 +617,13 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
      */
     public void setHostNode(INode hostNode) {
         this.hostNode = hostNode;
+    }
+
+    @Override
+    public void setDocument(IDocument document, IAnnotationModel annotationModel, int modelRangeOffset, int modelRangeLength) {
+        super.setDocument(document, annotationModel, modelRangeOffset, modelRangeLength);
+        if (document != null) {
+            addDocumentListener(document);
+        }
     }
 }

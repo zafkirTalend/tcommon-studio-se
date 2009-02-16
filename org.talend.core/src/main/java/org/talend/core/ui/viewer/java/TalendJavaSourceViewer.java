@@ -506,7 +506,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         if (variables != null) {
             for (String className : classesToGenerate.keySet()) {
                 for (Variable var : classesToGenerate.get(className)) {
-                    buff.append("\t\t" + className + "." + var.getName() + " =  " + className + "." + var.getName() + ";\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+                    buff.append("\t\t" + className + "." + var.getName() + " =  " + var.getValue() + ";\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
                 }
             }
         }
