@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.properties.impl;
@@ -11,18 +10,14 @@ import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.SoaInputParameter;
@@ -30,9 +25,7 @@ import org.talend.core.model.properties.SoaOperation;
 import org.talend.core.model.properties.SoaService;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Soa Operation</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Soa Operation</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -66,10 +59,10 @@ import org.talend.core.model.properties.SoaService;
  * @generated
  */
 public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
+
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -78,8 +71,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -88,8 +80,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLabel()
      * @generated
      * @ordered
@@ -97,9 +89,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -108,8 +100,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDescription()
      * @generated
      * @ordered
@@ -118,8 +110,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDescription()
      * @generated
      * @ordered
@@ -128,8 +120,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getProject() <em>Project</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getProject()
      * @generated
      * @ordered
@@ -138,8 +130,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getContext()
      * @generated
      * @ordered
@@ -148,8 +140,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getContext()
      * @generated
      * @ordered
@@ -158,8 +150,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getJobVersion() <em>Job Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getJobVersion()
      * @generated
      * @ordered
@@ -168,8 +160,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getJobVersion() <em>Job Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getJobVersion()
      * @generated
      * @ordered
@@ -178,8 +170,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getJobName() <em>Job Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getJobName()
      * @generated
      * @ordered
@@ -188,8 +180,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getJobName() <em>Job Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getJobName()
      * @generated
      * @ordered
@@ -198,8 +190,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isActive()
      * @generated
      * @ordered
@@ -208,8 +200,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isActive()
      * @generated
      * @ordered
@@ -218,8 +210,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastScriptGenerationDate()
      * @generated
      * @ordered
@@ -228,8 +219,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastScriptGenerationDate()
      * @generated
      * @ordered
@@ -238,8 +228,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getStatus()
      * @generated
      * @ordered
@@ -248,8 +238,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getStatus()
      * @generated
      * @ordered
@@ -258,8 +248,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getJobId()
      * @generated
      * @ordered
@@ -268,8 +258,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getJobId()
      * @generated
      * @ordered
@@ -277,9 +267,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected String jobId = JOB_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isApplyContextToChildren()
      * @generated
      * @ordered
@@ -287,9 +277,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected static final boolean APPLY_CONTEXT_TO_CHILDREN_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isApplyContextToChildren()
      * @generated
      * @ordered
@@ -298,8 +288,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getInputParameters() <em>Input Parameters</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getInputParameters()
      * @generated
      * @ordered
@@ -327,9 +316,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected String jvmParameters = JVM_PARAMETERS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getXms() <em>Xms</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getXms() <em>Xms</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getXms()
      * @generated
      * @ordered
@@ -338,8 +327,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getXms() <em>Xms</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getXms()
      * @generated
      * @ordered
@@ -347,9 +335,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected int xms = XMS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getXmx() <em>Xmx</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getXmx() <em>Xmx</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getXmx()
      * @generated
      * @ordered
@@ -358,8 +346,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getXmx() <em>Xmx</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getXmx()
      * @generated
      * @ordered
@@ -367,9 +354,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected int xmx = XMX_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getMinJobInstances() <em>Min Job Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getMinJobInstances() <em>Min Job Instances</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getMinJobInstances()
      * @generated
      * @ordered
@@ -378,8 +365,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getMinJobInstances() <em>Min Job Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getMinJobInstances()
      * @generated
      * @ordered
@@ -387,9 +374,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected int minJobInstances = MIN_JOB_INSTANCES_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getMaxJobInstances() <em>Max Job Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getMaxJobInstances() <em>Max Job Instances</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getMaxJobInstances()
      * @generated
      * @ordered
@@ -398,8 +385,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getMaxJobInstances() <em>Max Job Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getMaxJobInstances()
      * @generated
      * @ordered
@@ -408,8 +395,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getIdleTTL_forAllInstances() <em>Idle TTL for All Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIdleTTL_forAllInstances()
      * @generated
      * @ordered
@@ -418,8 +404,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getIdleTTL_forAllInstances() <em>Idle TTL for All Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIdleTTL_forAllInstances()
      * @generated
      * @ordered
@@ -428,8 +413,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The default value of the '{@link #getIdleTTL_forAdditionalInstances() <em>Idle TTL for Additional Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIdleTTL_forAdditionalInstances()
      * @generated
      * @ordered
@@ -438,8 +422,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getIdleTTL_forAdditionalInstances() <em>Idle TTL for Additional Instances</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getIdleTTL_forAdditionalInstances()
      * @generated
      * @ordered
@@ -467,9 +450,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected int queueMaxSize = QUEUE_MAX_SIZE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getRequestInQueueTTL() <em>Request In Queue TTL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getRequestInQueueTTL() <em>Request In Queue TTL</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRequestInQueueTTL()
      * @generated
      * @ordered
@@ -477,24 +460,14 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected static final int REQUEST_IN_QUEUE_TTL_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getRequestInQueueTTL() <em>Request In Queue TTL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getRequestInQueueTTL() <em>Request In Queue TTL</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRequestInQueueTTL()
      * @generated
      * @ordered
      */
     protected int requestInQueueTTL = REQUEST_IN_QUEUE_TTL_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getService() <em>Service</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getService()
-     * @generated
-     * @ordered
-     */
-    protected SoaService service;
 
     /**
      * The default value of the '{@link #getReturnStyle() <em>Return Style</em>}' attribute.
@@ -508,8 +481,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
 
     /**
      * The cached value of the '{@link #getReturnStyle() <em>Return Style</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getReturnStyle()
      * @generated
      * @ordered
@@ -517,8 +490,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     protected String returnStyle = RETURN_STYLE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SoaOperationImpl() {
@@ -526,8 +498,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected EClass eStaticClass() {
@@ -535,8 +506,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getId() {
@@ -544,8 +514,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setId(int newId) {
@@ -556,8 +525,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLabel() {
@@ -565,8 +533,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLabel(String newLabel) {
@@ -577,8 +544,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDescription() {
@@ -586,8 +552,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDescription(String newDescription) {
@@ -598,8 +563,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Project getProject() {
@@ -615,8 +579,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Project basicGetProject() {
@@ -624,8 +587,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setProject(Project newProject) {
@@ -636,8 +598,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getContext() {
@@ -645,8 +606,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setContext(String newContext) {
@@ -657,8 +617,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getJobVersion() {
@@ -666,8 +625,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setJobVersion(String newJobVersion) {
@@ -678,8 +636,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getJobName() {
@@ -687,8 +644,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setJobName(String newJobName) {
@@ -699,8 +655,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isActive() {
@@ -708,8 +663,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setActive(boolean newActive) {
@@ -720,8 +674,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getLastScriptGenerationDate() {
@@ -729,8 +682,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLastScriptGenerationDate(Date newLastScriptGenerationDate) {
@@ -741,8 +693,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getStatus() {
@@ -750,8 +701,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setStatus(String newStatus) {
@@ -762,8 +712,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getJobId() {
@@ -771,8 +720,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setJobId(String newJobId) {
@@ -783,8 +731,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isApplyContextToChildren() {
@@ -792,8 +739,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setApplyContextToChildren(boolean newApplyContextToChildren) {
@@ -804,8 +750,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getInputParameters() {
@@ -816,8 +761,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getJvmParameters() {
@@ -825,8 +769,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setJvmParameters(String newJvmParameters) {
@@ -837,8 +780,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getXms() {
@@ -846,8 +788,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setXms(int newXms) {
@@ -858,8 +799,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getXmx() {
@@ -867,8 +807,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setXmx(int newXmx) {
@@ -879,8 +818,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMinJobInstances() {
@@ -888,8 +826,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMinJobInstances(int newMinJobInstances) {
@@ -900,8 +837,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMaxJobInstances() {
@@ -909,8 +845,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMaxJobInstances(int newMaxJobInstances) {
@@ -921,8 +856,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getIdleTTL_forAllInstances() {
@@ -930,8 +864,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIdleTTL_forAllInstances(int newIdleTTL_forAllInstances) {
@@ -942,8 +875,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getIdleTTL_forAdditionalInstances() {
@@ -951,8 +883,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setIdleTTL_forAdditionalInstances(int newIdleTTL_forAdditionalInstances) {
@@ -963,8 +894,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getQueueMaxSize() {
@@ -972,8 +902,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setQueueMaxSize(int newQueueMaxSize) {
@@ -984,8 +913,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getRequestInQueueTTL() {
@@ -993,8 +921,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setRequestInQueueTTL(int newRequestInQueueTTL) {
@@ -1005,46 +932,45 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SoaService getService() {
-        if (service != null && service.eIsProxy()) {
-            InternalEObject oldService = (InternalEObject)service;
-            service = (SoaService)eResolveProxy(oldService);
-            if (service != oldService) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.SOA_OPERATION__SERVICE, oldService, service));
-            }
-        }
-        return service;
+        if (eContainerFeatureID != PropertiesPackage.SOA_OPERATION__SERVICE) return null;
+        return (SoaService)eContainer();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public SoaService basicGetService() {
-        return service;
+    public NotificationChain basicSetService(SoaService newService, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newService, PropertiesPackage.SOA_OPERATION__SERVICE, msgs);
+        return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setService(SoaService newService) {
-        SoaService oldService = service;
-        service = newService;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__SERVICE, oldService, service));
+        if (newService != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.SOA_OPERATION__SERVICE && newService != null)) {
+            if (EcoreUtil.isAncestor(this, newService))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newService != null)
+                msgs = ((InternalEObject)newService).eInverseAdd(this, PropertiesPackage.SOA_SERVICE__OPERATIONS, SoaService.class, msgs);
+            msgs = basicSetService(newService, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__SERVICE, newService, newService));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getReturnStyle() {
@@ -1052,8 +978,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setReturnStyle(String newReturnStyle) {
@@ -1064,21 +989,47 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.SOA_OPERATION__SERVICE:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetService((SoaService)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.SOA_OPERATION__INPUT_PARAMETERS:
                 return ((InternalEList)getInputParameters()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.SOA_OPERATION__SERVICE:
+                return basicSetService(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID) {
+            case PropertiesPackage.SOA_OPERATION__SERVICE:
+                return eInternalContainer().eInverseRemove(this, PropertiesPackage.SOA_SERVICE__OPERATIONS, SoaService.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
@@ -1129,8 +1080,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__REQUEST_IN_QUEUE_TTL:
                 return new Integer(getRequestInQueueTTL());
             case PropertiesPackage.SOA_OPERATION__SERVICE:
-                if (resolve) return getService();
-                return basicGetService();
+                return getService();
             case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
                 return getReturnStyle();
         }
@@ -1138,8 +1088,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
@@ -1222,8 +1171,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eUnset(int featureID) {
@@ -1305,8 +1253,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean eIsSet(int featureID) {
@@ -1356,7 +1303,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__REQUEST_IN_QUEUE_TTL:
                 return requestInQueueTTL != REQUEST_IN_QUEUE_TTL_EDEFAULT;
             case PropertiesPackage.SOA_OPERATION__SERVICE:
-                return service != null;
+                return getService() != null;
             case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
                 return RETURN_STYLE_EDEFAULT == null ? returnStyle != null : !RETURN_STYLE_EDEFAULT.equals(returnStyle);
         }
@@ -1364,8 +1311,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String toString() {
@@ -1418,4 +1364,4 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         return result.toString();
     }
 
-} //SoaOperationImpl
+} // SoaOperationImpl

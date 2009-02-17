@@ -4915,7 +4915,7 @@ public interface PropertiesPackage extends EPackage {
     int SOA_OPERATION__REQUEST_IN_QUEUE_TTL = 21;
 
     /**
-     * The feature id for the '<em><b>Service</b></em>' reference.
+     * The feature id for the '<em><b>Service</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -8413,10 +8413,10 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSoaOperation_RequestInQueueTTL();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.SoaOperation#getService <em>Service</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.SoaOperation#getService <em>Service</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Service</em>'.
+     * @return the meta object for the container reference '<em>Service</em>'.
      * @see org.talend.core.model.properties.SoaOperation#getService()
      * @see #getSoaOperation()
      * @generated
@@ -11709,7 +11709,7 @@ public interface PropertiesPackage extends EPackage {
         EAttribute SOA_OPERATION__REQUEST_IN_QUEUE_TTL = eINSTANCE.getSoaOperation_RequestInQueueTTL();
 
         /**
-         * The meta object literal for the '<em><b>Service</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Service</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

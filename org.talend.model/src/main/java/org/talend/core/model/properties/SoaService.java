@@ -356,6 +356,7 @@ public interface SoaService extends EObject {
     /**
      * Returns the value of the '<em><b>Operations</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.properties.SoaOperation}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.SoaOperation#getService <em>Service</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Operations</em>' containment reference list isn't clear,
@@ -364,7 +365,8 @@ public interface SoaService extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Operations</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getSoaService_Operations()
-     * @model type="org.talend.core.model.properties.SoaOperation" containment="true" ordered="false"
+     * @see org.talend.core.model.properties.SoaOperation#getService
+     * @model type="org.talend.core.model.properties.SoaOperation" opposite="service" containment="true" ordered="false"
      * @generated
      */
     EList getOperations();

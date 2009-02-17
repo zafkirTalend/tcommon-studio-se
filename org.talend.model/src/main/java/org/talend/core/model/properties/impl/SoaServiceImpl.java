@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -580,9 +581,22 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
      */
     public EList getOperations() {
         if (operations == null) {
-            operations = new EObjectContainmentEList(SoaOperation.class, this, PropertiesPackage.SOA_SERVICE__OPERATIONS);
+            operations = new EObjectContainmentWithInverseEList(SoaOperation.class, this, PropertiesPackage.SOA_SERVICE__OPERATIONS, PropertiesPackage.SOA_OPERATION__SERVICE);
         }
         return operations;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.SOA_SERVICE__OPERATIONS:
+                return ((InternalEList)getOperations()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**

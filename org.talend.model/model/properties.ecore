@@ -527,7 +527,8 @@
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="queueMaxSize" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestInQueueTTL" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="service" eType="#//SoaService"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="service" eType="#//SoaService"
+        eOpposite="#//SoaService/operations"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="returnStyle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SoaInputParameter">
@@ -554,6 +555,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usedType" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="paramStyle" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" ordered="false"
-        upperBound="-1" eType="#//SoaOperation" containment="true"/>
+        upperBound="-1" eType="#//SoaOperation" containment="true" eOpposite="#//SoaOperation/service"/>
   </eClassifiers>
 </ecore:EPackage>
