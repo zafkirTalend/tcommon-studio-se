@@ -25,7 +25,8 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.talend.repository.model.RepositoryNode;
 
 /**
- * DefaultBrandingConfiguration is as TOS BrandingConfiguration,all other brandingConfigure should subclass of this one
+ * DefaultBrandingConfiguration is as TIS BrandingConfiguration(don't hide repository Nodes or Components),all other
+ * brandingConfigure should subclass of this one
  */
 public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
