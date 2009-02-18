@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getJobName <em>Job Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.SoaOperation#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getInputParameters <em>Input Parameters</em>}</li>
@@ -273,31 +272,6 @@ public interface SoaOperation extends EObject {
      * @generated
      */
     void setLastScriptGenerationDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Status</em>' attribute isn't clear, there really should be more of a description
-     * here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Status</em>' attribute.
-     * @see #setStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getSoaOperation_Status()
-     * @model
-     * @generated
-     */
-    String getStatus();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.SoaOperation#getStatus <em>Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Status</em>' attribute.
-     * @see #getStatus()
-     * @generated
-     */
-    void setStatus(String value);
 
     /**
      * Returns the value of the '<em><b>Job Id</b></em>' attribute.

@@ -405,7 +405,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/jobName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/active"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/lastScriptGenerationDate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/status"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/jobId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaOperation/applyContextToChildren"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//SoaOperation/inputParameters"/>
@@ -443,6 +442,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/usedType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/paramStyle"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//SoaService/operations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/status"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -48,6 +48,7 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getUsedType <em>Used Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getParamStyle <em>Param Style</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getOperations <em>Operations</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.SoaServiceImpl#getStatus <em>Status</em>}</li>
  * </ul>
  * </p>
  *
@@ -303,6 +304,26 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
      * @ordered
      */
     protected EList operations;
+
+    /**
+     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStatus()
+     * @generated
+     * @ordered
+     */
+    protected static final String STATUS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStatus()
+     * @generated
+     * @ordered
+     */
+    protected String status = STATUS_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -591,6 +612,27 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStatus(String newStatus) {
+        String oldStatus = status;
+        status = newStatus;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_SERVICE__STATUS, oldStatus, status));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.SOA_SERVICE__OPERATIONS:
@@ -645,6 +687,8 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
                 return getParamStyle();
             case PropertiesPackage.SOA_SERVICE__OPERATIONS:
                 return getOperations();
+            case PropertiesPackage.SOA_SERVICE__STATUS:
+                return getStatus();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -696,6 +740,9 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
                 getOperations().clear();
                 getOperations().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.SOA_SERVICE__STATUS:
+                setStatus((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -746,6 +793,9 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
             case PropertiesPackage.SOA_SERVICE__OPERATIONS:
                 getOperations().clear();
                 return;
+            case PropertiesPackage.SOA_SERVICE__STATUS:
+                setStatus(STATUS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -783,6 +833,8 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
                 return PARAM_STYLE_EDEFAULT == null ? paramStyle != null : !PARAM_STYLE_EDEFAULT.equals(paramStyle);
             case PropertiesPackage.SOA_SERVICE__OPERATIONS:
                 return operations != null && !operations.isEmpty();
+            case PropertiesPackage.SOA_SERVICE__STATUS:
+                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
         }
         return super.eIsSet(featureID);
     }
@@ -820,6 +872,8 @@ public class SoaServiceImpl extends EObjectImpl implements SoaService {
         result.append(usedType);
         result.append(", paramStyle: ");
         result.append(paramStyle);
+        result.append(", status: ");
+        result.append(status);
         result.append(')');
         return result.toString();
     }

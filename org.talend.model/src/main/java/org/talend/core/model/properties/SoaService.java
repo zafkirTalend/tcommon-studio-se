@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.SoaService#getUsedType <em>Used Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getParamStyle <em>Param Style</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaService#getOperations <em>Operations</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.SoaService#getStatus <em>Status</em>}</li>
  * </ul>
  * </p>
  *
@@ -370,5 +371,31 @@ public interface SoaService extends EObject {
      * @generated
      */
     EList getOperations();
+
+    /**
+     * Returns the value of the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Status</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Status</em>' attribute.
+     * @see #setStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getSoaService_Status()
+     * @model
+     * @generated
+     */
+    String getStatus();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.SoaService#getStatus <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Status</em>' attribute.
+     * @see #getStatus()
+     * @generated
+     */
+    void setStatus(String value);
 
 } // SoaService

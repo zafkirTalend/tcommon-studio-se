@@ -38,7 +38,6 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getJobName <em>Job Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getInputParameters <em>Input Parameters</em>}</li>
@@ -225,26 +224,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @ordered
      */
     protected Date lastScriptGenerationDate = LAST_SCRIPT_GENERATION_DATE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getStatus()
-     * @generated
-     * @ordered
-     */
-    protected static final String STATUS_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getStatus()
-     * @generated
-     * @ordered
-     */
-    protected String status = STATUS_EDEFAULT;
 
     /**
      * The default value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
@@ -696,25 +675,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setStatus(String newStatus) {
-        String oldStatus = status;
-        status = newStatus;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__STATUS, oldStatus, status));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public String getJobId() {
         return jobId;
     }
@@ -1053,8 +1013,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE:
                 return getLastScriptGenerationDate();
-            case PropertiesPackage.SOA_OPERATION__STATUS:
-                return getStatus();
             case PropertiesPackage.SOA_OPERATION__JOB_ID:
                 return getJobId();
             case PropertiesPackage.SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN:
@@ -1119,9 +1077,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return;
             case PropertiesPackage.SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE:
                 setLastScriptGenerationDate((Date)newValue);
-                return;
-            case PropertiesPackage.SOA_OPERATION__STATUS:
-                setStatus((String)newValue);
                 return;
             case PropertiesPackage.SOA_OPERATION__JOB_ID:
                 setJobId((String)newValue);
@@ -1203,9 +1158,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE:
                 setLastScriptGenerationDate(LAST_SCRIPT_GENERATION_DATE_EDEFAULT);
                 return;
-            case PropertiesPackage.SOA_OPERATION__STATUS:
-                setStatus(STATUS_EDEFAULT);
-                return;
             case PropertiesPackage.SOA_OPERATION__JOB_ID:
                 setJobId(JOB_ID_EDEFAULT);
                 return;
@@ -1276,8 +1228,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.SOA_OPERATION__LAST_SCRIPT_GENERATION_DATE:
                 return LAST_SCRIPT_GENERATION_DATE_EDEFAULT == null ? lastScriptGenerationDate != null : !LAST_SCRIPT_GENERATION_DATE_EDEFAULT.equals(lastScriptGenerationDate);
-            case PropertiesPackage.SOA_OPERATION__STATUS:
-                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
             case PropertiesPackage.SOA_OPERATION__JOB_ID:
                 return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
             case PropertiesPackage.SOA_OPERATION__APPLY_CONTEXT_TO_CHILDREN:
@@ -1334,8 +1284,6 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         result.append(active);
         result.append(", lastScriptGenerationDate: ");
         result.append(lastScriptGenerationDate);
-        result.append(", status: ");
-        result.append(status);
         result.append(", jobId: ");
         result.append(jobId);
         result.append(", applyContextToChildren: ");
