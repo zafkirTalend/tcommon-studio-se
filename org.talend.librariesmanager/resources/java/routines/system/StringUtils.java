@@ -127,4 +127,49 @@ public class StringUtils {
             }
         }
     }
+
+    /**
+     * make \n to \\n. It will process these chars: \n, \r, \t, \f, \\, \", \', \b
+     * 
+     */
+    public static String escapeChar(String s) {
+        if (s == null) {
+            return null;
+        }
+
+        int length = s.length();
+        StringBuffer sb = new StringBuffer(length);
+        for (int i = 0; i < length; i++) {
+
+            char c = s.charAt(i);
+
+            switch (c) {
+            case '\n':
+                sb.append("\\").append('n');
+                break;
+            case '\r':
+                sb.append("\\").append('r');
+                break;
+            case '\t':
+                sb.append("\\").append('t');
+                break;
+            case '\f':
+                sb.append("\\").append('f');
+                break;
+            case '\b':
+                sb.append("\\").append('b');
+                break;
+            case '\"':
+                sb.append("\\").append('\"');
+                break;
+            case '\'':
+                sb.append("\\").append('\'');
+                break;
+            default:
+                sb.append(c);
+            }
+        }
+
+        return sb.toString();
+    }
 }
