@@ -27,7 +27,7 @@ public class Java2STLangTypesHelper {
      * @param columnLabel
      * @return
      */
-    public static String getFormatString(IMetadataTable metadataTable, String columnLabel) {
+    public static String getSTLangType(IMetadataTable metadataTable, String columnLabel) {
         IMetadataColumn column = metadataTable.getColumn(columnLabel);
         String talendType = column.getTalendType();
 
@@ -68,7 +68,7 @@ public class Java2STLangTypesHelper {
      * @param columnLabel
      * @return
      */
-    public static String getSTLangType(IMetadataTable metadataTable, String columnLabel) {
+    public static String getFormatString(IMetadataTable metadataTable, String columnLabel) {
         IMetadataColumn column = metadataTable.getColumn(columnLabel);
         String talendType = column.getTalendType();
 
