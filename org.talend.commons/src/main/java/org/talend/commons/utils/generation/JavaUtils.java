@@ -38,8 +38,8 @@ public final class JavaUtils {
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java"; //$NON-NLS-1$
 
-    /** Java sqlpattern Extension. */
-    public static final String JAVA_SQLPATTERN_EXTENSION = ".sqlpattern"; //$NON-NLS-1$
+    /** Java sqltemplate Extension. */
+    public static final String JAVA_SQLPATTERN_EXTENSION = ".sqltemplate"; //$NON-NLS-1$
 
     /** Java Context Extension. */
     public static final String JAVA_CONTEXT_EXTENSION = ".properties"; //$NON-NLS-1$
@@ -50,8 +50,8 @@ public final class JavaUtils {
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines"; //$NON-NLS-1$
 
-    /** Java SQLPattern Directory. */
-    public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqlpatterns"; //$NON-NLS-1$
+    /** Java SQLTemplate Directory. */
+    public static final String JAVA_SQLPATTERNS_DIRECTORY = "sqltemplates"; //$NON-NLS-1$
 
     /** Java Routines Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system"; //$NON-NLS-1$

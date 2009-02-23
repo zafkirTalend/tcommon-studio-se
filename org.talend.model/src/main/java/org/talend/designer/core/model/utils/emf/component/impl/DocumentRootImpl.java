@@ -32,6 +32,7 @@ import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
+import org.talend.designer.core.model.utils.emf.component.SQLTEMPLATESType;
 import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
 
 /**
@@ -55,7 +56,7 @@ import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getRETURNS <em>RETURNS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getSQLPATTERNS <em>SQLPATTERNS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getSQLTEMPLATES <em>SQLTEMPLATES</em>}</li>
  * </ul>
  * </p>
  *
@@ -449,8 +450,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    public SQLPATTERNSType getSQLPATTERNS() {
-        return (SQLPATTERNSType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__SQLPATTERNS, true);
+    public SQLTEMPLATESType getSQLTEMPLATES() {
+        return (SQLTEMPLATESType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__SQLTEMPLATES, true);
     }
 
     /**
@@ -458,8 +459,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetSQLPATTERNS(SQLPATTERNSType newSQLPATTERNS, NotificationChain msgs) {
-        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__SQLPATTERNS, newSQLPATTERNS, msgs);
+    public NotificationChain basicSetSQLTEMPLATES(SQLTEMPLATESType newSQLTEMPLATES, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__SQLTEMPLATES, newSQLTEMPLATES, msgs);
     }
 
     /**
@@ -467,8 +468,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setSQLPATTERNS(SQLPATTERNSType newSQLPATTERNS) {
-        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__SQLPATTERNS, newSQLPATTERNS);
+    public void setSQLTEMPLATES(SQLTEMPLATESType newSQLTEMPLATES) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__SQLTEMPLATES, newSQLTEMPLATES);
     }
 
     /**
@@ -507,8 +508,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetPLUGINDEPENDENCIES(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return basicSetRETURNS(null, msgs);
-            case ComponentPackage.DOCUMENT_ROOT__SQLPATTERNS:
-                return basicSetSQLPATTERNS(null, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__SQLTEMPLATES:
+                return basicSetSQLTEMPLATES(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -552,8 +553,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getPLUGINDEPENDENCIES();
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return getRETURNS();
-            case ComponentPackage.DOCUMENT_ROOT__SQLPATTERNS:
-                return getSQLPATTERNS();
+            case ComponentPackage.DOCUMENT_ROOT__SQLTEMPLATES:
+                return getSQLTEMPLATES();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -608,8 +609,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 setRETURNS((RETURNSType)newValue);
                 return;
-            case ComponentPackage.DOCUMENT_ROOT__SQLPATTERNS:
-                setSQLPATTERNS((SQLPATTERNSType)newValue);
+            case ComponentPackage.DOCUMENT_ROOT__SQLTEMPLATES:
+                setSQLTEMPLATES((SQLTEMPLATESType)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -665,8 +666,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 setRETURNS((RETURNSType)null);
                 return;
-            case ComponentPackage.DOCUMENT_ROOT__SQLPATTERNS:
-                setSQLPATTERNS((SQLPATTERNSType)null);
+            case ComponentPackage.DOCUMENT_ROOT__SQLTEMPLATES:
+                setSQLTEMPLATES((SQLTEMPLATESType)null);
                 return;
         }
         super.eUnset(featureID);
@@ -708,8 +709,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getPLUGINDEPENDENCIES() != null;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return getRETURNS() != null;
-            case ComponentPackage.DOCUMENT_ROOT__SQLPATTERNS:
-                return getSQLPATTERNS() != null;
+            case ComponentPackage.DOCUMENT_ROOT__SQLTEMPLATES:
+                return getSQLTEMPLATES() != null;
         }
         return super.eIsSet(featureID);
     }

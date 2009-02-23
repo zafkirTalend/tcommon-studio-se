@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
+import org.talend.designer.core.model.utils.emf.component.SQLTEMPLATESType;
 import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
 
 /**
@@ -42,7 +43,7 @@ import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCONNECTORS <em>CONNECTORS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getSQLPATTERNS <em>SQLPATTERNS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getSQLTEMPLATES <em>SQLTEMPLATES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCODEGENERATION <em>CODEGENERATION</em>}</li>
@@ -85,14 +86,14 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
     protected CONNECTORSType cONNECTORS;
 
     /**
-     * The cached value of the '{@link #getSQLPATTERNS() <em>SQLPATTERNS</em>}' containment reference.
+     * The cached value of the '{@link #getSQLTEMPLATES() <em>SQLTEMPLATES</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSQLPATTERNS()
+     * @see #getSQLTEMPLATES()
      * @generated
      * @ordered
      */
-    protected SQLPATTERNSType sQLPATTERNS;
+    protected SQLTEMPLATESType sQLTEMPLATES;
 
     /**
      * The cached value of the '{@link #getPARAMETERS() <em>PARAMETERS</em>}' containment reference.
@@ -297,8 +298,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public SQLPATTERNSType getSQLPATTERNS() {
-        return sQLPATTERNS;
+    public SQLTEMPLATESType getSQLTEMPLATES() {
+        return sQLTEMPLATES;
     }
 
     /**
@@ -306,11 +307,11 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetSQLPATTERNS(SQLPATTERNSType newSQLPATTERNS, NotificationChain msgs) {
-        SQLPATTERNSType oldSQLPATTERNS = sQLPATTERNS;
-        sQLPATTERNS = newSQLPATTERNS;
+    public NotificationChain basicSetSQLTEMPLATES(SQLTEMPLATESType newSQLTEMPLATES, NotificationChain msgs) {
+        SQLTEMPLATESType oldSQLTEMPLATES = sQLTEMPLATES;
+        sQLTEMPLATES = newSQLTEMPLATES;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__SQLPATTERNS, oldSQLPATTERNS, newSQLPATTERNS);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES, oldSQLTEMPLATES, newSQLTEMPLATES);
             if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
@@ -321,18 +322,18 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setSQLPATTERNS(SQLPATTERNSType newSQLPATTERNS) {
-        if (newSQLPATTERNS != sQLPATTERNS) {
+    public void setSQLTEMPLATES(SQLTEMPLATESType newSQLTEMPLATES) {
+        if (newSQLTEMPLATES != sQLTEMPLATES) {
             NotificationChain msgs = null;
-            if (sQLPATTERNS != null)
-                msgs = ((InternalEObject)sQLPATTERNS).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__SQLPATTERNS, null, msgs);
-            if (newSQLPATTERNS != null)
-                msgs = ((InternalEObject)newSQLPATTERNS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__SQLPATTERNS, null, msgs);
-            msgs = basicSetSQLPATTERNS(newSQLPATTERNS, msgs);
+            if (sQLTEMPLATES != null)
+                msgs = ((InternalEObject)sQLTEMPLATES).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES, null, msgs);
+            if (newSQLTEMPLATES != null)
+                msgs = ((InternalEObject)newSQLTEMPLATES).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES, null, msgs);
+            msgs = basicSetSQLTEMPLATES(newSQLTEMPLATES, msgs);
             if (msgs != null) msgs.dispatch();
         }
         else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__SQLPATTERNS, newSQLPATTERNS, newSQLPATTERNS));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES, newSQLTEMPLATES, newSQLTEMPLATES));
     }
 
     /**
@@ -564,8 +565,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return basicSetDOCUMENTATION(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
                 return basicSetCONNECTORS(null, msgs);
-            case ComponentPackage.COMPONENT_TYPE__SQLPATTERNS:
-                return basicSetSQLPATTERNS(null, msgs);
+            case ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES:
+                return basicSetSQLTEMPLATES(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 return basicSetPARAMETERS(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
@@ -594,8 +595,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return getDOCUMENTATION();
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
                 return getCONNECTORS();
-            case ComponentPackage.COMPONENT_TYPE__SQLPATTERNS:
-                return getSQLPATTERNS();
+            case ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES:
+                return getSQLTEMPLATES();
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 return getPARAMETERS();
             case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
@@ -627,8 +628,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
                 setCONNECTORS((CONNECTORSType)newValue);
                 return;
-            case ComponentPackage.COMPONENT_TYPE__SQLPATTERNS:
-                setSQLPATTERNS((SQLPATTERNSType)newValue);
+            case ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES:
+                setSQLTEMPLATES((SQLTEMPLATESType)newValue);
                 return;
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)newValue);
@@ -666,8 +667,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
                 setCONNECTORS((CONNECTORSType)null);
                 return;
-            case ComponentPackage.COMPONENT_TYPE__SQLPATTERNS:
-                setSQLPATTERNS((SQLPATTERNSType)null);
+            case ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES:
+                setSQLTEMPLATES((SQLTEMPLATESType)null);
                 return;
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)null);
@@ -702,8 +703,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return dOCUMENTATION != null;
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
                 return cONNECTORS != null;
-            case ComponentPackage.COMPONENT_TYPE__SQLPATTERNS:
-                return sQLPATTERNS != null;
+            case ComponentPackage.COMPONENT_TYPE__SQLTEMPLATES:
+                return sQLTEMPLATES != null;
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 return pARAMETERS != null;
             case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:

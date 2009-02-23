@@ -32,7 +32,7 @@ public enum EComponentCategory {
     ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED), //$NON-NLS-1$
     EXTRA("Extra", 12), //$NON-NLS-1$
     DYNAMICS_SETTINGS("Dynamic settings", 13), //$NON-NLS-1$
-    SQL_PATTERN("SQL Pattern", 14); //$NON-NLS-1$
+    SQL_PATTERN("SQL Template", 14); //$NON-NLS-1$
 
     private String title;
 

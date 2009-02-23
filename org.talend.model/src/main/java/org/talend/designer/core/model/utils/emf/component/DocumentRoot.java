@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getRETURNS <em>RETURNS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getSQLPATTERNS <em>SQLPATTERNS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getSQLTEMPLATES <em>SQLTEMPLATES</em>}</li>
  * </ul>
  * </p>
  *
@@ -392,30 +392,30 @@ public interface DocumentRoot extends EObject {
     void setRETURNS(RETURNSType value);
 
     /**
-     * Returns the value of the '<em><b>SQLPATTERNS</b></em>' containment reference.
+     * Returns the value of the '<em><b>SQLTEMPLATES</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>SQLPATTERNS</em>' containment reference isn't clear,
+     * If the meaning of the '<em>SQLTEMPLATES</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>SQLPATTERNS</em>' containment reference.
-     * @see #setSQLPATTERNS(SQLPATTERNSType)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_SQLPATTERNS()
+     * @return the value of the '<em>SQLTEMPLATES</em>' containment reference.
+     * @see #setSQLTEMPLATES(SQLTEMPLATESType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_SQLTEMPLATES()
      * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
-     *        extendedMetaData="kind='element' name='SQLPATTERNS' namespace='##targetNamespace'"
+     *        extendedMetaData="kind='element' name='SQLTEMPLATES' namespace='##targetNamespace'"
      * @generated
      */
-    SQLPATTERNSType getSQLPATTERNS();
+    SQLTEMPLATESType getSQLTEMPLATES();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getSQLPATTERNS <em>SQLPATTERNS</em>}' containment reference.
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getSQLTEMPLATES <em>SQLTEMPLATES</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>SQLPATTERNS</em>' containment reference.
-     * @see #getSQLPATTERNS()
+     * @param value the new value of the '<em>SQLTEMPLATES</em>' containment reference.
+     * @see #getSQLTEMPLATES()
      * @generated
      */
-    void setSQLPATTERNS(SQLPATTERNSType value);
+    void setSQLTEMPLATES(SQLTEMPLATESType value);
 
 } // DocumentRoot

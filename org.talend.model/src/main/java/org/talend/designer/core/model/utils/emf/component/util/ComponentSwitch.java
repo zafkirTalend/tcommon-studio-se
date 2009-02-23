@@ -246,15 +246,15 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case ComponentPackage.SQLPATTERNS_TYPE: {
-                SQLPATTERNSType sqlpatternsType = (SQLPATTERNSType)theEObject;
-                Object result = caseSQLPATTERNSType(sqlpatternsType);
+            case ComponentPackage.SQLTEMPLATES_TYPE: {
+                SQLTEMPLATESType sqltemplatesType = (SQLTEMPLATESType)theEObject;
+                Object result = caseSQLTEMPLATESType(sqltemplatesType);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case ComponentPackage.SQLPATTERN_TYPE: {
-                SQLPATTERNType sqlpatternType = (SQLPATTERNType)theEObject;
-                Object result = caseSQLPATTERNType(sqlpatternType);
+            case ComponentPackage.SQLTEMPLATE_TYPE: {
+                SQLTEMPLATEType sqltemplateType = (SQLTEMPLATEType)theEObject;
+                Object result = caseSQLTEMPLATEType(sqltemplateType);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -632,32 +632,32 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>SQLPATTERNS Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>SQLTEMPLATES Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>SQLPATTERNS Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>SQLTEMPLATES Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSQLPATTERNSType(SQLPATTERNSType object) {
+    public Object caseSQLTEMPLATESType(SQLTEMPLATESType object) {
         return null;
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>SQLPATTERN Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>SQLTEMPLATE Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>SQLPATTERN Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>SQLTEMPLATE Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSQLPATTERNType(SQLPATTERNType object) {
+    public Object caseSQLTEMPLATEType(SQLTEMPLATEType object) {
         return null;
     }
 

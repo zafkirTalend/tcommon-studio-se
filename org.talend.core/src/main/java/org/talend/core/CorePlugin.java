@@ -171,7 +171,7 @@ public class CorePlugin extends AbstractUIPlugin {
     }
 
     /*
-     * public boolean useSQLPattern() { return (Boolean) CorePlugin.getContext().getProperty("useSQLPattern"); }
+     * public boolean useSQLTemplate() { return (Boolean) CorePlugin.getContext().getProperty("useSQLTemplate"); }
      * 
      * public boolean useRefproject() { return (Boolean) CorePlugin.getContext().getProperty("useRefProject"); }
      */

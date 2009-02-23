@@ -21,8 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getCOLUMN <em>COLUMN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getIF <em>IF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getNOTIF <em>NOTIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getREADONLYCOLUMNPOSITION <em>READONLYCOLUMNPOSITION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY <em>READONLY</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getREAD_ONLY_COLUMN_POSITION <em>READ ONLY COLUMN POSITION</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,32 +104,6 @@ public interface TABLEType extends EObject {
     boolean isSetREADONLY();
 
     /**
-     * Returns the value of the '<em><b>READ ONLY COLUMN POSITION</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>READ ONLY COLUMN POSITION</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>READ ONLY COLUMN POSITION</em>' attribute.
-     * @see #setREAD_ONLY_COLUMN_POSITION(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_READ_ONLY_COLUMN_POSITION()
-     * @model extendedMetaData="kind='attribute' name='READ_ONLY_COLUMN_POSITION' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getREAD_ONLY_COLUMN_POSITION();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getREAD_ONLY_COLUMN_POSITION <em>READ ONLY COLUMN POSITION</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>READ ONLY COLUMN POSITION</em>' attribute.
-     * @see #getREAD_ONLY_COLUMN_POSITION()
-     * @generated
-     */
-    void setREAD_ONLY_COLUMN_POSITION(String value);
-
-    /**
      * Returns the value of the '<em><b>IF</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -182,5 +156,32 @@ public interface TABLEType extends EObject {
      * @generated
      */
     void setNOTIF(String value);
+
+    /**
+     * Returns the value of the '<em><b>READONLYCOLUMNPOSITION</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>READONLYCOLUMNPOSITION</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>READONLYCOLUMNPOSITION</em>' attribute.
+     * @see #setREADONLYCOLUMNPOSITION(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_READONLYCOLUMNPOSITION()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='READ_ONLY_COLUMN_POSITION' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getREADONLYCOLUMNPOSITION();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getREADONLYCOLUMNPOSITION <em>READONLYCOLUMNPOSITION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>READONLYCOLUMNPOSITION</em>' attribute.
+     * @see #getREADONLYCOLUMNPOSITION()
+     * @generated
+     */
+    void setREADONLYCOLUMNPOSITION(String value);
 
 } // TABLEType

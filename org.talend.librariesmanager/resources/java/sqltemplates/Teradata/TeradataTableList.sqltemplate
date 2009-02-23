@@ -1,4 +1,4 @@
--- This pattern is just an example for the RC release, and will be modified in future version.
+-- This template is just an example for the RC release, and will be modified in future version.
 
 -- TableList
 SELECT TableName from DBC.TABLES

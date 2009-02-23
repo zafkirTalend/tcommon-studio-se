@@ -103,8 +103,8 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.PLUGINDEPENDENCY_TYPE: return createPLUGINDEPENDENCYType();
             case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
             case ComponentPackage.RETURN_TYPE: return createRETURNType();
-            case ComponentPackage.SQLPATTERNS_TYPE: return createSQLPATTERNSType();
-            case ComponentPackage.SQLPATTERN_TYPE: return createSQLPATTERNType();
+            case ComponentPackage.SQLTEMPLATES_TYPE: return createSQLTEMPLATESType();
+            case ComponentPackage.SQLTEMPLATE_TYPE: return createSQLTEMPLATEType();
             case ComponentPackage.TABLE_TYPE: return createTABLEType();
             case ComponentPackage.TEMPLATEPARAM_TYPE: return createTEMPLATEPARAMType();
             case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
@@ -349,9 +349,9 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      * <!-- end-user-doc -->
      * @generated
      */
-    public SQLPATTERNSType createSQLPATTERNSType() {
-        SQLPATTERNSTypeImpl sqlpatternsType = new SQLPATTERNSTypeImpl();
-        return sqlpatternsType;
+    public SQLTEMPLATESType createSQLTEMPLATESType() {
+        SQLTEMPLATESTypeImpl sqltemplatesType = new SQLTEMPLATESTypeImpl();
+        return sqltemplatesType;
     }
 
     /**
@@ -359,9 +359,9 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      * <!-- end-user-doc -->
      * @generated
      */
-    public SQLPATTERNType createSQLPATTERNType() {
-        SQLPATTERNTypeImpl sqlpatternType = new SQLPATTERNTypeImpl();
-        return sqlpatternType;
+    public SQLTEMPLATEType createSQLTEMPLATEType() {
+        SQLTEMPLATETypeImpl sqltemplateType = new SQLTEMPLATETypeImpl();
+        return sqltemplateType;
     }
 
     /**

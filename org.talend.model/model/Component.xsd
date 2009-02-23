@@ -6,7 +6,7 @@
 				<xs:element ref="HEADER"/>
 				<xs:element ref="DOCUMENTATION"/>
 				<xs:element ref="CONNECTORS"/>
-				<xs:element ref="SQLPATTERNS" minOccurs="0"/>
+				<xs:element ref="SQLTEMPLATES" minOccurs="0"/>
 				<xs:element ref="PARAMETERS"/>
 				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0"/>
 				<xs:element ref="CODEGENERATION"/>
@@ -132,10 +132,10 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="SQLPATTERNS">
+	<xs:element name="SQLTEMPLATES">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="SQLPATTERN" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="SQLTEMPLATE" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:attribute name="NAME" type="xs:string"/>
 						<xs:attribute name="CONTENT" type="xs:string" use="optional"/>

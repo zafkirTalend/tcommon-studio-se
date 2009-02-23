@@ -5,8 +5,8 @@
     modelPluginID="org.talend.model" templateDirectory="" modelName="component" editPluginClass="org.talend.designer.core.model.utils.emf.component.provider.componentEditPlugin"
     editorPluginClass="org.talend.designer.core.model.utils.emf.component.presentation.componentEditorPlugin"
     testSuiteClass="org.talend.designer.core.model.utils.emf.component.tests.componentAllTests"
-    importerID="org.eclipse.emf.importer.ecore">
-  <foreignModel>Component.ecore</foreignModel>
+    importerID="org.eclipse.xsd.ecore.importer">
+  <foreignModel>Component.xsd</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
     <genClasses ecoreClass="Component.ecore#//ADVANCEDPARAMETERSType">
@@ -33,7 +33,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/hEADER"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/dOCUMENTATION"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cONNECTORS"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/sQLPATTERNS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/sQLTEMPLATES"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pARAMETERS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/aDVANCEDPARAMETERS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cODEGENERATION"/>
@@ -81,7 +81,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pARAMETERS"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pLUGINDEPENDENCIES"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/rETURNS"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/sQLPATTERNS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/sQLTEMPLATES"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//FORMATType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//FORMATType/cONNECTION"/>
@@ -192,20 +192,20 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/tYPE"/>
     </genClasses>
-    <genClasses ecoreClass="Component.ecore#//SQLPATTERNSType">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//SQLPATTERNSType/sQLPATTERN"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLPATTERNSType/dB"/>
+    <genClasses ecoreClass="Component.ecore#//SQLTEMPLATESType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//SQLTEMPLATESType/sQLTEMPLATE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLTEMPLATESType/dB"/>
     </genClasses>
-    <genClasses ecoreClass="Component.ecore#//SQLPATTERNType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLPATTERNType/cONTENT"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLPATTERNType/nAME"/>
+    <genClasses ecoreClass="Component.ecore#//SQLTEMPLATEType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLTEMPLATEType/cONTENT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//SQLTEMPLATEType/nAME"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TABLEType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TABLEType/cOLUMN"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TABLEType/iF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TABLEType/nOTIF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TABLEType/rEADONLYCOLUMNPOSITION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TABLEType/rEADONLY"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TABLEType/rEAD_ONLY_COLUMN_POSITION"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATEPARAMType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEPARAMType/sOURCE"/>

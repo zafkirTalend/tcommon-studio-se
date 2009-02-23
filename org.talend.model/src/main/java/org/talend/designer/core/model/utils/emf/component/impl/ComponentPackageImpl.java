@@ -37,6 +37,8 @@ import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 import org.talend.designer.core.model.utils.emf.component.RETURNType;
+import org.talend.designer.core.model.utils.emf.component.SQLTEMPLATESType;
+import org.talend.designer.core.model.utils.emf.component.SQLTEMPLATEType;
 import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
 import org.talend.designer.core.model.utils.emf.component.SQLPATTERNType;
 import org.talend.designer.core.model.utils.emf.component.TABLEType;
@@ -217,14 +219,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass sqlpatternsTypeEClass = null;
+    private EClass sqltemplatesTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass sqlpatternTypeEClass = null;
+    private EClass sqltemplateTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -519,7 +521,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_SQLPATTERNS() {
+    public EReference getCOMPONENTType_SQLTEMPLATES() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -906,7 +908,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_SQLPATTERNS() {
+    public EReference getDocumentRoot_SQLTEMPLATES() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(14);
     }
 
@@ -1770,8 +1772,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getSQLPATTERNSType() {
-        return sqlpatternsTypeEClass;
+    public EClass getSQLTEMPLATESType() {
+        return sqltemplatesTypeEClass;
     }
 
     /**
@@ -1779,8 +1781,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getSQLPATTERNSType_SQLPATTERN() {
-        return (EReference)sqlpatternsTypeEClass.getEStructuralFeatures().get(0);
+    public EReference getSQLTEMPLATESType_SQLTEMPLATE() {
+        return (EReference)sqltemplatesTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1788,8 +1790,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSQLPATTERNSType_DB() {
-        return (EAttribute)sqlpatternsTypeEClass.getEStructuralFeatures().get(1);
+    public EAttribute getSQLTEMPLATESType_DB() {
+        return (EAttribute)sqltemplatesTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1797,8 +1799,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getSQLPATTERNType() {
-        return sqlpatternTypeEClass;
+    public EClass getSQLTEMPLATEType() {
+        return sqltemplateTypeEClass;
     }
 
     /**
@@ -1806,8 +1808,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSQLPATTERNType_CONTENT() {
-        return (EAttribute)sqlpatternTypeEClass.getEStructuralFeatures().get(0);
+    public EAttribute getSQLTEMPLATEType_CONTENT() {
+        return (EAttribute)sqltemplateTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1815,8 +1817,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSQLPATTERNType_NAME() {
-        return (EAttribute)sqlpatternTypeEClass.getEStructuralFeatures().get(1);
+    public EAttribute getSQLTEMPLATEType_NAME() {
+        return (EAttribute)sqltemplateTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1843,15 +1845,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EAttribute getTABLEType_READONLY() {
-        return (EAttribute)tableTypeEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getTABLEType_READ_ONLY_COLUMN_POSITION() {
         return (EAttribute)tableTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1871,6 +1864,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      */
     public EAttribute getTABLEType_NOTIF() {
         return (EAttribute)tableTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTABLEType_READONLYCOLUMNPOSITION() {
+        return (EAttribute)tableTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2051,7 +2053,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(componentTypeEClass, COMPONENT_TYPE__HEADER);
         createEReference(componentTypeEClass, COMPONENT_TYPE__DOCUMENTATION);
         createEReference(componentTypeEClass, COMPONENT_TYPE__CONNECTORS);
-        createEReference(componentTypeEClass, COMPONENT_TYPE__SQLPATTERNS);
+        createEReference(componentTypeEClass, COMPONENT_TYPE__SQLTEMPLATES);
         createEReference(componentTypeEClass, COMPONENT_TYPE__PARAMETERS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__ADVANCEDPARAMETERS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__CODEGENERATION);
@@ -2099,7 +2101,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(documentRootEClass, DOCUMENT_ROOT__PARAMETERS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PLUGINDEPENDENCIES);
         createEReference(documentRootEClass, DOCUMENT_ROOT__RETURNS);
-        createEReference(documentRootEClass, DOCUMENT_ROOT__SQLPATTERNS);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__SQLTEMPLATES);
 
         formatTypeEClass = createEClass(FORMAT_TYPE);
         createEAttribute(formatTypeEClass, FORMAT_TYPE__CONNECTION);
@@ -2210,20 +2212,20 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(returnTypeEClass, RETURN_TYPE__NAME);
         createEAttribute(returnTypeEClass, RETURN_TYPE__TYPE);
 
-        sqlpatternsTypeEClass = createEClass(SQLPATTERNS_TYPE);
-        createEReference(sqlpatternsTypeEClass, SQLPATTERNS_TYPE__SQLPATTERN);
-        createEAttribute(sqlpatternsTypeEClass, SQLPATTERNS_TYPE__DB);
+        sqltemplatesTypeEClass = createEClass(SQLTEMPLATES_TYPE);
+        createEReference(sqltemplatesTypeEClass, SQLTEMPLATES_TYPE__SQLTEMPLATE);
+        createEAttribute(sqltemplatesTypeEClass, SQLTEMPLATES_TYPE__DB);
 
-        sqlpatternTypeEClass = createEClass(SQLPATTERN_TYPE);
-        createEAttribute(sqlpatternTypeEClass, SQLPATTERN_TYPE__CONTENT);
-        createEAttribute(sqlpatternTypeEClass, SQLPATTERN_TYPE__NAME);
+        sqltemplateTypeEClass = createEClass(SQLTEMPLATE_TYPE);
+        createEAttribute(sqltemplateTypeEClass, SQLTEMPLATE_TYPE__CONTENT);
+        createEAttribute(sqltemplateTypeEClass, SQLTEMPLATE_TYPE__NAME);
 
         tableTypeEClass = createEClass(TABLE_TYPE);
         createEReference(tableTypeEClass, TABLE_TYPE__COLUMN);
         createEAttribute(tableTypeEClass, TABLE_TYPE__IF);
         createEAttribute(tableTypeEClass, TABLE_TYPE__NOTIF);
+        createEAttribute(tableTypeEClass, TABLE_TYPE__READONLYCOLUMNPOSITION);
         createEAttribute(tableTypeEClass, TABLE_TYPE__READONLY);
-        createEAttribute(tableTypeEClass, TABLE_TYPE__READ_ONLY_COLUMN_POSITION);
 
         templateparamTypeEClass = createEClass(TEMPLATEPARAM_TYPE);
         createEAttribute(templateparamTypeEClass, TEMPLATEPARAM_TYPE__SOURCE);
@@ -2296,7 +2298,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getCOMPONENTType_HEADER(), this.getHEADERType(), null, "hEADER", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_DOCUMENTATION(), this.getDOCUMENTATIONType(), null, "dOCUMENTATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_CONNECTORS(), this.getCONNECTORSType(), null, "cONNECTORS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCOMPONENTType_SQLPATTERNS(), this.getSQLPATTERNSType(), null, "sQLPATTERNS", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCOMPONENTType_SQLTEMPLATES(), this.getSQLTEMPLATESType(), null, "sQLTEMPLATES", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_PARAMETERS(), this.getPARAMETERSType(), null, "pARAMETERS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_ADVANCEDPARAMETERS(), this.getADVANCEDPARAMETERSType(), null, "aDVANCEDPARAMETERS", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_CODEGENERATION(), this.getCODEGENERATIONType(), null, "cODEGENERATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2344,7 +2346,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getDocumentRoot_PARAMETERS(), this.getPARAMETERSType(), null, "pARAMETERS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_PLUGINDEPENDENCIES(), this.getPLUGINDEPENDENCIESType(), null, "pLUGINDEPENDENCIES", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-        initEReference(getDocumentRoot_SQLPATTERNS(), this.getSQLPATTERNSType(), null, "sQLPATTERNS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_SQLTEMPLATES(), this.getSQLTEMPLATESType(), null, "sQLTEMPLATES", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(formatTypeEClass, FORMATType.class, "FORMATType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFORMATType_CONNECTION(), theXMLTypePackage.getString(), "cONNECTION", null, 0, 1, FORMATType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2455,20 +2457,20 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getRETURNType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRETURNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(sqlpatternsTypeEClass, SQLPATTERNSType.class, "SQLPATTERNSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSQLPATTERNSType_SQLPATTERN(), this.getSQLPATTERNType(), null, "sQLPATTERN", null, 0, -1, SQLPATTERNSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSQLPATTERNSType_DB(), theXMLTypePackage.getString(), "dB", null, 0, 1, SQLPATTERNSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sqltemplatesTypeEClass, SQLTEMPLATESType.class, "SQLTEMPLATESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSQLTEMPLATESType_SQLTEMPLATE(), this.getSQLTEMPLATEType(), null, "sQLTEMPLATE", null, 0, -1, SQLTEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSQLTEMPLATESType_DB(), theXMLTypePackage.getString(), "dB", null, 0, 1, SQLTEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(sqlpatternTypeEClass, SQLPATTERNType.class, "SQLPATTERNType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSQLPATTERNType_CONTENT(), theXMLTypePackage.getString(), "cONTENT", null, 0, 1, SQLPATTERNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSQLPATTERNType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, SQLPATTERNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sqltemplateTypeEClass, SQLTEMPLATEType.class, "SQLTEMPLATEType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSQLTEMPLATEType_CONTENT(), theXMLTypePackage.getString(), "cONTENT", null, 0, 1, SQLTEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSQLTEMPLATEType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, SQLTEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(tableTypeEClass, TABLEType.class, "TABLEType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getTABLEType_COLUMN(), this.getCOLUMNType(), null, "cOLUMN", null, 0, -1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTABLEType_IF(), theXMLTypePackage.getString(), "iF", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTABLEType_NOTIF(), theXMLTypePackage.getString(), "nOTIF", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTABLEType_READONLYCOLUMNPOSITION(), theXMLTypePackage.getString(), "rEADONLYCOLUMNPOSITION", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTABLEType_READONLY(), theXMLTypePackage.getBoolean(), "rEADONLY", "false", 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTABLEType_READ_ONLY_COLUMN_POSITION(), ecorePackage.getEString(), "rEAD_ONLY_COLUMN_POSITION", null, 0, 1, TABLEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(templateparamTypeEClass, TEMPLATEPARAMType.class, "TEMPLATEPARAMType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTEMPLATEPARAMType_SOURCE(), theXMLTypePackage.getString(), "sOURCE", null, 0, 1, TEMPLATEPARAMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2674,11 +2676,11 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (getCOMPONENTType_SQLPATTERNS(), 
+          (getCOMPONENTType_SQLTEMPLATES(), 
            source, 
            new String[] {
              "kind", "element",
-             "name", "SQLPATTERNS",
+             "name", "SQLTEMPLATES",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -3009,11 +3011,11 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (getDocumentRoot_SQLPATTERNS(), 
+          (getDocumentRoot_SQLTEMPLATES(), 
            source, 
            new String[] {
              "kind", "element",
-             "name", "SQLPATTERNS",
+             "name", "SQLTEMPLATES",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -3763,22 +3765,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (sqlpatternsTypeEClass, 
+          (sqltemplatesTypeEClass, 
            source, 
            new String[] {
-             "name", "SQLPATTERNS_._type",
+             "name", "SQLTEMPLATES_._type",
              "kind", "elementOnly"
            });		
         addAnnotation
-          (getSQLPATTERNSType_SQLPATTERN(), 
+          (getSQLTEMPLATESType_SQLTEMPLATE(), 
            source, 
            new String[] {
              "kind", "element",
-             "name", "SQLPATTERN",
+             "name", "SQLTEMPLATE",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (getSQLPATTERNSType_DB(), 
+          (getSQLTEMPLATESType_DB(), 
            source, 
            new String[] {
              "kind", "attribute",
@@ -3786,14 +3788,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (sqlpatternTypeEClass, 
+          (sqltemplateTypeEClass, 
            source, 
            new String[] {
-             "name", "SQLPATTERN_._type",
+             "name", "SQLTEMPLATE_._type",
              "kind", "empty"
            });		
         addAnnotation
-          (getSQLPATTERNType_CONTENT(), 
+          (getSQLTEMPLATEType_CONTENT(), 
            source, 
            new String[] {
              "kind", "attribute",
@@ -3801,7 +3803,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (getSQLPATTERNType_NAME(), 
+          (getSQLTEMPLATEType_NAME(), 
            source, 
            new String[] {
              "kind", "attribute",
@@ -3840,19 +3842,19 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getTABLEType_READONLYCOLUMNPOSITION(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "READ_ONLY_COLUMN_POSITION",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getTABLEType_READONLY(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "READONLY",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getTABLEType_READ_ONLY_COLUMN_POSITION(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "READ_ONLY_COLUMN_POSITION",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
