@@ -400,8 +400,19 @@ public class ExtractMetaDataFromDataBase {
                     boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
                     metadataColumn.setNullable(isNullable);
 
+                    // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
+                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS");
+                    if(commentInfo != null && commentInfo.length()>0){
+                    for (int i = 0; i < commentInfo.length(); i++) {
+                        if (commentInfo.codePointAt(i) == 0x0) {
+                            String commentSub1 = commentInfo.substring(0, i);
+                            String commentSub2 = commentInfo.substring(i + 1);
+                            commentInfo = commentSub1 + commentSub2;
+                        }
+                    }
+                    }
                     // gcui:if not oracle database use "REMARKS" select comments
-                    metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+                    metadataColumn.setComment(commentInfo); //$NON-NLS-1$
                     metadataColumns.add(metadataColumn);
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
