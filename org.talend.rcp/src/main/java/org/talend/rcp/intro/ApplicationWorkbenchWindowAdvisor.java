@@ -36,10 +36,12 @@ import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProv
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
@@ -90,6 +92,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 .setTitle(appName
                         + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
+        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+        ActionBarBuildHelper helper = (ActionBarBuildHelper) service.getBrandingConfiguration().getHelper();
+        if (helper == null) {
+            helper = new ActionBarBuildHelper();
+            service.getBrandingConfiguration().setHelper(helper);
+        }
+        helper.preWindowOpen(configurer);
     }
 
     /*
@@ -101,7 +110,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowOpen() {
         createActions();
         registerActions();
-        adviser.getHelper().hideActions();
+        adviser.getHelper().postWindowOpen();
     }
 
     /**

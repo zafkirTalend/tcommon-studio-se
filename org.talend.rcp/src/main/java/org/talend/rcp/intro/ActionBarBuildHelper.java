@@ -15,6 +15,7 @@ package org.talend.rcp.intro;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IContributionItem;
@@ -28,14 +29,18 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.internal.provisional.action.IToolBarContributionItem;
 import org.eclipse.swt.SWT;
+import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
+import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
+import org.eclipse.ui.internal.registry.PerspectiveRegistry;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.i18n.Messages;
@@ -244,12 +249,33 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         }
     }
 
-    public void hideActions() {
+    public void preWindowOpen(IWorkbenchWindowConfigurer configurer) {
+
+    }
+
+    public void postWindowOpen() {
         hideFileActions();
         hideWindowActions();
         hideHelpActions();
         hideEditActions();
         hideCoolBarActions();
+
+        String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" };
+
+        List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
+
+        for (IPerspectiveDescriptor desc : window.getWorkbench().getPerspectiveRegistry().getPerspectives()) {
+            if (ArrayUtils.contains(perspectivesId, desc.getId())) {
+                perspectivesToDelete.add(desc);
+            }
+        }
+
+        for (IPerspectiveDescriptor desc : perspectivesToDelete) {
+            PerspectiveDescriptor perspDesc = (PerspectiveDescriptor) desc;
+            PerspectiveRegistry registry = (PerspectiveRegistry) window.getWorkbench().getPerspectiveRegistry();
+            PerspectiveDescriptor[] descriptors = { perspDesc };
+            registry.removeExtension(perspDesc.getConfigElement().getDeclaringExtension(), descriptors);
+        }
     }
 
     protected void hideCoolBarActions() {

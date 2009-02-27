@@ -13,6 +13,7 @@
 package org.talend.core.ui.branding;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.ui.IPageLayout;
 import org.talend.repository.model.RepositoryNode;
@@ -22,6 +23,8 @@ import org.talend.repository.model.RepositoryNode;
  * view/palletteview/coolbars etc.
  */
 public interface IBrandingConfiguration extends IActionBarHelper {
+
+    public static final String DISPLAY_CODE_VIEW = "DISPLAY_CODE_VIEW";
 
     /**
      * 
@@ -40,14 +43,15 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     List<RepositoryNode> getHiddenRepositoryCategory(RepositoryNode parent);
 
     /**
-     * 
-     * hide components in paletteview
-     * 
-     * @return
+     * returns null if all components are available.
      */
-    void hideComponents();
+    String[] getAvailableComponents();
 
     void setHelper(IActionBarHelper helper);
 
     IActionBarHelper getHelper();
+
+    String[] getAvailableLanguages();
+
+    Map<String, Object> getJobEditorSettings();
 }

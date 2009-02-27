@@ -1468,7 +1468,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         synchronizeSqlpatterns(project2);
         synchronizeFolders(project2, project.getEmfProject());
         changeRoutinesPackage(project);
-
     }
 
     private void changeRoutinesPackage(Project project) {

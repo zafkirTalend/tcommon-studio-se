@@ -13,7 +13,9 @@
 package org.talend.core.ui.branding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
@@ -22,6 +24,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -120,6 +123,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
         String gefPaletteViewId = "org.eclipse.gef.ui.palette_view"; //$NON-NLS-1$
         String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
+        String jobHierarchyViewId = "org.talend.designer.core.ui.hierarchy.JobHierarchyViewPart"; //$NON-NLS-1$
 
         // leftTopLayout
         IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
@@ -150,16 +154,17 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         bottomLayout.addView(modulesViewId);
         bottomLayout.addView(ecosystemViewId);
         bottomLayout.addView(schedulerViewId);
+        bottomLayout.addView(jobHierarchyViewId);
 
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.ui.branding.IBrandingConfiguration#hideComponents()
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getAvailableComponents()
      */
-    public void hideComponents() {
-
+    public String[] getAvailableComponents() {
+        return null;
     }
 
     private int getIndex(List<PaletteEntry> children, String label) {
@@ -192,5 +197,26 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
                 }
             }
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getAvailableLanguages()
+     */
+    public String[] getAvailableLanguages() {
+        String[] languages = { ECodeLanguage.JAVA.getName(), ECodeLanguage.PERL.getName() };
+
+        return languages;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getJobEditorSettings()
+     */
+    public Map<String, Object> getJobEditorSettings() {
+        // no specific settings by default.
+        return new HashMap<String, Object>();
     }
 }
