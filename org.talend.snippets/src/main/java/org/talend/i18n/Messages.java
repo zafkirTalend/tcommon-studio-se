@@ -15,6 +15,7 @@ package org.talend.i18n;
 import java.util.ResourceBundle;
 
 import org.talend.commons.i18n.MessagesCore;
+import org.talend.snippets.Activator;
 
 /**
  * Default implementation of MessageCore.<br/>
@@ -48,6 +49,6 @@ public class Messages extends MessagesCore {
      * @see MessagesCore#getString(String, ResourceBundle, Object[])
      */
     public static String getString(String key, Object... args) {
-        return getString(key, resourceBundle, args);
+        return MessagesCore.getString(key, Activator.PLUGIN_ID, resourceBundle, args);
     }
 }
