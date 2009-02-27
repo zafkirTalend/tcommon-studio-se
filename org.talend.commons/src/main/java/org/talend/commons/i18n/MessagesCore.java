@@ -17,7 +17,6 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
-import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Core of i18n management.<br/>
@@ -52,13 +51,21 @@ public abstract class MessagesCore {
      * @param resourceBundle - the ResourceBundle to search in
      * @return the string for the given key in the given resource bundle
      */
-    public static String getString(String key, ResourceBundle resourceBundle) {
+    public static String getString(String key, String pluginId, ResourceBundle resourceBundle) {
         if (resourceBundle == null) {
             return KEY_NOT_FOUND_PREFIX + key + KEY_NOT_FOUND_SUFFIX;
         }
         log.trace("Getting key " + key + "in" + resourceBundle.toString()); //$NON-NLS-1$ //$NON-NLS-2$
         try {
+            // modified by wzhang. when pluginId is not null
+            if (pluginId != null) {
+                String babiliTranslation = BabiliTool.getBabiliTranslation(key, pluginId);
+                if (babiliTranslation != null) {
+                    return babiliTranslation;
+                }
+            }
             return resourceBundle.getString(key);
+
         } catch (MissingResourceException e) {
             return KEY_NOT_FOUND_PREFIX + key + KEY_NOT_FOUND_SUFFIX;
         }
@@ -72,7 +79,8 @@ public abstract class MessagesCore {
      * @param args - arg to include in the string
      * @return the string for the given key in the given resource bundle
      */
-    public static String getString(String key, ResourceBundle resourceBundle, Object... args) {
-        return MessageFormat.format(getString(key, resourceBundle), args);
+    // modified by wzhang. add a pluginId parameter
+    public static String getString(String key, String pluginId, ResourceBundle resourceBundle, Object... args) {
+        return MessageFormat.format(getString(key, pluginId, resourceBundle), args);
     }
 }

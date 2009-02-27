@@ -27,6 +27,8 @@ public class GeneralParametersProvider extends MessagesCore {
 
     private static final String BUNDLE_NAME = "parameters"; //$NON-NLS-1$
 
+    private static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
+
     private static ResourceBundle resourceBundle;
 
     private static ResourceBundle getBundle() {
@@ -44,7 +46,7 @@ public class GeneralParametersProvider extends MessagesCore {
      * Returns the value corresponding to the specified key.
      */
     public static String getString(GeneralParameters key) {
-        return getString(key.getParamName(), getBundle());
+        return getString(key.getParamName(), PLUGIN_ID, getBundle());
     }
 
     /**
