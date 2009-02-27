@@ -20,8 +20,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.template.ContextParameterParent;
 import org.talend.core.ui.context.model.template.ContextParameterSortedParent;
 import org.talend.core.ui.context.model.template.ContextParameterSortedSon;
@@ -39,20 +41,28 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
 
     private TreeViewer viewer = null;
 
+    private final IContextModelManager modelManager; // modified by hyWang
+
     private List<IContextParameter> params = new ArrayList<IContextParameter>();
+
+    private IContextManager contextManager; // added by hyWang
 
     private static final String LABEL = Messages.getString("ConextTemplateComposite.addToRepositoryContextAction.label"); //$NON-NLS-1$
 
-    public ContextBuiltinToRepositoryAction() {
+    public ContextBuiltinToRepositoryAction(IContextModelManager modelManager) {
         super();
         this.setText(LABEL);
         this.setToolTipText(LABEL);
+        this.modelManager = modelManager;
     }
 
     @Override
     public void run() {
-        CorePlugin.getDefault().getRepositoryService().openRepositoryReviewDialog(ERepositoryObjectType.CONTEXT, null, params);
-        viewer.refresh();
+        if (contextManager != null) {
+            CorePlugin.getDefault().getRepositoryService().openRepositoryReviewDialog(ERepositoryObjectType.CONTEXT, null,
+                    params, contextManager);
+            viewer.refresh();
+        }
     }
 
     /*
@@ -63,7 +73,7 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
      */
     public void init(TreeViewer viewer, IStructuredSelection selection) {
         this.viewer = viewer;
-
+        this.contextManager = modelManager.getContextManager();
         boolean canWork = viewer != null && selection != null && selection.size() > 0;
         if (canWork) {
             for (Iterator<?> iter = selection.iterator(); iter.hasNext();) {

@@ -25,6 +25,7 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
@@ -109,7 +110,8 @@ public interface IRepositoryService extends IService {
 
     public RepositoryNode getRepositoryNode(String id, boolean expanded);
 
-    public void openRepositoryReviewDialog(ERepositoryObjectType type, String repositoryType, List<IContextParameter> params);
+    public void openRepositoryReviewDialog(ERepositoryObjectType type, String repositoryType, List<IContextParameter> params,
+            IContextManager contextManager);
 
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 

@@ -268,7 +268,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         menuMgr.addMenuListener(new IMenuListener() {
 
             public void menuAboutToShow(IMenuManager mgr) {
-                ContextBuiltinToRepositoryAction action = new ContextBuiltinToRepositoryAction();
+                ContextBuiltinToRepositoryAction action = new ContextBuiltinToRepositoryAction(modelManager);
                 action.init(viewer, (IStructuredSelection) viewer.getSelection());
                 menuMgr.add(action);
             }
@@ -525,22 +525,31 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                 }
 
                 if (items.length > 0) {
-                    for (Object object : obj) {// multi delete
+                    for (Object object : obj) { // multi delete
                         IContextParameter beforeParam = ContextManagerHelper.getNearParameterBySelectionItem(getViewer());
                         if (object == null) {
                             return;
                         }
+
                         if (object instanceof ContextParameterSortedParent) {
                             if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceName())) {
-                                parameter = ((ContextParameterSortedParent) object).getParameter();
-                                modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
+                                /*
+                                 * make the view just refresh one time when delete more than one context in designer
+                                 * added by hyWang
+                                 */
+                                Set<String> paramNamesFromBuiltIn = new HashSet<String>();
+                                for (Object o : obj) {
+                                    parameter = ((ContextParameterSortedParent) o).getParameter();
+                                    paramNamesFromBuiltIn.add(parameter.getName());
+                                }
+                                modelManager.onContextRemoveParameter(getContextManager(), paramNamesFromBuiltIn);
                             } else {
-                                Set<String> names = new HashSet<String>();
+                                Set<String> paramNamesFromRepository = new HashSet<String>();
                                 for (ContextParameterSon son : ((ContextParameterSortedParent) object).getSon()) {
                                     parameter = ((ContextParameterSortedSon) son).getParameter();
-                                    names.add(parameter.getName());
+                                    paramNamesFromRepository.add(parameter.getName());
                                 }
-                                modelManager.onContextRemoveParameter(getContextManager(), names);
+                                modelManager.onContextRemoveParameter(getContextManager(), paramNamesFromRepository);
                             }
                         } else if (object instanceof ContextParameterSortedSon) {
                             parameter = ((ContextParameterSortedSon) object).getParameter();
@@ -552,7 +561,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                         ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
                         checkButtonEnableState();
                     }
-
                 }
             }
         });

@@ -701,7 +701,10 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
         public Image getColumnImage(Object element, int columnIndex) {
             if (columnIndex == 2 && (element instanceof Son)) {
                 Son son = (Son) element;
-                if (son.parameter.isPromptNeeded()) {
+                if (son.parameter == null) {
+                    son.getClass();
+                }
+                if (son.parameter != null && son.parameter.isPromptNeeded()) {
                     return ImageProvider.getImage(EImage.CHECKED_ICON);
                 } else {
                     return ImageProvider.getImage(EImage.UNCHECKED_ICON);
@@ -736,6 +739,9 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
                     IContextParameter contextPara = context.getContextParameter(paraName);
                     Son son = new Son();
                     son.context = context.getName();
+                    if (contextPara == null) {
+                        son.getClass();
+                    }
                     son.parameter = contextPara;
                     son.parent = parent;
                     parent.son.add(son);
