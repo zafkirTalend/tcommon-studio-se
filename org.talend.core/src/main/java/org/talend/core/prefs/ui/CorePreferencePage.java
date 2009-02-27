@@ -54,7 +54,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
 
     private OneLineComboFieldEditor languageSelectionEditor;
     
-    private BooleanFieldEditor groupBySource =null;
+//    private BooleanFieldEditor groupBySource =null;
 
     private List<FieldEditor> fields = new ArrayList<FieldEditor>();
 
@@ -133,11 +133,9 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(ireportPath);
         
-            groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
-                    .getString("CorePreferencePage.groupBySource"), //$NON-NLS-1$
-                    getFieldEditorParent());
-
-            addField(groupBySource);
+//            groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
+//                    .getString("CorePreferencePage.groupBySource"),  getFieldEditorParent());//$NON-NLS-1$
+//          addField(groupBySource);
 
         // ends
     }
@@ -159,7 +157,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
             }
             XmlArray.setLimitToDefault();
 
-            CorePlugin.getDefault().getDesignerCoreService().switchToCurContextsView();
+//          CorePlugin.getDefault().getDesignerCoreService().switchToCurContextsView();
         }
         return ok;
     }

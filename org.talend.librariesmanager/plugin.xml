@@ -54,7 +54,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            category="org.talend.core.prefs"
+            category="org.talend.designer.core.ui.preferences.SpecificSettingPreferencePage"
             class="org.talend.librariesmanager.prefs.LibrariesMainPreferencesPage"
             id="org.talend.librariesmanager.mainpage"
             name="%preferencespage.main"/>

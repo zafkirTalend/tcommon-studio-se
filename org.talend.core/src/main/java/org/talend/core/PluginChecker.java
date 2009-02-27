@@ -38,6 +38,8 @@ public class PluginChecker {
 
     private static final String REF_PROJECT_PLUGIN_ID = "org.talend.repository.refproject"; //$NON-NLS-1$
 
+    private static final String PERFORMANCE_PLUGIN_ID = "org.talend.designer.core.ui.preferences.PerformancePreferencePage"; //$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -75,6 +77,10 @@ public class PluginChecker {
      */
     public static boolean isDocumentationPluginLoaded() {
         return isPluginLoaded(DOCUMENTATION_PLUGIN_ID);
+    }
+
+    public static boolean isPerformancePluginLoaded() {
+        return isPluginLoaded(PERFORMANCE_PLUGIN_ID);
     }
 
     /**
