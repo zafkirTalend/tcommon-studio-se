@@ -55,8 +55,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
@@ -72,6 +75,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.designer.components.ecosystem.ui.views.CompatibleEcoComponentsComposite;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
 
@@ -82,9 +86,17 @@ class ImportItemWizardPage extends WizardPage {
 
     private ImportItemUtil repositoryUtil = new ImportItemUtil();
 
+    private CompatibleEcoComponentsComposite fEcosystemViewComposite;
+
     private Button itemFromDirectoryRadio;
 
     private Text directoryPathField;
+
+    private Table ecoTab;
+
+    private String[] fFilters = new String[] { "Name", "Description" };
+
+    protected Shell shell;
 
     private Button browseDirectoriesButton;
 
@@ -93,6 +105,8 @@ class ImportItemWizardPage extends WizardPage {
     private Text archivePathField;
 
     private Button browseArchivesButton;
+
+    private Button selectExchangeButton;
 
     private String previouslyBrowsedDirectory = ""; //$NON-NLS-1$
 
@@ -112,6 +126,8 @@ class ImportItemWizardPage extends WizardPage {
 
     private Label itemListInfo;
 
+    private Label nothing;
+
     private TableViewer errorsList;
 
     private List<String> errors = new ArrayList<String>();
@@ -125,6 +141,8 @@ class ImportItemWizardPage extends WizardPage {
     private FilteredCheckboxTree filteredCheckboxTree;
 
     private boolean needToRefreshPalette;
+
+    protected String selectedArchive;
 
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
@@ -383,7 +401,7 @@ class ImportItemWizardPage extends WizardPage {
     private void createItemRoot(Composite workArea) {
         Composite projectGroup = new Composite(workArea, SWT.NONE);
         GridLayout layout = new GridLayout();
-        layout.numColumns = 3;
+        layout.numColumns = 4;
         layout.makeColumnsEqualWidth = false;
         layout.marginWidth = 0;
         projectGroup.setLayout(layout);
@@ -400,6 +418,9 @@ class ImportItemWizardPage extends WizardPage {
         browseDirectoriesButton.setText(DataTransferMessages.DataTransfer_browse);
         setButtonLayoutData(browseDirectoriesButton);
 
+        nothing = new Label(projectGroup, SWT.NONE);
+        nothing.setText(" ");
+
         // new project from archive radio button
         itemFromArchiveRadio = new Button(projectGroup, SWT.RADIO);
         itemFromArchiveRadio.setText(DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle);
@@ -409,13 +430,25 @@ class ImportItemWizardPage extends WizardPage {
 
         archivePathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
         // browse button
+        // Composite buttonCom = new Composite(projectGroup, SWT.NONE);
+        // GridLayout buttonlayout = new GridLayout();
+        // buttonlayout.numColumns = 2;
+        // buttonlayout.makeColumnsEqualWidth = false;
+        // buttonlayout.marginWidth = 0;
+        // buttonCom.setLayout(buttonlayout);
+        // buttonCom.setLayoutData(new GridData());
         browseArchivesButton = new Button(projectGroup, SWT.PUSH);
         browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
         setButtonLayoutData(browseArchivesButton);
 
+        selectExchangeButton = new Button(projectGroup, SWT.PUSH);
+        selectExchangeButton.setText("BrowseTalendExchange");
+        setButtonLayoutData(selectExchangeButton);
+
         itemFromDirectoryRadio.setSelection(true);
         archivePathField.setEnabled(false);
         browseArchivesButton.setEnabled(false);
+        selectExchangeButton.setEnabled(false);
 
         browseDirectoriesButton.addSelectionListener(new SelectionAdapter() {
 
@@ -430,6 +463,24 @@ class ImportItemWizardPage extends WizardPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 handleLocationArchiveButtonPressed();
+            }
+        });
+
+        selectExchangeButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+
+                archivePathField.setEditable(false);
+                ImportEcosystemDialog dialog = new ImportEcosystemDialog(Display.getCurrent().getActiveShell());
+                dialog.open();
+                selectedArchive = dialog.getSelectFile();
+                if (selectedArchive != null) {
+                    previouslyBrowsedArchive = selectedArchive;
+                    archivePathField.setText(previouslyBrowsedArchive);
+                    updateItemsList(selectedArchive);
+                }
+
             }
         });
 
@@ -494,6 +545,7 @@ class ImportItemWizardPage extends WizardPage {
             browseDirectoriesButton.setEnabled(false);
             archivePathField.setEnabled(true);
             browseArchivesButton.setEnabled(true);
+            selectExchangeButton.setEnabled(true);
             updateItemsList(archivePathField.getText());
             archivePathField.setFocus();
         }
@@ -565,6 +617,7 @@ class ImportItemWizardPage extends WizardPage {
             browseDirectoriesButton.setEnabled(true);
             archivePathField.setEnabled(false);
             browseArchivesButton.setEnabled(false);
+            selectExchangeButton.setEnabled(false);
             updateItemsList(directoryPathField.getText());
             directoryPathField.setFocus();
         }
