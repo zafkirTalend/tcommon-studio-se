@@ -97,7 +97,7 @@
 				</dbType>
 				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
-					<talendType type="id_boolean"  />
+					<talendType type="id_Boolean"  />
 				</dbType>
 				<dbType type="CLOB">
 					<talendType type="id_Object" default="true" />

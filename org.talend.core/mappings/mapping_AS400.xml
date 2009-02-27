@@ -94,7 +94,7 @@
 				<dbType type="CHAR">
 					<talendType type="id_Boolean" default="true" />
 					<talendType type="id_Integer" />
-					<talendType type="id_Char" />
+					<talendType type="id_Character" />
 				</dbType>
 				<dbType type="COUNTER">
 					<talendType type="id_Integer" default="true"/>
