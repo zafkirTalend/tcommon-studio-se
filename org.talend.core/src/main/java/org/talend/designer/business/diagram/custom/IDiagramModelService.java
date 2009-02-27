@@ -12,9 +12,17 @@
 // ============================================================================
 package org.talend.designer.business.diagram.custom;
 
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.talend.core.IService;
+import org.talend.core.model.business.BusinessType;
+import org.talend.repository.editor.RepositoryEditorInput;
 
 /**
  * DOC qian class global comment. An implementation of the IRunProcessService. <br/>
@@ -28,5 +36,21 @@ public interface IDiagramModelService extends IService {
     public IAction getCreateDiagramAction(boolean isToolbar);
 
     public void refreshBusinessModel(IEditorReference editors);
+
+    public boolean isBusinessDiagramEditor(IEditorPart part);
+
+    public RepositoryEditorInput getBusinessDiagramEditorInput(IEditorPart editor);
+
+    public DiagramEditPart getBusinessEditorProcess();
+
+    public BusinessType getBusinessModelType(Object part);
+
+    public AdapterFactory getBusinessItemProviderAdapterFactory();
+
+    public AdapterFactoryLabelProvider getRepositoryFactoryProxyLabelProvider(AdapterFactory factory);
+
+    public EObject getEObject(ISelection selection);
+
+    public ISelection getBusinessEditorSelection(IEditorPart editor);
 
 }

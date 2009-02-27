@@ -211,6 +211,31 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
             (createChildParameter
                 (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
                  BusinessFactory.eINSTANCE.createJoblet()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createSQLPattern()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createSalesforce()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createCopybook()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createWsdl()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createLdap()));
     }
 
     /**

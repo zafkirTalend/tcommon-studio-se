@@ -19,6 +19,7 @@ import org.talend.designer.business.model.business.BusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.business.model.business.Context;
+import org.talend.designer.business.model.business.Copybook;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -37,13 +38,17 @@ import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
+import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SQLPattern;
+import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TerminalBusinessItem;
+import org.talend.designer.business.model.business.Wsdl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -123,6 +128,11 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
             case BusinessPackage.QUERY: return createQuery();
             case BusinessPackage.JOBLET: return createJoblet();
+            case BusinessPackage.SQL_PATTERN: return createSQLPattern();
+            case BusinessPackage.SALESFORCE: return createSalesforce();
+            case BusinessPackage.COPYBOOK: return createCopybook();
+            case BusinessPackage.WSDL: return createWsdl();
+            case BusinessPackage.LDAP: return createLdap();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -389,6 +399,56 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public Joblet createJoblet() {
         JobletImpl joblet = new JobletImpl();
         return joblet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SQLPattern createSQLPattern() {
+        SQLPatternImpl sqlPattern = new SQLPatternImpl();
+        return sqlPattern;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Salesforce createSalesforce() {
+        SalesforceImpl salesforce = new SalesforceImpl();
+        return salesforce;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Copybook createCopybook() {
+        CopybookImpl copybook = new CopybookImpl();
+        return copybook;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Wsdl createWsdl() {
+        WsdlImpl wsdl = new WsdlImpl();
+        return wsdl;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Ldap createLdap() {
+        LdapImpl ldap = new LdapImpl();
+        return ldap;
     }
 
     /**

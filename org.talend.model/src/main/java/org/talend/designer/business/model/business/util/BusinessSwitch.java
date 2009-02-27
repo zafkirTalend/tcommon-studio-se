@@ -20,6 +20,7 @@ import org.talend.designer.business.model.business.BusinessItemShape;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.business.model.business.Context;
+import org.talend.designer.business.model.business.Copybook;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -38,14 +39,18 @@ import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
+import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SQLPattern;
+import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
 import org.talend.designer.business.model.business.TerminalBusinessItem;
+import org.talend.designer.business.model.business.Wsdl;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance hierarchy. It supports the call
@@ -384,6 +389,41 @@ public class BusinessSwitch {
                 Joblet joblet = (Joblet)theEObject;
                 Object result = caseJoblet(joblet);
                 if (result == null) result = caseTalendItem(joblet);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.SQL_PATTERN: {
+                SQLPattern sqlPattern = (SQLPattern)theEObject;
+                Object result = caseSQLPattern(sqlPattern);
+                if (result == null) result = caseTalendItem(sqlPattern);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.SALESFORCE: {
+                Salesforce salesforce = (Salesforce)theEObject;
+                Object result = caseSalesforce(salesforce);
+                if (result == null) result = caseTalendItem(salesforce);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.COPYBOOK: {
+                Copybook copybook = (Copybook)theEObject;
+                Object result = caseCopybook(copybook);
+                if (result == null) result = caseTalendItem(copybook);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.WSDL: {
+                Wsdl wsdl = (Wsdl)theEObject;
+                Object result = caseWsdl(wsdl);
+                if (result == null) result = caseTalendItem(wsdl);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.LDAP: {
+                Ldap ldap = (Ldap)theEObject;
+                Object result = caseLdap(ldap);
+                if (result == null) result = caseTalendItem(ldap);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -844,6 +884,81 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseJoblet(Joblet object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>SQL Pattern</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SQL Pattern</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSQLPattern(SQLPattern object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Salesforce</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Salesforce</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSalesforce(Salesforce object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Copybook</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Copybook</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCopybook(Copybook object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Wsdl</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Wsdl</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseWsdl(Wsdl object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Ldap</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Ldap</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseLdap(Ldap object) {
         return null;
     }
 

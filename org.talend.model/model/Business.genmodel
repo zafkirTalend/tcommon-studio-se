@@ -72,5 +72,10 @@
     <genClasses ecoreClass="Business.ecore#//GearBusinessItem"/>
     <genClasses ecoreClass="Business.ecore#//Query"/>
     <genClasses ecoreClass="Business.ecore#//Joblet"/>
+    <genClasses ecoreClass="Business.ecore#//SQLPattern"/>
+    <genClasses ecoreClass="Business.ecore#//Salesforce"/>
+    <genClasses ecoreClass="Business.ecore#//Copybook"/>
+    <genClasses ecoreClass="Business.ecore#//Wsdl"/>
+    <genClasses ecoreClass="Business.ecore#//Ldap"/>
   </genPackages>
 </genmodel:GenModel>

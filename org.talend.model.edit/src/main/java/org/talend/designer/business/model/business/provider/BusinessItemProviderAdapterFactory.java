@@ -686,6 +686,116 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.SQLPattern} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SQLPatternItemProvider sqlPatternItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.SQLPattern}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createSQLPatternAdapter() {
+        if (sqlPatternItemProvider == null) {
+            sqlPatternItemProvider = new SQLPatternItemProvider(this);
+        }
+
+        return sqlPatternItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Salesforce} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SalesforceItemProvider salesforceItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Salesforce}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createSalesforceAdapter() {
+        if (salesforceItemProvider == null) {
+            salesforceItemProvider = new SalesforceItemProvider(this);
+        }
+
+        return salesforceItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Copybook} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected CopybookItemProvider copybookItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Copybook}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createCopybookAdapter() {
+        if (copybookItemProvider == null) {
+            copybookItemProvider = new CopybookItemProvider(this);
+        }
+
+        return copybookItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Wsdl} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected WsdlItemProvider wsdlItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Wsdl}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createWsdlAdapter() {
+        if (wsdlItemProvider == null) {
+            wsdlItemProvider = new WsdlItemProvider(this);
+        }
+
+        return wsdlItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Ldap} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected LdapItemProvider ldapItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.Ldap}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createLdapAdapter() {
+        if (ldapItemProvider == null) {
+            ldapItemProvider = new LdapItemProvider(this);
+        }
+
+        return ldapItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Context} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -917,6 +1027,11 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (gearBusinessItemItemProvider != null) gearBusinessItemItemProvider.dispose();
         if (queryItemProvider != null) queryItemProvider.dispose();
         if (jobletItemProvider != null) jobletItemProvider.dispose();
+        if (sqlPatternItemProvider != null) sqlPatternItemProvider.dispose();
+        if (salesforceItemProvider != null) salesforceItemProvider.dispose();
+        if (copybookItemProvider != null) copybookItemProvider.dispose();
+        if (wsdlItemProvider != null) wsdlItemProvider.dispose();
+        if (ldapItemProvider != null) ldapItemProvider.dispose();
     }
 
 }

@@ -25,6 +25,7 @@ import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.business.model.business.Context;
+import org.talend.designer.business.model.business.Copybook;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
@@ -35,12 +36,16 @@ import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.Joblet;
+import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.Process;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SQLPattern;
+import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
+import org.talend.designer.business.model.business.Wsdl;
 import org.talend.designer.business.model.business.util.BusinessSwitch;
 
 /**
@@ -359,6 +364,31 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 @Override
                 public Object caseSapFunctionMetadata(SapFunctionMetadata object) {
                     return getString("_UI_SapFunctionMetadata_type");
+                }
+
+                @Override
+                public Object caseCopybook(Copybook object) {
+                    return getString("_UI_Copybook_type");
+                }
+
+                @Override
+                public Object caseLdap(Ldap object) {
+                    return getString("_UI_Ldap_type");
+                }
+
+                @Override
+                public Object caseSalesforce(Salesforce object) {
+                    return getString("_UI_Salesforce_type");
+                }
+
+                @Override
+                public Object caseSQLPattern(SQLPattern object) {
+                    return getString("_UI_SQLPattern_type");
+                }
+
+                @Override
+                public Object caseWsdl(Wsdl object) {
+                    return getString("_UI_Wsdl_type");
                 }
 
             }.doSwitch(businessAssignment.getTalendItem());

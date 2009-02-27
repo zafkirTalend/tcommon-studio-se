@@ -22,6 +22,7 @@ import org.talend.designer.business.model.business.BusinessItemShape;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.business.model.business.Context;
+import org.talend.designer.business.model.business.Copybook;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -40,14 +41,18 @@ import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
+import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SQLPattern;
+import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
 import org.talend.designer.business.model.business.TerminalBusinessItem;
+import org.talend.designer.business.model.business.Wsdl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -261,6 +266,41 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass jobletEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sqlPatternEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass salesforceEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass copybookEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass wsdlEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ldapEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -794,6 +834,51 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getSQLPattern() {
+        return sqlPatternEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSalesforce() {
+        return salesforceEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCopybook() {
+        return copybookEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getWsdl() {
+        return wsdlEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLdap() {
+        return ldapEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getContext() {
         return contextEClass;
     }
@@ -952,6 +1037,16 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         queryEClass = createEClass(QUERY);
 
         jobletEClass = createEClass(JOBLET);
+
+        sqlPatternEClass = createEClass(SQL_PATTERN);
+
+        salesforceEClass = createEClass(SALESFORCE);
+
+        copybookEClass = createEClass(COPYBOOK);
+
+        wsdlEClass = createEClass(WSDL);
+
+        ldapEClass = createEClass(LDAP);
     }
 
     /**
@@ -1009,6 +1104,11 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         gearBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         queryEClass.getESuperTypes().add(this.getTalendItem());
         jobletEClass.getESuperTypes().add(this.getTalendItem());
+        sqlPatternEClass.getESuperTypes().add(this.getTalendItem());
+        salesforceEClass.getESuperTypes().add(this.getTalendItem());
+        copybookEClass.getESuperTypes().add(this.getTalendItem());
+        wsdlEClass.getESuperTypes().add(this.getTalendItem());
+        ldapEClass.getESuperTypes().add(this.getTalendItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1104,6 +1204,16 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(jobletEClass, Joblet.class, "Joblet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(sqlPatternEClass, SQLPattern.class, "SQLPattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(salesforceEClass, Salesforce.class, "Salesforce", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(copybookEClass, Copybook.class, "Copybook", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(wsdlEClass, Wsdl.class, "Wsdl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(ldapEClass, Ldap.class, "Ldap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

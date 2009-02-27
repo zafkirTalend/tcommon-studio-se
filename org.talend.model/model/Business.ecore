@@ -86,4 +86,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="GearBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="Query" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Joblet" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SQLPattern" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Salesforce" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Copybook" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Wsdl" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Ldap" eSuperTypes="#//TalendItem"/>
 </ecore:EPackage>

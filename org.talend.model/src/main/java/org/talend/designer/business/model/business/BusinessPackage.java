@@ -2631,6 +2631,416 @@ public interface BusinessPackage extends EPackage {
     int JOBLET_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.SQLPatternImpl <em>SQL Pattern</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.SQLPatternImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSQLPattern()
+     * @generated
+     */
+    int SQL_PATTERN = 37;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>SQL Pattern</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.SalesforceImpl <em>Salesforce</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.SalesforceImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSalesforce()
+     * @generated
+     */
+    int SALESFORCE = 38;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Salesforce</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.CopybookImpl <em>Copybook</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.CopybookImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getCopybook()
+     * @generated
+     */
+    int COPYBOOK = 39;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Copybook</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COPYBOOK_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.WsdlImpl <em>Wsdl</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.WsdlImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getWsdl()
+     * @generated
+     */
+    int WSDL = 40;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Wsdl</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.LdapImpl <em>Ldap</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.LdapImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getLdap()
+     * @generated
+     */
+    int LDAP = 41;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Ldap</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Repository <em>Repository</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Repository</em>'.
@@ -3131,6 +3541,56 @@ public interface BusinessPackage extends EPackage {
      * @generated
      */
     EClass getJoblet();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.SQLPattern <em>SQL Pattern</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SQL Pattern</em>'.
+     * @see org.talend.designer.business.model.business.SQLPattern
+     * @generated
+     */
+    EClass getSQLPattern();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.Salesforce <em>Salesforce</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Salesforce</em>'.
+     * @see org.talend.designer.business.model.business.Salesforce
+     * @generated
+     */
+    EClass getSalesforce();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.Copybook <em>Copybook</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Copybook</em>'.
+     * @see org.talend.designer.business.model.business.Copybook
+     * @generated
+     */
+    EClass getCopybook();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.Wsdl <em>Wsdl</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Wsdl</em>'.
+     * @see org.talend.designer.business.model.business.Wsdl
+     * @generated
+     */
+    EClass getWsdl();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.Ldap <em>Ldap</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Ldap</em>'.
+     * @see org.talend.designer.business.model.business.Ldap
+     * @generated
+     */
+    EClass getLdap();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Context <em>Context</em>}'.
@@ -3660,6 +4120,56 @@ public interface BusinessPackage extends EPackage {
          * @generated
          */
         EClass JOBLET = eINSTANCE.getJoblet();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.SQLPatternImpl <em>SQL Pattern</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.SQLPatternImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSQLPattern()
+         * @generated
+         */
+        EClass SQL_PATTERN = eINSTANCE.getSQLPattern();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.SalesforceImpl <em>Salesforce</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.SalesforceImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSalesforce()
+         * @generated
+         */
+        EClass SALESFORCE = eINSTANCE.getSalesforce();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.CopybookImpl <em>Copybook</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.CopybookImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getCopybook()
+         * @generated
+         */
+        EClass COPYBOOK = eINSTANCE.getCopybook();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.WsdlImpl <em>Wsdl</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.WsdlImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getWsdl()
+         * @generated
+         */
+        EClass WSDL = eINSTANCE.getWsdl();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.LdapImpl <em>Ldap</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.LdapImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getLdap()
+         * @generated
+         */
+        EClass LDAP = eINSTANCE.getLdap();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.ContextImpl <em>Context</em>}' class.

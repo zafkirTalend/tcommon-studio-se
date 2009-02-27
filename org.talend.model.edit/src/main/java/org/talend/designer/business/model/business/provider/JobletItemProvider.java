@@ -37,8 +37,8 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
-     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This constructs an instance from a factory and a notifier.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public JobletItemProvider(AdapterFactory adapterFactory) {
@@ -46,8 +46,8 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
     }
 
     /**
-     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This returns the property descriptors for the adapted class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public List getPropertyDescriptors(Object object) {
@@ -109,9 +109,9 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
-     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+     * that can be created under this object.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {

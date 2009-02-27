@@ -21,6 +21,9 @@ package org.talend.core.model.process;
 public enum EComponentCategory {
     MAIN("Main", 1), //$NON-NLS-1$
     VIEW("View", 3), //$NON-NLS-1$
+    APPEARANCE("Appearance", 2), //$NON-NLS-1$
+    RULERS_AND_GRID("Rulers & Grid", 3), //$NON-NLS-1$
+    ASSIGNMENT("Assignment", 4), //$NON-NLS-1$
     DOC("Documentation", 4), //$NON-NLS-1$
     CONTEXT("Context", 5), //$NON-NLS-1$
     VERSIONS("Version", 9), //$NON-NLS-1$

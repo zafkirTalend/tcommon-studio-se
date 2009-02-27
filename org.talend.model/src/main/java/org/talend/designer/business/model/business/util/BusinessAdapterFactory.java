@@ -20,6 +20,7 @@ import org.talend.designer.business.model.business.BusinessItemShape;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.business.model.business.Context;
+import org.talend.designer.business.model.business.Copybook;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -38,14 +39,18 @@ import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
+import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SQLPattern;
+import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
 import org.talend.designer.business.model.business.TableMetadata;
 import org.talend.designer.business.model.business.TalendItem;
 import org.talend.designer.business.model.business.TerminalBusinessItem;
+import org.talend.designer.business.model.business.Wsdl;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
@@ -214,6 +219,21 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseJoblet(Joblet object) {
                 return createJobletAdapter();
+            }
+            public Object caseSQLPattern(SQLPattern object) {
+                return createSQLPatternAdapter();
+            }
+            public Object caseSalesforce(Salesforce object) {
+                return createSalesforceAdapter();
+            }
+            public Object caseCopybook(Copybook object) {
+                return createCopybookAdapter();
+            }
+            public Object caseWsdl(Wsdl object) {
+                return createWsdlAdapter();
+            }
+            public Object caseLdap(Ldap object) {
+                return createLdapAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -637,6 +657,76 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createJobletAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.SQLPattern <em>SQL Pattern</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.SQLPattern
+     * @generated
+     */
+    public Adapter createSQLPatternAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.Salesforce <em>Salesforce</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.Salesforce
+     * @generated
+     */
+    public Adapter createSalesforceAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.Copybook <em>Copybook</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.Copybook
+     * @generated
+     */
+    public Adapter createCopybookAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.Wsdl <em>Wsdl</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.Wsdl
+     * @generated
+     */
+    public Adapter createWsdlAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.Ldap <em>Ldap</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.Ldap
+     * @generated
+     */
+    public Adapter createLdapAdapter() {
         return null;
     }
 

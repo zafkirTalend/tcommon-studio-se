@@ -268,6 +268,51 @@ public interface BusinessFactory extends EFactory {
     Joblet createJoblet();
 
     /**
+     * Returns a new object of class '<em>SQL Pattern</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SQL Pattern</em>'.
+     * @generated
+     */
+    SQLPattern createSQLPattern();
+
+    /**
+     * Returns a new object of class '<em>Salesforce</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Salesforce</em>'.
+     * @generated
+     */
+    Salesforce createSalesforce();
+
+    /**
+     * Returns a new object of class '<em>Copybook</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Copybook</em>'.
+     * @generated
+     */
+    Copybook createCopybook();
+
+    /**
+     * Returns a new object of class '<em>Wsdl</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Wsdl</em>'.
+     * @generated
+     */
+    Wsdl createWsdl();
+
+    /**
+     * Returns a new object of class '<em>Ldap</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Ldap</em>'.
+     * @generated
+     */
+    Ldap createLdap();
+
+    /**
      * Returns a new object of class '<em>Context</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

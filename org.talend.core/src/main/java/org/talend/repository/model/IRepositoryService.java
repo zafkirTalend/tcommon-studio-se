@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
@@ -116,4 +117,6 @@ public interface IRepositoryService extends IService {
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 
     public String getDatabaseStringURL(DatabaseConnection conn);
+
+    public TreeViewer getRepositoryTreeView();
 }
