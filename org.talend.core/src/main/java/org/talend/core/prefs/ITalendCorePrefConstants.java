@@ -59,6 +59,8 @@ public interface ITalendCorePrefConstants {
 
     String SQL_ADD_QUOTE = "addSqlQuote"; //$NON-NLS-1$
 
+    String SQL_ADD_WARNING = "addSqlWarning"; //$NON-NLS-1$
+
     String AS400_SQL_SEG = "AS400Sqlseg"; //$NON-NLS-1$
 
     String DOC_GENERATION = "doc_generation"; //$NON-NLS-1$
