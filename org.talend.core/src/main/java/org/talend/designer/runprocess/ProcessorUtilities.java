@@ -29,6 +29,7 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -49,7 +50,9 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.designer.core.ui.editor.ITalendJobEditor;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.job.deletion.JobResource;
 import org.talend.repository.job.deletion.JobResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -72,9 +75,6 @@ public class ProcessorUtilities {
     private static String interpreter, codeLocation, libraryPath;
 
     private static boolean exportConfig = false;
-
-    // public static boolean isRefreshComponents = false; // use to record when user press Ctrl+Shift+F3 to fix bug
-    // 0006107
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
@@ -329,7 +329,6 @@ public class ProcessorUtilities {
         if (option != GENERATE_MAIN_ONLY) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
-            List<? extends INode> gNodes = currentProcess.getGraphicalNodes();
             for (INode node : graphicalNodes) {
                 if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
@@ -740,37 +739,28 @@ public class ProcessorUtilities {
         return null;
     }
 
-    // see bug 0004939: making tRunjobs work loop will cause a error of "out of memory" .
-    private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos) {
-
-        IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-        IProcess process = null;
-
-        // check in opened jobs to avoid to reload the job.
-        for (IEditorPart part : openedEditors) {
-            if (part instanceof ITalendJobEditor) {
-                IProcess currentProcess = ((ITalendJobEditor) part).getProcess();
-                if (currentProcess.getLabel().equals(processItem.getProperty().getLabel())
-                        && currentProcess.getVersion().equals(processItem.getProperty().getVersion())) {
-                    process = currentProcess;
-                }
+    public static String getParameterValue(EList listParamType, String paramName) {
+        for (int j = 0; j < listParamType.size(); j++) {
+            ElementParameterType pType = (ElementParameterType) listParamType.get(j);
+            if (pType != null && paramName.equals(pType.getName())) {
+                return pType.getValue();
             }
         }
+        return null;
+    }
 
-        if (process == null) {
-            process = service.getProcessFromProcessItem(processItem);
-        }
-
-        List<? extends INode> graphicalNodes = process.getGeneratingNodes();
-
-        for (INode node : graphicalNodes) {
-            if ((node != null) && node.getComponent().getName().equals("tRunJob")) { //$NON-NLS-1$
-
-                IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
-                String jobId = (String) processIdparam.getValue();
-                String jobContext = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue(); //$NON-NLS-1$
-                String jobVersion = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue(); //$NON-NLS-1$
-
+    // see bug 0004939: making tRunjobs work loop will cause a error of "out of memory" .
+    private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos) {
+        ProcessType ptype = processItem.getProcess();
+        // trunjob component
+        EList<NodeType> nodes = ptype.getNode();
+        for (NodeType node : nodes) {
+            if ("tRunJob".equalsIgnoreCase(node.getComponentName())) {
+                String jobId = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
+                String jobContext = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_CONTEXT"); //$NON-NLS-1$
+                String jobVersion = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_VERSION"); //$NON-NLS-1$
+                if (jobId == null)
+                    continue;
                 ProcessItem item = ItemCacheManager.getProcessItem(jobId, jobVersion);
                 if (item != null) {
                     JobInfo jobInfo = new JobInfo(item, jobContext);
