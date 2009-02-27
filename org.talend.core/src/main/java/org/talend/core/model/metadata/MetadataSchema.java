@@ -204,7 +204,7 @@ public class MetadataSchema {
         String nodeValue = label.getNodeValue();
         final String underLine = "_"; //$NON-NLS-1$
         nodeValue = nodeValue.replaceAll("[^(\\w|_)]", underLine); //$NON-NLS-1$
-        nodeValue = nodeValue.replaceFirst("\\d", underLine); //$NON-NLS-1$
+        nodeValue = nodeValue.replaceFirst("^\\d", underLine); //$NON-NLS-1$
 
         metadataColumn.setLabel(nodeValue);
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));

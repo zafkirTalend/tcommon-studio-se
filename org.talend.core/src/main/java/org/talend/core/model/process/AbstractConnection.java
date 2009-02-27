@@ -222,4 +222,17 @@ public abstract class AbstractConnection implements IConnection {
         }
         return fullListParam;
     }
+
+    public boolean isTraceConnection() {
+        return false;
+    }
+
+    public List<String> getEnabledTraceColumns() {
+        return null;
+    }
+
+    public String getTracesCondition() {
+        return null;
+    }
+
 }

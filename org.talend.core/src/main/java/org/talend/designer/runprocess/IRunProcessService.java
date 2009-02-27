@@ -110,4 +110,6 @@ public interface IRunProcessService extends IService {
     public IAction getRunProcessAction();
 
     public IContext getSelectedContext();
+    
+    public boolean enableTraceForActiveRunProcess();
 }

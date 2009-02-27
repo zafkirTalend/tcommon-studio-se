@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.List;
+
 import org.talend.core.model.metadata.IMetadataTable;
 
 /**
@@ -21,6 +23,15 @@ import org.talend.core.model.metadata.IMetadataTable;
  * 
  */
 public interface IConnection extends IElement {
+
+    /*
+     * feature 6355, work for trace.
+     */
+    public static final String TRACE_SCHEMA_COLUMN = "TRACE_COLUMN"; //$NON-NLS-1$
+
+    public static final String TRACE_SCHEMA_COLUMN_CHECKED = "TRACE_COLUMN_CHECKED"; //$NON-NLS-1$
+
+    public static final String TRACE_SCHEMA_COLUMN_CONDITION = "TRACE_COLUMN_CONDITION"; //$NON-NLS-1$
 
     String getCondition();
 
@@ -66,4 +77,19 @@ public interface IConnection extends IElement {
     public int getInputId();
 
     public boolean isUseByMetter();
+
+    /**
+     * feature 6355. can trace for this connection.
+     */
+    public boolean isTraceConnection();
+
+    /**
+     * feature 6355. can trace for the columns of this connection.
+     */
+    public List<String> getEnabledTraceColumns();
+
+    /**
+     * feature 6355. get the trace condition this connection.
+     */
+    public String getTracesCondition();
 }
