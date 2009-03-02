@@ -358,37 +358,37 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
 
                 @Override
                 public Object caseFileExcelMetadata(FileExcelMetadata object) {
-                    return getString("_UI_FileExcelMetadata_type");
+                    return getString("_UI_FileExcelMetadata_type");//$NON-NLS-1$
                 }
 
                 @Override
                 public Object caseSapFunctionMetadata(SapFunctionMetadata object) {
-                    return getString("_UI_SapFunctionMetadata_type");
+                    return getString("_UI_SapFunctionMetadata_type");//$NON-NLS-1$
                 }
 
                 @Override
                 public Object caseCopybook(Copybook object) {
-                    return getString("_UI_Copybook_type");
+                    return getString("_UI_Copybook_type");//$NON-NLS-1$
                 }
 
                 @Override
                 public Object caseLdap(Ldap object) {
-                    return getString("_UI_Ldap_type");
+                    return getString("_UI_Ldap_type");//$NON-NLS-1$
                 }
 
                 @Override
                 public Object caseSalesforce(Salesforce object) {
-                    return getString("_UI_Salesforce_type");
+                    return getString("_UI_Salesforce_type");//$NON-NLS-1$
                 }
 
                 @Override
                 public Object caseSQLPattern(SQLPattern object) {
-                    return getString("_UI_SQLPattern_type");
+                    return getString("_UI_SQLPattern_type");//$NON-NLS-1$
                 }
 
                 @Override
                 public Object caseWsdl(Wsdl object) {
-                    return getString("_UI_Wsdl_type");
+                    return getString("_UI_Wsdl_type");//$NON-NLS-1$
                 }
 
             }.doSwitch(businessAssignment.getTalendItem());
