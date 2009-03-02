@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.localprovider.imports;
+package org.talend.designer.components.ecosystem.ui.dialog;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -47,11 +47,11 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
 import org.talend.designer.components.ecosystem.EcosystemUtils;
+import org.talend.designer.components.ecosystem.i18n.Messages;
 import org.talend.designer.components.ecosystem.jobs.ComponentDownloader;
 import org.talend.designer.components.ecosystem.jobs.ComponentSearcher;
 import org.talend.designer.components.ecosystem.model.ComponentExtension;
 import org.talend.designer.components.ecosystem.ui.views.CompatibleEcoComponentsComposite;
-import org.talend.repository.localprovider.i18n.Messages;
 
 /**
  * gcui A dialog for user to select filters that will be used to search components.

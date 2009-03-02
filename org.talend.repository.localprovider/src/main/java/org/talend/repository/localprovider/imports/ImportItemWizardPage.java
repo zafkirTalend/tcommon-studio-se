@@ -55,7 +55,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -72,10 +71,12 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
+import org.talend.core.model.general.IEcosystemService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.designer.components.ecosystem.ui.views.CompatibleEcoComponentsComposite;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
 
@@ -85,8 +86,6 @@ import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
 class ImportItemWizardPage extends WizardPage {
 
     private ImportItemUtil repositoryUtil = new ImportItemUtil();
-
-    private CompatibleEcoComponentsComposite fEcosystemViewComposite;
 
     private Button itemFromDirectoryRadio;
 
@@ -440,15 +439,15 @@ class ImportItemWizardPage extends WizardPage {
         browseArchivesButton = new Button(projectGroup, SWT.PUSH);
         browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
         setButtonLayoutData(browseArchivesButton);
-
-        selectExchangeButton = new Button(projectGroup, SWT.PUSH);
-        selectExchangeButton.setText("BrowseTalendExchange");
-        setButtonLayoutData(selectExchangeButton);
-
+        if (PluginChecker.isExchangeSystemLoaded()) {
+            selectExchangeButton = new Button(projectGroup, SWT.PUSH);
+            selectExchangeButton.setText("BrowseTalendExchange");
+            setButtonLayoutData(selectExchangeButton);
+            selectExchangeButton.setEnabled(false);
+        }
         itemFromDirectoryRadio.setSelection(true);
         archivePathField.setEnabled(false);
         browseArchivesButton.setEnabled(false);
-        selectExchangeButton.setEnabled(false);
 
         browseDirectoriesButton.addSelectionListener(new SelectionAdapter() {
 
@@ -465,25 +464,27 @@ class ImportItemWizardPage extends WizardPage {
                 handleLocationArchiveButtonPressed();
             }
         });
+        if (selectExchangeButton != null) {
+            selectExchangeButton.addSelectionListener(new SelectionAdapter() {
 
-        selectExchangeButton.addSelectionListener(new SelectionAdapter() {
+                @Override
+                public void widgetSelected(SelectionEvent e) {
 
-            @Override
-            public void widgetSelected(SelectionEvent e) {
+                    archivePathField.setEditable(false);
 
-                archivePathField.setEditable(false);
-                ImportEcosystemDialog dialog = new ImportEcosystemDialog(Display.getCurrent().getActiveShell());
-                dialog.open();
-                selectedArchive = dialog.getSelectFile();
-                if (selectedArchive != null) {
-                    previouslyBrowsedArchive = selectedArchive;
-                    archivePathField.setText(previouslyBrowsedArchive);
-                    updateItemsList(selectedArchive);
+                    IEcosystemService service = (IEcosystemService) GlobalServiceRegister.getDefault().getService(
+                            IEcosystemService.class);
+
+                    selectedArchive = service.openEcosystemDialog();
+                    if (selectedArchive != null) {
+                        previouslyBrowsedArchive = selectedArchive;
+                        archivePathField.setText(previouslyBrowsedArchive);
+                        updateItemsList(selectedArchive);
+                    }
+
                 }
-
-            }
-        });
-
+            });
+        }
         directoryPathField.addTraverseListener(new TraverseListener() {
 
             public void keyTraversed(TraverseEvent e) {
@@ -545,7 +546,9 @@ class ImportItemWizardPage extends WizardPage {
             browseDirectoriesButton.setEnabled(false);
             archivePathField.setEnabled(true);
             browseArchivesButton.setEnabled(true);
-            selectExchangeButton.setEnabled(true);
+            if (selectExchangeButton != null) {
+                selectExchangeButton.setEnabled(true);
+            }
             updateItemsList(archivePathField.getText());
             archivePathField.setFocus();
         }
@@ -617,7 +620,9 @@ class ImportItemWizardPage extends WizardPage {
             browseDirectoriesButton.setEnabled(true);
             archivePathField.setEnabled(false);
             browseArchivesButton.setEnabled(false);
-            selectExchangeButton.setEnabled(false);
+            if (selectExchangeButton != null) {
+                selectExchangeButton.setEnabled(false);
+            }
             updateItemsList(directoryPathField.getText());
             directoryPathField.setFocus();
         }
