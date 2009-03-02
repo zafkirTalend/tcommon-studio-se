@@ -29,6 +29,7 @@ public enum EParameterFieldType {
     RADIO,
     MEMO,
     SCHEMA_TYPE,
+    SCHEMA_XPATH_QUERYS,
     QUERYSTORE_TYPE,
     GUESS_SCHEMA,
     PROPERTY_TYPE,
