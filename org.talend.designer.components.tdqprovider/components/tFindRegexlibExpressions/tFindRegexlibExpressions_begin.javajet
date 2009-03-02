@@ -1,0 +1,70 @@
+<%@ jet 
+imports="
+    	org.talend.core.model.process.INode 
+    	org.talend.core.model.process.ElementParameterParser 
+		org.talend.core.model.metadata.IMetadataTable 
+		org.talend.core.model.metadata.IMetadataColumn
+		org.talend.designer.codegen.config.CodeGeneratorArgument
+		org.talend.core.model.process.IConnection
+		org.talend.core.model.process.IConnectionCategory
+		org.talend.core.model.metadata.types.JavaTypesManager
+		org.talend.core.model.metadata.types.JavaType
+        java.util.Map
+        java.util.List
+" 
+%>
+
+<%
+CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+INode node = (INode)codeGenArgument.getArgument();
+String cid = node.getUniqueName();
+
+String keyWord  = ElementParameterParser.getValue(node, "__KEYWORD__");
+String regexpSubstring  = ElementParameterParser.getValue(node, "__REGEXP_SUBSTRING__");
+String minRate  = ElementParameterParser.getValue(node, "__MIN_RATE__");
+String outputFilePath  = ElementParameterParser.getValue(node, "__FILENAME__");
+%>
+
+class FindRexgexExpressionAsXMLUtil {
+
+     public void findRegeExpress(String regexpSubstring, String keyWord, String minRate, String outputFilePath) throws Exception{
+             
+        String urlString = "http://regexlib.com/WebServices.asmx";
+       
+        String soapActionString = "http://regexlib.com/webservices.asmx/ListAllAsXml";
+        java.net.URL url = new java.net.URL(urlString);
+        java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) url.openConnection();
+        String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                + "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">"
+                + "<soap12:Body>" + "<listRegExp xmlns=\"http://regexlib.com/webservices.asmx\">" + "<keyword>"+keyWord+"</keyword>"
+                + "<regexp_substring>"+regexpSubstring+"</regexp_substring>" + "<min_rating>"+minRate+"</min_rating>" + "<howmanyrows>3</howmanyrows>"
+                + "</listRegExp>" + "</soap12:Body>" + "</soap12:Envelope>";
+                
+        byte[] buf = s.getBytes();
+        httpConn.setRequestProperty("Content-Length", String.valueOf(buf.length));
+        httpConn.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
+        httpConn.setRequestProperty("soapActionString", soapActionString);
+        httpConn.setRequestMethod("POST");
+        httpConn.setDoOutput(true);
+        httpConn.setDoInput(true);
+        java.io.OutputStream out = httpConn.getOutputStream();
+        out.write(buf);
+        out.close();
+        java.io.InputStreamReader isr = new java.io.InputStreamReader(httpConn.getInputStream(), "utf-8");
+        java.io.BufferedReader in = new java.io.BufferedReader(isr);
+        String inputLine;
+        java.io.BufferedWriter bw = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new java.io.FileOutputStream(outputFilePath)));
+        while ((inputLine = in.readLine()) != null) {
+            bw.write(inputLine);
+            bw.newLine();
+        }
+        bw.close();
+        in.close();
+}
+}
+
+FindRexgexExpressionAsXMLUtil util_<%=cid %>=new FindRexgexExpressionAsXMLUtil();
+util_<%=cid %>.findRegeExpress(<%=regexpSubstring %>, <%=keyWord %>, <%=minRate %>, <%=outputFilePath %>);
+
+
+
