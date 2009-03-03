@@ -14,10 +14,6 @@ package org.talend.rcp.intro;
 
 import java.lang.management.ManagementFactory;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
@@ -28,12 +24,10 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.designer.codegen.CodeGeneratorActivator;
-import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.Activator;
 import org.talend.repository.i18n.Messages;
@@ -91,19 +85,6 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     @Override
     public void postStartup() {
         super.postStartup();
-
-        Job job = new Job("") { //$NON-NLS-1$
-
-            protected IStatus run(IProgressMonitor monitor) {
-                // clean workspace
-                IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
-                        IRunProcessService.class);
-                runProcessService.deleteAllJobs(false);
-                return Status.OK_STATUS;
-            }
-        };
-        job.setSystem(true);
-        job.schedule();
 
         // Start Web Service Registration
         try {
