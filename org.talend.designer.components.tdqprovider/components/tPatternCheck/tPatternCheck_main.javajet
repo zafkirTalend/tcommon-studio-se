@@ -1,0 +1,144 @@
+<%@ jet 
+	imports="
+		org.talend.core.model.process.INode 
+		org.talend.core.model.process.ElementParameterParser 
+		org.talend.core.model.metadata.IMetadataTable 
+		org.talend.core.model.metadata.IMetadataColumn 
+		org.talend.core.model.process.IConnection
+		org.talend.core.model.process.IConnectionCategory
+		org.talend.designer.codegen.config.CodeGeneratorArgument
+		org.talend.core.model.metadata.types.JavaTypesManager
+		org.talend.core.model.metadata.types.JavaType
+		java.util.List 
+    	java.util.Map
+    	java.util.regex.Pattern
+		java.util.regex.Matcher
+		java.util.regex.PatternSyntaxException
+	" 
+%>
+<% CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
+INode node = (INode)codeGenArgument.getArgument();
+String cid = node.getUniqueName();
+String connName = null;
+
+// Définition des paramètres
+
+String CustomPattern= ElementParameterParser.getValue(node, "__PATTERN__");
+String PatternList= ElementParameterParser.getValue(node, "__PATTERN_LIST__");
+String ColumnToCheck=ElementParameterParser.getValue(node, "__COLUMN2CHECK__");
+
+	
+	if(PatternList.equals("\"CUSTOM2\"")){%>
+	String pattern=<%=CustomPattern %>;
+	
+<% 	} else{%>
+	String pattern=<%=PatternList %>;
+<% 	} 
+
+// Définition des liens
+
+if (node.getIncomingConnections().size()==1) {
+	IConnection conn = node.getIncomingConnections().get(0);
+	connName = conn.getName();
+
+
+List<IMetadataTable> metadatas = node.getMetadataList();
+
+
+
+if ((metadatas!=null)&&(metadatas.size()>0)) {
+
+		IMetadataTable metadata = metadatas.get(0);
+    
+    if (metadata!=null) {
+    
+    List< ? extends IConnection> connsout = node.getOutgoingConnections(); 
+    
+    	if (connsout!=null) {
+    	
+    	List<? extends IConnection> connPatternOk  = node.getOutgoingConnections("ROW_PATTERN_OK");
+		List<? extends IConnection> connPatternNOk = node.getOutgoingConnections("ROW_PATTERN_NOK");
+		
+				if(connPatternOk.get(0).getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)){
+    					List<IMetadataColumn> columnsout = metadata.getListColumns();
+    
+    %>
+
+	boolean result_<%=cid %>=false;
+	
+try{
+
+java.util.regex.Pattern pattern_<%=cid %>=java.util.regex.Pattern.compile(pattern);
+java.util.regex.Matcher matcher_<%=cid %>=pattern_<%=cid %>.matcher(<%=connName %>.<%=ColumnToCheck %>);
+
+result_<%=cid %>=matcher_<%=cid %>.matches();
+
+} catch(NullPointerException ne){}
+
+catch(java.util.regex.PatternSyntaxException pe){
+
+System.err.println("Error in component tPatternCheck: the pattern defined contains errors");
+
+System.exit(0);
+
+}
+
+
+
+if(result_<%=cid %>){
+
+// The data verifies the pattern
+
+
+
+	<%=connPatternNOk.get(0).getName() %>=null;
+						 if(<%=connPatternOk.get(0).getName() %> == null){
+							 <%=connPatternOk.get(0).getName() %>=new <%=connPatternOk.get(0).getName() %>Struct();
+						 }
+<%
+	for (int j = 0; j < columnsout.size(); j++) {
+	    IMetadataColumn columnout=columnsout.get(j);
+%>
+		<%=connPatternOk.get(0).getName() %>.<%=columnout.getLabel() %>=<%=connName %>.<%=columnout.getLabel() %>;
+
+<% } %>
+
+nb_line_ok_<%=cid%>++;
+
+}else{
+
+// The pattern doesn't verify the pattern
+
+	<%=connPatternOk.get(0).getName() %>=null;
+	if(<%=connPatternNOk.get(0).getName() %> == null){
+		 <%=connPatternNOk.get(0).getName() %>=new <%=connPatternNOk.get(0).getName() %>Struct();
+						 }						 
+						 
+<%
+	for (int k = 0; k < columnsout.size(); k++) {
+	    IMetadataColumn columnout=columnsout.get(k);
+%>
+		<%=connPatternNOk.get(0).getName() %>.<%=columnout.getLabel() %>=<%=connName %>.<%=columnout.getLabel() %>;
+
+<% } %>
+
+nb_line_reject_<%=cid%>++;
+
+
+
+}    
+    <%						}
+    					}
+					}
+				}
+			}
+			
+%>
+
+nb_line_<%=cid%>++;
+
+
+
+
+
+
