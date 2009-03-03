@@ -440,7 +440,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
             IProcess process = service.getProcessFromProcessItem(item);
             IProcessor processor = ProcessorUtilities.getProcessor(process, process.getContextManager().getDefaultContext());
-            if (CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)) {
+            if (ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()) {
                 hideSourcecodePassword(process);
             }
             try {

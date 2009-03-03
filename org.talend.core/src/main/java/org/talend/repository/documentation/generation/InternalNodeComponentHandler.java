@@ -28,6 +28,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.ProjectManager;
 
 /**
  * This class is internal node component handler for generating HTML. <br/>
@@ -177,7 +178,7 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
                 else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
-                        && CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)
+                        && ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()
                         && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
                     value = "******"; //$NON-NLS-1$
                 }

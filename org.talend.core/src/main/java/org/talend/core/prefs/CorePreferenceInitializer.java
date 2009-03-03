@@ -132,7 +132,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_GENERATION, false);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, true);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_GENERATESOURCECODE, false);
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_HIDEPASSWORDS, true);
+        // CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_HIDEPASSWORDS, true);
 
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.COMMAND_STR,
                 ITalendCorePrefConstants.DEFAULT_COMMAND_STR);

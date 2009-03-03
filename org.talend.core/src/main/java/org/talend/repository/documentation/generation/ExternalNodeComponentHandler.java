@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Element;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.process.EComponentCategory;
@@ -29,8 +28,8 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.repository.ProjectManager;
 
 /**
  * This class is external node component handler for generating HTML.
@@ -79,9 +78,8 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             List<INode> allComponentsList, Map<String, List> sourceConnectionMap, Map<String, List> targetConnectionMap,
             IDesignerCoreService designerCoreService, Map<String, ConnectionItem> repositoryConnectionItemMap,
             Map<String, String> repositoryDBIdAndNameMap, Map<String, URL> externalNodeHTMLMap/*
-                                                                                                 * , String
-                                                                                                 * tempFolderPath
-                                                                                                 */) {
+                                                                                               * , String tempFolderPath
+                                                                                               */) {
         this.picFilePathMap = picFilePathMap;
         this.externalNodeElement = externalNodeElement;
         this.componentsList = allComponentsList;
@@ -228,8 +226,10 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
                 // int index = type.getIndexOfItemFromList(type.getDisplayName());
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
-                else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
-                        && CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.DOC_HIDEPASSWORDS)
+
+                else if (elemparameter.getRepositoryValue() != null
+                        && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
+                        && ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()
                         && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
                     value = "******"; //$NON-NLS-1$
                 }

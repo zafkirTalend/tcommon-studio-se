@@ -53,6 +53,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/url"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/statAndLogsSettings"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/implicitContextSettings"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/hidePassword"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ProjectComponentAuthorisation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProjectComponentAuthorisation/project"/>

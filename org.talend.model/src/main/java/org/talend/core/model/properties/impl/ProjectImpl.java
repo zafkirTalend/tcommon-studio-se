@@ -62,6 +62,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUrl <em>Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getStatAndLogsSettings <em>Stat And Logs Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isHidePassword <em>Hide Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -435,6 +436,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected ImplicitContextSettings implicitContextSettings;
+
+    /**
+     * The default value of the '{@link #isHidePassword() <em>Hide Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isHidePassword()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean HIDE_PASSWORD_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isHidePassword() <em>Hide Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isHidePassword()
+     * @generated
+     * @ordered
+     */
+    protected boolean hidePassword = HIDE_PASSWORD_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -811,6 +832,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isHidePassword() {
+        return hidePassword;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setHidePassword(boolean newHidePassword) {
+        boolean oldHidePassword = hidePassword;
+        hidePassword = newHidePassword;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__HIDE_PASSWORD, oldHidePassword, hidePassword));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1023,6 +1065,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getStatAndLogsSettings();
             case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
                 return getImplicitContextSettings();
+            case PropertiesPackage.PROJECT__HIDE_PASSWORD:
+                return isHidePassword() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1118,6 +1162,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
                 setImplicitContextSettings((ImplicitContextSettings)newValue);
                 return;
+            case PropertiesPackage.PROJECT__HIDE_PASSWORD:
+                setHidePassword(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1203,6 +1250,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
                 setImplicitContextSettings((ImplicitContextSettings)null);
                 return;
+            case PropertiesPackage.PROJECT__HIDE_PASSWORD:
+                setHidePassword(HIDE_PASSWORD_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1263,6 +1313,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return statAndLogsSettings != null;
             case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
                 return implicitContextSettings != null;
+            case PropertiesPackage.PROJECT__HIDE_PASSWORD:
+                return hidePassword != HIDE_PASSWORD_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1301,6 +1353,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(productVersion);
         result.append(", url: ");
         result.append(url);
+        result.append(", hidePassword: ");
+        result.append(hidePassword);
         result.append(')');
         return result.toString();
     }

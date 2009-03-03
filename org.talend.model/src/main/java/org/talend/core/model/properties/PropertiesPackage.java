@@ -293,13 +293,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__IMPLICIT_CONTEXT_SETTINGS = 24;
 
     /**
+     * The feature id for the '<em><b>Hide Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__HIDE_PASSWORD = 25;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 25;
+    int PROJECT_FEATURE_COUNT = 26;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -5436,6 +5445,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_ImplicitContextSettings();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#isHidePassword <em>Hide Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Hide Password</em>'.
+     * @see org.talend.core.model.properties.Project#isHidePassword()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_HidePassword();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -9353,6 +9373,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__IMPLICIT_CONTEXT_SETTINGS = eINSTANCE.getProject_ImplicitContextSettings();
+
+        /**
+         * The meta object literal for the '<em><b>Hide Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__HIDE_PASSWORD = eINSTANCE.getProject_HidePassword();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.

@@ -43,6 +43,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getUrl <em>Url</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getStatAndLogsSettings <em>Stat And Logs Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#isHidePassword <em>Hide Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -459,6 +460,33 @@ public interface Project extends EObject {
      * @generated
      */
     void setImplicitContextSettings(ImplicitContextSettings value);
+
+    /**
+     * Returns the value of the '<em><b>Hide Password</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Hide Password</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Hide Password</em>' attribute.
+     * @see #setHidePassword(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_HidePassword()
+     * @model default="true"
+     * @generated
+     */
+    boolean isHidePassword();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#isHidePassword <em>Hide Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Hide Password</em>' attribute.
+     * @see #isHidePassword()
+     * @generated
+     */
+    void setHidePassword(boolean value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.
