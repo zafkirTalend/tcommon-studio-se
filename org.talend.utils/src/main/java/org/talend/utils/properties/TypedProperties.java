@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.utils.properties;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -286,9 +288,18 @@ public class TypedProperties extends Properties {
         if (all) {
             builder.append("PROPERTIES: List of input properties:\n");
             Enumeration<?> names = this.propertyNames();
+
+            ArrayList<String> namesList = new ArrayList<String>();
+
             while (names.hasMoreElements()) {
                 String key = (String) names.nextElement();
+                namesList.add(key);
+            }
+            Collections.sort(namesList);
 
+            int namesListListSize = namesList.size();
+            for (int i = 0; i < namesListListSize; i++) {
+                String key = namesList.get(i);
                 String property = this.getProperty(key);
                 builder.append(key + "=" + property + "\n");
             }
