@@ -28,9 +28,7 @@ public final class DesignerColorUtils {
 
     public static final RGB SUBJOB_COLOR = new RGB(220, 220, 250);
 
-    public static final RGB JOBDESIGNER_EGITOR_BACKGROUND_COLOR = new RGB(200, 200, 200);
-
-    // public static final RGB SUBJOB_COLOR = new RGB(255, 255, 255);
+    public static final RGB JOBDESIGNER_EGITOR_BACKGROUND_COLOR = new RGB(250, 250, 250);
 
     public static final String SUBJOB_TITLE_COLOR_NAME = "subjobTitleColor"; //$NON-NLS-1$
 
@@ -39,6 +37,12 @@ public final class DesignerColorUtils {
     public static final String JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME = "jobDesignerBackgroundColor"; //$NON-NLS-1$
 
     public static final RGB DEAULT_EDIOR_COLOR = new RGB(250, 250, 250);
+
+    public static final String READONLY_BACKGROUND_COLOR_NAME = "readOnlyBackgroundColor"; //$NON-NLS-1$
+
+    public static final RGB READONLY_BACKGROUND_COLOR = new RGB(250, 250, 250);
+
+    public static final RGB DEAULT_READONLY_COLOR = new RGB(0xE7, 0xE7, 0xE7);
 
     public static String getPreferenceConnectionName(EConnectionType connType) {
         if (connType == null) {
@@ -66,8 +70,11 @@ public final class DesignerColorUtils {
         if (store == null) { // store must be the designer core preference store.
             return;
         }
+        // background
         PreferenceConverter.setDefault(store, DesignerColorUtils.JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME,
                 DesignerColorUtils.JOBDESIGNER_EGITOR_BACKGROUND_COLOR);
+        PreferenceConverter.setDefault(store, DesignerColorUtils.READONLY_BACKGROUND_COLOR_NAME,
+                DesignerColorUtils.READONLY_BACKGROUND_COLOR);
         // subjob
         PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_COLOR_NAME, DesignerColorUtils.SUBJOB_COLOR);
         PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME, DesignerColorUtils.SUBJOB_TITLE_COLOR);
@@ -96,6 +103,14 @@ public final class DesignerColorUtils {
     public static RGB getPreferenceDesignerEditorRGB(String name, RGB defaultColor) {
         if (name == null || defaultColor == null || !name.equals(JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME)) {
             return DEAULT_EDIOR_COLOR;
+        }
+        String colorStr = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(name);
+        return ColorUtils.parseStringToRGB(colorStr, defaultColor);
+    }
+
+    public static RGB getPreferenceReadonlyRGB(String name, RGB defaultColor) {
+        if (name == null || defaultColor == null || !name.equals(READONLY_BACKGROUND_COLOR_NAME)) {
+            return DEAULT_READONLY_COLOR;
         }
         String colorStr = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(name);
         return ColorUtils.parseStringToRGB(colorStr, defaultColor);
