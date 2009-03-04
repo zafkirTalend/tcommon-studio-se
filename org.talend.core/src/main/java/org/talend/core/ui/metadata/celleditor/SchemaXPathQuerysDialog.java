@@ -229,7 +229,7 @@ public class SchemaXPathQuerysDialog extends Dialog {
             TableItem item = table.getItem(i);
             String value = ((XPathQueryBean) item.getData()).getValue();
             if (i < table.getItemCount() - 1) {
-                values += value + ", ";
+                values += value + ",";
             } else {
                 values += value;
             }
