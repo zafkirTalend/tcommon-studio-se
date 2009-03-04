@@ -83,4 +83,29 @@ public abstract class MessagesCore {
     public static String getString(String key, String pluginId, ResourceBundle resourceBundle, Object... args) {
         return MessageFormat.format(getString(key, pluginId, resourceBundle), args);
     }
+
+    /**
+     * Returns the i18n formatted message for <i>key</i> and <i>args</i> in the specified bundle.
+     * 
+     * @param key - the key for the desired string
+     * @param resourceBundle - the ResourceBundle to search in
+     * @param args - arg to include in the string
+     * @return the string for the given key in the given resource bundle
+     * @deprecated
+     */
+    public static String getString(String key, ResourceBundle resourceBundle, Object... args) {
+        return MessageFormat.format(getString(key, null, resourceBundle), args);
+    }
+
+    /**
+     * Returns the i18n formatted message for <i>key</i> in the specified bundle.
+     * 
+     * @param key - the key for the desired string
+     * @param resourceBundle - the ResourceBundle to search in
+     * @return the string for the given key in the given resource bundle
+     * @deprecated
+     */
+    public static String getString(String key, ResourceBundle resourceBundle) {
+        return getString(key, null, resourceBundle);
+    }
 }
