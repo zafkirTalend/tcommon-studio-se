@@ -24,6 +24,7 @@ import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.rcp.i18n.Messages;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -53,7 +54,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         }
         // check
         if (!(helper instanceof ActionBarBuildHelper)) {
-            throw new IllegalClassException("helper must be ActionBarBuildHelper");
+            throw new IllegalClassException(Messages.getString("ApplicationActionBarAdvisor.IllegalClass")); //$NON-NLS-1$
         }
         helper.setActionBarConfigurer(configurer);
     }

@@ -24,7 +24,7 @@ import org.talend.repository.model.RepositoryNode;
  */
 public interface IBrandingConfiguration extends IActionBarHelper {
 
-    public static final String DISPLAY_CODE_VIEW = "DISPLAY_CODE_VIEW";
+    public static final String DISPLAY_CODE_VIEW = "DISPLAY_CODE_VIEW"; //$NON-NLS-1$
 
     /**
      * 

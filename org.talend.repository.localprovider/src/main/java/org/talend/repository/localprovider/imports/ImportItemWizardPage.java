@@ -93,7 +93,7 @@ class ImportItemWizardPage extends WizardPage {
 
     private Table ecoTab;
 
-    private String[] fFilters = new String[] { "Name", "Description" };
+    private String[] fFilters = new String[] { "Name", "Description" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     protected Shell shell;
 
@@ -418,7 +418,7 @@ class ImportItemWizardPage extends WizardPage {
         setButtonLayoutData(browseDirectoriesButton);
 
         nothing = new Label(projectGroup, SWT.NONE);
-        nothing.setText(" ");
+        nothing.setText(" "); //$NON-NLS-1$
 
         // new project from archive radio button
         itemFromArchiveRadio = new Button(projectGroup, SWT.RADIO);
@@ -441,7 +441,7 @@ class ImportItemWizardPage extends WizardPage {
         setButtonLayoutData(browseArchivesButton);
         if (PluginChecker.isExchangeSystemLoaded()) {
             selectExchangeButton = new Button(projectGroup, SWT.PUSH);
-            selectExchangeButton.setText("BrowseTalendExchange");
+            selectExchangeButton.setText(Messages.getString("ImportItemWizardPage.browseTalend")); //$NON-NLS-1$
             setButtonLayoutData(selectExchangeButton);
             selectExchangeButton.setEnabled(false);
         }

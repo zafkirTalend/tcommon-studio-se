@@ -292,25 +292,25 @@ public class StringUtils {
 
             switch (c) {
             case '\n':
-                sb.append("\\").append('n');
+                sb.append("\\").append('n'); //$NON-NLS-1$
                 break;
             case '\r':
-                sb.append("\\").append('r');
+                sb.append("\\").append('r'); //$NON-NLS-1$
                 break;
             case '\t':
-                sb.append("\\").append('t');
+                sb.append("\\").append('t'); //$NON-NLS-1$
                 break;
             case '\f':
-                sb.append("\\").append('f');
+                sb.append("\\").append('f'); //$NON-NLS-1$
                 break;
             case '\b':
-                sb.append("\\").append('b');
+                sb.append("\\").append('b'); //$NON-NLS-1$
                 break;
             case '\"':
-                sb.append("\\").append('\"');
+                sb.append("\\").append('\"'); //$NON-NLS-1$
                 break;
             case '\'':
-                sb.append("\\").append('\'');
+                sb.append("\\").append('\''); //$NON-NLS-1$
                 break;
             default:
                 sb.append(c);

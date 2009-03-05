@@ -755,7 +755,7 @@ public class ProcessorUtilities {
         // trunjob component
         EList<NodeType> nodes = ptype.getNode();
         for (NodeType node : nodes) {
-            if ("tRunJob".equalsIgnoreCase(node.getComponentName())) {
+            if ("tRunJob".equalsIgnoreCase(node.getComponentName())) { //$NON-NLS-1$
                 String jobId = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                 String jobContext = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_CONTEXT"); //$NON-NLS-1$
                 String jobVersion = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_VERSION"); //$NON-NLS-1$

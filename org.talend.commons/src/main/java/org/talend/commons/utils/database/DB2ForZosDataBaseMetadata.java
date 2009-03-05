@@ -206,8 +206,8 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
                 String columnSize = rs.getString("LENGTH"); //$NON-NLS-1$
                 String decimalDigits = rs.getString("SCALE"); //$NON-NLS-1$
                 String isNullable;
-                if (rs.getString("NULLS").equals("Y")) {
-                    isNullable = "YES";
+                if (rs.getString("NULLS").equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    isNullable = "YES"; //$NON-NLS-1$
                 } else {
                     isNullable = rs.getString("NULLS"); //$NON-NLS-1$
                 }

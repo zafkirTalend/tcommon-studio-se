@@ -67,7 +67,7 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
             for (Object o : newProposals) {
                 ICompletionProposal proposal = (ICompletionProposal) o;
                 String longna = proposal.getDisplayString();
-                int indexna = longna.indexOf("-");
+                int indexna = longna.indexOf("-"); //$NON-NLS-1$
                 if (indexna > 0) {
                     if (longna.substring(indexna + 2, longna.length()).equals(TalendJavaSourceViewer.getClassName())) {
                         toRemove.add(proposal);

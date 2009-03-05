@@ -401,7 +401,7 @@ public class ExtractMetaDataFromDataBase {
                     metadataColumn.setNullable(isNullable);
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
-                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS");
+                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS"); //$NON-NLS-1$
                     if(commentInfo != null && commentInfo.length()>0){
                     for (int i = 0; i < commentInfo.length(); i++) {
                         if (commentInfo.codePointAt(i) == 0x0) {

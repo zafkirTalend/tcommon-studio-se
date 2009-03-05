@@ -121,12 +121,12 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
     }
 
     private String toValid(String newText) {
-        if (newText.equals("") || !newText.matches(RepositoryConstants.CODE_ITEM_PATTERN)) {
-            return "the name is not valid";
+        if (newText.equals("") || !newText.matches(RepositoryConstants.CODE_ITEM_PATTERN)) { //$NON-NLS-1$
+            return Messages.getString("ContextSetConfigurationDialog.nameNotValid"); //$NON-NLS-1$
         }
         for (IContext context : getAllContexts()) {
             if (context.getName().equalsIgnoreCase(newText)) {
-                return Messages.getString("ContextProcessSection.30");
+                return Messages.getString("ContextProcessSection.30"); //$NON-NLS-1$
             }
         }
         return null;

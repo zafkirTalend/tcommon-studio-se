@@ -43,7 +43,7 @@ public class SchemaXPathQuerysDialog extends Dialog {
 
     private TableViewer tableViewer;
 
-    private static final String[] COLUMN_NAME = { "Schema", "Schema XPathQuerys" };
+    private static final String[] COLUMN_NAME = { "Schema", "Schema XPathQuerys" }; //$NON-NLS-1$ //$NON-NLS-2$
 
     private List<IMetadataColumn> listColumns;
 
@@ -66,7 +66,7 @@ public class SchemaXPathQuerysDialog extends Dialog {
 
     protected void configureShell(Shell shell) {
         super.configureShell(shell);
-        shell.setText("Mappings");
+        shell.setText("Mappings"); //$NON-NLS-1$
 
     }
 
@@ -137,8 +137,8 @@ public class SchemaXPathQuerysDialog extends Dialog {
         tableViewer.setContentProvider(new ArrayContentProvider());
         tableViewer.setLabelProvider(new TableLabelProvider());
 
-        String mappings = mapping.get("MAPPING");
-        String[] beanValues = mappings.split(",");
+        String mappings = mapping.get("MAPPING"); //$NON-NLS-1$
+        String[] beanValues = mappings.split(","); //$NON-NLS-1$
         List<XPathQueryBean> beans = new ArrayList<XPathQueryBean>();
         for (int i = 0; i < listColumns.size(); i++) {
             IMetadataColumn column = listColumns.get(i);
@@ -168,7 +168,7 @@ public class SchemaXPathQuerysDialog extends Dialog {
         public XPathQueryBean(IMetadataColumn column) {
             super();
             this.column = column;
-            this.value = "";
+            this.value = ""; //$NON-NLS-1$
         }
 
         public String getColumnName() {
@@ -224,12 +224,12 @@ public class SchemaXPathQuerysDialog extends Dialog {
     }
 
     protected void okPressed() {
-        values = "";
+        values = ""; //$NON-NLS-1$
         for (int i = 0; i < table.getItemCount(); i++) {
             TableItem item = table.getItem(i);
             String value = ((XPathQueryBean) item.getData()).getValue();
             if (i < table.getItemCount() - 1) {
-                values += value + ",";
+                values += value + ","; //$NON-NLS-1$
             } else {
                 values += value;
             }

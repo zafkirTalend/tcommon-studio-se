@@ -216,7 +216,7 @@ public class ColorStyledText extends StyledText {
                 return;
             }
 
-            scanner.parse(this.getText().replaceAll("\"", " ").replaceAll("'", " "));
+            scanner.parse(this.getText().replaceAll("\"", " ").replaceAll("'", " ")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
             do {
                 token = scanner.nextToken();

@@ -106,7 +106,7 @@ public enum EDatabaseDriver4Version {
 
     private static List<String> getDrivers(String driverNames) {
         if (driverNames != null) {
-            String[] s = driverNames.split(";");
+            String[] s = driverNames.split(";"); //$NON-NLS-1$
             if (s != null) {
                 return Arrays.asList(s);
             }

@@ -82,7 +82,7 @@ public class SchemaXPathQuerysCellEditor extends DialogCellEditor {
         Object firstElement = ((StructuredSelection) this.getTableViewer().getSelection()).getFirstElement();
         mapping = ((Map) firstElement);
 
-        String[] listItemsDisplayCodeName = node.getElementParameter("SCHEMAS").getListItemsDisplayCodeName();
+        String[] listItemsDisplayCodeName = node.getElementParameter("SCHEMAS").getListItemsDisplayCodeName(); //$NON-NLS-1$
         Object object = ((Map) firstElement).get(listItemsDisplayCodeName[0]);
         List<IMetadataTable> metadataList = node.getMetadataList();
         List<IMetadataColumn> listColumns = null;
@@ -91,7 +91,7 @@ public class SchemaXPathQuerysCellEditor extends DialogCellEditor {
                 listColumns = metadataTable.getListColumns();
             }
         }
-        if (object != null && !"".equals(object.toString())) {
+        if (object != null && !"".equals(object.toString())) { //$NON-NLS-1$
             Shell activeShell = Display.getCurrent().getActiveShell();
             SchemaXPathQuerysDialog schemaXPathQuerysDialog = new SchemaXPathQuerysDialog(activeShell, listColumns, mapping);
 
@@ -132,17 +132,17 @@ public class SchemaXPathQuerysCellEditor extends DialogCellEditor {
             super();
             this.line = line;
             this.newValue = newValue;
-            this.oldValue = (String) line.get("MAPPING");
+            this.oldValue = (String) line.get("MAPPING"); //$NON-NLS-1$
         }
 
         @Override
         public void execute() {
-            line.put("MAPPING", newValue);
+            line.put("MAPPING", newValue); //$NON-NLS-1$
         }
 
         @Override
         public void undo() {
-            line.put("MAPPING", oldValue);
+            line.put("MAPPING", oldValue); //$NON-NLS-1$
         }
 
     }

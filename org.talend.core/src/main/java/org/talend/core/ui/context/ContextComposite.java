@@ -160,10 +160,10 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
             public void widgetSelected(SelectionEvent e) {
                 CTabItem cTabItem = (CTabItem) e.item;
-                if (cTabItem.getText().equals(Messages.getString("ContextComposite.treeValue"))) {
+                if (cTabItem.getText().equals(Messages.getString("ContextComposite.treeValue"))) { //$NON-NLS-1$
                     refreshTreeTab();
                 }
-                if (cTabItem.getText().equals(Messages.getString("ContextComposite.tableValue"))) {
+                if (cTabItem.getText().equals(Messages.getString("ContextComposite.tableValue"))) { //$NON-NLS-1$
                     refreshTableTab();
                 }
             }

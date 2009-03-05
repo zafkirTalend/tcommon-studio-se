@@ -79,7 +79,7 @@ public class JobResource {
      * yzhang Comment method "getResourceName".
      */
     public String getUniqueResourceName() {
-        return projectName + "." + jobInfo.getJobName() + "." + jobInfo.getJobVersion();
+        return projectName + "." + jobInfo.getJobName() + "." + jobInfo.getJobVersion(); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -96,7 +96,7 @@ public class JobResource {
 
         if (language == ECodeLanguage.JAVA) {
             res = workspace.getRoot().findMember(
-                    ".Java/src" + "/" + projectName + "/"
+                    ".Java/src" + "/" + projectName + "/" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                             + JavaResourcesHelper.getJobFolderName(jobInfo.getJobName(), jobInfo.getJobVersion()));
             if (res != null) {
                 resources.add(res);
@@ -104,15 +104,15 @@ public class JobResource {
         } else if (language == ECodeLanguage.PERL) {
             String rootProjectName = PerlResourcesHelper.getRootProjectName(projectName);
             res = workspace.getRoot().findMember(
-                    ".Perl" + "/"
+                    ".Perl" + "/" //$NON-NLS-1$ //$NON-NLS-2$
                             + PerlResourcesHelper.getJobFileName(rootProjectName, jobInfo.getJobName(), jobInfo.getJobVersion()));
             if (res != null) {
                 resources.add(res);
             }
 
             res = workspace.getRoot().findMember(
-                    ".Perl"
-                            + "/"
+                    ".Perl" //$NON-NLS-1$
+                            + "/" //$NON-NLS-1$
                             + PerlResourcesHelper.getContextFileName(rootProjectName, jobInfo.getJobName(), jobInfo
                                     .getJobVersion(), jobInfo.getContextName()));
             if (res != null) {

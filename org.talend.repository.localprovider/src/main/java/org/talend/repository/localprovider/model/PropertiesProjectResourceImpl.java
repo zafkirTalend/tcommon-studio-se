@@ -31,7 +31,7 @@ import org.talend.repository.constants.FileConstants;
  */
 public class PropertiesProjectResourceImpl extends XMIResourceImpl {
 
-    private static final String REF = "projectReference";
+    private static final String REF = "projectReference"; //$NON-NLS-1$
 
     public PropertiesProjectResourceImpl(URI uri) {
         super(uri);
@@ -67,7 +67,7 @@ public class PropertiesProjectResourceImpl extends XMIResourceImpl {
         // because the id could change
         ProjectReference projectReference = (ProjectReference) object;
         InternalEObject proxy = (InternalEObject) PropertiesFactory.eINSTANCE.createProject();
-        String pathName = "/" + projectReference.getReferencedProject().getTechnicalLabel() + "/"
+        String pathName = "/" + projectReference.getReferencedProject().getTechnicalLabel() + "/" //$NON-NLS-1$ //$NON-NLS-2$
                 + FileConstants.LOCAL_PROJECT_FILENAME;
         URI uri = URI.createPlatformResourceURI(pathName, false).appendFragment(REF);
         proxy.eSetProxyURI(uri);

@@ -228,7 +228,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     }
 
     public void printCoolBar() {
-        System.out.println("coolBar-" + coolBar);
+        System.out.println("coolBar-" + coolBar); //$NON-NLS-1$
 
         IContributionItem[] items = coolBar.getItems();
         for (IContributionItem item : items) {
@@ -260,7 +260,7 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         hideEditActions();
         hideCoolBarActions();
 
-        String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" };
+        String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" }; //$NON-NLS-1$
 
         List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
 
@@ -279,14 +279,14 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     }
 
     protected void hideCoolBarActions() {
-        String[] removeIds = { "org.eclipse.wst.xml.ui.design.DesignToolBar", "org.eclipse.debug.ui.launchActionSet" };
+        String[] removeIds = { "org.eclipse.wst.xml.ui.design.DesignToolBar", "org.eclipse.debug.ui.launchActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$
         for (String id : removeIds) {
             coolBar.remove(id);
         }
     }
 
     protected void hideFileActions() {
-        String[] removeIds = { "org.eclipse.ui.openLocalFile" };
+        String[] removeIds = { "org.eclipse.ui.openLocalFile" }; //$NON-NLS-1$
         for (String id : removeIds) {
             fileMenu.remove(id);
         }
@@ -300,20 +300,20 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     }
 
     protected void hideHelpActions() {
-        String[] removeIds = { "org.eclipse.equinox.p2.ui.sdk.update", "group.assist",
-                "org.eclipse.ui.actions.showKeyAssistHandler", "additions", "group.tutorials",
-                "org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction", "subversive", "subversive.help" };
+        String[] removeIds = { "org.eclipse.equinox.p2.ui.sdk.update", "group.assist", //$NON-NLS-1$ //$NON-NLS-2$
+                "org.eclipse.ui.actions.showKeyAssistHandler", "additions", "group.tutorials", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                "org.eclipse.ui.cheatsheets.actions.CheatSheetHelpMenuAction", "subversive", "subversive.help" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         for (String id : removeIds) {
             helpMenu.remove(id);
         }
     }
 
     private void printItemId(IContributionManager menuBar) {
-        System.out.println("IContributionManager-" + menuBar);
+        System.out.println("IContributionManager-" + menuBar); //$NON-NLS-1$
         IContributionItem[] items = menuBar.getItems();
         for (IContributionItem item : items) {
             if (item.isVisible())
-                System.out.println(" " + item.getId());
+                System.out.println(" " + item.getId()); //$NON-NLS-1$
         }
     }
 

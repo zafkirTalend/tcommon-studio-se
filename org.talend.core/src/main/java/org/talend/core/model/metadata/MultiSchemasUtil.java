@@ -39,13 +39,13 @@ public final class MultiSchemasUtil {
 
     public static String validateValue(String value) {
         if (value == null) {
-            value = "";
+            value = ""; //$NON-NLS-1$
         }
         return value;
     }
 
     public static int getTalendTypeIndex(String talendType) {
-        if (talendType == null || "".equals(talendType)) {
+        if (talendType == null || "".equals(talendType)) { //$NON-NLS-1$
             return 0;
         } else {
             List<String> types = null;
@@ -63,7 +63,7 @@ public final class MultiSchemasUtil {
         if (value != null) {
             return value.toString();
         } else {
-            return "";
+            return ""; //$NON-NLS-1$
         }
     }
 

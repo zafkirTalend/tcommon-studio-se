@@ -33,31 +33,31 @@ public class Java2STLangTypesHelper {
 
         String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
         // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal.
-        if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) {
-            return "int";
-        } else if (typeToGenerate.equals("long")) {
-            return "int64";
-        } else if (typeToGenerate.equals("BigDecimal")) {
-            return "big_int";
+        if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return "int"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
+            return "int64"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("BigDecimal")) { //$NON-NLS-1$
+            return "big_int"; //$NON-NLS-1$
         }
 
         // Floats: float(Float), double(Double)
-        if (typeToGenerate.equals("float") || typeToGenerate.equals("double")) {
-            return "float";
+        if (typeToGenerate.equals("float") || typeToGenerate.equals("double")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "float"; //$NON-NLS-1$
         }
 
         // Bool: bool(Boolean)
-        if (typeToGenerate.equals("bool")) {
-            return "bool";
+        if (typeToGenerate.equals("bool")) { //$NON-NLS-1$
+            return "bool"; //$NON-NLS-1$
         }
 
         // Characters: char(Character)
-        if (typeToGenerate.equals("char")) {
-            return "char";
+        if (typeToGenerate.equals("char")) { //$NON-NLS-1$
+            return "char"; //$NON-NLS-1$
         }
 
         // others treat as string
-        return "string";
+        return "string"; //$NON-NLS-1$
 
     }
 
@@ -74,31 +74,31 @@ public class Java2STLangTypesHelper {
 
         String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
         // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal.
-        if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) {
-            return "%d";
-        } else if (typeToGenerate.equals("long")) {
-            return "%d";
-        } else if (typeToGenerate.equals("BigDecimal")) {
-            return "%d";
+        if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return "%d"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
+            return "%d"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("BigDecimal")) { //$NON-NLS-1$
+            return "%d"; //$NON-NLS-1$
         }
 
         // Floats: float(Float), double(Double)
-        if (typeToGenerate.equals("float") || typeToGenerate.equals("double")) {
-            return "%f";
+        if (typeToGenerate.equals("float") || typeToGenerate.equals("double")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "%f"; //$NON-NLS-1$
         }
 
         // Bool: bool(Boolean)
-        if (typeToGenerate.equals("bool")) {
-            return "%b";
+        if (typeToGenerate.equals("bool")) { //$NON-NLS-1$
+            return "%b"; //$NON-NLS-1$
         }
 
         // Characters: char(Character)
-        if (typeToGenerate.equals("char")) {
-            return "%c";
+        if (typeToGenerate.equals("char")) { //$NON-NLS-1$
+            return "%c"; //$NON-NLS-1$
         }
 
         // others treat as string
-        return "%s";
+        return "%s"; //$NON-NLS-1$
 
     }
 }

@@ -115,7 +115,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String database, String tableNamePattern, String[] types) throws SQLException {
-        String sql = "SELECT TableName from DBC.TABLES WHERE databasename = '" + database
+        String sql = "SELECT TableName from DBC.TABLES WHERE databasename = '" + database //$NON-NLS-1$
                 + "' AND tablekind = 'T' or tablekind = 'V' Order by tablekind, tablename "; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
@@ -196,8 +196,8 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
                 String columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
                 String decimalDigits = rs.getString("DecimalFractio"); //$NON-NLS-1$
                 String isNullable;
-                if (rs.getString("Nullable").equals("Y")) {
-                    isNullable = "YES";
+                if (rs.getString("Nullable").equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    isNullable = "YES"; //$NON-NLS-1$
                 } else {
                     isNullable = rs.getString("Nullable"); //$NON-NLS-1$
                 }

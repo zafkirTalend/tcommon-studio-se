@@ -34,7 +34,7 @@ import org.talend.rcp.i18n.Messages;
  */
 public class ShowViewAction extends Action {
 
-    private static final String ACTION_ID = "org.talend.rcp.intro.ShowViewAction";
+    private static final String ACTION_ID = "org.talend.rcp.intro.ShowViewAction"; //$NON-NLS-1$
 
     /**
      * Constructs a new ShowViewAction.

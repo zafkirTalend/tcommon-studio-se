@@ -19,7 +19,7 @@ package org.talend.commons.utils.system;
 public class EnvironmentUtils {
 
     public static boolean isWindowsSystem() {
-        return getEnvOs().startsWith("Windows"); //$NON-NLS-N$
+        return getEnvOs().startsWith("Windows"); //$NON-NLS-N$ //$NON-NLS-1$
     }
 
     public static boolean isLinuxUnixSystem() {
@@ -32,14 +32,14 @@ public class EnvironmentUtils {
      * @return
      */
     public static boolean isMacOsSytem() {
-        return getEnvOs().startsWith("Mac"); //$NON-NLS-N$
+        return getEnvOs().startsWith("Mac"); //$NON-NLS-N$ //$NON-NLS-1$
     }
 
     /**
      * DOC amaumont Comment method "getEnv".
      */
     public static String getEnvOs() {
-        return System.getProperty("os.name");//$NON-NLS-N$
+        return System.getProperty("os.name");//$NON-NLS-N$ //$NON-NLS-1$
     }
 
 }
