@@ -201,10 +201,7 @@ public class MetadataSchema {
         final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
         final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
         // see feature 4456
-        String nodeValue = label.getNodeValue();
-        final String underLine = "_"; //$NON-NLS-1$
-        nodeValue = nodeValue.replaceAll("[^(\\w|_)]", underLine); //$NON-NLS-1$
-        nodeValue = nodeValue.replaceFirst("^\\d", underLine); //$NON-NLS-1$
+        String nodeValue = MetadataTool.validateColumnName(label.getNodeValue());
 
         metadataColumn.setLabel(nodeValue);
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));

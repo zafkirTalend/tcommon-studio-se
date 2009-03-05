@@ -456,4 +456,14 @@ public class MetadataTool {
         }
         return null;
     }
+
+    public static String validateColumnName(String columnName) {
+        if (columnName == null) {
+            return null;
+        }
+        final String underLine = "_"; //$NON-NLS-1$
+        columnName = columnName.replaceAll("[^(\\w|_)]", underLine); //$NON-NLS-1$
+        columnName = columnName.replaceFirst("^\\d", underLine); //$NON-NLS-1$
+        return columnName;
+    }
 }
