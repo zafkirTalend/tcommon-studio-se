@@ -19,7 +19,7 @@
 <% CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
 INode node = (INode)codeGenArgument.getArgument();
 String cid = node.getUniqueName();
-String connName = null;
+
 
 // Définition des paramètres
 
@@ -29,53 +29,64 @@ String ColumnToCheck=ElementParameterParser.getValue(node, "__COLUMN2CHECK__");
 
 	
 	if(PatternList.equals("\"CUSTOM2\"")){%>
-	String pattern=<%=CustomPattern %>;
+	String stringpattern_<%=cid %>=<%=CustomPattern %>;
 	
 <% 	} else{%>
-	String pattern=<%=PatternList %>;
+	String stringpattern_<%=cid %>=<%=PatternList %>;
 <% 	} 
 
-// Définition des liens
+// Définition des connexions
 
+
+
+// Définition du lien d'entrée
+
+String connName = null;
 if (node.getIncomingConnections().size()==1) {
 	IConnection conn = node.getIncomingConnections().get(0);
 	connName = conn.getName();
+}
+
 
 
 List<IMetadataTable> metadatas = node.getMetadataList();
-
-
-
 if ((metadatas!=null)&&(metadatas.size()>0)) {
-
-		IMetadataTable metadata = metadatas.get(0);
-    
-    if (metadata!=null) {
-    
-    List< ? extends IConnection> connsout = node.getOutgoingConnections(); 
-    
-    	if (connsout!=null) {
-    	
-    	List<? extends IConnection> connPatternOk  = node.getOutgoingConnections("ROW_PATTERN_OK");
+    IMetadataTable metadata = metadatas.get(0);
+    if (metadata!=null && connName != null) {
+	
+		List<? extends IConnection> conns = node.getOutgoingSortedConnections();
+		List<? extends IConnection> connPatternOk = node.getOutgoingConnections("ROW_PATTERN_OK");
 		List<? extends IConnection> connPatternNOk = node.getOutgoingConnections("ROW_PATTERN_NOK");
+	
+	%>
+	
+	<%
+	if (conns!=null) {
+		if (conns.size()>0) {
+			for (int i=0;i<conns.size();i++) {
+				IConnection conn = conns.get(i);
+				if (conn.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
 		
-				if(connPatternOk.get(0).getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)){
-    					List<IMetadataColumn> columnsout = metadata.getListColumns();
-    
-    %>
-
-	boolean result_<%=cid %>=false;
+	%>
+	
+	
+	<%=conn.getName() %> = null;
+	
 	
 try{
 
-java.util.regex.Pattern pattern_<%=cid %>=java.util.regex.Pattern.compile(pattern);
+
+
+java.util.regex.Pattern pattern_<%=cid %>=java.util.regex.Pattern.compile(stringpattern_<%=cid %>);
 java.util.regex.Matcher matcher_<%=cid %>=pattern_<%=cid %>.matcher(<%=connName %>.<%=ColumnToCheck %>);
 
-result_<%=cid %>=matcher_<%=cid %>.matches();
+result_<%=cid %> =matcher_<%=cid %>.matches();
 
-} catch(NullPointerException ne){}
+} catch(NullPointerException ne){
 
-catch(java.util.regex.PatternSyntaxException pe){
+result_<%=cid%>=false;	
+
+} catch(java.util.regex.PatternSyntaxException pe){
 
 System.err.println("Error in component tPatternCheck: the pattern defined contains errors");
 
@@ -84,61 +95,102 @@ System.exit(0);
 }
 
 
+if(!result_<%=cid %>){
 
-if(result_<%=cid %>){
-
-// The data verifies the pattern
-
-
-
-	<%=connPatternNOk.get(0).getName() %>=null;
-						 if(<%=connPatternOk.get(0).getName() %> == null){
-							 <%=connPatternOk.get(0).getName() %>=new <%=connPatternOk.get(0).getName() %>Struct();
-						 }
 <%
-	for (int j = 0; j < columnsout.size(); j++) {
-	    IMetadataColumn columnout=columnsout.get(j);
-%>
-		<%=connPatternOk.get(0).getName() %>.<%=columnout.getLabel() %>=<%=connName %>.<%=columnout.getLabel() %>;
-
-<% } %>
-
-nb_line_ok_<%=cid%>++;
-
-}else{
-
-// The pattern doesn't verify the pattern
-
-	<%=connPatternOk.get(0).getName() %>=null;
-	if(<%=connPatternNOk.get(0).getName() %> == null){
-		 <%=connPatternNOk.get(0).getName() %>=new <%=connPatternNOk.get(0).getName() %>Struct();
-						 }						 
-						 
+	if (connPatternNOk!=null) {
+		if (connPatternNOk.size()>0) {
+			for (int j=0;j<connPatternNOk.size();j++) {
+				IConnection connKO = connPatternNOk.get(j);
+				if (connKO.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+				%>
+                    if(<%=connKO.getName() %> == null){ 
+                    	<%=connKO.getName() %> = new <%=connKO.getName() %>Struct();
+                    }				
 <%
-	for (int k = 0; k < columnsout.size(); k++) {
-	    IMetadataColumn columnout=columnsout.get(k);
+			    	 for (IMetadataColumn column: metadata.getListColumns()) {
+			    	 %>
+			    	 <%=connKO.getName() %>.<%=column.getLabel() %> = <%=connName %>.<%=column.getLabel() %>;			
+<%					 }
+				}
+			}
+		}
+	}
 %>
-		<%=connPatternNOk.get(0).getName() %>.<%=columnout.getLabel() %>=<%=connName %>.<%=columnout.getLabel() %>;
-
-<% } %>
 
 nb_line_reject_<%=cid%>++;
 
 
+	
+} else {
 
-}    
-    <%						}
-    					}
-					}
+
+
+<%
+	if (connPatternOk!=null) {
+		if (connPatternOk.size()>0) {
+			for (int k=0;k<connPatternOk.size();k++) {
+				IConnection connOK = connPatternOk.get(k);
+				if (connOK.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+				%>
+                    if(<%=connOK.getName() %> == null){ 
+                    	<%=connOK.getName() %> = new <%=connOK.getName() %>Struct();
+                    }				
+<%
+			    	 for (IMetadataColumn column: metadata.getListColumns()) {
+			    	 %>
+			    	 <%=connOK.getName() %>.<%=column.getLabel() %> = <%=connName %>.<%=column.getLabel() %>;			
+<%					 }
 				}
 			}
-			
+		}
+	}
 %>
+
+nb_line_ok_<%=cid%>++;
+
+}
 
 nb_line_<%=cid%>++;
 
+	<%	
+							}
+						}
+					}
+				}
+			}
+		}
+	%>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						
+						
 
 
 
