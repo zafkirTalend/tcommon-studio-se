@@ -194,6 +194,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         if (activePart instanceof IJobSettingsView) {
             return ((IJobSettingsView) activePart).getSelection();
         }
+        if (activePart instanceof IRepositoryView) {
+            return ((IRepositoryView) activePart).getViewer().getSelection();
+        }
 
         if (workbenchPart != null) {
             if (workbenchPart instanceof IRepositoryView) {
@@ -209,6 +212,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
             return null;
         }
+
         IWorkbenchPartSite site = getActivePage().getActiveEditor().getSite();
         return site.getSelectionProvider().getSelection();
     }

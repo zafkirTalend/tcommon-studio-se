@@ -15,21 +15,21 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.talend.designer.business.model.business.SapFunctionMetadata;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.ui.images.ECoreImage;
 
 /**
- * This is the item provider adapter for a {@link org.talend.designer.business.model.business.SapFunctionMetadata} object.
- * <!-- begin-user-doc --> <!-- end-user-doc -->
+ * This is the item provider adapter for a {@link org.talend.designer.business.model.business.SapFunctionMetadata}
+ * object. <!-- begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class SapFunctionMetadataItemProvider extends TalendItemItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public SapFunctionMetadataItemProvider(AdapterFactory adapterFactory) {
@@ -37,8 +37,8 @@ public class SapFunctionMetadataItemProvider extends TalendItemItemProvider impl
     }
 
     /**
-     * This returns the property descriptors for the adapted class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public List getPropertyDescriptors(Object object) {
@@ -50,24 +50,21 @@ public class SapFunctionMetadataItemProvider extends TalendItemItemProvider impl
     }
 
     /**
-     * This returns SapFunctionMetadata.gif.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * This returns SapFunctionMetadata.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/SapFunctionMetadata"));
+        return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.METADATA_SAPCONNECTION_ICON.getPath()).createImage();
     }
 
     /**
-     * This returns the label text for the adapted class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public String getText(Object object) {
-        String label = ((SapFunctionMetadata)object).getId();
-        return label == null || label.length() == 0 ?
-            getString("_UI_SapFunctionMetadata_type") :
-            getString("_UI_SapFunctionMetadata_type") + " " + label;
+        return super.getText(object);
     }
 
     /**
@@ -83,9 +80,9 @@ public class SapFunctionMetadataItemProvider extends TalendItemItemProvider impl
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
+     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
