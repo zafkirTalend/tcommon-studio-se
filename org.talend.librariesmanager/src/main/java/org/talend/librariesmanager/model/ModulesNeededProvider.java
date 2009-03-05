@@ -133,7 +133,7 @@ public class ModulesNeededProvider {
         }
         componentImportNeedsList.removeAll(moduleForCurrentJobList);
 
-        for (String neededLibrary : process.getNeededLibraries(true)) {
+        for (String neededLibrary : process.getNeededLibraries(false)) {
             boolean alreadyInImports = false;
             for (ModuleNeeded module : componentImportNeedsList) {
                 if (module.getModuleName().equals(neededLibrary)) {
