@@ -22,6 +22,7 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
@@ -85,6 +86,10 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     @Override
     public void postStartup() {
         super.postStartup();
+
+        if (!CommonsPlugin.isHeadless()) {
+            CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
+        }
 
         // Start Web Service Registration
         try {
