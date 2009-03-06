@@ -59,7 +59,36 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getSchemas() throws SQLException {
-        return connection.getMetaData().getSchemas();
+        // see the feature 5827
+        String sql = "SELECT DISTINCT CREATOR FROM SYSIBM.SYSTABLES"; //$NON-NLS-1$
+        ResultSet rs = null;
+        Statement stmt = null;
+        List<String[]> list = new ArrayList<String[]>();
+        try {
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String creator = rs.getString("CREATOR"); //$NON-NLS-1$
+
+                String[] r = new String[] { creator.trim() }; //$NON-NLS-1$ //$NON-NLS-2$
+                list.add(r);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                rs.close();
+                stmt.close();
+            } catch (Exception e) {
+            }
+        }
+
+        DB2ForZosResultSet tableResultSet = new DB2ForZosResultSet();
+        tableResultSet.setMetadata(new String[] { "TABLE_SCHEM" });
+        tableResultSet.setData(list);
+        return tableResultSet;
     }
 
     /*
@@ -226,7 +255,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
                 // String columnDef = "columnDef";
 
                 String[] r = new String[] { tableName, columnName, typeName, columnSize, decimalDigits, isNullable, // keys
-                                                                                                                    // ,
+                        // ,
                         remarks, columnDef };
                 list.add(r);
             }

@@ -66,8 +66,9 @@ public class ExtractMetaDataUtils {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             } else if (teradataNeedFakeDatabaseMetaData(dbType)) {
                 dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+            } else {
+                dbMetaData = conn.getMetaData();
             }
-            dbMetaData = conn.getMetaData();
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
