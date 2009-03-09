@@ -306,10 +306,8 @@ public class ImportItemUtil {
         cache.clear();
         for (ItemRecord itemRecord : itemRecords) {
             itemRecord.clear();
-             //bug 6252
-            itemRecord.getResourceSet().getResources().clear();
         }
-         //bug 6252
+        // bug 6252
         XmiResourceManager.resourceSet.getResources().clear();
         XmiResourceManager.resetResourceSet();
         return itemRecords;

@@ -62,7 +62,7 @@ public class ItemRecord {
     public void setProperty(Property property) {
         this.property = property;
     }
-    
+
     public Property getProperty() {
         return property;
     }
@@ -170,11 +170,12 @@ public class ItemRecord {
     public ResourceSet getResourceSet() {
         return resourceSet;
     }
-    
+
     public void clear() {
         for (Resource resource : resourceSet.getResources()) {
             resource.unload();
         }
+        resourceSet.getResources().clear();
         property = null;
         resourceSet = null;
     }
