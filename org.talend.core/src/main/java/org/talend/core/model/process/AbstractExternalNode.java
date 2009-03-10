@@ -80,4 +80,11 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
     }
 
     protected abstract void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.IExternalNode#isRunRefSubProcessAtStart(java.lang.String)
+     */
+    public boolean isRunRefSubProcessAtStart(String connectionName) {
+        return true;
+    }
 }

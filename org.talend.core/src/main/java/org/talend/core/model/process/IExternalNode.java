@@ -102,4 +102,7 @@ public interface IExternalNode extends INode {
     public IODataComponentContainer getIODataComponents();
 
     public IComponentDocumentation getComponentDocumentation(String componentName, String tempFolderPath);
+    
+    public boolean isRunRefSubProcessAtStart(String connectionName);
+    
 }
