@@ -1200,14 +1200,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             tableColumn.setMoveable(column.isMoveable());
             tableColumn.setResizable(column.isResizable());
-            if (column.isSortable()) {
-                ITableColumnSelectionListener columnSelectionListener = null;
-                if (column.getTableColumnSelectionListener() == null) {
-                    columnSelectionListener = new DefaultHeaderColumnSelectionListener(column, this);
-                    column.setTableColumnSelectionListener(columnSelectionListener);
-                } else {
-                    columnSelectionListener = column.getTableColumnSelectionListener();
-                }
+            ITableColumnSelectionListener columnSelectionListener = null;
+            if (column.getTableColumnSelectionListener() == null && column.isSortable()) {
+                columnSelectionListener = new DefaultHeaderColumnSelectionListener(column, this);
+                column.setTableColumnSelectionListener(columnSelectionListener);
+            } else {
+                columnSelectionListener = column.getTableColumnSelectionListener();
+            }
+            if(columnSelectionListener != null) {
                 tableColumn.addSelectionListener(columnSelectionListener);
             }
         }
@@ -1271,7 +1271,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     public void addColumn(TableViewerCreatorColumn tableEditorColumn) {
         String id = tableEditorColumn.getId();
         if (id == null) {
-            throw new IllegalArgumentException(Messages.getString("TableViewerCreator.columnNullId") + tableEditorColumn.getTitle()); //$NON-NLS-1$
+            throw new IllegalArgumentException(
+                    Messages.getString("TableViewerCreator.columnNullId") + tableEditorColumn.getTitle()); //$NON-NLS-1$
         }
         int columnsListSize = columns.size();
         boolean columnWithSameId = false;
