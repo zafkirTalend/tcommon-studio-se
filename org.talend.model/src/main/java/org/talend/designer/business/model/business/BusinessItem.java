@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.business.model.business.BusinessItem#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.business.model.business.BusinessItem#getBusinessProcess <em>Business Process</em>}</li>
  *   <li>{@link org.talend.designer.business.model.business.BusinessItem#getAssignments <em>Assignments</em>}</li>
+ *   <li>{@link org.talend.designer.business.model.business.BusinessItem#getVAlignment <em>VAlignment</em>}</li>
+ *   <li>{@link org.talend.designer.business.model.business.BusinessItem#getHAlignment <em>HAlignment</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,5 +103,57 @@ public interface BusinessItem extends EObject {
      * @generated
      */
     EList getAssignments();
+
+    /**
+     * Returns the value of the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>VAlignment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>VAlignment</em>' attribute.
+     * @see #setVAlignment(String)
+     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_VAlignment()
+     * @model
+     * @generated
+     */
+    String getVAlignment();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.business.model.business.BusinessItem#getVAlignment <em>VAlignment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>VAlignment</em>' attribute.
+     * @see #getVAlignment()
+     * @generated
+     */
+    void setVAlignment(String value);
+
+    /**
+     * Returns the value of the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>HAlignment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>HAlignment</em>' attribute.
+     * @see #setHAlignment(String)
+     * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_HAlignment()
+     * @model
+     * @generated
+     */
+    String getHAlignment();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.business.model.business.BusinessItem#getHAlignment <em>HAlignment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>HAlignment</em>' attribute.
+     * @see #getHAlignment()
+     * @generated
+     */
+    void setHAlignment(String value);
 
 } // BusinessItem

@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.talend.core.IService;
+import org.talend.core.model.business.BusinessAlignment;
 import org.talend.core.model.business.BusinessType;
 import org.talend.repository.editor.RepositoryEditorInput;
 
@@ -53,4 +54,9 @@ public interface IDiagramModelService extends IService {
 
     public ISelection getBusinessEditorSelection(IEditorPart editor);
 
+    public void setBusinessItemAlignment(BusinessAlignment alignment, BusinessAlignment alignmentGroup, Object part);
+
+    public void setBusinessItemsAlignment(BusinessAlignment alignment, BusinessAlignment alignmentGroup, Object part);
+
+    public String getBusinessItemAlignment(Object part, BusinessAlignment alignmentGroup);
 }

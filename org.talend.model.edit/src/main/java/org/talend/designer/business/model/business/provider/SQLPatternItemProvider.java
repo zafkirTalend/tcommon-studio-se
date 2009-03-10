@@ -15,6 +15,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.talend.designer.business.model.business.SQLPattern;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.ui.images.ECoreImage;
 
@@ -28,8 +29,8 @@ public class SQLPatternItemProvider extends TalendItemItemProvider implements IE
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
-     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This constructs an instance from a factory and a notifier.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SQLPatternItemProvider(AdapterFactory adapterFactory) {
@@ -37,8 +38,8 @@ public class SQLPatternItemProvider extends TalendItemItemProvider implements IE
     }
 
     /**
-     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This returns the property descriptors for the adapted class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public List getPropertyDescriptors(Object object) {
@@ -80,9 +81,9 @@ public class SQLPatternItemProvider extends TalendItemItemProvider implements IE
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
-     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+     * that can be created under this object.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {

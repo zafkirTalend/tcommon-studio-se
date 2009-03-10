@@ -1607,12 +1607,30 @@ public interface BusinessPackage extends EPackage {
     int BUSINESS_ITEM__ASSIGNMENTS = 2;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_ITEM__VALIGNMENT = 3;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_ITEM__HALIGNMENT = 4;
+
+    /**
      * The number of structural features of the '<em>Item</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BUSINESS_ITEM_FEATURE_COUNT = 3;
+    int BUSINESS_ITEM_FEATURE_COUNT = 5;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1640,6 +1658,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int BASE_BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS = BUSINESS_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BASE_BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT = BUSINESS_ITEM__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BASE_BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT = BUSINESS_ITEM__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' reference.
@@ -1695,6 +1731,24 @@ public interface BusinessPackage extends EPackage {
     int BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS = BASE_BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT = BASE_BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT = BASE_BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Source</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1745,6 +1799,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS = BASE_BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT = BASE_BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT = BASE_BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' reference.
@@ -1801,6 +1873,24 @@ public interface BusinessPackage extends EPackage {
     int BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS = BASE_BUSINESS_ITEM_RELATIONSHIP__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT = BASE_BUSINESS_ITEM_RELATIONSHIP__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT = BASE_BUSINESS_ITEM_RELATIONSHIP__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Source</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1852,6 +1942,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int BUSINESS_ITEM_SHAPE__ASSIGNMENTS = BUSINESS_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_ITEM_SHAPE__VALIGNMENT = BUSINESS_ITEM__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_ITEM_SHAPE__HALIGNMENT = BUSINESS_ITEM__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
@@ -1907,6 +2015,24 @@ public interface BusinessPackage extends EPackage {
     int DECISION_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DECISION_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DECISION_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -1958,6 +2084,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int ACTION_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTION_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTION_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
@@ -2013,6 +2157,24 @@ public interface BusinessPackage extends EPackage {
     int TERMINAL_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TERMINAL_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TERMINAL_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -2064,6 +2226,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DATA_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATA_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATA_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
@@ -2119,6 +2299,24 @@ public interface BusinessPackage extends EPackage {
     int DOCUMENT_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -2170,6 +2368,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int INPUT_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INPUT_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INPUT_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
@@ -2225,6 +2441,24 @@ public interface BusinessPackage extends EPackage {
     int LIST_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LIST_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LIST_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -2276,6 +2510,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DATABASE_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
@@ -2332,6 +2584,24 @@ public interface BusinessPackage extends EPackage {
     int ACTOR_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2386,6 +2656,24 @@ public interface BusinessPackage extends EPackage {
     int ELLIPSE_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
 
     /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
+
+    /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2438,6 +2726,24 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int GEAR_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>VAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__VALIGNMENT = BUSINESS_ITEM_SHAPE__VALIGNMENT;
+
+    /**
+     * The feature id for the '<em><b>HAlignment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__HALIGNMENT = BUSINESS_ITEM_SHAPE__HALIGNMENT;
 
     /**
      * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
@@ -3321,6 +3627,28 @@ public interface BusinessPackage extends EPackage {
     EReference getBusinessItem_Assignments();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.business.model.business.BusinessItem#getVAlignment <em>VAlignment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>VAlignment</em>'.
+     * @see org.talend.designer.business.model.business.BusinessItem#getVAlignment()
+     * @see #getBusinessItem()
+     * @generated
+     */
+    EAttribute getBusinessItem_VAlignment();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.business.model.business.BusinessItem#getHAlignment <em>HAlignment</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>HAlignment</em>'.
+     * @see org.talend.designer.business.model.business.BusinessItem#getHAlignment()
+     * @see #getBusinessItem()
+     * @generated
+     */
+    EAttribute getBusinessItem_HAlignment();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship <em>Base Business Item Relationship</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3908,6 +4236,22 @@ public interface BusinessPackage extends EPackage {
          * @generated
          */
         EReference BUSINESS_ITEM__ASSIGNMENTS = eINSTANCE.getBusinessItem_Assignments();
+
+        /**
+         * The meta object literal for the '<em><b>VAlignment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute BUSINESS_ITEM__VALIGNMENT = eINSTANCE.getBusinessItem_VAlignment();
+
+        /**
+         * The meta object literal for the '<em><b>HAlignment</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute BUSINESS_ITEM__HALIGNMENT = eINSTANCE.getBusinessItem_HAlignment();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.BaseBusinessItemRelationshipImpl <em>Base Business Item Relationship</em>}' class.

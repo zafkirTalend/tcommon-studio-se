@@ -640,6 +640,24 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getBusinessItem_VAlignment() {
+        return (EAttribute)businessItemEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getBusinessItem_HAlignment() {
+        return (EAttribute)businessItemEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getBaseBusinessItemRelationship() {
         return baseBusinessItemRelationshipEClass;
     }
@@ -997,6 +1015,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         createEAttribute(businessItemEClass, BUSINESS_ITEM__NAME);
         createEReference(businessItemEClass, BUSINESS_ITEM__BUSINESS_PROCESS);
         createEReference(businessItemEClass, BUSINESS_ITEM__ASSIGNMENTS);
+        createEAttribute(businessItemEClass, BUSINESS_ITEM__VALIGNMENT);
+        createEAttribute(businessItemEClass, BUSINESS_ITEM__HALIGNMENT);
 
         baseBusinessItemRelationshipEClass = createEClass(BASE_BUSINESS_ITEM_RELATIONSHIP);
         createEReference(baseBusinessItemRelationshipEClass, BASE_BUSINESS_ITEM_RELATIONSHIP__SOURCE);
@@ -1164,6 +1184,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEAttribute(getBusinessItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, BusinessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getBusinessItem_BusinessProcess(), this.getBusinessProcess(), this.getBusinessProcess_BusinessItems(), "businessProcess", null, 1, 1, BusinessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getBusinessItem_Assignments(), this.getBusinessAssignment(), this.getBusinessAssignment_BusinessItem(), "assignments", null, 0, -1, BusinessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBusinessItem_VAlignment(), ecorePackage.getEString(), "vAlignment", null, 0, 1, BusinessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBusinessItem_HAlignment(), ecorePackage.getEString(), "hAlignment", null, 0, 1, BusinessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(baseBusinessItemRelationshipEClass, BaseBusinessItemRelationship.class, "BaseBusinessItemRelationship", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getBaseBusinessItemRelationship_Source(), this.getBusinessItemShape(), this.getBusinessItemShape_OutgoingRelationships(), "source", null, 0, 1, BaseBusinessItemRelationship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

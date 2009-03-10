@@ -53,6 +53,8 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
             super.getPropertyDescriptors(object);
 
             addNamePropertyDescriptor(object);
+            addVAlignmentPropertyDescriptor(object);
+            addHAlignmentPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -70,6 +72,50 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
                  getString("_UI_BusinessItem_name_feature"), //$NON-NLS-1$
                  getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_name_feature", "_UI_BusinessItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM__NAME,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the VAlignment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addVAlignmentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_BusinessItem_vAlignment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_vAlignment_feature", "_UI_BusinessItem_type"),
+                 BusinessPackage.Literals.BUSINESS_ITEM__VALIGNMENT,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the HAlignment feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addHAlignmentPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_BusinessItem_hAlignment_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_hAlignment_feature", "_UI_BusinessItem_type"),
+                 BusinessPackage.Literals.BUSINESS_ITEM__HALIGNMENT,
                  true,
                  false,
                  false,
@@ -139,6 +185,8 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
 
         switch (notification.getFeatureID(BusinessItem.class)) {
             case BusinessPackage.BUSINESS_ITEM__NAME:
+            case BusinessPackage.BUSINESS_ITEM__VALIGNMENT:
+            case BusinessPackage.BUSINESS_ITEM__HALIGNMENT:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:

@@ -30,6 +30,8 @@ import org.talend.designer.business.model.business.BusinessProcess;
  *   <li>{@link org.talend.designer.business.model.business.impl.BusinessItemImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.business.model.business.impl.BusinessItemImpl#getBusinessProcess <em>Business Process</em>}</li>
  *   <li>{@link org.talend.designer.business.model.business.impl.BusinessItemImpl#getAssignments <em>Assignments</em>}</li>
+ *   <li>{@link org.talend.designer.business.model.business.impl.BusinessItemImpl#getVAlignment <em>VAlignment</em>}</li>
+ *   <li>{@link org.talend.designer.business.model.business.impl.BusinessItemImpl#getHAlignment <em>HAlignment</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +74,46 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * @ordered
      */
     protected EList assignments;
+
+    /**
+     * The default value of the '{@link #getVAlignment() <em>VAlignment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getVAlignment()
+     * @generated
+     * @ordered
+     */
+    protected static final String VALIGNMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getVAlignment() <em>VAlignment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getVAlignment()
+     * @generated
+     * @ordered
+     */
+    protected String vAlignment = VALIGNMENT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getHAlignment() <em>HAlignment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getHAlignment()
+     * @generated
+     * @ordered
+     */
+    protected static final String HALIGNMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getHAlignment() <em>HAlignment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getHAlignment()
+     * @generated
+     * @ordered
+     */
+    protected String hAlignment = HALIGNMENT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -158,6 +200,48 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getVAlignment() {
+        return vAlignment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setVAlignment(String newVAlignment) {
+        String oldVAlignment = vAlignment;
+        vAlignment = newVAlignment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessPackage.BUSINESS_ITEM__VALIGNMENT, oldVAlignment, vAlignment));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getHAlignment() {
+        return hAlignment;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setHAlignment(String newHAlignment) {
+        String oldHAlignment = hAlignment;
+        hAlignment = newHAlignment;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, BusinessPackage.BUSINESS_ITEM__HALIGNMENT, oldHAlignment, hAlignment));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -211,6 +295,10 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
                 return getBusinessProcess();
             case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
                 return getAssignments();
+            case BusinessPackage.BUSINESS_ITEM__VALIGNMENT:
+                return getVAlignment();
+            case BusinessPackage.BUSINESS_ITEM__HALIGNMENT:
+                return getHAlignment();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -231,6 +319,12 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
                 getAssignments().clear();
                 getAssignments().addAll((Collection)newValue);
                 return;
+            case BusinessPackage.BUSINESS_ITEM__VALIGNMENT:
+                setVAlignment((String)newValue);
+                return;
+            case BusinessPackage.BUSINESS_ITEM__HALIGNMENT:
+                setHAlignment((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -250,6 +344,12 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
             case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
                 getAssignments().clear();
                 return;
+            case BusinessPackage.BUSINESS_ITEM__VALIGNMENT:
+                setVAlignment(VALIGNMENT_EDEFAULT);
+                return;
+            case BusinessPackage.BUSINESS_ITEM__HALIGNMENT:
+                setHAlignment(HALIGNMENT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -266,6 +366,10 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
                 return getBusinessProcess() != null;
             case BusinessPackage.BUSINESS_ITEM__ASSIGNMENTS:
                 return assignments != null && !assignments.isEmpty();
+            case BusinessPackage.BUSINESS_ITEM__VALIGNMENT:
+                return VALIGNMENT_EDEFAULT == null ? vAlignment != null : !VALIGNMENT_EDEFAULT.equals(vAlignment);
+            case BusinessPackage.BUSINESS_ITEM__HALIGNMENT:
+                return HALIGNMENT_EDEFAULT == null ? hAlignment != null : !HALIGNMENT_EDEFAULT.equals(hAlignment);
         }
         return super.eIsSet(featureID);
     }
