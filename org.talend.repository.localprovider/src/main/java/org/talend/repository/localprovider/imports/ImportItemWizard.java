@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  */
@@ -27,13 +28,16 @@ public class ImportItemWizard extends Wizard implements IImportWizard {
 
     private IStructuredSelection selection;
 
-    public ImportItemWizard() {
+    private RepositoryNode rNode;
+
+    public ImportItemWizard(RepositoryNode rNode) {
         super();
+        this.rNode = rNode;
     }
 
     public void addPages() {
         super.addPages();
-        mainPage = new ImportItemWizardPage(getWindowTitle()); //$NON-NLS-1$
+        mainPage = new ImportItemWizardPage(rNode, getWindowTitle()); //$NON-NLS-1$
         addPage(mainPage);
     }
 

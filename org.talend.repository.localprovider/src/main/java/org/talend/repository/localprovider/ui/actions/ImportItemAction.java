@@ -18,7 +18,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -52,7 +51,8 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
                     setEnabled(false);
                     return;
                 }
-                if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)) {
+                if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)
+                        || repositoryNode.getType().equals(ENodeType.SIMPLE_FOLDER)) {
                     canWork = true;
                 }
             }
@@ -74,13 +74,15 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
 
     @Override
     public void run() {
-        if (this.getSelection() instanceof IStructuredSelection) {
-            ImportItemWizard wizard = new ImportItemWizard();
+        ISelection selection = this.getSelection();
+        if (selection instanceof IStructuredSelection) {
+            RepositoryNode rNode = (RepositoryNode) ((IStructuredSelection) selection).getFirstElement();
+            ImportItemWizard wizard = new ImportItemWizard(rNode);
             IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
             wizard.setWindowTitle(IMPORT_ITEM);
-            wizard.init(workbench, (IStructuredSelection) this.getSelection());
+            wizard.init(workbench, (IStructuredSelection) selection);
 
-            Shell activeShell = Display.getCurrent().getActiveShell();
+            Shell activeShell = this.getViewPart().getViewSite().getShell();
             WizardDialog dialog = new WizardDialog(activeShell, wizard);
             if (dialog.open() == Window.OK) {
                 refresh();
