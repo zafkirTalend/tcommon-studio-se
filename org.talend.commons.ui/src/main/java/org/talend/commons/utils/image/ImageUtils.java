@@ -165,4 +165,31 @@ public class ImageUtils {
         }
         return false;
     }
+    
+    /**
+     * 
+     * DOC amaumont Comment method "changeAlpha".
+     * @param image
+     * @param alpha 0 is meaning fully transparent, 255 is meaning fully opaque
+     * @return
+     */
+    public static Image changeAlpha(Image image, int alpha) {
+     
+        ImageData fullImageData = image.getImageData();
+        int width = fullImageData.width;
+        int height = fullImageData.height;
+        byte[] alphaData = new byte[height * width];
+        for (int y = 0; y < height; y++) {
+            byte[] alphaRow = new byte[width];
+            for (int x = 0; x < width; x++) {
+                alphaRow[x] = (byte) alpha;
+            }
+            System.arraycopy(alphaRow, 0, alphaData, y * width, width);
+        }
+        fullImageData.alphaData = alphaData;
+        Image modifiedImage = new Image(image.getDevice(), fullImageData);
+        return modifiedImage;
+        
+    }
+    
 }
