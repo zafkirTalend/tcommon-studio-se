@@ -227,7 +227,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                 function.setTalendType(talendType);
             }
         } catch (Exception e) {
-            logger.error(Messages.getString("JavaFunctionParser.checkMethod", fullName + funcName), e); //$NON-NLS-1$
+            logger.error(Messages.getString("JavaFunctionParser.checkMethod", fullName, funcName), e); //$NON-NLS-1$
         }
     }
 

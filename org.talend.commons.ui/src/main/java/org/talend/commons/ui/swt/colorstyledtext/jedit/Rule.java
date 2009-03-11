@@ -97,7 +97,7 @@ public class Rule {
     }
 
     public String toString() {
-        return Messages.getString("Rule.rule") + name; //$NON-NLS-1$
+        return Messages.getString("Rule.rule", name); //$NON-NLS-1$
     }
 
     public KeywordMap getKeywords() {

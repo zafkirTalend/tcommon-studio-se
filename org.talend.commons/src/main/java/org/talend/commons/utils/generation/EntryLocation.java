@@ -53,7 +53,7 @@ public class EntryLocation {
     }
 
     public String toString() {
-        return Messages.getString("EntryLocation.returnTableName") + this.tableName + this.columnName; //$NON-NLS-1$
+        return Messages.getString("EntryLocation.returnTableName", this.tableName, this.columnName); //$NON-NLS-1$
     }
 
     @Override

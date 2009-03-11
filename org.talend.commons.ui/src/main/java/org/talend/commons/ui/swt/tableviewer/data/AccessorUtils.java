@@ -37,14 +37,12 @@ public final class AccessorUtils {
                 value = column.getBeanPropertyAccessors().get(bean);
             } catch (ClassCastException cce) {
 
-                String message = Messages.getString(
-                        "AccessorUtils.Assert0", column.getTitle(), column.getId(), bean.getClass()); //$NON-NLS-1$
+                String message = Messages.getString("AccessorUtils.Assert0", column.getTitle(), column.getId(), bean.getClass()); //$NON-NLS-1$
                 cce.printStackTrace();
                 throw new RuntimeException(message, cce);
             } catch (NoClassDefFoundError e) {
                 // e.printStackTrace();
-                System.err
-                        .println(Messages.getString("AccessorUtils.NoClassDef", AccessorUtils.class) + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+                System.err.println(Messages.getString("AccessorUtils.NoClassDef", AccessorUtils.class, e.getMessage())); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return value;
@@ -59,7 +57,7 @@ public final class AccessorUtils {
 
                 String message = Messages.getString("AccessorUtils.Assert1", column.getTitle(), column.getId()); //$NON-NLS-1$
                 if (bean != null) {
-                    message += "\n " + bean.getClass() + Messages.getString("AccessorUtils.isReq");  //$NON-NLS-1$//$NON-NLS-2$
+                    message += "\n " + bean.getClass() + Messages.getString("AccessorUtils.isReq"); //$NON-NLS-1$//$NON-NLS-2$
                 }
                 if (value != null) {
                     message += "\n " + value.getClass() + Messages.getString("AccessorUtils.isReqValue"); //$NON-NLS-1$ //$NON-NLS-2$

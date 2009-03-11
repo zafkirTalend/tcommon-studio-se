@@ -214,7 +214,8 @@ public final class ResourceUtils {
     public static void createFile(InputStream stream, IFile file) throws PersistenceException {
         try {
             if (stream == null) {
-                String msg = Messages.getString("resources.file.notCreated", file.getName(), Messages.getString("ResourceUtils.streamNull")); //$NON-NLS-1$ //$NON-NLS-2$ 
+                String msg = Messages.getString(
+                        "resources.file.notCreated", file.getName(), Messages.getString("ResourceUtils.streamNull")); //$NON-NLS-1$ //$NON-NLS-2$ 
                 throw new PersistenceException(msg);
             }
             file.create(stream, true, null);
@@ -274,7 +275,7 @@ public final class ResourceUtils {
     public static boolean isCorrectDestination(IPath source, IPath target, boolean forFolder) {
         // Rule 1 : Test if source & target are differents
         if (source.equals(target)) {
-            log.trace(Messages.getString("ResourceUtils.cnanotMoveRule1") + source + target); //$NON-NLS-1$
+            log.trace(Messages.getString("ResourceUtils.cnanotMoveRule1", source, target)); //$NON-NLS-1$
             return false;
         }
 
@@ -289,7 +290,7 @@ public final class ResourceUtils {
             int common = source.matchingFirstSegments(target);
             // Rule 3 : Descendant
             if (common == source.segmentCount()) {
-                log.trace(Messages.getString("ResourceUtils.cannotMoveRule3") + source + target); //$NON-NLS-1$
+                log.trace(Messages.getString("ResourceUtils.cannotMoveRule3", source, target)); //$NON-NLS-1$
                 return false;
             }
 
@@ -300,7 +301,7 @@ public final class ResourceUtils {
             // }
         }
 
-        log.trace(Messages.getString("ResourceUtils.canMove2") + source + target); //$NON-NLS-1$
+        log.trace(Messages.getString("ResourceUtils.canMove2", source, target)); //$NON-NLS-1$
         return true;
     }
 

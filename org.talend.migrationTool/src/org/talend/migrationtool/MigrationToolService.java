@@ -82,7 +82,7 @@ public class MigrationToolService implements IMigrationToolService {
                 throw new OperationCanceledException(Messages.getString("MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
             }
             if (!done.contains(task.getId())) {
-                monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress") + task.getName()); //$NON-NLS-1$
+                monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
                 monitorWrap.worked(2);
                 try {
                     switch (task.execute(project)) {

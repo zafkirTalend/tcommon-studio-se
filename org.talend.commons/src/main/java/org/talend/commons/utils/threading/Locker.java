@@ -127,7 +127,7 @@ public class Locker<B, KP> {
         }
 
         public String toString() {
-            return Messages.getString("Locker.keyContext") + String.valueOf(key) + contextInfo; //$NON-NLS-1$
+            return Messages.getString("Locker.keyContext", String.valueOf(key), contextInfo); //$NON-NLS-1$
         }
 
     }
@@ -231,7 +231,7 @@ public class Locker<B, KP> {
     public boolean lock(KP key, String contextInfo) {
         check(key);
         if (Locker.verbose) {
-            log.info(Messages.getString("Locker.lockKeyContext") + Thread.currentThread().toString() + key + contextInfo); //$NON-NLS-1$
+            log.info(Messages.getString("Locker.lockKeyContext", Thread.currentThread().toString(), key, contextInfo)); //$NON-NLS-1$
         }
         Thread thread = lockKeyToThreadsMap.put(new InternalKeyLock<KP>(key, contextInfo), Thread.currentThread());
         if (thread == null) {
@@ -379,7 +379,7 @@ public class Locker<B, KP> {
     public synchronized boolean unlock(KP key, String contextInfo) {
         check(key);
         if (Locker.verbose) {
-            log.info(Messages.getString("Locker.unlockeyContext") + Thread.currentThread().toString() + key + contextInfo); //$NON-NLS-1$
+            log.info(Messages.getString("Locker.unlockeyContext", Thread.currentThread().toString(), key, contextInfo)); //$NON-NLS-1$
         }
         matchingKey.key = key;
         Thread thread = lockKeyToThreadsMap.remove(matchingKey);
@@ -422,13 +422,13 @@ public class Locker<B, KP> {
                 waitingThreadsByKey.put(getterId.get(bean), Thread.currentThread());
                 try {
                     if (Locker.verbose) {
-                        log.info(Messages.getString("Locker.waitForUnlock1") + Thread.currentThread().toString() //$NON-NLS-1$
-                                + getterId.get(bean) + contextInfo);
+                        log.info(Messages.getString("Locker.waitForUnlock1", Thread.currentThread().toString() //$NON-NLS-1$
+                                , getterId.get(bean), contextInfo));
                     }
                     Thread.currentThread().wait();
                     if (Locker.verbose) {
-                        log.info(Messages.getString("Locker.waitEndForUnlock1") + Thread.currentThread().toString() //$NON-NLS-1$
-                                + getterId.get(bean) + contextInfo);
+                        log.info(Messages.getString("Locker.waitEndForUnlock1", Thread.currentThread().toString() //$NON-NLS-1$
+                                , getterId.get(bean), contextInfo));
                     }
                     waitForLockBean(bean);
                 } catch (InterruptedException e) {
@@ -493,8 +493,8 @@ public class Locker<B, KP> {
             waitingThreadsByKey.put(key, Thread.currentThread());
             try {
                 if (Locker.verbose) {
-                    log.info(Messages.getString("Locker.waitForUnlock2") + Thread.currentThread().toString() //$NON-NLS-1$
-                            + key + contextInfo);
+                    log.info(Messages.getString("Locker.waitForUnlock2", Thread.currentThread().toString() //$NON-NLS-1$
+                            , key, contextInfo));
                 }
                 final Thread mainThread = Thread.currentThread();
                 if (waitTimeMax != null) {
@@ -540,8 +540,8 @@ public class Locker<B, KP> {
                     }
                 }
                 if (Locker.verbose) {
-                    log.info(Messages.getString("Locker.waitEndForUnlock2") + Thread.currentThread().toString() + key //$NON-NLS-1$
-                            + contextInfo);
+                    log.info(Messages.getString("Locker.waitEndForUnlock2", Thread.currentThread().toString(), key //$NON-NLS-1$
+                            , contextInfo));
                 }
                 waitForLock(key, contextInfo);
             } catch (InterruptedException e) {
@@ -593,8 +593,8 @@ public class Locker<B, KP> {
     }
 
     public String toString() {
-        return Messages.getString("Locker.lockKeyThreadMap") + String.valueOf(lockKeyToThreadsMap) //$NON-NLS-1$
-                + String.valueOf(waitingThreadsByKey);
+        return Messages.getString("Locker.lockKeyThreadMap", String.valueOf(lockKeyToThreadsMap) //$NON-NLS-1$
+                , String.valueOf(waitingThreadsByKey));
     }
 
     public static void main(String[] args) {

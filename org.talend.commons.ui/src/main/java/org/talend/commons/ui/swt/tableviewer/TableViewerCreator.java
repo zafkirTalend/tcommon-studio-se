@@ -1207,7 +1207,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             } else {
                 columnSelectionListener = column.getTableColumnSelectionListener();
             }
-            if(columnSelectionListener != null) {
+            if (columnSelectionListener != null) {
                 tableColumn.addSelectionListener(columnSelectionListener);
             }
         }
@@ -1224,8 +1224,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             cellEditors[i] = column.getCellEditor();
 
             if (column.getCellEditor() != null && column.getBeanPropertyAccessors() == null) {
-                log.warn(Messages.getString("TableViewerCreator.columnNoIBeanProperty") //$NON-NLS-1$
-                        + column.getId() + column.getTitle());
+                log.warn(Messages.getString("TableViewerCreator.columnNoIBeanProperty", //$NON-NLS-1$
+                        column.getId(), column.getTitle()));
             }
 
         }
@@ -1271,8 +1271,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     public void addColumn(TableViewerCreatorColumn tableEditorColumn) {
         String id = tableEditorColumn.getId();
         if (id == null) {
-            throw new IllegalArgumentException(
-                    Messages.getString("TableViewerCreator.columnNullId") + tableEditorColumn.getTitle()); //$NON-NLS-1$
+            throw new IllegalArgumentException(Messages
+                    .getString("TableViewerCreator.columnNullId", tableEditorColumn.getTitle())); //$NON-NLS-1$
         }
         int columnsListSize = columns.size();
         boolean columnWithSameId = false;
