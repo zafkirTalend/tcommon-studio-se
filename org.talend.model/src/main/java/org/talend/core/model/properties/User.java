@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#getFirstStudioConnectionDate <em>First Studio Connection Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getAuthenticationInfo <em>Authentication Info</em>}</li>
  * </ul>
  * </p>
  *
@@ -550,5 +551,31 @@ public interface User extends EObject {
      * @generated
      */
     void setStudioConnexionNumber(int value);
+
+    /**
+     * Returns the value of the '<em><b>Authentication Info</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Authentication Info</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Authentication Info</em>' attribute.
+     * @see #setAuthenticationInfo(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_AuthenticationInfo()
+     * @model unique="false"
+     * @generated
+     */
+    String getAuthenticationInfo();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getAuthenticationInfo <em>Authentication Info</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Authentication Info</em>' attribute.
+     * @see #getAuthenticationInfo()
+     * @generated
+     */
+    void setAuthenticationInfo(String value);
 
 } // User

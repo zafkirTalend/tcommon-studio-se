@@ -53,6 +53,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getFirstStudioConnectionDate <em>First Studio Connection Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAuthenticationInfo <em>Authentication Info</em>}</li>
  * </ul>
  * </p>
  *
@@ -418,6 +419,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected int studioConnexionNumber = STUDIO_CONNEXION_NUMBER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAuthenticationInfo()
+     * @generated
+     * @ordered
+     */
+    protected static final String AUTHENTICATION_INFO_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAuthenticationInfo()
+     * @generated
+     * @ordered
+     */
+    protected String authenticationInfo = AUTHENTICATION_INFO_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -878,6 +899,27 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getAuthenticationInfo() {
+        return authenticationInfo;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAuthenticationInfo(String newAuthenticationInfo) {
+        String oldAuthenticationInfo = authenticationInfo;
+        authenticationInfo = newAuthenticationInfo;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__AUTHENTICATION_INFO, oldAuthenticationInfo, authenticationInfo));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -952,6 +994,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return new Integer(getAdminConnexionNumber());
             case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
                 return new Integer(getStudioConnexionNumber());
+            case PropertiesPackage.USER__AUTHENTICATION_INFO:
+                return getAuthenticationInfo();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1025,6 +1069,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
                 setStudioConnexionNumber(((Integer)newValue).intValue());
                 return;
+            case PropertiesPackage.USER__AUTHENTICATION_INFO:
+                setAuthenticationInfo((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1096,6 +1143,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
                 setStudioConnexionNumber(STUDIO_CONNEXION_NUMBER_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__AUTHENTICATION_INFO:
+                setAuthenticationInfo(AUTHENTICATION_INFO_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1147,6 +1197,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return adminConnexionNumber != ADMIN_CONNEXION_NUMBER_EDEFAULT;
             case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
                 return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
+            case PropertiesPackage.USER__AUTHENTICATION_INFO:
+                return AUTHENTICATION_INFO_EDEFAULT == null ? authenticationInfo != null : !AUTHENTICATION_INFO_EDEFAULT.equals(authenticationInfo);
         }
         return super.eIsSet(featureID);
     }

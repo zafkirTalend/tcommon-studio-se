@@ -29,6 +29,10 @@ public class RepositoryContext {
 
     private Project project;
 
+    private String clearPassword;
+
+    private boolean otp = false;
+
     private Map<String, String> fields;
 
     /**
@@ -49,7 +53,7 @@ public class RepositoryContext {
     }
 
     /**
-     * Sets the user.
+     * Sets the user, see also setClearPassword()
      * 
      * @param user the user to set
      */
@@ -83,6 +87,32 @@ public class RepositoryContext {
         this.fields = fields;
     }
 
+    /**
+     * Getter for clearPassword.
+     * 
+     * @return the clearPassword
+     */
+    public String getClearPassword() {
+        return clearPassword;
+    }
+
+    /**
+     * Sets the clearPassword.
+     * 
+     * @param clearPassword the clearPassword to set
+     */
+    public void setClearPassword(String clearPassword) {
+        this.clearPassword = clearPassword;
+    }
+    
+    public boolean isOtp() {
+        return otp;
+    }
+
+    public void setOtp(boolean otp) {
+        this.otp = otp;
+    }
+    
     /*
      * (non-Javadoc)
      * 

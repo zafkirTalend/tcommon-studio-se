@@ -1905,12 +1905,21 @@ public interface PropertiesPackage extends EPackage {
     int USER__STUDIO_CONNEXION_NUMBER = 19;
 
     /**
+     * The feature id for the '<em><b>Authentication Info</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__AUTHENTICATION_INFO = 20;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 20;
+    int USER_FEATURE_COUNT = 21;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -6373,6 +6382,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getUser_StudioConnexionNumber();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getAuthenticationInfo <em>Authentication Info</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Authentication Info</em>'.
+     * @see org.talend.core.model.properties.User#getAuthenticationInfo()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_AuthenticationInfo();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -10127,6 +10147,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER__STUDIO_CONNEXION_NUMBER = eINSTANCE.getUser_StudioConnexionNumber();
+
+        /**
+         * The meta object literal for the '<em><b>Authentication Info</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__AUTHENTICATION_INFO = eINSTANCE.getUser_AuthenticationInfo();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.
