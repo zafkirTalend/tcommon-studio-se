@@ -25,8 +25,11 @@ import java.net.URISyntaxException;
  * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
  * 
  */
-public class FileUtils {
+public final class FileUtils {
 
+    private FileUtils() {
+    }
+    
     public static synchronized void replaceInFile(String path, String oldString, String newString) throws IOException,
             URISyntaxException {
         File file = new File(path);
