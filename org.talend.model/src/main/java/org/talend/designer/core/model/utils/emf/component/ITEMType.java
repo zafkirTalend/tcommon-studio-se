@@ -43,7 +43,10 @@ public interface ITEMType extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Used for combo box in TABLE field
+     * 
+     * 										Used for combo box in TABLE
+     * 										field
+     * 									
      * <!-- end-model-doc -->
      * @return the value of the '<em>ITEMS</em>' containment reference.
      * @see #setITEMS(ITEMSType)

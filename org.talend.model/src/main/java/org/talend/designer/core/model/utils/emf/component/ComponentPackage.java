@@ -1192,13 +1192,22 @@ public interface ComponentPackage extends EPackage {
     int ITEMS_TYPE__ITEM = 0;
 
     /**
+     * The feature id for the '<em><b>BASEDONINPUTSCHEMAS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEMS_TYPE__BASEDONINPUTSCHEMAS = 1;
+
+    /**
      * The feature id for the '<em><b>BASEDONSCHEMA</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE__BASEDONSCHEMA = 1;
+    int ITEMS_TYPE__BASEDONSCHEMA = 2;
 
     /**
      * The feature id for the '<em><b>BASEDONSUBJOBSTARTS</b></em>' attribute.
@@ -1207,7 +1216,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE__BASEDONSUBJOBSTARTS = 2;
+    int ITEMS_TYPE__BASEDONSUBJOBSTARTS = 3;
 
     /**
      * The feature id for the '<em><b>DEFAULT</b></em>' attribute.
@@ -1216,7 +1225,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE__DEFAULT = 3;
+    int ITEMS_TYPE__DEFAULT = 4;
 
     /**
      * The number of structural features of the '<em>ITEMS Type</em>' class.
@@ -1225,7 +1234,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE_FEATURE_COUNT = 4;
+    int ITEMS_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl <em>ITEM Type</em>}' class.
@@ -3221,6 +3230,17 @@ public interface ComponentPackage extends EPackage {
     EReference getITEMSType_ITEM();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>BASEDONINPUTSCHEMAS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS()
+     * @see #getITEMSType()
+     * @generated
+     */
+    EAttribute getITEMSType_BASEDONINPUTSCHEMAS();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4973,6 +4993,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference ITEMS_TYPE__ITEM = eINSTANCE.getITEMSType_ITEM();
+
+        /**
+         * The meta object literal for the '<em><b>BASEDONINPUTSCHEMAS</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEMS_TYPE__BASEDONINPUTSCHEMAS = eINSTANCE.getITEMSType_BASEDONINPUTSCHEMAS();
 
         /**
          * The meta object literal for the '<em><b>BASEDONSCHEMA</b></em>' attribute feature.

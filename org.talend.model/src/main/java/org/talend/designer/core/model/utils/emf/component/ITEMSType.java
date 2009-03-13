@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getITEM <em>ITEM</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getDEFAULT <em>DEFAULT</em>}</li>
@@ -39,13 +40,15 @@ public interface ITEMSType extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * On TABLE mode:
-     *    - FIELD can be either TEXT, CHECK, CLOSED_LIST, COLUMN_LIST or PREV_COLUMN_LIST
-     *    - VALUE is used for TEXT, CHECK
      * 
-     * On CLOSED_LIST mode:
-     *    - FIELD is not used
-     *    - READONLY is not used
+     * 							On TABLE mode: - FIELD can be either TEXT,
+     * 							CHECK, CLOSED_LIST, COLUMN_LIST or
+     * 							PREV_COLUMN_LIST - VALUE is used for TEXT,
+     * 							CHECK
+     * 
+     * 							On CLOSED_LIST mode: - FIELD is not used -
+     * 							READONLY is not used
+     * 						
      * <!-- end-model-doc -->
      * @return the value of the '<em>ITEM</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_ITEM()
@@ -54,6 +57,61 @@ public interface ITEMSType extends EObject {
      * @generated
      */
     EList getITEM();
+
+    /**
+     * Returns the value of the '<em><b>BASEDONINPUTSCHEMAS</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>BASEDONINPUTSCHEMAS</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>BASEDONINPUTSCHEMAS</em>' attribute.
+     * @see #isSetBASEDONINPUTSCHEMAS()
+     * @see #unsetBASEDONINPUTSCHEMAS()
+     * @see #setBASEDONINPUTSCHEMAS(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_BASEDONINPUTSCHEMAS()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='BASED_ON_INPUT_SCHEMAS' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isBASEDONINPUTSCHEMAS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>BASEDONINPUTSCHEMAS</em>' attribute.
+     * @see #isSetBASEDONINPUTSCHEMAS()
+     * @see #unsetBASEDONINPUTSCHEMAS()
+     * @see #isBASEDONINPUTSCHEMAS()
+     * @generated
+     */
+    void setBASEDONINPUTSCHEMAS(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetBASEDONINPUTSCHEMAS()
+     * @see #isBASEDONINPUTSCHEMAS()
+     * @see #setBASEDONINPUTSCHEMAS(boolean)
+     * @generated
+     */
+    void unsetBASEDONINPUTSCHEMAS();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>BASEDONINPUTSCHEMAS</em>' attribute is set.
+     * @see #unsetBASEDONINPUTSCHEMAS()
+     * @see #isBASEDONINPUTSCHEMAS()
+     * @see #setBASEDONINPUTSCHEMAS(boolean)
+     * @generated
+     */
+    boolean isSetBASEDONINPUTSCHEMAS();
 
     /**
      * Returns the value of the '<em><b>BASEDONSCHEMA</b></em>' attribute.

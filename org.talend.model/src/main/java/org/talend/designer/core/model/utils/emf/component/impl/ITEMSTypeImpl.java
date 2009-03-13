@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getITEM <em>ITEM</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
@@ -47,6 +48,35 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @ordered
      */
     protected EList iTEM;
+
+    /**
+     * The default value of the '{@link #isBASEDONINPUTSCHEMAS() <em>BASEDONINPUTSCHEMAS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isBASEDONINPUTSCHEMAS()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean BASEDONINPUTSCHEMAS_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isBASEDONINPUTSCHEMAS() <em>BASEDONINPUTSCHEMAS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isBASEDONINPUTSCHEMAS()
+     * @generated
+     * @ordered
+     */
+    protected boolean bASEDONINPUTSCHEMAS = BASEDONINPUTSCHEMAS_EDEFAULT;
+
+    /**
+     * This is true if the BASEDONINPUTSCHEMAS attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean bASEDONINPUTSCHEMASESet;
 
     /**
      * The default value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
@@ -155,6 +185,52 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             iTEM = new EObjectContainmentEList(ITEMType.class, this, ComponentPackage.ITEMS_TYPE__ITEM);
         }
         return iTEM;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isBASEDONINPUTSCHEMAS() {
+        return bASEDONINPUTSCHEMAS;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBASEDONINPUTSCHEMAS(boolean newBASEDONINPUTSCHEMAS) {
+        boolean oldBASEDONINPUTSCHEMAS = bASEDONINPUTSCHEMAS;
+        bASEDONINPUTSCHEMAS = newBASEDONINPUTSCHEMAS;
+        boolean oldBASEDONINPUTSCHEMASESet = bASEDONINPUTSCHEMASESet;
+        bASEDONINPUTSCHEMASESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONINPUTSCHEMAS, oldBASEDONINPUTSCHEMAS, bASEDONINPUTSCHEMAS, !oldBASEDONINPUTSCHEMASESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetBASEDONINPUTSCHEMAS() {
+        boolean oldBASEDONINPUTSCHEMAS = bASEDONINPUTSCHEMAS;
+        boolean oldBASEDONINPUTSCHEMASESet = bASEDONINPUTSCHEMASESet;
+        bASEDONINPUTSCHEMAS = BASEDONINPUTSCHEMAS_EDEFAULT;
+        bASEDONINPUTSCHEMASESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONINPUTSCHEMAS, oldBASEDONINPUTSCHEMAS, BASEDONINPUTSCHEMAS_EDEFAULT, oldBASEDONINPUTSCHEMASESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetBASEDONINPUTSCHEMAS() {
+        return bASEDONINPUTSCHEMASESet;
     }
 
     /**
@@ -294,6 +370,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return getITEM();
+            case ComponentPackage.ITEMS_TYPE__BASEDONINPUTSCHEMAS:
+                return isBASEDONINPUTSCHEMAS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 return isBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
@@ -316,6 +394,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 getITEM().clear();
                 getITEM().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONINPUTSCHEMAS:
+                setBASEDONINPUTSCHEMAS(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 setBASEDONSCHEMA(((Boolean)newValue).booleanValue());
@@ -341,6 +422,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 getITEM().clear();
                 return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONINPUTSCHEMAS:
+                unsetBASEDONINPUTSCHEMAS();
+                return;
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 unsetBASEDONSCHEMA();
                 return;
@@ -364,6 +448,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return iTEM != null && !iTEM.isEmpty();
+            case ComponentPackage.ITEMS_TYPE__BASEDONINPUTSCHEMAS:
+                return isSetBASEDONINPUTSCHEMAS();
             case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
                 return isSetBASEDONSCHEMA();
             case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
@@ -384,7 +470,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (bASEDONSCHEMA: ");
+        result.append(" (bASEDONINPUTSCHEMAS: ");
+        if (bASEDONINPUTSCHEMASESet) result.append(bASEDONINPUTSCHEMAS); else result.append("<unset>");
+        result.append(", bASEDONSCHEMA: ");
         if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
         result.append(", bASEDONSUBJOBSTARTS: ");
         if (bASEDONSUBJOBSTARTSESet) result.append(bASEDONSUBJOBSTARTS); else result.append("<unset>");

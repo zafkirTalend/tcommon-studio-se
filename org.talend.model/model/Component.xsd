@@ -233,39 +233,57 @@
 	<xs:element name="ITEMS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ITEM" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="ITEM" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation>On TABLE mode:
-   - FIELD can be either TEXT, CHECK, CLOSED_LIST, COLUMN_LIST or PREV_COLUMN_LIST
-   - VALUE is used for TEXT, CHECK
+						<xs:documentation>
+							On TABLE mode: - FIELD can be either TEXT,
+							CHECK, CLOSED_LIST, COLUMN_LIST or
+							PREV_COLUMN_LIST - VALUE is used for TEXT,
+							CHECK
 
-On CLOSED_LIST mode:
-   - FIELD is not used
-   - READONLY is not used</xs:documentation>
+							On CLOSED_LIST mode: - FIELD is not used -
+							READONLY is not used
+						</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element ref="ITEMS" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Used for combo box in TABLE field</xs:documentation>
+									<xs:documentation>
+										Used for combo box in TABLE
+										field
+									</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
-						<xs:attribute name="NAME" type="xs:string" use="required"/>
-						<xs:attribute name="VALUE" type="xs:string" use="optional"/>
-						<xs:attribute name="CONTEXT" type="xs:string" use="optional"/>
-						<xs:attribute name="REPOSITORY_ITEM" type="xs:string" use="optional"/>
-						<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
-						<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>
-						<xs:attribute name="FIELD" type="xs:string" use="optional" default="TEXT"/>
-						<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
-						<xs:attribute name="FILTER" type="xs:string"/>
+						<xs:attribute name="NAME" type="xs:string"
+							use="required" />
+						<xs:attribute name="VALUE" type="xs:string"
+							use="optional" />
+						<xs:attribute name="CONTEXT" type="xs:string"
+							use="optional" />
+						<xs:attribute name="REPOSITORY_ITEM"
+							type="xs:string" use="optional" />
+						<xs:attribute name="SHOW_IF" type="xs:string"
+							use="optional" />
+						<xs:attribute name="NOT_SHOW_IF"
+							type="xs:string" use="optional" />
+						<xs:attribute name="FIELD" type="xs:string"
+							use="optional" default="TEXT" />
+						<xs:attribute name="READONLY" type="xs:boolean"
+							use="optional" />
+						<xs:attribute name="FILTER" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
-			<xs:attribute name="BASED_ON_SCHEMA" type="xs:boolean" use="optional" default="false"/>
-			<xs:attribute name="BASED_ON_SUBJOB_STARTS" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="DEFAULT" type="xs:string"
+				use="optional" />
+			<xs:attribute name="BASED_ON_SCHEMA" type="xs:boolean"
+				use="optional" default="false" />
+			<xs:attribute name="BASED_ON_SUBJOB_STARTS"
+				type="xs:boolean" use="optional" default="false" />
+			<xs:attribute name="BASED_ON_INPUT_SCHEMAS" type="xs:boolean" use="optional" default="false"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PLUGINDEPENDENCIES">
