@@ -50,4 +50,7 @@ public final class BabiliTool {
         return null;
     }
 
+    public static void clear() {
+        translation.clear();
+    }
 }
