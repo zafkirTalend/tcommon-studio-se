@@ -58,7 +58,7 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 				}
 			}
 %>	
-			Boolean isMatch_<%=cid %> = false;
+			Boolean isMatch_<%=cid %> = true;
 			
 <%
 			for (IMetadataColumn column: metadata.getListColumns()) {
@@ -69,11 +69,13 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 					Integer maxDistance = Integer.parseInt(keyColumn.get("MAX_DISTANCE"));
 					String colName = keyColumn.get("SCHEMA_COLUMN");
 %>
-					if(!isMatch_<%=cid %>){
+					<%=colName %>_currentRowKey<%=cid %> = (<%=connName %>.<%=column.getLabel() %>!=null)?<%=connName %>.<%=column.getLabel() %>.toString()<%=((!keyColumn.get("CASE_SENSITIVE").equals("true"))?".toLowerCase()":"")%>:null;
+
+					if(isMatch_<%=cid %>){
+						isMatch_<%=cid %> = false;
 <%				
 						if(matchingType.equals("EXACT_MATCH")){
 %>
-							<%=colName %>_currentRowKey<%=cid %> = (<%=connName %>.<%=column.getLabel() %>!=null)?<%=connName %>.<%=column.getLabel() %>.toString()<%=((!keyColumn.get("CASE_SENSITIVE").equals("true"))?".toLowerCase()":"")%>:null;
 							java.util.Iterator<String> <%=colName %>_it_<%=cid %> = <%=colName %>_keys_<%=cid %>.iterator();
 							int <%=colName %>_time_<%=cid %> = 0;
 							while(<%=colName %>_it_<%=cid %>.hasNext()){
@@ -96,11 +98,9 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 									}
 								}
 							}
-							<%=colName %>_temp_<%=cid %> = <%=colName %>_currentRowKey<%=cid %>;
 <%
 						}else if(matchingType.equals("LEVENSHTEIN")){
 %>
-							<%=colName %>_currentRowKey<%=cid %> = (<%=connName %>.<%=column.getLabel() %>!=null)?<%=connName %>.<%=column.getLabel() %>.toString()<%=((!keyColumn.get("CASE_SENSITIVE").equals("true"))?".toLowerCase()":"")%>:null;
 							java.util.Iterator<String> <%=colName %>_it_<%=cid %> = <%=colName %>_keys_<%=cid %>.iterator();
 							int <%=colName %>_time_<%=cid %> = 0;
 							while(<%=colName %>_it_<%=cid %>.hasNext()){
@@ -124,13 +124,11 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 		                        	}
 								}
 							}
-							<%=colName %>_temp_<%=cid %> = <%=colName %>_currentRowKey<%=cid %>;
 							
 <%
 						}else if(matchingType.equals("METAPHONE")){
 %>
 							org.apache.commons.codec.language.Metaphone <%=colName %>_metaphone_<%=cid %> = new org.apache.commons.codec.language.Metaphone();
-							<%=colName %>_currentRowKey<%=cid %> = (<%=connName %>.<%=column.getLabel() %>!=null)?<%=connName %>.<%=column.getLabel() %>.toString()<%=((!keyColumn.get("CASE_SENSITIVE").equals("true"))?".toLowerCase()":"")%>:null;
 							java.util.Iterator<String> <%=colName %>_it_<%=cid %> = <%=colName %>_keys_<%=cid %>.iterator();
 							int <%=colName %>_time_<%=cid %> = 0;
 							while(<%=colName %>_it_<%=cid %>.hasNext()){
@@ -162,7 +160,6 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 		                        	}
 	                        	}
 	                        }
-	                        <%=colName %>_temp_<%=cid %> = <%=colName %>_currentRowKey<%=cid %>;
 <%
 						}else if(matchingType.equals("DOUBLE_METAPHONE")){
 %>
@@ -198,7 +195,6 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 		                        	}
 	                        	}
 	                        }
-	                        <%=colName %>_temp_<%=cid %> = <%=colName %>_currentRowKey<%=cid %>;
 <%
 						}
 %>
@@ -216,7 +212,7 @@ if ((metadatas!=null)&&(metadatas.size()>0)) {
 					if(keyColumn.get("KEY_ATTRIBUTE").equals("true")){
 						String colName = keyColumn.get("SCHEMA_COLUMN");
 %>
-						<%=colName %>_keys_<%=cid %>.add(<%=colName %>_temp_<%=cid %>);
+						<%=colName %>_keys_<%=cid %>.add(<%=colName %>_currentRowKey<%=cid %>);
 
 <%
 					}
