@@ -40,4 +40,6 @@ public interface ICDCProviderService extends IService {
     public boolean canCreateCDCConnection(DatabaseConnection conn);
 
     public String getCDCConnectionLinkId(ConnectionItem item);
+
+    public boolean isSystemSubscriberTable(RepositoryNode node);
 }
