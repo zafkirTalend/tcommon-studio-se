@@ -25,9 +25,11 @@ import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.Activator;
@@ -91,50 +93,54 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
             CorePlugin.getDefault().getCodeGeneratorService().initializeTemplates();
         }
 
-        // Start Web Service Registration
-        try {
-            if (!RegisterManagement.isProductRegistered()) {
-                RegisterWizard registerWizard = new RegisterWizard();
-                Shell shell = Activator.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
-                WizardDialog dialog = new RegisterWizardDialog(shell, registerWizard);
-                dialog.setTitle(Messages.getString("RegisterWizard.windowTitle")); //$NON-NLS-1$
-                if (dialog.open() == WizardDialog.OK) {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        if (brandingService.getBrandingConfiguration().isUseProductRegistration()) {
+            // Start Web Service Registration
+            try {
+                if (!RegisterManagement.isProductRegistered()) {
+                    RegisterWizard registerWizard = new RegisterWizard();
+                    Shell shell = Activator.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
+                    WizardDialog dialog = new RegisterWizardDialog(shell, registerWizard);
+                    dialog.setTitle(Messages.getString("RegisterWizard.windowTitle")); //$NON-NLS-1$
+                    if (dialog.open() == WizardDialog.OK) {
 
-                    // project language
-                    RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                            Context.REPOSITORY_CONTEXT_KEY);
-                    ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
-                    String projectLanguage = codeLanguage.getName();
+                        // project language
+                        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
+                                Context.REPOSITORY_CONTEXT_KEY);
+                        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
+                        String projectLanguage = codeLanguage.getName();
 
-                    // OS
-                    String osName = System.getProperty("os.name"); //$NON-NLS-1$
-                    String osVersion = System.getProperty("os.version"); //$NON-NLS-1$
+                        // OS
+                        String osName = System.getProperty("os.name"); //$NON-NLS-1$
+                        String osVersion = System.getProperty("os.version"); //$NON-NLS-1$
 
-                    // Java version
-                    String javaVersion = System.getProperty("java.version"); //$NON-NLS-1$
+                        // Java version
+                        String javaVersion = System.getProperty("java.version"); //$NON-NLS-1$
 
-                    // Java Memory
-                    long totalMemory = Runtime.getRuntime().totalMemory();
+                        // Java Memory
+                        long totalMemory = Runtime.getRuntime().totalMemory();
 
-                    // RAM
-                    com.sun.management.OperatingSystemMXBean composantSystem = (com.sun.management.OperatingSystemMXBean) ManagementFactory
-                            .getOperatingSystemMXBean();
-                    Long memRAM = new Long(composantSystem.getTotalPhysicalMemorySize() / 1024);
+                        // RAM
+                        com.sun.management.OperatingSystemMXBean composantSystem = (com.sun.management.OperatingSystemMXBean) ManagementFactory
+                                .getOperatingSystemMXBean();
+                        Long memRAM = new Long(composantSystem.getTotalPhysicalMemorySize() / 1024);
 
-                    // CPU
-                    int nbProc = Runtime.getRuntime().availableProcessors();
+                        // CPU
+                        int nbProc = Runtime.getRuntime().availableProcessors();
 
-                    RegisterManagement.register(registerWizard.getEmail(), registerWizard.getCountry(), registerWizard
-                            .isProxyEnabled(), registerWizard.getProxyHost(), registerWizard.getProxyPort(),
-                            org.talend.core.CorePlugin.getDefault().getBundle().getHeaders().get(
-                                    org.osgi.framework.Constants.BUNDLE_VERSION).toString(), projectLanguage, osName, osVersion,
-                            javaVersion, totalMemory, memRAM, nbProc);
-                } else {
-                    RegisterManagement.decrementTry();
+                        RegisterManagement.register(registerWizard.getEmail(), registerWizard.getCountry(), registerWizard
+                                .isProxyEnabled(), registerWizard.getProxyHost(), registerWizard.getProxyPort(),
+                                org.talend.core.CorePlugin.getDefault().getBundle().getHeaders().get(
+                                        org.osgi.framework.Constants.BUNDLE_VERSION).toString(), projectLanguage, osName,
+                                osVersion, javaVersion, totalMemory, memRAM, nbProc);
+                    } else {
+                        RegisterManagement.decrementTry();
+                    }
                 }
+            } catch (BusinessException e) {
+                // Do nothing : registration web service error is not a problem
             }
-        } catch (BusinessException e) {
-            // Do nothing : registration web service error is not a problem
         }
     }
 

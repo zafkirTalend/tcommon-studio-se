@@ -219,4 +219,22 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         // no specific settings by default.
         return new HashMap<String, Object>();
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseMailLoginCheck()
+     */
+    public boolean isUseMailLoginCheck() {
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseProductRegistration()
+     */
+    public boolean isUseProductRegistration() {
+        return true;
+    }
 }

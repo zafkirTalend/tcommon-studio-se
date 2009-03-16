@@ -32,7 +32,7 @@ public interface IBrandingConfiguration extends IActionBarHelper {
      * 
      * @param layout
      */
-    void initPerspective(IPageLayout layout);
+    public void initPerspective(IPageLayout layout);
 
     /**
      * 
@@ -40,18 +40,23 @@ public interface IBrandingConfiguration extends IActionBarHelper {
      * 
      * @return
      */
-    List<RepositoryNode> getHiddenRepositoryCategory(RepositoryNode parent);
+    public List<RepositoryNode> getHiddenRepositoryCategory(RepositoryNode parent);
 
     /**
      * returns null if all components are available.
      */
-    String[] getAvailableComponents();
+    public String[] getAvailableComponents();
 
-    void setHelper(IActionBarHelper helper);
+    public void setHelper(IActionBarHelper helper);
 
-    IActionBarHelper getHelper();
+    public IActionBarHelper getHelper();
 
-    String[] getAvailableLanguages();
+    public String[] getAvailableLanguages();
 
-    Map<String, Object> getJobEditorSettings();
+    public Map<String, Object> getJobEditorSettings();
+
+    public boolean isUseMailLoginCheck();
+
+    public boolean isUseProductRegistration();
+
 }
