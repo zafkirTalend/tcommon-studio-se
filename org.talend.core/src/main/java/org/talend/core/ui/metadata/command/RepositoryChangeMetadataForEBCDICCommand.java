@@ -97,10 +97,12 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
                 setLineValue(paramValues, valueMap);
 
             } else { // for dnd
+                boolean found = false;
                 if (paramValues.size() > 0) {
                     for (Map<String, Object> line : paramValues) {
                         String schemaName = (String) line.get(IEbcdicConstant.FIELD_SCHEMA);
                         if (schemaName != null && schemaName.equals(newPropValue)) {
+                            found = true;
                             IMetadataTable table = MetadataTool.getMetadataTableFromNode(node, (String) newPropValue);
                             if (table != null) {
                                 MetadataTool.copyTable(newOutputMetadata, table);
@@ -108,7 +110,8 @@ public class RepositoryChangeMetadataForEBCDICCommand extends Command {
 
                         }
                     }
-                } else {
+                }
+                if (!found) {
                     // create new line
                     setLineValue(paramValues, valueMap);
                 }
