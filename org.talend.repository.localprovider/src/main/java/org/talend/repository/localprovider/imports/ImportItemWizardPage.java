@@ -26,7 +26,6 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.lang.StringUtils;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -82,8 +81,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.model.RepositoryNode.ENodeType;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
@@ -856,19 +853,14 @@ class ImportItemWizardPage extends WizardPage {
             }
         }
         final List<ItemRecord> itemRecords = new ArrayList<ItemRecord>(tempItemRecords);
-        
+
         try {
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    IPath destinationPath = null;
-                    if (rNode.getType() == ENodeType.SIMPLE_FOLDER) {
-                        destinationPath = RepositoryNodeUtilities.getPath(rNode);
-                    }
-
                     repositoryUtil.setErrors(false);
                     repositoryUtil.clear();
-                    repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite, destinationPath);
+                    repositoryUtil.importItemRecords(rNode, manager, itemRecords, monitor, overwrite);
 
                     if (repositoryUtil.hasErrors()) {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$

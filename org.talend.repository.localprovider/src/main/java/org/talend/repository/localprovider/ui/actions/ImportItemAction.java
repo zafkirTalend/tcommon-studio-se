@@ -52,7 +52,8 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
                     return;
                 }
                 if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)
-                        || repositoryNode.getType().equals(ENodeType.SIMPLE_FOLDER)) {
+                // || repositoryNode.getType().equals(ENodeType.SIMPLE_FOLDER)
+                ) {
                     canWork = true;
                 }
             }
