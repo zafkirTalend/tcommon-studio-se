@@ -131,6 +131,7 @@ public enum ECoreImage implements IImage {
     PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"), //$NON-NLS-1$
     JOBLET_COMPONENT_ICON("/icons/joblet_component.png"), //$NON-NLS-1$
     UNKNOWN(),
+    PROGRESSBAR("/icons/progressBar.gif"),
     TRIANGLE("/icons/triangle.gif");// triangle.gif
 
     private String path;
