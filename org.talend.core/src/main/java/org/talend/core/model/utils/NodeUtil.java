@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
@@ -186,6 +187,22 @@ public class NodeUtil {
             }
         }
         return conns;
+    }
+
+    public static List<IMetadataTable> getIncomingMetadataTable(INode node, int category) {
+        List<IMetadataTable> metadatas = new ArrayList<IMetadataTable>();
+
+        List<? extends IConnection> incomingConnections = node.getIncomingConnections();
+        if (incomingConnections != null) {
+            for (int i = 0; i < incomingConnections.size(); i++) {
+
+                IConnection connection = incomingConnections.get(i);
+                if (connection.getLineStyle().hasConnectionCategory(category)) {
+                    metadatas.add(connection.getMetadataTable());
+                }
+            }
+        }
+        return metadatas;
     }
 
     public static List<? extends IConnection> getIncomingConnections(INode node, String connectorName) {
