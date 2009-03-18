@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -51,9 +52,7 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
                     setEnabled(false);
                     return;
                 }
-                if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)
-                // || repositoryNode.getType().equals(ENodeType.SIMPLE_FOLDER)
-                ) {
+                if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)) {
                     canWork = true;
                 }
             }
@@ -75,15 +74,13 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
 
     @Override
     public void run() {
-        ISelection selection = this.getSelection();
-        if (selection instanceof IStructuredSelection) {
-            RepositoryNode rNode = (RepositoryNode) ((IStructuredSelection) selection).getFirstElement();
-            ImportItemWizard wizard = new ImportItemWizard(rNode);
+        if (this.getSelection() instanceof IStructuredSelection) {
+            ImportItemWizard wizard = new ImportItemWizard();
             IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
             wizard.setWindowTitle(IMPORT_ITEM);
-            wizard.init(workbench, (IStructuredSelection) selection);
+            wizard.init(workbench, (IStructuredSelection) this.getSelection());
 
-            Shell activeShell = this.getViewPart().getViewSite().getShell();
+            Shell activeShell = Display.getCurrent().getActiveShell();
             WizardDialog dialog = new WizardDialog(activeShell, wizard);
             if (dialog.open() == Window.OK) {
                 refresh();

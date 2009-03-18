@@ -267,18 +267,9 @@ public class ImportItemUtil {
         return false;
     }
 
-    /***
-     * 
-     * @param manager
-     * @param itemRecords
-     * @param monitor
-     * @param overwrite
-     * @param destinationPath can be null
-     * @return
-     */
     @SuppressWarnings("unchecked")
     public List<ItemRecord> importItemRecords(final ResourcesManager manager, final List<ItemRecord> itemRecords,
-            final IProgressMonitor monitor, final boolean overwrite, final IPath destinationPath) {
+            final IProgressMonitor monitor, final boolean overwrite) {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
 
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") { //$NON-NLS-1$
@@ -290,7 +281,7 @@ public class ImportItemUtil {
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
-                            importItemRecord(manager, itemRecord, overwrite, destinationPath);
+                            importItemRecord(manager, itemRecord, overwrite);
                             monitor.worked(1);
                         }
                     }
@@ -333,15 +324,11 @@ public class ImportItemUtil {
         }
     }
 
-    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath) {
+    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) {
         resolveItem(manager, itemRecord);
         if (itemRecord.getItem() != null) {
-            IPath path = null;
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
-            path = new Path(itemRecord.getItem().getState().getPath());
-            if (destinationPath != null) {
-                path = destinationPath.append(path);
-            }
+            IPath path = new Path(itemRecord.getItem().getState().getPath());
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
 
             try {

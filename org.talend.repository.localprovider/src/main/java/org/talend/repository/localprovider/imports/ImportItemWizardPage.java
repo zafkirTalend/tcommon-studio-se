@@ -81,9 +81,6 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
-import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.model.RepositoryNode.ENodeType;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
@@ -148,11 +145,8 @@ class ImportItemWizardPage extends WizardPage {
 
     protected String selectedArchive;
 
-    private RepositoryNode rNode;
-
-    protected ImportItemWizardPage(RepositoryNode rNode, String pageName) {
+    protected ImportItemWizardPage(String pageName) {
         super(pageName);
-        this.rNode = rNode;
         setDescription(Messages.getString("ImportItemWizardPage.ImportDescription")); //$NON-NLS-1$
         setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
     }
@@ -861,13 +855,10 @@ class ImportItemWizardPage extends WizardPage {
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    IPath destinationPath = null;
-                    if (rNode.getType() == ENodeType.SIMPLE_FOLDER) {
-                        destinationPath = RepositoryNodeUtilities.getPath(rNode);
-                    }
                     repositoryUtil.setErrors(false);
                     repositoryUtil.clear();
-                    repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite, destinationPath);
+                    repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite);
+
                     if (repositoryUtil.hasErrors()) {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$
                     }
