@@ -144,6 +144,50 @@ public class NodeUtil {
         return conns;
     }
 
+    /**
+     * 
+     * wzhang Comment method "getIncomingConnections".
+     * 
+     * @param node
+     * @param category
+     * @return
+     */
+    public static List<? extends IConnection> getIncomingConnections(INode node, int category) {
+        List<IConnection> conns = null;
+
+        List<? extends IConnection> incomingConnections = node.getIncomingConnections();
+        if (incomingConnections != null) {
+            conns = new ArrayList<IConnection>();
+
+            for (int i = 0; i < incomingConnections.size(); i++) {
+
+                IConnection connection = incomingConnections.get(i);
+                if (connection.getLineStyle().hasConnectionCategory(category)) {
+                    conns.add(connection);
+                }
+            }
+        }
+        return conns;
+    }
+
+    public static List<? extends IConnection> getOutgoingConnections(INode node, int category) {
+        List<IConnection> conns = null;
+
+        List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
+        if (outgoingConnections != null) {
+            conns = new ArrayList<IConnection>();
+
+            for (int i = 0; i < outgoingConnections.size(); i++) {
+
+                IConnection connection = outgoingConnections.get(i);
+                if (connection.getLineStyle().hasConnectionCategory(category)) {
+                    conns.add(connection);
+                }
+            }
+        }
+        return conns;
+    }
+
     public static List<? extends IConnection> getIncomingConnections(INode node, String connectorName) {
         List<IConnection> conns = null;
 
