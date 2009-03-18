@@ -80,7 +80,11 @@ public final class ConvertionHelper {
         result.setDescription(old.getComment());
         result.setId(old.getId());
         result.setLabel(old.getLabel());
-        result.setTableName(old.getSourceName());
+        String sourceName = old.getSourceName();
+        if (sourceName == null) {
+            sourceName = old.getLabel();
+        }
+        result.setTableName(sourceName);
         List<IMetadataColumn> columns = new ArrayList<IMetadataColumn>(old.getColumns().size());
         for (Object o : old.getColumns()) {
             MetadataColumn column = (MetadataColumn) o;
