@@ -15,6 +15,7 @@ package org.talend.repository.model;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -119,4 +120,7 @@ public interface IRepositoryService extends IService {
     public String getDatabaseStringURL(DatabaseConnection conn);
 
     public TreeViewer getRepositoryTreeView();
+
+    public Action getRepositoryViewDoubleClickAction();
+
 }
