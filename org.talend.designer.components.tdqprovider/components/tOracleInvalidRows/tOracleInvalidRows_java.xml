@@ -4,6 +4,11 @@
 		STARTABLE="true">
 		<SIGNATURE />
 	</HEADER>
+
+  <FAMILIES>
+    <FAMILY>Databases/Oracle</FAMILY>
+    <FAMILY>Data Quality/Pattern matching</FAMILY>
+  </FAMILIES>
 	<DOCUMENTATION>
 		<URL />
 	</DOCUMENTATION>
