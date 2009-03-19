@@ -25,6 +25,7 @@ import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
+import org.talend.designer.core.model.utils.emf.component.FAMILIESType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
@@ -41,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getHEADER <em>HEADER</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getFAMILIES <em>FAMILIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getSQLTEMPLATES <em>SQLTEMPLATES</em>}</li>
@@ -64,6 +66,16 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @ordered
      */
     protected HEADERType hEADER;
+
+    /**
+     * The cached value of the '{@link #getFAMILIES() <em>FAMILIES</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFAMILIES()
+     * @generated
+     * @ordered
+     */
+    protected FAMILIESType fAMILIES;
 
     /**
      * The cached value of the '{@link #getDOCUMENTATION() <em>DOCUMENTATION</em>}' containment reference.
@@ -556,11 +568,56 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public FAMILIESType getFAMILIES() {
+        return fAMILIES;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetFAMILIES(FAMILIESType newFAMILIES, NotificationChain msgs) {
+        FAMILIESType oldFAMILIES = fAMILIES;
+        fAMILIES = newFAMILIES;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__FAMILIES, oldFAMILIES, newFAMILIES);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFAMILIES(FAMILIESType newFAMILIES) {
+        if (newFAMILIES != fAMILIES) {
+            NotificationChain msgs = null;
+            if (fAMILIES != null)
+                msgs = ((InternalEObject)fAMILIES).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__FAMILIES, null, msgs);
+            if (newFAMILIES != null)
+                msgs = ((InternalEObject)newFAMILIES).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__FAMILIES, null, msgs);
+            msgs = basicSetFAMILIES(newFAMILIES, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__FAMILIES, newFAMILIES, newFAMILIES));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
                 return basicSetHEADER(null, msgs);
+            case ComponentPackage.COMPONENT_TYPE__FAMILIES:
+                return basicSetFAMILIES(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__DOCUMENTATION:
                 return basicSetDOCUMENTATION(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
@@ -591,6 +648,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
                 return getHEADER();
+            case ComponentPackage.COMPONENT_TYPE__FAMILIES:
+                return getFAMILIES();
             case ComponentPackage.COMPONENT_TYPE__DOCUMENTATION:
                 return getDOCUMENTATION();
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:
@@ -621,6 +680,9 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
                 setHEADER((HEADERType)newValue);
+                return;
+            case ComponentPackage.COMPONENT_TYPE__FAMILIES:
+                setFAMILIES((FAMILIESType)newValue);
                 return;
             case ComponentPackage.COMPONENT_TYPE__DOCUMENTATION:
                 setDOCUMENTATION((DOCUMENTATIONType)newValue);
@@ -661,6 +723,9 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
                 setHEADER((HEADERType)null);
                 return;
+            case ComponentPackage.COMPONENT_TYPE__FAMILIES:
+                setFAMILIES((FAMILIESType)null);
+                return;
             case ComponentPackage.COMPONENT_TYPE__DOCUMENTATION:
                 setDOCUMENTATION((DOCUMENTATIONType)null);
                 return;
@@ -699,6 +764,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
                 return hEADER != null;
+            case ComponentPackage.COMPONENT_TYPE__FAMILIES:
+                return fAMILIES != null;
             case ComponentPackage.COMPONENT_TYPE__DOCUMENTATION:
                 return dOCUMENTATION != null;
             case ComponentPackage.COMPONENT_TYPE__CONNECTORS:

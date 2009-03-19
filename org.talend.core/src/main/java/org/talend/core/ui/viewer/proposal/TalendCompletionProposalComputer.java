@@ -304,7 +304,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(), node.getLabel(),
+        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getName(), node.getLabel(),
                 nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getNodeReturnContent(nodeReturn, node) };
         return format.format(args);
     }

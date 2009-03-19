@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getHEADER <em>HEADER</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES <em>FAMILIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getSQLTEMPLATES <em>SQLTEMPLATES</em>}</li>
@@ -277,5 +278,32 @@ public interface COMPONENTType extends EObject {
      * @generated
      */
     void setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType value);
+
+    /**
+     * Returns the value of the '<em><b>FAMILIES</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>FAMILIES</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>FAMILIES</em>' containment reference.
+     * @see #setFAMILIES(FAMILIESType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_FAMILIES()
+     * @model containment="true" required="true"
+     *        extendedMetaData="kind='element' name='FAMILIES' namespace='##targetNamespace'"
+     * @generated
+     */
+    FAMILIESType getFAMILIES();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getFAMILIES <em>FAMILIES</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>FAMILIES</em>' containment reference.
+     * @see #getFAMILIES()
+     * @generated
+     */
+    void setFAMILIES(FAMILIESType value);
 
 } // COMPONENTType

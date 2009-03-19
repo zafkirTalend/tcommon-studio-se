@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getFAMILIES <em>FAMILIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETER <em>PARAMETER</em>}</li>
@@ -228,6 +229,33 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     void setDOCUMENTATION(DOCUMENTATIONType value);
+
+    /**
+     * Returns the value of the '<em><b>FAMILIES</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>FAMILIES</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>FAMILIES</em>' containment reference.
+     * @see #setFAMILIES(FAMILIESType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_FAMILIES()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='FAMILIES' namespace='##targetNamespace'"
+     * @generated
+     */
+    FAMILIESType getFAMILIES();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getFAMILIES <em>FAMILIES</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>FAMILIES</em>' containment reference.
+     * @see #getFAMILIES()
+     * @generated
+     */
+    void setFAMILIES(FAMILIESType value);
 
     /**
      * Returns the value of the '<em><b>HEADER</b></em>' containment reference.

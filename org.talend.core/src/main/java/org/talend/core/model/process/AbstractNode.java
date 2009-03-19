@@ -731,7 +731,7 @@ public abstract class AbstractNode implements INode {
      */
     public boolean isELTComponent() {
         if (getComponent() != null) {
-            return getComponent().getFamily().startsWith("ELT"); //$NON-NLS-1$
+            return getComponent().getOriginalFamilyName().startsWith("ELT"); //$NON-NLS-1$
         }
         return false;
     }

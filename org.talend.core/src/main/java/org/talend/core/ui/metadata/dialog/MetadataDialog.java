@@ -164,10 +164,10 @@ public class MetadataDialog extends Dialog {
     public static void initializeMetadataTableView(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
         boolean dbComponent = false;
         boolean hasMappingType = false;
-        boolean eltComponent = node.getComponent().getFamily().startsWith(ELT_LABEL);
+        boolean eltComponent = node.getComponent().getOriginalFamilyName().startsWith(ELT_LABEL);
 
         boolean hasRepositoryDbSchema = false;
-        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL) || eltComponent) {
+        if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent) {
             dbComponent = true;
             for (IElementParameter currentParam : node.getElementParameters()) {
                 if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)) {

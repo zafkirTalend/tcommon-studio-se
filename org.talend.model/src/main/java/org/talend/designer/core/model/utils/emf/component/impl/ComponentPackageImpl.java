@@ -23,6 +23,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
 import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
+import org.talend.designer.core.model.utils.emf.component.FAMILIESType;
 import org.talend.designer.core.model.utils.emf.component.FORMATType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.IMPORTSType;
@@ -115,6 +116,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     private EClass documentRootEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass familiesTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -504,15 +512,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     public EReference getCOMPONENTType_DOCUMENTATION() {
-        return (EReference)componentTypeEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getCOMPONENTType_CONNECTORS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -521,7 +520,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_SQLTEMPLATES() {
+    public EReference getCOMPONENTType_CONNECTORS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -530,7 +529,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_PARAMETERS() {
+    public EReference getCOMPONENTType_SQLTEMPLATES() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -539,7 +538,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_ADVANCEDPARAMETERS() {
+    public EReference getCOMPONENTType_PARAMETERS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -548,7 +547,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_CODEGENERATION() {
+    public EReference getCOMPONENTType_ADVANCEDPARAMETERS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -557,7 +556,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_RETURNS() {
+    public EReference getCOMPONENTType_CODEGENERATION() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -566,8 +565,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_PLUGINDEPENDENCIES() {
+    public EReference getCOMPONENTType_RETURNS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCOMPONENTType_PLUGINDEPENDENCIES() {
+        return (EReference)componentTypeEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCOMPONENTType_FAMILIES() {
+        return (EReference)componentTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -854,8 +871,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_HEADER() {
+    public EReference getDocumentRoot_FAMILIES() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_HEADER() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -864,15 +890,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
 	public EReference getDocumentRoot_ITEMS() {
-        return (EReference)documentRootEClass.getEStructuralFeatures().get(9);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getDocumentRoot_PARAMETER() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(10);
     }
 
@@ -881,7 +898,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_PARAMETERS() {
+    public EReference getDocumentRoot_PARAMETER() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(11);
     }
 
@@ -890,7 +907,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_PLUGINDEPENDENCIES() {
+    public EReference getDocumentRoot_PARAMETERS() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(12);
     }
 
@@ -899,7 +916,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_RETURNS() {
+    public EReference getDocumentRoot_PLUGINDEPENDENCIES() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(13);
     }
 
@@ -908,8 +925,35 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_SQLTEMPLATES() {
+    public EReference getDocumentRoot_RETURNS() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_SQLTEMPLATES() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFAMILIESType() {
+        return familiesTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFAMILIESType_FAMILY() {
+        return (EAttribute)familiesTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2060,6 +2104,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         componentTypeEClass = createEClass(COMPONENT_TYPE);
         createEReference(componentTypeEClass, COMPONENT_TYPE__HEADER);
+        createEReference(componentTypeEClass, COMPONENT_TYPE__FAMILIES);
         createEReference(componentTypeEClass, COMPONENT_TYPE__DOCUMENTATION);
         createEReference(componentTypeEClass, COMPONENT_TYPE__CONNECTORS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__SQLTEMPLATES);
@@ -2104,6 +2149,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(documentRootEClass, DOCUMENT_ROOT__COMPONENT);
         createEReference(documentRootEClass, DOCUMENT_ROOT__CONNECTORS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__DOCUMENTATION);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__FAMILIES);
         createEReference(documentRootEClass, DOCUMENT_ROOT__HEADER);
         createEReference(documentRootEClass, DOCUMENT_ROOT__ITEMS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PARAMETER);
@@ -2111,6 +2157,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(documentRootEClass, DOCUMENT_ROOT__PLUGINDEPENDENCIES);
         createEReference(documentRootEClass, DOCUMENT_ROOT__RETURNS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__SQLTEMPLATES);
+
+        familiesTypeEClass = createEClass(FAMILIES_TYPE);
+        createEAttribute(familiesTypeEClass, FAMILIES_TYPE__FAMILY);
 
         formatTypeEClass = createEClass(FORMAT_TYPE);
         createEAttribute(formatTypeEClass, FORMAT_TYPE__CONNECTION);
@@ -2306,6 +2355,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         initEClass(componentTypeEClass, COMPONENTType.class, "COMPONENTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCOMPONENTType_HEADER(), this.getHEADERType(), null, "hEADER", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCOMPONENTType_FAMILIES(), this.getFAMILIESType(), null, "fAMILIES", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_DOCUMENTATION(), this.getDOCUMENTATIONType(), null, "dOCUMENTATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_CONNECTORS(), this.getCONNECTORSType(), null, "cONNECTORS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_SQLTEMPLATES(), this.getSQLTEMPLATESType(), null, "sQLTEMPLATES", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2350,6 +2400,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getDocumentRoot_COMPONENT(), this.getCOMPONENTType(), null, "cOMPONENT", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_CONNECTORS(), this.getCONNECTORSType(), null, "cONNECTORS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_DOCUMENTATION(), this.getDOCUMENTATIONType(), null, "dOCUMENTATION", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_FAMILIES(), this.getFAMILIESType(), null, "fAMILIES", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_HEADER(), this.getHEADERType(), null, "hEADER", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_ITEMS(), this.getITEMSType(), null, "iTEMS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_PARAMETER(), this.getPARAMETERType(), null, "pARAMETER", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -2357,6 +2408,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getDocumentRoot_PLUGINDEPENDENCIES(), this.getPLUGINDEPENDENCIESType(), null, "pLUGINDEPENDENCIES", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_SQLTEMPLATES(), this.getSQLTEMPLATESType(), null, "sQLTEMPLATES", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+        initEClass(familiesTypeEClass, FAMILIESType.class, "FAMILIESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFAMILIESType_FAMILY(), theXMLTypePackage.getString(), "fAMILY", null, 1, -1, FAMILIESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(formatTypeEClass, FORMATType.class, "FORMATType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFORMATType_CONNECTION(), theXMLTypePackage.getString(), "cONNECTION", null, 0, 1, FORMATType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2671,6 +2725,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getCOMPONENTType_FAMILIES(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "FAMILIES",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getCOMPONENTType_DOCUMENTATION(), 
            source, 
            new String[] {
@@ -2974,6 +3036,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getDocumentRoot_FAMILIES(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "FAMILIES",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getDocumentRoot_HEADER(), 
            source, 
            new String[] {
@@ -3027,6 +3097,21 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "SQLTEMPLATES",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (familiesTypeEClass, 
+           source, 
+           new String[] {
+             "name", "FAMILIES_._type",
+             "kind", "elementOnly"
+           });		
+        addAnnotation
+          (getFAMILIESType_FAMILY(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "FAMILY",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

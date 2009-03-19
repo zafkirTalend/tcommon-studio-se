@@ -16,7 +16,6 @@ import java.text.MessageFormat;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
@@ -74,8 +73,8 @@ public class NodeReturnProposal implements IContentProposal {
         message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(),
-                node.getLabel(), nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getContent() };
+        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getName(), node.getLabel(),
+                nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getContent() };
         return format.format(args);
     }
 

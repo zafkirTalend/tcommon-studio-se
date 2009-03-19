@@ -134,12 +134,12 @@ public class MetadataDialogForMerge extends Dialog {
         this.inputNode = inputNode;
         if (inputNode != null) {
             this.titleInput = inputMetaTable.getTableName();
-            this.inputFamily = inputNode.getComponent().getFamily();
+            this.inputFamily = inputNode.getComponent().getOriginalFamilyName();
         }
         this.outputNode = outputNode;
         if (outputNode != null) {
             this.titleOutput = outputNode.getUniqueName();
-            this.outputFamily = outputNode.getComponent().getFamily();
+            this.outputFamily = outputNode.getComponent().getOriginalFamilyName();
         }
         this.outputMetaTable = outputMetaTable;
         this.commandStack = commandStack;
@@ -286,7 +286,7 @@ public class MetadataDialogForMerge extends Dialog {
                     inputNode = (INode) tabItem.getData(INPUTNODE_KEY);
                     inputMetaTable = (IMetadataTable) tabItem.getData(INPUTMETATABLE_KEY);
                     inputMetaView = (MetadataTableEditorView) tabItem.getData(INPUTMETAVIEW_KEY);
-                    inputFamily = inputNode.getComponent().getFamily();
+                    inputFamily = inputNode.getComponent().getOriginalFamilyName();
                     inputReadOnly = (Boolean) tabItem.getData(INPUTREADONLY_KEY);
 
                     if (inputReadOnly || inputMetaTable.isReadOnly()) {

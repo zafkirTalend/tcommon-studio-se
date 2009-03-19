@@ -89,6 +89,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.DEFAULT_TYPE: return createDEFAULTType();
             case ComponentPackage.DOCUMENTATION_TYPE: return createDOCUMENTATIONType();
             case ComponentPackage.DOCUMENT_ROOT: return createDocumentRoot();
+            case ComponentPackage.FAMILIES_TYPE: return createFAMILIESType();
             case ComponentPackage.FORMAT_TYPE: return createFORMATType();
             case ComponentPackage.HEADER_TYPE: return createHEADERType();
             case ComponentPackage.IMPORTS_TYPE: return createIMPORTSType();
@@ -202,6 +203,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public DocumentRoot createDocumentRoot() {
         DocumentRootImpl documentRoot = new DocumentRootImpl();
         return documentRoot;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FAMILIESType createFAMILIESType() {
+        FAMILIESTypeImpl familiesType = new FAMILIESTypeImpl();
+        return familiesType;
     }
 
     /**

@@ -47,11 +47,11 @@ public interface IComponent {
 
     public String getName();
 
-    public String getTranslatedName();
-
     public String getLongName();
 
-    public String getFamily();
+    public String getOriginalFamilyName();
+
+    public String getTranslatedFamilyName();
 
     public ImageDescriptor getIcon32();
 

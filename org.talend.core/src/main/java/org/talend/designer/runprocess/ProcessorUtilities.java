@@ -182,7 +182,7 @@ public class ProcessorUtilities {
         if (jobInfo.getProcess() != null) {
             List<? extends INode> gNodes = jobInfo.getProcess().getGraphicalNodes();
             for (INode node : gNodes) {
-                if (IComponent.FAMILY.equalsIgnoreCase(node.getComponent().getFamily())) {
+                if (IComponent.FAMILY.equalsIgnoreCase(node.getComponent().getOriginalFamilyName())) {
                     return true;
                 }
             }

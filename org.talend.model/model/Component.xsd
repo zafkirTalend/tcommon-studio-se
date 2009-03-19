@@ -3,15 +3,16 @@
 	<xs:element name="COMPONENT">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="HEADER"/>
-				<xs:element ref="DOCUMENTATION"/>
-				<xs:element ref="CONNECTORS"/>
-				<xs:element ref="SQLTEMPLATES" minOccurs="0"/>
-				<xs:element ref="PARAMETERS"/>
-				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0"/>
-				<xs:element ref="CODEGENERATION"/>
-				<xs:element ref="RETURNS"/>
-				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0"/>
+				<xs:element ref="HEADER" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="FAMILIES" minOccurs="1" maxOccurs="1"></xs:element>
+                <xs:element ref="DOCUMENTATION" />
+				<xs:element ref="CONNECTORS" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="SQLTEMPLATES" minOccurs="0" />
+				<xs:element ref="PARAMETERS" />
+				<xs:element ref="ADVANCED_PARAMETERS" minOccurs="0" />
+				<xs:element ref="CODEGENERATION" />
+				<xs:element ref="RETURNS" />
+				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -407,4 +408,11 @@
 			<xs:attribute name="DYNAMIC_SETTINGS" type="xs:boolean"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
+
+    <xs:element name="FAMILIES">
+    	<xs:complexType>
+    		<xs:sequence minOccurs="1">
+    			<xs:element name="FAMILY" type="xs:string" minOccurs="1" maxOccurs="unbounded"></xs:element>
+    		</xs:sequence>
+    	</xs:complexType></xs:element>
 </xs:schema>

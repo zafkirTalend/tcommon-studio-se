@@ -25,6 +25,7 @@ import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
 import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
+import org.talend.designer.core.model.utils.emf.component.FAMILIESType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
@@ -50,6 +51,7 @@ import org.talend.designer.core.model.utils.emf.component.SQLPATTERNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getFAMILIES <em>FAMILIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETER <em>PARAMETER</em>}</li>
@@ -288,6 +290,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
+    public FAMILIESType getFAMILIES() {
+        return (FAMILIESType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__FAMILIES, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetFAMILIES(FAMILIESType newFAMILIES, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__FAMILIES, newFAMILIES, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFAMILIES(FAMILIESType newFAMILIES) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__FAMILIES, newFAMILIES);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public HEADERType getHEADER() {
         return (HEADERType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__HEADER, true);
     }
@@ -496,6 +525,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetCONNECTORS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__DOCUMENTATION:
                 return basicSetDOCUMENTATION(null, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__FAMILIES:
+                return basicSetFAMILIES(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 return basicSetHEADER(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
@@ -541,6 +572,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getCONNECTORS();
             case ComponentPackage.DOCUMENT_ROOT__DOCUMENTATION:
                 return getDOCUMENTATION();
+            case ComponentPackage.DOCUMENT_ROOT__FAMILIES:
+                return getFAMILIES();
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 return getHEADER();
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
@@ -590,6 +623,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case ComponentPackage.DOCUMENT_ROOT__DOCUMENTATION:
                 setDOCUMENTATION((DOCUMENTATIONType)newValue);
+                return;
+            case ComponentPackage.DOCUMENT_ROOT__FAMILIES:
+                setFAMILIES((FAMILIESType)newValue);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 setHEADER((HEADERType)newValue);
@@ -648,6 +684,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__DOCUMENTATION:
                 setDOCUMENTATION((DOCUMENTATIONType)null);
                 return;
+            case ComponentPackage.DOCUMENT_ROOT__FAMILIES:
+                setFAMILIES((FAMILIESType)null);
+                return;
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 setHEADER((HEADERType)null);
                 return;
@@ -697,6 +736,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getCONNECTORS() != null;
             case ComponentPackage.DOCUMENT_ROOT__DOCUMENTATION:
                 return getDOCUMENTATION() != null;
+            case ComponentPackage.DOCUMENT_ROOT__FAMILIES:
+                return getFAMILIES() != null;
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 return getHEADER() != null;
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:

@@ -96,7 +96,7 @@ public class ComponentsFactoryProvider {
         }
 
         for (IComponent component : components) {
-            String[] families = component.getFamily().split(FAMILY_SEPARATOR_REGEX);
+            String[] families = component.getOriginalFamilyName().split(FAMILY_SEPARATOR_REGEX);
             for (String family : families) {
                 ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
                 setting.setFamily(family);

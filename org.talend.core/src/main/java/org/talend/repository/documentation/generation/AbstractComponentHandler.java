@@ -220,7 +220,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
                 }
                 schemaElement.addAttribute("name", HTMLDocUtils.checkString(metaName)); //$NON-NLS-1$
                 boolean dbComponent = false;
-                if (node.getComponent().getFamily().startsWith("Database") || node.getComponent().getFamily().startsWith("ELT")) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (node.getComponent().getOriginalFamilyName().startsWith("Database") || node.getComponent().getOriginalFamilyName().startsWith("ELT")) { //$NON-NLS-1$ //$NON-NLS-2$
                     dbComponent = true;
                 }
 
@@ -236,7 +236,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
 
                     columnElement.addAttribute("key", HTMLDocUtils.checkString(columnType.isKey() + "")); //$NON-NLS-1$ //$NON-NLS-2$
                     String type = HTMLDocUtils.checkString(columnType.getTalendType());
-                    if (node.getComponent().getFamily().startsWith("ELT")) { //$NON-NLS-1$
+                    if (node.getComponent().getOriginalFamilyName().startsWith("ELT")) { //$NON-NLS-1$
                         // if ELT then use the db type
                         type = HTMLDocUtils.checkString(columnType.getType());
                     } else if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
