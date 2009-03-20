@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.ws.WindowSystem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -54,8 +55,7 @@ public abstract class ButtonPushImageTableEditorContent extends TableEditorConte
         Rectangle bounds = label.getBounds();
         bounds.y -= 5;
         label.setBounds(bounds);
-        tableEditor.grabHorizontal = true;
-        tableEditor.grabVertical = true;
+        tableEditor.grabHorizontal = WindowSystem.isGTK();
         tableEditor.minimumHeight = size.y;
         tableEditor.minimumWidth = size.x;
         label.addMouseTrackListener(new MouseTrackListener() {
