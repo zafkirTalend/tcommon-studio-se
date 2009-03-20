@@ -20,18 +20,18 @@ public class DataToTreeItemCache {
 
     public TreeItem getTreeItem(Object data) {
         TreeItem treeItem = map.get(data);
-        if(treeItem == null) {
+        if (treeItem == null) {
             treeItem = TreeUtils.getTreeItem(this.tree, data);
-            if(treeItem != null) {
-                map.put(data, treeItem);
-            }
+            // if(treeItem != null) {
+            // map.put(data, treeItem);
+            // }
         }
         return treeItem;
     }
-    
+
     public void clear() {
         map.clear();
     }
-    
-    
+
+
 }
