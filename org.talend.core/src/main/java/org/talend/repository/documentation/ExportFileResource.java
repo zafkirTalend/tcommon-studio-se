@@ -27,6 +27,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
@@ -104,11 +105,15 @@ public class ExportFileResource {
         IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getRepositoryService()
                 .getProxyRepositoryFactory();
         Property property = item.getProperty();
-        try {
-            // bug 5427 and 5513 : reload property to avoid lazy exception
-            property = proxyRepositoryFactory.getUptodateProperty(property);
-        } catch (PersistenceException e) {
-            // ignore me
+        ProjectManager instance = ProjectManager.getInstance();
+
+        if (instance.getCurrentProject().getEmfProject().equals(instance.getProject(item))) {
+            try {
+                // bug 5427 and 5513 : reload property to avoid lazy exception
+                property = proxyRepositoryFactory.getUptodateProperty(property);
+            } catch (PersistenceException e) {
+                // ignore me
+            }
         }
         return property.getItem();
     }

@@ -26,6 +26,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.components.ComponentUtilities;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemWizard;
@@ -54,6 +55,9 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
                 }
                 if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)) {
                     canWork = true;
+                }
+                if (repositoryNode.getContentType() == ERepositoryObjectType.REFERENCED_PROJECTS) {
+                    canWork = false;
                 }
             }
         }

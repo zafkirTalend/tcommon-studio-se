@@ -86,6 +86,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemUtil;
@@ -1263,7 +1264,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public Item copy(Item originalItem, IPath path, boolean changeLabelWithCopyPrefix) throws PersistenceException,
             BusinessException {
-        Resource resource = originalItem.eResource();
+        Resource resource;
+        ProjectManager projectManage = ProjectManager.getInstance();
+        if (!projectManage.getProject(originalItem).equals(projectManage.getCurrentProject().getEmfProject())) {
+            originalItem.getProperty().eResource().getContents().add(originalItem);
+        }
+        resource = originalItem.getProperty().eResource();
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
             resource.save(out, null);
