@@ -235,7 +235,7 @@ public final class DefaultCellEditorFactory {
                 path = dialog.open();
                 if (path != null) {
                     path = PathUtils.getPortablePath(path);
-                    path += "/";
+                    path += "/"; //$NON-NLS-1$
                 }
                 return getAddQuoteString(path);
             }
