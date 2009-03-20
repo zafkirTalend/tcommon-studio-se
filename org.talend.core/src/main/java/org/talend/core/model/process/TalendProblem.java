@@ -24,6 +24,8 @@ public class TalendProblem extends Problem {
 
     private String javaUnitName;
 
+    private String unitName;
+
     private Integer lineNumber;
 
     private Integer charStart;
@@ -31,16 +33,25 @@ public class TalendProblem extends Problem {
     private Integer charEnd;
 
     public TalendProblem(ProblemStatus status, String javaUnitName, IMarker marker, String markerErrorMessage,
-            Integer lineNumber, Integer charStart, Integer charEnd, ProblemType type) {
+            Integer lineNumber, String uniName, Integer charStart, Integer charEnd, ProblemType type) {
         super();
         setDescription(markerErrorMessage);
         setStatus(status);
         this.javaUnitName = javaUnitName;
         this.marker = marker;
         this.lineNumber = lineNumber;
+        this.unitName = uniName;
         this.charStart = charStart;
         this.charEnd = charEnd;
         setType(type);
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     private String getName() {
