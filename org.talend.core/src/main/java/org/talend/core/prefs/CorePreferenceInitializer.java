@@ -52,8 +52,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     private static final String PERL_LINUX_INTERPRETER_PATH = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_LINUX);
 
-    private static final String PERL_WIN32_INTERPRETER_PATH = GeneralParametersProvider
-            .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_WIN32);
+    private static final String PERL_WIN32_INTERPRETER_PATH = CorePlugin.getDefault().getResourceService().getResourcesPath();
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -86,9 +85,11 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
             File perlEmbeddedExecFile = new File(perlPath);
             if (!perlEmbeddedExecFile.exists()) {
-                perlPath = PERL_WIN32_INTERPRETER_PATH;
+                perlPath = PERL_WIN32_INTERPRETER_PATH + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+
             }
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath);
+
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);

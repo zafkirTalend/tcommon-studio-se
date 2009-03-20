@@ -43,6 +43,8 @@ public class ResourceService implements IResourceService {
 
     private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
 
+    private final static String RESOURCES = "resources";
+
     /*
      * (non-Javadoc)
      * 
@@ -65,5 +67,24 @@ public class ResourceService implements IResourceService {
             return null;
         }
 
+    }
+
+    public String getResourcesPath() {
+        Bundle b = Platform.getBundle(RESOURCE_LOCATION);
+        URL url = null;
+        try {
+            url = FileLocator.toFileURL(FileLocator.find(b, new Path(RESOURCES), null));
+        } catch (IOException e) {
+            RuntimeExceptionHandler.process(e);
+        }
+
+        if (url != null) {
+            String urlString = url.getFile();
+
+            return urlString.substring(1, urlString.length());
+
+        } else {
+            return null;
+        }
     }
 }

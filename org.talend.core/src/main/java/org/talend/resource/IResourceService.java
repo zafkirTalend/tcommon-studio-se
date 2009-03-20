@@ -23,4 +23,6 @@ import org.talend.core.IService;
 public interface IResourceService extends IService {
 
     public String getJavaLibraryPath();
+
+    public String getResourcesPath();
 }
