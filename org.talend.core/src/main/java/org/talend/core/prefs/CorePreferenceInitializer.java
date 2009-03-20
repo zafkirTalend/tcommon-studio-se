@@ -26,6 +26,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
+import org.epic.core.preferences.PerlMainPreferencePage;
+import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
@@ -52,7 +54,8 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     private static final String PERL_LINUX_INTERPRETER_PATH = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_LINUX);
 
-    private static final String PERL_WIN32_INTERPRETER_PATH = CorePlugin.getDefault().getResourceService().getResourcesPath();
+    private static final String PERL_WIN32_INTERPRETER_PATH = CorePlugin.getDefault().getResourceService().getResourcesPath()
+            + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -85,11 +88,17 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
             File perlEmbeddedExecFile = new File(perlPath);
             if (!perlEmbeddedExecFile.exists()) {
-                perlPath = PERL_WIN32_INTERPRETER_PATH + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+                perlPath = PERL_WIN32_INTERPRETER_PATH;
 
             }
 
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$
+
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            String prelExecutableValue = store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+            PerlEditorPlugin.getDefault().setExecutablePreference("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+            PerlMainPreferencePage.refreshExecutableTextValue("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
