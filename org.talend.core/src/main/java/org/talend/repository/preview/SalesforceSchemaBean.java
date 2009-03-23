@@ -28,6 +28,8 @@ public class SalesforceSchemaBean {
 
     private String queryCondition = null;
 
+    private boolean useCustomModule = false;
+
     /**
      * Getter for webServerUrl.
      * 
@@ -116,6 +118,14 @@ public class SalesforceSchemaBean {
      */
     public void setQueryCondition(String queryCondition) {
         this.queryCondition = queryCondition;
+    }
+
+    public boolean isUseCustomModule() {
+        return useCustomModule;
+    }
+
+    public void setUseCustomModule(boolean useCustomModule) {
+        this.useCustomModule = useCustomModule;
     }
 
 }
