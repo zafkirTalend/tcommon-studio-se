@@ -70,13 +70,13 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     protected ICoolBarManager coolBar;
 
-    private static SwitchProjectAction switchProjectAction;
+    protected static SwitchProjectAction switchProjectAction;
 
-    private static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
+    protected static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
 
-    private static final String GROUP_COPY = "group copy"; //$NON-NLS-1$
+    protected static final String GROUP_COPY = "group copy"; //$NON-NLS-1$
 
-    private static final String GROUP_DELETE = "group delete"; //$NON-NLS-1$
+    protected static final String GROUP_DELETE = "group delete"; //$NON-NLS-1$
 
     public void setActionBarConfigurer(IActionBarConfigurer actionBarConfigurer) {
         this.actionBarConfigurer = actionBarConfigurer;
@@ -97,12 +97,12 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
             "GlobalAction"); //$NON-NLS-1$
 
-    private void removeAction(final ActionSetRegistry reg, final IActionSetDescriptor actionSet) {
+    protected void removeAction(final ActionSetRegistry reg, final IActionSetDescriptor actionSet) {
         IExtension ext = actionSet.getConfigurationElement().getDeclaringExtension();
         reg.removeExtension(ext, new Object[] { actionSet });
     }
 
-    private static final String[] ACTIONSETID = new String[] {
+    protected static final String[] ACTIONSETID = new String[] {
             "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
