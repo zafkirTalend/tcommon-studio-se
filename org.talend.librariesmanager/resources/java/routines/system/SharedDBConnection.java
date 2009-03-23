@@ -28,7 +28,7 @@ public class SharedDBConnection {
 
     private static SharedDBConnection instance = null;
 
-    private static Map<String, Connection> sharedConnections = new HashMap<String, java.sql.Connection>();
+    private Map<String, Connection> sharedConnections = new HashMap<String, java.sql.Connection>();
 
     private SharedDBConnection() {
 
