@@ -167,8 +167,8 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
         List<IComponent> componentList = compFac.getComponents();
-        for (IComponent component : componentList) {
-            importNeedsList.addAll(component.getModulesNeeded());
+        for (int i = 0; i < componentList.size(); i++) {
+            importNeedsList.addAll(componentList.get(i).getModulesNeeded());
         }
         return importNeedsList;
     }
