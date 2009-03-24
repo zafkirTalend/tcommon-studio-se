@@ -43,4 +43,6 @@ public interface IComponentsFactory {
     public URL getComponentPath() throws IOException;
 
     public List<String> getSkeletons();
+
+    public String getFamilyTranslation(IComponent component, String text);
 }

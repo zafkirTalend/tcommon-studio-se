@@ -108,4 +108,8 @@ public abstract class AbstractComponentsProvider {
 
         return installationFolder;
     }
+
+    public String getFamilyTranslation(String text) {
+        return null;
+    }
 }
