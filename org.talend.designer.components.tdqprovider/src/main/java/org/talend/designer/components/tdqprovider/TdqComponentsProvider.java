@@ -34,8 +34,7 @@ public class TdqComponentsProvider extends AbstractComponentsProvider {
     }
 
     protected File getExternalComponentsLocation() {
-        URL url = FileLocator
-                .find(TdqComponentProviderActivator.getDefault().getBundle(), new Path("components"), null); //$NON-NLS-1$
+        URL url = FileLocator.find(TdqComponentProviderActivator.getDefault().getBundle(), new Path("components"), null); //$NON-NLS-1$
         URL fileUrl;
         try {
             fileUrl = FileLocator.toFileURL(url);
@@ -43,6 +42,17 @@ public class TdqComponentsProvider extends AbstractComponentsProvider {
         } catch (Exception e) {
             logger.error(e);
         }
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.components.AbstractComponentsProvider#getFamilyTranslation(java.lang.String)
+     */
+    @Override
+    public String getFamilyTranslation(String text) {
+        // TODO to implement when TDQ provider got translations
         return null;
     }
 }
