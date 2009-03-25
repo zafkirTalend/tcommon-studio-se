@@ -12,8 +12,6 @@
 // ============================================================================
 package routines.system;
 
-import org.talend.commons.exception.ExceptionHandler;
-
 public class TalendThread extends Thread {
 
     public TalendThreadPool talendThreadPool = null;
@@ -29,8 +27,7 @@ public class TalendThread extends Thread {
         } catch (Exception e) {
             talendThreadPool.setErrorThread(this);
             talendThreadPool.stopAllWorkers();
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
+            e.printStackTrace();
         }
     }
 }
