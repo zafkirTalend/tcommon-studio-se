@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata.types;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
@@ -94,6 +98,16 @@ public final class JavaDataTypeHelper {
             return JavaTypesManager.CHARACTER.getId();
         }
 
+        // see the bug "6680",qli comment.
+
+        if (value.equals(JavaTypesManager.DEFAULT_BOOLEAN) || value.equals(JavaTypesManager.ANOTHER_BOOLEAN)) {
+            return JavaTypesManager.BOOLEAN.getId();
+        }
+
+        if (isDateOne(value) || isDateTwo(value)) {
+            return JavaTypesManager.DATE.getId();
+        }
+
         // SPECIFIQUE USE CASE (integer begin by 0; multiple dot use ; use of char E in scientific notation)
         //
         if (!isNumber(value)) {
@@ -163,6 +177,55 @@ public final class JavaDataTypeHelper {
 
         // by default the type is string
         return JavaTypesManager.STRING.getId();
+    }
+
+    /**
+     * 
+     * qli comment the method "isDateOne".
+     * 
+     * @param value
+     * 
+     * @return boolean
+     */
+    private static boolean isDateOne(String value) {
+        if (value != null) {
+            try {
+                String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";//$NON-NLS-1$
+                value = value.replace("Z", " UTC");//$NON-NLS-1$//$NON-NLS-2$
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+
+                Date dt = simpleDateFormat.parse(value);
+                simpleDateFormat.format(dt);
+                return true;
+            } catch (ParseException pe) {
+                return false;
+            }
+        } else
+            return false;
+    }
+
+    /**
+     * 
+     * qli comment the method "isDateTwo".
+     * 
+     * @param value
+     * 
+     * @return boolean
+     */
+    private static boolean isDateTwo(String value) {
+        if (value != null) {
+            try {
+                String dateFormat = "yyyy-MM-dd";//$NON-NLS-1$
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+
+                Date dt = simpleDateFormat.parse(value);
+                simpleDateFormat.format(dt);
+                return true;
+            } catch (ParseException pe) {
+                return false;
+            }
+        } else
+            return false;
     }
 
     /**

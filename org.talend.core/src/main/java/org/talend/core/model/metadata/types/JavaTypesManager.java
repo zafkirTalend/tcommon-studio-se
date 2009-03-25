@@ -36,6 +36,8 @@ public final class JavaTypesManager {
 
     public static final String DEFAULT_BOOLEAN = "false"; //$NON-NLS-1$
 
+    public static final String ANOTHER_BOOLEAN = "true"; //$NON-NLS-1$
+
     public static final String DEFAULT_NUMBER = "0"; //$NON-NLS-1$
 
     public static final String NULL = "null"; //$NON-NLS-1$
