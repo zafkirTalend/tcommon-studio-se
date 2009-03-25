@@ -272,7 +272,8 @@ public class SQLFormatUtil {
             Collection<String> res = util.separate("select * from table", "sel|table"); //$NON-NLS-1$ //$NON-NLS-2$
             System.out.println(res);
         } catch (MalformedPatternException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
     }
 

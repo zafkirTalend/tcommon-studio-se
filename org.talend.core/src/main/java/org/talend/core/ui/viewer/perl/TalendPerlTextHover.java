@@ -25,6 +25,7 @@ import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.graphics.Point;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * Modificatition of the class from epic to be able to use only in a viewer. <br>
@@ -76,7 +77,8 @@ public class TalendPerlTextHover implements ITextHover {
             }
         } catch (MissingResourceException e) {
             // Properties file not available
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             return null;
         }
     }

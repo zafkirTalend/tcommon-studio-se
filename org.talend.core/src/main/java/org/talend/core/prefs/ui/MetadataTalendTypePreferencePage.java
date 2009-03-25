@@ -16,8 +16,8 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
-import org.talend.core.i18n.Messages;
 
 /**
  * Preference for the Metadata Talend type files.
@@ -54,7 +54,8 @@ public class MetadataTalendTypePreferencePage extends FieldEditorPreferencePage 
         try {
             super.initialize();
         } catch (RuntimeException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             setErrorMessage(e.getMessage());
         }
     }

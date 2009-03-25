@@ -284,7 +284,8 @@ public final class MetadataTalendType {
             try {
                 init();
             } catch (SystemException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
         }
     }

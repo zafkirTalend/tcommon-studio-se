@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.language;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -57,7 +58,8 @@ public class LanguageManager {
             }
         } catch (RuntimeException e) {
             // should be run only when testing
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             currentLanguage = ECodeLanguage.PERL;
         }
         return currentLanguage;

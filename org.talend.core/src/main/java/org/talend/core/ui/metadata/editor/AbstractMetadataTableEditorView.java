@@ -23,6 +23,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
@@ -641,10 +642,12 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             arrayTalendTypes = MetadataTalendType.getTalendTypesLabels();
         } catch (NoClassDefFoundError e) {
             // shouln't be happend
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         } catch (ExceptionInInitializerError e) {
             // shouln't be happend
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);

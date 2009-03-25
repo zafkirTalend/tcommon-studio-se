@@ -136,11 +136,13 @@ public class ExtractMetaDataFromDataBase {
             }
             getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions());
         } catch (SQLException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             log.error(e.toString());
             throw new RuntimeException(e);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             log.error(e.toString());
             throw new RuntimeException(e);
         }
@@ -402,14 +404,14 @@ public class ExtractMetaDataFromDataBase {
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
                     String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS"); //$NON-NLS-1$
-                    if(commentInfo != null && commentInfo.length()>0){
-                    for (int i = 0; i < commentInfo.length(); i++) {
-                        if (commentInfo.codePointAt(i) == 0x0) {
-                            String commentSub1 = commentInfo.substring(0, i);
-                            String commentSub2 = commentInfo.substring(i + 1);
-                            commentInfo = commentSub1 + commentSub2;
+                    if (commentInfo != null && commentInfo.length() > 0) {
+                        for (int i = 0; i < commentInfo.length(); i++) {
+                            if (commentInfo.codePointAt(i) == 0x0) {
+                                String commentSub1 = commentInfo.substring(0, i);
+                                String commentSub2 = commentInfo.substring(i + 1);
+                                commentInfo = commentSub1 + commentSub2;
+                            }
                         }
-                    }
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
@@ -458,7 +460,8 @@ public class ExtractMetaDataFromDataBase {
             log.error(e.toString());
             throw new RuntimeException(e);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             log.error(e.toString());
             throw new RuntimeException(e);
         }

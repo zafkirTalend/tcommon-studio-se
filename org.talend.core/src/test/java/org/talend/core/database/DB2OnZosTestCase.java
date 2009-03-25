@@ -21,6 +21,8 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 /**
  * test case for db2 on zos.<br>
  * see feature 0005827
@@ -62,9 +64,11 @@ public class DB2OnZosTestCase extends TestCase {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         } finally {
             try {
                 rs.close();
@@ -103,9 +107,11 @@ public class DB2OnZosTestCase extends TestCase {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         } finally {
             try {
                 rs.close();

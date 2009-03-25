@@ -27,6 +27,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
@@ -87,7 +88,8 @@ public class RepositoryEditionManager {
             iProject = ResourceModelUtils.getProject(project);
             iFolder = ResourceUtils.getFolder(iProject, RepositoryConstants.TEMP_DIRECTORY, true);
         } catch (PersistenceException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         return iFolder.getFullPath();
     }
@@ -101,7 +103,8 @@ public class RepositoryEditionManager {
             IEditorPart editorPart = IDE.openEditor(page, repositoryEditorInput, editorDesc.getId());
             editors.put(editorPart, repositoryEditorInput);
         } catch (PartInitException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
     }
 }

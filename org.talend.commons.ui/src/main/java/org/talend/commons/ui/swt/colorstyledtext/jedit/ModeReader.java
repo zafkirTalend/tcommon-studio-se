@@ -20,6 +20,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
@@ -45,10 +46,12 @@ public class ModeReader {
         try {
             doc = reader.read(ColoringEditorTools.getFile(filename));
         } catch (DocumentException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             return;
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            // ioe.printStackTrace();
+            ExceptionHandler.process(ioe);
         }
         Element root = doc.getRootElement();
         // List properties = root.elements("PROPS");

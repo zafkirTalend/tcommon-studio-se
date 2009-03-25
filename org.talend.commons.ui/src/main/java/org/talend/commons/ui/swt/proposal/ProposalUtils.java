@@ -36,6 +36,7 @@ import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.i18n.Messages;
 
 /**
@@ -52,19 +53,17 @@ public final class ProposalUtils {
     private ProposalUtils() {
     }
 
-    public static ContentProposalAdapterExtended getCommonProposal(Control control,
-            IContentProposalProvider proposalProvider) {
+    public static ContentProposalAdapterExtended getCommonProposal(Control control, IContentProposalProvider proposalProvider) {
         IControlContentAdapter controlContentAdapter = null;
         if (control instanceof Text) {
             controlContentAdapter = new TextContentAdapterExtended();
         } else if (control instanceof StyledText) {
             controlContentAdapter = new StyledTextContentAdapterExtended();
         } else {
-            throw new IllegalArgumentException(
-                    Messages.getString("ProposalUtils.CtrlProposal.ErrorMsg") + control.getClass()); //$NON-NLS-1$
+            throw new IllegalArgumentException(Messages.getString("ProposalUtils.CtrlProposal.ErrorMsg") + control.getClass()); //$NON-NLS-1$
         }
-        final ContentProposalAdapterExtended contentProposalAdapter = getContentProposalAdapter(control,
-                controlContentAdapter, proposalProvider);
+        final ContentProposalAdapterExtended contentProposalAdapter = getContentProposalAdapter(control, controlContentAdapter,
+                proposalProvider);
 
         // to don't write Carriage Return when accept a proposal
         if (control instanceof StyledText) {
@@ -95,8 +94,8 @@ public final class ProposalUtils {
         try {
             KeyStroke keyStroke = KeyStroke.getInstance("Ctrl+Space"); //$NON-NLS-1$
 
-            contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter,
-                    proposalProvider, keyStroke, null);
+            contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter, proposalProvider,
+                    keyStroke, null);
             contentProposalAdapter.setPropagateKeys(true);
             contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_CUMULATIVE_ALL_START_WORDS);
             contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
@@ -117,8 +116,7 @@ public final class ProposalUtils {
             return getContentProposalAdapter(((ExtendedTextCellEditorWithProposal) cellEditor).getTextControl(),
                     new TextCellEditorContentAdapterExtended());
         } else {
-            throw new IllegalArgumentException(
-                    Messages.getString("ProposalUtils.CellProposal.Error") + cellEditor.getClass()); //$NON-NLS-1$
+            throw new IllegalArgumentException(Messages.getString("ProposalUtils.CellProposal.Error") + cellEditor.getClass()); //$NON-NLS-1$
         }
     }
 
@@ -132,8 +130,8 @@ public final class ProposalUtils {
         IJavaProject javaProject = compilationUnit != null ? ((IJavaElement) compilationUnit).getJavaProject() : null;
         IEvaluationContext evaluationContext = javaProject.newEvaluationContext();
 
-        IClassFileEvaluationEngine classFileEvaluationEngine = EvaluationManager.newClassFileEvaluationEngine(
-                javaProject, null, new File("")); //$NON-NLS-1$
+        IClassFileEvaluationEngine classFileEvaluationEngine = EvaluationManager.newClassFileEvaluationEngine(javaProject, null,
+                new File("")); //$NON-NLS-1$
 
         LocalEvaluationEngine localEvaluationEngine = (LocalEvaluationEngine) classFileEvaluationEngine;
 
@@ -144,7 +142,8 @@ public final class ProposalUtils {
             code = compilationUnit.getBuffer().getContents();
         } catch (JavaModelException e1) {
             // TODO Auto-generated catch block
-            e1.printStackTrace();
+            // e1.printStackTrace();
+            ExceptionHandler.process(e1);
         }
         // try {
         // evaluationContext.evaluateCodeSnippet(code , localEvaluationEngine, null);
@@ -171,7 +170,8 @@ public final class ProposalUtils {
             evaluationContext.codeComplete(code, 9265, completionProposalCollector);
         } catch (JavaModelException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         // System.out.println();

@@ -211,7 +211,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         try {
                             currentVersion = currentObject.getVersion();
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            // e.printStackTrace();
+                            ExceptionHandler.process(e);
                         }
                         if (onlyLastVersion) {
                             key = (K) currentObject.getId();
@@ -626,7 +627,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             });
         } catch (CoreException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         // delete remaining folders
         for (IPath path : listFolders) {
@@ -1281,7 +1283,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             create(getRepositoryContext().getProject(), newItem, path);
             return newItem;
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         return null;

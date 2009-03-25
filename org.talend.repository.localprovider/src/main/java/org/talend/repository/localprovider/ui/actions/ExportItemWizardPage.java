@@ -56,6 +56,7 @@ import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.progress.ProgressMonitorJobsDialog;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.swt.advanced.composite.FilteredCheckboxTree;
 import org.talend.core.CorePlugin;
@@ -185,7 +186,8 @@ class ExportItemWizardPage extends WizardPage {
                 try {
                     exportItemsTreeViewer.init(repositoryView.getViewSite());
                 } catch (PartInitException e) {
-                    e.printStackTrace();
+                    // e.printStackTrace();
+                    ExceptionHandler.process(e);
                 }
                 exportItemsTreeViewer.createPartControl(parent);
                 return (CheckboxTreeViewer) exportItemsTreeViewer.getViewer();

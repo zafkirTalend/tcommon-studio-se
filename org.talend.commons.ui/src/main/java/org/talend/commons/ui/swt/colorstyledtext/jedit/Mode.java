@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.i18n.Messages;
 
 import com.sun.org.apache.regexp.internal.RE;
@@ -50,25 +51,23 @@ public class Mode {
         public void newRules(String theName, boolean highlightDigits, boolean ignoreCase, String digitRE, char escape,
                 String defaultTokenType) {
 
-            currentRule = Rule.newRule(Mode.this, theName, highlightDigits, ignoreCase, digitRE, escape,
-                    defaultTokenType);
+            currentRule = Rule.newRule(Mode.this, theName, highlightDigits, ignoreCase, digitRE, escape, defaultTokenType);
             Mode.this.add(currentRule);
         }
 
         public void newSpan(String type, String begin, String end, boolean atLineStart, boolean excludeMatch,
                 boolean noLineBreak, boolean noWordBreak, String delegate) {
-            currentRule.add(Type.newSpan(type, begin, end, atLineStart, excludeMatch, noLineBreak, noWordBreak,
-                    delegate));
+            currentRule.add(Type.newSpan(type, begin, end, atLineStart, excludeMatch, noLineBreak, noWordBreak, delegate));
         }
 
-        public void newMark(String type, String text, boolean atLineStart, boolean atWhitespaceEnd,
-                boolean atWordStart, String delegate, boolean isPrevious, boolean excludeMatch) {
+        public void newMark(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
+                String delegate, boolean isPrevious, boolean excludeMatch) {
             currentRule.add(Type.newMark(type, text, atLineStart, atWhitespaceEnd, atWordStart, delegate, isPrevious,
                     excludeMatch));
         }
 
-        public void newTextSequence(String type, String text, boolean atLineStart, boolean atWhitespaceEnd,
-                boolean atWordStart, String delegate) {
+        public void newTextSequence(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
+                String delegate) {
             currentRule.add(Type.newTextSequence(type, text, atLineStart, atWhitespaceEnd, atWordStart, delegate));
         }
 
@@ -217,7 +216,8 @@ public class Mode {
             buf.append('$');
             re = new RE(buf.toString());
         } catch (RESyntaxException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
     }
 

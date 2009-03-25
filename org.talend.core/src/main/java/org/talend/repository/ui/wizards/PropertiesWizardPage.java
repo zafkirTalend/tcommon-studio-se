@@ -307,7 +307,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
             }
         } catch (PersistenceException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         // Path:

@@ -15,6 +15,7 @@ package org.talend.core.model.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.components.EReadOnlyComlumnPosition;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -109,7 +110,8 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         } catch (CloneNotSupportedException e) {
             // nothing
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         return clonedMetadata;
     }

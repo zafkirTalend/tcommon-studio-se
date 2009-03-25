@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.colorstyledtext.ColorStyledText;
 
 /**
@@ -155,7 +156,8 @@ public class TypedTextCommandExecutor {
             patternAlphaNum = compiler.compile("\\w"); //$NON-NLS-1$
         } catch (MalformedPatternException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
     }
@@ -187,9 +189,10 @@ public class TypedTextCommandExecutor {
             if (undoOrRedo) {
                 updateCommand(control);
             } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) /*
-                                                                                                             * ||
-                                                                                                             * e.character == ' '
-                                                                                                             */) {
+                                                                                                          * ||
+                                                                                                          * e.character
+                                                                                                          * == ' '
+                                                                                                          */) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);

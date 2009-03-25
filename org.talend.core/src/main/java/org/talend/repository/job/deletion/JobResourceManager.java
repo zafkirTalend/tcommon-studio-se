@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -127,7 +128,8 @@ public class JobResourceManager {
         } catch (CoreException e) {
             // can't delete don't cause problem in the application so ignore it
             // RuntimeExceptionHandler.process(e);
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
     }

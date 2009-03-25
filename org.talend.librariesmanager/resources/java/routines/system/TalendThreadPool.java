@@ -12,6 +12,8 @@
 // ============================================================================
 package routines.system;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 public class TalendThreadPool {
 
     private volatile boolean stopAllWorkers = false;
@@ -122,7 +124,8 @@ class ThreadPoolWorker extends Object {
                     runWork();
                 } catch (Exception x) {
                     // in case ANY exception slips through
-                    x.printStackTrace();
+                    // x.printStackTrace();
+                    ExceptionHandler.process(x);
                 }
             }
         };
@@ -158,7 +161,8 @@ class ThreadPoolWorker extends Object {
         try {
             r.run();
         } catch (Exception runex) {
-            runex.printStackTrace();
+            // runex.printStackTrace();
+            ExceptionHandler.process(runex);
         } finally {
             Thread.interrupted();
         }

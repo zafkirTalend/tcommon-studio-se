@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.data;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.i18n.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
@@ -38,10 +39,12 @@ public final class AccessorUtils {
             } catch (ClassCastException cce) {
 
                 String message = Messages.getString("AccessorUtils.Assert0", column.getTitle(), column.getId(), bean.getClass()); //$NON-NLS-1$
-                cce.printStackTrace();
+                // cce.printStackTrace();
+                ExceptionHandler.process(cce);
                 throw new RuntimeException(message, cce);
             } catch (NoClassDefFoundError e) {
                 // e.printStackTrace();
+                ExceptionHandler.process(e);
                 System.err.println(Messages.getString("AccessorUtils.NoClassDef", AccessorUtils.class, e.getMessage())); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }

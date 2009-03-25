@@ -17,6 +17,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -43,7 +44,8 @@ public abstract class AbstractShowViewAction extends Action {
             page.showView(getViewId());
         } catch (PartInitException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
     }
 }

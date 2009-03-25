@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.repository.localprovider.model.migration;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -100,7 +100,8 @@ public class ChangeXmiSerialization extends AbstractProjectMigrationTask {
                     resource.setModified(true);
                     xmiResourceManager.saveResource(resource);
                 } catch (PersistenceException e) {
-                    e.printStackTrace();
+                    // e.printStackTrace();
+                    ExceptionHandler.process(e);
                 }
             }
 
@@ -134,6 +135,7 @@ public class ChangeXmiSerialization extends AbstractProjectMigrationTask {
             return propertiesResourcesFiles;
         }
     }
+
     public Date getOrder() {
         GregorianCalendar gc = new GregorianCalendar(2008, 2, 17, 12, 0, 0);
         return gc.getTime();

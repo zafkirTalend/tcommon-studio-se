@@ -28,7 +28,6 @@ import org.eclipse.jface.text.source.VerticalRuler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
 
@@ -120,6 +119,7 @@ public class SourceViewerDialog extends Dialog {
                     in.close();
                 }
             } catch (IOException x) {
+                ExceptionHandler.process(x);
             }
         }
     }

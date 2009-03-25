@@ -15,6 +15,8 @@ package org.talend.core.model.general;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
@@ -210,7 +212,8 @@ public class ConnectionBean implements Cloneable {
                 toReturn.getDynamicFields().put(st2[0], st2[1]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         return toReturn;
     }

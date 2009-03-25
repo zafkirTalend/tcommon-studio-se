@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 public class RunTrace implements Runnable {
 
     private boolean openSocket = true;
@@ -113,7 +115,8 @@ public class RunTrace implements Runnable {
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
             return "PAUSE".equals(reader.readLine()); //$NON-NLS-1$
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             return false;
         }
     }

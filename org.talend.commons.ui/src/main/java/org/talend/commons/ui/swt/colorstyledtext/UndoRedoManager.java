@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.custom.ExtendedModifyEvent;
 import org.eclipse.swt.custom.ExtendedModifyListener;
 import org.eclipse.swt.custom.StyledText;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC qli class global comment.
@@ -143,6 +144,7 @@ public class UndoRedoManager {
             try {
                 opHistory.redo(undoContext, null, null);
             } catch (ExecutionException ex) {
+                ExceptionHandler.process(ex);
             }
         }
     }
@@ -152,6 +154,7 @@ public class UndoRedoManager {
             try {
                 opHistory.undo(undoContext, null, null);
             } catch (ExecutionException ex) {
+                ExceptionHandler.process(ex);
             }
         }
     }

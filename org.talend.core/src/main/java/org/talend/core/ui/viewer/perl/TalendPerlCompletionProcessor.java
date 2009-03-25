@@ -44,6 +44,7 @@ import org.epic.perleditor.templates.perl.IPerlCompletionProposal;
 import org.epic.perleditor.templates.perl.ModuleCompletionHelper;
 import org.epic.perleditor.templates.perl.SubroutineEngine;
 import org.epic.perleditor.templates.perl.VariableEngine;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.ui.proposal.IExternalProposals;
 import org.talend.core.ui.proposal.ProposalFactory;
 import org.talend.core.ui.viewer.proposal.TalendCompletionProposalComputer;
@@ -222,7 +223,8 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
                 }
             }
         } catch (BadLocationException ex) {
-            ex.printStackTrace(); // TODO log it
+            // ex.printStackTrace(); // TODO log it
+            ExceptionHandler.process(ex);
         }
         return variables;
     }

@@ -313,7 +313,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         } catch (BadLocationException e) {
             ExceptionHandler.process(e);
         } catch (JavaModelException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n"); //$NON-NLS-1$

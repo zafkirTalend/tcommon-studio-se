@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 /**
  * Definition of a column in the Meta Data. <br/>
  * 
@@ -75,7 +77,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             this.setTalendType(metadataColumn.getTalendType());
         } catch (NoClassDefFoundError e) {
             // should never happend when product run
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         this.setType(metadataColumn.getType());

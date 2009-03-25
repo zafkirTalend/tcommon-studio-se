@@ -14,6 +14,8 @@ package routines.system;
 
 import java.util.Locale;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 public class FastDateParser {
 
     private static FastDateParser instance;
@@ -122,7 +124,8 @@ public class FastDateParser {
                 return calendar.getTime();
             } catch (Exception e) {
                 pos.setErrorIndex(index);
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
             return null;
         }
@@ -207,7 +210,8 @@ public class FastDateParser {
                 return calendar.getTime();
             } catch (Exception e) {
                 pos.setErrorIndex(index);
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
             return null;
         }

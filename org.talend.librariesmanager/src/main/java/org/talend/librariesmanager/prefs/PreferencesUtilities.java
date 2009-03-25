@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.i18n.Messages;
@@ -75,7 +76,8 @@ public class PreferencesUtilities {
                 project.create(monitor);
                 project.open(monitor);
             } catch (CoreException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
         }
         return project.getLocation().toOSString();

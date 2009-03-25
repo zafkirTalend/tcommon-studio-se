@@ -22,6 +22,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 
 /**
@@ -46,7 +47,8 @@ public class CatalogReader {
             return readFile(ColoringEditorTools.getFile(filename));
         } catch (Exception e) {
             // EditorPlugin.logError("Error reading catalog file " + mode.getFile(), e);
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             return new Mode[0];
         }
     }

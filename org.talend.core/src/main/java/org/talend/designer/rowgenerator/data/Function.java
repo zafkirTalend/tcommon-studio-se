@@ -15,6 +15,7 @@ package org.talend.designer.rowgenerator.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.i18n.Messages;
 
 /**
@@ -170,7 +171,8 @@ public class Function implements Cloneable {
             }
             fun.setParameters(parameters1);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         return fun;
     }

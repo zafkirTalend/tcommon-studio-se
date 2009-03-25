@@ -447,7 +447,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 processor.generateCode(false, true, false);
             } catch (ProcessorException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
             Element sourceCodeInfoElement = DocumentHelper.createElement("sourcecodes"); //$NON-NLS-1$
             ITalendSynchronizer synchronizer = CorePlugin.getDefault().getCodeGeneratorService().createRoutineSynchronizer();
@@ -467,7 +468,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 in.close();
             } catch (Exception e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
 
             element.add(sourceCodeInfoElement);

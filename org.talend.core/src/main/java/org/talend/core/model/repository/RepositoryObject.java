@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -418,7 +419,8 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             connectionProperty.setItem(newItem);
             object.setProperty(connectionProperty);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
             // do notbing.
         }
         return object;

@@ -24,6 +24,7 @@ import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 
 /**
@@ -103,7 +104,8 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
             FileSystemExporterFullPath fs = new FileSystemExporterFullPath("c:/qqq"); //$NON-NLS-1$
             fs.write("C:\\RavBin\\DESKTOP.INI", "aaa/bbb/ccc/DESKTOP.INI"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         // this test is ok.
     }
@@ -157,10 +159,12 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
                 this.write(exportResource, destinationName);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             } catch (CoreException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
             }
 
         } else if (file.isDirectory()) {
