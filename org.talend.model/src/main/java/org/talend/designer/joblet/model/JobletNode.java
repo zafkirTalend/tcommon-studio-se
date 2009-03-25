@@ -19,6 +19,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
  * <ul>
  *   <li>{@link org.talend.designer.joblet.model.JobletNode#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.designer.joblet.model.JobletNode#isInput <em>Input</em>}</li>
+ *   <li>{@link org.talend.designer.joblet.model.JobletNode#isTrigger <em>Trigger</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,4 +80,30 @@ public interface JobletNode extends NodeType {
      * @generated
      */
     void setInput(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Trigger</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Trigger</em>' attribute.
+     * @see #setTrigger(boolean)
+     * @see org.talend.designer.joblet.model.JobletPackage#getJobletNode_Trigger()
+     * @model
+     * @generated
+     */
+    boolean isTrigger();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.joblet.model.JobletNode#isTrigger <em>Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Trigger</em>' attribute.
+     * @see #isTrigger()
+     * @generated
+     */
+    void setTrigger(boolean value);
 } // JobletNode

@@ -216,6 +216,15 @@ public interface JobletPackage extends EPackage {
     int JOBLET_PROCESS__VERSION = TalendFilePackage.PROCESS_TYPE__VERSION;
 
     /**
+     * The feature id for the '<em><b>Subjob</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS__SUBJOB = TalendFilePackage.PROCESS_TYPE__SUBJOB;
+
+    /**
      * The feature id for the '<em><b>Joblet Nodes</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -370,13 +379,22 @@ public interface JobletPackage extends EPackage {
     int JOBLET_NODE__INPUT = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__TRIGGER = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Node</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int JOBLET_NODE_FEATURE_COUNT = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 2;
+    int JOBLET_NODE_FEATURE_COUNT = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 3;
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.joblet.model.JobletProcess <em>Process</em>}'.
@@ -430,6 +448,17 @@ public interface JobletPackage extends EPackage {
      * @generated
      */
     EAttribute getJobletNode_Input();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.JobletNode#isTrigger <em>Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Trigger</em>'.
+     * @see org.talend.designer.joblet.model.JobletNode#isTrigger()
+     * @see #getJobletNode()
+     * @generated
+     */
+    EAttribute getJobletNode_Trigger();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -496,6 +525,14 @@ public interface JobletPackage extends EPackage {
          * @generated
          */
         EAttribute JOBLET_NODE__INPUT = eINSTANCE.getJobletNode_Input();
+
+        /**
+         * The meta object literal for the '<em><b>Trigger</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute JOBLET_NODE__TRIGGER = eINSTANCE.getJobletNode_Trigger();
 
     }
 

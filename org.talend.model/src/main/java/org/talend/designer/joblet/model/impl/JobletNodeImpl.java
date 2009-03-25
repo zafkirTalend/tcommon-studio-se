@@ -23,6 +23,7 @@ import org.talend.designer.joblet.model.JobletPackage;
  * <ul>
  *   <li>{@link org.talend.designer.joblet.model.impl.JobletNodeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.designer.joblet.model.impl.JobletNodeImpl#isInput <em>Input</em>}</li>
+ *   <li>{@link org.talend.designer.joblet.model.impl.JobletNodeImpl#isTrigger <em>Trigger</em>}</li>
  * </ul>
  * </p>
  *
@@ -65,6 +66,25 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
      * @ordered
      */
     protected boolean input = INPUT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isTrigger() <em>Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTrigger()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean TRIGGER_EDEFAULT = false;
+    /**
+     * The cached value of the '{@link #isTrigger() <em>Trigger</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTrigger()
+     * @generated
+     * @ordered
+     */
+    protected boolean trigger = TRIGGER_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -132,6 +152,27 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isTrigger() {
+        return trigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTrigger(boolean newTrigger) {
+        boolean oldTrigger = trigger;
+        trigger = newTrigger;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, JobletPackage.JOBLET_NODE__TRIGGER, oldTrigger, trigger));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -139,6 +180,8 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
                 return getDescription();
             case JobletPackage.JOBLET_NODE__INPUT:
                 return isInput() ? Boolean.TRUE : Boolean.FALSE;
+            case JobletPackage.JOBLET_NODE__TRIGGER:
+                return isTrigger() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -156,6 +199,9 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
                 return;
             case JobletPackage.JOBLET_NODE__INPUT:
                 setInput(((Boolean)newValue).booleanValue());
+                return;
+            case JobletPackage.JOBLET_NODE__TRIGGER:
+                setTrigger(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -175,6 +221,9 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
             case JobletPackage.JOBLET_NODE__INPUT:
                 setInput(INPUT_EDEFAULT);
                 return;
+            case JobletPackage.JOBLET_NODE__TRIGGER:
+                setTrigger(TRIGGER_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -191,6 +240,8 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case JobletPackage.JOBLET_NODE__INPUT:
                 return input != INPUT_EDEFAULT;
+            case JobletPackage.JOBLET_NODE__TRIGGER:
+                return trigger != TRIGGER_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -209,6 +260,8 @@ public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
         result.append(description);
         result.append(", input: ");
         result.append(input);
+        result.append(", trigger: ");
+        result.append(trigger);
         result.append(')');
         return result.toString();
     }

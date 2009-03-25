@@ -13,6 +13,7 @@
     <genClasses ecoreClass="joblet.ecore#//JobletNode">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletNode/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletNode/input"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletNode/trigger"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
