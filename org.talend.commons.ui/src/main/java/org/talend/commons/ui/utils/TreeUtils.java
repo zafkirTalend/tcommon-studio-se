@@ -240,7 +240,7 @@ public class TreeUtils {
         return list;
     }
 
-    private static List<TreeItem> collectAllItems(TreeItem treeItem) {
+    public static List<TreeItem> collectAllItems(TreeItem treeItem) {
         List<TreeItem> list = new ArrayList<TreeItem>();
 
         TreeItem[] items = treeItem.getItems();

@@ -25,6 +25,8 @@ public class LocalDraggedData {
 
     private List<Object> transferableEntryList = new ArrayList<Object>();
 
+    private Object table;
+
     /**
      * @param o
      * @return
@@ -32,6 +34,26 @@ public class LocalDraggedData {
      */
     public boolean add(Object o) {
         return this.transferableEntryList.add(o);
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "getTable".
+     * 
+     * @return
+     */
+    public Object getTable() {
+        return this.table;
+    }
+
+    /**
+     * 
+     * DOC wzhang Comment method "setTable".
+     * 
+     * @param table
+     */
+    public void setTable(Object table) {
+        this.table = table;
     }
 
     /**
