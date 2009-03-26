@@ -240,6 +240,10 @@ public class MappingTypeRetriever {
         mappingTypeKey.setTalendType(null);
         List<MappingType> listMappingtype = new ArrayList<MappingType>();
         listMappingtype = (List<MappingType>) mapDbToTalendTypes.get(mappingTypeKey);
+        if (listMappingtype == null && mappingTypeKey.getDbType().equals("INT")) {
+            mappingTypeKey.setDbType("INT8");
+            listMappingtype = (List<MappingType>) mapDbToTalendTypes.get(mappingTypeKey);
+        }
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
         MappingType mappingTypeOrigin = defaultMappings.get(mappingTypeKey);
         if (mappingTypeOrigin == null) {
