@@ -25,9 +25,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 import org.talend.utils.eclipse.IPath;
 import org.talend.utils.eclipse.Path;
@@ -40,14 +44,13 @@ import org.talend.utils.sugars.ReturnCode;
  * 
  */
 public final class FilesUtils {
-    
+
     private FilesUtils() {
         super();
     }
 
-    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy,
-            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder)
-            throws IOException {
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
+            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
         if (!target.exists()) {
             target.mkdirs();
         }
@@ -364,6 +367,129 @@ public final class FilesUtils {
     private static void printFailure(ReturnCode rc) {
         if (!rc.isOk()) {
             System.err.println("Failure: " + rc.getMessage());
+        }
+    }
+
+    /**
+     * zip the file to the user folder.
+     * 
+     * @param sourceFile
+     * @param zippedFileName
+     * @throws Exception
+     */
+    public static void zip(File sourceFile, String zippedFileName) throws Exception {
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFileName));
+        zip(out, sourceFile, null);
+    }
+
+    /**
+     * zip a new file with specified name to the user folder.
+     * 
+     * @param sourceFileName
+     * @param zippedFileName
+     * @throws Exception
+     */
+    public static void zip(String sourceFileName, String zippedFileName) throws Exception {
+        File sourceFile = new File(sourceFileName);
+        zip(sourceFile, zippedFileName);
+    }
+
+    /**
+     * zip the file stream to the user folder.
+     * 
+     * @param out
+     * @param f
+     * @param base
+     * @throws Exception
+     */
+    private static void zip(ZipOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
+            File[] fc = f.listFiles();
+            if (base != null)
+                out.putNextEntry(new ZipEntry(base + "/"));
+            base = base == null ? "" : base + "/";
+            for (int i = 0; i < fc.length; i++) {
+                zip(out, fc[i], base + fc[i].getName());
+            }
+        } else {
+            out.putNextEntry(new ZipEntry(f.getName()));
+            FileInputStream in = new FileInputStream(f);
+            int b;
+            while ((b = in.read()) != -1) {
+                out.write(b);
+            }
+
+            out.flush();
+            in.close();
+        }
+
+        out.close();
+    }
+
+    /**
+     * Unzip the component file to the user folder.
+     * 
+     * @param zipFile The component zip file
+     * @param targetFolder The user folder
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public static void unzip(String zipFile, String targetFolder) throws Exception {
+        Exception exception = null;
+        ZipFile zip = new ZipFile(zipFile);
+        byte[] buf = new byte[8192];
+
+        try {
+            Enumeration<ZipEntry> enumeration = (Enumeration<ZipEntry>) zip.entries();
+            while (enumeration.hasMoreElements()) {
+                ZipEntry entry = enumeration.nextElement();
+
+                File file = new File(targetFolder, entry.getName());
+
+                if (entry.isDirectory()) {
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
+                } else {
+
+                    InputStream zin = zip.getInputStream(entry);
+                    OutputStream fout = new FileOutputStream(file);
+                    // check if parent folder exists
+                    File dir = file.getParentFile();
+                    if (dir.isDirectory() && !dir.exists()) {
+                        dir.mkdirs();
+                    }
+
+                    try {
+                        while (true) {
+                            int bytesRead = zin.read(buf);
+                            if (bytesRead == -1) { // end of file
+                                break;
+                            }
+                            fout.write(buf, 0, bytesRead);
+
+                        }
+                        fout.flush();
+                    } catch (Exception e) {
+                        exception = e;
+                        // stop looping
+                        return;
+                    } finally {
+                        zin.close();
+                        fout.close();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            exception = e;
+        } finally {
+            zip.close();
+
+            if (exception != null) {
+                // notify caller with exception
+                throw exception;
+            }
         }
     }
 
