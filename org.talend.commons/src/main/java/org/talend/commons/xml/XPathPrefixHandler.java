@@ -40,14 +40,24 @@ public class XPathPrefixHandler {
 
     private Map<String, NodeInfo> pathNodesMap;
 
+    private Map<String, String> dataTypeFromXSD;
+
     private CustomNamespaceContext namespaceContext;
 
+    private boolean isXSDFile;
+
     public XPathPrefixHandler(Element root) {
+        this.isXSDFile = false;
         nameNodesMap = new HashMap<String, List<NodeInfo>>();
         pathNodesMap = new HashMap<String, NodeInfo>();
+        dataTypeFromXSD = new HashMap<String, String>();
         namespaceContext = new CustomNamespaceContext();
         collectNodes(root, "", 0); //$NON-NLS-1$
         sortByLevel(nameNodesMap);
+
+        if (isXSDFile) {
+            replaceReferences();
+        }
     }
 
     /**
@@ -151,6 +161,14 @@ public class XPathPrefixHandler {
             }
         }
         return info;
+    }
+
+    public NodeInfo getNodeInfo(String path) {
+        return pathNodesMap.get(path);
+    }
+
+    public String getDataTypeFromXSD(String path) {
+        return dataTypeFromXSD.get(path);
     }
 
     private String getQualifiedXPath(String path) {
@@ -377,16 +395,53 @@ public class XPathPrefixHandler {
 
         int type = node.getNodeType();
         if (type == Node.ELEMENT_NODE) {
-            String currentPath = new StringBuilder(path).append("/").append(node.getNodeName()).toString(); //$NON-NLS-1$
-            if (pathNodesMap.get(currentPath) != null) {
-                return;
+            String elementName = node.getNodeName();
+
+            if (isXSDFile) {
+                elementName = null;
+                if (node.getNodeName().equals("xs:element")) {
+                    if (node.getAttributes().getLength() > 0) {
+                        Node nameAttribute = node.getAttributes().getNamedItem("name");
+                        if (nameAttribute != null) {
+                            elementName = nameAttribute.getNodeValue();
+                        }
+                        Node refAttribute = node.getAttributes().getNamedItem("ref");
+                        if (refAttribute != null) {
+                            elementName = "#" + refAttribute.getNodeValue(); // add a mark to set as ref element.
+                        }
+                    }
+                }
+            }
+
+            String currentPath = null;
+            if (elementName != null) {
+                currentPath = new StringBuilder(path).append("/").append(elementName).toString(); //$NON-NLS-1$
+                if (pathNodesMap.get(currentPath) != null) {
+                    return;
+                }
+            }
+            if (currentPath == null) {
+                currentPath = path;
             }
             NodeInfo info = new NodeInfo(node, currentPath);
             info.level = level;
             computeNamespace(info, path);
             // System.out.println(node.getNodeName() + " " + info.path + " " + info.namespace + "\n");
-            pathNodesMap.put(currentPath, info);
-            addNodeInfoToMap(node.getNodeName(), info);
+            if (elementName != null) {
+                pathNodesMap.put(currentPath, info);
+                if (isXSDFile) {
+                    elementName = null;
+                    if (node.getNodeName().equals("xs:element")) {
+                        if (node.getAttributes().getLength() > 0) {
+                            Node nameAttribute = node.getAttributes().getNamedItem("type");
+                            if (nameAttribute != null) {
+                                dataTypeFromXSD.put(currentPath, nameAttribute.getNodeValue());
+                            }
+                        }
+                    }
+                }
+                addNodeInfoToMap(elementName, info);
+            }
 
             // visit child nodes
             NodeList childNodes = node.getChildNodes();
@@ -394,6 +449,40 @@ public class XPathPrefixHandler {
             for (int i = 0; i < length; i++) {
                 Node item = childNodes.item(i);
                 collectNodes(item, currentPath, level + 1);
+            }
+        }
+    }
+
+    /**
+     * DOC nrousseau Comment method "replaceReferences".
+     */
+    private void replaceReferences() {
+        Map<String, NodeInfo> newPathNodesMap = new HashMap<String, NodeInfo>();
+
+        for (String path : pathNodesMap.keySet()) {
+            if (path.contains("#")) {
+                replaceReferences(path, newPathNodesMap);
+            }
+        }
+
+        pathNodesMap.putAll(newPathNodesMap);
+    }
+
+    private void replaceReferences(String path, Map<String, NodeInfo> newPathNodesMap) {
+        String newPath = path.substring(0, path.indexOf("#") - 1);
+        String objectToReplace = "/" + path.substring(path.indexOf("#") + 1);
+        for (String refPath : pathNodesMap.keySet()) {
+            if (refPath.equals(objectToReplace) || refPath.startsWith(objectToReplace + "/")) {
+                String newFullPath = newPath + refPath;
+
+                if (!newFullPath.contains("#")) {
+                    if (dataTypeFromXSD.containsKey(refPath)) {
+                        dataTypeFromXSD.put(newFullPath, dataTypeFromXSD.get(refPath));
+                    }
+                    newPathNodesMap.put(newFullPath, pathNodesMap.get(refPath));
+                } else {
+                    replaceReferences(newFullPath, newPathNodesMap);
+                }
             }
         }
     }
@@ -425,11 +514,16 @@ public class XPathPrefixHandler {
         List<Node> attributes = new ArrayList<Node>();
         // return node.getNamespaceURI();
         String defaultNamespace = null;
+        if (isXSDFile) {
+            if (node.getNodeName().equals("xs:attribute")) {
+                attributes.add(node);
+            }
+        }
         NamedNodeMap nodeMap = node.getAttributes();
         for (int i = 0; i < nodeMap.getLength(); i++) {
             Node attr = nodeMap.item(i);
             String attrName = attr.getNodeName();
-            boolean isPrefix = attrName.startsWith(XMLConstants.XMLNS_ATTRIBUTE);
+            boolean isPrefix = attrName.startsWith(XMLConstants.XMLNS_ATTRIBUTE) && (!isXSDFile || !attrName.equals("xmlns:xs"));
             if (isPrefix) {
                 if (attrName.length() == XMLConstants.XMLNS_ATTRIBUTE.length()) {
                     defaultNamespace = attr.getNodeValue();
@@ -439,7 +533,7 @@ public class XPathPrefixHandler {
                     String prefix = attrName.substring(index + 1);
                     namespaceContext.addNamespaceURI(prefix, attr.getNodeValue());
                 }
-            } else {
+            } else if (!isXSDFile) {
                 attributes.add(attr);
             }
         }
@@ -474,22 +568,39 @@ public class XPathPrefixHandler {
      */
     private void collectAttributes(NodeInfo info, List<Node> attributes) {
         for (Node attr : attributes) {
-            String currentPath = new StringBuilder(info.path).append("/@").append(attr.getNodeName()).toString(); //$NON-NLS-1$
+            String elementName = attr.getNodeName();
+            if (isXSDFile) {
+                if (attr.getAttributes().getLength() > 0) {
+                    Node nameAttribute = attr.getAttributes().getNamedItem("name");
+                    if (nameAttribute != null) {
+                        elementName = nameAttribute.getNodeValue();
+                    }
+                }
+            }
+            String currentPath = new StringBuilder(info.path).append("/@").append(elementName).toString(); //$NON-NLS-1$
             if (pathNodesMap.get(currentPath) != null) {
                 continue;
+            }
+
+            if (isXSDFile) {
+                if (attr.getAttributes().getLength() > 0) {
+                    Node nameAttribute = attr.getAttributes().getNamedItem("type");
+                    if (nameAttribute != null) {
+                        dataTypeFromXSD.put(currentPath, nameAttribute.getNodeValue());
+                    }
+                }
             }
             NodeInfo attrInfo = new NodeInfo(attr, currentPath);
             attrInfo.level = info.level + 1;
             attrInfo.defaultNamespace = info.defaultNamespace;
-            String name = attr.getNodeName();
-            int pos = name.indexOf(':');
+            int pos = elementName.indexOf(':');
             if (pos > -1) {
-                attrInfo.namespace = namespaceContext.getNamespaceURI(name.substring(0, pos));
+                attrInfo.namespace = namespaceContext.getNamespaceURI(elementName.substring(0, pos));
             } else {
                 attrInfo.namespace = info.defaultNamespace;
             }
             pathNodesMap.put(currentPath, attrInfo);
-            addNodeInfoToMap("@" + attr.getNodeName(), attrInfo); //$NON-NLS-1$
+            addNodeInfoToMap("@" + elementName, attrInfo); //$NON-NLS-1$
         }
     }
 

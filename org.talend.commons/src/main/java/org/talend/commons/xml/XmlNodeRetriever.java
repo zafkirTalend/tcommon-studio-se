@@ -39,7 +39,6 @@ import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -82,7 +81,13 @@ public class XmlNodeRetriever {
         this.currentLoopXPath = loopXPath;
         initNamespaceContext();
         initSource(filePath);
+    }
 
+    /**
+     * Default constructor.
+     */
+    public XmlNodeRetriever() {
+        super();
     }
 
     /**
@@ -152,6 +157,7 @@ public class XmlNodeRetriever {
     private synchronized void initSource(String filePath) {
         // Parse document containing schemas and validation roots
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
         try {
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -242,18 +248,7 @@ public class XmlNodeRetriever {
      */
     public List<Node> retrieveListOfNodes(String xPathExpression) throws XPathExpressionException {
 
-        NodeList nodeList = retrieveNodeList(xPathExpression);
-        if (nodeList != null) {
-            int nodeListLength = nodeList.getLength();
-            List<Node> list = new ArrayList<Node>(nodeListLength);
-            for (int j = 0; j < nodeListLength; ++j) {
-                list.add(nodeList.item(j));
-            }
-            return list;
-        } else {
-            return new ArrayList<Node>(0);
-        }
-
+        return retrieveNodeList(xPathExpression);
     }
 
     /**
@@ -264,15 +259,23 @@ public class XmlNodeRetriever {
      * @return <code>NodeList</code> or null if expression is invalid
      * @throws XPathExpressionException
      */
-    public synchronized NodeList retrieveNodeList(String xPathExpression) throws XPathExpressionException {
+    public synchronized List<Node> retrieveNodeList(String xPathExpression) throws XPathExpressionException {
 
         xPathExpression = simplifyXPathExpression(xPathExpression);
         // xPathExpression = addDefaultNS(xPathExpression);
         xPathExpression = prefixHandler.addXPathPrefix(xPathExpression);
-        NodeList nodeList = null;
+
+        List<Node> nodeList = new ArrayList<Node>();
+        NodeList nodeListItem = null;
         // System.out.println("xPathExpression = "+xPathExpression);
         XPathExpression xpathSchema = xpath.compile(xPathExpression);
-        nodeList = (NodeList) xpathSchema.evaluate(document, XPathConstants.NODESET);
+
+        nodeListItem = (NodeList) xpathSchema.evaluate(document, XPathConstants.NODESET);
+
+        for (int i = 0; i < nodeListItem.getLength(); i++) {
+            nodeList.add(nodeListItem.item(i));
+        }
+
         return nodeList;
     }
 
@@ -317,12 +320,19 @@ public class XmlNodeRetriever {
      * @return <code>NodeList</code> or null if expression is invalid
      * @throws XPathExpressionException
      */
-    public synchronized NodeList retrieveNodeListFromNode(String relativeXPathExpression, Node referenceNode)
+    public synchronized List<Node> retrieveNodeListFromNode(String relativeXPathExpression, Node referenceNode)
             throws XPathExpressionException {
         relativeXPathExpression = simplifyXPathExpression(relativeXPathExpression);
         // relativeXPathExpression = addDefaultNS(relativeXPathExpression);
         relativeXPathExpression = prefixHandler.addXPathPrefix(relativeXPathExpression, referenceNode);
-        NodeList nodeList = (NodeList) xpath.evaluate(relativeXPathExpression, referenceNode, XPathConstants.NODESET);
+
+        List<Node> nodeList = new ArrayList<Node>();
+
+        NodeList nodeListItem = (NodeList) xpath.evaluate(relativeXPathExpression, referenceNode, XPathConstants.NODESET);
+
+        for (int i = 0; i < nodeListItem.getLength(); i++) {
+            nodeList.add(nodeListItem.item(i));
+        }
         return nodeList;
     }
 
@@ -432,9 +442,9 @@ public class XmlNodeRetriever {
         String proposal1 = "../*"; //$NON-NLS-1$
         String proposal2 = "./member/see/*"; //$NON-NLS-1$
         proposal2 = "member/* | member/@*"; //$NON-NLS-1$
-        NodeList proposal1Nodes = pathRetriever.retrieveNodeListFromNode(proposal1, mainNode);
+        List<Node> proposal1Nodes = pathRetriever.retrieveNodeListFromNode(proposal1, mainNode);
         if (field1Node != null) {
-            int length = proposal1Nodes.getLength();
+            int length = proposal1Nodes.size();
             System.out.println(Messages.getString("XmlNodeRetriever.prposal1Node") + length); //$NON-NLS-1$
             // int lstSize = length;
             // for (int i = 0; i < lstSize; i++) {
@@ -442,9 +452,9 @@ public class XmlNodeRetriever {
             // }
         }
 
-        NodeList proposal2Nodes = pathRetriever.retrieveNodeListFromNode(proposal2, mainNode);
+        List<Node> proposal2Nodes = pathRetriever.retrieveNodeListFromNode(proposal2, mainNode);
         if (proposal2Nodes != null) {
-            int length = proposal2Nodes.getLength();
+            int length = proposal2Nodes.size();
             System.out.println(Messages.getString("XmlNodeRetriever.proposal2Node") + length); //$NON-NLS-1$
             // int lstSize = length;
             // for (int i = 0; i < lstSize; i++) {
@@ -476,7 +486,8 @@ public class XmlNodeRetriever {
             return;
         }
 
-        System.out.println(Messages.getString("XmlNodeRetriever.xPathExpression") + xPathExpression + Messages.getString("XmlNodeRetriever.singleQuotes")); //$NON-NLS-1$ //$NON-NLS-2$
+        System.out
+                .println(Messages.getString("XmlNodeRetriever.xPathExpression") + xPathExpression + Messages.getString("XmlNodeRetriever.singleQuotes")); //$NON-NLS-1$ //$NON-NLS-2$
         List<Node> nodeList = pathRetriever.retrieveListOfNodes(xPathExpression);
 
         System.out.println(Messages.getString("XmlNodeRetriever.countResult") + nodeList.size()); //$NON-NLS-1$
@@ -504,7 +515,7 @@ public class XmlNodeRetriever {
      * 
      * @param node
      */
-    public static String getAbsoluteXPathFromNode(Node node) {
+    public String getAbsoluteXPathFromNode(Node node) {
         return getAbsoluteXPathFromNode(node, ""); //$NON-NLS-1$
     }
 
@@ -515,17 +526,33 @@ public class XmlNodeRetriever {
      * @param node
      * @param string
      */
-    private static String getAbsoluteXPathFromNode(Node node, String currentXPath) {
+    private String getAbsoluteXPathFromNode(Node node, String currentXPath) {
         Node parentNode = null;
         String at = ""; //$NON-NLS-1$
-        if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
-            parentNode = ((Attr) node).getOwnerElement();
-            at = STRING_AT;
-        } else {
-            parentNode = node.getParentNode();
-            at = STRING_EMPTY;
+
+        String elementName = node.getNodeName();
+        elementName = null;
+        if (node.getNodeName().equals("xs:element")) {
+            if (node.getAttributes().getLength() > 0) {
+                Node nameAttribute = node.getAttributes().getNamedItem("name");
+                if (nameAttribute != null) {
+                    elementName = nameAttribute.getNodeValue();
+                    at = STRING_EMPTY;
+                }
+            }
+        } else if (node.getNodeName().equals("xs:attribute")) {
+            if (node.getAttributes().getLength() > 0) {
+                Node nameAttribute = node.getAttributes().getNamedItem("name");
+                if (nameAttribute != null) {
+                    elementName = nameAttribute.getNodeValue();
+                    at = STRING_AT;
+                }
+            }
         }
-        currentXPath = "/" + at + node.getNodeName() + currentXPath; //$NON-NLS-1$
+        parentNode = node.getParentNode();
+        if (elementName != null) {
+            currentXPath = "/" + at + elementName + currentXPath; //$NON-NLS-1$
+        }
         if (parentNode == node.getOwnerDocument()) {
             return currentXPath;
         } else {
@@ -568,5 +595,4 @@ public class XmlNodeRetriever {
             // document.re
         }
     }
-
 }
