@@ -82,11 +82,16 @@ public class ItemCacheManager {
     }
 
     public static ProcessItem getProcessItem(String processId, String version) {
+        ProcessItem refProcessItem = getRefProcessItem(ProjectManager.getInstance().getCurrentProject(), processId, version);
+        return refProcessItem;
+    }
+
+    public static ProcessItem getRefProcessItem(Project project, String processId, String version) {
         ProjectManager projectManager = ProjectManager.getInstance();
-        ProcessItem processItem = getProcessItem(projectManager.getCurrentProject(), processId, version);
+        ProcessItem processItem = getProcessItem(project, processId, version);
         if (processItem == null) {
-            for (Project p : projectManager.getReferencedProjects()) {
-                processItem = getProcessItem(p, processId, version);
+            for (Project p : projectManager.getReferencedProjects(project)) {
+                processItem = getRefProcessItem(p, processId, version);
                 if (processItem != null) {
                     break;
                 }
