@@ -33,6 +33,8 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.update.UpdateResult;
+import org.talend.core.utils.CsvArray;
+import org.talend.designer.runprocess.ProcessorException;
 
 /**
  * Provides Designer core services for other components <br/>.
@@ -130,4 +132,6 @@ public interface IDesignerCoreService extends IService {
     public void refreshComponentView(Item item);
 
     public void removeConnection(INode node, String schemaName);
+
+    public CsvArray convertNode(ConnectionItem connectionItem, String tableName) throws ProcessorException;
 }
