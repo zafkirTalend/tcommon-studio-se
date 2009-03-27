@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.talend.tdq.components"
-      label="Components Feature"
-      version="1.0.0"
+      id="org.talend.tdq.components_feature"
+      label="TDQ Components Feature"
+      version="1.0.0.qualifier"
       provider-name=".Talend SA.">
 
    <description url="http://www.example.com/description">
