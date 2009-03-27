@@ -15,6 +15,7 @@
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
 			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
 			<dbType type="INT8" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT" ignoreLen="true" ignorePre="true" />
 			<dbType type="LVARCHAR" ignoreLen="true" ignorePre="true" />
 			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
 			<dbType type="NCHAR" defaultLength="50" ignorePre="true" />
@@ -146,6 +147,9 @@
 				</dbType>
 				<dbType type="INT8">
 					<talendType type="id_Long" default="true" />
+				</dbType>
+				<dbType type="INT">
+					<talendType type="id_Integer" default="true" />
 				</dbType>
 				<dbType type="LVARCHAR">
 					<talendType type="id_String" default="true" />
