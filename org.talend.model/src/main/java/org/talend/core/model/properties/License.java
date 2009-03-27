@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.License#getLicense <em>License</em>}</li>
  *   <li>{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.License#getParams <em>Params</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.License#getToken <em>Token</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +79,57 @@ public interface License extends EObject {
      * @generated
      */
     void setCustomerName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Params</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Params</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Params</em>' attribute.
+     * @see #setParams(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getLicense_Params()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
+    String getParams();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.License#getParams <em>Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Params</em>' attribute.
+     * @see #getParams()
+     * @generated
+     */
+    void setParams(String value);
+
+    /**
+     * Returns the value of the '<em><b>Token</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Token</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Token</em>' attribute.
+     * @see #setToken(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getLicense_Token()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
+    String getToken();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.License#getToken <em>Token</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Token</em>' attribute.
+     * @see #getToken()
+     * @generated
+     */
+    void setToken(String value);
 
 } // License

@@ -25,6 +25,8 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getLicense <em>License</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getCustomerName <em>Customer Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getParams <em>Params</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getToken <em>Token</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +72,46 @@ public class LicenseImpl extends EObjectImpl implements License {
      * @ordered
      */
     protected String customerName = CUSTOMER_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getParams() <em>Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParams()
+     * @generated
+     * @ordered
+     */
+    protected static final String PARAMS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getParams() <em>Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParams()
+     * @generated
+     * @ordered
+     */
+    protected String params = PARAMS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getToken() <em>Token</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getToken()
+     * @generated
+     * @ordered
+     */
+    protected static final String TOKEN_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getToken() <em>Token</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getToken()
+     * @generated
+     * @ordered
+     */
+    protected String token = TOKEN_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -136,12 +178,58 @@ public class LicenseImpl extends EObjectImpl implements License {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getParams() {
+        return params;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParams(String newParams) {
+        String oldParams = params;
+        params = newParams;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LICENSE__PARAMS, oldParams, params));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setToken(String newToken) {
+        String oldToken = token;
+        token = newToken;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LICENSE__TOKEN, oldToken, token));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.LICENSE__LICENSE:
                 return getLicense();
             case PropertiesPackage.LICENSE__CUSTOMER_NAME:
                 return getCustomerName();
+            case PropertiesPackage.LICENSE__PARAMS:
+                return getParams();
+            case PropertiesPackage.LICENSE__TOKEN:
+                return getToken();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -158,6 +246,12 @@ public class LicenseImpl extends EObjectImpl implements License {
                 return;
             case PropertiesPackage.LICENSE__CUSTOMER_NAME:
                 setCustomerName((String)newValue);
+                return;
+            case PropertiesPackage.LICENSE__PARAMS:
+                setParams((String)newValue);
+                return;
+            case PropertiesPackage.LICENSE__TOKEN:
+                setToken((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -176,6 +270,12 @@ public class LicenseImpl extends EObjectImpl implements License {
             case PropertiesPackage.LICENSE__CUSTOMER_NAME:
                 setCustomerName(CUSTOMER_NAME_EDEFAULT);
                 return;
+            case PropertiesPackage.LICENSE__PARAMS:
+                setParams(PARAMS_EDEFAULT);
+                return;
+            case PropertiesPackage.LICENSE__TOKEN:
+                setToken(TOKEN_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -191,6 +291,10 @@ public class LicenseImpl extends EObjectImpl implements License {
                 return LICENSE_EDEFAULT == null ? license != null : !LICENSE_EDEFAULT.equals(license);
             case PropertiesPackage.LICENSE__CUSTOMER_NAME:
                 return CUSTOMER_NAME_EDEFAULT == null ? customerName != null : !CUSTOMER_NAME_EDEFAULT.equals(customerName);
+            case PropertiesPackage.LICENSE__PARAMS:
+                return PARAMS_EDEFAULT == null ? params != null : !PARAMS_EDEFAULT.equals(params);
+            case PropertiesPackage.LICENSE__TOKEN:
+                return TOKEN_EDEFAULT == null ? token != null : !TOKEN_EDEFAULT.equals(token);
         }
         return super.eIsSet(featureID);
     }
@@ -208,6 +312,10 @@ public class LicenseImpl extends EObjectImpl implements License {
         result.append(license);
         result.append(", customerName: ");
         result.append(customerName);
+        result.append(", params: ");
+        result.append(params);
+        result.append(", token: ");
+        result.append(token);
         result.append(')');
         return result.toString();
     }

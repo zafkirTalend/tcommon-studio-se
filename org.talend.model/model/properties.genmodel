@@ -215,6 +215,8 @@
     <genClasses ecoreClass="properties.ecore#//License">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/license"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/customerName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/params"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/token"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//GenericSchemaConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//UserModuleAuthorization">

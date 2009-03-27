@@ -2288,13 +2288,31 @@ public interface PropertiesPackage extends EPackage {
     int LICENSE__CUSTOMER_NAME = 1;
 
     /**
+     * The feature id for the '<em><b>Params</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__PARAMS = 2;
+
+    /**
+     * The feature id for the '<em><b>Token</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__TOKEN = 3;
+
+    /**
      * The number of structural features of the '<em>License</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LICENSE_FEATURE_COUNT = 2;
+    int LICENSE_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.
@@ -6914,6 +6932,28 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getLicense_CustomerName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.License#getParams <em>Params</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Params</em>'.
+     * @see org.talend.core.model.properties.License#getParams()
+     * @see #getLicense()
+     * @generated
+     */
+    EAttribute getLicense_Params();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.License#getToken <em>Token</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Token</em>'.
+     * @see org.talend.core.model.properties.License#getToken()
+     * @see #getLicense()
+     * @generated
+     */
+    EAttribute getLicense_Token();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.GenericSchemaConnectionItem <em>Generic Schema Connection Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10603,6 +10643,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute LICENSE__CUSTOMER_NAME = eINSTANCE.getLicense_CustomerName();
+
+        /**
+         * The meta object literal for the '<em><b>Params</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LICENSE__PARAMS = eINSTANCE.getLicense_Params();
+
+        /**
+         * The meta object literal for the '<em><b>Token</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LICENSE__TOKEN = eINSTANCE.getLicense_Token();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.

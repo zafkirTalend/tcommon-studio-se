@@ -1867,6 +1867,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLicense_Params() {
+        return (EAttribute)licenseEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLicense_Token() {
+        return (EAttribute)licenseEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3828,6 +3846,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         licenseEClass = createEClass(LICENSE);
         createEAttribute(licenseEClass, LICENSE__LICENSE);
         createEAttribute(licenseEClass, LICENSE__CUSTOMER_NAME);
+        createEAttribute(licenseEClass, LICENSE__PARAMS);
+        createEAttribute(licenseEClass, LICENSE__TOKEN);
 
         genericSchemaConnectionItemEClass = createEClass(GENERIC_SCHEMA_CONNECTION_ITEM);
 
@@ -4340,6 +4360,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(licenseEClass, License.class, "License", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLicense_License(), ecorePackage.getEByteArray(), "license", null, 0, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLicense_CustomerName(), theXMLTypePackage.getString(), "customerName", null, 0, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLicense_Params(), theXMLTypePackage.getString(), "params", null, 0, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLicense_Token(), theXMLTypePackage.getString(), "token", null, 0, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(genericSchemaConnectionItemEClass, GenericSchemaConnectionItem.class, "GenericSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

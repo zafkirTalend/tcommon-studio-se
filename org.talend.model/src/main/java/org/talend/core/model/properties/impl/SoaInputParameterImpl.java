@@ -1,27 +1,22 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.properties.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.SoaInputParameter;
 import org.talend.core.model.properties.SoaOperation;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Soa Input Parameter</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Soa Input Parameter</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -37,10 +32,10 @@ import org.talend.core.model.properties.SoaOperation;
  * @generated
  */
 public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParameter {
+
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -49,8 +44,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
 
     /**
      * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -59,8 +53,8 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLabel()
      * @generated
      * @ordered
@@ -68,9 +62,9 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -79,8 +73,8 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
 
     /**
      * The cached value of the '{@link #getOperation() <em>Operation</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getOperation()
      * @generated
      * @ordered
@@ -119,8 +113,8 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
 
     /**
      * The cached value of the '{@link #getExposedName() <em>Exposed Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getExposedName()
      * @generated
      * @ordered
@@ -129,8 +123,8 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
 
     /**
      * The default value of the '{@link #isExposed() <em>Exposed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isExposed()
      * @generated
      * @ordered
@@ -139,8 +133,8 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
 
     /**
      * The cached value of the '{@link #isExposed() <em>Exposed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isExposed()
      * @generated
      * @ordered
@@ -148,8 +142,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     protected boolean exposed = EXPOSED_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected SoaInputParameterImpl() {
@@ -157,8 +150,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected EClass eStaticClass() {
@@ -166,8 +158,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getId() {
@@ -175,8 +166,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setId(int newId) {
@@ -187,8 +177,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLabel() {
@@ -196,8 +185,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLabel(String newLabel) {
@@ -208,8 +196,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SoaOperation getOperation() {
@@ -225,8 +212,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SoaOperation basicGetOperation() {
@@ -234,8 +220,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setOperation(SoaOperation newOperation) {
@@ -246,8 +231,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDefaultValue() {
@@ -255,8 +239,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDefaultValue(String newDefaultValue) {
@@ -267,8 +250,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getExposedName() {
@@ -276,8 +258,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExposedName(String newExposedName) {
@@ -288,8 +269,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isExposed() {
@@ -297,8 +277,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExposed(boolean newExposed) {
@@ -309,8 +288,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
@@ -333,8 +311,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
@@ -362,8 +339,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eUnset(int featureID) {
@@ -391,8 +367,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean eIsSet(int featureID) {
@@ -414,8 +389,7 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String toString() {
@@ -436,4 +410,26 @@ public class SoaInputParameterImpl extends EObjectImpl implements SoaInputParame
         return result.toString();
     }
 
-} //SoaInputParameterImpl
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + this.id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SoaInputParameterImpl other = (SoaInputParameterImpl) obj;
+        if (this.id != other.id)
+            return false;
+        return true;
+    }
+
+} // SoaInputParameterImpl
