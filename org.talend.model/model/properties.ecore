@@ -561,4 +561,5 @@
         upperBound="-1" eType="#//SoaOperation" containment="true" eOpposite="#//SoaOperation/service"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RulesItem" eSuperTypes="#//FileItem"/>
 </ecore:EPackage>

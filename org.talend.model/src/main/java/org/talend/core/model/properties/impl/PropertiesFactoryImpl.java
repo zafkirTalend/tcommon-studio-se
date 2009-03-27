@@ -152,6 +152,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.SOA_OPERATION: return createSoaOperation();
             case PropertiesPackage.SOA_INPUT_PARAMETER: return createSoaInputParameter();
             case PropertiesPackage.SOA_SERVICE: return createSoaService();
+            case PropertiesPackage.RULES_ITEM: return createRulesItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -774,6 +775,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public SoaService createSoaService() {
         SoaServiceImpl soaService = new SoaServiceImpl();
         return soaService;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RulesItem createRulesItem() {
+        RulesItemImpl rulesItem = new RulesItemImpl();
+        return rulesItem;
     }
 
     /**

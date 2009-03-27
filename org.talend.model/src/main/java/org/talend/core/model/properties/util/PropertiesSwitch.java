@@ -530,6 +530,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.RULES_ITEM: {
+                RulesItem rulesItem = (RulesItem)theEObject;
+                Object result = caseRulesItem(rulesItem);
+                if (result == null) result = caseFileItem(rulesItem);
+                if (result == null) result = caseItem(rulesItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1491,6 +1499,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseSoaService(SoaService object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Rules Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Rules Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseRulesItem(RulesItem object) {
         return null;
     }
 

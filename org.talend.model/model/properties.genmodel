@@ -446,5 +446,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//SoaService/operations"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/status"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//RulesItem"/>
   </genPackages>
 </genmodel:GenModel>

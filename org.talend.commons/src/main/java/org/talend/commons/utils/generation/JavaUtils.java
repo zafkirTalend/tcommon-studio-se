@@ -38,6 +38,12 @@ public final class JavaUtils {
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java"; //$NON-NLS-1$
 
+    /** drl File Extension. */
+    public static final String DRL_EXTENSION = ".drl"; //$NON-NLS-1$
+
+    /** Item File Extension. */
+    public static final String ITEM_EXTENSION = ".item"; //$NON-NLS-1$
+
     /** Java sqltemplate Extension. */
     public static final String JAVA_SQLPATTERN_EXTENSION = ".sqltemplate"; //$NON-NLS-1$
 
@@ -67,6 +73,12 @@ public final class JavaUtils {
 
     /** Java Source Directory. */
     public static final String JAVA_SRC_DIRECTORY = "src"; //$NON-NLS-1$
+
+    /** Java Rules Directory. */
+    public static final String JAVA_RULES_DIRECTORY = "rules"; //$NON-NLS-1$
+
+    /** Java Metadata Directory. */
+    public static final String JAVA_METADATA_DIRECTORY = "metadata"; //$NON-NLS-1$
 
     /** Java ClassPath Separator. */
     public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";" : ":"; //$NON-NLS-1$ //$NON-NLS-2$

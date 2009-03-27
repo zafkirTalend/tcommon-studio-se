@@ -63,6 +63,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
@@ -474,6 +475,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass soaServiceEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass rulesItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3228,6 +3236,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getRulesItem() {
+        return rulesItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4048,6 +4065,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(soaServiceEClass, SOA_SERVICE__OPERATIONS);
         createEAttribute(soaServiceEClass, SOA_SERVICE__STATUS);
 
+        rulesItemEClass = createEClass(RULES_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -4119,6 +4138,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         jobletDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         wsdlSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         sqlPatternItemEClass.getESuperTypes().add(this.getFileItem());
+        rulesItemEClass.getESuperTypes().add(this.getFileItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4556,6 +4576,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getSoaService_ParamStyle(), theEcorePackage.getEString(), "paramStyle", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSoaService_Operations(), this.getSoaOperation(), this.getSoaOperation_Service(), "operations", null, 0, -1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getSoaService_Status(), theEcorePackage.getEString(), "status", null, 0, 1, SoaService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(rulesItemEClass, RulesItem.class, "RulesItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

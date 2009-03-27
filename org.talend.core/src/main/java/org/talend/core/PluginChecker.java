@@ -42,6 +42,9 @@ public class PluginChecker {
 
     private static final String EXCHANGE_SYSTEM_PLUGIN_ID = "org.talend.designer.components.ecosystem"; //$NON-NLS-1$
 
+    // added by hyWang
+    private static final String RULES_PLUGIN_ID = "org.talend.repository.rules"; //$NON-NLS-1$   
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -122,5 +125,9 @@ public class PluginChecker {
 
     public static boolean isExchangeSystemLoaded() {
         return isPluginLoaded(EXCHANGE_SYSTEM_PLUGIN_ID);
+    }
+
+    public static boolean isRulesPluginLoaded() { // added by hyWang
+        return isPluginLoaded(RULES_PLUGIN_ID);
     }
 }

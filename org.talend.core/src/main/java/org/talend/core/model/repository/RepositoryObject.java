@@ -50,6 +50,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
@@ -200,6 +201,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseProcessItem(ProcessItem object) {
                 return ERepositoryObjectType.PROCESS;
+            }
+
+            public Object caseRulesItem(RulesItem object) {
+                return ERepositoryObjectType.METADATA_FILE_RULES;
             }
 
             /*

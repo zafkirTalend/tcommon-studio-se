@@ -77,6 +77,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
     /** Name text. */
     protected Text nameText;
 
+    public Text getNameText() {
+        return this.nameText;
+    }
+
     /** Purpose text. */
     protected Text purposeText;
 

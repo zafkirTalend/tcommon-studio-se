@@ -553,6 +553,15 @@ public interface PropertiesFactory extends EFactory {
     SoaService createSoaService();
 
     /**
+     * Returns a new object of class '<em>Rules Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Rules Item</em>'.
+     * @generated
+     */
+    RulesItem createRulesItem();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

@@ -5169,13 +5169,77 @@ public interface PropertiesPackage extends EPackage {
     int SOA_SERVICE_FEATURE_COUNT = 14;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.RulesItemImpl <em>Rules Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.RulesItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRulesItem()
+     * @generated
+     */
+    int RULES_ITEM = 65;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The number of structural features of the '<em>Rules Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 65;
+    int FOLDER_TYPE = 66;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5185,7 +5249,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 66;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 67;
 
 
     /**
@@ -5196,7 +5260,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 67;
+    int USER_MODULE_AUTHORIZATION_TYPE = 68;
 
 
     /**
@@ -5207,7 +5271,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 68;
+    int INFORMATION_LEVEL = 69;
 
 
     /**
@@ -8704,6 +8768,16 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSoaService_Status();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.RulesItem <em>Rules Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Rules Item</em>'.
+     * @see org.talend.core.model.properties.RulesItem
+     * @generated
+     */
+    EClass getRulesItem();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -11951,6 +12025,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SOA_SERVICE__STATUS = eINSTANCE.getSoaService_Status();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.RulesItemImpl <em>Rules Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.RulesItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRulesItem()
+         * @generated
+         */
+        EClass RULES_ITEM = eINSTANCE.getRulesItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.

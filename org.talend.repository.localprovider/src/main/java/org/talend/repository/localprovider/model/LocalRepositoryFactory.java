@@ -76,6 +76,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SpagoBiServer;
@@ -369,6 +370,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         if (PluginChecker.isEBCDICPluginLoaded()) {
             needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
+        }
+        if (PluginChecker.isRulesPluginLoaded()) {
+            needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_RULES);
         }
 
     }
@@ -1235,6 +1239,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM:
                 itemResource = save((LinkDocumentationItem) item);
                 break;
+            case PropertiesPackage.RULES_ITEM:// feature 6484 added
+                itemResource = save((RulesItem) item);
+                break;
             default:
                 throw new UnsupportedOperationException();
             }
@@ -1389,6 +1396,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM:
                 itemResource = create(project2, (LinkDocumentationItem) item, path);
+                break;
+            case PropertiesPackage.RULES_ITEM:
+                itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.METADATA_FILE_RULES);
                 break;
             default:
                 throw new UnsupportedOperationException();
@@ -1597,4 +1607,5 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
         xmiResourceManager.saveResource(loadProject.eResource());
     }
+
 }

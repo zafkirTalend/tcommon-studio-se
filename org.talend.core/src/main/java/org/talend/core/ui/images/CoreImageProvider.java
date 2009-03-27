@@ -95,6 +95,8 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_SALESFORCE_SCHEMA_ICON;
         case METADATA_FILE_EBCDIC:
             return ECoreImage.METADATA_EBCDIC_CONNECTION_ICON;
+        case METADATA_FILE_RULES:
+            return ECoreImage.METADATA_RULES_ICON;
         default:
             return EImage.DEFAULT_IMAGE;
         }

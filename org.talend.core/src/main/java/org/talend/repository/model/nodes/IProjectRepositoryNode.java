@@ -129,6 +129,8 @@ public interface IProjectRepositoryNode {
 
     public RepositoryNode getMetadataEbcdicConnectionNode();
 
+    public RepositoryNode getMetadataRulesNode();
+
     /**
      * Getter for project.
      * 

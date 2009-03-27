@@ -152,7 +152,6 @@ public class RepositoryEditorInput extends FileEditorInput {
             }
             return true;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             // e.printStackTrace();
             ExceptionHandler.process(e);
             if (monitor != null) {

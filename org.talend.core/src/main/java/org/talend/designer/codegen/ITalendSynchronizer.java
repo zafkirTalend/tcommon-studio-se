@@ -32,6 +32,7 @@ public interface ITalendSynchronizer {
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
     public IFile getFile(Item item) throws SystemException;
-    
+
     public void forceSyncRoutine(RoutineItem routineItem);
+
 }

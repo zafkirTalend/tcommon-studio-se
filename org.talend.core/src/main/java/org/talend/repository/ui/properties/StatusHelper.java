@@ -84,6 +84,9 @@ public class StatusHelper {
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
+            case PropertiesPackage.RULES_ITEM:
+                status = repositoryFactory.getTechnicalStatus();
+                break;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 status = repositoryFactory.getDocumentationStatus();
