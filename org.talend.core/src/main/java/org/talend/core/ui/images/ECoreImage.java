@@ -132,6 +132,8 @@ public enum ECoreImage implements IImage {
     JOBLET_COMPONENT_ICON("/icons/joblet_component.png"), //$NON-NLS-1$
     UNKNOWN(),
     PROGRESSBAR("/icons/progressBar.gif"), //$NON-NLS-1$
+    PROGRESSBARBlACK("/icons/progressBar2.gif"), //$NON-NLS-1$
+    PROGRESSGREEBAR("/icons/greeBar.gif"), //$NON-NLS-1$
     TRIANGLE("/icons/triangle.gif");// triangle.gif //$NON-NLS-1$
 
     private String path;
