@@ -51,8 +51,7 @@ public class CustomTableManagerOnlyForGenericSchema {
 
     public static final Color CELL_WRONG_DB_TYPE_COLOR = new Color(null, new RGB(0xFF, 0x80, 0));
 
-    public static void addCustomManagementToTable(final MetadataEmfTableEditorView tableEditorView,
-            final boolean readOnly) {
+    public static void addCustomManagementToTable(final MetadataEmfTableEditorView tableEditorView, final boolean readOnly) {
         CustomTableLabelProvider tableProvider = new CustomTableLabelProvider(tableEditorView, readOnly);
         tableEditorView.getTableViewerCreator().setLabelProvider(tableProvider);
         tableEditorView.getTableViewerCreator().init(tableEditorView.getTableViewerCreator().getInputList());
@@ -60,18 +59,17 @@ public class CustomTableManagerOnlyForGenericSchema {
                 new CustomTableCellModifier(tableEditorView.getTableViewerCreator()));
     }
 
-    public static void addCustomManagementToToolBar(final MetadataEmfTableEditorView tableEditorView,
-            final MetadataTable table, final boolean readOnly, final MetadataEmfTableEditorView linkedTableEditorView,
-            final MetadataTable linkedTable, final boolean toPropagate) {
-        tableEditorView.getTableViewerCreator().getTableViewer().addPostSelectionChangedListener(
-                new ISelectionChangedListener() {
+    public static void addCustomManagementToToolBar(final MetadataEmfTableEditorView tableEditorView, final MetadataTable table,
+            final boolean readOnly, final MetadataEmfTableEditorView linkedTableEditorView, final MetadataTable linkedTable,
+            final boolean toPropagate) {
+        tableEditorView.getTableViewerCreator().getTableViewer().addPostSelectionChangedListener(new ISelectionChangedListener() {
 
-                    public void selectionChanged(SelectionChangedEvent event) {
-                        updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table,
-                                linkedTableEditorView, linkedTable, readOnly);
-                    }
+            public void selectionChanged(SelectionChangedEvent event) {
+                updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table, linkedTableEditorView, linkedTable,
+                        readOnly);
+            }
 
-                });
+        });
         boolean isThereCustom = false;
         for (IMetadataColumn column : table.getListColumns()) {
             if (column.isCustom()) {
@@ -110,9 +108,8 @@ public class CustomTableManagerOnlyForGenericSchema {
             }
 
             public void widgetSelected(SelectionEvent e) {
-                updateToolBarButtonsOnSelection(
-                        tableEditorView.getTableViewerCreator().getTableViewer().getSelection(), tableEditorView,
-                        table, linkedTableEditorView, linkedTable, readOnly);
+                updateToolBarButtonsOnSelection(tableEditorView.getTableViewerCreator().getTableViewer().getSelection(),
+                        tableEditorView, table, linkedTableEditorView, linkedTable, readOnly);
             }
 
         };
@@ -141,9 +138,9 @@ public class CustomTableManagerOnlyForGenericSchema {
         }
     }
 
-    private static void updateToolBarButtonsOnSelection(ISelection currentSelection,
-            MetadataEmfTableEditorView tableEditorView, IMetadataTable table,
-            final MetadataEmfTableEditorView linkedTableEditorView, final IMetadataTable linkedTable, boolean readOnly) {
+    private static void updateToolBarButtonsOnSelection(ISelection currentSelection, MetadataEmfTableEditorView tableEditorView,
+            IMetadataTable table, final MetadataEmfTableEditorView linkedTableEditorView, final IMetadataTable linkedTable,
+            boolean readOnly) {
         IStructuredSelection selection = (IStructuredSelection) currentSelection;
 
         boolean isThereCustom = false;
@@ -163,7 +160,7 @@ public class CustomTableManagerOnlyForGenericSchema {
         }
 
         if (isThereCustom || table.isReadOnly()) {
-            
+
             tableEditorView.getExtendedToolbar().getMoveDownButton().getButton().setEnabled(false);
             tableEditorView.getExtendedToolbar().getMoveUpButton().getButton().setEnabled(false);
             tableEditorView.getExtendedToolbar().getRemoveButton().getButton().setEnabled(false);
@@ -211,12 +208,12 @@ public class CustomTableManagerOnlyForGenericSchema {
                 return null;
             }
             MetadataColumn column = (MetadataColumn) element;
-            TableViewerCreatorColumn tableColumn = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(
-                    columnIndex);
+            TableViewerCreatorColumn tableColumn = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(columnIndex);
             if (column.isReadOnly()) {
                 return TABLE_READ_ONLY_COLOR;
             }
-            if (tableEditorView.isShowTalendTypeColumn()) {
+            // qli modified to fix the bug 6654.
+            if (tableEditorView.isShowTalendTypeColumn() && tableEditorView.getCurrentDbms() != null) {
                 if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE)
                         && !"".equals(column.getSourceType()) //$NON-NLS-1$
                         && !TypesManager.checkDBType(tableEditorView.getCurrentDbms(), column.getTalendType(), column
@@ -250,8 +247,7 @@ public class CustomTableManagerOnlyForGenericSchema {
         public boolean canModify(Object element, String property) {
             if (element instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) element;
-                if (column.isReadOnly()
-                        || (column.isCustom() && property.equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME))) {
+                if (column.isReadOnly() || (column.isCustom() && property.equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME))) {
                     return false;
                 }
             }

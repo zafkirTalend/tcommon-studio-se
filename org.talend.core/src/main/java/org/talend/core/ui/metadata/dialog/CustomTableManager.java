@@ -96,7 +96,7 @@ public class CustomTableManager {
 
                 public void widgetSelected(SelectionEvent e) {
                     table.sortCustomColumns();
-                    //tableEditorView.getTableViewerCreator().getTableViewer().refresh();
+                    // tableEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
 
             });
@@ -217,7 +217,8 @@ public class CustomTableManager {
             if (column.isReadOnly()) {
                 return TABLE_READ_ONLY_COLOR;
             }
-            if (tableEditorView.isShowTalendTypeColumn()) {
+            // qli modified to fix the bug 6654.
+            if (tableEditorView.isShowTalendTypeColumn() && tableEditorView.getCurrentDbms() != null) {
                 if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE) && !"".equals(column.getType()) //$NON-NLS-1$
                         && !TypesManager.checkDBType(tableEditorView.getCurrentDbms(), column.getTalendType(), column.getType())) {
                     return CELL_WRONG_DB_TYPE_COLOR;

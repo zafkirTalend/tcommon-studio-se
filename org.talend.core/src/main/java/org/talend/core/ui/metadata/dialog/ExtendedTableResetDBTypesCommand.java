@@ -59,26 +59,28 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
 
         List beansList = extendedTable.getBeansList();
         for (Object object : beansList) {
-            if (object instanceof IMetadataColumn ) {
+            if (object instanceof IMetadataColumn) {
                 oldDbTypes.add(((IMetadataColumn) object).getType());
-            }
-            else if(object instanceof MetadataColumn)
-            {
-                oldDbTypes.add(((MetadataColumn)object).getSourceType());
+            } else if (object instanceof MetadataColumn) {
+                oldDbTypes.add(((MetadataColumn) object).getSourceType());
             }
         }
 
         for (int i = 0; i < beansList.size(); i++) {
             if (beansList.get(i) instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) beansList.get(i);
-                if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
-                    column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                // qli modified to fix the bug 6654.
+                if (dbmsId != null) {
+                    if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
+                        column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                    }
                 }
-            }
-            else if (beansList.get(i) instanceof MetadataColumn) {
+            } else if (beansList.get(i) instanceof MetadataColumn) {
                 MetadataColumn column = (MetadataColumn) beansList.get(i);
-                if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getSourceType())) {
-                    column.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                if (dbmsId != null) {
+                    if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getSourceType())) {
+                        column.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                    }
                 }
             }
         }

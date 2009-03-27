@@ -106,6 +106,8 @@ public class ExtractMetaDataFromDataBase {
 
     private static Map<String, String> tableSchemaMap = new Hashtable<String, String>();
 
+    private static MappingTypeRetriever mappingTypeRetriever;
+
     /**
      * DOC cantoine. Method to return a Collection of Tables for a DB connection.
      * 
@@ -378,8 +380,10 @@ public class ExtractMetaDataFromDataBase {
 
                     String talendType = null;
 
-                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
-                            .getMapping());
+                    // qli modified to fix the bug 6654.
+                    if (metadataConnection.getMapping() != null) {
+                        mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
+                    }
                     talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
