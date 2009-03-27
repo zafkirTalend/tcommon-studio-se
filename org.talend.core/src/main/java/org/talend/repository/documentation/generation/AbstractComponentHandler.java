@@ -20,9 +20,14 @@ import java.util.Map;
 
 import org.dom4j.Element;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.swt.SWT;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.image.ImageUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -33,6 +38,7 @@ import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.ui.IJobletProviderService;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -55,7 +61,19 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
      * @return a string reprenenting component icon's path
      */
     protected String getComponentIconPath(INode node) {
-        String string = node.getComponent().getIcon32().toString();
+
+        IComponent component = node.getComponent();
+        if (PluginChecker.isJobLetPluginLoaded()) {
+            IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
+                    IJobletProviderService.class);
+            if (service != null && service.isJobletComponent(node)) {
+                String filePath = getTmpFolder() + File.separator + node.getUniqueName() + ".png"; //$NON-NLS-1$
+                ImageUtils.save(component.getIcon32().createImage(), filePath, SWT.IMAGE_PNG);
+                return filePath;
+
+            }
+        }
+        String string = component.getIcon32().toString();
         String path = string.substring("URLImageDescriptor(".length(), string.length() - 1); //$NON-NLS-1$
         try {
             return new URL(path).getPath();
@@ -99,7 +117,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
 
         Element componentElement = nodeElement.addElement("component"); //$NON-NLS-1$
         String relativePath = getComponentIconPath(node);
-        String componentIconFileName = relativePath.substring(relativePath.lastIndexOf("/") + 1); //$NON-NLS-1$
+        String componentIconFileName = new File(relativePath).getName(); //$NON-NLS-1$
 
         String uniqueName = node.getUniqueName();
         componentElement.addAttribute("icon", IHTMLDocConstants.PICTUREFOLDERPATH + componentIconFileName); //$NON-NLS-1$
