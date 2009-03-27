@@ -13,6 +13,7 @@
 package org.talend.rcp.intro;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.IHandler;
@@ -37,6 +38,7 @@ import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
@@ -44,6 +46,7 @@ import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
+import org.talend.rcp.util.ApplicationDeletionUtil;
 import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
@@ -111,6 +114,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
         adviser.getHelper().postWindowOpen();
+
+        /**
+         * PTODO need remove this, if there is not only merging ref-project option in the repository page.(feature 6725)
+         * 
+         * @see org.talend.designer.core.ui.preferences.RepositoryPreferencePage
+         */
+        if (!PluginChecker.isRefProjectLoaded()) {
+            String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" };
+            ApplicationDeletionUtil.removePreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId));
+        }
     }
 
     /**
