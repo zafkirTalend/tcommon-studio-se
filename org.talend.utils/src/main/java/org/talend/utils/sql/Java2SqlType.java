@@ -73,21 +73,21 @@ public final class Java2SqlType {
         return type == Types.TIMESTAMP;
     }
 
-    public static boolean isOtheTypeInSQL(int type) {
+    public static boolean isOtherTypeInSQL(int type) {
 
-        if (isTextInSQL(type)) {
-            return false;
-        }
-
-        if (isNumbericInSQL(type)) {
-            return false;
-        }
-
-        if (isDateInSQL(type)) {
-
+        if (isTextInSQL(type) || isNumbericInSQL(type) || isDateInSQL(type)) {
             return false;
         }
 
         return true;
+    }
+
+    public static boolean isGenericSameType(int type1, int type2) {
+        if (isTextInSQL(type1) && isTextInSQL(type2) || isNumbericInSQL(type1) && isNumbericInSQL(type2) || isDateInSQL(type1)
+                && isDateInSQL(type2)) {
+            return true;
+        }
+
+        return false;
     }
 }
