@@ -155,9 +155,9 @@
 					<talendType type="id_String" default="true" />
 				</dbType>
 			</dbToTalendTypes>
-		</language>4
+		</language>
 		
-		<language name="perl">-*41
+		<language name="perl">
 			<talendToDbTypes>
 				<talendType type="int">	
 					<dbType type="INTEGER" default="true" />	
@@ -173,7 +173,6 @@
 				</talendType>
 				<talendType type="boolean">
 					<dbType type="CHAR" default="true" />
-					<dbType type="INT"  />	
 					<dbType type="BIT"/>	
 				</talendType>
 				<talendType type="string">

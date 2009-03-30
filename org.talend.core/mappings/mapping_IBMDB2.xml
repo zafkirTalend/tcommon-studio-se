@@ -160,8 +160,8 @@
 					<dbType type="NUMERIC"/>	
 				</talendType>
 				<talendType type="boolean">	
-				<dbType type="CHAR" default="true"/>
-				<dbType type="INTEGER"/>
+					<dbType type="CHAR" default="true"/>
+					<dbType type="INTEGER"/>
 				</talendType>
 				<talendType type="string">
 					<dbType type="VARCHAR" default="true" />
@@ -209,7 +209,7 @@
 				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="int" default="true" />
-					<talendType type="id_boolean"  />
+					<talendType type="boolean"  />
 				</dbType>
 				<dbType type="LONG VARCHAR">
 					<talendType type="string" default="true" />

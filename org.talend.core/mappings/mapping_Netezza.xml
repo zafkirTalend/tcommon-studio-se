@@ -227,7 +227,7 @@
 				</dbType>
 				<dbType type="VARCHAR">
 					<talendType type="string" default="true" />
-				</dbType>				
+				</dbType>
 				<dbType type="NVARCHAR">
 					<talendType type="string" default="true" />
 				</dbType>
@@ -264,16 +264,13 @@
 				<dbType type="INT8">
 					<talendType type="int" default="true" />
 				</dbType>
-				<dbType type="BYEINT">
+				<dbType type="BYTEINT">
 					<talendType type="int" default="true" />
 				</dbType>
 				<dbType type="BIGINT">
 					<talendType type="int" default="true" />
 				</dbType>
 				<dbType type="REAL">
-					<talendType type="int" default="true" />
-				</dbType>
-				<dbType type="LONG">
 					<talendType type="int" default="true" />
 				</dbType>
 				<dbType type="FLOAT">

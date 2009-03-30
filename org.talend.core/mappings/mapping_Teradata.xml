@@ -322,6 +322,60 @@
 				<dbType type="XMLTYPE">
 					<talendType type="string" default="true" />			
 				</dbType>
+				<dbType type="AT">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="I">
+					<talendType type="int" default="true"/>
+				</dbType>
+				<dbType type="BF">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="BO">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="BV">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="CF">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="CO">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="CV">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="D">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="DA">
+					<talendType type="date" default="true" />
+				</dbType>
+				<dbType type="F">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="GF">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="BF">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="GV">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="I1">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="I2">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="TS">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="TZ">
+					<talendType type="string" default="true" />
+				</dbType>
 			</dbToTalendTypes>
 		</language>
 	</dbms>

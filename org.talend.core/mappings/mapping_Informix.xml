@@ -252,6 +252,9 @@
 				<dbType type="FLOAT">
 					<talendType type="decimal" default="true" />
 				</dbType>
+				<dbType type="INT">
+					<talendType type="int" default="true" />
+				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="int" default="true" />
 				</dbType>

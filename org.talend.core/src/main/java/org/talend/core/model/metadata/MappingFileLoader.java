@@ -69,11 +69,14 @@ public class MappingFileLoader {
         } else {
             throw new IllegalStateException("Case language not found"); //$NON-NLS-1$
         }
+        StringBuffer stringBuff = new StringBuffer();
 
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder analyser = documentBuilderFactory.newDocumentBuilder();
             Document document = analyser.parse(file);
+            stringBuff.append("language=" + codeLanguage + "\n");
+            stringBuff.append("file=" + file + "\n");
 
             NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
 
@@ -127,6 +130,8 @@ public class MappingFileLoader {
                 for (Node typeNode : typeNodes) {
                     NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
                     String typeValue = typeNodeAtttributes.getNamedItem("type").getNodeValue(); //$NON-NLS-1$
+                    stringBuff.append("typeValue=" + typeValue + "\n");
+
                     Node defaultTypeItem = typeNodeAtttributes.getNamedItem("default"); //$NON-NLS-1$
                     if (hAllDbTypes.contains(typeValue)) {
                         String message = Messages
@@ -182,8 +187,6 @@ public class MappingFileLoader {
                 for (int i = 0; i < languageNodes.size(); i++) {
                     Node languageNode = languageNodes.get(i);
 
-                    // System.out.println();
-
                     String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue(); //$NON-NLS-1$
 
                     if (codeLanguage.getName().equalsIgnoreCase(languageValue)) {
@@ -206,6 +209,7 @@ public class MappingFileLoader {
                             }
                             String talendType = talendTypeItem.getNodeValue();
 
+                            stringBuff.append("talendTypeItem=" + talendType + "\n");
                             if (!hAllTalendTypes.contains(talendType)) { // test
                                 // if
                                 // the
@@ -213,7 +217,7 @@ public class MappingFileLoader {
                                 // exists
                                 String message = Messages.getString("MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
                                         new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
-                                                defaultNodeRetriever.getAbsoluteXPathFromNode(talendTypeItem) });
+                                                defaultNodeRetriever.getAbsoluteXPathFromNode(talendTypeSource) });
                                 // System.out.println(message);
                                 log.warn(message);
                                 continue;
@@ -238,7 +242,7 @@ public class MappingFileLoader {
                                 if (!hAllDbTypes.contains(dbType)) {
                                     String message = Messages
                                             .getString(
-                                                    "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, defaultNodeRetriever.getAbsoluteXPathFromNode(dbTypeItem) }); //$NON-NLS-1$
+                                                    "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, defaultNodeRetriever.getAbsoluteXPathFromNode(languageTypeNode) }); //$NON-NLS-1$
                                     // System.out.println(message);
                                     log.warn(message);
                                     continue;
@@ -273,11 +277,11 @@ public class MappingFileLoader {
                                 continue;
                             }
                             String dbType = dbTypeItem.getNodeValue();
-
+                            stringBuff.append("dbType=" + dbType + "\n");
                             if (!hAllDbTypes.contains(dbType)) {
                                 String message = Messages
                                         .getString(
-                                                "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, defaultNodeRetriever.getAbsoluteXPathFromNode(dbTypeItem) }); //$NON-NLS-1$
+                                                "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, defaultNodeRetriever.getAbsoluteXPathFromNode(dbTypeSource) }); //$NON-NLS-1$
                                 // System.out.println(message);
                                 log.warn(message);
                                 continue;
@@ -300,14 +304,10 @@ public class MappingFileLoader {
                                 }
                                 String talendType = talendTypeItem.getNodeValue();
 
-                                if (!hAllTalendTypes.contains(talendType)) { // test
-                                    // if
-                                    // the
-                                    // type
-                                    // exists
+                                if (!hAllTalendTypes.contains(talendType)) {
                                     String message = Messages.getString("MappingFileLoader.InvalidTalendType", //$NON-NLS-1$
                                             new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
-                                                    defaultNodeRetriever.getAbsoluteXPathFromNode(talendTypeItem) });
+                                                    defaultNodeRetriever.getAbsoluteXPathFromNode(languageTypeNode) });
                                     // System.out.println(message);
                                     log.warn(message);
                                     continue;
@@ -354,7 +354,7 @@ public class MappingFileLoader {
 
             }
         } catch (Exception e) {
-            throw new SystemException(e);
+            throw new SystemException("Error when load db mapping, lasted loaded data are:\n" + stringBuff.toString());
         }
 
     }

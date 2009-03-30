@@ -1318,6 +1318,41 @@
 				<dbType type="LINE">
 					<talendType type="string" default="true" />
 				</dbType>												
+
+
+				<dbType type="L">
+					<talendType type="boolean" default="true" />
+				</dbType>
+				<dbType type="I">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="B">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="Y">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="N">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="C">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="M">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="D">
+					<talendType type="date" default="true" />
+				</dbType>
+				<dbType type="T">
+					<talendType type="date" default="true" />
+				</dbType>
+				<dbType type="Q">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="G">
+					<talendType type="string" default="true" />
+				</dbType>		
 			</dbToTalendTypes>
 		</language>
 	</dbms>
