@@ -44,7 +44,7 @@ import org.talend.utils.sugars.ReturnCode;
  * 
  */
 public final class FilesUtils {
-
+    
     private FilesUtils() {
         super();
     }
@@ -234,7 +234,7 @@ public final class FilesUtils {
                 if (!folder.exists()) {
                     if (!folder.mkdir()) {
                         rc.setOk(false);
-                        rc.setMessage("Failed to create " + folder.getAbsolutePath());
+                        rc.setMessage("Failed to create the directory: " + folder.getAbsolutePath());
                         break;
                     }
                 }
