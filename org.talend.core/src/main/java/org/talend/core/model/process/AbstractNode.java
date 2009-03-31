@@ -720,6 +720,10 @@ public abstract class AbstractNode implements INode {
     }
 
     public boolean isGeneratedAsVirtualComponent() {
+        IElementParameter param = getElementParameter("IS_VIRTUAL_COMPONENT"); //$NON-NLS-1$
+        if (param != null) { // now only available for tUniqRow.
+            return (Boolean) param.getValue();
+        }
         List<IMultipleComponentManager> multipleComponentManagers = getComponent().getMultipleComponentManagers();
         return multipleComponentManagers.size() > 0;
     }
