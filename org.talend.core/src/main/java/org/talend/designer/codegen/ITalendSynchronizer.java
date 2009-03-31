@@ -35,4 +35,6 @@ public interface ITalendSynchronizer {
 
     public void forceSyncRoutine(RoutineItem routineItem);
 
+    public abstract void renameRoutineClass(RoutineItem routineItem);
+
 }
