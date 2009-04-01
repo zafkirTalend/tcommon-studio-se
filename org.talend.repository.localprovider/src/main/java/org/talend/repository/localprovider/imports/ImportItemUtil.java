@@ -268,8 +268,8 @@ public class ImportItemUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ItemRecord> importItemRecords(final RepositoryNode rNode, final ResourcesManager manager,
-            final List<ItemRecord> itemRecords, final IProgressMonitor monitor, final boolean overwrite) {
+    public List<ItemRecord> importItemRecords(final ResourcesManager manager, final List<ItemRecord> itemRecords,
+            final IProgressMonitor monitor, final boolean overwrite, final IPath destinationPath) {
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
 
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") { //$NON-NLS-1$
@@ -281,7 +281,7 @@ public class ImportItemUtil {
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
-                            importItemRecord(rNode, manager, itemRecord, overwrite);
+                            importItemRecord(manager, itemRecord, overwrite, destinationPath);
                             monitor.worked(1);
                         }
                     }
@@ -324,18 +324,17 @@ public class ImportItemUtil {
         }
     }
 
-    private void importItemRecord(RepositoryNode rNode, ResourcesManager manager, ItemRecord itemRecord, boolean overwrite) {
+    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath) {
         resolveItem(manager, itemRecord);
         if (itemRecord.getItem() != null) {
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
-            IPath path = null;
-            if (rNode.getType().equals(ENodeType.SIMPLE_FOLDER)) {
-                path = RepositoryNodeUtilities.getPath(rNode).append(itemRecord.getItem().getState().getPath());
-            } else {
-                path = new Path(itemRecord.getItem().getState().getPath());
-            }
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
 
+            IPath path = new Path(itemRecord.getItem().getState().getPath());
+            if (destinationPath != null) {
+                path = destinationPath.append(path);
+            }
+            
             try {
                 repFactory.createParentFoldersRecursively(itemType, path);
             } catch (Exception e) {
