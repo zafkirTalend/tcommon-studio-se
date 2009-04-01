@@ -26,7 +26,6 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.lang.StringUtils;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -81,6 +80,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.TreeBuilder.IContainerNode;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
@@ -145,8 +145,11 @@ class ImportItemWizardPage extends WizardPage {
 
     protected String selectedArchive;
 
-    protected ImportItemWizardPage(String pageName) {
+    protected RepositoryNode rNode;
+
+    protected ImportItemWizardPage(RepositoryNode rNode, String pageName) {
         super(pageName);
+        this.rNode = rNode;
         setDescription(Messages.getString("ImportItemWizardPage.ImportDescription")); //$NON-NLS-1$
         setImageDescriptor(WorkbenchImages.getImageDescriptor(IWorkbenchGraphicConstants.IMG_WIZBAN_IMPORT_WIZ));
     }
@@ -857,7 +860,7 @@ class ImportItemWizardPage extends WizardPage {
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     repositoryUtil.setErrors(false);
                     repositoryUtil.clear();
-                    repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite);
+                    repositoryUtil.importItemRecords(rNode, manager, itemRecords, monitor, overwrite);
 
                     if (repositoryUtil.hasErrors()) {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$

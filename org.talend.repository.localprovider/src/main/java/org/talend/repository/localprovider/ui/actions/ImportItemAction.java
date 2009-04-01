@@ -53,7 +53,8 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
                     setEnabled(false);
                     return;
                 }
-                if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)) {
+                if (repositoryNode.getType().equals(ENodeType.SYSTEM_FOLDER)
+                        || repositoryNode.getType().equals(ENodeType.SIMPLE_FOLDER)) {
                     canWork = true;
                 }
                 if (repositoryNode.getContentType() == ERepositoryObjectType.REFERENCED_PROJECTS) {
@@ -78,11 +79,13 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
 
     @Override
     public void run() {
-        if (this.getSelection() instanceof IStructuredSelection) {
-            ImportItemWizard wizard = new ImportItemWizard();
+        ISelection selection = this.getSelection();
+        if (selection instanceof IStructuredSelection) {
+            RepositoryNode rNode = (RepositoryNode) ((IStructuredSelection) selection).getFirstElement();
+            ImportItemWizard wizard = new ImportItemWizard(rNode);
             IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
             wizard.setWindowTitle(IMPORT_ITEM);
-            wizard.init(workbench, (IStructuredSelection) this.getSelection());
+            wizard.init(workbench, (IStructuredSelection) selection);
 
             Shell activeShell = Display.getCurrent().getActiveShell();
             WizardDialog dialog = new WizardDialog(activeShell, wizard);
