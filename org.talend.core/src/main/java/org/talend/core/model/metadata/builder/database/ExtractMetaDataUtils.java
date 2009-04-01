@@ -447,19 +447,23 @@ public class ExtractMetaDataUtils {
         Connection connection;
 
         String driverClassName = driverClassNameArg;
-        String[] driverJarPath = null;
+
+        List<String> jarPathList = new ArrayList<String>();
         // see feature 4720&4722
-        if ((driverJarPath == null || driverJarPath.equals(""))) { //$NON-NLS-1$
+        if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
             List<String> driverNames = EDatabaseDriver4Version.getDrivers(dbType, dbVersion);
             if (driverNames != null) {
-                List<String> jarPathList = new ArrayList<String>();
                 for (String jarName : driverNames) {
                     jarPathList.add(getJavaLibPath() + jarName);
                 }
-                driverJarPath = jarPathList.toArray(new String[0]);
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             }
+        } else {
+            jarPathList.add(driverJarPathArg);
         }
+
+        final String[] driverJarPath = jarPathList.toArray(new String[0]);
+
         /*
          * For general jdbc, driver class is specific by user.
          */
