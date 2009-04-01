@@ -20,6 +20,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPart;
 import org.talend.core.IService;
 import org.talend.core.model.business.BusinessAlignment;
 import org.talend.core.model.business.BusinessType;
@@ -59,4 +60,6 @@ public interface IDiagramModelService extends IService {
     public void setBusinessItemsAlignment(BusinessAlignment alignment, BusinessAlignment alignmentGroup, Object part);
 
     public String getBusinessItemAlignment(Object part, BusinessAlignment alignmentGroup);
+
+    public void handleNewEditorAction(IWorkbenchPart editor);
 }

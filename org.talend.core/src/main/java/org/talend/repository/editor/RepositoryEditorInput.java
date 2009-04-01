@@ -268,4 +268,13 @@ public class RepositoryEditorInput extends FileEditorInput {
         this.loadedProcess = loadedProcess;
     }
 
+    @Override
+    public Object getAdapter(Class adapter) {
+        if (adapter.equals(RepositoryEditorInput.class)) {
+            return this;
+        }
+
+        return super.getAdapter(adapter);
+    }
+
 }
