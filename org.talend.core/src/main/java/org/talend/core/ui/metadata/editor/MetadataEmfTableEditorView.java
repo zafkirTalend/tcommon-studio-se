@@ -25,6 +25,7 @@ import org.talend.core.model.metadata.DbDefaultLengthAndPrecision;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
@@ -246,6 +247,10 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, String value) {
+
+                if (bean.getLabel().equals(bean.getOriginalField())) {
+                    bean.setOriginalField(value);
+                }
                 bean.setLabel(value);
             }
 
@@ -377,4 +382,15 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     public String getCurrentTypeLength(String value) {
         return CorePlugin.getDefault().getPreferenceStore().getString(value.toUpperCase());
     }
+
+    @Override
+    protected boolean canModifyDBColumn(Object bean) {
+        // TODO
+        if (bean instanceof MetadataColumnImpl) {
+            if (((MetadataColumnImpl) bean).getLabel().equals(((MetadataColumnImpl) bean).getOriginalField()))
+                return true;
+        }
+        return false;
+    }
+
 }

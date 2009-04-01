@@ -583,10 +583,17 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setWeight(25);
         column.setModifiable(!isReadOnly());
         column.setMinimumWidth(45);
-        if (dbColumnNameWritable) {
-            final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
-            column.setCellEditor(cellEditor);
-        } else {
+        final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
+        column.setCellEditor(cellEditor);
+        column.setColumnCellModifier(new ColumnCellModifier(column) {
+
+            @Override
+            public boolean canModify(Object bean) {
+                return super.canModify(bean) && canModifyDBColumn(bean);
+            }
+
+        });
+        if (!dbColumnNameWritable) {
             column.setColorProvider(new IColumnColorProvider() {
 
                 public Color getBackgroundColor(Object bean) {
@@ -599,6 +606,10 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             });
         }
+    }
+
+    protected boolean canModifyDBColumn(Object bean) {
+        return dbColumnNameWritable;
     }
 
     /**

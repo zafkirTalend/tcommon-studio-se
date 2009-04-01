@@ -454,4 +454,11 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
     public String getCurrentTypeLength(String value) {
         return CorePlugin.getDefault().getPreferenceStore().getString(value.toUpperCase());
     }
+
+    @Override
+    protected boolean canModifyDBColumn(Object bean) {
+        // TODO
+        return false;
+    }
+
 }
