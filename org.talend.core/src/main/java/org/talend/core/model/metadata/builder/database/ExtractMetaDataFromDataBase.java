@@ -316,7 +316,11 @@ public class ExtractMetaDataFromDataBase {
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
 
         try {
-            String originSchema = tableSchemaMap.get(medataTable.getLabel());
+            // qli modified to fix the bug 6850.
+            String originSchema = null;
+            if (!"".equals(medataTable.getLabel()) && medataTable.getLabel() != null) {//$NON-NLS-1$
+                originSchema = tableSchemaMap.get(medataTable.getLabel());
+            }
             if (!"".equals(metadataConnection.getSchema()) && (metadataConnection.getSchema() != null)) { //$NON-NLS-1$
                 originSchema = metadataConnection.getSchema();
             }
