@@ -15,6 +15,7 @@ package org.talend.repository.model;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.commons.exception.ExceptionHandler;
@@ -128,8 +129,13 @@ public class ComponentsFactoryProvider {
     public static String getPaletteEntryFamily(PaletteEntry entry) {
         String family = ""; //$NON-NLS-1$
         if (!(entry instanceof PaletteRoot)) {
-            family = entry.getLabel();
-            family = getPaletteEntryFamily(entry.getParent()) + "/" + family; //$NON-NLS-1$
+            if (entry instanceof PaletteDrawer) {
+                family = ((PaletteDrawer) entry).getOriginakName();
+            }
+            // else {
+            // family = entry.getLabel();
+            //                family = getPaletteEntryFamily(entry.getParent()) + "/" + family; //$NON-NLS-1$
+            // }
         }
         return family;
     }
