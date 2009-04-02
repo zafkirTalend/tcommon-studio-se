@@ -118,6 +118,7 @@
 			<dbType type="UNIQUEIDENTIFIER" />
 			<dbType type="UNIQUEIDENTIFIERSTR" />
 			<dbType type="UROWID" />
+			<dbType type="V" />
 			<dbType type="VARCHAR" />
 			<dbType type="VARCHAR2" />
 			<dbType type="VARCHAR_IGNORECASE"/>
@@ -227,6 +228,7 @@
 					<dbType type="FLOAT8" />
 					<dbType type="Y" />
 					<dbType type="B" />
+					<dbType type="N" />
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DOUBLE" default="true" />
@@ -242,6 +244,7 @@
 					<dbType type="FLOAT8" />
 					<dbType type="Y" />
 					<dbType type="B" />
+					<dbType type="N" />
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="SMALLFLOAT" />									
@@ -255,7 +258,8 @@
 					<dbType type="DECIMAL" />
 					<dbType type="NUMERIC" />
 					<dbType type="REAL" />
-					<dbType type="Y" />						
+					<dbType type="Y" />
+					<dbType type="N" />					
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="BYTE" />
@@ -404,6 +408,7 @@
 					<dbType type="UNIQUEIDENTIFIERSTR" />
 					<dbType type="C" />
 					<dbType type="M" />
+					<dbType type="V" />
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
@@ -557,7 +562,7 @@
 					<talendType type="id_Double" default="true" />
 					<talendType type="id_BigDecimal"/>
 				</dbType>
-				<!--id_Character-->
+				<!--id_String-->
 				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
@@ -576,7 +581,9 @@
 				<dbType type="M">
 					<talendType type="id_String" default="true" />
 				</dbType>
-				<!--id_String-->
+				<dbType type="V">
+					<talendType type="id_String" default="true" />
+				</dbType>
 				<dbType type="CHAR VARYING">
 					<talendType type="id_String" default="true" />
 				</dbType>
@@ -1089,9 +1096,6 @@
 				<dbType type="CHARACTER">
 					<talendType type="string" default="true" />
 				</dbType>
-				<dbType type="C">
-					<talendType type="string" default="true" />
-				</dbType>
 				<!--id_String-->
 				<dbType type="CHAR VARYING">
 					<talendType type="string" default="true" />
@@ -1336,6 +1340,9 @@
 					<talendType type="decimal" default="true" />
 				</dbType>
 				<dbType type="C">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="V">
 					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="M">
