@@ -500,7 +500,7 @@ public final class ContextManagerHelper {
             orderCommand.execute();
         }
         //
-        modelManager.refresh();
+        modelManager.refreshTemplateTab();
 
         revertTreeSelection(viewer, movedParam);
 

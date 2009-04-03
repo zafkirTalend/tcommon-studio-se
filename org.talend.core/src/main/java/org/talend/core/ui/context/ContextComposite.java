@@ -25,6 +25,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess;
@@ -79,6 +80,12 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     public void refresh() {
+        refreshTemplateTab();
+        refreshTableTab();
+        refreshTreeTab();
+    }
+
+    public void refreshTemplateTab() {
         refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
@@ -86,7 +93,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         } else {
             this.setEnabled(true);
             setTabEnable(!isReadOnly());
-             toolgeRefreshContextRelitiveComposite(template);
+            toolgeRefreshContextRelitiveComposite(template);
         }
 
         if (getContextManager() != null) {
@@ -126,7 +133,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
         }
     }
 
-     
     /**
      * 
      * DOC YeXiaowei Comment method "refreshContextEditComposite".
@@ -145,7 +151,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
         composite.setNeedRefresh(true);
     }
 
-     public abstract IContextManager getContextManager();
+    public abstract IContextManager getContextManager();
 
     /**
      * bqian Comment method "initializeUI".
@@ -160,11 +166,15 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
             public void widgetSelected(SelectionEvent e) {
                 CTabItem cTabItem = (CTabItem) e.item;
-                if (cTabItem.getText().equals(Messages.getString("ContextComposite.treeValue"))) { //$NON-NLS-1$
+                Control control = cTabItem.getControl();
+                if (control == treeValues) {
                     refreshTreeTab();
-                }
-                if (cTabItem.getText().equals(Messages.getString("ContextComposite.tableValue"))) { //$NON-NLS-1$
+                } else if (control == tableValues) {
                     refreshTableTab();
+                } else if (control == template) {
+                    refreshTemplateTab();
+                } else {
+                    refresh();
                 }
             }
 

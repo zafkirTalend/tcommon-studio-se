@@ -60,7 +60,9 @@ public class ConfigureContextAction extends Action {
                             updateManager.update(EUpdateItemType.CONTEXT);
                         }
                     }
-                    manager.refresh();
+                    // refresh both
+                    manager.refreshTableTab();
+                    manager.refreshTreeTab();
                 }
             };
 

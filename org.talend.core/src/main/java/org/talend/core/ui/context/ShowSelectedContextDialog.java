@@ -72,7 +72,7 @@ public class ShowSelectedContextDialog extends Dialog {
         gridData.horizontalAlignment = SWT.FILL;
         showContext.setLayoutData(gridData);
         showContext.setReadOnly(true);
-        showContext.refresh();
+        showContext.refreshTemplateTab();
         return composite;
 
     }

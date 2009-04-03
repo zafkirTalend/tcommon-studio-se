@@ -908,7 +908,7 @@ public class ConextTreeValuesComposite extends AbstractContextTabEditComposite {
 
                 @Override
                 public void execute() {
-                    modelManager.refresh();
+                    modelManager.refreshTreeTab();
                 }
             });
 

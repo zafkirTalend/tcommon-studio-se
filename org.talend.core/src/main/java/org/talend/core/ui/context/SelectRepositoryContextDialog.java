@@ -490,7 +490,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             }
             progressDialog(selectedItems, contextGoupNameSet, getSelectedContextParameterType());
 
-            modelManager.refresh();
+            modelManager.refreshTemplateTab();
         }
 
         super.okPressed();

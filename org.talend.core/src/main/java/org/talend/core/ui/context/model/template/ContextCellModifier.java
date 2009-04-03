@@ -242,7 +242,7 @@ public class ContextCellModifier implements ICellModifier {
 
             @Override
             public void execute() {
-                getContextModelManager().refresh();
+                getContextModelManager().refreshTemplateTab();
             }
         };
 
