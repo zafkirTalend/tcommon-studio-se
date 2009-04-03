@@ -604,8 +604,10 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getFilePath())) {
                 return connection.getFilePath();
             } else {
-                Path p = new Path(connection.getFilePath());
-                return TalendTextUtils.addQuotes(p.toPortableString());
+                if (connection.getFilePath() != null) {
+                    Path p = new Path(connection.getFilePath());
+                    return TalendTextUtils.addQuotes(p.toPortableString());
+                }
             }
         }
         if (value.equals("ROW_SEPARATOR")) { //$NON-NLS-1$
