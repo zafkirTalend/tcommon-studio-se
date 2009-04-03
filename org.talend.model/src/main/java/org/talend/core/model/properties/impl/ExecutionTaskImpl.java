@@ -19,10 +19,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
+import org.talend.core.model.properties.ExecutionTaskCmdPrm;
+import org.talend.core.model.properties.ExecutionTaskJvmPrm;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -57,6 +60,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getTriggers <em>Triggers</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getCmdPrms <em>Cmd Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getVirtualServer <em>Virtual Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
@@ -461,6 +465,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected EList triggers;
+
+    /**
+     * The cached value of the '{@link #getCmdPrms() <em>Cmd Prms</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCmdPrms()
+     * @generated
+     * @ordered
+     */
+    protected EList cmdPrms;
 
     /**
      * The default value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
@@ -1121,6 +1135,18 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getCmdPrms() {
+        if (cmdPrms == null) {
+            cmdPrms = new EObjectContainmentEList(ExecutionTaskCmdPrm.class, this, PropertiesPackage.EXECUTION_TASK__CMD_PRMS);
+        }
+        return cmdPrms;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getJobId() {
         return jobId;
     }
@@ -1344,6 +1370,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
+                return ((InternalEList)getCmdPrms()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -1399,6 +1427,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getLastEndedRunDate();
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return getTriggers();
+            case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
+                return getCmdPrms();
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 return getJobId();
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
@@ -1492,6 +1522,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 getTriggers().clear();
                 getTriggers().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
+                getCmdPrms().clear();
+                getCmdPrms().addAll((Collection)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 setJobId((String)newValue);
@@ -1594,6 +1628,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 getTriggers().clear();
                 return;
+            case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
+                getCmdPrms().clear();
+                return;
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 setJobId(JOB_ID_EDEFAULT);
                 return;
@@ -1674,6 +1711,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return triggers != null && !triggers.isEmpty();
+            case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
+                return cmdPrms != null && !cmdPrms.isEmpty();
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:

@@ -567,6 +567,22 @@ public interface ExecutionTask extends EObject {
     EList getTriggers();
 
     /**
+     * Returns the value of the '<em><b>Cmd Prms</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ExecutionTaskCmdPrm}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Cmd Prms</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Cmd Prms</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_CmdPrms()
+     * @model type="org.talend.core.model.properties.ExecutionTaskCmdPrm" containment="true" ordered="false"
+     * @generated
+     */
+    EList getCmdPrms();
+
+    /**
      * Returns the value of the '<em><b>Job Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>

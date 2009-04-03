@@ -373,6 +373,15 @@ public interface PropertiesFactory extends EFactory {
     ExecutionTask createExecutionTask();
 
     /**
+     * Returns a new object of class '<em>Execution Task Cmd Prm</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Task Cmd Prm</em>'.
+     * @generated
+     */
+    ExecutionTaskCmdPrm createExecutionTaskCmdPrm();
+
+    /**
      * Returns a new object of class '<em>Talend Trigger</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
