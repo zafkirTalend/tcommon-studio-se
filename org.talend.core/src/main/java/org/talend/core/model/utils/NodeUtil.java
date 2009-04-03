@@ -22,6 +22,7 @@ import java.util.Set;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.INode;
 
 /**
@@ -283,5 +284,44 @@ public class NodeUtil {
             }
         }
         return conns;
+    }
+
+    public static INode getFirstMergeNode(INode node) {
+        INode mergeNode = null;
+        for (IConnection connection : node.getOutgoingConnections()) {
+            if (connection.getLineStyle().hasConnectionCategory(IConnectionCategory.MERGE)) {
+                mergeNode = connection.getTarget();
+            } else if (connection.getLineStyle().hasConnectionCategory(IConnectionCategory.FLOW)) {
+                mergeNode = getFirstMergeNode(connection.getTarget());
+            }
+            if (mergeNode != null) {
+                break;
+            }
+        }
+        return mergeNode;
+    }
+
+    public static boolean isLastFromMergeTree(INode node) {
+        INode firstMergeNode = getFirstMergeNode(node);
+        int totMerge = NodeUtil.getIncomingConnections(firstMergeNode, IConnectionCategory.MERGE).size();
+        Integer posMerge = node.getLinkedMergeInfo().get(firstMergeNode);
+        return totMerge == posMerge;
+    }
+
+    public static IConnection getRealConnectionTypeBased(IConnection connection) {
+        IConnection realConnection = connection;
+
+        boolean connectionAvailable = true;
+        while (connectionAvailable && realConnection.getSource().getComponent().getName().equals("tReplace")) {
+            List<IConnection> inConnections = (List<IConnection>) getIncomingConnections(realConnection.getSource(),
+                    IConnectionCategory.FLOW);
+            if (inConnections.size() > 0) {
+                realConnection = inConnections.get(0);
+            } else {
+                connectionAvailable = false;
+            }
+        }
+
+        return realConnection;
     }
 }
