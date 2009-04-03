@@ -12,15 +12,19 @@
 // ============================================================================
 package org.talend.designer.business.diagram.custom;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
 import org.talend.core.IService;
 import org.talend.core.model.business.BusinessAlignment;
 import org.talend.core.model.business.BusinessType;
@@ -62,4 +66,8 @@ public interface IDiagramModelService extends IService {
     public String getBusinessItemAlignment(Object part, BusinessAlignment alignmentGroup);
 
     public void handleNewEditorAction(IWorkbenchPart editor);
+
+    public void openBusinessDiagramEditor(IWorkbenchPage page, IEditorInput input) throws PartInitException;
+
+    public IFile getDiagramFile(IWorkbenchPage page);
 }
