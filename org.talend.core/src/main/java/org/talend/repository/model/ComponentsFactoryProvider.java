@@ -130,7 +130,7 @@ public class ComponentsFactoryProvider {
         String family = ""; //$NON-NLS-1$
         if (!(entry instanceof PaletteRoot)) {
             if (entry instanceof PaletteDrawer) {
-                family = ((PaletteDrawer) entry).getOriginakName();
+                family = ((PaletteDrawer) entry).getOriginalName();
             }
             // else {
             // family = entry.getLabel();
