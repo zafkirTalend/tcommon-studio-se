@@ -15,7 +15,6 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import org.apache.xerces.parsers.SAXParser;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -127,7 +126,7 @@ public class SaxParser extends DefaultHandler implements Runnable {
             Display.getDefault().asyncExec(new Runnable() {
 
                 public void run() {
-                    MessageDialog.openError(Display.getDefault().getActiveShell(), "Invalid file", e.getMessage());
+                    // MessageDialog.openError(Display.getDefault().getActiveShell(), "Invalid file", e.getMessage());
                 }
             });
             isInvalidFile = true;
