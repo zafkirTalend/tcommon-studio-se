@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2009 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -40,7 +40,9 @@ public class LibrariesService implements ILibrariesService {
     private static ILibrariesService javaService = new JavaLibrariesService();
 
     private static ILibrariesService perlService = new PerlLibrariesService();
-
+public LibrariesService(){
+	
+}
     private ILibrariesService getLibrariesService() {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
                 .getLanguage()) {

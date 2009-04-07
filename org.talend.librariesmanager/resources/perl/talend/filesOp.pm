@@ -53,10 +53,14 @@ sub getFileList {
     if ($param{include_subdir}) {
         use File::Find;
         find(
-            sub{
-                if ($File::Find::name ne $param{directory}) {
-                    push @files, $File::Find::name;
-                }
+            {
+                wanted => sub{
+                    if ($File::Find::name ne $param{directory}) {
+                        # push @files, $File::Find::name;
+                        push @files, $_;
+                    }
+                },
+                no_chdir => 0,
             },
             $param{directory}
         );
