@@ -320,15 +320,31 @@ public class TalendTextUtils {
             char c = fieldName.charAt(i);
             b = b && c >= '0' && c <= '9';
         }
+
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
-        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        final String quote = getQuoteByDBType(name);
+        boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+
+        // added by hyWang(bug 6637),to see if the column name need to be add queotes
+        if (!isCheck) {
+            // check the field name.
+
+            String temp = removeQuotes(fieldName);
+            Pattern pattern = Pattern.compile("\\w+"); //$NON-NLS-N$
+            Matcher matcher = pattern.matcher(temp);
+            if (!matcher.matches()) {
+                isCheck = true; // contain other char
+            }
+
+        }
+
         if (!b) {
-            if (isCheck && isPSQLSimilar(name)) {
+            if (!isCheck && isPSQLSimilar(name)) {
                 return fieldName;
             }
         }
         String newFieldName = fieldName;
-        String quote = getQuoteByDBType(name);
+
         newFieldName = addQuotesForSQLString(newFieldName, quote, simple);
         return newFieldName;
     }
