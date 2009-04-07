@@ -15,6 +15,7 @@ package org.talend.designer.components;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.talend.core.IService;
+import org.talend.core.language.ECodeLanguage;
 
 /**
  * DOC Administrator class global comment. Detailled comment <br/>
@@ -41,5 +42,7 @@ public interface IComponentsLocalProviderService extends IService {
     public IPreferenceStore getPreferenceStore();
 
     public AbstractUIPlugin getPlugin();
+
+    public boolean validateComponent(String componentFolder, ECodeLanguage language);
 
 }
