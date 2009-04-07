@@ -608,7 +608,7 @@ public class RepositoryToComponentProperty {
                     Path p = new Path(connection.getFilePath());
                     return TalendTextUtils.addQuotes(p.toPortableString());
                 } else {
-                    return null;
+                    return "";
                 }
             }
         }
