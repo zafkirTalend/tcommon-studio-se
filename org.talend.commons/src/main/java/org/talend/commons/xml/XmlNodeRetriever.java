@@ -39,6 +39,7 @@ import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -531,8 +532,8 @@ public class XmlNodeRetriever {
         String at = ""; //$NON-NLS-1$
 
         String elementName = node.getNodeName();
-        elementName = null;
         if (node.getNodeName().equals("xs:element")) {
+            elementName = null;
             if (node.getAttributes().getLength() > 0) {
                 Node nameAttribute = node.getAttributes().getNamedItem("name");
                 if (nameAttribute != null) {
@@ -541,6 +542,7 @@ public class XmlNodeRetriever {
                 }
             }
         } else if (node.getNodeName().equals("xs:attribute")) {
+            elementName = null;
             if (node.getAttributes().getLength() > 0) {
                 Node nameAttribute = node.getAttributes().getNamedItem("name");
                 if (nameAttribute != null) {
@@ -549,7 +551,13 @@ public class XmlNodeRetriever {
                 }
             }
         }
-        parentNode = node.getParentNode();
+        if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
+            parentNode = ((Attr) node).getOwnerElement();
+            at = STRING_AT;
+        } else {
+            parentNode = node.getParentNode();
+            at = STRING_EMPTY;
+        }
         if (elementName != null) {
             currentXPath = "/" + at + elementName + currentXPath; //$NON-NLS-1$
         }

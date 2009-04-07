@@ -416,9 +416,9 @@ public class XPathPrefixHandler {
             String currentPath = null;
             if (elementName != null) {
                 currentPath = new StringBuilder(path).append("/").append(elementName).toString(); //$NON-NLS-1$
-                if (pathNodesMap.get(currentPath) != null) {
-                    return;
-                }
+                // if (pathNodesMap.get(currentPath) != null) {
+                // return;
+                // }
             }
             if (currentPath == null) {
                 currentPath = path;
@@ -428,7 +428,9 @@ public class XPathPrefixHandler {
             computeNamespace(info, path);
             // System.out.println(node.getNodeName() + " " + info.path + " " + info.namespace + "\n");
             if (elementName != null) {
-                pathNodesMap.put(currentPath, info);
+                if (pathNodesMap.get(currentPath) == null) {
+                    pathNodesMap.put(currentPath, info);
+                }
                 if (isXSDFile) {
                     elementName = null;
                     if (node.getNodeName().equals("xs:element")) {
