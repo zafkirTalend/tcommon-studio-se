@@ -963,10 +963,14 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         jobElement.addAttribute("version", HTMLDocUtils.checkString(jobVersion)); //$NON-NLS-1$
         jobElement.addAttribute("purpose", HTMLDocUtils.checkString(property.getPurpose())); //$NON-NLS-1$
         jobElement.addAttribute("status", HTMLDocUtils.checkString(property.getStatusCode())); //$NON-NLS-1$
-        jobElement.addAttribute("description", HTMLDocUtils.checkString(property.getDescription())); //$NON-NLS-1$
+
+        //        jobElement.addAttribute("description", HTMLDocUtils.checkString(property.getDescription())); //$NON-NLS-1$
 
         jobElement.addAttribute("creation", HTMLDocUtils.checkDate(property.getCreationDate())); //$NON-NLS-1$
         jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate())); //$NON-NLS-1$
+
+        Element descr = jobElement.addElement("description");
+        descr.addCDATA(HTMLDocUtils.checkString(property.getDescription()).replaceAll("\\r\\n", "<br/>"));
 
         String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
         IPath filePath = null;
@@ -1004,11 +1008,13 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         projectElement.addAttribute("title", IHTMLDocConstants.TITLE_GEN + getFullProductName()); //$NON-NLS-1$
         projectElement.addAttribute("link", IHTMLDocConstants.WEBSITE_LINK); //$NON-NLS-1$
         projectElement.addAttribute("language", getProject().getLanguage().getName()); //$NON-NLS-1$
-        projectElement.addAttribute("description", getProject().getDescription()); //$NON-NLS-1$
+        //        projectElement.addAttribute("description", getProject().getDescription()); //$NON-NLS-1$
         projectElement.addAttribute("generatedDate", DateFormat.getDateTimeInstance().format(new Date())); //$NON-NLS-1$
         projectElement.addAttribute("versionName", getProductVersionName()); //$NON-NLS-1$
         projectElement.addAttribute("version", getCurrentTOSVersion()); //$NON-NLS-1$
         projectElement.addAttribute("docType", getDocTypeAttribute()); //$NON-NLS-1$
+        Element proDesc = projectElement.addElement("pro-description");
+        proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>"));
         return projectElement;
     }
 

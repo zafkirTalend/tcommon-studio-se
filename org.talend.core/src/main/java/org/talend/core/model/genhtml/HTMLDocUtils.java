@@ -62,8 +62,7 @@ public class HTMLDocUtils {
         String tmpFold = System.getProperty("user.dir") + File.separatorChar + IHTMLDocConstants.TEMP_FOLDER_NAME; //$NON-NLS-1$
         // String tmpFold = System.getProperty("osgi.instance.area") +
         File file = new File(tmpFold);
-        if(!file.exists())
-        {
+        if (!file.exists()) {
             file.mkdirs();
         }
         return tmpFold;
