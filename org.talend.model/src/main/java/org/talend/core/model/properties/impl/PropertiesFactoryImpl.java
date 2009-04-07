@@ -132,6 +132,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.EXECUTION_SERVER: return createExecutionServer();
             case PropertiesPackage.EXECUTION_TASK: return createExecutionTask();
             case PropertiesPackage.EXECUTION_TASK_CMD_PRM: return createExecutionTaskCmdPrm();
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM: return createExecutionTaskJobPrm();
             case PropertiesPackage.TASK_EXECUTION_HISTORY: return createTaskExecutionHistory();
             case PropertiesPackage.TALEND_TRIGGER: return createTalendTrigger();
             case PropertiesPackage.CRON_TALEND_TRIGGER: return createCronTalendTrigger();
@@ -586,6 +587,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ExecutionTaskCmdPrm createExecutionTaskCmdPrm() {
         ExecutionTaskCmdPrmImpl executionTaskCmdPrm = new ExecutionTaskCmdPrmImpl();
         return executionTaskCmdPrm;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionTaskJobPrm createExecutionTaskJobPrm() {
+        ExecutionTaskJobPrmImpl executionTaskJobPrm = new ExecutionTaskJobPrmImpl();
+        return executionTaskJobPrm;
     }
 
     /**

@@ -2907,13 +2907,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__CMD_PRMS = 21;
 
     /**
+     * The feature id for the '<em><b>Job Prms</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__JOB_PRMS = 22;
+
+    /**
      * The feature id for the '<em><b>Job Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_ID = 22;
+    int EXECUTION_TASK__JOB_ID = 23;
 
     /**
      * The feature id for the '<em><b>Virtual Server</b></em>' reference.
@@ -2922,7 +2931,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__VIRTUAL_SERVER = 23;
+    int EXECUTION_TASK__VIRTUAL_SERVER = 24;
 
     /**
      * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
@@ -2931,7 +2940,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CONCURRENT_EXECUTION = 24;
+    int EXECUTION_TASK__CONCURRENT_EXECUTION = 25;
 
     /**
      * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
@@ -2940,7 +2949,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = 25;
+    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = 26;
 
     /**
      * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
@@ -2949,7 +2958,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_PROJECT_NAME = 26;
+    int EXECUTION_TASK__GENERATED_PROJECT_NAME = 27;
 
     /**
      * The feature id for the '<em><b>Generated Job Name</b></em>' attribute.
@@ -2958,7 +2967,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_JOB_NAME = 27;
+    int EXECUTION_TASK__GENERATED_JOB_NAME = 28;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -2967,7 +2976,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = 28;
+    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = 29;
 
     /**
      * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute.
@@ -2976,7 +2985,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STACK_TRACE = 29;
+    int EXECUTION_TASK__ERROR_STACK_TRACE = 30;
 
     /**
      * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
@@ -2985,7 +2994,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_TRIGGERING_DATE = 30;
+    int EXECUTION_TASK__LAST_TRIGGERING_DATE = 31;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -2994,7 +3003,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 31;
+    int EXECUTION_TASK_FEATURE_COUNT = 32;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
@@ -3061,6 +3070,70 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_CMD_PRM_FEATURE_COUNT = 5;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl <em>Execution Task Job Prm</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionTaskJobPrm()
+     * @generated
+     */
+    int EXECUTION_TASK_JOB_PRM = 45;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = 2;
+
+    /**
+     * The feature id for the '<em><b>Override</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__OVERRIDE = 3;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__EXECUTION_TASK = 4;
+
+    /**
+     * The number of structural features of the '<em>Execution Task Job Prm</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM_FEATURE_COUNT = 5;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3068,7 +3141,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
      * @generated
      */
-    int TALEND_TRIGGER = 46;
+    int TALEND_TRIGGER = 47;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
@@ -3078,7 +3151,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
      * @generated
      */
-    int CRON_TALEND_TRIGGER = 47;
+    int CRON_TALEND_TRIGGER = 48;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
@@ -3088,7 +3161,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
      * @generated
      */
-    int CRON_UI_TALEND_TRIGGER = 48;
+    int CRON_UI_TALEND_TRIGGER = 49;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SimpleTalendTriggerImpl <em>Simple Talend Trigger</em>}' class.
@@ -3098,7 +3171,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
      * @generated
      */
-    int SIMPLE_TALEND_TRIGGER = 49;
+    int SIMPLE_TALEND_TRIGGER = 50;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl <em>Execution Virtual Server</em>}' class.
@@ -3108,7 +3181,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
      * @generated
      */
-    int EXECUTION_VIRTUAL_SERVER = 50;
+    int EXECUTION_VIRTUAL_SERVER = 51;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
@@ -3118,7 +3191,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
      * @generated
      */
-    int FILE_TRIGGER = 51;
+    int FILE_TRIGGER = 52;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl <em>File Trigger Mask</em>}' class.
@@ -3128,7 +3201,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
      * @generated
      */
-    int FILE_TRIGGER_MASK = 52;
+    int FILE_TRIGGER_MASK = 53;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.
@@ -3138,7 +3211,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
      * @generated
      */
-    int JOBLET_PROCESS_ITEM = 53;
+    int JOBLET_PROCESS_ITEM = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
@@ -3148,7 +3221,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
      * @generated
      */
-    int JOB_DOCUMENTATION_ITEM = 54;
+    int JOB_DOCUMENTATION_ITEM = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletDocumentationItemImpl <em>Joblet Documentation Item</em>}' class.
@@ -3158,7 +3231,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
      * @generated
      */
-    int JOBLET_DOCUMENTATION_ITEM = 55;
+    int JOBLET_DOCUMENTATION_ITEM = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.WSDLSchemaConnectionItemImpl <em>WSDL Schema Connection Item</em>}' class.
@@ -3168,7 +3241,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getWSDLSchemaConnectionItem()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION_ITEM = 56;
+    int WSDL_SCHEMA_CONNECTION_ITEM = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SchemaInformationImpl <em>Schema Information</em>}' class.
@@ -3178,7 +3251,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
      * @generated
      */
-    int SCHEMA_INFORMATION = 57;
+    int SCHEMA_INFORMATION = 58;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.InformationImpl <em>Information</em>}' class.
@@ -3188,7 +3261,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
      * @generated
      */
-    int INFORMATION = 58;
+    int INFORMATION = 59;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SQLPatternItemImpl <em>SQL Pattern Item</em>}' class.
@@ -3198,7 +3271,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSQLPatternItem()
      * @generated
      */
-    int SQL_PATTERN_ITEM = 59;
+    int SQL_PATTERN_ITEM = 60;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ComponentSettingImpl <em>Component Setting</em>}' class.
@@ -3208,7 +3281,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponentSetting()
      * @generated
      */
-    int COMPONENT_SETTING = 60;
+    int COMPONENT_SETTING = 61;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.
@@ -3218,7 +3291,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTaskExecutionHistory()
      * @generated
      */
-    int TASK_EXECUTION_HISTORY = 45;
+    int TASK_EXECUTION_HISTORY = 46;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4767,7 +4840,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getStatAndLogsSettings()
      * @generated
      */
-    int STAT_AND_LOGS_SETTINGS = 61;
+    int STAT_AND_LOGS_SETTINGS = 62;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -4795,7 +4868,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getImplicitContextSettings()
      * @generated
      */
-    int IMPLICIT_CONTEXT_SETTINGS = 62;
+    int IMPLICIT_CONTEXT_SETTINGS = 63;
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -4823,7 +4896,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaOperation()
      * @generated
      */
-    int SOA_OPERATION = 63;
+    int SOA_OPERATION = 64;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5049,7 +5122,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaInputParameter()
      * @generated
      */
-    int SOA_INPUT_PARAMETER = 64;
+    int SOA_INPUT_PARAMETER = 65;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5122,7 +5195,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaService()
      * @generated
      */
-    int SOA_SERVICE = 65;
+    int SOA_SERVICE = 66;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5267,7 +5340,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRulesItem()
      * @generated
      */
-    int RULES_ITEM = 66;
+    int RULES_ITEM = 67;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -5330,7 +5403,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 67;
+    int FOLDER_TYPE = 68;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5340,7 +5413,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 68;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 69;
 
 
     /**
@@ -5351,7 +5424,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 69;
+    int USER_MODULE_AUTHORIZATION_TYPE = 70;
 
 
     /**
@@ -5362,7 +5435,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 70;
+    int INFORMATION_LEVEL = 71;
 
 
     /**
@@ -7570,6 +7643,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionTask_CmdPrms();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionTask#getJobPrms <em>Job Prms</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Job Prms</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getJobPrms()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_JobPrms();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7732,6 +7816,71 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getExecutionTaskCmdPrm_ExecutionTask();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskJobPrm <em>Execution Task Job Prm</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Task Job Prm</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm
+     * @generated
+     */
+    EClass getExecutionTaskJobPrm();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getId()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionTaskJobPrm_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getLabel()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionTaskJobPrm_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionTaskJobPrm_DefaultValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#isOverride <em>Override</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Override</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#isOverride()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionTaskJobPrm_Override();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EReference getExecutionTaskJobPrm_ExecutionTask();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
@@ -11224,6 +11373,14 @@ public interface PropertiesPackage extends EPackage {
         EReference EXECUTION_TASK__CMD_PRMS = eINSTANCE.getExecutionTask_CmdPrms();
 
         /**
+         * The meta object literal for the '<em><b>Job Prms</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__JOB_PRMS = eINSTANCE.getExecutionTask_JobPrms();
+
+        /**
          * The meta object literal for the '<em><b>Job Id</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -11344,6 +11501,56 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_TASK_CMD_PRM__EXECUTION_TASK = eINSTANCE.getExecutionTaskCmdPrm_ExecutionTask();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl <em>Execution Task Job Prm</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionTaskJobPrm()
+         * @generated
+         */
+        EClass EXECUTION_TASK_JOB_PRM = eINSTANCE.getExecutionTaskJobPrm();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK_JOB_PRM__ID = eINSTANCE.getExecutionTaskJobPrm_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK_JOB_PRM__LABEL = eINSTANCE.getExecutionTaskJobPrm_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = eINSTANCE.getExecutionTaskJobPrm_DefaultValue();
+
+        /**
+         * The meta object literal for the '<em><b>Override</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK_JOB_PRM__OVERRIDE = eINSTANCE.getExecutionTaskJobPrm_Override();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK_JOB_PRM__EXECUTION_TASK = eINSTANCE.getExecutionTaskJobPrm_ExecutionTask();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

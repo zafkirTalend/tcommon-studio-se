@@ -1,0 +1,385 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package org.talend.core.model.properties.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.talend.core.model.properties.ExecutionTask;
+import org.talend.core.model.properties.ExecutionTaskJobPrm;
+import org.talend.core.model.properties.PropertiesPackage;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Execution Task Job Prm</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#isOverride <em>Override</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getExecutionTask <em>Execution Task</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @generated
+ */
+public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTaskJobPrm {
+    /**
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected static final int ID_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected int id = ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLabel()
+     * @generated
+     * @ordered
+     */
+    protected static final String LABEL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLabel()
+     * @generated
+     * @ordered
+     */
+    protected String label = LABEL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefaultValue()
+     * @generated
+     * @ordered
+     */
+    protected static final String DEFAULT_VALUE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefaultValue()
+     * @generated
+     * @ordered
+     */
+    protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isOverride() <em>Override</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOverride()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean OVERRIDE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isOverride() <em>Override</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOverride()
+     * @generated
+     * @ordered
+     */
+    protected boolean override = OVERRIDE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getExecutionTask() <em>Execution Task</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionTask()
+     * @generated
+     * @ordered
+     */
+    protected ExecutionTask executionTask;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ExecutionTaskJobPrmImpl() {
+        super();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected EClass eStaticClass() {
+        return PropertiesPackage.Literals.EXECUTION_TASK_JOB_PRM;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setId(int newId) {
+        int oldId = id;
+        id = newId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID, oldId, id));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLabel(String newLabel) {
+        String oldLabel = label;
+        label = newLabel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL, oldLabel, label));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDefaultValue(String newDefaultValue) {
+        String oldDefaultValue = defaultValue;
+        defaultValue = newDefaultValue;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE, oldDefaultValue, defaultValue));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isOverride() {
+        return override;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOverride(boolean newOverride) {
+        boolean oldOverride = override;
+        override = newOverride;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE, oldOverride, override));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionTask getExecutionTask() {
+        if (executionTask != null && executionTask.eIsProxy()) {
+            InternalEObject oldExecutionTask = (InternalEObject)executionTask;
+            executionTask = (ExecutionTask)eResolveProxy(oldExecutionTask);
+            if (executionTask != oldExecutionTask) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK, oldExecutionTask, executionTask));
+            }
+        }
+        return executionTask;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionTask basicGetExecutionTask() {
+        return executionTask;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExecutionTask(ExecutionTask newExecutionTask) {
+        ExecutionTask oldExecutionTask = executionTask;
+        executionTask = newExecutionTask;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK, oldExecutionTask, executionTask));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Object eGet(int featureID, boolean resolve, boolean coreType) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
+                return new Integer(getId());
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
+                return getLabel();
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                return getDefaultValue();
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
+                return isOverride() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
+                if (resolve) return getExecutionTask();
+                return basicGetExecutionTask();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void eSet(int featureID, Object newValue) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
+                setId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
+                setLabel((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                setDefaultValue((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
+                setOverride(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
+                setExecutionTask((ExecutionTask)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void eUnset(int featureID) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
+                setId(ID_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
+                setLabel(LABEL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
+                setOverride(OVERRIDE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
+                setExecutionTask((ExecutionTask)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean eIsSet(int featureID) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
+                return id != ID_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
+                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
+                return override != OVERRIDE_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
+                return executionTask != null;
+        }
+        return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (id: ");
+        result.append(id);
+        result.append(", label: ");
+        result.append(label);
+        result.append(", defaultValue: ");
+        result.append(defaultValue);
+        result.append(", override: ");
+        result.append(override);
+        result.append(')');
+        return result.toString();
+    }
+
+} //ExecutionTaskJobPrmImpl
