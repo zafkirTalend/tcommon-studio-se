@@ -95,7 +95,7 @@ public class CreateSnippetAction extends AContextualAction {
     }
 
     @Override
-    public void run() {
+    protected void doRun() {
         RepositoryNode snippetNode = getCurrentRepositoryNode();
 
         if (isToolbar()) {

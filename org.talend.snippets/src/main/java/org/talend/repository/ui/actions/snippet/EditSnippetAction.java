@@ -82,7 +82,7 @@ public class EditSnippetAction extends AContextualAction {
      * 
      * @see org.eclipse.jface.action.Action#run()
      */
-    public void run() {
+    protected void doRun() {
         boolean readOnly = !ProjectManager.getInstance().isInCurrentMainProject(node);
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         factory.isEditableAndLockIfPossible(node.getObject());
