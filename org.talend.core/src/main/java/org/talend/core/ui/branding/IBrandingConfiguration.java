@@ -28,7 +28,7 @@ public interface IBrandingConfiguration extends IActionBarHelper {
 
     /**
      * 
-     * init perspective
+     * init perspective.
      * 
      * @param layout
      */
@@ -36,7 +36,7 @@ public interface IBrandingConfiguration extends IActionBarHelper {
 
     /**
      * 
-     * get the repositorynode you want to hide in repositoryview
+     * get the repositorynode you want to hide in repositoryview.
      * 
      * @return
      */
@@ -59,4 +59,5 @@ public interface IBrandingConfiguration extends IActionBarHelper {
 
     public boolean isUseProductRegistration();
 
+    public boolean isAllowDebugMode();
 }

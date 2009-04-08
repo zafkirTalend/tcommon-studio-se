@@ -29,7 +29,7 @@ import org.talend.repository.model.RepositoryNode;
 
 /**
  * DefaultBrandingConfiguration is as TIS BrandingConfiguration(don't hide repository Nodes or Components),all other
- * brandingConfigure should subclass of this one
+ * brandingConfigure should subclass of this one.
  */
 public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
@@ -235,6 +235,15 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseProductRegistration()
      */
     public boolean isUseProductRegistration() {
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#isAllowDebugMode()
+     */
+    public boolean isAllowDebugMode() {
         return true;
     }
 }
