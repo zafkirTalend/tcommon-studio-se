@@ -90,20 +90,30 @@ public class ComponentsFactoryProvider {
             if (reset) {
                 // if need to reset, clear the list
                 list.clear();
-            } else {
-                // no need to reset, so no need to computate again.
-                return;
             }
         }
 
         for (IComponent component : components) {
             String[] families = component.getOriginalFamilyName().split(FAMILY_SEPARATOR_REGEX);
+
             for (String family : families) {
-                ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
-                setting.setFamily(family);
-                setting.setName(component.getName());
-                setting.setHidden(!component.isVisibleInComponentDefinition());
-                list.add(setting);
+                boolean existingFamily = false;
+                for (Object curSetting : list) {
+                    if (curSetting instanceof ComponentSetting) {
+                        String curFamily = ((ComponentSetting) curSetting).getFamily();
+                        if (curFamily.equals(family)) {
+                            existingFamily = true;
+                            break;
+                        }
+                    }
+                }
+                if (!existingFamily) {
+                    ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
+                    setting.setFamily(family);
+                    setting.setName(component.getName());
+                    setting.setHidden(!component.isVisibleInComponentDefinition());
+                    list.add(setting);
+                }
             }
         }
 
