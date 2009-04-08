@@ -444,7 +444,7 @@ public class ExtractMetaDataUtils {
      */
     public static Connection connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
             final String driverJarPathArg, String dbVersion) throws Exception {
-        Connection connection;
+        Connection connection = null;
 
         String driverClassName = driverClassNameArg;
 
@@ -491,8 +491,8 @@ public class ExtractMetaDataUtils {
             info.put("password", pwd); //$NON-NLS-1$
 
             connection = ((Driver) klazz.newInstance()).connect(url, info);
-        }
 
+        }
         return connection;
     }
 
