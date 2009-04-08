@@ -78,7 +78,7 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
     }
 
     @Override
-    public void run() {
+    protected void doRun() {
         ISelection selection = this.getSelection();
         if (selection instanceof IStructuredSelection) {
             RepositoryNode rNode = (RepositoryNode) ((IStructuredSelection) selection).getFirstElement();

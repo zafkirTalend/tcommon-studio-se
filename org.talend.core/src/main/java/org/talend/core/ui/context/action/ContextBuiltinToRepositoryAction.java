@@ -57,7 +57,7 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
     }
 
     @Override
-    public void run() {
+    protected void doRun() {
         if (contextManager != null) {
             CorePlugin.getDefault().getRepositoryService().openRepositoryReviewDialog(ERepositoryObjectType.CONTEXT, null,
                     params, contextManager);

@@ -84,6 +84,7 @@ import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
@@ -94,7 +95,6 @@ import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
-import org.talend.repository.model.RepositoryWorkUnit;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode.EProperties;
 

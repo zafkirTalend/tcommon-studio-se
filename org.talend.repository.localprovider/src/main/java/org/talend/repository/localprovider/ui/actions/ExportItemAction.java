@@ -118,7 +118,7 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
     }
 
     @Override
-    public void run() {
+    protected void doRun() {
         ExportItemWizard wizard = new ExportItemWizard();
         IWorkbench workbench = this.getViewPart().getViewSite().getWorkbenchWindow().getWorkbench();
         wizard.setWindowTitle(EXPORT_ITEM);

@@ -621,7 +621,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         } else {
                             // add state to existing emf folder
                             FolderItem folder = helper.getFolder(path);
-                            if (folder.getState() == null) {
+                            if (folder != null && folder.getState() == null) {
                                 helper.createItemState(folder);
                             }
                         }

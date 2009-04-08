@@ -37,6 +37,7 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.RepositoryWorkUnit;
 
 /**
  * DOC qian class global comment. Repository factory use by client. Based on implementation provide by extension point
@@ -646,4 +647,5 @@ public interface IProxyRepositoryFactory {
 
     public Property getUptodateProperty(Property property) throws PersistenceException;
 
+    public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit);
 }

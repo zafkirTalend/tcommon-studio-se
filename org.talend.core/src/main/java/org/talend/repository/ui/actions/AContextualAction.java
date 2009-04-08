@@ -37,11 +37,14 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.LoginException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
@@ -403,4 +406,21 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         this.specialSelectionProvider = selectionProvider;
     }
 
+    /*
+     * final method to force only doRun implementation
+     */
+    @Override
+    public final void run() {
+        String name = "User action : " + getText(); //$NON-NLS-1$
+        RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(name, this) {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                doRun();
+            }
+        };
+        CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
+    }
+
+    protected abstract void doRun();
 }
