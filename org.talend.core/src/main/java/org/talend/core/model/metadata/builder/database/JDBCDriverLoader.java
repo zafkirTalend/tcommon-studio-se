@@ -36,7 +36,8 @@ public class JDBCDriverLoader {
     public Connection getConnection(String[] jarPath, String driverClassName, String url, String username, String password)
             throws Exception {
 
-        HotClassLoader loader = new HotClassLoader();
+        // qli modified to fix the bug 6281.
+        HotClassLoader loader = HotClassLoader.getInstance();
 
         for (int i = 0; i < jarPath.length; i++) {
             loader.addPath(jarPath[i]);

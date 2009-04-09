@@ -26,7 +26,17 @@ import org.talend.commons.exception.ExceptionHandler;
  */
 public class HotClassLoader extends URLClassLoader {
 
-    public HotClassLoader() {
+    // qli modified to fix the bug 6281.
+    private static HotClassLoader instance;
+
+    public static HotClassLoader getInstance() {
+        if (instance == null) {
+            instance = new HotClassLoader();
+        }
+        return instance;
+    }
+
+    private HotClassLoader() {
         super(new URL[0], ClassLoader.getSystemClassLoader());
     }
 
