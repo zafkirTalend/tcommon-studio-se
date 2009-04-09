@@ -54,8 +54,16 @@ public final class PerlDataTypeHelper {
      * @return return new Perl Type, such as string, decimal, int
      */
     public static String getNewTalendTypeOfValue(final String value) {
+        if (value == null) {
+            return null;
+        }
         String oldTalendType = getTalendTypeOfValue(value);
-        return PerlTypesManager.getNewTypeName(oldTalendType);
+        if (oldTalendType != null) {
+            if (oldTalendType.equals("NUMBER") || oldTalendType.equals("Integer")) { //$NON-NLS-1$ //$NON-NLS-2$
+                return oldTalendType;
+            }
+        }
+        return PerlTypesManager.getNewTypeName(oldTalendType.toLowerCase());
     }
 
     /**
