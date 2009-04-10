@@ -25,16 +25,17 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.IContextModelManager;
+import org.talend.core.ui.context.model.ContextProviderProxy;
 
 /**
  * A label and content provider for the treeviewer which groups the Contexts by nothing.
  * 
  */
-public class GroupByNothingProvier extends ContextProviderProxy {
+public class GroupByNothingProvider extends ContextProviderProxy {
 
     private IContextModelManager modelManager = null;
 
-    public GroupByNothingProvier(IContextModelManager modelManager) {
+    public GroupByNothingProvider(IContextModelManager modelManager) {
         super();
         this.modelManager = modelManager;
         if (modelManager == null) {

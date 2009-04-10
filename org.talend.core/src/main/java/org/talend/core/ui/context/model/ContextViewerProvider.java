@@ -10,29 +10,24 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.ui.context.model.template;
+package org.talend.core.ui.context.model;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
-import org.talend.core.ui.context.IContextModelManager;
 
 /**
  * A label and content provider for the treeviewer which groups the Contexts by variable.
  * 
  */
-public class ContextViewerProvier extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
+public class ContextViewerProvider extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
 
-    ContextProviderProxy provider;
+    ContextProviderProxy provider = null;
 
-    public ContextViewerProvier(IContextModelManager modelManager) {
+    public ContextViewerProvider() {
         super();
-        if (modelManager == null) {
-            throw new NullPointerException();
-        }
-        provider = new GroupBySourceProvier(modelManager);
     }
 
     /*

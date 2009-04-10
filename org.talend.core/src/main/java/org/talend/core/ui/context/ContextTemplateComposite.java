@@ -24,7 +24,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ISelection;
@@ -49,7 +48,6 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
-import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -66,6 +64,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.context.action.ContextBuiltinToRepositoryAction;
+import org.talend.core.ui.context.model.ContextViewerProvider;
 import org.talend.core.ui.context.model.template.ContextCellModifier;
 import org.talend.core.ui.context.model.template.ContextColumnSorterListener;
 import org.talend.core.ui.context.model.template.ContextConstant;
@@ -73,10 +72,9 @@ import org.talend.core.ui.context.model.template.ContextParameterParent;
 import org.talend.core.ui.context.model.template.ContextParameterSon;
 import org.talend.core.ui.context.model.template.ContextParameterSortedParent;
 import org.talend.core.ui.context.model.template.ContextParameterSortedSon;
-import org.talend.core.ui.context.model.template.ContextViewerProvier;
 import org.talend.core.ui.context.model.template.ContextViewerSorter;
-import org.talend.core.ui.context.model.template.GroupByNothingProvier;
-import org.talend.core.ui.context.model.template.GroupBySourceProvier;
+import org.talend.core.ui.context.model.template.GroupByNothingProvider;
+import org.talend.core.ui.context.model.template.GroupBySourceProvider;
 import org.talend.core.ui.images.ECoreImage;
 
 /**
@@ -91,7 +89,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
     private TreeViewer viewer;
 
-    private ContextViewerProvier provider;
+    private ContextViewerProvider provider;
 
     private ContextCellModifier cellModifier;
 
@@ -166,25 +164,25 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         tree.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         TreeColumn column = new TreeColumn(tree, SWT.NONE);
-        column.setText(ContextConstant.NAME_COLUMN_NAME);
+        column.setText(Messages.getString("ContextTemplateComposite.nameLabel")); //$NON-NLS-1$
         column.setWidth(120);
 
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             column = new TreeColumn(tree, SWT.NONE);
-            column.setText(ContextConstant.SOURCE_COLUMN_NAME);
+            column.setText(Messages.getString("ContextTemplateComposite.sourceLabel")); //$NON-NLS-1$
             column.setWidth(80);
         }
 
         column = new TreeColumn(tree, SWT.NONE);
-        column.setText(ContextConstant.TYPE_COLUMN_NAME);
+        column.setText(Messages.getString("ContextTemplateComposite.typeLabel")); //$NON-NLS-1$
         column.setWidth(80);
 
         column = new TreeColumn(tree, SWT.NONE);
-        column.setText(ContextConstant.SCRIPTCODE_COLUMN_NAME);
+        column.setText(Messages.getString("ContextTemplateComposite.scriptCodeLabel")); //$NON-NLS-1$
         column.setWidth(250);
 
         column = new TreeColumn(tree, SWT.NONE);
-        column.setText(ContextConstant.COMMENT_COLUMN_NAME);
+        column.setText(Messages.getString("ContextTemplateComposite.CommentLabel")); //$NON-NLS-1$
         column.setWidth(300);
 
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
@@ -212,12 +210,12 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         cellModifier = new ContextCellModifier(this, isRepositoryContext);
         viewer.setCellModifier(cellModifier);
 
-        provider = new ContextViewerProvier(modelManager);
+        provider = new ContextViewerProvider();
 
         if (isGroupBySource()) {
-            provider.setProvider(new GroupBySourceProvier(modelManager));
+            provider.setProvider(new GroupBySourceProvider(modelManager));
         } else {
-            provider.setProvider(new GroupByNothingProvier(modelManager));
+            provider.setProvider(new GroupByNothingProvider(modelManager));
         }
 
         viewer.setLabelProvider(provider);
@@ -359,9 +357,9 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
     public void refresh() {
 
         if (isGroupBySource()) {
-            provider.setProvider(new GroupBySourceProvier(modelManager));
+            provider.setProvider(new GroupBySourceProvider(modelManager));
         } else {
-            provider.setProvider(new GroupByNothingProvier(modelManager));
+            provider.setProvider(new GroupByNothingProvider(modelManager));
         }
 
         viewer.setLabelProvider(provider);
@@ -726,10 +724,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
     public IContext getSelectedContext() {
         return this.getContextManager().getDefaultContext();
-    }
-
-    private IPreferenceStore getPreferenceStore() {
-        return CorePlugin.getDefault().getPreferenceStore();
     }
 
     public TreeViewer getViewer() {

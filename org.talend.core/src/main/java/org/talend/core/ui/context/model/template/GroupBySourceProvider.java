@@ -25,16 +25,17 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.IContextModelManager;
+import org.talend.core.ui.context.model.ContextProviderProxy;
 
 /**
  * A label and content provider for the treeviewer which groups the Contexts by source.
  * 
  */
-public class GroupBySourceProvier extends ContextProviderProxy {
+public class GroupBySourceProvider extends ContextProviderProxy {
 
     private IContextModelManager modelManager = null;
 
-    public GroupBySourceProvier(IContextModelManager modelManager) {
+    public GroupBySourceProvider(IContextModelManager modelManager) {
         super();
         this.modelManager = modelManager;
         if (modelManager == null) {

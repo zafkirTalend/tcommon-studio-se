@@ -12,60 +12,33 @@
 // ============================================================================
 package org.talend.core.ui.context.model.template;
 
-import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
-import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.ContextTemplateComposite;
-import org.talend.core.ui.context.IContextModelManager;
+import org.talend.core.ui.context.model.AbstractContextCellModifier;
 
 /**
  * ggu class global comment. Detailled comment
  */
-public class ContextCellModifier implements ICellModifier {
-
-    private ContextTemplateComposite parentTool;
-
-    private boolean reposFlag = false;
+public class ContextCellModifier extends AbstractContextCellModifier {
 
     public ContextCellModifier(ContextTemplateComposite parentComposite) {
-        super();
-        this.parentTool = parentComposite;
-        if (parentComposite == null) {
-            throw new NullPointerException();
-        }
+        this(parentComposite, false);
     }
 
     public ContextCellModifier(ContextTemplateComposite parentComposite, boolean reposFlag) {
-        super();
-        this.parentTool = parentComposite;
-        this.reposFlag = reposFlag;
-        if (parentComposite == null) {
-            throw new NullPointerException();
-        }
+        super(parentComposite, reposFlag);
     }
 
-    private IContextModelManager getContextModelManager() {
-        if (parentTool != null) {
-            return parentTool.getContextModelManager();
-        }
-        return null;
-    }
-
-    private IContextManager getContextManager() {
-        if (parentTool != null) {
-            return parentTool.getContextManager();
-        }
-        return null;
+    protected ContextTemplateComposite getParentMode() {
+        return (ContextTemplateComposite) super.getParentMode();
     }
 
     /*
@@ -74,7 +47,7 @@ public class ContextCellModifier implements ICellModifier {
      * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
      */
     public boolean canModify(Object element, String property) {
-        if (getContextModelManager().isReadOnly()) {
+        if (getModelManager().isReadOnly()) {
             return false;
         }
         IContextParameter para = getRealParameter(element);
@@ -82,7 +55,7 @@ public class ContextCellModifier implements ICellModifier {
             return false;
         }
 
-        if (!para.isBuiltIn() && !reposFlag) {
+        if (!para.isBuiltIn() && !isRepositoryMode()) {
             // not built-in, not update
             return false;
 
@@ -143,7 +116,7 @@ public class ContextCellModifier implements ICellModifier {
         IContextParameter para = null;
         IContext context = getContextManager().getDefaultContext();
 
-        if (parentTool.isGroupBySource()) {
+        if (getParentMode().isGroupBySource()) {
             if (element instanceof ContextParameterSortedParent) {
                 if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
                     para = context.getContextParameter(((ContextParameterSortedParent) element).getParameter().getName());
@@ -178,7 +151,7 @@ public class ContextCellModifier implements ICellModifier {
                 return;
             }
             String name = para.getName();
-            parentTool.renameParameter(name, (String) value, reposFlag);
+            getParentMode().renameParameter(name, (String) value, isRepositoryMode());
         } else if (property.equals(ContextConstant.TYPE_COLUMN_NAME)) {
             int index = -1;
             String s = ContextManagerHelper.convertFormat(para.getType());
@@ -234,40 +207,8 @@ public class ContextCellModifier implements ICellModifier {
                 }
             }
         }
-
-        parentTool.getViewer().update(object, null);
-        parentTool.setNeedRefresh(false);
-
-        Command command = new Command() {
-
-            @Override
-            public void execute() {
-                getContextModelManager().refreshTemplateTab();
-            }
-        };
-
-        runCommand(command);
-
         // set updated flag.
-        if (getContextManager() != null) {
-            IContextManager manager = getContextManager();
-            if (manager != null && manager instanceof JobContextManager) {
-                JobContextManager jobContextManager = (JobContextManager) manager;
-                // not added new
-                if (!getContextModelManager().isRepositoryContext() || getContextModelManager().isRepositoryContext()
-                        && jobContextManager.isOriginalParameter(para.getName())) {
-                    jobContextManager.setModified(true);
-                }
-            }
-        }
-    }
-
-    private void runCommand(Command command) {
-        if (getContextModelManager().getCommandStack() == null) {
-            command.execute();
-        } else {
-            getContextModelManager().getCommandStack().execute(command);
-        }
+        setAndRefreshFlags(object, para);
     }
 
     private String getRealType(String type) {

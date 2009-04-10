@@ -43,15 +43,15 @@ public class ContextConstant {
     /*
      * columns
      */
-    public static final String NAME_COLUMN_NAME = "Name"; //$NON-NLS-1$
+    public static final String NAME_COLUMN_NAME = "NAME"; //$NON-NLS-1$
 
-    public static final String SOURCE_COLUMN_NAME = "Source"; //$NON-NLS-1$
+    public static final String SOURCE_COLUMN_NAME = "SOURCE"; //$NON-NLS-1$
 
-    public static final String TYPE_COLUMN_NAME = "Type"; //$NON-NLS-1$
+    public static final String TYPE_COLUMN_NAME = "TYPE"; //$NON-NLS-1$
 
-    public static final String SCRIPTCODE_COLUMN_NAME = "Script code"; //$NON-NLS-1$
+    public static final String SCRIPTCODE_COLUMN_NAME = "SCRIPT_CODE"; //$NON-NLS-1$
 
-    public static final String COMMENT_COLUMN_NAME = "Comment"; //$NON-NLS-1$
+    public static final String COMMENT_COLUMN_NAME = "COMMENT"; //$NON-NLS-1$
 
     /*
      * column properties

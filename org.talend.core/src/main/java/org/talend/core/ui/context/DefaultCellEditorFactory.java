@@ -19,6 +19,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -34,6 +36,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -44,23 +47,27 @@ import org.talend.core.model.utils.TalendTextUtils;
  */
 public final class DefaultCellEditorFactory {
 
-    public static final String[] BOOLEANS = new String[] { "false", "true" }; //$NON-NLS-1$ //$NON-NLS-2$
+    public static final String[] BOOLEANS = new String[] { Boolean.FALSE.toString(), Boolean.TRUE.toString() };
 
-    IContextParameter para = null;
+    private IContextParameter para = null;
 
-    private IContextModelManager modelManager = null;
+    private ISelection selection;
+
+    private AbstractContextTabEditComposite parentModel;
 
     /**
-     * qzhang DefaultCellEditorFactory constructor comment.
+     * cli DefaultCellEditorFactory constructor comment.
      */
-    public DefaultCellEditorFactory(IContextModelManager modelManager) {
-        this.modelManager = modelManager;
+    public DefaultCellEditorFactory(AbstractContextTabEditComposite parentModel) {
+        super();
+        this.parentModel = parentModel;
     }
 
-    /**
-     * DOC bqian Comment method "refreshAll".
-     */
-    private void refreshAll() {
+    private IContextModelManager getModelManager() {
+        return this.parentModel.getContextModelManager();
+    }
+
+    private void refreshCurrentSelection() {
         Command c = new Command() {
 
             /*
@@ -70,25 +77,31 @@ public final class DefaultCellEditorFactory {
              */
             @Override
             public void execute() {
-                modelManager.refresh();
+                if (selection != null && selection instanceof IStructuredSelection
+                        && !((IStructuredSelection) selection).isEmpty()) {
+                    parentModel.getViewer().update(((IStructuredSelection) selection).toArray(), null);
+                } else {
+                    // refresh default(all)
+                    parentModel.refresh();
+                }
             }
         };
-        if (modelManager.getCommandStack() == null) {
+        if (getModelManager().getCommandStack() == null) {
             c.execute();
         } else {
-            modelManager.getCommandStack().execute(c);
+            getModelManager().getCommandStack().execute(c);
         }
-
+        this.selection = null;
     }
 
     private void setModifyFlag() {
         // set updated flag.
-        if (modelManager != null) {
-            IContextManager manager = modelManager.getContextManager();
+        if (getModelManager() != null) {
+            IContextManager manager = getModelManager().getContextManager();
             if (manager != null && manager instanceof JobContextManager) {
                 JobContextManager jobContextManager = (JobContextManager) manager;
                 if (para != null) {
-                    if (!modelManager.isRepositoryContext() || modelManager.isRepositoryContext()
+                    if (!getModelManager().isRepositoryContext() || getModelManager().isRepositoryContext()
                             && jobContextManager.isOriginalParameter(para.getName())) {
                         jobContextManager.setModified(true);
                     }
@@ -99,6 +112,7 @@ public final class DefaultCellEditorFactory {
 
     public CellEditor getCustomCellEditor(final IContextParameter para, final Composite table) {
         this.para = para;
+        this.selection = this.parentModel.getViewer().getSelection();
         String defalutDataValue = para.getValue();
         String type = para.getType();
 
@@ -118,7 +132,7 @@ public final class DefaultCellEditorFactory {
                             return;
                         }
                         para.setValue(value);
-                        refreshAll();
+                        refreshCurrentSelection();
                         setModifyFlag();
                     }
 
@@ -140,7 +154,7 @@ public final class DefaultCellEditorFactory {
                 return boxCellEditor;
             }
         } else {
-            if ("boolean".equals(type)) { //$NON-NLS-1$
+            if (PerlTypesManager.BOOLEAN.equals(type)) {
 
                 ComboBoxCellEditor boxCellEditor = new ComboBoxCellEditor(table, BOOLEANS, SWT.READ_ONLY) {
 
@@ -154,7 +168,7 @@ public final class DefaultCellEditorFactory {
                             return;
                         }
                         para.setValue(value);
-                        refreshAll();
+                        refreshCurrentSelection();
                         setModifyFlag();
                     }
 
@@ -214,7 +228,7 @@ public final class DefaultCellEditorFactory {
                     return;
                 }
                 para.setValue(value);
-                refreshAll();
+                refreshCurrentSelection();
                 setModifyFlag();
             }
 
@@ -246,7 +260,7 @@ public final class DefaultCellEditorFactory {
     }
 
     /**
-     * DOC chuang Comment method "onTextChange".
+     * chuang Comment method "onTextChange".
      * 
      * @param editor
      */
@@ -260,7 +274,7 @@ public final class DefaultCellEditorFactory {
                     return;
                 }
                 para.setValue(value);
-                refreshAll();
+                refreshCurrentSelection();
                 setModifyFlag();
 
             }
@@ -286,7 +300,7 @@ public final class DefaultCellEditorFactory {
                 setLocalValue(para.getDisplayValue());
                 updateContents(para.getDisplayValue());
                 if (value instanceof String[]) {
-                    refreshAll();
+                    refreshCurrentSelection();
                     setModifyFlag();
                 }
 
@@ -491,7 +505,7 @@ public final class DefaultCellEditorFactory {
             // if (!isList(para.getType())) {
             para.setValue(value.toString());
             // }
-            refreshAll();
+            refreshCurrentSelection();
             setModifyFlag();
         }
     }

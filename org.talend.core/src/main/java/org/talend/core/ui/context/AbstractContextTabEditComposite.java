@@ -12,20 +12,17 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
+import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
-import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier;
-import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvier.Son;
+import org.talend.core.CorePlugin;
 
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
  * 
  */
 public abstract class AbstractContextTabEditComposite extends Composite {
-
-    private static final String PERL_STRING_TYPE = "string"; //$NON-NLS-1$
 
     /**
      * DOC YeXiaowei AbstractContextTabEditComposite constructor comment.
@@ -35,6 +32,15 @@ public abstract class AbstractContextTabEditComposite extends Composite {
      */
     public AbstractContextTabEditComposite(Composite parent, int style) {
         super(parent, style);
+    }
+
+    /**
+     * 
+     * cli Comment method "getPreferenceStore".
+     * 
+     */
+    public IPreferenceStore getPreferenceStore() {
+        return CorePlugin.getDefault().getPreferenceStore();
     }
 
     private boolean needRefresh = true;
@@ -47,10 +53,17 @@ public abstract class AbstractContextTabEditComposite extends Composite {
         this.needRefresh = refresh;
     }
 
-    public String getPerlStringType() {
-        return PERL_STRING_TYPE;
-    }
+    public abstract IContextModelManager getContextModelManager();
+
+    public abstract TreeViewer getViewer();
 
     public abstract void refresh();
 
+    public void runCommand(Command command) {
+        if (getContextModelManager().getCommandStack() == null) {
+            command.execute();
+        } else {
+            getContextModelManager().getCommandStack().execute(command);
+        }
+    }
 }

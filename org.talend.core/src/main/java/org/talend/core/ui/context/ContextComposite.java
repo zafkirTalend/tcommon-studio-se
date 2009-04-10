@@ -40,9 +40,9 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private ContextTemplateComposite template;
 
-    private ConextTreeValuesComposite treeValues;
+    private ContextTreeValuesComposite treeValues;
 
-    private ConextTableValuesComposite tableValues;
+    private ContextTableValuesComposite tableValues;
 
     private CTabFolder tab;
 
@@ -253,12 +253,12 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     private void creatTreeValues(CTabFolder tab, CTabItem treeValuesItem) {
-        treeValues = new ConextTreeValuesComposite(tab, this);
+        treeValues = new ContextTreeValuesComposite(tab, this);
         treeValuesItem.setControl(treeValues);
     }
 
     private void creatTableValues(CTabFolder tab, CTabItem tableValuesItem) {
-        tableValues = new ConextTableValuesComposite(tab, this);
+        tableValues = new ContextTableValuesComposite(tab, this);
         tableValuesItem.setControl(tableValues);
     }
 
