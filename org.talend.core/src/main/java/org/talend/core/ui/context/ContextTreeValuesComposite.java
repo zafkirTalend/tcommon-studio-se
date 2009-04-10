@@ -66,6 +66,7 @@ import org.talend.core.ui.context.model.tree.ContextTreeCellModifier;
 import org.talend.core.ui.context.model.tree.ContextTreeConstants;
 import org.talend.core.ui.context.model.tree.GroupByContextAction;
 import org.talend.core.ui.context.model.tree.GroupByVariableAction;
+import org.talend.core.ui.context.model.tree.GroupByVariableProvider;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -161,7 +162,7 @@ public class ContextTreeValuesComposite extends AbstractContextTabEditComposite 
         viewer.setCellModifier(cellModifier);
 
         provider = new ContextViewerProvider();
-        // provider.setProvider(new GroupByVariableProvider());
+        provider.setProvider(new GroupByVariableProvider());
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
 
