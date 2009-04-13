@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXINPUT <em>MAXINPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXOUTPUT <em>MAXOUTPUT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMERGEALLOWDIFFERENTSCHEMA <em>MERGEALLOWDIFFERENTSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMININPUT <em>MININPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMINOUTPUT <em>MINOUTPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMULTISCHEMA <em>MULTISCHEMA</em>}</li>
@@ -415,6 +416,60 @@ public interface CONNECTORType extends EObject {
      * @generated
      */
     boolean isSetMAXOUTPUT();
+
+    /**
+     * Returns the value of the '<em><b>MERGEALLOWDIFFERENTSCHEMA</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>MERGEALLOWDIFFERENTSCHEMA</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>MERGEALLOWDIFFERENTSCHEMA</em>' attribute.
+     * @see #isSetMERGEALLOWDIFFERENTSCHEMA()
+     * @see #unsetMERGEALLOWDIFFERENTSCHEMA()
+     * @see #setMERGEALLOWDIFFERENTSCHEMA(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_MERGEALLOWDIFFERENTSCHEMA()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='MERGE_ALLOW_DIFFERENT_SCHEMA' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isMERGEALLOWDIFFERENTSCHEMA();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMERGEALLOWDIFFERENTSCHEMA <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>MERGEALLOWDIFFERENTSCHEMA</em>' attribute.
+     * @see #isSetMERGEALLOWDIFFERENTSCHEMA()
+     * @see #unsetMERGEALLOWDIFFERENTSCHEMA()
+     * @see #isMERGEALLOWDIFFERENTSCHEMA()
+     * @generated
+     */
+    void setMERGEALLOWDIFFERENTSCHEMA(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMERGEALLOWDIFFERENTSCHEMA <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetMERGEALLOWDIFFERENTSCHEMA()
+     * @see #isMERGEALLOWDIFFERENTSCHEMA()
+     * @see #setMERGEALLOWDIFFERENTSCHEMA(boolean)
+     * @generated
+     */
+    void unsetMERGEALLOWDIFFERENTSCHEMA();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMERGEALLOWDIFFERENTSCHEMA <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>MERGEALLOWDIFFERENTSCHEMA</em>' attribute is set.
+     * @see #unsetMERGEALLOWDIFFERENTSCHEMA()
+     * @see #isMERGEALLOWDIFFERENTSCHEMA()
+     * @see #setMERGEALLOWDIFFERENTSCHEMA(boolean)
+     * @generated
+     */
+    boolean isSetMERGEALLOWDIFFERENTSCHEMA();
 
     /**
      * Returns the value of the '<em><b>MININPUT</b></em>' attribute.

@@ -54,6 +54,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/lINESTYLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mAXINPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mAXOUTPUT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mERGEALLOWDIFFERENTSCHEMA"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mININPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mINOUTPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mULTISCHEMA"/>
@@ -149,8 +150,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/fIELD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/fILTER"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nAME"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nOTREADONLYIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nOTSHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEADONLY"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEADONLYIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEPOSITORYITEM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/sHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/vALUE"/>
@@ -176,9 +179,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/gROUP"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nBLINES"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nOTREADONLYIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nOTSHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nUMROW"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/rEADONLY"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/rEADONLYIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/rEPOSITORYVALUE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/rEQUIRED"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/sHOW"/>

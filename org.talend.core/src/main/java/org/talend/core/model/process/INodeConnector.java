@@ -63,6 +63,10 @@ public interface INodeConnector {
 
     public void setMultiSchema(final boolean multi);
 
+    public boolean isMergeAllowDifferentSchema();
+
+    public void setMergeAllowDifferentSchema(final boolean mergeOption);
+
     public int getCurLinkNbInput();
 
     public void setCurLinkNbInput(final int curLinkNb);

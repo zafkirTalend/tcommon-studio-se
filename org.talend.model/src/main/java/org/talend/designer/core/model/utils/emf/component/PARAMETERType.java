@@ -30,9 +30,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNUMROW <em>NUMROW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLY <em>READONLY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isSHOW <em>SHOW</em>}</li>
@@ -470,6 +472,60 @@ public interface PARAMETERType extends EObject {
     boolean isSetNBLINES();
 
     /**
+     * Returns the value of the '<em><b>NOTREADONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NOTREADONLYIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NOTREADONLYIF</em>' attribute.
+     * @see #isSetNOTREADONLYIF()
+     * @see #unsetNOTREADONLYIF()
+     * @see #setNOTREADONLYIF(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NOTREADONLYIF()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='NOT_READONLY_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isNOTREADONLYIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NOTREADONLYIF</em>' attribute.
+     * @see #isSetNOTREADONLYIF()
+     * @see #unsetNOTREADONLYIF()
+     * @see #isNOTREADONLYIF()
+     * @generated
+     */
+    void setNOTREADONLYIF(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNOTREADONLYIF()
+     * @see #isNOTREADONLYIF()
+     * @see #setNOTREADONLYIF(boolean)
+     * @generated
+     */
+    void unsetNOTREADONLYIF();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>NOTREADONLYIF</em>' attribute is set.
+     * @see #unsetNOTREADONLYIF()
+     * @see #isNOTREADONLYIF()
+     * @see #setNOTREADONLYIF(boolean)
+     * @generated
+     */
+    boolean isSetNOTREADONLYIF();
+
+    /**
      * Returns the value of the '<em><b>NOTSHOWIF</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -604,6 +660,60 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     boolean isSetREADONLY();
+
+    /**
+     * Returns the value of the '<em><b>READONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>READONLYIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>READONLYIF</em>' attribute.
+     * @see #isSetREADONLYIF()
+     * @see #unsetREADONLYIF()
+     * @see #setREADONLYIF(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_READONLYIF()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='READONLY_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isREADONLYIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF <em>READONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>READONLYIF</em>' attribute.
+     * @see #isSetREADONLYIF()
+     * @see #unsetREADONLYIF()
+     * @see #isREADONLYIF()
+     * @generated
+     */
+    void setREADONLYIF(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF <em>READONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetREADONLYIF()
+     * @see #isREADONLYIF()
+     * @see #setREADONLYIF(boolean)
+     * @generated
+     */
+    void unsetREADONLYIF();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF <em>READONLYIF</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>READONLYIF</em>' attribute is set.
+     * @see #unsetREADONLYIF()
+     * @see #isREADONLYIF()
+     * @see #setREADONLYIF(boolean)
+     * @generated
+     */
+    boolean isSetREADONLYIF();
 
     /**
      * Returns the value of the '<em><b>REPOSITORYVALUE</b></em>' attribute.

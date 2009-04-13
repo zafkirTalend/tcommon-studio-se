@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXINPUT <em>MAXINPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXOUTPUT <em>MAXOUTPUT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isMERGEALLOWDIFFERENTSCHEMA <em>MERGEALLOWDIFFERENTSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMININPUT <em>MININPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMINOUTPUT <em>MINOUTPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isMULTISCHEMA <em>MULTISCHEMA</em>}</li>
@@ -263,6 +264,35 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @ordered
      */
     protected boolean mAXOUTPUTESet;
+
+    /**
+     * The default value of the '{@link #isMERGEALLOWDIFFERENTSCHEMA() <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMERGEALLOWDIFFERENTSCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean MERGEALLOWDIFFERENTSCHEMA_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isMERGEALLOWDIFFERENTSCHEMA() <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isMERGEALLOWDIFFERENTSCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected boolean mERGEALLOWDIFFERENTSCHEMA = MERGEALLOWDIFFERENTSCHEMA_EDEFAULT;
+
+    /**
+     * This is true if the MERGEALLOWDIFFERENTSCHEMA attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean mERGEALLOWDIFFERENTSCHEMAESet;
 
     /**
      * The default value of the '{@link #getMININPUT() <em>MININPUT</em>}' attribute.
@@ -709,6 +739,52 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isMERGEALLOWDIFFERENTSCHEMA() {
+        return mERGEALLOWDIFFERENTSCHEMA;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMERGEALLOWDIFFERENTSCHEMA(boolean newMERGEALLOWDIFFERENTSCHEMA) {
+        boolean oldMERGEALLOWDIFFERENTSCHEMA = mERGEALLOWDIFFERENTSCHEMA;
+        mERGEALLOWDIFFERENTSCHEMA = newMERGEALLOWDIFFERENTSCHEMA;
+        boolean oldMERGEALLOWDIFFERENTSCHEMAESet = mERGEALLOWDIFFERENTSCHEMAESet;
+        mERGEALLOWDIFFERENTSCHEMAESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA, oldMERGEALLOWDIFFERENTSCHEMA, mERGEALLOWDIFFERENTSCHEMA, !oldMERGEALLOWDIFFERENTSCHEMAESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetMERGEALLOWDIFFERENTSCHEMA() {
+        boolean oldMERGEALLOWDIFFERENTSCHEMA = mERGEALLOWDIFFERENTSCHEMA;
+        boolean oldMERGEALLOWDIFFERENTSCHEMAESet = mERGEALLOWDIFFERENTSCHEMAESet;
+        mERGEALLOWDIFFERENTSCHEMA = MERGEALLOWDIFFERENTSCHEMA_EDEFAULT;
+        mERGEALLOWDIFFERENTSCHEMAESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA, oldMERGEALLOWDIFFERENTSCHEMA, MERGEALLOWDIFFERENTSCHEMA_EDEFAULT, oldMERGEALLOWDIFFERENTSCHEMAESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMERGEALLOWDIFFERENTSCHEMA() {
+        return mERGEALLOWDIFFERENTSCHEMAESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public int getMININPUT() {
         return mININPUT;
     }
@@ -889,6 +965,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return new Integer(getMAXINPUT());
             case ComponentPackage.CONNECTOR_TYPE__MAXOUTPUT:
                 return new Integer(getMAXOUTPUT());
+            case ComponentPackage.CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA:
+                return isMERGEALLOWDIFFERENTSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.CONNECTOR_TYPE__MININPUT:
                 return new Integer(getMININPUT());
             case ComponentPackage.CONNECTOR_TYPE__MINOUTPUT:
@@ -935,6 +1013,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return;
             case ComponentPackage.CONNECTOR_TYPE__MAXOUTPUT:
                 setMAXOUTPUT(((Integer)newValue).intValue());
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA:
+                setMERGEALLOWDIFFERENTSCHEMA(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.CONNECTOR_TYPE__MININPUT:
                 setMININPUT(((Integer)newValue).intValue());
@@ -987,6 +1068,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__MAXOUTPUT:
                 unsetMAXOUTPUT();
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA:
+                unsetMERGEALLOWDIFFERENTSCHEMA();
+                return;
             case ComponentPackage.CONNECTOR_TYPE__MININPUT:
                 unsetMININPUT();
                 return;
@@ -1029,6 +1113,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return isSetMAXINPUT();
             case ComponentPackage.CONNECTOR_TYPE__MAXOUTPUT:
                 return isSetMAXOUTPUT();
+            case ComponentPackage.CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA:
+                return isSetMERGEALLOWDIFFERENTSCHEMA();
             case ComponentPackage.CONNECTOR_TYPE__MININPUT:
                 return isSetMININPUT();
             case ComponentPackage.CONNECTOR_TYPE__MINOUTPUT:
@@ -1069,6 +1155,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         if (mAXINPUTESet) result.append(mAXINPUT); else result.append("<unset>");
         result.append(", mAXOUTPUT: ");
         if (mAXOUTPUTESet) result.append(mAXOUTPUT); else result.append("<unset>");
+        result.append(", mERGEALLOWDIFFERENTSCHEMA: ");
+        if (mERGEALLOWDIFFERENTSCHEMAESet) result.append(mERGEALLOWDIFFERENTSCHEMA); else result.append("<unset>");
         result.append(", mININPUT: ");
         if (mININPUTESet) result.append(mININPUT); else result.append("<unset>");
         result.append(", mINOUTPUT: ");

@@ -44,9 +44,11 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getGROUP <em>GROUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNBLINES <em>NBLINES</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNUMROW <em>NUMROW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREADONLY <em>READONLY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isSHOW <em>SHOW</em>}</li>
@@ -315,6 +317,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     protected boolean nBLINESESet;
 
     /**
+     * The default value of the '{@link #isNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOTREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean NOTREADONLYIF_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOTREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected boolean nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
+
+    /**
+     * This is true if the NOTREADONLYIF attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean nOTREADONLYIFESet;
+
+    /**
      * The default value of the '{@link #getNOTSHOWIF() <em>NOTSHOWIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -391,6 +422,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected boolean rEADONLYESet;
+
+    /**
+     * The default value of the '{@link #isREADONLYIF() <em>READONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean READONLYIF_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isREADONLYIF() <em>READONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYIF = READONLYIF_EDEFAULT;
+
+    /**
+     * This is true if the READONLYIF attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYIFESet;
 
     /**
      * The default value of the '{@link #getREPOSITORYVALUE() <em>REPOSITORYVALUE</em>}' attribute.
@@ -866,6 +926,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isNOTREADONLYIF() {
+        return nOTREADONLYIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOTREADONLYIF(boolean newNOTREADONLYIF) {
+        boolean oldNOTREADONLYIF = nOTREADONLYIF;
+        nOTREADONLYIF = newNOTREADONLYIF;
+        boolean oldNOTREADONLYIFESet = nOTREADONLYIFESet;
+        nOTREADONLYIFESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, nOTREADONLYIF, !oldNOTREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOTREADONLYIF() {
+        boolean oldNOTREADONLYIF = nOTREADONLYIF;
+        boolean oldNOTREADONLYIFESet = nOTREADONLYIFESet;
+        nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
+        nOTREADONLYIFESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, NOTREADONLYIF_EDEFAULT, oldNOTREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOTREADONLYIF() {
+        return nOTREADONLYIFESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getNOTSHOWIF() {
         return nOTSHOWIF;
     }
@@ -972,6 +1078,52 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      */
     public boolean isSetREADONLY() {
         return rEADONLYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isREADONLYIF() {
+        return rEADONLYIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREADONLYIF(boolean newREADONLYIF) {
+        boolean oldREADONLYIF = rEADONLYIF;
+        rEADONLYIF = newREADONLYIF;
+        boolean oldREADONLYIFESet = rEADONLYIFESet;
+        rEADONLYIFESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__READONLYIF, oldREADONLYIF, rEADONLYIF, !oldREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetREADONLYIF() {
+        boolean oldREADONLYIF = rEADONLYIF;
+        boolean oldREADONLYIFESet = rEADONLYIFESet;
+        rEADONLYIF = READONLYIF_EDEFAULT;
+        rEADONLYIFESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__READONLYIF, oldREADONLYIF, READONLYIF_EDEFAULT, oldREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetREADONLYIF() {
+        return rEADONLYIFESet;
     }
 
     /**
@@ -1160,12 +1312,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getNAME();
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 return new Integer(getNBLINES());
+            case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
+                return isNOTREADONLYIF() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__NOTSHOWIF:
                 return getNOTSHOWIF();
             case ComponentPackage.PARAMETER_TYPE__NUMROW:
                 return new Integer(getNUMROW());
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.PARAMETER_TYPE__READONLYIF:
+                return isREADONLYIF() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__REPOSITORYVALUE:
                 return getREPOSITORYVALUE();
             case ComponentPackage.PARAMETER_TYPE__REQUIRED:
@@ -1228,6 +1384,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 setNBLINES(((Integer)newValue).intValue());
                 return;
+            case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
+                setNOTREADONLYIF(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.PARAMETER_TYPE__NOTSHOWIF:
                 setNOTSHOWIF((String)newValue);
                 return;
@@ -1236,6 +1395,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 setREADONLY(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.PARAMETER_TYPE__READONLYIF:
+                setREADONLYIF(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.PARAMETER_TYPE__REPOSITORYVALUE:
                 setREPOSITORYVALUE((String)newValue);
@@ -1300,6 +1462,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 unsetNBLINES();
                 return;
+            case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
+                unsetNOTREADONLYIF();
+                return;
             case ComponentPackage.PARAMETER_TYPE__NOTSHOWIF:
                 setNOTSHOWIF(NOTSHOWIF_EDEFAULT);
                 return;
@@ -1308,6 +1473,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 unsetREADONLY();
+                return;
+            case ComponentPackage.PARAMETER_TYPE__READONLYIF:
+                unsetREADONLYIF();
                 return;
             case ComponentPackage.PARAMETER_TYPE__REPOSITORYVALUE:
                 setREPOSITORYVALUE(REPOSITORYVALUE_EDEFAULT);
@@ -1359,12 +1527,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 return isSetNBLINES();
+            case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
+                return isSetNOTREADONLYIF();
             case ComponentPackage.PARAMETER_TYPE__NOTSHOWIF:
                 return NOTSHOWIF_EDEFAULT == null ? nOTSHOWIF != null : !NOTSHOWIF_EDEFAULT.equals(nOTSHOWIF);
             case ComponentPackage.PARAMETER_TYPE__NUMROW:
                 return isSetNUMROW();
             case ComponentPackage.PARAMETER_TYPE__READONLY:
                 return isSetREADONLY();
+            case ComponentPackage.PARAMETER_TYPE__READONLYIF:
+                return isSetREADONLYIF();
             case ComponentPackage.PARAMETER_TYPE__REPOSITORYVALUE:
                 return REPOSITORYVALUE_EDEFAULT == null ? rEPOSITORYVALUE != null : !REPOSITORYVALUE_EDEFAULT.equals(rEPOSITORYVALUE);
             case ComponentPackage.PARAMETER_TYPE__REQUIRED:
@@ -1407,12 +1579,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(nAME);
         result.append(", nBLINES: ");
         if (nBLINESESet) result.append(nBLINES); else result.append("<unset>");
+        result.append(", nOTREADONLYIF: ");
+        if (nOTREADONLYIFESet) result.append(nOTREADONLYIF); else result.append("<unset>");
         result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);
         result.append(", nUMROW: ");
         if (nUMROWESet) result.append(nUMROW); else result.append("<unset>");
         result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+        result.append(", rEADONLYIF: ");
+        if (rEADONLYIFESet) result.append(rEADONLYIF); else result.append("<unset>");
         result.append(", rEPOSITORYVALUE: ");
         result.append(rEPOSITORYVALUE);
         result.append(", rEQUIRED: ");

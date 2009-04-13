@@ -472,13 +472,22 @@ public interface ComponentPackage extends EPackage {
     int CONNECTOR_TYPE__MAXOUTPUT = 8;
 
     /**
+     * The feature id for the '<em><b>MERGEALLOWDIFFERENTSCHEMA</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA = 9;
+
+    /**
      * The feature id for the '<em><b>MININPUT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MININPUT = 9;
+    int CONNECTOR_TYPE__MININPUT = 10;
 
     /**
      * The feature id for the '<em><b>MINOUTPUT</b></em>' attribute.
@@ -487,7 +496,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MINOUTPUT = 10;
+    int CONNECTOR_TYPE__MINOUTPUT = 11;
 
     /**
      * The feature id for the '<em><b>MULTISCHEMA</b></em>' attribute.
@@ -496,7 +505,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MULTISCHEMA = 11;
+    int CONNECTOR_TYPE__MULTISCHEMA = 12;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -505,7 +514,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__NAME = 12;
+    int CONNECTOR_TYPE__NAME = 13;
 
     /**
      * The number of structural features of the '<em>CONNECTOR Type</em>' class.
@@ -514,7 +523,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE_FEATURE_COUNT = 13;
+    int CONNECTOR_TYPE_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.
@@ -1338,13 +1347,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__NAME = 4;
 
     /**
+     * The feature id for the '<em><b>NOTREADONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__NOTREADONLYIF = 5;
+
+    /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTSHOWIF = 5;
+    int ITEM_TYPE__NOTSHOWIF = 6;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1353,7 +1371,16 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__READONLY = 6;
+    int ITEM_TYPE__READONLY = 7;
+
+    /**
+     * The feature id for the '<em><b>READONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__READONLYIF = 8;
 
     /**
      * The feature id for the '<em><b>REPOSITORYITEM</b></em>' attribute.
@@ -1362,7 +1389,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__REPOSITORYITEM = 7;
+    int ITEM_TYPE__REPOSITORYITEM = 9;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1371,7 +1398,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__SHOWIF = 8;
+    int ITEM_TYPE__SHOWIF = 10;
 
     /**
      * The feature id for the '<em><b>VALUE</b></em>' attribute.
@@ -1380,7 +1407,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__VALUE = 9;
+    int ITEM_TYPE__VALUE = 11;
 
     /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
@@ -1389,7 +1416,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 10;
+    int ITEM_TYPE_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
@@ -1584,13 +1611,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__NBLINES = 12;
 
     /**
+     * The feature id for the '<em><b>NOTREADONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__NOTREADONLYIF = 13;
+
+    /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NOTSHOWIF = 13;
+    int PARAMETER_TYPE__NOTSHOWIF = 14;
 
     /**
      * The feature id for the '<em><b>NUMROW</b></em>' attribute.
@@ -1599,7 +1635,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NUMROW = 14;
+    int PARAMETER_TYPE__NUMROW = 15;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1608,7 +1644,16 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__READONLY = 15;
+    int PARAMETER_TYPE__READONLY = 16;
+
+    /**
+     * The feature id for the '<em><b>READONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__READONLYIF = 17;
 
     /**
      * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
@@ -1617,7 +1662,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REPOSITORYVALUE = 16;
+    int PARAMETER_TYPE__REPOSITORYVALUE = 18;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -1626,7 +1671,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REQUIRED = 17;
+    int PARAMETER_TYPE__REQUIRED = 19;
 
     /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
@@ -1635,7 +1680,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOW = 18;
+    int PARAMETER_TYPE__SHOW = 20;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1644,7 +1689,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOWIF = 19;
+    int PARAMETER_TYPE__SHOWIF = 21;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1653,7 +1698,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 20;
+    int PARAMETER_TYPE_FEATURE_COUNT = 22;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -2513,6 +2558,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCONNECTORType_MAXOUTPUT();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMERGEALLOWDIFFERENTSCHEMA <em>MERGEALLOWDIFFERENTSCHEMA</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>MERGEALLOWDIFFERENTSCHEMA</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMERGEALLOWDIFFERENTSCHEMA()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_MERGEALLOWDIFFERENTSCHEMA();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMININPUT <em>MININPUT</em>}'.
@@ -3428,6 +3484,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_NAME();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOTREADONLYIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isNOTREADONLYIF()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_NOTREADONLYIF();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTSHOWIF <em>NOTSHOWIF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3448,6 +3515,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getITEMType_READONLY();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLYIF <em>READONLYIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READONLYIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLYIF()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_READONLYIF();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}'.
@@ -3689,6 +3767,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_NBLINES();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOTREADONLYIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_NOTREADONLYIF();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTSHOWIF <em>NOTSHOWIF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3720,6 +3809,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getPARAMETERType_READONLY();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF <em>READONLYIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READONLYIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_READONLYIF();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREPOSITORYVALUE <em>REPOSITORYVALUE</em>}'.
@@ -4506,6 +4606,14 @@ public interface ComponentPackage extends EPackage {
         EAttribute CONNECTOR_TYPE__MAXOUTPUT = eINSTANCE.getCONNECTORType_MAXOUTPUT();
 
         /**
+         * The meta object literal for the '<em><b>MERGEALLOWDIFFERENTSCHEMA</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__MERGEALLOWDIFFERENTSCHEMA = eINSTANCE.getCONNECTORType_MERGEALLOWDIFFERENTSCHEMA();
+
+        /**
          * The meta object literal for the '<em><b>MININPUT</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5200,6 +5308,14 @@ public interface ComponentPackage extends EPackage {
         EAttribute ITEM_TYPE__NAME = eINSTANCE.getITEMType_NAME();
 
         /**
+         * The meta object literal for the '<em><b>NOTREADONLYIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__NOTREADONLYIF = eINSTANCE.getITEMType_NOTREADONLYIF();
+
+        /**
          * The meta object literal for the '<em><b>NOTSHOWIF</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5214,6 +5330,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_TYPE__READONLY = eINSTANCE.getITEMType_READONLY();
+
+        /**
+         * The meta object literal for the '<em><b>READONLYIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__READONLYIF = eINSTANCE.getITEMType_READONLYIF();
 
         /**
          * The meta object literal for the '<em><b>REPOSITORYITEM</b></em>' attribute feature.
@@ -5398,6 +5522,14 @@ public interface ComponentPackage extends EPackage {
         EAttribute PARAMETER_TYPE__NBLINES = eINSTANCE.getPARAMETERType_NBLINES();
 
         /**
+         * The meta object literal for the '<em><b>NOTREADONLYIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__NOTREADONLYIF = eINSTANCE.getPARAMETERType_NOTREADONLYIF();
+
+        /**
          * The meta object literal for the '<em><b>NOTSHOWIF</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5420,6 +5552,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__READONLY = eINSTANCE.getPARAMETERType_READONLY();
+
+        /**
+         * The meta object literal for the '<em><b>READONLYIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__READONLYIF = eINSTANCE.getPARAMETERType_READONLYIF();
 
         /**
          * The meta object literal for the '<em><b>REPOSITORYVALUE</b></em>' attribute feature.

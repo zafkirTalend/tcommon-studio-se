@@ -30,8 +30,10 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLY <em>READONLY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
@@ -141,6 +143,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     protected String nAME = NAME_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOTREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean NOTREADONLYIF_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOTREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected boolean nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
+
+    /**
+     * This is true if the NOTREADONLYIF attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean nOTREADONLYIFESet;
+
+    /**
      * The default value of the '{@link #getNOTSHOWIF() <em>NOTSHOWIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -188,6 +219,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected boolean rEADONLYESet;
+
+    /**
+     * The default value of the '{@link #isREADONLYIF() <em>READONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean READONLYIF_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isREADONLYIF() <em>READONLYIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLYIF()
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYIF = READONLYIF_EDEFAULT;
+
+    /**
+     * This is true if the READONLYIF attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYIFESet;
 
     /**
      * The default value of the '{@link #getREPOSITORYITEM() <em>REPOSITORYITEM</em>}' attribute.
@@ -425,6 +485,52 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isNOTREADONLYIF() {
+        return nOTREADONLYIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOTREADONLYIF(boolean newNOTREADONLYIF) {
+        boolean oldNOTREADONLYIF = nOTREADONLYIF;
+        nOTREADONLYIF = newNOTREADONLYIF;
+        boolean oldNOTREADONLYIFESet = nOTREADONLYIFESet;
+        nOTREADONLYIFESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, nOTREADONLYIF, !oldNOTREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOTREADONLYIF() {
+        boolean oldNOTREADONLYIF = nOTREADONLYIF;
+        boolean oldNOTREADONLYIFESet = nOTREADONLYIFESet;
+        nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
+        nOTREADONLYIFESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, NOTREADONLYIF_EDEFAULT, oldNOTREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOTREADONLYIF() {
+        return nOTREADONLYIFESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getNOTSHOWIF() {
         return nOTSHOWIF;
     }
@@ -485,6 +591,52 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      */
     public boolean isSetREADONLY() {
         return rEADONLYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isREADONLYIF() {
+        return rEADONLYIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREADONLYIF(boolean newREADONLYIF) {
+        boolean oldREADONLYIF = rEADONLYIF;
+        rEADONLYIF = newREADONLYIF;
+        boolean oldREADONLYIFESet = rEADONLYIFESet;
+        rEADONLYIFESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__READONLYIF, oldREADONLYIF, rEADONLYIF, !oldREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetREADONLYIF() {
+        boolean oldREADONLYIF = rEADONLYIF;
+        boolean oldREADONLYIFESet = rEADONLYIFESet;
+        rEADONLYIF = READONLYIF_EDEFAULT;
+        rEADONLYIFESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__READONLYIF, oldREADONLYIF, READONLYIF_EDEFAULT, oldREADONLYIFESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetREADONLYIF() {
+        return rEADONLYIFESet;
     }
 
     /**
@@ -582,10 +734,14 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getFILTER();
             case ComponentPackage.ITEM_TYPE__NAME:
                 return getNAME();
+            case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
+                return isNOTREADONLYIF() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 return getNOTSHOWIF();
             case ComponentPackage.ITEM_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.ITEM_TYPE__READONLYIF:
+                return isREADONLYIF() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 return getREPOSITORYITEM();
             case ComponentPackage.ITEM_TYPE__SHOWIF:
@@ -619,11 +775,17 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME((String)newValue);
                 return;
+            case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
+                setNOTREADONLYIF(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 setNOTSHOWIF((String)newValue);
                 return;
             case ComponentPackage.ITEM_TYPE__READONLY:
                 setREADONLY(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.ITEM_TYPE__READONLYIF:
+                setREADONLYIF(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 setREPOSITORYITEM((String)newValue);
@@ -661,11 +823,17 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
+            case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
+                unsetNOTREADONLYIF();
+                return;
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 setNOTSHOWIF(NOTSHOWIF_EDEFAULT);
                 return;
             case ComponentPackage.ITEM_TYPE__READONLY:
                 unsetREADONLY();
+                return;
+            case ComponentPackage.ITEM_TYPE__READONLYIF:
+                unsetREADONLYIF();
                 return;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 setREPOSITORYITEM(REPOSITORYITEM_EDEFAULT);
@@ -698,10 +866,14 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return FILTER_EDEFAULT == null ? fILTER != null : !FILTER_EDEFAULT.equals(fILTER);
             case ComponentPackage.ITEM_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
+            case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
+                return isSetNOTREADONLYIF();
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 return NOTSHOWIF_EDEFAULT == null ? nOTSHOWIF != null : !NOTSHOWIF_EDEFAULT.equals(nOTSHOWIF);
             case ComponentPackage.ITEM_TYPE__READONLY:
                 return isSetREADONLY();
+            case ComponentPackage.ITEM_TYPE__READONLYIF:
+                return isSetREADONLYIF();
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 return REPOSITORYITEM_EDEFAULT == null ? rEPOSITORYITEM != null : !REPOSITORYITEM_EDEFAULT.equals(rEPOSITORYITEM);
             case ComponentPackage.ITEM_TYPE__SHOWIF:
@@ -730,10 +902,14 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(fILTER);
         result.append(", nAME: ");
         result.append(nAME);
+        result.append(", nOTREADONLYIF: ");
+        if (nOTREADONLYIFESet) result.append(nOTREADONLYIF); else result.append("<unset>");
         result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);
         result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+        result.append(", rEADONLYIF: ");
+        if (rEADONLYIFESet) result.append(rEADONLYIF); else result.append("<unset>");
         result.append(", rEPOSITORYITEM: ");
         result.append(rEPOSITORYITEM);
         result.append(", sHOWIF: ");
