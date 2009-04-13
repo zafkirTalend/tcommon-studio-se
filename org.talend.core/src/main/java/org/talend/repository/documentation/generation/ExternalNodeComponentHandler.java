@@ -117,7 +117,6 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             if (componentDocumentation == null) {
                 // generateElementParamInfo(parametersElement, elementParameterList);
                 // see 3328, document for scd is generated similar to internal node
-                generateComponentElementParamInfo(parametersElement, elementParameterList);
                 generateComponentSchemaInfo(externalNode, componentElement);
             } else {
                 URL fileURL = componentDocumentation.getHTMLFile();
@@ -125,6 +124,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
                     this.externalNodeHTMLMap.put(componentName, fileURL);
                 }
             }
+            generateComponentElementParamInfo(parametersElement, elementParameterList);
             componentElement.addComment(componentName);
         }
     }
