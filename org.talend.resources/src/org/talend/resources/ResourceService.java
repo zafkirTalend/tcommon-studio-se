@@ -29,7 +29,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.RuntimeExceptionHandler;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.resource.IResourceService;
+import org.talend.resources.i18n.Messages;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -43,7 +45,7 @@ public class ResourceService implements IResourceService {
 
     private final static String JAVA_LIBRARIE = "resources/demoprojects/java/TALENDDEMOSJAVA/lib/java"; //$NON-NLS-1$
 
-    private final static String RESOURCES = "resources";
+    private final static String RESOURCES = "resources"; //$NON-NLS-1$
 
     /*
      * (non-Javadoc)
@@ -86,5 +88,13 @@ public class ResourceService implements IResourceService {
         } else {
             return null;
         }
+    }
+
+    public String getDemoDescription(ECodeLanguage language) {
+        if (language == null) {
+            language = ECodeLanguage.PERL;
+        }
+
+        return Messages.getString("demodescription.html", language.getCaseName());
     }
 }
