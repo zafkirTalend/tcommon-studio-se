@@ -218,6 +218,9 @@ public final class RepositoryManager {
      * synchronize the routines and the joblets created by other users.
      */
     public static void syncRoutineAndJoblet(ERepositoryObjectType type) {
+        if (type == null) {
+            return;
+        }
         if (type.equals(ERepositoryObjectType.ROUTINES)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
