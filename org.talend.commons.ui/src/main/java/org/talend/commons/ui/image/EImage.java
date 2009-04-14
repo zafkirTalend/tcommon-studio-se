@@ -47,6 +47,10 @@ public enum EImage implements IImage {
     CHECKED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     UNCHECKED_ICON("/icons/unchecked.gif"), //$NON-NLS-1$
 
+    ERRORSIMPLEMESS_ICON("/icons/errorSimpleMess.gif"), //$NON-NLS-1$
+    RIGHTPRESS_ICON("/icons/rightpressedarrow.gif"), //$NON-NLS-1$
+    DOWNPRESS_ICON("/icons/downpressedarrow.gif"), //$NON-NLS-1$
+
     ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
     WARNING_ICON("/icons/warning.gif"), //$NON-NLS-1$
     INFORMATION_ICON("/icons/unknown.gif"), //$NON-NLS-1$
