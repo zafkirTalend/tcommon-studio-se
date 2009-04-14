@@ -26,9 +26,14 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Property;
+import org.talend.core.ui.IJobletProviderService;
+import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.repository.editor.RepositoryEditorInput;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -63,7 +68,7 @@ public final class RepositoryManager {
         if (CommonsPlugin.isHeadless()) {
             return null;
         }
-        
+
         IViewPart part = null;
         IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (activeWorkbenchWindow != null) {
@@ -97,7 +102,10 @@ public final class RepositoryManager {
                 repositoryView.refresh();
             }
         }
-
+        // qli modified to fix the bug 6659.
+        if (type != null) {
+            syncRoutineAndJoblet(type);
+        }
     }
 
     public static void refreshCreatedNode(IProjectRepositoryNode projectNode, ERepositoryObjectType type) {
@@ -113,6 +121,10 @@ public final class RepositoryManager {
                 }
             } else {
                 repositoryView.refresh();
+            }
+            // qli modified to fix the bug 6659.
+            if (type != null) {
+                syncRoutineAndJoblet(type);
             }
         }
 
@@ -195,6 +207,32 @@ public final class RepositoryManager {
         if (types != null && repositoryView != null) {
             for (ERepositoryObjectType type : types) {
                 repositoryView.refresh(type);
+            }
+        }
+    }
+
+    /**
+     * 
+     * qli Comment method "syncRoutineAndJoblet".
+     * 
+     * synchronize the routines and the joblets created by other users.
+     */
+    public static void syncRoutineAndJoblet(ERepositoryObjectType type) {
+        if (type.equals(ERepositoryObjectType.ROUTINES)) {
+            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                    ICodeGeneratorService.class);
+            try {
+                codeGenService.createRoutineSynchronizer().syncAllRoutines();
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+        } else if (type.equals(ERepositoryObjectType.JOBLET)) {
+            if (PluginChecker.isJobLetPluginLoaded()) {
+                IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
+                        IJobletProviderService.class);
+                if (jobletService != null) {
+                    jobletService.loadComponentsFromProviders();
+                }
             }
         }
     }

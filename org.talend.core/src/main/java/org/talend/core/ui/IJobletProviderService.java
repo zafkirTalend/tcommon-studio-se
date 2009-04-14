@@ -50,4 +50,6 @@ public interface IJobletProviderService extends IService {
     public List<INode> getConnNodesForInputTrigger(INode jobletNode, IElementParameter param);
 
     public void upateJobletComonentList(INode jobletNode);
+
+    public void loadComponentsFromProviders();
 }
