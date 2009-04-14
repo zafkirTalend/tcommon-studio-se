@@ -233,4 +233,8 @@ public class HTMLHandler {
             }
         }
     }
+
+    public static void clearExternalNodeFileCache() {
+        externalNodeFileCache.clear();
+    }
 }

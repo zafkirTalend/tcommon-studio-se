@@ -105,9 +105,6 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             Element componentElement = generateComponentDetailsInfo(true, externalNode, this.externalNodeElement,
                     this.picFilePathMap, this.sourceConnectionMap, this.targetConnectionMap, this.repositoryDBIdAndNameMap);
 
-            Element parametersElement = componentElement.addElement("parameters"); //$NON-NLS-1$
-            List elementParameterList = externalNode.getElementParameters();
-
             String componentName = externalNode.getUniqueName();
             IComponentDocumentation componentDocumentation = externalNode.getExternalNode().getComponentDocumentation(
                     componentName, HTMLDocUtils.getTmpFolder() /* checkExternalPathIsExists(tempFolderPath) */);
@@ -115,16 +112,18 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
             // Checks if generating html file for external node failed, generating the same information as internal node
             // instead.
             if (componentDocumentation == null) {
+                Element parametersElement = componentElement.addElement("parameters"); //$NON-NLS-1$
+                List elementParameterList = externalNode.getElementParameters();
                 // generateElementParamInfo(parametersElement, elementParameterList);
                 // see 3328, document for scd is generated similar to internal node
                 generateComponentSchemaInfo(externalNode, componentElement);
+                generateComponentElementParamInfo(parametersElement, elementParameterList);
             } else {
                 URL fileURL = componentDocumentation.getHTMLFile();
                 if (fileURL != null) {
                     this.externalNodeHTMLMap.put(componentName, fileURL);
                 }
             }
-            generateComponentElementParamInfo(parametersElement, elementParameterList);
             componentElement.addComment(componentName);
         }
     }
