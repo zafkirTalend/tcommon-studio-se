@@ -31,6 +31,8 @@ public class KeywordsValidator {
 
     private static Map<ECodeLanguage, Set<String>> keywords = new HashMap<ECodeLanguage, Set<String>>();
 
+    private static Set<String> sqlKeywords = new HashSet<String>();
+
     public static boolean isKeyword(String word) {
         return isKeyword(LanguageManager.getCurrentLanguage(), word);
     }
@@ -55,6 +57,22 @@ public class KeywordsValidator {
             keywords.put(lang, words);
         }
         return words;
+    }
+
+    // hshen
+    public static boolean isSqlKeyword(String word) {
+
+        if (sqlKeywords.isEmpty()) {
+            Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
+            KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
+            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
+            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
+            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
+        }
+        if (word != null) {
+            return sqlKeywords.contains(word.toUpperCase());
+        }
+        return true;
     }
 
     public static void main(String[] args) {
