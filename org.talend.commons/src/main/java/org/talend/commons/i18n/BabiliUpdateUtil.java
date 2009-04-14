@@ -21,6 +21,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.map.JavaTypeMapper;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * DOC wzhang class global comment. Detailled comment
@@ -39,12 +40,15 @@ public class BabiliUpdateUtil {
      * @return
      * @throws Exception
      */
-    public static List<BabiliInfo> getBabiliList(String language, boolean validated, String version) throws Exception {
+    public static List<BabiliInfo> getBabiliList(String language, boolean validated, String version, IProgressMonitor monitor)
+            throws Exception {
         StringBuffer url = new StringBuffer();
         url.append(REVERSION_LIST).append("?language=").append(language).append("&validated_only=").append(validated).append( //$NON-NLS-1$ //$NON-NLS-2$
                 "&release=").append(version); //$NON-NLS-1$
+        checkProcessCancel(monitor);
         String jsonContent = sendGetRequest(url.toString());
-        return parseJsonObject(jsonContent, BabiliInfo.class);
+        checkProcessCancel(monitor);
+        return parseJsonObject(jsonContent, BabiliInfo.class, monitor);
     }
 
     /**
@@ -73,12 +77,13 @@ public class BabiliUpdateUtil {
      * @return
      * @throws Exception
      */
-    public static List parseJsonObject(String jsonContent, Class clazz) throws Exception {
+    public static List parseJsonObject(String jsonContent, Class clazz, IProgressMonitor monitor) throws Exception {
         // need factory for creating parser to use
         JsonFactory jf = new JsonFactory();
         List result = (List) new JavaTypeMapper().read(jf.createJsonParser(new StringReader(jsonContent)));
         List objList = new ArrayList(result.size());
         for (int i = 0; i < result.size(); i++) {
+            checkProcessCancel(monitor);
             Object obj = clazz.newInstance();
             Object source = result.get(i);
             BeanUtils.copyProperties(obj, source);
@@ -87,4 +92,16 @@ public class BabiliUpdateUtil {
         return objList;
     }
 
+    /**
+     * 
+     * wzhang Comment method "checkProcessCancel".
+     * 
+     * @param monitor
+     * @throws ImportBabiliCancelException
+     */
+    public static void checkProcessCancel(IProgressMonitor monitor) throws ImportBabiliCancelException {
+        if (monitor != null && monitor.isCanceled()) {
+            throw new ImportBabiliCancelException();
+        }
+    }
 }
