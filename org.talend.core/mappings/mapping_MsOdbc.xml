@@ -1346,6 +1346,9 @@
 				<dbType type="N">
 					<talendType type="decimal" default="true" />
 				</dbType>
+				<dbType type="F">
+					<talendType type="decimal" default="true" />
+				</dbType>
 				<dbType type="C">
 					<talendType type="string" default="true" />
 				</dbType>
