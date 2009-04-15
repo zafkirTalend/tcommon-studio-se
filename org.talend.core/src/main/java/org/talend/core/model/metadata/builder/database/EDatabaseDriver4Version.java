@@ -36,7 +36,8 @@ public enum EDatabaseDriver4Version {
     SQLITE("SQLite", null, "sqlitejdbc_v037_nested.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     FIREBIRD("FireBird", null, "jaybird-full-2.1.1.jar"), //$NON-NLS-1$ //$NON-NLS-2$
     TERADATA("Teradata", null, "terajdbc4.jar;tdgssconfig.jar;tdgssjava.jar"), //$NON-NLS-1$ //$NON-NLS-2$
-    JAVADB_DERBYCLIENT("JavaDB DerbyClient", null, "derbyclient.jar"); //$NON-NLS-1$ //$NON-NLS-2$
+    JAVADB_DERBYCLIENT("JavaDB DerbyClient", null, "derbyclient.jar"),
+    NETEZZA("Netezza", null, "nzjdbc.jar"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * Getter for dbType.
