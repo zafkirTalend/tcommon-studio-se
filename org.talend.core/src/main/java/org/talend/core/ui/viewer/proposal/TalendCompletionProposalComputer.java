@@ -27,6 +27,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
@@ -37,6 +38,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.ui.images.CoreImageProvider;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.proposal.IExternalProposals;
 import org.talend.core.ui.proposal.JavaGlobalUtils;
@@ -172,8 +174,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                     String description = getNodeReturnDescription(nodeReturn, node, display);
 
                     TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(),
-                            replacementLength, code.length(), ImageProvider.getImage(node.getComponent().getIcon16()), display,
-                            null, description);
+                            replacementLength, code.length(), CoreImageProvider.getComponentIcon(node.getComponent(),
+                                    ICON_SIZE.ICON_16), display, null, description);
                     proposal.setType(TalendCompletionProposal.NODE_RETURN);
                     proposals.add(proposal);
                 }

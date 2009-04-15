@@ -43,11 +43,13 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -72,6 +74,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.ui.images.CoreImageProvider;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
@@ -817,10 +820,13 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 x = point.x + screenshotOffset.x;
                 y = point.y + screenshotOffset.y;
             }
-            ImageData imageData = node.getComponent().getIcon32().getImageData();
-            if (imageData != null) {
-                width = imageData.width;
-                height = imageData.height;
+            Image icon = CoreImageProvider.getComponentIcon(node.getComponent(), ICON_SIZE.ICON_32);
+            if (icon != null) {
+                ImageData imageData = icon.getImageData();
+                if (imageData != null) {
+                    width = imageData.width;
+                    height = imageData.height;
+                }
             }
 
             if (componentNameListElement == null) {

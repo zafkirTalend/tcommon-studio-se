@@ -31,7 +31,7 @@ public class ImageProvider {
 
     public static Image getImage(ImageDescriptor imageDescriptor) {
         Image image = cachedImages.get(imageDescriptor);
-        if (image == null) {
+        if (image == null || image.isDisposed()) {
             image = imageDescriptor.createImage();
             cachedImages.put(imageDescriptor, image);
         }
@@ -44,7 +44,7 @@ public class ImageProvider {
 
     public static Image getImage(IImage image) {
         Image toReturn = (Image) cacheImages.get(image.getLocation(), image.getPath());
-        if (toReturn == null) {
+        if (toReturn == null || toReturn.isDisposed()) {
             ImageDescriptor desc = getImageDesc(image);
             toReturn = getImage(desc);
             cacheImages.put(image.getLocation(), image.getPath(), toReturn);

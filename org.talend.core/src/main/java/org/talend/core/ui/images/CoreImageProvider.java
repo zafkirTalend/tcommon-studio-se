@@ -12,11 +12,14 @@
 // ============================================================================
 package org.talend.core.ui.images;
 
+import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
@@ -100,5 +103,37 @@ public class CoreImageProvider {
         default:
             return EImage.DEFAULT_IMAGE;
         }
+    }
+
+    private static MultiKeyMap componentCachedImages = new MultiKeyMap();
+
+    public static Image getComponentIcon(IComponent component, ICON_SIZE iconSize) {
+        if (component != null && iconSize != null) {
+
+            String name = component.getName();
+            Image image = (Image) componentCachedImages.get(name, iconSize);
+            // PTODO check joblet component
+
+            if (image == null || image.isDisposed()) {
+                ImageDescriptor icon = null;
+                switch (iconSize) {
+                case ICON_16:
+                    icon = component.getIcon16();
+                case ICON_24:
+                    icon = component.getIcon24();
+                case ICON_32:
+                default:
+                    icon = component.getIcon32();
+                }
+                // default
+                if (icon == null) {
+                    icon = component.getIcon32();
+                }
+                image = icon.createImage();
+                componentCachedImages.put(name, iconSize, image);
+            }
+            return image;
+        }
+        return null;
     }
 }

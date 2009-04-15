@@ -73,8 +73,16 @@ public class ColorUtils {
         return sb.toString();
     }
 
+    public static RGB parseStringToRGBNoDefault(String color) {
+        return parseStringToRGB(color, null, false);
+    }
+
     public static RGB parseStringToRGB(String color) {
         return parseStringToRGB(color, null);
+    }
+
+    public static RGB parseStringToRGB(String color, RGB defaultColor) {
+        return parseStringToRGB(color, defaultColor, true);
     }
 
     /**
@@ -83,8 +91,8 @@ public class ColorUtils {
      * 
      * can parse the "255,255,255" and "255;255;255".
      */
-    public static RGB parseStringToRGB(String color, RGB defaultColor) {
-        if (defaultColor == null) {
+    private static RGB parseStringToRGB(String color, RGB defaultColor, boolean defaultEnable) {
+        if (defaultColor == null && defaultEnable) {
             defaultColor = DEFAULT_COLOR;
         }
         if (color == null) {

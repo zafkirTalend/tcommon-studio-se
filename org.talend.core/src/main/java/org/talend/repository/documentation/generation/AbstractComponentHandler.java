@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.SWT;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.image.ImageUtils;
+import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
@@ -39,6 +40,7 @@ import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.ui.IJobletProviderService;
+import org.talend.core.ui.images.CoreImageProvider;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -68,7 +70,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
                     IJobletProviderService.class);
             if (service != null && service.isJobletComponent(node)) {
                 String filePath = getTmpFolder() + File.separator + node.getUniqueName() + ".png"; //$NON-NLS-1$
-                ImageUtils.save(component.getIcon32().createImage(), filePath, SWT.IMAGE_PNG);
+                ImageUtils.save(CoreImageProvider.getComponentIcon(component, ICON_SIZE.ICON_32), filePath, SWT.IMAGE_PNG);
                 return filePath;
 
             }
