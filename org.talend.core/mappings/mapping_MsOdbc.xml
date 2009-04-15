@@ -35,6 +35,7 @@
 			<dbType type="FLOAT UNSIGNED" />			
 			<dbType type="FLOAT4" />
 			<dbType type="FLOAT8" />
+			<dbType type="F" />
 			<dbType type="G"/>
 			<dbType type="GEOMETRY" />
 			<dbType type="GEOMETRYCOLLECTION" />
@@ -259,7 +260,8 @@
 					<dbType type="NUMERIC" />
 					<dbType type="REAL" />
 					<dbType type="Y" />
-					<dbType type="N" />					
+					<dbType type="N" />		
+					<dbType type="F" />		
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="BYTE" />
@@ -517,6 +519,11 @@
 					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="N">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double" />
+					<talendType type="id_BigDecimal"/>
+				</dbType>
+				<dbType type="F">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double" />
 					<talendType type="id_BigDecimal"/>
