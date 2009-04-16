@@ -376,6 +376,7 @@ public class MetadataTool {
                                 oldColumn.setPattern(newColumn.getPattern());
                                 oldColumn.setType(newColumn.getType());
                                 oldColumn.setTalendType(newColumn.getTalendType());
+                                oldColumn.setComment(newColumn.getComment());
                             }
                         } else { // if column doesn't exist, then add it.
                             if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
