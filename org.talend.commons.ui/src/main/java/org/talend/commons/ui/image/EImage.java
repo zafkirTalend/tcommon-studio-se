@@ -87,6 +87,9 @@ public enum EImage implements IImage {
     NO_TABLE_VIEW("/icons/array.png"), //$NON-NLS-1$
     COMPOSITE_BACKGROUND("/icons/compositeBackground.jpg"), //$NON-NLS-1$
 
+    LOCK_ICON("/icons/lock.gif"), //$NON-NLS-1$
+    UNLOCK_ICON("/icons/unlock.gif"), //$NON-NLS-1$
+
     ;
 
     private String path;
