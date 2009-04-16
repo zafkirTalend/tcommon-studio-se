@@ -45,6 +45,8 @@ public class PluginChecker {
     // added by hyWang
     private static final String RULES_PLUGIN_ID = "org.talend.repository.rules"; //$NON-NLS-1$   
 
+    private static final String PREVIEW_PLUGIN_ID = "org.talend.designer.component.preview"; //$NON-NLS-1$   
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -129,5 +131,9 @@ public class PluginChecker {
 
     public static boolean isRulesPluginLoaded() { // added by hyWang
         return isPluginLoaded(RULES_PLUGIN_ID);
+    }
+
+    public static boolean isPreviewPluginLoaded() {
+        return isPluginLoaded(PREVIEW_PLUGIN_ID);
     }
 }
