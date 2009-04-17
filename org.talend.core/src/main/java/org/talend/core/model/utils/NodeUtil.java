@@ -312,7 +312,12 @@ public class NodeUtil {
         IConnection realConnection = connection;
 
         boolean connectionAvailable = true;
-        while (connectionAvailable && realConnection.getSource().getComponent().getName().equals("tReplace")) { //$NON-NLS-1$
+
+        //        while (connectionAvailable && realConnection.getSource().getComponent().getName().equals("tReplace")) { //$NON-NLS-1$
+
+        while (connectionAvailable && !realConnection.getSource().isSubProcessStart()
+                && realConnection.getSource().getComponent().isDataAutoPropagated()) {
+
             List<IConnection> inConnections = (List<IConnection>) getIncomingConnections(realConnection.getSource(),
                     IConnectionCategory.FLOW);
             if (inConnections.size() > 0) {
