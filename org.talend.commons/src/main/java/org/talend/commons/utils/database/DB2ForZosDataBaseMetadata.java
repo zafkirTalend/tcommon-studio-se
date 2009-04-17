@@ -86,7 +86,7 @@ public class DB2ForZosDataBaseMetadata extends FakeDatabaseMetaData {
         }
 
         DB2ForZosResultSet tableResultSet = new DB2ForZosResultSet();
-        tableResultSet.setMetadata(new String[] { "TABLE_SCHEM" });
+        tableResultSet.setMetadata(new String[] { "TABLE_SCHEM" }); //$NON-NLS-1$
         tableResultSet.setData(list);
         return tableResultSet;
     }

@@ -46,9 +46,9 @@ public class SharedDBConnection {
 
         if (DEBUG) {
             Set<String> keySet = sharedConnections.keySet();
-            System.out.print("SharedDBConnection, current shared connections list is:");
+            System.out.print("SharedDBConnection, current shared connections list is:"); //$NON-NLS-1$
             for (String key : keySet) {
-                System.out.print(" " + key);
+                System.out.print(" " + key); //$NON-NLS-1$
             }
             System.out.println();
         }
@@ -56,22 +56,22 @@ public class SharedDBConnection {
         Connection connection = sharedConnections.get(dbConnectionName);
         if (connection == null) {
             if (DEBUG) {
-                System.out.println("SharedDBConnection, can't find the key:" + dbConnectionName + " "
-                        + "so create a new one and share it.");
+                System.out.println("SharedDBConnection, can't find the key:" + dbConnectionName + " " //$NON-NLS-1$ //$NON-NLS-2$
+                        + "so create a new one and share it."); //$NON-NLS-1$
             }
             Class.forName(dbDriver);
             connection = DriverManager.getConnection(url, userName, password);
             sharedConnections.put(dbConnectionName, connection);
         } else if (connection.isClosed()) {
             if (DEBUG) {
-                System.out.println("SharedDBConnection, find the key: " + dbConnectionName + " "
-                        + "But it is closed. So create a new one and share it.");
+                System.out.println("SharedDBConnection, find the key: " + dbConnectionName + " " //$NON-NLS-1$ //$NON-NLS-2$
+                        + "But it is closed. So create a new one and share it."); //$NON-NLS-1$
             }
             connection = DriverManager.getConnection(url, userName, password);
             sharedConnections.put(dbConnectionName, connection);
         } else {
             if (DEBUG) {
-                System.out.println("SharedDBConnection, find the key: " + dbConnectionName + " " + "it is OK.");
+                System.out.println("SharedDBConnection, find the key: " + dbConnectionName + " " + "it is OK."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
         }
         return connection;

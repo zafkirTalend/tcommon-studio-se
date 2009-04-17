@@ -975,8 +975,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         jobElement.addAttribute("creation", HTMLDocUtils.checkDate(property.getCreationDate())); //$NON-NLS-1$
         jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate())); //$NON-NLS-1$
 
-        Element descr = jobElement.addElement("description");
-        descr.addCDATA(HTMLDocUtils.checkString(property.getDescription()).replaceAll("\\r\\n", "<br/>"));
+        Element descr = jobElement.addElement("description"); //$NON-NLS-1$
+        descr.addCDATA(HTMLDocUtils.checkString(property.getDescription()).replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
 
         String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
         IPath filePath = null;
@@ -1019,8 +1019,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         projectElement.addAttribute("versionName", getProductVersionName()); //$NON-NLS-1$
         projectElement.addAttribute("version", getCurrentTOSVersion()); //$NON-NLS-1$
         projectElement.addAttribute("docType", getDocTypeAttribute()); //$NON-NLS-1$
-        Element proDesc = projectElement.addElement("pro-description");
-        proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>"));
+        Element proDesc = projectElement.addElement("pro-description"); //$NON-NLS-1$
+        proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
         return projectElement;
     }
 

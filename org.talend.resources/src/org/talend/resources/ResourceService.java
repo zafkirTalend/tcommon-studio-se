@@ -95,6 +95,6 @@ public class ResourceService implements IResourceService {
             language = ECodeLanguage.PERL;
         }
 
-        return Messages.getString("demodescription.html", language.getCaseName());
+        return Messages.getString("demodescription.html", language.getCaseName()); //$NON-NLS-1$
     }
 }

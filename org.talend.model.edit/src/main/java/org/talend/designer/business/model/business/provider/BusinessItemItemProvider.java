@@ -91,8 +91,8 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItem_vAlignment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_vAlignment_feature", "_UI_BusinessItem_type"),
+                 getString("_UI_BusinessItem_vAlignment_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_vAlignment_feature", "_UI_BusinessItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM__VALIGNMENT,
                  true,
                  false,
@@ -113,8 +113,8 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItem_hAlignment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_hAlignment_feature", "_UI_BusinessItem_type"),
+                 getString("_UI_BusinessItem_hAlignment_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_hAlignment_feature", "_UI_BusinessItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM__HALIGNMENT,
                  true,
                  false,

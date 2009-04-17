@@ -75,8 +75,8 @@ public class MappingFileLoader {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder analyser = documentBuilderFactory.newDocumentBuilder();
             Document document = analyser.parse(file);
-            stringBuff.append("language=" + codeLanguage + "\n");
-            stringBuff.append("file=" + file + "\n");
+            stringBuff.append("language=" + codeLanguage + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
+            stringBuff.append("file=" + file + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
             NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
 
@@ -130,7 +130,7 @@ public class MappingFileLoader {
                 for (Node typeNode : typeNodes) {
                     NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
                     String typeValue = typeNodeAtttributes.getNamedItem("type").getNodeValue(); //$NON-NLS-1$
-                    stringBuff.append("typeValue=" + typeValue + "\n");
+                    stringBuff.append("typeValue=" + typeValue + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
 
                     Node defaultTypeItem = typeNodeAtttributes.getNamedItem("default"); //$NON-NLS-1$
                     if (hAllDbTypes.contains(typeValue)) {
@@ -209,7 +209,7 @@ public class MappingFileLoader {
                             }
                             String talendType = talendTypeItem.getNodeValue();
 
-                            stringBuff.append("talendTypeItem=" + talendType + "\n");
+                            stringBuff.append("talendTypeItem=" + talendType + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
                             if (!hAllTalendTypes.contains(talendType)) { // test
                                 // if
                                 // the
@@ -277,7 +277,7 @@ public class MappingFileLoader {
                                 continue;
                             }
                             String dbType = dbTypeItem.getNodeValue();
-                            stringBuff.append("dbType=" + dbType + "\n");
+                            stringBuff.append("dbType=" + dbType + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
                             if (!hAllDbTypes.contains(dbType)) {
                                 String message = Messages
                                         .getString(
@@ -354,7 +354,7 @@ public class MappingFileLoader {
 
             }
         } catch (Exception e) {
-            throw new SystemException("Error when load db mapping, lasted loaded data are:\n" + stringBuff.toString());
+            throw new SystemException("Error when load db mapping, lasted loaded data are:\n" + stringBuff.toString()); //$NON-NLS-1$
         }
 
     }

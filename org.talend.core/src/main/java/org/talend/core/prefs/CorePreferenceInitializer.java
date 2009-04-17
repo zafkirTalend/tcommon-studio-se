@@ -92,7 +92,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
             }
 
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
 
             IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
             String prelExecutableValue = store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);

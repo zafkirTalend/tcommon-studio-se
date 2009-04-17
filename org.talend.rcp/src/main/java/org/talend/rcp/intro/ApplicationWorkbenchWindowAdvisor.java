@@ -121,7 +121,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
          * @see org.talend.designer.core.ui.preferences.RepositoryPreferencePage
          */
         if (!PluginChecker.isRefProjectLoaded()) {
-            String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" };
+            String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
             ApplicationDeletionUtil.removePreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId));
         }
     }

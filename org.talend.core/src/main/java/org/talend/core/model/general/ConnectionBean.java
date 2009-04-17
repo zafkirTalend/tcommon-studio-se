@@ -53,8 +53,8 @@ public class ConnectionBean implements Cloneable {
 
     public static ConnectionBean getDefaultConnectionBean() {
         ConnectionBean newConnection = new ConnectionBean();
-        newConnection.setName(Messages.getString("ConnectionBean.Local"));
-        newConnection.setDescription(Messages.getString("ConnectionBean.DefaultConnection"));
+        newConnection.setName(Messages.getString("ConnectionBean.Local")); //$NON-NLS-1$
+        newConnection.setDescription(Messages.getString("ConnectionBean.DefaultConnection")); //$NON-NLS-1$
         newConnection.setRepositoryId("local");//$NON-NLS-1$
         newConnection.setPassword(""); //$NON-NLS-1$
         // newConnection.setUser("your@userName.here"); //$NON-NLS-1$

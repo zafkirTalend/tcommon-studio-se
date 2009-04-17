@@ -532,19 +532,19 @@ public class XmlNodeRetriever {
         String at = ""; //$NON-NLS-1$
 
         String elementName = node.getNodeName();
-        if (node.getNodeName().equals("xs:element")) {
+        if (node.getNodeName().equals("xs:element")) { //$NON-NLS-1$
             elementName = null;
             if (node.getAttributes().getLength() > 0) {
-                Node nameAttribute = node.getAttributes().getNamedItem("name");
+                Node nameAttribute = node.getAttributes().getNamedItem("name"); //$NON-NLS-1$
                 if (nameAttribute != null) {
                     elementName = nameAttribute.getNodeValue();
                     at = STRING_EMPTY;
                 }
             }
-        } else if (node.getNodeName().equals("xs:attribute")) {
+        } else if (node.getNodeName().equals("xs:attribute")) { //$NON-NLS-1$
             elementName = null;
             if (node.getAttributes().getLength() > 0) {
-                Node nameAttribute = node.getAttributes().getNamedItem("name");
+                Node nameAttribute = node.getAttributes().getNamedItem("name"); //$NON-NLS-1$
                 if (nameAttribute != null) {
                     elementName = nameAttribute.getNodeValue();
                     at = STRING_AT;

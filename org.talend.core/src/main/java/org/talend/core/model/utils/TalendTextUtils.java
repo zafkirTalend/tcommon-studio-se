@@ -330,7 +330,7 @@ public class TalendTextUtils {
             // check the field name.
 
             String temp = removeQuotes(fieldName);
-            Pattern pattern = Pattern.compile("\\w+"); //$NON-NLS-N$
+            Pattern pattern = Pattern.compile("\\w+"); //$NON-NLS-1$
             Matcher matcher = pattern.matcher(temp);
             if (!matcher.matches()) {
                 isCheck = true; // contain other char
