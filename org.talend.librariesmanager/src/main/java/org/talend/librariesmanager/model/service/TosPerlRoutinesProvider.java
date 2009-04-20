@@ -51,7 +51,7 @@ public class TosPerlRoutinesProvider implements IRoutinesProvider {
     }
 
     public List<URL> getTalendRoutines() {
-        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        List<URL> toReturn = FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", ".pm"); //$NON-NLS-1$ //$NON-NLS-2$
         return toReturn;
     }
 }

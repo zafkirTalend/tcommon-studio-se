@@ -60,4 +60,6 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     public boolean isUseProductRegistration();
 
     public boolean isAllowDebugMode();
+
+    public boolean isUseDemoProjects();
 }

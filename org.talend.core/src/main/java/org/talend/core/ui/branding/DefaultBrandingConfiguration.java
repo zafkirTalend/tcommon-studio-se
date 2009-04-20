@@ -246,4 +246,13 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
     public boolean isAllowDebugMode() {
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseDemoProjects()
+     */
+    public boolean isUseDemoProjects() {
+        return true;
+    }
 }
