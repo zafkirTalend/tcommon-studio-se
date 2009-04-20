@@ -3484,11 +3484,11 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_NAME();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>NOTREADONLYIF</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isNOTREADONLYIF()
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTREADONLYIF()
      * @see #getITEMType()
      * @generated
      */
@@ -3517,11 +3517,11 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_READONLY();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLYIF <em>READONLYIF</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREADONLYIF <em>READONLYIF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>READONLYIF</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLYIF()
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getREADONLYIF()
      * @see #getITEMType()
      * @generated
      */
@@ -3767,11 +3767,11 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_NBLINES();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>NOTREADONLYIF</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOTREADONLYIF()
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTREADONLYIF()
      * @see #getPARAMETERType()
      * @generated
      */
@@ -3811,11 +3811,11 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_READONLY();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF <em>READONLYIF</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREADONLYIF <em>READONLYIF</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>READONLYIF</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREADONLYIF()
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getREADONLYIF()
      * @see #getPARAMETERType()
      * @generated
      */

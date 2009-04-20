@@ -121,6 +121,27 @@ public interface IElementParameter extends Cloneable {
 
     public boolean isShow(String conditionShowIf, String conditionNotShowIf, List<? extends IElementParameter> listParam);
 
+    public String getReadOnlyIf();
+
+    public void setReadOnlyIf(String showIf);
+
+    public String getNotReadOnlyIf();
+
+    public void setNotReadOnlyIf(String notShowIf);
+
+    public boolean isReadOnly(List<? extends IElementParameter> listParam);
+
+    public void setListItemsReadOnlyIf(final String[] list);
+
+    public String[] getListItemsReadOnlyIf();
+
+    public void setListItemsNotReadOnlyIf(final String[] list);
+
+    public String[] getListItemsNotReadOnlyIf();
+
+    public boolean isReadOnly(String conditionReadOnlyIf, String conditionNotReadOnlyIf,
+            List<? extends IElementParameter> listParams);
+
     public List<IElementParameterDefaultValue> getDefaultValues();
 
     public void setDefaultValues(List<IElementParameterDefaultValue> defaultValues);

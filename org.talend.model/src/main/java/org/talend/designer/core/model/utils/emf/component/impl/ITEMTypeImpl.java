@@ -30,10 +30,10 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLY <em>READONLY</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLYIF <em>READONLYIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREADONLYIF <em>READONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
@@ -143,33 +143,24 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     protected String nAME = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
+     * The default value of the '{@link #getNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isNOTREADONLYIF()
+     * @see #getNOTREADONLYIF()
      * @generated
      * @ordered
      */
-    protected static final boolean NOTREADONLYIF_EDEFAULT = false;
+    protected static final String NOTREADONLYIF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #isNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
+     * The cached value of the '{@link #getNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isNOTREADONLYIF()
+     * @see #getNOTREADONLYIF()
      * @generated
      * @ordered
      */
-    protected boolean nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
-
-    /**
-     * This is true if the NOTREADONLYIF attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean nOTREADONLYIFESet;
+    protected String nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
 
     /**
      * The default value of the '{@link #getNOTSHOWIF() <em>NOTSHOWIF</em>}' attribute.
@@ -221,33 +212,24 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     protected boolean rEADONLYESet;
 
     /**
-     * The default value of the '{@link #isREADONLYIF() <em>READONLYIF</em>}' attribute.
+     * The default value of the '{@link #getREADONLYIF() <em>READONLYIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isREADONLYIF()
+     * @see #getREADONLYIF()
      * @generated
      * @ordered
      */
-    protected static final boolean READONLYIF_EDEFAULT = false;
+    protected static final String READONLYIF_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #isREADONLYIF() <em>READONLYIF</em>}' attribute.
+     * The cached value of the '{@link #getREADONLYIF() <em>READONLYIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isREADONLYIF()
+     * @see #getREADONLYIF()
      * @generated
      * @ordered
      */
-    protected boolean rEADONLYIF = READONLYIF_EDEFAULT;
-
-    /**
-     * This is true if the READONLYIF attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean rEADONLYIFESet;
+    protected String rEADONLYIF = READONLYIF_EDEFAULT;
 
     /**
      * The default value of the '{@link #getREPOSITORYITEM() <em>REPOSITORYITEM</em>}' attribute.
@@ -485,7 +467,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isNOTREADONLYIF() {
+    public String getNOTREADONLYIF() {
         return nOTREADONLYIF;
     }
 
@@ -494,36 +476,11 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setNOTREADONLYIF(boolean newNOTREADONLYIF) {
-        boolean oldNOTREADONLYIF = nOTREADONLYIF;
+    public void setNOTREADONLYIF(String newNOTREADONLYIF) {
+        String oldNOTREADONLYIF = nOTREADONLYIF;
         nOTREADONLYIF = newNOTREADONLYIF;
-        boolean oldNOTREADONLYIFESet = nOTREADONLYIFESet;
-        nOTREADONLYIFESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, nOTREADONLYIF, !oldNOTREADONLYIFESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetNOTREADONLYIF() {
-        boolean oldNOTREADONLYIF = nOTREADONLYIF;
-        boolean oldNOTREADONLYIFESet = nOTREADONLYIFESet;
-        nOTREADONLYIF = NOTREADONLYIF_EDEFAULT;
-        nOTREADONLYIFESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, NOTREADONLYIF_EDEFAULT, oldNOTREADONLYIFESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetNOTREADONLYIF() {
-        return nOTREADONLYIFESet;
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOTREADONLYIF, oldNOTREADONLYIF, nOTREADONLYIF));
     }
 
     /**
@@ -598,7 +555,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isREADONLYIF() {
+    public String getREADONLYIF() {
         return rEADONLYIF;
     }
 
@@ -607,36 +564,11 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setREADONLYIF(boolean newREADONLYIF) {
-        boolean oldREADONLYIF = rEADONLYIF;
+    public void setREADONLYIF(String newREADONLYIF) {
+        String oldREADONLYIF = rEADONLYIF;
         rEADONLYIF = newREADONLYIF;
-        boolean oldREADONLYIFESet = rEADONLYIFESet;
-        rEADONLYIFESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__READONLYIF, oldREADONLYIF, rEADONLYIF, !oldREADONLYIFESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetREADONLYIF() {
-        boolean oldREADONLYIF = rEADONLYIF;
-        boolean oldREADONLYIFESet = rEADONLYIFESet;
-        rEADONLYIF = READONLYIF_EDEFAULT;
-        rEADONLYIFESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__READONLYIF, oldREADONLYIF, READONLYIF_EDEFAULT, oldREADONLYIFESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetREADONLYIF() {
-        return rEADONLYIFESet;
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__READONLYIF, oldREADONLYIF, rEADONLYIF));
     }
 
     /**
@@ -735,13 +667,13 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NAME:
                 return getNAME();
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
-                return isNOTREADONLYIF() ? Boolean.TRUE : Boolean.FALSE;
+                return getNOTREADONLYIF();
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 return getNOTSHOWIF();
             case ComponentPackage.ITEM_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEM_TYPE__READONLYIF:
-                return isREADONLYIF() ? Boolean.TRUE : Boolean.FALSE;
+                return getREADONLYIF();
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 return getREPOSITORYITEM();
             case ComponentPackage.ITEM_TYPE__SHOWIF:
@@ -776,7 +708,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 setNAME((String)newValue);
                 return;
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
-                setNOTREADONLYIF(((Boolean)newValue).booleanValue());
+                setNOTREADONLYIF((String)newValue);
                 return;
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 setNOTSHOWIF((String)newValue);
@@ -785,7 +717,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 setREADONLY(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.ITEM_TYPE__READONLYIF:
-                setREADONLYIF(((Boolean)newValue).booleanValue());
+                setREADONLYIF((String)newValue);
                 return;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 setREPOSITORYITEM((String)newValue);
@@ -824,7 +756,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 setNAME(NAME_EDEFAULT);
                 return;
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
-                unsetNOTREADONLYIF();
+                setNOTREADONLYIF(NOTREADONLYIF_EDEFAULT);
                 return;
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 setNOTSHOWIF(NOTSHOWIF_EDEFAULT);
@@ -833,7 +765,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 unsetREADONLY();
                 return;
             case ComponentPackage.ITEM_TYPE__READONLYIF:
-                unsetREADONLYIF();
+                setREADONLYIF(READONLYIF_EDEFAULT);
                 return;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 setREPOSITORYITEM(REPOSITORYITEM_EDEFAULT);
@@ -867,13 +799,13 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
-                return isSetNOTREADONLYIF();
+                return NOTREADONLYIF_EDEFAULT == null ? nOTREADONLYIF != null : !NOTREADONLYIF_EDEFAULT.equals(nOTREADONLYIF);
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 return NOTSHOWIF_EDEFAULT == null ? nOTSHOWIF != null : !NOTSHOWIF_EDEFAULT.equals(nOTSHOWIF);
             case ComponentPackage.ITEM_TYPE__READONLY:
                 return isSetREADONLY();
             case ComponentPackage.ITEM_TYPE__READONLYIF:
-                return isSetREADONLYIF();
+                return READONLYIF_EDEFAULT == null ? rEADONLYIF != null : !READONLYIF_EDEFAULT.equals(rEADONLYIF);
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 return REPOSITORYITEM_EDEFAULT == null ? rEPOSITORYITEM != null : !REPOSITORYITEM_EDEFAULT.equals(rEPOSITORYITEM);
             case ComponentPackage.ITEM_TYPE__SHOWIF:
@@ -903,13 +835,13 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(", nAME: ");
         result.append(nAME);
         result.append(", nOTREADONLYIF: ");
-        if (nOTREADONLYIFESet) result.append(nOTREADONLYIF); else result.append("<unset>");
+        result.append(nOTREADONLYIF);
         result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);
         result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
         result.append(", rEADONLYIF: ");
-        if (rEADONLYIFESet) result.append(rEADONLYIF); else result.append("<unset>");
+        result.append(rEADONLYIF);
         result.append(", rEPOSITORYITEM: ");
         result.append(rEPOSITORYITEM);
         result.append(", sHOWIF: ");
