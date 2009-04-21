@@ -42,7 +42,7 @@ import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
  */
 public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
-    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = GeneralParametersProvider
+    public static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_EMBEDDED_SUFFIX_WIN32);
 
     private static final String JAVA_LINUX_INTERPRETER_PATH = GeneralParametersProvider
@@ -54,7 +54,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     private static final String PERL_LINUX_INTERPRETER_PATH = GeneralParametersProvider
             .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_LINUX);
 
-    private static final String PERL_WIN32_INTERPRETER_PATH = CorePlugin.getDefault().getResourceService().getResourcesPath()
+    public static final String PERL_WIN32_INTERPRETER_PATH = CorePlugin.getDefault().getResourceService().getResourcesPath()
             + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
 
     /**
