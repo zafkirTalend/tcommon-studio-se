@@ -25,6 +25,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.ProjectManager;
@@ -79,6 +80,11 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
 
     @Override
     protected void doRun() {
+        // qli modified to fix the bug "6999".
+        final TreeViewer repositoryTreeView = CorePlugin.getDefault().getRepositoryService().getRepositoryTreeView();
+        if (repositoryTreeView != null) {
+            repositoryTreeView.getTree().setFocus();
+        }
         ISelection selection = this.getSelection();
         if (selection instanceof IStructuredSelection) {
             RepositoryNode rNode = (RepositoryNode) ((IStructuredSelection) selection).getFirstElement();
