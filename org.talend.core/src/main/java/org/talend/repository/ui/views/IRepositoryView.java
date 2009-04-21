@@ -55,4 +55,6 @@ public interface IRepositoryView extends IViewPart {
 
     /** only for repository manager. */
     public void refreshAllChildNodes(RepositoryNode rootNode);
+
+    public boolean containsRepositoryType(ERepositoryObjectType type);
 }
