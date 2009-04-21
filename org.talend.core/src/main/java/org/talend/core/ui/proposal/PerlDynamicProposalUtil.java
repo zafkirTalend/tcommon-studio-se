@@ -60,7 +60,7 @@ public class PerlDynamicProposalUtil {
 
     private static IContentProposal[] getRowColumnsProposals(final INode node) {
         List<IMetadataTable> metaTables = node.getMetadataList();
-        if (metaTables != null) {
+        if (metaTables != null && !metaTables.isEmpty()) {
             IMetadataTable table = metaTables.get(0);// iterater all or just iterater first one?
             if (table != null) {
                 List<IMetadataColumn> columns = table.getListColumns();
