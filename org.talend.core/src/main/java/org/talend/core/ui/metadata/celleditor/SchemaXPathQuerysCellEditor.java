@@ -12,11 +12,8 @@
 // ============================================================================
 package org.talend.core.ui.metadata.celleditor;
 
-import java.util.List;
 import java.util.Map;
 
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -29,10 +26,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.INode;
-import org.talend.core.model.process.IProcess2;
+import org.talend.core.ui.metadata.celleditor.xpathquery.SchemaXPathQuerysDialog;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -84,19 +80,14 @@ public class SchemaXPathQuerysCellEditor extends DialogCellEditor {
 
         String[] listItemsDisplayCodeName = node.getElementParameter("SCHEMAS").getListItemsDisplayCodeName(); //$NON-NLS-1$
         Object object = ((Map) firstElement).get(listItemsDisplayCodeName[0]);
-        List<IMetadataTable> metadataList = node.getMetadataList();
-        List<IMetadataColumn> listColumns = null;
-        for (IMetadataTable metadataTable : metadataList) {
-            if (metadataTable.getTableName().equals(object.toString())) {
-                listColumns = metadataTable.getListColumns();
-            }
-        }
-        if (object != null && !"".equals(object.toString())) { //$NON-NLS-1$
+        IMetadataTable curMetadataTable = findMetadataTable(node, object.toString());
+
+        if (object != null && !"".equals(object.toString()) && curMetadataTable != null) { //$NON-NLS-1$
             Shell activeShell = Display.getCurrent().getActiveShell();
-            SchemaXPathQuerysDialog schemaXPathQuerysDialog = new SchemaXPathQuerysDialog(activeShell, listColumns, mapping);
+            SchemaXPathQuerysDialog schemaXPathQuerysDialog = new SchemaXPathQuerysDialog(activeShell, node, curMetadataTable,
+                    mapping);
 
             if (schemaXPathQuerysDialog.open() == Window.OK) {
-                executeCommand(new XPathQueryChangeCommand(mapping, schemaXPathQuerysDialog.getValues()));
                 getTableViewer().refresh();
                 return schemaXPathQuerysDialog.getValues();
             }
@@ -104,46 +95,13 @@ public class SchemaXPathQuerysCellEditor extends DialogCellEditor {
         return null;
     }
 
-    private void executeCommand(Command cmd) {
-        if (node.getProcess() instanceof IProcess2) {
-            IProcess2 process = (IProcess2) node.getProcess();
-            CommandStack commandStack = process.getCommandStack();
-            if (commandStack != null) {
-                commandStack.execute(cmd);
-            } else {
-                cmd.execute();
+    public static IMetadataTable findMetadataTable(INode node, String tableName) {
+        for (IMetadataTable table : node.getMetadataList()) {
+            // need check the compare for table name or label, seems the schema cell modification is used by label.
+            if (table.getTableName().equals(tableName)) {
+                return table;
             }
-            return;
         }
-        cmd.execute();
-    }
-
-    /**
-     * 
-     * zli XPathQueryChangeCommand class global comment. Detailled comment
-     */
-    class XPathQueryChangeCommand extends Command {
-
-        private String oldValue, newValue;
-
-        private Map<String, Object> line;
-
-        public XPathQueryChangeCommand(Map<String, Object> line, String newValue) {
-            super();
-            this.line = line;
-            this.newValue = newValue;
-            this.oldValue = (String) line.get("MAPPING"); //$NON-NLS-1$
-        }
-
-        @Override
-        public void execute() {
-            line.put("MAPPING", newValue); //$NON-NLS-1$
-        }
-
-        @Override
-        public void undo() {
-            line.put("MAPPING", oldValue); //$NON-NLS-1$
-        }
-
+        return null;
     }
 }
