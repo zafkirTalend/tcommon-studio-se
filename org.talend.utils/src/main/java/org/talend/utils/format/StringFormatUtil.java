@@ -128,7 +128,7 @@ public final class StringFormatUtil {
                 Number number = format.parse(input.toString());
                 return number.doubleValue();
             } catch (ParseException e) {
-                return null;
+                return Double.NaN;
             }
 
         }
