@@ -9,3 +9,4 @@ Bundle-ClassPath: .,
 Export-Package: org.ibex.nestedvm,
  org.ibex.nestedvm.util,
  org.sqlite
+Bundle-Vendor: .Talend SA.
