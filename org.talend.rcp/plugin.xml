@@ -38,5 +38,9 @@
          class="org.talend.rcp.RcpServices"
          serviceId="IRcpService">
    </Service>
+   <Service
+         class="org.talend.rcp.intro.ApplicationWorkbenchWindowAdvisor"
+         serviceId="WorkbenchService">
+   </Service>
 </extension>
 </plugin>

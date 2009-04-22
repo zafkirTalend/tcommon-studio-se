@@ -62,4 +62,8 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     public boolean isAllowDebugMode();
 
     public boolean isUseDemoProjects();
+
+    public String getAdditionalTitle();
+
+    public void setAdditionalTitle(String title);
 }

@@ -114,6 +114,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
         adviser.getHelper().postWindowOpen();
+        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+        getWindowConfigurer()
+                .setTitle(getWindowConfigurer().getTitle() + service.getBrandingConfiguration().getAdditionalTitle());
 
         /**
          * PTODO need remove this, if there is not only merging ref-project option in the repository page.(feature 6725)

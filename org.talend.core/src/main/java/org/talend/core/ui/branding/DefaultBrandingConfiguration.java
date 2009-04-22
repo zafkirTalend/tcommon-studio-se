@@ -37,6 +37,8 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     protected IActionBarConfigurer actionBarConfigurer;
 
+    private String title = "";
+
     public IActionBarHelper getHelper() {
         return this.helper;
     }
@@ -254,5 +256,23 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      */
     public boolean isUseDemoProjects() {
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#getAdditionalTitle()
+     */
+    public String getAdditionalTitle() {
+        return title;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#setAdditionalTitle(java.lang.String)
+     */
+    public void setAdditionalTitle(String title) {
+        this.title = title;
     }
 }
