@@ -97,6 +97,9 @@ public class TalendString {
         if (origin.length() < 1) {
             return ""; //$NON-NLS-1$
         }
+        if (origin == null) {
+            return null;
+        }
         if (align > 0) { // Align right, to trim left
             int start = 0;
             char temp = origin.charAt(start);
