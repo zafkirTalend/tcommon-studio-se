@@ -91,10 +91,23 @@ public abstract class SWTUIThreadProcessor {
             thread.start();
         } else {
             isStopped = true;
-            if (thread != null && thread.isAlive()) {
-                thread.interrupt();
-            }
+            forceStop();
             postProcessCancle();
+        }
+    }
+
+    /**
+     * 
+     * cli Comment method "forceStop". (bug 6976)
+     */
+    public void forceStop() {
+        if (thread != null && thread.isAlive()) {
+            isStopped = true;
+            try {
+                thread.interrupt();
+            } catch (SecurityException e) {
+                e.printStackTrace(); // only for debug
+            }
         }
     }
 
