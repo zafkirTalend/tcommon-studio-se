@@ -332,6 +332,7 @@ public class ExtractMetaDataUtils {
         }
         if (isReconnect || conn == null || isColsed) {
             try {
+                closeConnection();// colse before connection.
                 checkDBConnectionTimeout();
                 conn = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion);
 

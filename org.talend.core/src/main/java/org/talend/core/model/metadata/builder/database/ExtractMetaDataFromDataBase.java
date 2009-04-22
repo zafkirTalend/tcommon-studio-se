@@ -553,7 +553,7 @@ public class ExtractMetaDataFromDataBase {
     public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema,
             final String driverClassName, final String driverJarPath, String dbVersionString) {
 
-        Connection connection;
+        Connection connection = null;
         ConnectionStatus connectionStatus = new ConnectionStatus();
         connectionStatus.setResult(false);
         try {
@@ -570,7 +570,6 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
 
-            connection.close();
             connectionStatus.setResult(true);
             connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
         } catch (SQLException e) {
@@ -579,6 +578,14 @@ public class ExtractMetaDataFromDataBase {
         } catch (Exception e) {
             ExceptionHandler.process(e);
             connectionStatus.setMessageException(e.getMessage());
+        } finally {
+            try {
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                //
+            }
         }
         return connectionStatus;
     }
