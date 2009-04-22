@@ -26,9 +26,9 @@ public enum ECoreImage implements IImage {
 
     PROJECT_ICON("/icons/prj_obj.gif"), //$NON-NLS-1$
 
-    STANDARD_ICON("/icons/unknown.gif"), //$NON-NLS-1$
+    STANDARD_ICON("/icons/palette.gif"), //$NON-NLS-1$
 
-    FAVORITE_ICON("/icons/unknown.gif"), //$NON-NLS-1$
+    FAVORITE_ICON("/icons/palette_fav.gif"), //$NON-NLS-1$
 
     TALEND_PICTO("/icons/talend-picto-small.gif"), //$NON-NLS-1$
 
