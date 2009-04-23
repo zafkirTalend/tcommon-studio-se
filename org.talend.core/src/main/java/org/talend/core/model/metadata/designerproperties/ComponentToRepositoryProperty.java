@@ -800,6 +800,12 @@ public class ComponentToRepositoryProperty {
                 connection.setWSDL(value);
             }
         }
+        if ("WSDLURL".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "WSDL"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setEndpointURI(value);
+            }
+        }
         if ("NEED_AUTH".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "NEED_AUTH"); //$NON-NLS-1$
             if (value != null) {
