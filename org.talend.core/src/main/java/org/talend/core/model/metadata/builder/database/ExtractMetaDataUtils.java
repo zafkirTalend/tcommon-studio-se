@@ -332,7 +332,7 @@ public class ExtractMetaDataUtils {
         }
         if (isReconnect || conn == null || isColsed) {
             try {
-                closeConnection();// colse before connection.
+                closeConnection(true); // colse before connection.
                 checkDBConnectionTimeout();
                 conn = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion);
 
@@ -365,9 +365,13 @@ public class ExtractMetaDataUtils {
      * DOC cantoine. Method to close connect to DataBase.
      */
     public static void closeConnection() {
+        closeConnection(false);
+    }
+
+    public static void closeConnection(boolean force) {
         try {
             if (conn != null && !conn.isClosed()) {
-                if (isReconnect) {
+                if (isReconnect || force) {
                     conn.close();
                 }
             }
