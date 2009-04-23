@@ -66,8 +66,8 @@ public enum ECoreImage implements IImage {
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
     METADATA_CDC_CONN_ICON("/icons/cdc_conn.png"), //$NON-NLS-1$
 
-    METADATA_EBCDIC_CONNECTION_ICON(),
-    METADATA_EBCDIC_CONNECTION_WIZ(),
+    METADATA_EBCDIC_CONNECTION_ICON("/icons/copybook.png"), //$NON-NLS-1$
+    METADATA_EBCDIC_CONNECTION_WIZ("/icons/copybook_wiz.png"), //$NON-NLS-1$
 
     METADATA_RULES_ICON(),
     METADATA_RULES_WIZ(),
@@ -129,6 +129,9 @@ public enum ECoreImage implements IImage {
 
     TOGGLE_SUBJOB("/icons/toggleSubjobs.png"), //$NON-NLS-1$
     TOGGLE_SUBJOB_DISABLED("/icons/toggleSubjobDisabled.png"), //$NON-NLS-1$
+
+    TRACE_ON("/icons/trace_on.png"), //$NON-NLS-1$
+    TRACE_OFF("/icons/trace_off.png"), //$NON-NLS-1$
 
     PALETTE_OK_ICON("/icons/palette_ok.png"), //$NON-NLS-1$
     PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"), //$NON-NLS-1$
