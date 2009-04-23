@@ -379,9 +379,9 @@ public class MetadataTool {
                                 oldColumn.setComment(newColumn.getComment());
                             }
                         } else { // if column doesn't exist, then add it.
-                            if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
-                                metadataTable.getListColumns().add(newColumn);
-                            }
+                        // if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
+                        // metadataTable.getListColumns().add(newColumn);
+                        // }
                         }
                     }
                 }
