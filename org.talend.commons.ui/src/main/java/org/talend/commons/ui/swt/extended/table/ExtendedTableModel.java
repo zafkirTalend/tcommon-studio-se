@@ -116,12 +116,11 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      */
     public void addAll(final Integer index, List<B> beans) {
         if (index == null || index < 0 || index > this.beansList.size() - 1) {
-            this.beansList.addAll(beans);
             if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
                 tableViewer.add(beans.toArray(new Object[beans.size()]));
             }
+            this.beansList.addAll(beans);
         } else {
-            this.beansList.addAll(index, beans);
             if (tableViewer != null && !tableViewer.getTable().isDisposed()) {
                 int localIndex = index;
                 int beansListSize = beans.size();
@@ -129,6 +128,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
                     tableViewer.insert(beans.get(i), localIndex++);
                 }
             }
+            this.beansList.addAll(index, beans);
         }
     }
 
