@@ -43,7 +43,10 @@ import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.registry.PerspectiveRegistry;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
+import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -225,6 +228,16 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         coolBar.add(new ToolBarContributionItem(toolBar, Messages.getString("ApplicationActionBarAdvisor.save"))); //$NON-NLS-1$
         toolBar.add(ActionFactory.SAVE.create(window));
+        // 
+        if (PluginChecker.isTIS() && PluginChecker.isRefProjectLoaded()) {
+            IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
+                    IReferencedProjectService.class);
+            if (service != null) {
+                toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+                coolBar.add(new ToolBarContributionItem(toolBar, "Default")); //$NON-NLS-1$
+                service.addMergeAction(window, toolBar);
+            }
+        }
     }
 
     public void printCoolBar() {
