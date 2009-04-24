@@ -433,6 +433,14 @@ public class ExtractMetaDataFromDataBase {
                     }
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
 
+                    // for bug 6919, oracle driver doesn't give correctly the length for timestamp
+                    if (EDatabaseTypeName.ORACLEFORSID.getDisplayName().equals(metadataConnection.getDbType())
+                            || EDatabaseTypeName.ORACLESN.getDisplayName().equals(metadataConnection.getDbType())) {
+                        if (dbType.equals("TIMESTAMP")) { //$NON-NLS-1$
+                            metadataColumn.setLength(metadataColumn.getPrecision());
+                            metadataColumn.setPrecision(-1);
+                        }
+                    }
                 }
             }
 
