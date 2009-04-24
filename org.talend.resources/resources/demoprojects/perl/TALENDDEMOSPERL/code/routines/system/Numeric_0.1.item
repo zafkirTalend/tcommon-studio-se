@@ -11,6 +11,7 @@ use vars qw(@EXPORT @ISA);
 # return an incremented numeric id
 #
 # {talendTypes} int
+# {Category} Numeric
 # {param} string('s1') identifier
 # {param} int(1) start : value
 # {param} int(1) step

@@ -14,7 +14,8 @@ use vars qw(@EXPORT @ISA);
 ##
 # return the current datetime with the given display format
 #
-# {talendTypes} Day
+# {Category} Date
+# {talendTypes} date
 #
 # {param} string('CCYY-MM-DD') format : string representing the wished format of the date
 #
@@ -22,11 +23,12 @@ use vars qw(@EXPORT @ISA);
 # {example} getCurrentDate('DD/MM/CCYY')
 # {example} getCurrentDate(undef)
 sub getDate {
-    my ($format) = @_;
+    my ($format, $time) = @_;
     $format = 'DD/MM/CCYY' if not defined $format;
+    $time = time() if not defined $time;
 
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
-        localtime(time);
+        localtime($time);
 
     my %fields = (
         CC => int(($year + 1900) / 100),
@@ -50,7 +52,8 @@ sub getDate {
 ##
 # return an ISO formatted random date
 #
-# {talendTypes} Day
+# {Category} Date
+# {talendTypes} date
 #
 # {param} string('2007-01-01') min : minimum date
 # {param} string('2008-12-31') max : maximum date (superior to min)
