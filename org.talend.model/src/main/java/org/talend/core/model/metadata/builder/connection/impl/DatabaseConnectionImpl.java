@@ -679,7 +679,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
 			try {
 				return PasswordEncryptUtil.decryptPassword(password);
 			} catch (Exception e) {
-				e.printStackTrace();
+			    return password; // not encrypted password
 			}
 		}
 		return password;		

@@ -41,6 +41,8 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.core.model.metadata.builder.database.EDatabaseDriver4Version;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -150,6 +152,32 @@ public class ComponentToRepositoryProperty {
             }
         }
         return null;
+    }
+
+    protected static String getValueFromRepositoryName(INode node, String repositoryName) {
+        for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
+            if (param.getRepositoryValue() != null) {
+                if (param.getRepositoryValue().equals(repositoryName)) {
+                    if (param.getField().equals(EParameterFieldType.CLOSED_LIST)) {
+                        return getRepositoryItemFromRepositoryName(param, repositoryName);
+                    }
+                    return (String) param.getValue();
+                }
+            }
+        }
+        return ""; //$NON-NLS-1$
+    }
+
+    protected static String getRepositoryItemFromRepositoryName(IElementParameter param, String repositoryName) {
+        String value = (String) param.getValue();
+        Object[] valuesList = param.getListItemsValue();
+        String[] originalList = param.getListItemsDisplayName();
+        for (int i = 0; i < valuesList.length; i++) {
+            if (valuesList[i].equals(value)) {
+                return originalList[i];
+            }
+        }
+        return ""; //$NON-NLS-1$
     }
 
     private static Object getParameterObjectValue(INode node, String paramName) {
@@ -361,39 +389,39 @@ public class ComponentToRepositoryProperty {
      */
     private static void setDatabaseValue(DatabaseConnection connection, INode node, String repositoryValue) {
         if ("USERNAME".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "USER"); //$NON-NLS-1$
+            String value = getValueFromRepositoryName(node, "USERNAME"); //$NON-NLS-1$
             if (value != null) {
-                connection.setUsername(value);
+                connection.setUsername(TalendTextUtils.removeQuotes(value));
             }
         }
         if ("PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "PASS"); //$NON-NLS-1$
+            String value = getValueFromRepositoryName(node, "PASSWORD"); //$NON-NLS-1$
             if (value != null) {
-                connection.setPassword(value);
+                connection.setPassword(TalendTextUtils.removeQuotes(value));
             }
         }
         if ("SERVER_NAME".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "HOST"); //$NON-NLS-1$
+            String value = getValueFromRepositoryName(node, "SERVER_NAME"); //$NON-NLS-1$
             if (value != null) {
-                connection.setServerName(value);
+                connection.setServerName(TalendTextUtils.removeQuotes(value));
             }
         }
         if ("PORT".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "PORT"); //$NON-NLS-1$
+            String value = getValueFromRepositoryName(node, "PORT"); //$NON-NLS-1$
             if (value != null) {
-                connection.setPort(value);
+                connection.setPort(TalendTextUtils.removeQuotes(value));
             }
         }
         if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
+            String value = getValueFromRepositoryName(node, "SID"); //$NON-NLS-1$
             if (value != null) {
-                connection.setSID(value);
+                connection.setSID(TalendTextUtils.removeQuotes(value));
             }
         }
         if ("SCHEMA".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "SCHEMA_DB"); //$NON-NLS-1$
+            String value = getValueFromRepositoryName(node, "SCHEMA"); //$NON-NLS-1$
             if (value != null) {
-                connection.setSchema(value.toUpperCase());
+                connection.setSchema(TalendTextUtils.removeQuotes(value.toUpperCase()));
             }
         }
         if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
@@ -459,8 +487,9 @@ public class ComponentToRepositoryProperty {
 
         if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
+            String dbVersionName = EDatabaseDriver4Version.getDbVersionName("Oracle", value);
             if (value != null) {
-                connection.setDbVersionString(value);
+                connection.setDbVersionString(dbVersionName);
             }
         }
         if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
@@ -482,8 +511,9 @@ public class ComponentToRepositoryProperty {
     private static void setDatabaseValueForOracleSeverName(DatabaseConnection connection, INode node, String repositoryValue) {
         if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
+            String dbVersionName = EDatabaseDriver4Version.getDbVersionName("Oracle", value); //$NON-NLS-1$
             if (value != null) {
-                connection.setDbVersionString(value);
+                connection.setDbVersionString(dbVersionName);
             }
         }
         if ("SID".equals(repositoryValue)) { //$NON-NLS-1$
@@ -503,6 +533,14 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForAs400(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
+            String dbVersionName = EDatabaseDriver4Version.getDbVersionName("AS400", value); //$NON-NLS-1$
+            if (value != null) {
+                connection.setDbVersionString(dbVersionName);
+            }
+        }
+
         if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {

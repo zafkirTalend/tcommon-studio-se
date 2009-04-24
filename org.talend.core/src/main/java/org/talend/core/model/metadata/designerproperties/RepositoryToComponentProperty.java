@@ -519,7 +519,7 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
-            String driverValue = EDatabaseDriver4Version.getDriver(connection.getDbVersionString(), null);
+            String driverValue = EDatabaseDriver4Version.getDriver(connection.getDatabaseType(), connection.getDbVersionString());
             if (isConetxtMode(connection, connection.getDbVersionString())) {
                 return connection.getDbVersionString();
             } else {
