@@ -254,7 +254,7 @@ public class ExtractMetaDataFromDataBase {
             }
 
             metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
-                    iMetadataConnection);
+                    iMetadataConnection, dbType);
 
             ExtractMetaDataUtils.closeConnection();
 
@@ -307,7 +307,7 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataColumn Object
      */
     public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
-            IMetadataConnection metadataConnection) {
+            IMetadataConnection metadataConnection, String databaseType) {
 
         columnIndex = 0;
 
@@ -354,7 +354,7 @@ public class ExtractMetaDataFromDataBase {
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME"); //$NON-NLS-1$
-                if (fetchTableName.equals(tableName)) {
+                if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                     metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
                     metadataColumn.setOriginalField(metadataColumn.getLabel());
