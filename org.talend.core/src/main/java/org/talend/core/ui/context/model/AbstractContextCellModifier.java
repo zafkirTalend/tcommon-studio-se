@@ -72,6 +72,7 @@ public abstract class AbstractContextCellModifier implements ICellModifier {
                 if (!getModelManager().isRepositoryContext() || getModelManager().isRepositoryContext()
                         && jobContextManager.isOriginalParameter(param.getName())) {
                     jobContextManager.setModified(true);
+                    manager.fireContextsChangedEvent();
                 }
             }
         }

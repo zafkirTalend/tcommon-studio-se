@@ -104,6 +104,7 @@ public final class DefaultCellEditorFactory {
                     if (!getModelManager().isRepositoryContext() || getModelManager().isRepositoryContext()
                             && jobContextManager.isOriginalParameter(para.getName())) {
                         jobContextManager.setModified(true);
+                        jobContextManager.fireContextsChangedEvent();
                     }
                 }
             }
