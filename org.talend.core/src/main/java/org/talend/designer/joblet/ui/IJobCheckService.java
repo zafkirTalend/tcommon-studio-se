@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.joblet.ui;
 
+import org.talend.commons.exception.BusinessException;
 import org.talend.core.IService;
 
 /**
@@ -19,5 +20,5 @@ import org.talend.core.IService;
  */
 public interface IJobCheckService extends IService {
 
-    boolean checkJob(String name);
+    boolean checkJob(String name) throws BusinessException;
 }
