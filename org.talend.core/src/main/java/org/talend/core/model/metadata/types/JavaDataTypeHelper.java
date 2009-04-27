@@ -236,38 +236,40 @@ public final class JavaDataTypeHelper {
      * @return
      */
     public static String getCommonType(final String type1, final String type2) {
-        JavaType idType = null;
-        // String
-        idType = getCommonType(type1, type2, JavaTypesManager.STRING);
-        if (idType != null) {
-            return idType.getId();
-        }
-        // Integer
-        idType = getCommonType(type1, type2, JavaTypesManager.INTEGER);
-        if (idType != null) {
-            return idType.getId();
-        }
-        // Double
-        idType = getCommonType(type1, type2, JavaTypesManager.DOUBLE);
-        if (idType != null) {
-            return idType.getId();
-        }
-        // float
-        idType = getCommonType(type1, type2, JavaTypesManager.FLOAT);
-        if (idType != null) {
-            return idType.getId();
-        }
-        // Long
-        idType = getCommonType(type1, type2, JavaTypesManager.LONG);
-        if (idType != null) {
-            return idType.getId();
-        }
-        // Character
-        idType = getCommonType(type1, type2, JavaTypesManager.CHARACTER);
-        if (idType != null) {
-            return idType.getId();
-        }
-        return JavaTypesManager.STRING.getId();
+        return getTypeByPriority(type1, type2);
+
+        // JavaType idType = null;
+        // // String
+        // idType = getCommonType(type1, type2, JavaTypesManager.STRING);
+        // if (idType != null) {
+        // return idType.getId();
+        // }
+        // // Integer
+        // idType = getCommonType(type1, type2, JavaTypesManager.INTEGER);
+        // if (idType != null) {
+        // return idType.getId();
+        // }
+        // // Double
+        // idType = getCommonType(type1, type2, JavaTypesManager.DOUBLE);
+        // if (idType != null) {
+        // return idType.getId();
+        // }
+        // // float
+        // idType = getCommonType(type1, type2, JavaTypesManager.FLOAT);
+        // if (idType != null) {
+        // return idType.getId();
+        // }
+        // // Long
+        // idType = getCommonType(type1, type2, JavaTypesManager.LONG);
+        // if (idType != null) {
+        // return idType.getId();
+        // }
+        // // Character
+        // idType = getCommonType(type1, type2, JavaTypesManager.CHARACTER);
+        // if (idType != null) {
+        // return idType.getId();
+        // }
+        // return JavaTypesManager.STRING.getId();
     }
 
     private static JavaType getCommonType(final String type1, final String type2, JavaType testType) {
@@ -298,5 +300,108 @@ public final class JavaDataTypeHelper {
         }
         return false;
     }
+
+    public static String getTypeByPriority(String type1, String type2) {
+        EJavaTypePriority priority1 = EJavaTypePriority.getJavaTypePriority(type1);
+        EJavaTypePriority priority2 = EJavaTypePriority.getJavaTypePriority(type2);
+        if (priority1.isNumberType() != priority2.isNumberType()) {
+            return EJavaTypePriority.STRING.getIdName();
+        }
+        if (priority1.getPriority() > priority2.getPriority()) {
+            return priority1.getIdName();
+        } else {
+            return priority2.getIdName();
+        }
+    }
+
+    /**
+     * DOC nrousseau GuessSchemaUtil class global comment. Detailled comment
+     */
+    private enum EJavaTypePriority {
+        STRING("id_String", 10, false),
+        BOOLEAN("id_Boolean", 9, false),
+        INTEGER("id_Integer", 1, true),
+        LONG("id_Long", 2, true),
+        CHARACTER("id_Character", 1, false),
+        DATE("id_Date", 9, false),
+        FLOAT("id_Float", 3, true),
+        DOUBLE("id_Double", 4, true),
+        BIGDECIMAL("id_BigDecimal", 5, true);
+
+        private String idName;
+
+        private int priority;
+
+        private boolean numberType;
+
+        private EJavaTypePriority(String name, int priority, boolean numberType) {
+            this.idName = name;
+            this.priority = priority;
+            this.numberType = numberType;
+        }
+
+        private static EJavaTypePriority getJavaTypePriority(String idName) {
+            for (EJavaTypePriority type : EJavaTypePriority.values()) {
+                if (type.getIdName().equals(idName)) {
+                    return type;
+                }
+            }
+            return STRING;
+        }
+
+        /**
+         * Getter for idName.
+         * 
+         * @return the idName
+         */
+        public String getIdName() {
+            return this.idName;
+        }
+
+        /**
+         * Sets the idName.
+         * 
+         * @param idName the idName to set
+         */
+        public void setIdName(String idName) {
+            this.idName = idName;
+        }
+
+        /**
+         * Getter for priority.
+         * 
+         * @return the priority
+         */
+        public int getPriority() {
+            return this.priority;
+        }
+
+        /**
+         * Sets the priority.
+         * 
+         * @param priority the priority to set
+         */
+        public void setPriority(int priority) {
+            this.priority = priority;
+        }
+
+        /**
+         * Getter for numberType.
+         * 
+         * @return the numberType
+         */
+        public boolean isNumberType() {
+            return this.numberType;
+        }
+
+        /**
+         * Sets the numberType.
+         * 
+         * @param numberType the numberType to set
+         */
+        public void setNumberType(boolean numberType) {
+            this.numberType = numberType;
+        }
+    };
 
 }
