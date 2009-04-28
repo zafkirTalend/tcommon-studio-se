@@ -110,6 +110,8 @@ class ExportItemWizardPage extends WizardPage {
 
     private Button exportDependencies;
 
+    private TreeViewer viewer;
+
     Collection<RepositoryNode> repositoryNodes = new ArrayList<RepositoryNode>();
 
     protected ExportItemWizardPage(String pageName, IStructuredSelection selection) {
@@ -151,11 +153,11 @@ class ExportItemWizardPage extends WizardPage {
 
         exportItemsTreeViewer.refresh();
         // force loading all nodes
-        TreeViewer viewer = exportItemsTreeViewer.getViewer();
-        viewer.expandAll();
-        viewer.collapseAll();
+        viewer = exportItemsTreeViewer.getViewer();
+        // viewer.expandAll();
+        // viewer.collapseAll();
         // expand to level of metadata connection
-        viewer.expandToLevel(4);
+        // viewer.expandToLevel(4);
 
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
@@ -384,9 +386,16 @@ class ExportItemWizardPage extends WizardPage {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
+                viewer.expandAll();
+                viewer.expandToLevel(4);
                 exportDependenciesSelected();
-            }
+                viewer.collapseAll();
+                for (RepositoryNode node : repositoryNodes) {
+                    RepositoryNodeUtilities.expandNode(exportItemsTreeViewer, node);
 
+                }
+                ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(repositoryNodes.toArray());
+            }
         });
     }
 
