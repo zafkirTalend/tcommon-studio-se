@@ -379,9 +379,9 @@ public class MetadataTool {
                                 oldColumn.setComment(newColumn.getComment());
                             }
                         } else { // if column doesn't exist, then add it.
-                        // if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
-                        // metadataTable.getListColumns().add(newColumn);
-                        // }
+                            // if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
+                            // metadataTable.getListColumns().add(newColumn);
+                            // }
                         }
                     }
                 }
@@ -463,8 +463,11 @@ public class MetadataTool {
             return null;
         }
         final String underLine = "_"; //$NON-NLS-1$
+        String firstChar = columnName.substring(0, 1);
+        if (firstChar.matches("^([^a-zA-Z_])")) { //$NON-NLS-1$
+            columnName = underLine + columnName;
+        }
         columnName = columnName.replaceAll("[^(\\w|_)]", underLine); //$NON-NLS-1$
-        columnName = columnName.replaceFirst("^\\d", underLine); //$NON-NLS-1$
         return columnName;
     }
 }
