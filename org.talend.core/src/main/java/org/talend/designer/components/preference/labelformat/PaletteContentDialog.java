@@ -13,8 +13,11 @@
 package org.talend.designer.components.preference.labelformat;
 
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -88,6 +91,17 @@ public class PaletteContentDialog extends Dialog {
         viewer.setContentProvider(new TalendPaletteTreeProvider());
         viewer.setLabelProvider(new TalendPaletteLabelProvider());
         viewer.setInput(page.getPaletteRoot());
+        // qli modified to fix the bug 7074.
+        viewer.setFilters(new ViewerFilter[] { new ViewerFilter() {
+
+            @Override
+            public boolean select(Viewer viewer, Object parentElement, Object element) {
+                if (element instanceof PaletteSeparator) {
+                    return false;
+                }
+                return true;
+            }
+        } });
         viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
     }
 

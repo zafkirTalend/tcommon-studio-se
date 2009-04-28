@@ -19,12 +19,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.gef.internal.InternalImages;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -58,6 +63,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.ComponentUtilities;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.components.IComponentsLocalProviderService;
 
 /**
@@ -87,6 +93,14 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
 
     private static final String DEFAULT_CONNECTION = CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
             "defaultConnection"); //$NON-NLS-1$
+
+    private int textHintId = 1;
+
+    private int textLabelId = 2;
+
+    private int textConnectionId = 3;
+
+    private String configTextConnectionValue;
 
     /**
      * yzhang Comment method "getPaletteRoot".
@@ -154,6 +168,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         labelHint.setText(Messages.getString("ComponentsFormatPreferencePage.formatHint")); //$NON-NLS-1$
         textHint = new Text(footerPanel, SWT.BORDER);
         textHint.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        textHint.setData(textHintId);
 
         configTextModifyListener(textHint, IComponentsLocalProviderService.PREFERENCE_TYPE_HINT);
 
@@ -161,12 +176,14 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         labelLabel.setText(Messages.getString("ComponentsFormatPreferencePage.formatLable")); //$NON-NLS-1$
         textLabel = new Text(footerPanel, SWT.BORDER);
         textLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        textLabel.setData(textLabelId);
         configTextModifyListener(textLabel, IComponentsLocalProviderService.PREFERENCE_TYPE_LABEL);
 
         Label labelConnection = new Label(footerPanel, SWT.NONE);
         labelConnection.setText(Messages.getString("ComponentsFormatPreferencePage.formatConnection")); //$NON-NLS-1$
         textConnection = new Text(footerPanel, SWT.BORDER);
         textConnection.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        textConnection.setData(textConnectionId);
         configTextModifyListener(textConnection, IComponentsLocalProviderService.PREFERENCE_TYPE_CONNECTION);
 
         addButtonListeners();
@@ -191,17 +208,16 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
              */
             @Override
             public void keyReleased(KeyEvent e) {
+                // qli modified to fix the bug 7074
+                String content = text.getText();
+                if (text.getData().equals(textConnectionId) && !canRename(content)) {
+                    String message = Messages.getString("ComponentsFormatPreferencePage.errorCreateConnectionName", content); //$NON-NLS-1$
+                    MessageDialog.openError(getShell(), Messages.getString("ComponentsFormatPreferencePage.ErrorTitle"), message); //$NON-NLS-1$
+                    setText(textConnection, configTextConnectionValue, true);
+                }
                 Object[] objs = ((IStructuredSelection) viewer.getSelection()).toArray();
                 for (Object o : objs) {
-                    // if (o instanceof ToolEntry) {
-                    // preferenceCach.put(((ToolEntry) o).getLabel() +
-                    // IComponentsLocalProviderService.PALETTE_ENTRY_TYPE
-                    // + preferenceType, text.getText());
-                    // } else if (o instanceof PaletteContainer) {
-                    // preferenceCach.put(((PaletteContainer) o).getLabel()
-                    // + IComponentsLocalProviderService.PALETTE_CONTAINER_TYPE + preferenceType, text.getText());
-                    // }
-                    preferenceCach.put(getIdWithoutPreferenceType(o) + preferenceType, text.getText());
+                    preferenceCach.put(getIdWithoutPreferenceType(o) + preferenceType, content);
 
                 }
 
@@ -386,11 +402,42 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      * @param flag
      */
     private void setText(Text text, String content, boolean flag) {
+        // qli modified to fix the bug 7074.
         if (flag) {
             text.setText(content);
+            if (text.getData().equals(textConnectionId)) {
+                configTextConnectionValue = content;
+            }
         } else {
             text.setText(""); //$NON-NLS-1$
         }
+    }
+
+    /**
+     * qli Comment method "canRename".
+     * 
+     * @param content
+     * 
+     * @return canRename
+     * 
+     */
+    private boolean canRename(String content) {
+        boolean canRename = true;
+        Perl5Matcher matcher = new Perl5Matcher();
+        Perl5Compiler compiler = new Perl5Compiler();
+        Pattern pattern;
+        try {
+            pattern = compiler.compile("^[A-Za-z_][A-Za-z0-9_]*$");
+            if (!matcher.matches(content, pattern)) {
+                canRename = false;
+            }
+        } catch (MalformedPatternException e) {
+            throw new RuntimeException(e);
+        }
+        if (KeywordsValidator.isKeyword(content) || KeywordsValidator.isSqlKeyword(content)) {
+            canRename = false;
+        }
+        return canRename;
     }
 
     private void checkFormatsEquals(List<DefaultFormat> formats) {
