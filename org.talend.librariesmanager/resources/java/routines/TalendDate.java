@@ -61,10 +61,6 @@ public class TalendDate {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
         java.util.Date testDate = null;
 
-        if (stringDate == null) {
-            return false;
-        }
-
         try {
             testDate = sdf.parse(stringDate);
         } catch (ParseException e) {
@@ -106,13 +102,7 @@ public class TalendDate {
      * ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35,"yyyy/MM/dd") return 0 #
      */
     public static int compareDate(Date date1, Date date2, String pattern) {
-        if (date1 == null && date2 == null) {
-            return 0;
-        } else if (date1 != null || date2 == null) {
-            return 1;
-        } else if (date1 == null || date2 != null) {
-            return -1;
-        } else if (pattern != null) {
+        if (pattern != null) {
             SimpleDateFormat sdf = new SimpleDateFormat(pattern);
             String part1 = sdf.format(date1), part2 = sdf.format(date2);
             return part1.compareTo(part2);
@@ -175,11 +165,8 @@ public class TalendDate {
      * 
      */
     public static Date addDate(Date date, int nb, String dateType) {
-        if (nb < 0) {
-            return date;
-        }
         Calendar c1 = Calendar.getInstance();
-        c1.setTime(date == null ? new Date(0) : date);
+        c1.setTime(date);
 
         if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             c1.add(Calendar.YEAR, nb);
@@ -232,8 +219,8 @@ public class TalendDate {
 
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
-        c1.setTime(date1 == null ? new Date(0) : date1);
-        c2.setTime(date2 == null ? new Date(0) : date2);
+        c1.setTime(date1);
+        c2.setTime(date2);
 
         if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             return c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
@@ -290,7 +277,7 @@ public class TalendDate {
      */
     public static Date getFirstDayOfMonth(Date date) {
         Calendar c = Calendar.getInstance();
-        c.setTime(date == null ? new Date(0) : date);
+        c.setTime(date);
         c.set(Calendar.DATE, 1);
         return c.getTime();
     }
@@ -311,7 +298,7 @@ public class TalendDate {
      */
     public static Date getLastDayOfMonth(Date date) {
         Calendar c = Calendar.getInstance();
-        c.setTime(date == null ? new Date(0) : date);
+        c.setTime(date);
         c.add(Calendar.MONTH, 1);
         c.set(Calendar.DATE, -1);
         return c.getTime();
@@ -350,7 +337,7 @@ public class TalendDate {
         }
 
         Calendar c = Calendar.getInstance();
-        c.setTime(date == null ? new Date(0) : date);
+        c.setTime(date);
 
         if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             c.set(Calendar.YEAR, nb);
