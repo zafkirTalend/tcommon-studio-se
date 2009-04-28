@@ -251,12 +251,14 @@ public class MappingTypeRetriever {
         }
         TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
         String mappingType = talendTypePre.getMappingType();
-        for (MappingType type : listMappingtype) {
-            if (type.getTalendType().equals(mappingType)) {
-                return type.getTalendType();
+        if (listMappingtype.size() != 0) {
+            for (MappingType type : listMappingtype) {
+                if (type.getTalendType().equals(mappingType)) {
+                    return type.getTalendType();
+                }
             }
         }
-
+        
         return mappingTypeOrigin.getTalendType();
 
     }

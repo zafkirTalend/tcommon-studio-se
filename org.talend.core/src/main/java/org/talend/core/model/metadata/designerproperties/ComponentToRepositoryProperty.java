@@ -22,9 +22,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.PasswordEncryptUtil;
+import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -87,6 +90,13 @@ public class ComponentToRepositoryProperty {
             DatabaseConnection conn = (DatabaseConnection) connection;
             String url = CorePlugin.getDefault().getRepositoryService().getDatabaseStringURL(conn);
             conn.setURL(url);
+            // see bug in feature 5998, set dbmsId.
+            String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue();
+            if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) {
+                String product = repositoryType.substring(repositoryType.indexOf(":") + 1);
+                String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
+                conn.setDbmsId(mapping);
+            }
         }
         return true;
     }
@@ -397,7 +407,12 @@ public class ComponentToRepositoryProperty {
         if ("PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getValueFromRepositoryName(node, "PASSWORD"); //$NON-NLS-1$
             if (value != null) {
-                connection.setPassword(TalendTextUtils.removeQuotes(value));
+                // see bug in feature 5998,encrypt the password.
+                try {
+                    connection.setPassword(PasswordEncryptUtil.encryptPassword(TalendTextUtils.removeQuotes(value)));
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
             }
         }
         if ("SERVER_NAME".equals(repositoryValue)) { //$NON-NLS-1$
@@ -421,7 +436,11 @@ public class ComponentToRepositoryProperty {
         if ("SCHEMA".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getValueFromRepositoryName(node, "SCHEMA"); //$NON-NLS-1$
             if (value != null) {
-                connection.setSchema(TalendTextUtils.removeQuotes(value.toUpperCase()));
+                if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
+                    connection.setSchema(TalendTextUtils.removeQuotes(value.toUpperCase()));
+                } else {
+                    connection.setSchema(TalendTextUtils.removeQuotes(value));
+                }
             }
         }
         if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
