@@ -115,7 +115,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String database, String tableNamePattern, String[] types) throws SQLException {
-        String sql = "SELECT TableName from DBC.TABLES WHERE databasename = '" + database //$NON-NLS-1$
+        String sql = "SELECT * from DBC.TABLES WHERE databasename = '" + database //$NON-NLS-1$
                 + "' AND tablekind = 'T' or tablekind = 'V' Order by tablekind, tablename "; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
