@@ -27,8 +27,10 @@ public class UpdateExtendInsertDefaultValue implements IComponentConversion {
         // TODO Auto-generated method stub
         ElementParameterType propertyExtendInsert = ComponentUtilities.getNodeProperty(node, "EXTENDINSERT"); //$NON-NLS-1$
         ElementParameterType propertyDataAction = ComponentUtilities.getNodeProperty(node, "DATA_ACTION"); //$NON-NLS-1$
-        if (propertyDataAction != null && propertyDataAction.getValue().equalsIgnoreCase("INSERT")) { //$NON-NLS-1$
-            propertyExtendInsert.setValue("true");
+        ElementParameterType propertyEnableDebugMode = ComponentUtilities.getNodeProperty(node, "ENABLE_DEBUG_MODE"); //$NON-NLS-1$
+        if (propertyDataAction != null && propertyDataAction.getValue().equalsIgnoreCase("INSERT")//$NON-NLS-1$
+                && propertyEnableDebugMode != null && propertyEnableDebugMode.equals("false")) { //$NON-NLS-1$
+            propertyExtendInsert.setValue("true");//$NON-NLS-1$
         }
     }
 }
