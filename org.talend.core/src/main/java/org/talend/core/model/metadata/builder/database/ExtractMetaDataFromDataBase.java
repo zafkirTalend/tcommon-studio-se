@@ -199,7 +199,6 @@ public class ExtractMetaDataFromDataBase {
             }
             if (tableType.equals("V")) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_VIEW.getName();
-                ;
             }
 
             try {
@@ -466,7 +465,6 @@ public class ExtractMetaDataFromDataBase {
                     keys.close();
 
                 } catch (Exception e) {
-                    System.out.print(e);
                     log.error(e.toString());
                 }
             }
@@ -754,11 +752,12 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 Set<String> nameFiters = tableInfoParameters.getNameFilters();
                 if (nameFiters.isEmpty()) {
-                    itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, "")); //$NON-NLS-1$
+                    itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters,
+                            "", iMetadataConnection.getDbType())); //$NON-NLS-1$
                 } else {
                     for (String s : nameFiters) {
                         List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
-                                tableInfoParameters, s));
+                                tableInfoParameters, s, iMetadataConnection.getDbType()));
                         for (String string : tableNamesFromTables) {
                             if (!itemTablesName.contains(string)) {
                                 itemTablesName.add(string);
@@ -847,15 +846,16 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern) throws SQLException {
+    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern, String dbType)
+            throws SQLException {
         ResultSet rsTables = null;
-        Connection conn = ExtractMetaDataUtils.conn;
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
             types[i] = tableInfo.getTypes().get(i).getName();
         }
-        rsTables = conn.getMetaData().getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
+        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
+        rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         return rsTables;
     }
 
