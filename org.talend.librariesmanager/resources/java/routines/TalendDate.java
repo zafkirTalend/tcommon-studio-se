@@ -58,12 +58,12 @@ public class TalendDate {
      */
     public static boolean isDate(String stringDate, String pattern) {
 
-        if (stringDate == null || pattern == null) {
-            throw new NullPointerException();
-        }
-
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
         java.util.Date testDate = null;
+
+        if (stringDate == null || pattern == null) {
+            return false;
+        }
 
         try {
             testDate = sdf.parse(stringDate);
@@ -106,11 +106,13 @@ public class TalendDate {
      * ->> compareDate(2008/11/24 12:15:25, 2008/11/24 16:10:35,"yyyy/MM/dd") return 0 #
      */
     public static int compareDate(Date date1, Date date2, String pattern) {
-        if (date1 == null || date2 == null) {
-            throw new NullPointerException();
-        }
-
-        if (pattern != null) {
+        if (date1 == null && date2 == null) {
+            return 0;
+        } else if (date1 != null || date2 == null) {
+            return 1;
+        } else if (date1 == null || date2 != null) {
+            return -1;
+        } else if (pattern != null) {
             SimpleDateFormat sdf = new SimpleDateFormat(pattern);
             String part1 = sdf.format(date1), part2 = sdf.format(date2);
             return part1.compareTo(part2);
@@ -174,7 +176,10 @@ public class TalendDate {
      */
     public static Date addDate(Date date, int nb, String dateType) {
         if (date == null || dateType == null) {
-            throw new NullPointerException();
+            return null;
+        }
+		if (nb < 0) {
+            return date;
         }
 
         Calendar c1 = Calendar.getInstance();
@@ -194,8 +199,6 @@ public class TalendDate {
             c1.add(Calendar.SECOND, nb);
         } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
             c1.add(Calendar.MILLISECOND, nb);
-        } else {
-            throw new RuntimeException("Can't support the dateType: " + dateType);
         }
 
         return c1.getTime();
@@ -229,14 +232,12 @@ public class TalendDate {
      */
     public static long diffDate(Date date1, Date date2, String dateType) {
 
-        if (date1 == null || date2 == null || dateType == null) {
-            throw new NullPointerException();
-        }
+        dateType = dateType == null ? "" : dateType; //$NON-NLS-1$
 
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
-        c1.setTime(date1);
-        c2.setTime(date2);
+        c1.setTime(date1 == null ? new Date(0) : date1);
+        c2.setTime(date2 == null ? new Date(0) : date2);
 
         if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             return c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR);
@@ -250,10 +251,8 @@ public class TalendDate {
             return (date1.getTime() - date2.getTime()) / 1000;
         } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
             return date1.getTime() - date2.getTime();
-        } else if (dateType.equalsIgnoreCase("dd")) {
-            return (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
         } else {
-            throw new RuntimeException("Can't support the dateType: " + dateType);
+            return (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
         }
     }
 
@@ -276,7 +275,7 @@ public class TalendDate {
      */
 
     public static long diffDate(Date date1, Date date2) {
-        return diffDate(date1, date2, "dd");
+        return diffDate(date1, date2, null);
     }
 
     /**
@@ -295,7 +294,7 @@ public class TalendDate {
      */
     public static Date getFirstDayOfMonth(Date date) {
         Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        c.setTime(date == null ? new Date(0) : date);
         c.set(Calendar.DATE, 1);
         return c.getTime();
     }
@@ -316,7 +315,7 @@ public class TalendDate {
      */
     public static Date getLastDayOfMonth(Date date) {
         Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        c.setTime(date == null ? new Date(0) : date);
         c.add(Calendar.MONTH, 1);
         c.set(Calendar.DATE, -1);
         return c.getTime();
@@ -350,16 +349,12 @@ public class TalendDate {
      * ->> setDate(2008/11/24 12:15:25, 15, "dd") return 2008/11/15 12:15:25 #
      */
     public static Date setDate(Date date, int nb, String dateType) {
-        if (date == null || dateType == null) {
-            throw new NullPointerException();
+        if (nb < 0) {
+            return date;
         }
 
-        // if (nb < 0) {
-        // return date;
-        // }
-
         Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        c.setTime(date == null ? new Date(0) : date);
 
         if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
             c.set(Calendar.YEAR, nb);
@@ -369,8 +364,6 @@ public class TalendDate {
             c.set(Calendar.DATE, nb);
         } else if (dateType.equalsIgnoreCase("HH")) { //$NON-NLS-1$
             c.set(Calendar.HOUR_OF_DAY, nb);
-        } else {
-            throw new RuntimeException("Can't support the dateType: " + dateType);
         }
         return c.getTime();
     }
@@ -526,14 +519,6 @@ public class TalendDate {
      * {example} getRandomDate("1981-01-18", "2005-07-24") {example} getRandomDate("1980-12-08", "2007-02-26")
      */
     public static Date getRandomDate(String minDate, String maxDate) {
-        if (minDate == null || maxDate == null) {
-            throw new NullPointerException();
-        }
-
-        if (!minDate.matches("\\d{4}-\\d{2}-\\d{2}") || !minDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            throw new IllegalArgumentException("The parameter should be \"yyy-MM-dd\"");
-        }
-
         int minYear = Integer.parseInt(minDate.substring(0, 4));
         int minMonth = Integer.parseInt(minDate.substring(5, 7));
         int minDay = Integer.parseInt(minDate.substring(8, 10));
