@@ -137,6 +137,7 @@ public class ExtractMetaDataFromDataBase {
                 rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
             }
             getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions());
+            rsTables.close();
         } catch (SQLException e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
@@ -208,7 +209,6 @@ public class ExtractMetaDataFromDataBase {
             }
             medataTables.add(medataTable);
         }
-        rsTables.close();
     }
 
     /**
@@ -219,16 +219,20 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataColumn Object of a Table
      */
     public static synchronized List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
-            String tableLabel) {
+            String tableLabel, boolean... dontCreateClose) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
+        boolean needCreateAndClose = dontCreateClose.length == 0 || !dontCreateClose[0];
+
         try {
             // WARNING Schema equals sid or database
-            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                    .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
-                    iMetadataConnection.getDbVersionString());
+            if (needCreateAndClose || ExtractMetaDataUtils.conn == null || ExtractMetaDataUtils.conn.isClosed()) {
+                ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                        iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
+                        iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection
+                                .getDriverJarPath(), iMetadataConnection.getDbVersionString());
+            }
             String dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
@@ -255,8 +259,9 @@ public class ExtractMetaDataFromDataBase {
             metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
                     iMetadataConnection, dbType);
 
-            ExtractMetaDataUtils.closeConnection();
-
+            if (needCreateAndClose) {
+                ExtractMetaDataUtils.closeConnection();
+            }
         } catch (Exception e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -285,6 +290,8 @@ public class ExtractMetaDataFromDataBase {
             while (resultSet.next()) {
                 return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
             }
+            resultSet.close();
+            sta.close();
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -463,6 +470,7 @@ public class ExtractMetaDataFromDataBase {
                         }
                     }
                     keys.close();
+                    statement.close();
 
                 } catch (Exception e) {
                     log.error(e.toString());
@@ -507,6 +515,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                 }
                 keys.close();
+                statement.close();
             } catch (Exception e) {
                 log.error(e.toString());
             }
@@ -748,6 +757,8 @@ public class ExtractMetaDataFromDataBase {
                     ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                     ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
                     itemTablesName = getTableNamesFromQuery(rsTables);
+                    rsTables.close();
+                    stmt.close();
                 }
             } else {
                 Set<String> nameFiters = tableInfoParameters.getNameFilters();
@@ -793,6 +804,8 @@ public class ExtractMetaDataFromDataBase {
             ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
             ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
             itemTablesName.removeAll(getTableNamesFromQuery(rsTables));
+            rsTables.close();
+            stmt.close();
         } catch (SQLException e) {
             // do nothing.
         }
@@ -835,6 +848,7 @@ public class ExtractMetaDataFromDataBase {
             while (resultSet.next()) {
                 itemTablesName.add(resultSet.getString("TABLE_NAME")); //$NON-NLS-1$
             }
+            resultSet.close();
         }
         return itemTablesName;
     }
