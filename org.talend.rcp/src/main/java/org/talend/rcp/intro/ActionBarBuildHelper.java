@@ -28,6 +28,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.internal.provisional.action.IToolBarContributionItem;
+import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchActionConstants;
@@ -41,11 +42,16 @@ import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.registry.PerspectiveRegistry;
+import org.eclipse.ui.internal.registry.ViewDescriptor;
+import org.eclipse.ui.internal.registry.ViewRegistry;
+import org.eclipse.ui.views.IViewDescriptor;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
@@ -273,7 +279,19 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         hideEditActions();
         hideCoolBarActions();
 
-        String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" }; //$NON-NLS-1$
+        boolean useJava = LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA;
+
+        if (useJava) {
+            String[] removeHelpIds = { "org.talend.help.perl", "org.talend.help.perl.OpenPerlHelpAction" };
+            for (String id : removeHelpIds) {
+                helpMenu.remove(id);
+            }
+        }
+
+        String[] perspectivesId = { "org.eclipse.team.ui.TeamSynchronizingPerspective" };
+        if (useJava) {
+            perspectivesId = (String[]) ArrayUtils.add(perspectivesId, "org.epic.core.Perspective");
+        }
 
         List<IPerspectiveDescriptor> perspectivesToDelete = new ArrayList<IPerspectiveDescriptor>();
 
@@ -288,6 +306,44 @@ public class ActionBarBuildHelper implements IActionBarHelper {
             PerspectiveRegistry registry = (PerspectiveRegistry) window.getWorkbench().getPerspectiveRegistry();
             PerspectiveDescriptor[] descriptors = { perspDesc };
             registry.removeExtension(perspDesc.getConfigElement().getDeclaringExtension(), descriptors);
+        }
+
+        String[] viewsId = { "org.eclipse.pde.runtime.RegistryBrowser", "org.eclipse.pde.ui.DependenciesView",
+                "org.eclipse.pde.ui.PluginsView", "org.eclipse.team.sync.views.SynchronizeView",
+                "org.eclipse.team.ui.GenericHistoryView" };
+
+        if (useJava) {
+            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.core.views.browser.BrowserView");
+            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.perleditor.views.ExplainErrorsView");
+            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.perleditor.views.PerlDocView");
+            viewsId = (String[]) ArrayUtils.add(viewsId, "org.epic.regexp.views.RegExpView");
+            viewsId = (String[]) ArrayUtils.add(viewsId, "org.eclipse.debug.expressionview");
+        }
+
+        List<IViewDescriptor> viewsToDelete = new ArrayList<IViewDescriptor>();
+
+        for (IViewDescriptor desc : window.getWorkbench().getViewRegistry().getViews()) {
+            if (ArrayUtils.contains(viewsId, desc.getId())) {
+                viewsToDelete.add(desc);
+            }
+        }
+
+        for (IViewDescriptor desc : viewsToDelete) {
+            ViewDescriptor viewDesc = (ViewDescriptor) desc;
+            ViewRegistry registry = (ViewRegistry) window.getWorkbench().getViewRegistry();
+            ViewDescriptor[] descriptors = { viewDesc };
+            registry.removeExtension(viewDesc.getConfigurationElement().getDeclaringExtension(), descriptors);
+        }
+
+        String[] prefsId = { "org.eclipse.team.ui.TeamPreferences" };
+        List<IPreferenceNode> prefsToDelete = new ArrayList<IPreferenceNode>();
+        for (IPreferenceNode node : window.getWorkbench().getPreferenceManager().getRootSubNodes()) {
+            if (ArrayUtils.contains(prefsId, node.getId())) {
+                prefsToDelete.add(node);
+            }
+        }
+        for (IPreferenceNode node : prefsToDelete) {
+            window.getWorkbench().getPreferenceManager().remove(node);
         }
     }
 
