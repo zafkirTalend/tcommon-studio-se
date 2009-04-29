@@ -33,6 +33,13 @@ public interface ICodeGeneratorService extends IService {
     public Job initializeTemplates();
 
     /**
+     * DOC gke Comment method "refreshTemplates".
+     * 
+     * @return
+     */
+    public void refreshTemplates();
+
+    /**
      * DOC qian Comment method "createCodeGenerator".
      * 
      * @return ICodeGenerator
