@@ -31,7 +31,9 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -114,6 +116,8 @@ class ExportItemWizardPage extends WizardPage {
 
     Collection<RepositoryNode> repositoryNodes = new ArrayList<RepositoryNode>();
 
+    Set<RepositoryNode> checkedNodes = new HashSet<RepositoryNode>();
+
     protected ExportItemWizardPage(String pageName, IStructuredSelection selection) {
         super(pageName);
         repositoryView = RepositoryView.show();
@@ -159,10 +163,16 @@ class ExportItemWizardPage extends WizardPage {
         // expand to level of metadata connection
         // viewer.expandToLevel(4);
 
+        addTreeCheckedSelection();
+
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
             repositoryNodes.addAll(selection.toList());
-            ((CheckboxTreeViewer) viewer).setCheckedElements(repositoryNodes.toArray());
+            Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
+            nodes.addAll(repositoryNodes);
+            nodes.addAll(checkedNodes);
+            ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
+
             for (RepositoryNode node : repositoryNodes) {
                 expandParent(viewer, node);
                 exportItemsTreeViewer.refresh(node);
@@ -177,6 +187,27 @@ class ExportItemWizardPage extends WizardPage {
             expandParent(viewer, parent);
             viewer.setExpandedState(parent, true);
         }
+    }
+
+    private void addTreeCheckedSelection() {
+        viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+            public void selectionChanged(SelectionChangedEvent event) {
+                checkedNodes.clear();
+                Object[] checkedObj = ((CheckboxTreeViewer) viewer).getCheckedElements();
+
+                for (int i = 0; i < checkedObj.length; i++) {
+                    if (checkedObj[i] instanceof RepositoryNode) {
+                        RepositoryNode checkedNode = (RepositoryNode) checkedObj[i];
+                        if (checkedNode != null && !RepositoryNode.NO_ID.equals(checkedNode.getId())) {
+                            checkedNodes.add(checkedNode);
+                        }
+                    }
+
+                }
+            }
+
+        });
     }
 
     private void createTreeViewer(Composite itemComposite) {
@@ -390,11 +421,16 @@ class ExportItemWizardPage extends WizardPage {
                 viewer.expandToLevel(4);
                 exportDependenciesSelected();
                 viewer.collapseAll();
-                for (RepositoryNode node : repositoryNodes) {
+                Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
+                nodes.addAll(repositoryNodes);
+                nodes.addAll(checkedNodes);
+                for (RepositoryNode node : nodes) {
                     RepositoryNodeUtilities.expandNode(exportItemsTreeViewer, node);
 
                 }
-                ((CheckboxTreeViewer) exportItemsTreeViewer.getViewer()).setCheckedElements(repositoryNodes.toArray());
+
+                ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
+
             }
         });
     }
@@ -404,6 +440,9 @@ class ExportItemWizardPage extends WizardPage {
      */
     private void exportDependenciesSelected() {
         final Collection<Item> selectedItems = getSelectedItems();
+
+        // addTreeCheckedSelection();
+
         IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
@@ -475,7 +514,11 @@ class ExportItemWizardPage extends WizardPage {
 
                     public void run() {
                         CheckboxTreeViewer viewer = (CheckboxTreeViewer) exportItemsTreeViewer.getViewer();
-                        viewer.setCheckedElements(repositoryNodes.toArray());
+                        Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
+                        nodes.addAll(repositoryNodes);
+                        nodes.addAll(checkedNodes);
+                        viewer.setCheckedElements(nodes.toArray());
+
                     }
                 });
                 monitor.done();
