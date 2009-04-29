@@ -335,10 +335,11 @@ public class ComponentToRepositoryProperty {
             parameter = node.getElementParameter("CONNECTION_TYPE"); //$NON-NLS-1$
             // if ("ORACLE_OCI".equals(parameter.getValue())) {
             // }
-            if ("ORACLE_SERVICE_NAME".equals(parameter.getValue())) { //$NON-NLS-1$
+
+            if ("ORACLE_SERVICE_NAME".equals(parameter.getValue()) || "service_name".equals(parameter.getValue())) { //$NON-NLS-1$ //$NON-NLS-2$
                 connection.setDatabaseType(EDatabaseTypeName.ORACLESN.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
-            } else if ("ORACLE_SID".equals(parameter.getValue())) { //$NON-NLS-1$
+            } else if ("ORACLE_SID".equals(parameter.getValue()) || "sid".equals(parameter.getValue())) { //$NON-NLS-1$  //$NON-NLS-2$
                 connection.setDatabaseType(EDatabaseTypeName.ORACLEFORSID.getDisplayName());
                 connection.setProductId(EDatabaseTypeName.ORACLESN.getProduct());
             }
