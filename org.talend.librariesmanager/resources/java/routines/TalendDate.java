@@ -178,27 +178,44 @@ public class TalendDate {
         if (date == null || dateType == null) {
             return null;
         }
-		if (nb < 0) {
-            return date;
-        }
 
         Calendar c1 = Calendar.getInstance();
         c1.setTime(date);
 
-        if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
-            c1.add(Calendar.YEAR, nb);
-        } else if (dateType.equals("MM")) { //$NON-NLS-1$
-            c1.add(Calendar.MONTH, nb);
-        } else if (dateType.equalsIgnoreCase("dd")) { //$NON-NLS-1$
-            c1.add(Calendar.DAY_OF_MONTH, nb);
-        } else if (dateType.equals("HH")) { //$NON-NLS-1$
-            c1.add(Calendar.HOUR, nb);
-        } else if (dateType.equals("mm")) { //$NON-NLS-1$
-            c1.add(Calendar.MINUTE, nb);
-        } else if (dateType.equalsIgnoreCase("ss")) { //$NON-NLS-1$
-            c1.add(Calendar.SECOND, nb);
-        } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
-            c1.add(Calendar.MILLISECOND, nb);
+        if (nb == 0) {
+            return date;
+        } else if (nb > 0) {
+            if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
+                c1.add(Calendar.YEAR, nb);
+            } else if (dateType.equals("MM")) { //$NON-NLS-1$
+                c1.add(Calendar.MONTH, nb);
+            } else if (dateType.equalsIgnoreCase("dd")) { //$NON-NLS-1$
+                c1.add(Calendar.DAY_OF_MONTH, nb);
+            } else if (dateType.equals("HH")) { //$NON-NLS-1$
+                c1.add(Calendar.HOUR, nb);
+            } else if (dateType.equals("mm")) { //$NON-NLS-1$
+                c1.add(Calendar.MINUTE, nb);
+            } else if (dateType.equalsIgnoreCase("ss")) { //$NON-NLS-1$
+                c1.add(Calendar.SECOND, nb);
+            } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
+                c1.add(Calendar.MILLISECOND, nb);
+            }
+        } else {
+            if (dateType.equalsIgnoreCase("yyyy")) { //$NON-NLS-1$
+                c1.roll(Calendar.YEAR, nb);
+            } else if (dateType.equals("MM")) { //$NON-NLS-1$
+                c1.roll(Calendar.MONTH, nb);
+            } else if (dateType.equalsIgnoreCase("dd")) { //$NON-NLS-1$
+                c1.roll(Calendar.DAY_OF_MONTH, nb);
+            } else if (dateType.equals("HH")) { //$NON-NLS-1$
+                c1.roll(Calendar.HOUR, nb);
+            } else if (dateType.equals("mm")) { //$NON-NLS-1$
+                c1.roll(Calendar.MINUTE, nb);
+            } else if (dateType.equalsIgnoreCase("ss")) { //$NON-NLS-1$
+                c1.roll(Calendar.SECOND, nb);
+            } else if (dateType.equalsIgnoreCase("SSS")) { //$NON-NLS-1$
+                c1.roll(Calendar.MILLISECOND, nb);
+            }
         }
 
         return c1.getTime();
