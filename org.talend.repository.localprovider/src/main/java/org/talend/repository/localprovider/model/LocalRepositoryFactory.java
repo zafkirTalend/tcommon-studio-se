@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -99,12 +100,13 @@ import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.URIHelper;
 import org.talend.repository.model.VersionList;
+import org.talend.repository.ui.views.RepositoryLabelProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55
- * 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -1098,7 +1100,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
         itemResource.getContents().add(item.getJobletProcess());
-        itemResource.getContents().add(item.getIcon());
+        ByteArray icon = item.getIcon();
+        if (icon == null) {
+            icon = PropertiesFactory.eINSTANCE.createByteArray();
+            item.setIcon(icon);
+            Image jobletCustomIcon = RepositoryLabelProvider.getJobletCustomIcon(item.getProperty());
+            ImageDescriptor createFromImageData = ImageDescriptor.createFromImageData(jobletCustomIcon.getImageData());
+            byte[] data = ImageUtils.saveImageToData(createFromImageData);
+            icon.setInnerContent(data);
+        }
+        itemResource.getContents().add(icon);
         return itemResource;
     }
 
