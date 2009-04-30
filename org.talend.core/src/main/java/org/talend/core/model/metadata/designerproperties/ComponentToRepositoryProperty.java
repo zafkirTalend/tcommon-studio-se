@@ -606,6 +606,12 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForAccess(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setDbVersionString(value.replace("_", " "));
+            }
+        }
         if ("FILE".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DBNAME"); //$NON-NLS-1$
             if (value != null) {
