@@ -3052,7 +3052,7 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_CMD_PRM__DESCRIPTION = 3;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3116,7 +3116,7 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_JOB_PRM__OVERRIDE = 3;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -7807,10 +7807,10 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTaskCmdPrm_Description();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask <em>Execution Task</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @return the meta object for the container reference '<em>Execution Task</em>'.
      * @see org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask()
      * @see #getExecutionTaskCmdPrm()
      * @generated
@@ -7872,10 +7872,10 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTaskJobPrm_Override();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask <em>Execution Task</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @return the meta object for the container reference '<em>Execution Task</em>'.
      * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask()
      * @see #getExecutionTaskJobPrm()
      * @generated
@@ -11495,7 +11495,7 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK_CMD_PRM__DESCRIPTION = eINSTANCE.getExecutionTaskCmdPrm_Description();
 
         /**
-         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Execution Task</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -11545,7 +11545,7 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK_JOB_PRM__OVERRIDE = eINSTANCE.getExecutionTaskJobPrm_Override();
 
         /**
-         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Execution Task</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

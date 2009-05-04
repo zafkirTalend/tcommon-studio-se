@@ -569,6 +569,7 @@ public interface ExecutionTask extends EObject {
     /**
      * Returns the value of the '<em><b>Cmd Prms</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.properties.ExecutionTaskCmdPrm}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Cmd Prms</em>' containment reference list isn't clear,
@@ -577,14 +578,16 @@ public interface ExecutionTask extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Cmd Prms</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_CmdPrms()
-     * @model type="org.talend.core.model.properties.ExecutionTaskCmdPrm" containment="true" ordered="false"
+     * @see org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask
+     * @model type="org.talend.core.model.properties.ExecutionTaskCmdPrm" opposite="executionTask" containment="true" ordered="false"
      * @generated
      */
     EList getCmdPrms();
 
     /**
      * Returns the value of the '<em><b>Job Prms</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.ExecutionTaskCmdPrm}.
+     * The list contents are of type {@link org.talend.core.model.properties.ExecutionTaskJobPrm}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Job Prms</em>' containment reference list isn't clear,
@@ -593,7 +596,8 @@ public interface ExecutionTask extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Job Prms</em>' containment reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobPrms()
-     * @model type="org.talend.core.model.properties.ExecutionTaskCmdPrm" containment="true" ordered="false"
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask
+     * @model type="org.talend.core.model.properties.ExecutionTaskJobPrm" opposite="executionTask" containment="true" ordered="false"
      * @generated
      */
     EList getJobPrms();

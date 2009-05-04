@@ -134,26 +134,28 @@ public interface ExecutionTaskCmdPrm extends EObject {
     void setDescription(String value);
 
     /**
-     * Returns the value of the '<em><b>Execution Task</b></em>' reference.
+     * Returns the value of the '<em><b>Execution Task</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionTask#getCmdPrms <em>Cmd Prms</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Execution Task</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Execution Task</em>' reference.
+     * @return the value of the '<em>Execution Task</em>' container reference.
      * @see #setExecutionTask(ExecutionTask)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTaskCmdPrm_ExecutionTask()
-     * @model
+     * @see org.talend.core.model.properties.ExecutionTask#getCmdPrms
+     * @model opposite="cmdPrms" transient="false"
      * @generated
      */
     ExecutionTask getExecutionTask();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask <em>Execution Task</em>}' reference.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm#getExecutionTask <em>Execution Task</em>}' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Execution Task</em>' reference.
+     * @param value the new value of the '<em>Execution Task</em>' container reference.
      * @see #getExecutionTask()
      * @generated
      */

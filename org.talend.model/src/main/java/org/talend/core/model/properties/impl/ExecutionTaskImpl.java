@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskCmdPrm;
+import org.talend.core.model.properties.ExecutionTaskJobPrm;
 import org.talend.core.model.properties.ExecutionTaskJvmPrm;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.ProcessItem;
@@ -1148,7 +1149,7 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      */
     public EList getCmdPrms() {
         if (cmdPrms == null) {
-            cmdPrms = new EObjectContainmentEList(ExecutionTaskCmdPrm.class, this, PropertiesPackage.EXECUTION_TASK__CMD_PRMS);
+            cmdPrms = new EObjectContainmentWithInverseEList(ExecutionTaskCmdPrm.class, this, PropertiesPackage.EXECUTION_TASK__CMD_PRMS, PropertiesPackage.EXECUTION_TASK_CMD_PRM__EXECUTION_TASK);
         }
         return cmdPrms;
     }
@@ -1160,7 +1161,7 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      */
     public EList getJobPrms() {
         if (jobPrms == null) {
-            jobPrms = new EObjectContainmentEList(ExecutionTaskCmdPrm.class, this, PropertiesPackage.EXECUTION_TASK__JOB_PRMS);
+            jobPrms = new EObjectContainmentWithInverseEList(ExecutionTaskJobPrm.class, this, PropertiesPackage.EXECUTION_TASK__JOB_PRMS, PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK);
         }
         return jobPrms;
     }
@@ -1380,6 +1381,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
+                return ((InternalEList)getCmdPrms()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
+                return ((InternalEList)getJobPrms()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
