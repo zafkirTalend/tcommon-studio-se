@@ -465,8 +465,6 @@ public interface IProxyRepositoryFactory {
 
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type) throws PersistenceException;
 
-    public abstract List<IRepositoryObject> getAllReferenced(ERepositoryObjectType type) throws PersistenceException;
-
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException;
 
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
