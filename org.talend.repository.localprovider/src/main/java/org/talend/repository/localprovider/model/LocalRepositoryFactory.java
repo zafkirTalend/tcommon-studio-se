@@ -17,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -273,7 +274,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public List<IRepositoryObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
             throws PersistenceException {
-        IFolder folder = LocalResourceModelUtils.getFolder(project, type);
+        IFolder folder = null;
+        try {
+            folder = LocalResourceModelUtils.getFolder(project, type);
+        } catch (ResourceNotFoundException e) {
+            return Collections.emptyList();
+        }
         return convert(getSerializableFromFolder(project, folder, null, type, allVersions, true, withDeleted));
     }
 
