@@ -67,10 +67,17 @@ public class JavaResourcesHelper {
     }
 
     public static String getProjectFolderName(Item item) {
+
+        return getProjectFolderName(item, true);
+    }
+
+    public static String getProjectFolderName(Item item, boolean toLowerCase) {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.properties.Project p = pManager.getProject(item);
-        String projectFolderName = p.getTechnicalLabel();
-        projectFolderName = projectFolderName.toLowerCase();
+        String projectFolderName = p.getLabel();
+        if (toLowerCase) {
+            return projectFolderName.toLowerCase();
+        }
         return projectFolderName;
     }
 
