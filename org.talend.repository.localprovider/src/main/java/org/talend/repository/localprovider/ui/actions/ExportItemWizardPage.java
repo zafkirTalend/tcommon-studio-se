@@ -486,6 +486,19 @@ class ExportItemWizardPage extends WizardPage {
                     }
                 });
                 monitor.worked(20);
+
+                // child joblet
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        Collection<IRepositoryObject> repJobletObjects = ProcessUtils.getProcessDependencies(
+                                ERepositoryObjectType.JOBLET, selectedItems);
+                        if (repJobletObjects != null) {
+                            repositoryObjects.addAll(repJobletObjects);
+                        }
+                    }
+                });
+                monitor.worked(20);
                 //
                 Display.getDefault().syncExec(new Runnable() {
 

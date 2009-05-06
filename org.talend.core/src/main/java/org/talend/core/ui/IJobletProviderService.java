@@ -19,6 +19,7 @@ import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
+import org.talend.core.model.properties.Property;
 
 /**
  * cli class global comment. Detailled comment
@@ -26,6 +27,8 @@ import org.talend.core.model.process.INodeConnector;
 public interface IJobletProviderService extends IService {
 
     public boolean isJobletComponent(INode node);
+
+    public Property getJobletComponentItem(INode node);
 
     public void reloadJobletProcess(INode node);
 
