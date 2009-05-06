@@ -18,6 +18,7 @@
 			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
 			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
+			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">
@@ -40,6 +41,7 @@
 					<dbType type="DATE" default="true" />
 					<dbType type="TIMESTAMP" />	
 					<dbType type="TIME" />
+					<dbType type="DATETIME" />
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="NUMERIC"  default="true" />	
@@ -151,6 +153,9 @@
 				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
+				<dbType type="DATETIME">
+       				 <talendType type="id_Date" default="true" />
+				</dbType> 
 			</dbToTalendTypes>
 		</language>
 		<language name="perl">
