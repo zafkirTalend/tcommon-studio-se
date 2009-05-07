@@ -114,8 +114,15 @@ public class ExtractMetaDataFromDataBase {
      * @param DatabaseMetaData dbMetaData
      * @return Collection of MetadataTable
      */
-    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, String schema) {
+    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, String schema, int... limit) {
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
+        // hyWang add varribles limitNum and index for bug 7147
+        int limitNum = -1;
+        long index = 0;
+        if (limit != null && limit.length > 0) {
+            limitNum = limit[0];
+        }
+
         try {
             ResultSet rsTables = null, rsTableTypes = null;
             rsTableTypes = dbMetaData.getTableTypes();
@@ -127,6 +134,10 @@ public class ExtractMetaDataFromDataBase {
                 String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
                 if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
                     availableTableTypes.add(currentTableType);
+                }
+                index++;
+                if (limitNum > 0 && index > limitNum) {
+                    break;
                 }
             }
             rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
@@ -314,7 +325,6 @@ public class ExtractMetaDataFromDataBase {
      */
     public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
             IMetadataConnection metadataConnection, String databaseType) {
-
         columnIndex = 0;
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
@@ -660,7 +670,7 @@ public class ExtractMetaDataFromDataBase {
      * @param IMetadataConnection iMetadataConnection
      * @return Collection : return a String's collection of Table Name of a DB Connection
      */
-    public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection) {
+    public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection, int... limit) {
         List<String> itemTablesName = new ArrayList<String>();
 
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
@@ -671,7 +681,7 @@ public class ExtractMetaDataFromDataBase {
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
-                .getSchema());
+                .getSchema(), limit);
         ExtractMetaDataUtils.closeConnection();
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
