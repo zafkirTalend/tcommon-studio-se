@@ -519,13 +519,16 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
+            String dbVersionString = connection.getDbVersionString();
             if (connection.getDatabaseType().equals("Access")) { //$NON-NLS-1$
-                return connection.getDbVersionString().replace(" ", "_");
+                // see bug 7262
+                if (dbVersionString != null) {
+                    return dbVersionString.replace(" ", "_");
+                }
             } else {
-                String driverValue = EDatabaseDriver4Version.getDriver(connection.getDatabaseType(), connection
-                        .getDbVersionString());
-                if (isConetxtMode(connection, connection.getDbVersionString())) {
-                    return connection.getDbVersionString();
+                String driverValue = EDatabaseDriver4Version.getDriver(connection.getDatabaseType(), dbVersionString);
+                if (isConetxtMode(connection, dbVersionString)) {
+                    return dbVersionString;
                 } else {
                     return driverValue;
                 }
