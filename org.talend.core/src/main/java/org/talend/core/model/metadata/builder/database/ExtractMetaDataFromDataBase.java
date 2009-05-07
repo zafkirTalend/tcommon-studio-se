@@ -116,12 +116,6 @@ public class ExtractMetaDataFromDataBase {
      */
     public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, String schema, int... limit) {
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
-        // hyWang add varribles limitNum and index for bug 7147
-        int limitNum = -1;
-        long index = 0;
-        if (limit != null && limit.length > 0) {
-            limitNum = limit[0];
-        }
 
         try {
             ResultSet rsTables = null, rsTableTypes = null;
@@ -135,10 +129,6 @@ public class ExtractMetaDataFromDataBase {
                 if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
                     availableTableTypes.add(currentTableType);
                 }
-                index++;
-                if (limitNum > 0 && index > limitNum) {
-                    break;
-                }
             }
             rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
 
@@ -147,7 +137,7 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
             }
-            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions());
+            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(),limit);
             rsTables.close();
         } catch (SQLException e) {
             // e.printStackTrace();
@@ -170,10 +160,16 @@ public class ExtractMetaDataFromDataBase {
      * @param rsTables
      * @throws SQLException
      */
-    private static void getMetadataTables(List<IMetadataTable> medataTables, ResultSet rsTables, boolean supportSchema)
-            throws SQLException {
+    private static void getMetadataTables(List<IMetadataTable> medataTables, ResultSet rsTables, boolean supportSchema,
+            int... limit) throws SQLException {
         if (rsTables == null) {
             return;
+        }
+        // hyWang add varribles limitNum and index for bug 7147
+        int limitNum = -1;
+        long index = 0;
+        if (limit != null && limit.length > 0) {
+            limitNum = limit[0];
         }
         while (rsTables.next()) {
             MetadataTable medataTable = new MetadataTable();
@@ -219,6 +215,10 @@ public class ExtractMetaDataFromDataBase {
                 tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
             }
             medataTables.add(medataTable);
+            index++;
+            if (limitNum > 0 && index > limitNum) {
+                break;
+            }
         }
     }
 
@@ -347,6 +347,24 @@ public class ExtractMetaDataFromDataBase {
                     keys = dbMetaData.getPrimaryKeys(null, originSchema, medataTable.getLabel());
                 } else {
                     keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
+                    // keys = dbMetaData.getIndexInfo(null, null, medataTable.getLabel(), true, true);
+                    // String keyname = null;
+                    // // get the primary key information
+                    // while (keys.next()) {
+                    // // System.out.println("-----------");
+                    // // for (int i = 1; i < 14; i++) {
+                    // // System.out.println("" + i + "=>" + keys.getString(i));
+                    // // }
+                    // // System.out.println("-----------");
+                    // String idx = keys.getString(6);
+                    // if (idx != null) {
+                    // // Note: index "PrimaryKey" is Access DB specific
+                    // // other db server has diff. index syntax.
+                    // if (idx.equalsIgnoreCase("PrimaryKey")) {
+                    // keyname = keys.getString(9);
+                    // }
+                    // }
+                    // }
                 }
                 primaryKeys.clear();
                 while (keys.next()) {
