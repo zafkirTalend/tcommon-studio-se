@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -70,4 +71,6 @@ public interface IDiagramModelService extends IService {
     public void openBusinessDiagramEditor(IWorkbenchPage page, IEditorInput input) throws PartInitException;
 
     public IFile getDiagramFile(IWorkbenchPage page);
+
+    public void addDeleteAssignmentAction(IMenuManager mgr);
 }
