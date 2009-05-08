@@ -19,10 +19,12 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
-import org.eclipse.swt.SWT;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
@@ -33,6 +35,9 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
+import org.eclipse.ui.internal.ide.IDEInternalPreferences;
+import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
+import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
@@ -56,6 +61,7 @@ import org.talend.sqlbuilder.ui.SQLBuilderDialog;
  * $Id$
  * 
  */
+@SuppressWarnings("restriction")
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     private List<IAction> actions = new ArrayList<IAction>();
@@ -181,18 +187,39 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      * 
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowShellClose()
      */
+
     @Override
     public boolean preWindowShellClose() {
 
-        Object shell = PlatformUI.getWorkbench().getDisplay().getActiveShell();
-        MessageBox box = new MessageBox((Shell) shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
-        box.setText(Messages.getString("ApplicationWorkbenchWindowAdvisor.title")); //$NON-NLS-1$
-        box.setMessage(Messages.getString("ApplicationWorkbenchWindowAdvisor.messages")); //$NON-NLS-1$
-        int choice = box.open();
-        if (choice == SWT.YES) {
-            return super.preWindowShellClose();
-        } else {
-            return false;
+        if (PlatformUI.getWorkbench().getWorkbenchWindowCount() > 1) {
+            return true;
         }
+        IPreferenceStore store = IDEWorkbenchPlugin.getDefault().getPreferenceStore();
+        boolean promptOnExit = store.getBoolean(IDEInternalPreferences.EXIT_PROMPT_ON_CLOSE_LAST_WINDOW);
+
+        if (promptOnExit) {
+            String message;
+
+            String productName = null;
+
+            if (productName == null) {
+                message = IDEWorkbenchMessages.PromptOnExitDialog_message0;
+            } else {
+                message = NLS.bind(IDEWorkbenchMessages.PromptOnExitDialog_message1, productName);
+            }
+
+            MessageDialogWithToggle dlg = MessageDialogWithToggle.openOkCancelConfirm(getWindowConfigurer().getWindow()
+                    .getShell(), IDEWorkbenchMessages.PromptOnExitDialog_shellTitle, message,
+                    IDEWorkbenchMessages.PromptOnExitDialog_choice, false, null, null);
+            if (dlg.getReturnCode() != IDialogConstants.OK_ID) {
+                return false;
+            }
+            if (dlg.getToggleState()) {
+                store.setValue(IDEInternalPreferences.EXIT_PROMPT_ON_CLOSE_LAST_WINDOW, false);
+                IDEWorkbenchPlugin.getDefault().savePluginPreferences();
+            }
+        }
+
+        return true;
     }
 }
