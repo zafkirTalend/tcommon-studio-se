@@ -175,10 +175,17 @@ public class MetadataTool {
         org.talend.core.model.metadata.builder.connection.Connection connection;
 
         String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
-        if (names.length != 2) {
+        String name2 = null;
+        if (names.length < 2) {
             return null;
         }
         String linkedRepository = names[0];
+        if (names.length == 2) {
+            name2 = names[1];
+        } else if (names.length > 2) {
+            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
+        }
+
         connection = getConnectionFromRepository(linkedRepository);
 
         if (connection != null) {
@@ -189,7 +196,7 @@ public class MetadataTool {
             EList<Query> queries = queriesConnection.getQuery();
 
             for (Query currentQuery : queries) {
-                if (currentQuery.getLabel().equals(names[1])) {
+                if (currentQuery.getLabel().equals(name2)) {
                     return currentQuery;
                 }
             }
@@ -202,16 +209,23 @@ public class MetadataTool {
         org.talend.core.model.metadata.builder.connection.Connection connection;
 
         String[] names = metaRepositoryId.split(" - "); //$NON-NLS-1$
-        if (names.length != 2) {
+        if (names.length < 2) {
             return null;
         }
         String linkedRepository = names[0];
+        String name2 = null;
+        if (names.length == 2) {
+            name2 = names[1];
+        } else if (names.length > 2) {
+            name2 = metaRepositoryId.substring(linkedRepository.length() + 3);
+        }
+
         connection = getConnectionFromRepository(linkedRepository);
 
         if (connection != null) {
             for (Object tableObj : getMetadataTableFromConnection(connection)) {
                 MetadataTable table = (MetadataTable) tableObj;
-                if (table.getLabel().equals(names[1])) {
+                if (table.getLabel().equals(name2)) {
                     return table;
                 }
             }
