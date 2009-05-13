@@ -177,7 +177,7 @@ for my $rev (@revs) {
     my $continue = 1;
     while ($continue == 1) {
 	print "\n--------------------------------------------------\n\n";
-	my $result = &prompt("a", "log/commit/status/revert/merge again/quit ?", "l/c/s/r/m/q", "s" );
+	my $result = &prompt("a", "log/commit/status/revert/merge again/diff/kompare/quit ?", "l/c/s/r/m/d/k/q", "s" );
 
 	if ($result eq "c") {
 	    #commit
@@ -208,6 +208,14 @@ for my $rev (@revs) {
             }
             close($logfile_ifh);
             print "--------------------------------------------------\n\n";
+	} elsif ($result eq "d") {
+	    my $diffcommand = $svncommand." diff ".$rootpath;
+	    print $diffcommand, "\n";
+	    system($diffcommand);
+	} elsif ($result eq "k") {
+	    my $diffcommand = $svncommand." diff ".$rootpath." | kompare -";
+	    print $diffcommand, "\n";
+	    system($diffcommand);
         }
     }
 
