@@ -50,7 +50,7 @@ public class WindowSystem {
     }
 
     public static boolean isOSX() {
-        return Platform.WS_CARBON.equals(ws) || ws == null;
+        return Platform.WS_CARBON.equals(ws);
     }
 
 }
