@@ -1,2 +1,4 @@
 Installed Ecosystem Component
 Edit Project properties
+installed components
+compatible components
