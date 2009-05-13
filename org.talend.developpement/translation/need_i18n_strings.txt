@@ -1,1 +1,2 @@
 Installed Ecosystem Component
+Edit Project properties
