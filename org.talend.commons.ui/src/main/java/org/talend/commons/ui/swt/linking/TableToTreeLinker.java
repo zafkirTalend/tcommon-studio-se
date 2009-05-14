@@ -117,9 +117,9 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
 
     protected StyleLink createStandardLink(Color color) {
         StyleLink styleLink = new StyleLink();
-         BezierHorizontalLink link = new BezierHorizontalLink(styleLink);
-//        LineLinkWithHorizontalConnectors link = new LineLinkWithHorizontalConnectors(styleLink);
-//        link.setConnectorWidth(40);
+        BezierHorizontalLink link = new BezierHorizontalLink(styleLink);
+        // LineLinkWithHorizontalConnectors link = new LineLinkWithHorizontalConnectors(styleLink);
+        // link.setConnectorWidth(40);
         styleLink.setDrawableLink(link);
         styleLink.setForegroundColor(color);
         styleLink.setLineWidth(2);
@@ -170,10 +170,10 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
             return;
         }
 
-//        TimeMeasure.measureActive = true;
-//        TimeMeasure.display = true;
-//
-//        TimeMeasure.begin("drawBackground");
+        // TimeMeasure.measureActive = true;
+        // TimeMeasure.display = true;
+        //
+        // TimeMeasure.begin("drawBackground");
 
         List<LinkDescriptor<Item, D1, Tree, D2>> links = linksManager.getLinks();
         int lstSize = links.size();
@@ -201,17 +201,17 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
         }
 
         // int countStraight = 0;
-//        int drawnLinks = 0;
+        // int drawnLinks = 0;
 
-//        System.out.println("Drawing:" + gc.handle);
+        // System.out.println("Drawing:" + gc.handle);
 
-//        TimeMeasure.step("drawBackground", "before loop");
+        // TimeMeasure.step("drawBackground", "before loop");
 
         Point pointStartStraight = new Point(0, 0);
         Point pointEndStraight = new Point(0, 0);
 
         for (int i = 0; i < lstSize; i++) {
-//            TimeMeasure.begin("loop");
+            // TimeMeasure.begin("loop");
             LinkDescriptor<Item, D1, Tree, D2> link = links.get(i);
 
             Tree tree = link.getExtremity2().getGraphicalObject();
@@ -225,7 +225,8 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
 
             IExtremityLink<Item, D1> extremity1 = link.getExtremity1();
             IExtremityLink<Tree, D2> extremity2 = link.getExtremity2();
-
+            // see bug 7360
+            dataToTableItemCache.clear();
             TableItem tableItem = dataToTableItemCache.getTableItem((Object) extremity1.getDataItem());
             TableItem firstExpandedAscTableItem = tableItem;
 
@@ -235,7 +236,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
 
             pointStartStraight.x = sourceToCommonPoint.x + tableItemBounds.x + tableItemBounds.width;
             pointStartStraight.y = yStraight;
-            
+
             pointEndStraight.x = sourceToCommonPoint.x + xStartBezierLink;
             pointEndStraight.y = yStraight;
 
@@ -278,7 +279,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
                 isEndOutOfView = true;
             }
 
-//            TimeMeasure.step("loop", "middle");
+            // TimeMeasure.step("loop", "middle");
             if (!(isStartOutOfView && isEndOutOfView)) {
 
                 boolean lineStyleDot = isStartOutOfView || isEndOutOfView;
@@ -305,15 +306,15 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
                 drawableLink.setPoint2(pointEndCentralCurve);
 
                 drawableLink.draw(gc);
-//                drawnLinks++;
+                // drawnLinks++;
             }
-//            TimeMeasure.end("loop");
+            // TimeMeasure.end("loop");
         }
 
-//        TimeMeasure.end("drawBackground");
+        // TimeMeasure.end("drawBackground");
 
         // System.out.println("countStraight=" + countStraight);
-//        System.out.println("drawnLinks=" + drawnLinks);
+        // System.out.println("drawnLinks=" + drawnLinks);
 
     }
 
