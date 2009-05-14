@@ -141,9 +141,9 @@ for my $rev (@revs) {
 	
 	my %paths;
 	my $path = "";
-	for(my $i = 0 ; $i < scalar @segments - 1 ; $i++) {
+	for(my $i = 0 ; $i < scalar @segments ; $i++) {
 	    $path = $path.$segments[$i];
-	    unless(-d $rootpath.$path) {
+	    unless(-e $rootpath.$path) {
 		my $svncheckoutcommand = $svncommand." up -N ".$rooturl.$path." ".$rootpath.$path;
 		print $svncheckoutcommand, "\n";
 		system $svncheckoutcommand;
