@@ -207,7 +207,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
                 continue;
             }
 
-            Rectangle tableItemBounds = tableItem.getBounds();
+            Rectangle tableItemBounds = tableItem.getBounds(1); // FIX for issue 1225 ("1" parameter added)
             Rectangle tableBounds = table.getBounds();
 
             Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(
