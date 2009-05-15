@@ -145,13 +145,23 @@ public class Locker<B, KP> {
 
     private static boolean verbose = false;
 
-    private boolean detectSameThread = true;
+    private boolean allowLockWithSameThread = true;
 
     /**
      * DOC amaumont Locker constructor comment.
      */
     public Locker() {
         super();
+    }
+
+    /**
+     * 
+     * DOC amaumont Locker constructor comment.
+     * @param allowLockWithSameThread default is true
+     */
+    public Locker(boolean allowLockWithSameThread) {
+        super();
+        this.allowLockWithSameThread = allowLockWithSameThread;
     }
 
     /**
@@ -163,6 +173,21 @@ public class Locker<B, KP> {
         if (getterId == null) {
             throw new IllegalArgumentException(Messages.getString("Locker.getterIdNull")); //$NON-NLS-1$
         }
+    }
+
+    /**
+     * 
+     * DOC amaumont Locker constructor comment.
+     * @param getterId
+     * @param allowLockWithSameThread default is true
+     */
+    public Locker(boolean allowLockWithSameThread, IGetterPropertyAccessor<B, KP> getterId) {
+        this();
+        this.getterId = getterId;
+        if (getterId == null) {
+            throw new IllegalArgumentException("getterId can't be null");
+        }
+        this.allowLockWithSameThread = allowLockWithSameThread;
     }
 
     public synchronized boolean isLockedBean(B bean) {
@@ -268,7 +293,7 @@ public class Locker<B, KP> {
             KP key = getterId.get(bean);
             matchingKey.key = key;
             Thread thread = lockKeyToThreadsMap.get(matchingKey);
-            if (detectSameThread && Thread.currentThread() == thread) {
+            if (allowLockWithSameThread && Thread.currentThread() == thread) {
                 return true;
             } else {
                 return false;
@@ -302,7 +327,7 @@ public class Locker<B, KP> {
         } else {
             matchingKey.key = key;
             Thread thread = lockKeyToThreadsMap.get(matchingKey);
-            if (detectSameThread && Thread.currentThread() == thread) {
+            if (allowLockWithSameThread && Thread.currentThread() == thread) {
                 // System.out.println("Same thread");
                 return true;
             } else {
