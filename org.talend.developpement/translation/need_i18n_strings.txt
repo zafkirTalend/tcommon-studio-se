@@ -1,4 +1,5 @@
 Installed Ecosystem Component
+Detect and update all jobs
 Edit Project properties
 installed components
 compatible components
