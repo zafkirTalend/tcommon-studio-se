@@ -318,7 +318,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 toReturn.add(new RepositoryObject(property));
                             }
                         }
-                        if (!currentFolderItem.getChildren().contains(property.getItem())
+                        if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
                                 && !getRepositoryContext().getProject().equals(project)) {
                             currentFolderItem.getChildren().add(property.getItem());
                         }
