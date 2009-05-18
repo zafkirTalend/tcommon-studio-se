@@ -200,7 +200,9 @@ class ExportItemWizardPage extends WizardPage {
                     if (checkedObj[i] instanceof RepositoryNode) {
                         RepositoryNode checkedNode = (RepositoryNode) checkedObj[i];
                         if (checkedNode != null && !RepositoryNode.NO_ID.equals(checkedNode.getId())) {
-                            checkedNodes.add(checkedNode);
+                            if (checkedNode.getChildren().isEmpty()) {
+                                checkedNodes.add(checkedNode);
+                            }
                         }
                     }
 
@@ -425,8 +427,7 @@ class ExportItemWizardPage extends WizardPage {
                 nodes.addAll(repositoryNodes);
                 nodes.addAll(checkedNodes);
                 for (RepositoryNode node : nodes) {
-                    RepositoryNodeUtilities.expandNode(exportItemsTreeViewer, node);
-
+                    RepositoryNodeUtilities.expandNode(exportItemsTreeViewer, node, nodes);
                 }
 
                 ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
