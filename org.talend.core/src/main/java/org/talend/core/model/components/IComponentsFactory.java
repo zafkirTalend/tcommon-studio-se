@@ -45,4 +45,6 @@ public interface IComponentsFactory {
     public List<String> getSkeletons();
 
     public String getFamilyTranslation(IComponent component, String text);
+
+    public void loadUserComponentsFromComponentsProviderExtension();
 }
