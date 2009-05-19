@@ -32,6 +32,7 @@ import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
@@ -456,7 +457,7 @@ public class ExtractMetaDataUtils {
         List<String> jarPathList = new ArrayList<String>();
         // see feature 4720&4722
         if ((driverJarPathArg == null || driverJarPathArg.equals(""))) { //$NON-NLS-1$
-            List<String> driverNames = EDatabaseDriver4Version.getDrivers(dbType, dbVersion);
+            List<String> driverNames = EDatabaseVersion4Drivers.getDrivers(dbType, dbVersion);
             if (driverNames != null) {
                 for (String jarName : driverNames) {
                     jarPathList.add(getJavaLibPath() + jarName);

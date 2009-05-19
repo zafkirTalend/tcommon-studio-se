@@ -20,17 +20,17 @@ public enum EDatabaseTypeName {
     MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLEFORSID("Oracle with SID", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    MSODBC("Microsoft SQL Server (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     IBMDB2ZOS("IBM DB2 ZOS", "IBM DB2 ZOS", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    SYBASEASE("Sybase ASE", "Sybase ASE", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(true), "SYBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    MSSQL("Microsoft SQL Server", "Microsoft SQL Server", new Boolean(true), "SQL_SERVER", "MSSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -59,6 +59,7 @@ public enum EDatabaseTypeName {
     GREENPLUM("Greenplum", "Greenplum", new Boolean(true), "GREENPLUM", "GREENPLUM"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PARACCEL("ParAccel", "ParAccel", new Boolean(true), "PARACCEL", "PARACCEL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    SAS("SAS", "SAS", new Boolean(false), "SAS"),
 
     // General JDBC not support schema defalut
     GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

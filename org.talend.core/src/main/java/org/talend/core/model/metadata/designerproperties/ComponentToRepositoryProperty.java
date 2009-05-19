@@ -23,8 +23,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.DatabaseConnStrUtil;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -44,7 +45,6 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
-import org.talend.core.model.metadata.builder.database.EDatabaseDriver4Version;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -88,7 +88,7 @@ public class ComponentToRepositoryProperty {
         if (connection instanceof DatabaseConnection) {
             // add url instance ------DataStringConnection
             DatabaseConnection conn = (DatabaseConnection) connection;
-            String url = CorePlugin.getDefault().getRepositoryService().getDatabaseStringURL(conn);
+            String url = DatabaseConnStrUtil.getURLString(conn);
             conn.setURL(url);
             // see bug in feature 5998, set dbmsId.
             String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue();
@@ -507,7 +507,7 @@ public class ComponentToRepositoryProperty {
 
         if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
-            String dbVersionName = EDatabaseDriver4Version.getDbVersionName("Oracle", value);
+            String dbVersionName = EDatabaseVersion4Drivers.getDbVersionName(EDatabaseTypeName.ORACLEFORSID, value);
             if (value != null) {
                 connection.setDbVersionString(dbVersionName);
             }
@@ -531,7 +531,7 @@ public class ComponentToRepositoryProperty {
     private static void setDatabaseValueForOracleSeverName(DatabaseConnection connection, INode node, String repositoryValue) {
         if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
-            String dbVersionName = EDatabaseDriver4Version.getDbVersionName("Oracle", value); //$NON-NLS-1$
+            String dbVersionName = EDatabaseVersion4Drivers.getDbVersionName(EDatabaseTypeName.ORACLESN, value);
             if (value != null) {
                 connection.setDbVersionString(dbVersionName);
             }
@@ -555,7 +555,7 @@ public class ComponentToRepositoryProperty {
     private static void setDatabaseValueForAs400(DatabaseConnection connection, INode node, String repositoryValue) {
         if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
-            String dbVersionName = EDatabaseDriver4Version.getDbVersionName("AS400", value); //$NON-NLS-1$
+            String dbVersionName = EDatabaseVersion4Drivers.getDbVersionName(EDatabaseTypeName.AS400, value);
             if (value != null) {
                 connection.setDbVersionString(dbVersionName);
             }
@@ -609,7 +609,10 @@ public class ComponentToRepositoryProperty {
         if ("DB_VERSION".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "DB_VERSION"); //$NON-NLS-1$
             if (value != null) {
-                connection.setDbVersionString(value.replace("_", " "));
+                EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(value);
+                if (version != null) {
+                    connection.setDbVersionString(version.getVersionValue());
+                }
             }
         }
         if ("FILE".equals(repositoryValue)) { //$NON-NLS-1$

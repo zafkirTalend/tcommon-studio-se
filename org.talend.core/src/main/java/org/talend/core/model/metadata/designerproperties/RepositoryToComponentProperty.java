@@ -24,6 +24,8 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
@@ -49,7 +51,6 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
-import org.talend.core.model.metadata.builder.database.EDatabaseDriver4Version;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -520,13 +521,11 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
-            if (connection.getDatabaseType().equals("Access")) { //$NON-NLS-1$
+            if (EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(connection.getDatabaseType())) {
                 // see bug 7262
-                if (dbVersionString != null) {
-                    return dbVersionString.replace(" ", "_");
-                }
+                return dbVersionString;
             } else {
-                String driverValue = EDatabaseDriver4Version.getDriver(connection.getDatabaseType(), dbVersionString);
+                String driverValue = EDatabaseVersion4Drivers.getDriversStr(connection.getDatabaseType(), dbVersionString);
                 if (isConetxtMode(connection, dbVersionString)) {
                     return dbVersionString;
                 } else {

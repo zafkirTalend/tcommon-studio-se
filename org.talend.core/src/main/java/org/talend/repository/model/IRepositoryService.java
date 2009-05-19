@@ -117,8 +117,6 @@ public interface IRepositoryService extends IService {
 
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 
-    public String getDatabaseStringURL(DatabaseConnection conn);
-
     public TreeViewer getRepositoryTreeView();
 
     public Action getRepositoryViewDoubleClickAction();
