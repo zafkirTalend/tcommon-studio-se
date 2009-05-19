@@ -66,10 +66,22 @@ public final class ProjectManager {
             RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
             if (repositoryContext != null) {
                 currentProject = repositoryContext.getProject();
+                if (currentProject != null) {
+                    resolveRefProject(currentProject.getEmfProject());
+                }
                 return;
             }
         }
         currentProject = null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resolveRefProject(org.talend.core.model.properties.Project p) {
+        if (p != null) {
+            for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
+                resolveRefProject(pr.getReferencedProject()); // only to resolve all
+            }
+        }
     }
 
     /**
@@ -84,6 +96,7 @@ public final class ProjectManager {
             if (rProjects != null) {
                 for (org.talend.core.model.properties.Project p : rProjects) {
                     Project project = new Project(p);
+                    resolveRefProject(p);
                     referencedprojects.add(project);
                 }
             }
