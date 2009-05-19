@@ -506,7 +506,8 @@ class ExportItemWizardPage extends WizardPage {
                     public void run() {
                         if (exportDependencies.getSelection()) {
                             for (IRepositoryObject repositoryObject : repositoryObjects) {
-                                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
+                                RepositoryNode repositoryNode = RepositoryNodeUtilities
+                                        .getRepositoryNode(repositoryObject, false);
                                 if (repositoryNode != null && !repositoryNodes.contains(repositoryNode)) {
                                     repositoryNodes.add(repositoryNode);
                                 }
@@ -514,7 +515,8 @@ class ExportItemWizardPage extends WizardPage {
                             }
                         } else {
                             for (IRepositoryObject repositoryObject : repositoryObjects) {
-                                RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(repositoryObject);
+                                RepositoryNode repositoryNode = RepositoryNodeUtilities
+                                        .getRepositoryNode(repositoryObject, false);
                                 if (repositoryNode != null && repositoryNodes.contains(repositoryNode)) {
                                     repositoryNodes.remove(repositoryNode);
                                 }
