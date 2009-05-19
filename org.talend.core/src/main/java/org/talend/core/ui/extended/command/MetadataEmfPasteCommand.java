@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.impl.ConnectionFactoryImpl;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
@@ -53,7 +55,9 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand#createPastableBeansList(java.util.List)
+     * @see
+     * org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand#createPastableBeansList(java
+     * .util.List)
      */
     @Override
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
@@ -65,10 +69,15 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 // create a new column as a copy of this column
                 MetadataColumn metadataColumn = (MetadataColumn) current;
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
-                MetadataColumn newColumnCopy = new ConnectionFactoryImpl()
-                        .copy(metadataColumn, nextGeneratedColumnName);
+                MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
                 list.add(newColumnCopy);
+            } else if (current instanceof IMetadataColumn) {
+                IMetadataColumn copy = ((IMetadataColumn) current).clone();
+                // copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
+                String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(copy.getLabel());
+                copy.setLabel(nextGeneratedColumnName);
+                list.add(ConvertionHelper.convertToMetaDataColumn(copy));
             }
         }
         return list;

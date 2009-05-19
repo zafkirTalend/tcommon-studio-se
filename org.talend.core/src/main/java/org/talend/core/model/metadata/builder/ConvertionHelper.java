@@ -113,9 +113,66 @@ public final class ConvertionHelper {
             } else {
                 newColumn.setOriginalDbColumnName(column.getOriginalField());
             }
+            // columns.add(convertToIMetaDataColumn(column));
         }
         result.setListColumns(columns);
         return result;
+    }
+
+    public static MetadataColumn convertToMetaDataColumn(IMetadataColumn column) {
+        MetadataColumn newColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+        newColumn.setComment(column.getComment());
+        newColumn.setDefaultValue(column.getDefault());
+        newColumn.setKey(column.isKey());
+        newColumn.setLabel(column.getLabel());
+        newColumn.setPattern(column.getPattern());
+        if (column.getLength() == null || column.getLength() < 0) {
+            newColumn.setLength(0);
+        } else {
+            newColumn.setLength(column.getLength());
+        }
+        newColumn.setNullable(column.isNullable());
+        if (column.getPrecision() == null || column.getPrecision() < 0) {
+            newColumn.setPrecision(0);
+        } else {
+            newColumn.setPrecision(column.getPrecision());
+        }
+        newColumn.setTalendType(column.getTalendType());
+        newColumn.setSourceType(column.getType());
+        if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) { //$NON-NLS-1$
+            newColumn.setOriginalField(column.getLabel());
+        } else {
+            newColumn.setOriginalField(column.getOriginalDbColumnName());
+        }
+        return newColumn;
+    }
+
+    public static IMetadataColumn convertToIMetaDataColumn(MetadataColumn column) {
+        IMetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
+        newColumn.setComment(column.getComment());
+        newColumn.setDefault(column.getDefaultValue());
+        newColumn.setKey(column.isKey());
+        newColumn.setLabel(column.getLabel());
+        newColumn.setPattern(column.getPattern());
+        if (column.getLength() < 0) {
+            newColumn.setLength(null);
+        } else {
+            newColumn.setLength(column.getLength());
+        }
+        newColumn.setNullable(column.isNullable());
+        if (column.getPrecision() < 0) {
+            newColumn.setPrecision(null);
+        } else {
+            newColumn.setPrecision(column.getPrecision());
+        }
+        newColumn.setTalendType(column.getTalendType());
+        newColumn.setType(column.getSourceType());
+        if (column.getOriginalField() == null || column.getOriginalField().equals("")) { //$NON-NLS-1$
+            newColumn.setOriginalDbColumnName(column.getLabel());
+        } else {
+            newColumn.setOriginalDbColumnName(column.getOriginalField());
+        }
+        return newColumn;
     }
 
     private ConvertionHelper() {
@@ -142,13 +199,13 @@ public final class ConvertionHelper {
             newColumn.setKey(column.isKey());
             newColumn.setLabel(column.getLabel());
             newColumn.setPattern(column.getPattern());
-            if (column.getLength() < 0) {
+            if (column.getLength() == null || column.getLength() < 0) {
                 newColumn.setLength(0);
             } else {
                 newColumn.setLength(column.getLength());
             }
             newColumn.setNullable(column.isNullable());
-            if (column.getPrecision() < 0) {
+            if (column.getPrecision() == null || column.getPrecision() < 0) {
                 newColumn.setPrecision(0);
             } else {
                 newColumn.setPrecision(column.getPrecision());
@@ -160,6 +217,7 @@ public final class ConvertionHelper {
             } else {
                 newColumn.setOriginalField(column.getOriginalDbColumnName());
             }
+            // columns.add(convertToMetaDataColumn(column));
         }
         result.getColumns().addAll(columns);
         return result;

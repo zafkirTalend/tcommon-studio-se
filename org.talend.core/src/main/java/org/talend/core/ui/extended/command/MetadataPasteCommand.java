@@ -18,6 +18,9 @@ import java.util.List;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.impl.ConnectionFactoryImpl;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 
 /**
@@ -52,7 +55,9 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand#createPastableBeansList(java.util.List)
+     * @see
+     * org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand#createPastableBeansList(java
+     * .util.List)
      */
     @Override
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
@@ -63,8 +68,18 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
                 copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
                 list.add(copy);
             }
+            // Add a new statement to fix the MetadataColumn type.
+            else if (current instanceof MetadataColumn) {
+                MetadataTableEditor tableEditor = (MetadataTableEditor) extendedTable;
+                MetadataColumn metadataColumn = (MetadataColumn) current;
+
+                String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
+                MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
+                newColumnCopy.setLabel(nextGeneratedColumnName);
+                list.add(ConvertionHelper.convertToIMetaDataColumn(newColumnCopy));
+
+            }
         }
         return list;
     }
-
 }
