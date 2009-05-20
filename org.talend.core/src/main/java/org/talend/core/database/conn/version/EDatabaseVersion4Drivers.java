@@ -176,7 +176,7 @@ public enum EDatabaseVersion4Drivers {
         for (EDatabaseVersion4Drivers v4d : EDatabaseVersion4Drivers.values()) {
             if (dbType != null) {
                 if (v4d.supportDatabase(dbType)) {
-                    if (version == null) { // add all for this db type
+                    if (version == null || v4d.getVersionValue() == null) { // add all for this db type
                         drivers.addAll(v4d.getProviderDrivers());
                     } else
                     // check both db type and version value.
