@@ -385,7 +385,11 @@ final class XSDFileSchemaTreePopulator {
             XSObjectList list = group.getAttributeUses();
             for (int j = 0; j < list.getLength(); j++) {
                 ATreeNode childNode = new ATreeNode();
-                childNode.setValue(((XSAttributeUseImpl) list.item(j)).getAttrDeclaration().getName());
+                // add by wzhang, set the childNode type
+                XSAttributeUseImpl attr = (XSAttributeUseImpl) list.item(j);
+                String dataType = attr.fAttrDecl.getTypeDefinition().getName();
+                childNode.setDataType(dataType);
+                childNode.setValue(attr.getAttrDeclaration().getName());
                 childNode.setType(ATreeNode.ATTRIBUTE_TYPE);
                 node.addChild(childNode);
             }
