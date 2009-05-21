@@ -6,6 +6,10 @@
       <Service
             class="org.talend.librariesmanager.model.service.LibrariesService"
             serviceId="ILibrariesService"/>
+      <Service
+            class="org.talend.librariesmanager.model.service.RoutinesProviderService"
+            serviceId="IRoutinesService">
+      </Service>
    </extension>
    <extension
          point="org.eclipse.ui.views">

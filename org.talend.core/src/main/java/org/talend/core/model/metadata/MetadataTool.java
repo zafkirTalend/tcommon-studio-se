@@ -15,11 +15,13 @@ package org.talend.core.model.metadata;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -32,6 +34,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.routines.IRoutinesService;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
@@ -45,6 +48,10 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * 
  */
 public class MetadataTool {
+
+    private static final int MIN = 192;
+
+    private static final int MAX = 255;
 
     public static List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
@@ -472,15 +479,64 @@ public class MetadataTool {
         return null;
     }
 
+    /**
+     * 
+     * qli Comment method "validateColumnName".
+     * 
+     * 
+     */
     public static String validateColumnName(String columnName) {
         if (columnName == null) {
             return null;
         }
+        columnName = mappingGermanyEspecialChar(columnName);
         final String underLine = "_"; //$NON-NLS-1$
         if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
             columnName = underLine + columnName;
         }
         columnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
+        return columnName;
+    }
+
+    /**
+     * 
+     * qli Comment method "mappingGermanyEspecialChar".
+     * 
+     * 
+     */
+    private static String mappingGermanyEspecialChar(String columnName) {
+        IRoutinesService service = (IRoutinesService) GlobalServiceRegister.getDefault().getService(IRoutinesService.class);
+        if (service != null) {
+            Vector map = service.getAccents();
+            map.setElementAt("AE", 4);//$NON-NLS-1$
+            map.setElementAt("OE", 22);//$NON-NLS-1$
+            map.setElementAt("UE", 28);//$NON-NLS-1$
+            map.setElementAt("ss", 31);//$NON-NLS-1$
+            map.setElementAt("ae", 36);//$NON-NLS-1$
+            map.setElementAt("oe", 54);//$NON-NLS-1$
+            map.setElementAt("ue", 60);//$NON-NLS-1$
+
+            return initGermanyMapping(columnName, map);
+        }
+        return columnName;
+    }
+
+    /**
+     * 
+     * qli Comment method "initGermanyMapping".
+     * 
+     * 
+     */
+    private static String initGermanyMapping(String columnName, Vector map) {
+        for (int i = 0; i < columnName.toCharArray().length; i++) {
+            int carVal = columnName.charAt(i);
+            if (carVal >= MIN && carVal <= MAX) {
+                String oldVal = String.valueOf(columnName.toCharArray()[i]);
+                String newVal = (String) map.get(carVal - MIN);
+                columnName = columnName.replaceAll(oldVal, newVal);
+            }
+        }
+
         return columnName;
     }
 }

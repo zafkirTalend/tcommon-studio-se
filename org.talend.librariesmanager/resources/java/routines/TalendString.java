@@ -14,6 +14,10 @@ public class TalendString {
     /** used to save the link between with or without accents **/
     private static final Vector map = initMap();
 
+    public static Vector getMap() {
+        return map;
+    }
+
     /**
      * return Replace the special character(e.g. <,>,& etc) within a string for XML file.
      * 
