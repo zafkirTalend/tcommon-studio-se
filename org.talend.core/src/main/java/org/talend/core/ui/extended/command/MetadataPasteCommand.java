@@ -75,8 +75,9 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
 
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
                 MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
-                newColumnCopy.setLabel(nextGeneratedColumnName);
-                list.add(ConvertionHelper.convertToIMetaDataColumn(newColumnCopy));
+                IMetadataColumn copy = (ConvertionHelper.convertToIMetaDataColumn(newColumnCopy)).clone();
+                copy.setLabel(nextGeneratedColumnName);
+                list.add(copy);
 
             }
         }

@@ -74,10 +74,11 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 list.add(newColumnCopy);
             } else if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
-                // copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(copy.getLabel());
-                copy.setLabel(nextGeneratedColumnName);
-                list.add(ConvertionHelper.convertToMetaDataColumn(copy));
+                MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(ConvertionHelper.convertToMetaDataColumn(copy),
+                        nextGeneratedColumnName);
+                newColumnCopy.setLabel(nextGeneratedColumnName);
+                list.add(newColumnCopy);
             }
         }
         return list;
