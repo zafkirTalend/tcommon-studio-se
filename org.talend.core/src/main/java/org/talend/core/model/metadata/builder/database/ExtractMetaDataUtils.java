@@ -532,10 +532,15 @@ public class ExtractMetaDataUtils {
             String[] numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$
             String[] stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$
             String[] timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$
+
             convertFunctions2Array(functionlist, systemFunctions);
+
             convertFunctions2Array(functionlist, numericFunctions);
+
             convertFunctions2Array(functionlist, stringFunctions);
+
             convertFunctions2Array(functionlist, timeFunctions);
+
         } catch (SQLException e) {
             ExceptionHandler.process(e);
         }
@@ -544,8 +549,11 @@ public class ExtractMetaDataUtils {
 
     // hywang added for bug 7038
     private static List<String> convertFunctions2Array(List<String> functionlist, String[] functions) {
-        for (int i = 0; i < functions.length; i++) {
-            functionlist.add(functions[i]);
+        if (functions != null) {
+            for (int i = 0; i < functions.length; i++) {
+                functionlist.add(functions[i]);
+            }
+
         }
         return functionlist;
     }
