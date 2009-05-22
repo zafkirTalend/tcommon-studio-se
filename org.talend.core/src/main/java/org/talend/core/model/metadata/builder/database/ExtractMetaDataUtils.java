@@ -34,6 +34,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
@@ -51,6 +52,9 @@ public class ExtractMetaDataUtils {
     public static String schema;
 
     public static boolean isReconnect = true;
+
+    // hywang add for bug 7038
+    private static List<String> functionlist = new ArrayList<String>();
 
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
@@ -132,10 +136,17 @@ public class ExtractMetaDataUtils {
      * @param String infoType
      * @return String : the result of column's information MetaData
      */
-    public static String getStringMetaDataInfo(ResultSet columns, String infoType) {
+    public static String getStringMetaDataInfo(ResultSet columns, String infoType, DatabaseMetaData dbMetaData) {
         String metaDataInfo = null;
         try {
             metaDataInfo = columns.getString(infoType);
+            // hywang modified it for bug 7038
+            List<String> funcions = getAllDBFuctions(dbMetaData);
+            if (metaDataInfo != null) {
+                if ((dbMetaData != null && funcions != null && !funcions.contains(metaDataInfo))) {
+                    metaDataInfo = TalendTextUtils.QUOTATION_MARK + metaDataInfo + TalendTextUtils.QUOTATION_MARK;
+                }
+            }
             // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
             // metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$
             // //$NON-NLS-2$
@@ -512,5 +523,30 @@ public class ExtractMetaDataUtils {
         String separator = "/"; //$NON-NLS-1$
         String javaLibPath = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
         return javaLibPath + separator;
+    }
+
+    // hywang added for bug 7038
+    private static List<String> getAllDBFuctions(DatabaseMetaData dbMetadata) {
+        try {
+            String[] systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$
+            String[] numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$
+            String[] stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$
+            String[] timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$
+            convertFunctions2Array(functionlist, systemFunctions);
+            convertFunctions2Array(functionlist, numericFunctions);
+            convertFunctions2Array(functionlist, stringFunctions);
+            convertFunctions2Array(functionlist, timeFunctions);
+        } catch (SQLException e) {
+            ExceptionHandler.process(e);
+        }
+        return functionlist;
+    }
+
+    // hywang added for bug 7038
+    private static List<String> convertFunctions2Array(List<String> functionlist, String[] functions) {
+        for (int i = 0; i < functions.length; i++) {
+            functionlist.add(functions[i]);
+        }
+        return functionlist;
     }
 }

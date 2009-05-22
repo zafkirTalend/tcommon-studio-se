@@ -137,7 +137,7 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
             }
-            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(),limit);
+            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), limit);
             rsTables.close();
         } catch (SQLException e) {
             // e.printStackTrace();
@@ -177,7 +177,7 @@ public class ExtractMetaDataFromDataBase {
             // See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
             // Must use column index to fetch values.
 
-            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_NAME"); //$NON-NLS-1$
+            String tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_NAME", null); //$NON-NLS-1$
             if (tableName == null) {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
             }
@@ -188,9 +188,9 @@ public class ExtractMetaDataFromDataBase {
             medataTable.setLabel(tableName); //$NON-NLS-1$
             medataTable.setTableName(medataTable.getLabel());
 
-            medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
+            medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS", null)); //$NON-NLS-1$
 
-            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM"); //$NON-NLS-1$
+            String schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_SCHEM", null); //$NON-NLS-1$
             if (schema == null) {
                 schema = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 2);
             }
@@ -198,7 +198,7 @@ public class ExtractMetaDataFromDataBase {
                 tableSchemaMap.put(medataTable.getLabel(), schema);
             }
 
-            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE"); //$NON-NLS-1$
+            String tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "TABLE_TYPE", null); //$NON-NLS-1$
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
             }
@@ -387,10 +387,10 @@ public class ExtractMetaDataFromDataBase {
             }
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
-                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME"); //$NON-NLS-1$
+                String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
+                    metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null)); //$NON-NLS-1$
                     metadataColumn.setOriginalField(metadataColumn.getLabel());
 
                     // Validate the column if it contains space or illegal
@@ -409,7 +409,7 @@ public class ExtractMetaDataFromDataBase {
                         metadataColumn.setKey(false);
                     }
 
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME", null).toUpperCase(); //$NON-NLS-1$
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
 
@@ -445,7 +445,7 @@ public class ExtractMetaDataFromDataBase {
                     metadataColumn.setNullable(isNullable);
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
-                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS"); //$NON-NLS-1$
+                    String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS", null); //$NON-NLS-1$
                     if (commentInfo != null && commentInfo.length() > 0) {
                         for (int i = 0; i < commentInfo.length(); i++) {
                             if (commentInfo.codePointAt(i) == 0x0) {
@@ -461,7 +461,7 @@ public class ExtractMetaDataFromDataBase {
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
                     // description
-                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
+                    String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
                     if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                         stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                     }
