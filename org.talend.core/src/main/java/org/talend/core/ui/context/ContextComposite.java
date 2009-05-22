@@ -50,18 +50,25 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private boolean isRepositoryContext;
 
+    private IContextManager contextManager;
+
     /**
      * bqian ContextComposite constructor comment.
      * 
      * @param parent
      * @param style
      */
-    public ContextComposite(Composite parent) {
-        this(parent, true);
+    public ContextComposite(Composite parent, IContextManager contextManager) {
+        this(parent, contextManager, true);
     }
 
     public ContextComposite(Composite parent, boolean isRepositoryContext) {
+        this(parent, null, true);
+    }
+
+    public ContextComposite(Composite parent, IContextManager contextManager, boolean isRepositoryContext) {
         super(parent, SWT.NONE);
+        this.contextManager = contextManager;
         this.isRepositoryContext = isRepositoryContext;
         this.setBackground(parent.getBackground());
         this.setLayout(new GridLayout());
@@ -151,7 +158,9 @@ public abstract class ContextComposite extends Composite implements IContextMode
         composite.setNeedRefresh(true);
     }
 
-    public abstract IContextManager getContextManager();
+    public IContextManager getContextManager() {
+        return this.contextManager;
+    }
 
     /**
      * bqian Comment method "initializeUI".
