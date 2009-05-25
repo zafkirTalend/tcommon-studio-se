@@ -249,7 +249,8 @@
 				<dbType type="BIGINT UNSIGNED" >
 				</dbType>
 				<dbType type="DOUBLE UNSIGNED" >		
-					<talendType type="id_BigDecimal"  default="true"/>
+					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="FLOAT UNSIGNED" >
 					<talendType type="id_Double" default="true" />
