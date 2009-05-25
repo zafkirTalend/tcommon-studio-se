@@ -308,7 +308,7 @@ public class ImportItemUtil {
             itemRecord.clear();
         }
         // bug 6252
-        XmiResourceManager.resourceSet.getResources().clear();
+        // XmiResourceManager.resourceSet.getResources().clear();//for bug 7418
         XmiResourceManager.resetResourceSet();
         return itemRecords;
     }
@@ -334,7 +334,7 @@ public class ImportItemUtil {
             if (destinationPath != null) {
                 path = destinationPath.append(path);
             }
-            
+
             try {
                 repFactory.createParentFoldersRecursively(itemType, path);
             } catch (Exception e) {
