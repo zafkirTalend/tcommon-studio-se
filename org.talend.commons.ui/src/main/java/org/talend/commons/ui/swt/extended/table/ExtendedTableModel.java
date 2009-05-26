@@ -160,6 +160,12 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         return this.beansList;
     }
 
+    public void addBeans(B b) {
+        if (this.beansList.contains(b)) {
+        } else
+            this.beansList.add(b);
+    }
+
     public void setUseEquals(boolean useEquals) {
         beansList.setUseEquals(useEquals);
     }
