@@ -10,6 +10,7 @@
 			<dbType type="CHAR" defaultLength="50" ignorePre="true" />
 			<dbType type="CHARACTER VARYING" ignorePre="true"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="DATETIME YEAR TO FRACTION" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
@@ -54,6 +55,7 @@
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true" />
+					<dbType type="DATETIME" />	
 					<dbType type="DATETIME YEAR TO FRACTION" />			
 				</talendType>
 				<talendType type="id_BigDecimal">
@@ -130,6 +132,9 @@
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />
 				</dbType>	
+				<dbType type="DATETIME">			
+					<talendType type="id_Date" default="true" />
+				</dbType>
 				<dbType type="DATETIME YEAR TO FRACTION">			
 					<talendType type="id_Date" default="true" />
 				</dbType>
