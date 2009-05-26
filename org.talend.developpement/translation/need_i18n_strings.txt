@@ -3,3 +3,5 @@ Detect and update all jobs
 Edit Project properties
 installed components
 compatible components
+Standard objects
+fetch module list
