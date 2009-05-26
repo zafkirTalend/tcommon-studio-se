@@ -52,6 +52,34 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
         super(extendedTable);
     }
 
+    public String getUniqueString(ArrayList list, String columnName) {
+        int lstSize = list.size();
+        String[] labels = new String[lstSize];
+        for (int i = 0; i < lstSize; i++) {
+            labels[i] = list.get(i).toString();
+        }
+        boolean found = false;
+        int indexNewColumn = 0;
+        String newColumnName = null;
+        boolean firstTime = true;
+        while (!found) {
+            newColumnName = columnName + (firstTime ? "" : (++indexNewColumn)); //$NON-NLS-1$
+            firstTime = false;
+            boolean allAreDifferent = true;
+            for (int j = 0; j < labels.length; j++) {
+                String label = labels[j];
+                if (label.equals(newColumnName)) {
+                    allAreDifferent = false;
+                    break;
+                }
+            }
+            if (allAreDifferent) {
+                found = true;
+            }
+        }
+        return newColumnName;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -61,6 +89,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
      */
     @Override
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
+        ArrayList addItemList = new ArrayList();
         ArrayList list = new ArrayList();
         int indice = 1;
         MetadataEmfTableEditor tableEditor = (MetadataEmfTableEditor) extendedTable;
@@ -71,17 +100,36 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
                 String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
                 MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
-                list.add(newColumnCopy);
+                addItemList.add(newColumnCopy);
             } else if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
-                String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(copy.getLabel());
+                String nextGeneratedColumnName = copy.getLabel();
+                String tempNewColumnName = "";
+                boolean iMetaColumnUnique = false;
+                boolean metaColumnUnique = false;
+                while (iMetaColumnUnique == false || metaColumnUnique == false) {
+                    nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(nextGeneratedColumnName, null);
+                    metaColumnUnique = true;
+                    iMetaColumnUnique = false;
+                    if (list.size() == 0)
+                        iMetaColumnUnique = true;
+                    else {
+                        tempNewColumnName = this.getUniqueString(list, nextGeneratedColumnName);
+                        if (tempNewColumnName.equals(nextGeneratedColumnName))
+                            iMetaColumnUnique = true;
+                        else {
+                            iMetaColumnUnique = false;
+                            nextGeneratedColumnName = tempNewColumnName;
+                        }
+                    }
+                }
                 MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(ConvertionHelper.convertToMetaDataColumn(copy),
                         nextGeneratedColumnName);
                 newColumnCopy.setLabel(nextGeneratedColumnName);
-                list.add(newColumnCopy);
+                addItemList.add(newColumnCopy);
+                list.add(nextGeneratedColumnName);
             }
         }
-        return list;
+        return addItemList;
     }
-
 }

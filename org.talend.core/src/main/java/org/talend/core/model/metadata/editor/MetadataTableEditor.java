@@ -128,24 +128,60 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
     }
 
     public String getNextGeneratedColumnName() {
-        return getNextGeneratedColumnName("newColumn"); //$NON-NLS-1$
+        return getNextGeneratedColumnName("newColumn", getBeansList()); //$NON-NLS-1$
     }
 
-    public String getNextGeneratedColumnName(String oldColumnName) {
-        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName,
-                getBeansList()) {
+    public String getNextGeneratedColumnName(String columnLabel) {
+        return getNextGeneratedColumnName(columnLabel, getBeansList());
+    }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
-             */
-            @Override
-            protected String getBeanString(IMetadataColumn bean) {
-                return bean.getLabel();
-            }
+    public String getNextGeneratedColumnName(String oldColumnName, List<IMetadataColumn> metadataColumns) {
+        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator;
+        if (metadataColumns != null) {
+            uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName, metadataColumns) {
 
-        };
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+                 */
+                @Override
+                protected String getBeanString(IMetadataColumn bean) {
+                    return bean.getLabel();
+                }
+
+            };
+        } else {
+            uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName, getBeansList()) {
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+                 */
+                @Override
+                protected String getBeanString(IMetadataColumn bean) {
+                    return bean.getLabel();
+                }
+
+            };
+        }
+
+        // UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new
+        // UniqueStringGenerator<IMetadataColumn>(oldColumnName,
+        // metadataColumns) {
+        //
+        // /*
+        // * (non-Javadoc)
+        // *
+        // * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+        // */
+        // @Override
+        // protected String getBeanString(IMetadataColumn bean) {
+        // return bean.getLabel();
+        // }
+        //
+        // };
 
         return uniqueStringGenerator.getUniqueString();
     }

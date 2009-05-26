@@ -161,22 +161,37 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      * @param List <MetadataColumn>
      * @return string
      */
-    protected String getNextGeneratedColumnName(String oldColumnName, List<MetadataColumn> metadataColumns) {
+    public String getNextGeneratedColumnName(String oldColumnName, List<MetadataColumn> metadataColumns) {
+        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator;
+        if (metadataColumns != null) {
+            uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(oldColumnName, metadataColumns) {
 
-        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(oldColumnName,
-                metadataColumns) {
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+                 */
+                @Override
+                protected String getBeanString(MetadataColumn bean) {
+                    return bean.getLabel();
+                }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
-             */
-            @Override
-            protected String getBeanString(MetadataColumn bean) {
-                return bean.getLabel();
-            }
+            };
+        } else {
+            uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(oldColumnName, getBeansList()) {
 
-        };
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+                 */
+                @Override
+                protected String getBeanString(MetadataColumn bean) {
+                    return bean.getLabel();
+                }
+
+            };
+        }
 
         return uniqueStringGenerator.getUniqueString();
     }
