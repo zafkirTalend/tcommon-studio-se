@@ -21,6 +21,11 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getQueryCondition <em>Query Condition</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName <em>Use Custom Module Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseProxy <em>Use Proxy</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyHost <em>Proxy Host</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort <em>Proxy Port</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername <em>Proxy Username</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -184,5 +189,135 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setUseCustomModuleName(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Use Proxy</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use Proxy</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use Proxy</em>' attribute.
+     * @see #setUseProxy(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_UseProxy()
+     * @model
+     * @generated
+     */
+    boolean isUseProxy();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseProxy <em>Use Proxy</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use Proxy</em>' attribute.
+     * @see #isUseProxy()
+     * @generated
+     */
+    void setUseProxy(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Proxy Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Proxy Host</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Proxy Host</em>' attribute.
+     * @see #setProxyHost(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_ProxyHost()
+     * @model
+     * @generated
+     */
+    String getProxyHost();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyHost <em>Proxy Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Proxy Host</em>' attribute.
+     * @see #getProxyHost()
+     * @generated
+     */
+    void setProxyHost(String value);
+
+    /**
+     * Returns the value of the '<em><b>Proxy Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Proxy Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Proxy Port</em>' attribute.
+     * @see #setProxyPort(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_ProxyPort()
+     * @model
+     * @generated
+     */
+    String getProxyPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort <em>Proxy Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Proxy Port</em>' attribute.
+     * @see #getProxyPort()
+     * @generated
+     */
+    void setProxyPort(String value);
+
+    /**
+     * Returns the value of the '<em><b>Proxy Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Proxy Username</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Proxy Username</em>' attribute.
+     * @see #setProxyUsername(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_ProxyUsername()
+     * @model
+     * @generated
+     */
+    String getProxyUsername();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername <em>Proxy Username</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Proxy Username</em>' attribute.
+     * @see #getProxyUsername()
+     * @generated
+     */
+    void setProxyUsername(String value);
+
+    /**
+     * Returns the value of the '<em><b>Proxy Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Proxy Password</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Proxy Password</em>' attribute.
+     * @see #setProxyPassword(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_ProxyPassword()
+     * @model
+     * @generated
+     */
+    String getProxyPassword();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Proxy Password</em>' attribute.
+     * @see #getProxyPassword()
+     * @generated
+     */
+    void setProxyPassword(String value);
 
 } // SalesforceSchemaConnection

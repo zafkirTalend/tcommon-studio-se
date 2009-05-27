@@ -28,6 +28,11 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getQueryCondition <em>Query Condition</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseCustomModuleName <em>Use Custom Module Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseProxy <em>Use Proxy</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyHost <em>Proxy Host</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyPort <em>Proxy Port</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyUsername <em>Proxy Username</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyPassword <em>Proxy Password</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,6 +158,106 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected boolean useCustomModuleName = USE_CUSTOM_MODULE_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseProxy()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_PROXY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseProxy()
+     * @generated
+     * @ordered
+     */
+    protected boolean useProxy = USE_PROXY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyHost()
+     * @generated
+     * @ordered
+     */
+    protected static final String PROXY_HOST_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyHost()
+     * @generated
+     * @ordered
+     */
+    protected String proxyHost = PROXY_HOST_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyPort()
+     * @generated
+     * @ordered
+     */
+    protected static final String PROXY_PORT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyPort()
+     * @generated
+     * @ordered
+     */
+    protected String proxyPort = PROXY_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getProxyUsername() <em>Proxy Username</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyUsername()
+     * @generated
+     * @ordered
+     */
+    protected static final String PROXY_USERNAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getProxyUsername() <em>Proxy Username</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyUsername()
+     * @generated
+     * @ordered
+     */
+    protected String proxyUsername = PROXY_USERNAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyPassword()
+     * @generated
+     * @ordered
+     */
+    protected static final String PROXY_PASSWORD_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProxyPassword()
+     * @generated
+     * @ordered
+     */
+    protected String proxyPassword = PROXY_PASSWORD_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -303,6 +408,111 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isUseProxy() {
+        return useProxy;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseProxy(boolean newUseProxy) {
+        boolean oldUseProxy = useProxy;
+        useProxy = newUseProxy;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY, oldUseProxy, useProxy));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setProxyHost(String newProxyHost) {
+        String oldProxyHost = proxyHost;
+        proxyHost = newProxyHost;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST, oldProxyHost, proxyHost));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getProxyPort() {
+        return proxyPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setProxyPort(String newProxyPort) {
+        String oldProxyPort = proxyPort;
+        proxyPort = newProxyPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT, oldProxyPort, proxyPort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getProxyUsername() {
+        return proxyUsername;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setProxyUsername(String newProxyUsername) {
+        String oldProxyUsername = proxyUsername;
+        proxyUsername = newProxyUsername;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME, oldProxyUsername, proxyUsername));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getProxyPassword() {
+        return proxyPassword;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setProxyPassword(String newProxyPassword) {
+        String oldProxyPassword = proxyPassword;
+        proxyPassword = newProxyPassword;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD, oldProxyPassword, proxyPassword));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
@@ -317,6 +527,16 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return getQueryCondition();
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
                 return isUseCustomModuleName() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+                return isUseProxy() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+                return getProxyHost();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+                return getProxyPort();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+                return getProxyUsername();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+                return getProxyPassword();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -345,6 +565,21 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
                 setUseCustomModuleName(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+                setUseProxy(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+                setProxyHost((String)newValue);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+                setProxyPort((String)newValue);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+                setProxyUsername((String)newValue);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+                setProxyPassword((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -375,6 +610,21 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
                 setUseCustomModuleName(USE_CUSTOM_MODULE_NAME_EDEFAULT);
                 return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+                setUseProxy(USE_PROXY_EDEFAULT);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+                setProxyHost(PROXY_HOST_EDEFAULT);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+                setProxyPort(PROXY_PORT_EDEFAULT);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+                setProxyUsername(PROXY_USERNAME_EDEFAULT);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+                setProxyPassword(PROXY_PASSWORD_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -398,6 +648,16 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return QUERY_CONDITION_EDEFAULT == null ? queryCondition != null : !QUERY_CONDITION_EDEFAULT.equals(queryCondition);
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
                 return useCustomModuleName != USE_CUSTOM_MODULE_NAME_EDEFAULT;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+                return useProxy != USE_PROXY_EDEFAULT;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+                return PROXY_HOST_EDEFAULT == null ? proxyHost != null : !PROXY_HOST_EDEFAULT.equals(proxyHost);
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+                return PROXY_PORT_EDEFAULT == null ? proxyPort != null : !PROXY_PORT_EDEFAULT.equals(proxyPort);
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+                return PROXY_USERNAME_EDEFAULT == null ? proxyUsername != null : !PROXY_USERNAME_EDEFAULT.equals(proxyUsername);
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+                return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
         }
         return super.eIsSet(featureID);
     }
@@ -423,6 +683,16 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(queryCondition);
         result.append(", useCustomModuleName: ");
         result.append(useCustomModuleName);
+        result.append(", useProxy: ");
+        result.append(useProxy);
+        result.append(", proxyHost: ");
+        result.append(proxyHost);
+        result.append(", proxyPort: ");
+        result.append(proxyPort);
+        result.append(", proxyUsername: ");
+        result.append(proxyUsername);
+        result.append(", proxyPassword: ");
+        result.append(proxyPassword);
         result.append(')');
         return result.toString();
     }

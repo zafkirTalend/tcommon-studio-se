@@ -283,6 +283,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/moduleName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/queryCondition"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/useCustomModuleName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/useProxy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/proxyHost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/proxyPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/proxyUsername"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/proxyPassword"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//CDCConnection">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//CDCConnection/connection"/>

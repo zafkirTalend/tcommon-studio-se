@@ -5154,13 +5154,58 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME = CONNECTION_FEATURE_COUNT + 5;
 
     /**
+     * The feature id for the '<em><b>Use Proxy</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__USE_PROXY = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Proxy Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Proxy Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Proxy Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
      * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 6;
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
@@ -7717,6 +7762,61 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceSchemaConnection_UseCustomModuleName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseProxy <em>Use Proxy</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Proxy</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseProxy()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_UseProxy();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyHost <em>Proxy Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Host</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyHost()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ProxyHost();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort <em>Proxy Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Port</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ProxyPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername <em>Proxy Username</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Username</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ProxyUsername();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_ProxyPassword();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9615,6 +9715,46 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME = eINSTANCE.getSalesforceSchemaConnection_UseCustomModuleName();
+
+        /**
+         * The meta object literal for the '<em><b>Use Proxy</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_PROXY = eINSTANCE.getSalesforceSchemaConnection_UseProxy();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST = eINSTANCE.getSalesforceSchemaConnection_ProxyHost();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT = eINSTANCE.getSalesforceSchemaConnection_ProxyPort();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Username</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME = eINSTANCE.getSalesforceSchemaConnection_ProxyUsername();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD = eINSTANCE.getSalesforceSchemaConnection_ProxyPassword();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
