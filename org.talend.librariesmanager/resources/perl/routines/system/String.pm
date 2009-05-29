@@ -8,6 +8,7 @@ use vars qw(@EXPORT @ISA);
     getRandomString
     getHexRandomString
     firstName
+    extractMailAddresses
 );
 
 # formatString return the input string formatted as requested. This function
@@ -547,6 +548,18 @@ sub getRandomStringFromList {
     }
 
     return $string;
+}
+
+sub extractMailAddresses {
+    my @email_addresses = ();
+
+    foreach (@_) {
+        while(m{([\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*\.[a-z]+)}g) {
+            push @email_addresses, $1;
+        }
+    }
+
+    return @email_addresses;
 }
 
 1;
