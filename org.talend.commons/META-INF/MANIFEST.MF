@@ -9,6 +9,7 @@ Require-Bundle: org.apache.log4j;bundle-version="1.2.13",
  org.eclipse.core.runtime,
  org.talend.libraries;visibility:=reexport
 Export-Package: org.talend.commons,
+ org.talend.commons.bridge,
  org.talend.commons.emf,
  org.talend.commons.exception,
  org.talend.commons.i18n,
