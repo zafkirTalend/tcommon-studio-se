@@ -169,6 +169,13 @@ public enum EDatabaseConnTemplate {
         return null;
     }
 
+    public String getDBDisplayName() {
+        if (getDbType() != null) {
+            return getDbType().getDisplayName();
+        }
+        return null;
+    }
+
     // public String getUrlTemplate() {
     // return getUrlTemplate(null);
     // }
@@ -205,38 +212,46 @@ public enum EDatabaseConnTemplate {
         return this.connStr.processStr(version, str);
     }
 
-    public static List<String> getDBTypes() {
-        return getDBTypes(true, false);
+    public static List<String> getDBTypeDisplay() {
+        return getDBTypes(true, false, true);
     }
 
-    public static List<String> getAllDBTypes() {
-        return getDBTypes(true, true);
+    // public static List<String> getAllDBTypeDisplay() {
+    // return getDBTypes(true, false, true);
+    // }
+
+    public static List<String> getDBTypes() {
+        return getDBTypes(true, false, false);
     }
+
+    // public static List<String> getAllDBTypes() {
+    // return getDBTypes(true, true, false);
+    // }
 
     @SuppressWarnings("unchecked")
-    public static List<String> getDBTypes(boolean sort, boolean all) {
+    private static List<String> getDBTypes(boolean sort, boolean all, boolean display) {
         EDatabaseConnTemplate[] values = EDatabaseConnTemplate.values();
         List<String> databaseType = new ArrayList<String>(values.length);
         for (EDatabaseConnTemplate temp : values) {
-            String typeName = temp.getDBTypeName();
+            String typeName = getDBTypeName(temp, display);
             if (typeName != null) {
                 databaseType.add(typeName);
             }
         }
         if (!all && LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
-            databaseType.remove(EDatabaseConnTemplate.MSSQL.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.INGRES.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.INTERBASE.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.FIREBIRD.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.ACCESS.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.TERADATA.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.AS400.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.JAVADB_DERBYCLIENT.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.JAVADB_EMBEDED.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.JAVADB_JCCJDBC.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.HSQLDB_IN_PROGRESS.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.HSQLDB_SERVER.getDBTypeName());
-            databaseType.remove(EDatabaseConnTemplate.HSQLDB_WEBSERVER.getDBTypeName());
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.MSSQL, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INGRES, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INTERBASE, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.FIREBIRD, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.ACCESS, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.TERADATA, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.AS400, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.JAVADB_DERBYCLIENT, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.JAVADB_EMBEDED, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.JAVADB_JCCJDBC, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_IN_PROGRESS, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_SERVER, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_WEBSERVER, display));
         }
         if (sort) {
             String[] sortedArray = databaseType.toArray(new String[0]);
@@ -254,41 +269,14 @@ public enum EDatabaseConnTemplate {
         return databaseType;
     }
 
-    // public static int indexOf(EDatabaseConnStr template) {
-    // return indexOf(template, true, false);
-    // }
-    //
-    // public static int indexOfAll(EDatabaseConnStr template) {
-    // return indexOf(template, true, true);
-    // }
-    //
-    // private static int indexOf(EDatabaseConnStr template, boolean sort, boolean all) {
-    // if (template != null) {
-    // return indexOf(template.getDBTypeName(), true, true);
-    // }
-    // return -1;
-    // }
-
-    public static int indexOf(String dbType) {
-        return indexOf(dbType, true, false);
-    }
-
-    public static int indexOfAll(String dbType) {
-        return indexOf(dbType, true, true);
-    }
-
-    private static int indexOf(String dbType, boolean sort, boolean all) {
-        if (dbType != null) {
-            List<String> types = getDBTypes(sort, all);
-            return types.indexOf(dbType);
-        }
-        return -1;
+    private static String getDBTypeName(EDatabaseConnTemplate db, boolean display) {
+        return display ? db.getDBDisplayName() : db.getDBTypeName();
     }
 
     public static EDatabaseConnTemplate indexOfTemplate(String dbType) {
         if (dbType != null) {
             for (EDatabaseConnTemplate temp : EDatabaseConnTemplate.values()) {
-                if (temp.getDBTypeName().equals(dbType)) {
+                if (temp.getDBTypeName().equals(dbType) || temp.getDBDisplayName().equals(dbType)) {
                     return temp;
                 }
             }

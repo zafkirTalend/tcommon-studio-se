@@ -153,9 +153,9 @@ public class DatabaseConnStrUtil {
             if (startTemplateString.length() <= stringConnection.length()) {
                 startStringConnection = stringConnection.substring(0, startTemplateString.length());
                 if (stringConnection.contains("(description=(address=(protocol=tcp)")) { //$NON-NLS-1$
-                    return EDatabaseConnTemplate.ORACLESN.getDBTypeName();
+                    return EDatabaseConnTemplate.ORACLESN.getDBDisplayName();
                 } else if (startTemplateString.equals(startStringConnection)) {
-                    return template.getDBTypeName();
+                    return template.getDBDisplayName();
                 }
             }
         }

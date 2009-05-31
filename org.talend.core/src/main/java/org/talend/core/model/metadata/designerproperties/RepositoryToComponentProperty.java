@@ -521,7 +521,7 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
-            if (EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(connection.getDatabaseType())) {
+            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(connection.getDatabaseType())) {
                 // see bug 7262
                 return dbVersionString;
             } else {

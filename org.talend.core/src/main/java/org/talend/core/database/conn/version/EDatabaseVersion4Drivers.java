@@ -82,7 +82,7 @@ public enum EDatabaseVersion4Drivers {
     public boolean supportDatabase(String dbType) {
         if (dbType != null) {
             for (EDatabaseTypeName type : getSupportDbTypes()) {
-                if (type.getXmlName().equalsIgnoreCase(dbType)) {
+                if (type.getXmlName().equalsIgnoreCase(dbType) || type.getDisplayName().equalsIgnoreCase(dbType)) {
                     return true;
                 }
             }
