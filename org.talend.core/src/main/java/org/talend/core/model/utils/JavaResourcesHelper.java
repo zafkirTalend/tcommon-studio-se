@@ -75,10 +75,15 @@ public class JavaResourcesHelper {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.properties.Project p = pManager.getProject(item);
         String projectFolderName = p.getLabel();
+        projectFolderName = getProjectFolderName(projectFolderName);
         if (toLowerCase) {
             return projectFolderName.toLowerCase();
         }
         return projectFolderName;
+    }
+
+    public static String getProjectFolderName(String proName) {
+        return proName.replaceAll(" ", "_");
     }
 
 }
