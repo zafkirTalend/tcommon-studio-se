@@ -461,11 +461,12 @@ public class MetadataTool {
 
     }
 
+    
     /**
-     * 
-     * nrousseau Comment method "getMetadataTableFromNode".
-     * 
-     * 
+     * @param node
+     * @param name
+     * @return
+     * @deprecated use getMetadataTableFromNodeLabel instead
      */
     public static IMetadataTable getMetadataTableFromNode(INode node, String name) {
         if (node == null || name == null) {
@@ -473,6 +474,30 @@ public class MetadataTool {
         }
         for (IMetadataTable metadata : node.getMetadataList()) {
             if (name.equals(metadata.getLabel())) {
+                return metadata;
+            }
+        }
+        return null;
+    }
+
+    public static IMetadataTable getMetadataTableFromNodeLabel(INode node, String name) {
+        if (node == null || name == null) {
+            return null;
+        }
+        for (IMetadataTable metadata : node.getMetadataList()) {
+            if (name.equals(metadata.getLabel())) {
+                return metadata;
+            }
+        }
+        return null;
+    }
+    
+    public static IMetadataTable getMetadataTableFromNodeTableName(INode node, String name) {
+        if (node == null || name == null) {
+            return null;
+        }
+        for (IMetadataTable metadata : node.getMetadataList()) {
+            if (name.equals(metadata.getTableName())) {
                 return metadata;
             }
         }

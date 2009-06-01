@@ -138,7 +138,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                             if ("".equals(newText.trim())) { //$NON-NLS-1$
                                 return Messages.getString("SchemaCellEditor.inputName"); //$NON-NLS-1$
                             }
-                            if (MetadataTool.getMetadataTableFromNode(node, newText) != null
+                            if (MetadataTool.getMetadataTableFromNodeTableName(node, newText) != null
                                     || !node.getProcess().checkValidConnectionName(newText)) {
                                 return Messages.getString("SchemaCellEditor.nameExistOrInvalid"); //$NON-NLS-1$
                             }
@@ -175,7 +175,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                 });
             }
         } else {
-            tableToEdit = MetadataTool.getMetadataTableFromNode(node, schemaToEdit);
+            tableToEdit = MetadataTool.getMetadataTableFromNodeTableName(node, schemaToEdit);
 
             if (getTableViewer() != null && tableToEdit != null && isEBCDICNode(node)) {
                 Table tTable = getTableViewer().getTable();
@@ -264,7 +264,7 @@ public class SchemaCellEditor extends DialogCellEditor {
 
             }
 
-            return tableToEdit.getLabel();
+            return tableToEdit.getTableName();
         } else {
             return ""; //$NON-NLS-1$
         }
