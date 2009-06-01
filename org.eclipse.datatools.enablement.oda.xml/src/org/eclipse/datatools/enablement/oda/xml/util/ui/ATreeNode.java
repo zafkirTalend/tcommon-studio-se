@@ -25,6 +25,8 @@ public class ATreeNode {
 
     public static final int OTHER_TYPE = 0;
 
+    public static final int NAMESPACE_TYPE = 3;
+
     // The value of certain tree node.
     private Object value;
 

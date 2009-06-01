@@ -260,9 +260,11 @@ final class XSDFileSchemaTreePopulator {
                 if (((ATreeNode) container.get(j)).getChildren().length == 0) {
                     Object[] os = ((ATreeNode) toBeIterated[i]).getChildren();
                     for (int k = 0; k < os.length; k++) {
-                        if (!(((ATreeNode) os[k]).getDataType() != null && ((ATreeNode) os[k]).getDataType().equals(
-                                ((ATreeNode) container.get(j)).getDataType()))) {
-                            ((ATreeNode) container.get(j)).addChild(os[k]);
+                        if (os[k] instanceof ATreeNode) {
+                            if (!(((ATreeNode) os[k]).getDataType() != null && ((ATreeNode) os[k]).getDataType().equals(
+                                    ((ATreeNode) container.get(j)).getDataType()))) {
+                                ((ATreeNode) container.get(j)).addChild(os[k]);
+                            }
                         }
                     }
 
@@ -288,7 +290,10 @@ final class XSDFileSchemaTreePopulator {
         }
         Object[] children = root.getChildren();
         for (int i = 0; i < children.length; i++) {
-            findNodeWithValue((ATreeNode) children[i], value, container, vr);
+            if (children[i] instanceof ATreeNode) {
+                findNodeWithValue((ATreeNode) children[i], value, container, vr);
+            }
+
         }
     }
 
@@ -334,6 +339,15 @@ final class XSDFileSchemaTreePopulator {
             ATreeNode node = new ATreeNode();
             XSElementDecl element = (XSElementDecl) map.item(i);
 
+            String namespace = element.getNamespace();
+            ATreeNode namespaceNode = null;
+            if (namespace != null) {
+                namespaceNode = new ATreeNode();
+                namespaceNode.setDataType(namespace);
+                namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                namespaceNode.setValue("xmlns:" + namespace);
+            }
+
             node.setValue(element.getName());
             node.setType(ATreeNode.ELEMENT_TYPE);
             node.setDataType(element.getName());
@@ -343,6 +357,9 @@ final class XSDFileSchemaTreePopulator {
                 if (complexType.getName() != null) {
                     node.setDataType(complexType.getName());
                     ATreeNode n = findComplexElement(complexTypesRoot, complexType.getName());
+                    if (namespaceNode != null) {
+                        node.addChild(namespaceNode);
+                    }
                     if (n != null) {
                         node.addChild(n.getChildren());
                     }
