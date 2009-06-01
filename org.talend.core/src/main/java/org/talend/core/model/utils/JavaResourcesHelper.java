@@ -67,23 +67,11 @@ public class JavaResourcesHelper {
     }
 
     public static String getProjectFolderName(Item item) {
-
-        return getProjectFolderName(item, true);
-    }
-
-    public static String getProjectFolderName(Item item, boolean toLowerCase) {
         ProjectManager pManager = ProjectManager.getInstance();
         org.talend.core.model.properties.Project p = pManager.getProject(item);
-        String projectFolderName = p.getLabel();
-        projectFolderName = getProjectFolderName(projectFolderName);
-        if (toLowerCase) {
-            return projectFolderName.toLowerCase();
-        }
+        String projectFolderName = p.getTechnicalLabel();
+        projectFolderName = projectFolderName.toLowerCase();
         return projectFolderName;
-    }
-
-    public static String getProjectFolderName(String proName) {
-        return proName.replaceAll(" ", "_");
     }
 
 }
