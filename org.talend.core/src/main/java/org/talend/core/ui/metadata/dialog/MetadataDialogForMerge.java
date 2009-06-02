@@ -51,6 +51,8 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
@@ -163,11 +165,31 @@ public class MetadataDialogForMerge extends Dialog {
         this.inputInfos = inputInfos;
         INode inputNode = null;
         IMetadataTable inputMetaTable = null;
+        // zli modify for bug 7221
         if (inputInfos != null && !inputInfos.isEmpty()) {
-            inputNode = (INode) inputInfos.keySet().toArray()[0];
-            Map<IMetadataTable, Boolean> oneInput = inputInfos.get(inputNode);
-            inputMetaTable = (IMetadataTable) oneInput.keySet().toArray()[0];
-            inputReadOnly = oneInput.get(inputMetaTable);
+            int size2 = inputInfos.keySet().size();
+
+            for (int i = 0; i < size2; i++) {
+                INode object = (INode) inputInfos.keySet().toArray()[i];
+                List<? extends IConnection> outgoingConnections = object.getOutgoingConnections();
+                if (outgoingConnections.size() > 0) {
+                    EConnectionType lineStyle = outgoingConnections.get(0).getLineStyle();
+                    if (lineStyle.equals(EConnectionType.FLOW_MAIN)) {
+                        inputNode = (INode) inputInfos.keySet().toArray()[i];
+                        Map<IMetadataTable, Boolean> oneInput = inputInfos.get(inputNode);
+                        inputMetaTable = (IMetadataTable) oneInput.keySet().toArray()[0];
+                        inputReadOnly = oneInput.get(inputMetaTable);
+                    }
+                    if (lineStyle.equals(EConnectionType.FLOW_MERGE)) {
+                        if (outgoingConnections.get(0).getInputId() == 1) {
+                            inputNode = (INode) inputInfos.keySet().toArray()[i];
+                            Map<IMetadataTable, Boolean> oneInput = inputInfos.get(inputNode);
+                            inputMetaTable = (IMetadataTable) oneInput.keySet().toArray()[0];
+                            inputReadOnly = oneInput.get(inputMetaTable);
+                        }
+                    }
+                }
+            }
         }
 
         init(parent, inputMetaTable, inputNode, outputMetaTable, outputNode, commandStack);
