@@ -45,7 +45,7 @@ public class QueryUtil {
     public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName) {
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
-        return generateNewQuery(repositoryMetadata, dbType, tableName);
+        return generateNewQuery(repositoryMetadata, dbType, tableName, realTableName);
     }
 
     public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
@@ -110,10 +110,8 @@ public class QueryUtil {
 
         String query = TalendTextUtils.declareString("SELECT "); //$NON-NLS-1$
         if (isContextQuery) { // new line
-            String end = ENTER
-                    + CON
-                    + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils //$NON-NLS-1$
-                            .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
+            String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), TalendTextUtils //$NON-NLS-1$
+                    .addQuotesWithSpaceFieldForSQLString(tableName, dbType, !isContextQuery));
 
             end = replaceTheSchemaString(end);
 
@@ -130,7 +128,7 @@ public class QueryUtil {
     }
 
     public static String generateNewQuery(final IMetadataTable repositoryMetadata, final String dbType,
-            final String tableNameWithQuoteIfNeed) {
+            final String tableNameWithQuoteIfNeed, final String... realTableName) {
         if (repositoryMetadata == null) {
             return ""; //$NON-NLS-1$
         }
@@ -176,6 +174,11 @@ public class QueryUtil {
             end = replaceTheSchemaString(end);
 
             query = checkAndConcatString(query, columnsQuery) + end;
+        } else if (dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for bug0007563
+            String declareString = TalendTextUtils.getStringDeclare();
+            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] //$NON-NLS-1$
+                    + declareString);
+            query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
         } else {
             String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
 
