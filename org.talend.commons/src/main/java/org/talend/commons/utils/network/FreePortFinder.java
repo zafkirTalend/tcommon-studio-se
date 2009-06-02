@@ -13,6 +13,7 @@
 package org.talend.commons.utils.network;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.SocketException;
 import java.util.Random;
@@ -46,6 +47,9 @@ public class FreePortFinder {
     public boolean isPortFree(int port) {
         try {
             serverSocket = new ServerSocket(port);
+        } catch (BindException e) {
+            e.printStackTrace();
+            return false;
         } catch (SocketException e) {
             e.printStackTrace();
             return false;
