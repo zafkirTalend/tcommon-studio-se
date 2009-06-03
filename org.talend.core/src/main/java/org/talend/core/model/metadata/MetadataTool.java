@@ -564,4 +564,13 @@ public class MetadataTool {
 
         return columnName;
     }
+    
+    public static boolean hasCustomColumns (IMetadataTable table) {
+        for (IMetadataColumn column : table.getListColumns()) {
+            if (column.isCustom()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
