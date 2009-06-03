@@ -190,6 +190,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             File resourceLibraries = new File(resourceService.getJavaLibraryPath());
             FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false, monitorWrap);
+            
+            checkInstalledLibraries();
 
             log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
             isLibSynchronized = true;
