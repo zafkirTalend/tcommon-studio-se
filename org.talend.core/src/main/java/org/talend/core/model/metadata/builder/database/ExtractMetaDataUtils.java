@@ -303,6 +303,68 @@ public class ExtractMetaDataUtils {
         return driverClass;
     }
 
+    // hywang add for bug 7575
+    public static String getDbTypeByClassName(String driverClassName) {
+        String dbType = null;
+        try {
+
+            Hashtable<String, String> hashTable = new Hashtable<String, String>();
+            hashTable.put("org.gjt.mm.mysql.Driver", "MySQL"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("org.postgresql.Driver", "PostgreSQL"); //$NON-NLS-1$ //$NON-NLS-2$ 
+            hashTable.put("org.postgresql.Driver", "PostgresPlus"); //$NON-NLS-1$ //$NON-NLS-2$ 
+            hashTable.put("org.postgresql.Driver", "Greenplum"); //$NON-NLS-1$ //$NON-NLS-2$ 
+            hashTable.put("com.paraccel.Driver", "ParAccel"); //$NON-NLS-1$ //$NON-NLS-2$ 
+            hashTable.put("oracle.jdbc.driver.OracleDriver", "Oracle with SID"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Oracle with service name", "oracle.jdbc.driver.OracleDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("sun.jdbc.odbc.JdbcOdbcDriver", "Generic ODBC"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("sun.jdbc.odbc.JdbcOdbcDriver", "Microsoft SQL Server (Odbc driver)"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("com.ibm.db2.jcc.DB2Driver", "IBM DB2"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("COM.ibm.db2os390.sqlj.jdbc.DB2SQLJDriver", "IBM DB2 ZOS"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("com.sas.rio.MVADriver", "SAS"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("com.sybase.jdbc3.jdbc.SybDriver", "Sybase ASE"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("com.sybase.jdbc3.jdbc.SybDriver", "Sybase IQ"); //$NON-NLS-1$ //$NON-NLS-2$
+            // hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver");
+            // //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("net.sourceforge.jtds.jdbc.Driver", "Microsoft SQL Server"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("com.ingres.jdbc.IngresDriver", "Ingres"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("interbase.interclient.Driver", "Interbase"); //$NON-NLS-1$ //$NON-NLS-2$            
+            hashTable.put("org.sqlite.JDBC", "SQLite"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("org.firebirdsql.jdbc.FBDriver", "FireBird"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("com.informix.jdbc.IfxDriver", "Informix"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("sun.jdbc.odbc.JdbcOdbcDriver", "Access"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("com.ncr.teradata.TeraDriver", "Teradata"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("org.apache.derby.jdbc.EmbeddedDriver", "JavaDB Embeded"); //$NON-NLS-1$ //$NON-NLS-2$
+            //$NON-NLS-2$
+            hashTable.put("com.ibm.db2.jcc.DB2Driver", "JavaDB JCCJDBC"); //$NON-NLS-1$ //$NON-NLS-2$
+            //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("org.apache.derby.jdbc.ClientDriver", "JavaDB DerbyClient"); //$NON-NLS-1$ //$NON-NLS-2$
+            //$NON-NLS-2$
+            hashTable.put("com.ibm.as400.access.AS400JDBCDriver", "AS400"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB Server"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB WebServer"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB In-Process"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("com.sap.dbtech.jdbc.DriverSapDB", "MaxDB"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("org.netezza.Driver", "Netezza"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            dbType = hashTable.get(driverClassName);
+
+        } catch (Exception e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+        return dbType;
+    }
+
     /**
      * 
      * DOC YeXiaowei Comment method "isValidJarFile".
