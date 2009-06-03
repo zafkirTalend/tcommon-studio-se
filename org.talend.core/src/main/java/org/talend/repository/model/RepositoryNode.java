@@ -327,7 +327,8 @@ public class RepositoryNode {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.RepositoryNode#getProperties(org.talend.repository.model.RepositoryNode.EProperties)
+     * @see
+     * org.talend.repository.model.RepositoryNode#getProperties(org.talend.repository.model.RepositoryNode.EProperties)
      */
     public Object getProperties(EProperties key) {
         return properties.get(key);

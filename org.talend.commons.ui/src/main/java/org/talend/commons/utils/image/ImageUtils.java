@@ -15,6 +15,8 @@ package org.talend.commons.utils.image;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.GC;
@@ -94,6 +96,21 @@ public class ImageUtils {
         return image;
     }
 
+    private static Map<String, Image> propertyImgCachedImages = new HashMap<String, Image>();
+
+    public static Image propertyLabelScale(String id, Image image, ICON_SIZE size) {
+        if (image != null && size != null) {
+            Image img = propertyImgCachedImages.get(id);
+            if (img == null || img.isDisposed()) {
+                ImageData imageData = image.getImageData().scaledTo(size.getSize(), size.getSize());
+                img = ImageDescriptor.createFromImageData(imageData).createImage();
+                propertyImgCachedImages.put(id, img);
+            }
+            return img;
+        }
+        return image;
+    }
+
     public static ImageDescriptor scale(ImageDescriptor imageDes, ICON_SIZE size) {
         if (imageDes != null) {
             if (!checkSize(imageDes, size)) {
@@ -104,10 +121,17 @@ public class ImageUtils {
         return imageDes;
     }
 
+    private static Map<byte[], Image> imageFromDataCachedImages = new HashMap<byte[], Image>();
+
     public static ImageDescriptor createImageFromData(byte[] data) {
         if (data != null) {
-            ByteArrayInputStream bais = new ByteArrayInputStream(data);
-            return ImageDescriptor.createFromImage(new Image(null, bais));
+            Image img = imageFromDataCachedImages.get(data);
+            if (img == null || img.isDisposed()) {
+                ByteArrayInputStream bais = new ByteArrayInputStream(data);
+                img = new Image(null, bais);
+                imageFromDataCachedImages.put(data, img);
+            }
+            return ImageDescriptor.createFromImage(img);
         }
         return null;
     }
@@ -165,16 +189,17 @@ public class ImageUtils {
         }
         return false;
     }
-    
+
     /**
      * 
      * DOC amaumont Comment method "changeAlpha".
+     * 
      * @param image
      * @param alpha 0 is meaning fully transparent, 255 is meaning fully opaque
      * @return
      */
     public static Image changeAlpha(Image image, int alpha) {
-     
+
         ImageData fullImageData = image.getImageData();
         int width = fullImageData.width;
         int height = fullImageData.height;
@@ -189,7 +214,7 @@ public class ImageUtils {
         fullImageData.alphaData = alphaData;
         Image modifiedImage = new Image(image.getDevice(), fullImageData);
         return modifiedImage;
-        
+
     }
-    
+
 }

@@ -69,6 +69,14 @@ public class OverlayImage extends CompositeImageDescriptor {
 
     private ImageDescriptor mOverlay;
 
+    public ImageDescriptor getMOverlay() {
+        return mOverlay;
+    }
+
+    public void setMOverlay(ImageDescriptor overlay) {
+        mOverlay = overlay;
+    }
+
     private Image mimage;
 
     private boolean mleft;

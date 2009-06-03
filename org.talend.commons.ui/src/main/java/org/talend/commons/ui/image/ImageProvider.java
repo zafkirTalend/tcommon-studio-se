@@ -30,7 +30,8 @@ public class ImageProvider {
     private static Map<ImageDescriptor, Image> cachedImages = new HashMap<ImageDescriptor, Image>();
 
     public static Image getImage(ImageDescriptor imageDescriptor) {
-        Image image = cachedImages.get(imageDescriptor);
+        Image image = null;
+        image = cachedImages.get(imageDescriptor);
         if (image == null || image.isDisposed()) {
             image = imageDescriptor.createImage();
             cachedImages.put(imageDescriptor, image);

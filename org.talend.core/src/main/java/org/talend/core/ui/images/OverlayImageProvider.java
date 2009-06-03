@@ -148,6 +148,7 @@ public class OverlayImageProvider {
         if (overlay != null) {
             ImageDescriptor img = ImageProvider.getImageDesc(overlay);
             OverlayImage overlayImage = new OverlayImage(source, img, position);
+            // return ImageProvider.getOverlayImage(overlayImage);
             return ImageProvider.getImage(overlayImage);
         }
         return source;
