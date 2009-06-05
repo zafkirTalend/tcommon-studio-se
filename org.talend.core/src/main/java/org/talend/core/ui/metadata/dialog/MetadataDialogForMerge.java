@@ -217,6 +217,41 @@ public class MetadataDialogForMerge extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
+    protected void createTabItem(INode inputNode, CTabFolder folderInput, boolean showTalendTypeColumnForInput) {
+
+        Map<IMetadataTable, Boolean> oneInput = inputInfos.get(inputNode);
+        inputMetaTable = (IMetadataTable) oneInput.keySet().toArray()[0];
+        inputReadOnly = oneInput.get(inputMetaTable);
+        titleInput = inputNode.getUniqueName();
+
+        CTabItem item = new CTabItem(folderInput, SWT.NONE);
+        item.setText(titleInput);
+
+        Composite compositeleft = new Composite(folderInput, SWT.NONE);
+        compositeleft.setLayoutData(new GridData(GridData.FILL_BOTH));
+        compositeleft.setLayout(new GridLayout());
+
+        metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
+        inputMetaView = new MetadataTableEditorView(compositeleft, SWT.NONE, metadataTableEditor, inputReadOnly, true, false,
+                false);
+        MetadataDialog.initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
+        inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
+        inputMetaView.initGraphicComponents();
+        inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
+
+        inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
+
+        CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
+        CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly, outputMetaView,
+                outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
+
+        item.setControl(compositeleft);
+        item.setData(INPUTNODE_KEY, inputNode);
+        item.setData(INPUTMETATABLE_KEY, inputMetaTable);
+        item.setData(INPUTMETAVIEW_KEY, inputMetaView);
+        item.setData(INPUTREADONLY_KEY, inputReadOnly);
+    }
+
     @Override
     protected Control createDialogArea(final Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
@@ -258,39 +293,23 @@ public class MetadataDialogForMerge extends Dialog {
             folderInput.setUnselectedCloseVisible(false);
 
             Set<INode> inputNodeskey = inputInfos.keySet();
+            
+                  // zli modify for bug 7221
+            INode mainNode = null;
             for (INode inputNode : inputNodeskey) {
-
-                Map<IMetadataTable, Boolean> oneInput = inputInfos.get(inputNode);
-                inputMetaTable = (IMetadataTable) oneInput.keySet().toArray()[0];
-                inputReadOnly = oneInput.get(inputMetaTable);
-                titleInput = inputNode.getUniqueName();
-
-                CTabItem item = new CTabItem(folderInput, SWT.NONE);
-                item.setText(titleInput);
-
-                Composite compositeleft = new Composite(folderInput, SWT.NONE);
-                compositeleft.setLayoutData(new GridData(GridData.FILL_BOTH));
-                compositeleft.setLayout(new GridLayout());
-
-                metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-                inputMetaView = new MetadataTableEditorView(compositeleft, SWT.NONE, metadataTableEditor, inputReadOnly, true,
-                        false, false);
-                MetadataDialog.initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
-                inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
-                inputMetaView.initGraphicComponents();
-                inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
-
-                inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
-
-                CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
-                CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly, outputMetaView,
-                        outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
-
-                item.setControl(compositeleft);
-                item.setData(INPUTNODE_KEY, inputNode);
-                item.setData(INPUTMETATABLE_KEY, inputMetaTable);
-                item.setData(INPUTMETAVIEW_KEY, inputMetaView);
-                item.setData(INPUTREADONLY_KEY, inputReadOnly);
+                List<? extends IConnection> outgoingConnections = inputNode.getOutgoingConnections();
+                if (outgoingConnections.size() > 0) {
+                    EConnectionType lineStyle = outgoingConnections.get(0).getLineStyle();
+                    if (lineStyle.equals(EConnectionType.FLOW_MAIN)) {
+                        mainNode = inputNode;
+                        createTabItem(inputNode, folderInput, showTalendTypeColumnForInput);
+                    }
+                }
+            }
+            for (INode inputNode : inputNodeskey) {
+                if (inputNode != mainNode) {
+                    createTabItem(inputNode, folderInput, showTalendTypeColumnForInput);
+                }
 
             }
 
