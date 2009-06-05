@@ -21,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
@@ -31,6 +30,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
 import org.talend.core.CorePlugin;
+import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
@@ -242,127 +242,21 @@ public class ExtractMetaDataUtils {
      * @return String : the result of column's information MetaData
      */
     public static String getDriverClassByDbType(String dbType) {
-        String driverClass = null;
 
-        try {
-
-            Hashtable<String, String> hashTable = new Hashtable<String, String>();
-            hashTable.put("MySQL", "org.gjt.mm.mysql.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("PostgreSQL", "org.postgresql.Driver"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("PostgresPlus", "org.postgresql.Driver"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("Greenplum", "org.postgresql.Driver"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("ParAccel", "com.paraccel.Driver"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("Oracle with SID", "oracle.jdbc.driver.OracleDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Oracle with service name", "oracle.jdbc.driver.OracleDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Generic ODBC", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Microsoft SQL Server (Odbc driver)", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("IBM DB2", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("IBM DB2 ZOS", "COM.ibm.db2os390.sqlj.jdbc.DB2SQLJDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("SAS", "com.sas.rio.MVADriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Sybase ASE", "com.sybase.jdbc3.jdbc.SybDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Sybase IQ", "com.sybase.jdbc3.jdbc.SybDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            // hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver");
-            // //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Ingres", "com.ingres.jdbc.IngresDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Interbase", "interbase.interclient.Driver"); //$NON-NLS-1$ //$NON-NLS-2$            
-            hashTable.put("SQLite", "org.sqlite.JDBC"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("FireBird", "org.firebirdsql.jdbc.FBDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Informix", "com.informix.jdbc.IfxDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Access", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("Teradata", "com.ncr.teradata.TeraDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("JavaDB Embeded", "org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            //$NON-NLS-2$
-            hashTable.put("JavaDB JCCJDBC", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("JavaDB DerbyClient", "org.apache.derby.jdbc.ClientDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            //$NON-NLS-2$
-            hashTable.put("AS400", "com.ibm.as400.access.AS400JDBCDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("HSQLDB", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("HSQLDB Server", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("HSQLDB WebServer", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("HSQLDB In-Process", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("MaxDB", "com.sap.dbtech.jdbc.DriverSapDB"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("Netezza", "org.netezza.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            driverClass = hashTable.get(dbType);
-
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
+        EDatabase4DriverClassName t4d = EDatabase4DriverClassName.indexOfByDbType(dbType);
+        if (t4d != null) {
+            return t4d.getDriverClass();
         }
-        return driverClass;
+        return null;
     }
 
     // hywang add for bug 7575
     public static String getDbTypeByClassName(String driverClassName) {
-        String dbType = null;
-        try {
-
-            Hashtable<String, String> hashTable = new Hashtable<String, String>();
-            hashTable.put("org.gjt.mm.mysql.Driver", "MySQL"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("org.postgresql.Driver", "PostgreSQL"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("org.postgresql.Driver", "PostgresPlus"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("org.postgresql.Driver", "Greenplum"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("com.paraccel.Driver", "ParAccel"); //$NON-NLS-1$ //$NON-NLS-2$ 
-            hashTable.put("oracle.jdbc.driver.OracleDriver", "Oracle with SID"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Oracle with service name", "oracle.jdbc.driver.OracleDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("sun.jdbc.odbc.JdbcOdbcDriver", "Generic ODBC"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("sun.jdbc.odbc.JdbcOdbcDriver", "Microsoft SQL Server (Odbc driver)"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("com.ibm.db2.jcc.DB2Driver", "IBM DB2"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("COM.ibm.db2os390.sqlj.jdbc.DB2SQLJDriver", "IBM DB2 ZOS"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("com.sas.rio.MVADriver", "SAS"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("com.sybase.jdbc3.jdbc.SybDriver", "Sybase ASE"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("com.sybase.jdbc3.jdbc.SybDriver", "Sybase IQ"); //$NON-NLS-1$ //$NON-NLS-2$
-            // hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver");
-            // //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("net.sourceforge.jtds.jdbc.Driver", "Microsoft SQL Server"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("com.ingres.jdbc.IngresDriver", "Ingres"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("interbase.interclient.Driver", "Interbase"); //$NON-NLS-1$ //$NON-NLS-2$            
-            hashTable.put("org.sqlite.JDBC", "SQLite"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("org.firebirdsql.jdbc.FBDriver", "FireBird"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("com.informix.jdbc.IfxDriver", "Informix"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("sun.jdbc.odbc.JdbcOdbcDriver", "Access"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("com.ncr.teradata.TeraDriver", "Teradata"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("org.apache.derby.jdbc.EmbeddedDriver", "JavaDB Embeded"); //$NON-NLS-1$ //$NON-NLS-2$
-            //$NON-NLS-2$
-            hashTable.put("com.ibm.db2.jcc.DB2Driver", "JavaDB JCCJDBC"); //$NON-NLS-1$ //$NON-NLS-2$
-            //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("org.apache.derby.jdbc.ClientDriver", "JavaDB DerbyClient"); //$NON-NLS-1$ //$NON-NLS-2$
-            //$NON-NLS-2$
-            hashTable.put("com.ibm.as400.access.AS400JDBCDriver", "AS400"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB Server"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB WebServer"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("org.hsqldb.jdbcDriver", "HSQLDB In-Process"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("com.sap.dbtech.jdbc.DriverSapDB", "MaxDB"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            hashTable.put("org.netezza.Driver", "Netezza"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            dbType = hashTable.get(driverClassName);
-
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
+        List<EDatabase4DriverClassName> t4d = EDatabase4DriverClassName.indexOfByDriverClass(driverClassName);
+        if (t4d.size() > 0) {
+            return t4d.get(0).getDbTypeName(); // first default
         }
-        return dbType;
+        return null;
     }
 
     /**
