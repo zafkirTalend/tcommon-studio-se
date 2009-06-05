@@ -345,7 +345,7 @@ final class XSDFileSchemaTreePopulator {
                 namespaceNode = new ATreeNode();
                 namespaceNode.setDataType(namespace);
                 namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
-                namespaceNode.setValue("xmlns:" + namespace);
+                namespaceNode.setValue(namespace);
             }
 
             node.setValue(element.getName());
