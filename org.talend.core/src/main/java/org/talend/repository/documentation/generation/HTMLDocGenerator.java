@@ -327,7 +327,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      */
     private List<URL> parseXML2HTML(String tempFolderPath, String jobName, String xslFilePath) throws Exception {
         List<URL> list = new ArrayList<URL>(1);
-
+        // clear the cache, maybe need improve it latter.
+        HTMLHandler.clearExternalNodeFileCache();
         String htmlFilePath = tempFolderPath + File.separatorChar + jobName + IHTMLDocConstants.HTML_FILE_SUFFIX;
         String xmlFilePath = tempFolderPath + File.separatorChar + jobName + IHTMLDocConstants.XML_FILE_SUFFIX;
         HTMLHandler.generateHTMLFile(tempFolderPath, xslFilePath, xmlFilePath, htmlFilePath, this.externalNodeHTMLMap);
