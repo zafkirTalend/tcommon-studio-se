@@ -43,12 +43,12 @@
       <key
             commandId="refreshModules"
             contextId="talend.modules"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="org.talend.core.scheme"
             sequence="F5"/>
       <key
          commandId="showModulesView"
          contextId="talend.global"
-         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         schemeId="org.talend.core.scheme"
          sequence="CTRL+F2"/>
    </extension>
    <extension

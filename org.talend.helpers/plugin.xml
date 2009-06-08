@@ -21,17 +21,17 @@
       <key
             commandId="logImageCache"
             contextId="talend.global"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="org.talend.core.scheme"
             sequence="CTRL+SHIFT+F2"/>
       <key
             commandId="reloadSystemRoutines"
             contextId="talend.global"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="org.talend.core.scheme"
             sequence="CTRL+SHIFT+F5"/>
       <key
             commandId="logActiveContexts"
             contextId="talend.global"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="org.talend.core.scheme"
             sequence="CTRL+SHIFT+F6"/>
    </extension>
    <extension

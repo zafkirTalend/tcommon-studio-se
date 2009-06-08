@@ -78,5 +78,14 @@
             class="org.talend.core.ui.viewer.proposal.TalendCompletionProposalComputer">
       </javaCompletionProposalComputer>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <scheme
+            description="%talend.scheme"
+            id="org.talend.core.scheme"
+            name="%talend.scheme"
+            parentId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </scheme>
+   </extension>
 
 </plugin>
