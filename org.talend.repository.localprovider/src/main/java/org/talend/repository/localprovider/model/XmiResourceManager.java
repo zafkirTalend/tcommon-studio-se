@@ -312,7 +312,7 @@ public class XmiResourceManager {
         this.useOldProjectFile = useOldProjectFile;
     }
 
-    public void unloadResources() {
+    public static void unloadResources() {
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource resource : resources) {
             resource.unload();
