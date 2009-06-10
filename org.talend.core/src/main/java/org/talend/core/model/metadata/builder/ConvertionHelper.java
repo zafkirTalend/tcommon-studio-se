@@ -23,6 +23,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.utils.KeywordsValidator;
 
 /**
  * 
@@ -93,7 +94,11 @@ public final class ConvertionHelper {
             newColumn.setComment(column.getComment());
             newColumn.setDefault(column.getDefaultValue());
             newColumn.setKey(column.isKey());
-            newColumn.setLabel(column.getLabel());
+            String label2 = column.getLabel();
+            if (KeywordsValidator.isKeyword(label2)) {
+                label2 = "_" + label2;
+            }
+            newColumn.setLabel(label2);
             newColumn.setPattern(column.getPattern());
             if (column.getLength() < 0) {
                 newColumn.setLength(null);
@@ -109,7 +114,14 @@ public final class ConvertionHelper {
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
             if (column.getOriginalField() == null || column.getOriginalField().equals("")) { //$NON-NLS-1$
-                newColumn.setOriginalDbColumnName(column.getLabel());
+                String label = label2;
+                if (label != null && label.length() > 0) {
+                    String substring = label.substring(1);
+                    if (label.startsWith("_") && KeywordsValidator.isKeyword(substring)) {
+                        label = substring;
+                    }
+                }
+                newColumn.setOriginalDbColumnName(label);
             } else {
                 newColumn.setOriginalDbColumnName(column.getOriginalField());
             }

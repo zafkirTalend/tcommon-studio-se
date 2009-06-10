@@ -46,6 +46,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -390,15 +391,26 @@ public class ExtractMetaDataFromDataBase {
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null)); //$NON-NLS-1$
-                    metadataColumn.setOriginalField(metadataColumn.getLabel());
+                    String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null);
+                    if (KeywordsValidator.isKeyword(label)) {
+                        label = "_" + label;
+                    }
+                    metadataColumn.setLabel(label); //$NON-NLS-1$
+                    String label2 = metadataColumn.getLabel();
+                    if (label2 != null && label2.length() > 0) {
+                        String substring = label2.substring(1);
+                        if (label2.startsWith("_") && KeywordsValidator.isKeyword(substring)) {
+                            label2 = substring;
+                        }
+                    }
+                    metadataColumn.setOriginalField(label2);
 
                     // Validate the column if it contains space or illegal
                     // characters.
                     if (repositoryService != null) {
                         //metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
                         // columnIndex));
-                        metadataColumn.setLabel(repositoryService.validateColumnName(metadataColumn.getLabel(), columnIndex));
+                        metadataColumn.setLabel(repositoryService.validateColumnName(label, columnIndex));
                     }
                     columnIndex++;
 
