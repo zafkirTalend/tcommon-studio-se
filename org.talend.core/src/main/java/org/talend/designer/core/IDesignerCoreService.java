@@ -16,6 +16,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -26,6 +27,8 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
@@ -134,4 +137,11 @@ public interface IDesignerCoreService extends IService {
     public void removeConnection(INode node, String schemaName);
 
     public CsvArray convertNode(ConnectionItem connectionItem, String tableName) throws ProcessorException;
+
+    public void updateTraceColumnValues(IConnection conn, Map<String, String> changedNameColumns, Set<String> addedColumns);
+
+    public void setTraceFilterParameters(INode node, IMetadataTable table, Set<String> preColumnSet,
+            Map<String, String> changedNameColumns);
+
+    public IConnection getConnection(List<? extends IConnection> connections, IMetadataTable table);
 }

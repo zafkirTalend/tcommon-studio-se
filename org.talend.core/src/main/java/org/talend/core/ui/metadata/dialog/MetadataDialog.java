@@ -14,8 +14,10 @@ package org.talend.core.ui.metadata.dialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.Dialog;
@@ -41,6 +43,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.composite.ThreeCompositesSashForm;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
+import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.Dbms;
@@ -58,6 +61,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
+import org.talend.designer.core.IDesignerCoreService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -99,6 +103,10 @@ public class MetadataDialog extends Dialog {
 
     private Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
+    private Map<String, String> changeNameInColumns = new HashMap<String, String>();
+
+    private Map<String, String> changeNameOutColumns = new HashMap<String, String>();
+
     private CommandStack commandStack;
 
     private INode inputNode;
@@ -110,6 +118,10 @@ public class MetadataDialog extends Dialog {
     private TableItem[] tableItem;
 
     private List<IMetadataColumn> list;
+
+    private Set<String> preOutputColumnSet = new HashSet<String>();
+
+    private Set<String> preInputColumnSet = new HashSet<String>();
 
     private IMetadataColumn column;
 
@@ -131,10 +143,16 @@ public class MetadataDialog extends Dialog {
         }
         this.outputMetaTable = outputMetaTable;
         this.commandStack = commandStack;
-
+        list = outputMetaTable.getListColumns();
+        for (IMetadataColumn preColumn : list) {
+            preOutputColumnSet.add(preColumn.getLabel());
+        }
         if (inputMetaTable == null) {
             size = new Point(550, 400);
         } else {
+            for (IMetadataColumn preColumn : inputMetaTable.getListColumns()) {
+                preInputColumnSet.add(preColumn.getLabel());
+            }
             size = new Point(1000, 400);
         }
     }
@@ -420,6 +438,22 @@ public class MetadataDialog extends Dialog {
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
+            // see bug 7471,add a listener for outputView
+            outputMetaView.getMetadataTableEditor().addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
+
+                public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
+                    if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
+                        IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
+                        if (modifiedObject != null) {
+                            String originalLabel = changeNameOutColumns.get(modifiedObject);
+                            if (originalLabel == null) {
+                                changeNameOutColumns.put(modifiedObject.getLabel(), (String) event.previousValue);
+                            }
+                        }
+                    }
+                }
+
+            });
 
             if (outputReadOnly || outputMetaTable.isReadOnly()) {
                 copyToOutput.setEnabled(false);
@@ -447,6 +481,7 @@ public class MetadataDialog extends Dialog {
                         String originalLabel = changedNameColumns.get(modifiedObject);
                         if (originalLabel == null) {
                             changedNameColumns.put(modifiedObject, (String) event.previousValue);
+                            changeNameInColumns.put(modifiedObject.getLabel(), (String) event.previousValue);
                         }
                     }
                 }
@@ -541,16 +576,49 @@ public class MetadataDialog extends Dialog {
         super.okPressed();
         IMetadataTable outputTable = getOutputMetaData();
         IMetadataTable inputTable = getInputMetaData();
+
+        // see bug 7471
+        Map<String, String> changedNameColumnsForInput = null;
+        Map<String, String> changedNameColumnsForOutput = null;
+        if (inputMetaTable == null) {
+            changedNameColumnsForOutput = this.changeNameInColumns;
+            getPreColumnsSet(preOutputColumnSet, changedNameColumnsForOutput);
+        } else {
+            changedNameColumnsForInput = this.changeNameInColumns;
+            getPreColumnsSet(preInputColumnSet, changedNameColumnsForInput);
+            changedNameColumnsForOutput = this.changeNameOutColumns;
+            getPreColumnsSet(preOutputColumnSet, changedNameColumnsForOutput);
+        }
+
+        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        designerCoreService.setTraceFilterParameters(outputNode, outputTable, preOutputColumnSet, changedNameColumnsForOutput);
+        designerCoreService.setTraceFilterParameters(inputNode, inputTable, preInputColumnSet, changedNameColumnsForInput);
         if (outputTable != null && inputTable != null) {
             for (IMetadataColumn column : outputTable.getListColumns()) {
                 IMetadataColumn inputColumn = inputTable.getColumn(column.getLabel());
                 if (inputColumn != null) {
-
+                
                     inputColumn.setOriginalDbColumnName(column.getOriginalDbColumnName());
-
                 }
             }
         }
+    }
+
+    /**
+     * DOC wzhang Comment method "getPreColumnsSet".
+     */
+    public Set<String> getPreColumnsSet(Set<String> preColumnSet, Map<String, String> changedNameColumnMap) {
+        if (changedNameColumnMap != null) {
+            for (String changeNameCol : changedNameColumnMap.keySet()) {
+                String colName = changedNameColumnMap.get(changeNameCol);
+                if (preColumnSet.contains(colName)) {
+                    preColumnSet.remove(colName);
+                    preColumnSet.add(changeNameCol);
+                }
+            }
+            return preColumnSet;
+        }
+        return preColumnSet;
     }
 
 }
