@@ -48,6 +48,10 @@ public final class CodeGeneratorRoutine {
     private CodeGeneratorRoutine() {
     }
 
+    public static void reset() {
+        routinesName.clear();
+    }
+    
     /**
      * Actually used in ProcessorUtilities.generateCode.
      * 
