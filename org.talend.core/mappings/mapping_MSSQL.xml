@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="SQL_SERVER" id="id_MSSQL" label="Mapping MSSQL"
+	<dbms product="SQL_SERVER" id="mssql_id" label="Mapping MSSQL"
 		default="true">
 		<dbTypes>
 			<dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
