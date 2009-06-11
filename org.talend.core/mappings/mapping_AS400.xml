@@ -92,7 +92,8 @@
 					<talendType type="id_Boolean" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Boolean" default="true" />
+					<talendType type="id_String" default="true" />
+					<talendType type="id_Boolean" />
 					<talendType type="id_Integer" />
 					<talendType type="id_Character" />
 				</dbType>
@@ -194,9 +195,9 @@
 					<talendType type="boolean" default="true"/>
 				</dbType>
 				<dbType type="CHAR">
+					<talendType type="string" default="true"/>
 					<talendType type="int"  />
-					<talendType type="string" />
-					<talendType type="boolean" default="true"/>
+					<talendType type="boolean" />
 				</dbType>
 				<dbType type="COUNTER">
 					<talendType type="int" default="true"/>
