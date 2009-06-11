@@ -388,18 +388,32 @@ public class ExtractMetaDataFromDataBase {
             }
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
+                Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                     String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null);
-                    if (KeywordsValidator.isKeyword(label)) {
+                    String sub = "";
+                    String sub2 = "";
+                    if (label != null && label.length() > 0) {
+                        sub = label.substring(1);
+                        if (sub != null && sub.length() > 0) {
+                            sub2 = sub.substring(1);
+                        }
+                    }
+                    if (KeywordsValidator.isKeyword(label) || KeywordsValidator.isKeyword(sub)
+                            || KeywordsValidator.isKeyword(sub2)) {
                         label = "_" + label;
+                        b = true;
                     }
                     metadataColumn.setLabel(label); //$NON-NLS-1$
                     String label2 = metadataColumn.getLabel();
                     if (label2 != null && label2.length() > 0) {
                         String substring = label2.substring(1);
-                        if (label2.startsWith("_") && KeywordsValidator.isKeyword(substring)) {
+                        if (b
+                                && label2.startsWith("_")
+                                && (KeywordsValidator.isKeyword(substring) || KeywordsValidator.isKeyword(sub) || KeywordsValidator
+                                        .isKeyword(sub2))) {
                             label2 = substring;
                         }
                     }
