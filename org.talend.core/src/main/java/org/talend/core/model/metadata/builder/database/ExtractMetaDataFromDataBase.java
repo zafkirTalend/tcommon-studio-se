@@ -203,10 +203,10 @@ public class ExtractMetaDataFromDataBase {
             if (tableType == null) {
                 tableType = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 4);
             }
-            if (tableType.equals("T")) { //$NON-NLS-1$
+            if ("T".equals(tableType)) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_TABLE.getName();
             }
-            if (tableType.equals("V")) { //$NON-NLS-1$
+            if ("V".equals(tableType)) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_VIEW.getName();
             }
 
