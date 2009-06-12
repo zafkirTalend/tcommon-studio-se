@@ -16,11 +16,16 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.util.Properties;
 
+import org.apache.commons.collections.map.MultiKeyMap;
+import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+
 /**
  * DOC YeXiaowei class global comment. Detailled comment <br/>
  * 
  */
 public class JDBCDriverLoader {
+
+    private static MultiKeyMap classLoadersMap = new MultiKeyMap();
 
     /**
      * 
@@ -33,14 +38,25 @@ public class JDBCDriverLoader {
      * @param password
      * @return
      */
-    public Connection getConnection(String[] jarPath, String driverClassName, String url, String username, String password)
-            throws Exception {
-
-        // qli modified to fix the bug 6281.
-        HotClassLoader loader = HotClassLoader.getInstance();
-
-        for (int i = 0; i < jarPath.length; i++) {
-            loader.addPath(jarPath[i]);
+    public Connection getConnection(String[] jarPath, String driverClassName, String url, String username, String password,
+            String dbType, String dbVersion) throws Exception {
+        // qli modified to fix the bug 7656.
+        HotClassLoader loader;
+        boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
+        if (flog) {
+            loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
+            if (loader == null) {
+                loader = new HotClassLoader();
+                for (int i = 0; i < jarPath.length; i++) {
+                    loader.addPath(jarPath[i]);
+                }
+                classLoadersMap.put(dbType, dbVersion, loader);
+            }
+        } else {
+            loader = HotClassLoader.getInstance();
+            for (int i = 0; i < jarPath.length; i++) {
+                loader.addPath(jarPath[i]);
+            }
         }
 
         DriverShim wapperDriver = null;

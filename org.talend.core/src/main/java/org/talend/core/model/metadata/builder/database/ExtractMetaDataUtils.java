@@ -455,11 +455,11 @@ public class ExtractMetaDataUtils {
         ExtractMetaDataUtils.checkDBConnectionTimeout();
         if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
+            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
         } else if (dbType != null && isValidJarFile(driverJarPath)) {
             // Load jdbc driver class dynamicly
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd);
+            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
         } else {
             // Don't use DriverManager
             Class<?> klazz = Class.forName(driverClassName);

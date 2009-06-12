@@ -193,4 +193,18 @@ public enum EDatabaseVersion4Drivers {
         }
         return drivers;
     }
+
+    public static boolean containTypeAndVersion(final String dbType, final String version) {
+        if (version == null) {
+            return false;
+        }
+        for (EDatabaseVersion4Drivers v4d : EDatabaseVersion4Drivers.values()) {
+            if (v4d.supportDatabase(dbType)) {
+                if (version.equalsIgnoreCase(v4d.getVersionValue())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

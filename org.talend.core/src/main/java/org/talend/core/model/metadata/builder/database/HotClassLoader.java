@@ -36,7 +36,7 @@ public class HotClassLoader extends URLClassLoader {
         return instance;
     }
 
-    private HotClassLoader() {
+    HotClassLoader() {
         super(new URL[0], ClassLoader.getSystemClassLoader());
     }
 
