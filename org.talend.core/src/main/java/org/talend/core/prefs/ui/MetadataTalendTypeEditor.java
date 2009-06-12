@@ -60,6 +60,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.utils.XSDValidater;
 
@@ -97,6 +98,9 @@ public class MetadataTalendTypeEditor extends FieldEditor {
 
     protected TableViewer viewer;
 
+    // hywang add for bug 7695
+    private Dbms[] allDbms;
+
     /**
      * Store file infomation <br/>
      * 
@@ -110,6 +114,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         File file;
 
         IDocument fileContent;
+
     }
 
     /**
@@ -190,6 +195,9 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         init(name, labelText);
         createControl(parent);
         initialValidator();
+        // hywang add for bug 7695
+        this.allDbms = MetadataTalendType.getAllDbmsArray();
+
     }
 
     private void initialValidator() {
@@ -515,14 +523,18 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         setControlEnable(removeButton, selected);
 
         StructuredSelection select = (StructuredSelection) viewer.getSelection();
+
         if (select != null) {
             FileInfo info = (FileInfo) select.getFirstElement();
             if (info != null) {
+                String id = null;
                 String infoName = info.fileName;
-                int begin = "mapping_".length(); //$NON-NLS-1$
-                int end = infoName.lastIndexOf("."); //$NON-NLS-1$
-                String id = infoName.substring(begin, end);
-                setSelectId(id.toLowerCase() + "_id"); //$NON-NLS-1$
+                for (int i = 0; i < allDbms.length; i++) {
+                    if (allDbms[i].getLabel().equalsIgnoreCase(infoName.substring(0, infoName.indexOf(".")).replace("_", " "))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+                        id = allDbms[i].getId();
+                    }
+                }
+                setSelectId(id); //$NON-NLS-1$
             }
         }
     }
