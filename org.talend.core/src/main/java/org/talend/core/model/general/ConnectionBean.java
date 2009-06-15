@@ -44,6 +44,8 @@ public class ConnectionBean implements Cloneable {
 
     private boolean complete;
 
+    private String workSpace;
+
     /**
      * DOC smallet ConnectionBean constructor comment.
      */
@@ -141,6 +143,24 @@ public class ConnectionBean implements Cloneable {
         this.user = user;
     }
 
+    /**
+     * Getter for workSpace.
+     * 
+     * @return the workSpace
+     */
+    public String getWorkSpace() {
+        return this.workSpace;
+    }
+
+    /**
+     * Sets the workSpace.
+     * 
+     * @param workSpace the workSpace to set
+     */
+    public void setWorkSpace(String workSpace) {
+        this.workSpace = workSpace;
+    }
+
     public Map<String, String> getDynamicFields() {
         return this.dynamicFields;
     }
@@ -168,7 +188,7 @@ public class ConnectionBean implements Cloneable {
     public String toString() {
         StringBuffer string = new StringBuffer("Repository:" + getRepositoryId() + ", Name:" + getName() //$NON-NLS-1$ //$NON-NLS-2$
                 + ", Desription:" + getDescription() + ", User:" + getUser() + ", Password:" + getPassword() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                + ", Complete:" + isComplete()); //$NON-NLS-1$
+                + ", WorkSpace:" + getWorkSpace() + ", Complete:" + isComplete()); //$NON-NLS-1$//$NON-NLS-1$
         string.append(", Dyn:").append(dynamicFields); //$NON-NLS-1$
         return string.toString();
     }
@@ -184,6 +204,8 @@ public class ConnectionBean implements Cloneable {
         fields.append(assertValue(getUser()));
         fields.append(FIELDS_SEPARATOR);
         fields.append(assertValue(getPassword()));
+        fields.append(FIELDS_SEPARATOR);
+        fields.append(assertValue(getWorkSpace()));
         fields.append(FIELDS_SEPARATOR);
         fields.append(isComplete());
 
@@ -207,6 +229,7 @@ public class ConnectionBean implements Cloneable {
             toReturn.setDescription(st[i++]);
             toReturn.setUser(st[i++]);
             toReturn.setPassword(st[i++]);
+            toReturn.setWorkSpace(st[i++]);
             toReturn.setComplete(new Boolean(st[i++]));
             while (i < st.length) {
                 String[] st2 = st[i++].split(DYN_FIELDS_SEPARATOR, -1);
