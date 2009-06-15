@@ -38,6 +38,7 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.ide.actions.OpenLocalFileAction;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
@@ -115,7 +116,8 @@ public class ActionBarBuildHelper implements IActionBarHelper {
             "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            "org.eclipse.search.searchActionSet",
+            "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     public void fillMenuBar(final IMenuManager menuBar) {
 
@@ -171,6 +173,13 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
         fileMenu.add(new Separator());
         fileMenu.add(ActionFactory.QUIT.create(window));
+
+        fileMenu.add(new Separator());
+        OpenLocalFileAction openLocalFileAction = new OpenLocalFileAction();
+        openLocalFileAction.init(window);
+        openLocalFileAction.setText("Open Files");
+        fileMenu.add(openLocalFileAction);
+
         editMenu = new MenuManager(
                 Messages.getString("ApplicationActionBarAdvisor.menuEditLabel"), IWorkbenchActionConstants.M_EDIT); //$NON-NLS-1$
         menuBar.add(editMenu);
