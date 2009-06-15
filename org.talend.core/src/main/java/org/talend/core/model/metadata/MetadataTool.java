@@ -16,7 +16,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
@@ -52,6 +59,8 @@ public class MetadataTool {
     private static final int MIN = 192;
 
     private static final int MAX = 255;
+
+    private static final String VALIDATE_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
 
     public static List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
@@ -461,7 +470,6 @@ public class MetadataTool {
 
     }
 
-    
     /**
      * @param node
      * @param name
@@ -491,7 +499,7 @@ public class MetadataTool {
         }
         return null;
     }
-    
+
     public static IMetadataTable getMetadataTableFromNodeTableName(INode node, String name) {
         if (node == null || name == null) {
             return null;
@@ -510,7 +518,7 @@ public class MetadataTool {
      * 
      * 
      */
-    public static String validateColumnName(String columnName) {
+    public static String validateColumnName(String columnName, int index) {
         if (columnName == null) {
             return null;
         }
@@ -519,8 +527,36 @@ public class MetadataTool {
         if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
             columnName = underLine + columnName;
         }
-        columnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
+
+        //        columnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
+        // return columnName;
+
+        org.apache.oro.text.regex.Pattern validPatternColumnNameRegexp = null;
+        PatternCompiler compiler = new Perl5Compiler();
+        try {
+            Pattern regex = Pattern.compile("^[0-9]", Pattern.CANON_EQ); //$NON-NLS-1$
+            Matcher regexMatcher = regex.matcher(columnName);
+            if (regexMatcher.find()) {
+                columnName = "_" + columnName;// TODO //$NON-NLS-1$
+            }
+        } catch (PatternSyntaxException ex) {
+            throw new RuntimeException(ex);// 
+        }
+        if (validPatternColumnNameRegexp == null) {
+            try {
+
+                validPatternColumnNameRegexp = compiler.compile(VALIDATE_PATTERN_COLUMN_NAME);
+            } catch (MalformedPatternException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Perl5Matcher matcher = new Perl5Matcher();
+        boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
+        if (!match) {
+            columnName = "Column" + index; //$NON-NLS-1$
+        }
         return columnName;
+
     }
 
     /**
@@ -564,8 +600,8 @@ public class MetadataTool {
 
         return columnName;
     }
-    
-    public static boolean hasCustomColumns (IMetadataTable table) {
+
+    public static boolean hasCustomColumns(IMetadataTable table) {
         for (IMetadataColumn column : table.getListColumns()) {
             if (column.isCustom()) {
                 return true;

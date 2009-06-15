@@ -201,7 +201,8 @@ public class MetadataSchema {
         final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
         final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
         // see feature 4456
-        String nodeValue = MetadataTool.validateColumnName(label.getNodeValue());
+
+        String nodeValue = MetadataTool.validateColumnName(label.getNodeValue(), 0);
 
         metadataColumn.setLabel(nodeValue);
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
