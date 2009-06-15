@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.PatternCompiler;
@@ -528,27 +525,18 @@ public class MetadataTool {
             columnName = underLine + columnName;
         }
 
-        //        columnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
-        // return columnName;
+        String testColumnName = columnName.replaceAll("[^a-zA-Z0-9_]", underLine); //$NON-NLS-1$
 
+        if (org.apache.commons.lang.StringUtils.countMatches(testColumnName, underLine) < (columnName.length() / 2)) {
+            return testColumnName;
+        }
         org.apache.oro.text.regex.Pattern validPatternColumnNameRegexp = null;
         PatternCompiler compiler = new Perl5Compiler();
-        try {
-            Pattern regex = Pattern.compile("^[0-9]", Pattern.CANON_EQ); //$NON-NLS-1$
-            Matcher regexMatcher = regex.matcher(columnName);
-            if (regexMatcher.find()) {
-                columnName = "_" + columnName;// TODO //$NON-NLS-1$
-            }
-        } catch (PatternSyntaxException ex) {
-            throw new RuntimeException(ex);// 
-        }
-        if (validPatternColumnNameRegexp == null) {
-            try {
 
-                validPatternColumnNameRegexp = compiler.compile(VALIDATE_PATTERN_COLUMN_NAME);
-            } catch (MalformedPatternException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            validPatternColumnNameRegexp = compiler.compile(VALIDATE_PATTERN_COLUMN_NAME);
+        } catch (MalformedPatternException e) {
+            throw new RuntimeException(e);
         }
         Perl5Matcher matcher = new Perl5Matcher();
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
