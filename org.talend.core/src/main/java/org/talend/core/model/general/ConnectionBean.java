@@ -149,6 +149,9 @@ public class ConnectionBean implements Cloneable {
      * @return the workSpace
      */
     public String getWorkSpace() {
+        if (this.workSpace == null) {
+            return "";
+        }
         return this.workSpace;
     }
 
