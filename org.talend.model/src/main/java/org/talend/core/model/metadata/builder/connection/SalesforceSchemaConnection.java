@@ -26,6 +26,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort <em>Proxy Port</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername <em>Proxy Username</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize <em>Batch Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -319,5 +320,31 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setProxyPassword(String value);
+
+    /**
+     * Returns the value of the '<em><b>Batch Size</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Batch Size</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Batch Size</em>' attribute.
+     * @see #setBatchSize(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_BatchSize()
+     * @model
+     * @generated
+     */
+    String getBatchSize();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize <em>Batch Size</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Batch Size</em>' attribute.
+     * @see #getBatchSize()
+     * @generated
+     */
+    void setBatchSize(String value);
 
 } // SalesforceSchemaConnection

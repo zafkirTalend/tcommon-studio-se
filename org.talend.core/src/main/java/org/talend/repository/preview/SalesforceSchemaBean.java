@@ -24,6 +24,8 @@ public class SalesforceSchemaBean {
 
     private String password = null;
 
+    private String batchSize = null;
+
     private String moduleName = null;
 
     private String queryCondition = null;
@@ -126,6 +128,15 @@ public class SalesforceSchemaBean {
 
     public void setUseCustomModule(boolean useCustomModule) {
         this.useCustomModule = useCustomModule;
+    }
+
+    // add for feature 7507
+    public String getBatchSize() {
+        return this.batchSize;
+    }
+
+    public void setBatchSize(String batchSize) {
+        this.batchSize = batchSize;
     }
 
 }

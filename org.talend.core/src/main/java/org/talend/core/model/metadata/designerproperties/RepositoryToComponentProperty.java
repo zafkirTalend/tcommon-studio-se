@@ -285,7 +285,11 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getQueryCondition());
             }
+
+        } else if ("BATCH_SIZE".equals(value)) { //$NON-NLS-1$
+            return connection.getBatchSize();
         }
+        // add for feature 7507
         return null;
     }
 

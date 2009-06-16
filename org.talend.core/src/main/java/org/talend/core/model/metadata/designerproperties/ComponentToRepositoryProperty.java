@@ -1349,6 +1349,11 @@ public class ComponentToRepositoryProperty {
             if (value != null) {
                 connection.setQueryCondition(value);
             }
+
+        }
+        if ("BATCH_SIZE".equals(repositoryValue)) { //$NON-NLS-1$
+            connection.setBatchSize(getParameterValue(node, "BATCH_SIZE"));
+            // add for feature 7507
         }
     }
 }

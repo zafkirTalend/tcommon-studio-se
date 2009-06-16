@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyPort <em>Proxy Port</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyUsername <em>Proxy Username</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyPassword <em>Proxy Password</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getBatchSize <em>Batch Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -258,6 +259,26 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected String proxyPassword = PROXY_PASSWORD_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getBatchSize() <em>Batch Size</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBatchSize()
+     * @generated
+     * @ordered
+     */
+    protected static final String BATCH_SIZE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBatchSize() <em>Batch Size</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBatchSize()
+     * @generated
+     * @ordered
+     */
+    protected String batchSize = BATCH_SIZE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -513,6 +534,27 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getBatchSize() {
+        return batchSize;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBatchSize(String newBatchSize) {
+        String oldBatchSize = batchSize;
+        batchSize = newBatchSize;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE, oldBatchSize, batchSize));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
@@ -537,6 +579,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return getProxyUsername();
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
                 return getProxyPassword();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+                return getBatchSize();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -580,6 +624,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
                 setProxyPassword((String)newValue);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+                setBatchSize((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -625,6 +672,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
                 setProxyPassword(PROXY_PASSWORD_EDEFAULT);
                 return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+                setBatchSize(BATCH_SIZE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -658,6 +708,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return PROXY_USERNAME_EDEFAULT == null ? proxyUsername != null : !PROXY_USERNAME_EDEFAULT.equals(proxyUsername);
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
                 return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+                return BATCH_SIZE_EDEFAULT == null ? batchSize != null : !BATCH_SIZE_EDEFAULT.equals(batchSize);
         }
         return super.eIsSet(featureID);
     }
@@ -693,6 +745,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(proxyUsername);
         result.append(", proxyPassword: ");
         result.append(proxyPassword);
+        result.append(", batchSize: ");
+        result.append(batchSize);
         result.append(')');
         return result.toString();
     }
