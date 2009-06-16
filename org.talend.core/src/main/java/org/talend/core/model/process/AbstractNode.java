@@ -741,6 +741,6 @@ public abstract class AbstractNode implements INode {
     }
 
     public boolean isFileScaleComponent() {
-        return getComponent().getOriginalFamilyName().equals("File Scale"); //$NON-NLS-1$
+        return getComponent().getOriginalFamilyName().equals("FileScale"); //$NON-NLS-1$
     }
 }
