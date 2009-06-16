@@ -860,7 +860,11 @@ public class RepositoryToComponentProperty {
             if (xmlDesc == null) {
                 return ""; //$NON-NLS-1$
             } else {
-                return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
+                if (isConetxtMode(connection, xmlDesc.getAbsoluteXPathQuery())) {
+                    return xmlDesc.getAbsoluteXPathQuery();
+                } else {
+                    return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
+                }
             }
         }
         if (value.equals("ENCODING")) { //$NON-NLS-1$
