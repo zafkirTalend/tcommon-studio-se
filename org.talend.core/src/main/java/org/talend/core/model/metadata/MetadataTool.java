@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -103,6 +104,33 @@ public class MetadataTool {
 
     public static void copyTable(IMetadataTable source, IMetadataTable target) {
         copyTable(source, target, null);
+    }
+
+    /**
+     * @author wzhang Comment method "copyTable".
+     * @param dbmsid
+     * @param source
+     * @param target
+     */
+    public static void copyTable(String dbmsId, IMetadataTable source, IMetadataTable target) {
+        setDBType(source, dbmsId);
+        copyTable(source, target);
+    }
+
+    /**
+     * DOC wzhang Comment method "setDBType".
+     */
+    public static void setDBType(IMetadataTable metaTable, String dbmsid) {
+        List<IMetadataColumn> listColumns = metaTable.getListColumns();
+        for (IMetadataColumn column : listColumns) {
+            String talendType = column.getTalendType();
+            String type = column.getType();
+            if (dbmsid != null) {
+                if (!TypesManager.checkDBType(dbmsid, talendType, type)) {
+                    column.setType(TypesManager.getDBTypeFromTalendType(dbmsid, talendType));
+                }
+            }
+        }
     }
 
     /**
