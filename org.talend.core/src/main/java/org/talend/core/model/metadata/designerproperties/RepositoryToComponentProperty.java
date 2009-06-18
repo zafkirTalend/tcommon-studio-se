@@ -285,11 +285,38 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getQueryCondition());
             }
-
+            // add for feature 7507
         } else if ("BATCH_SIZE".equals(value)) { //$NON-NLS-1$
             return connection.getBatchSize();
+        } else if ("UES_PROXY".equals(value)) { //$NON-NLS-1$
+            return connection.isUseProxy();
+        } else if ("PROXY_HOST".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getProxyHost())) {
+                return connection.getProxyHost();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyHost());
+            }
+        } else if ("PROXY_PORT".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getProxyPort())) {
+                return connection.getProxyPort();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyPort());
+            }
+
+        } else if ("PROXY_USERNAME".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getProxyUsername())) {
+                return connection.getProxyUsername();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyUsername());
+            }
+
+        } else if ("PROXY_PASSWORD".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getProxyPassword())) {
+                return connection.getProxyPassword();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyPassword());
+            }
         }
-        // add for feature 7507
         return null;
     }
 

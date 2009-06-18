@@ -32,6 +32,16 @@ public class SalesforceSchemaBean {
 
     private boolean useCustomModule = false;
 
+    private boolean useProxy = false;
+
+    private String proxyHost = null;
+
+    private String proxyPort = null;
+
+    private String proxyUsername = null;
+
+    private String proxyPassword = null;
+
     /**
      * Getter for webServerUrl.
      * 
@@ -137,6 +147,46 @@ public class SalesforceSchemaBean {
 
     public void setBatchSize(String batchSize) {
         this.batchSize = batchSize;
+    }
+
+    public boolean isUseProxy() {
+        return this.useProxy;
+    }
+
+    public void setUseProxy(boolean useProxy) {
+        this.useProxy = useProxy;
+    }
+
+    public String getProxyHost() {
+        return this.proxyHost;
+    }
+
+    public void setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
+    }
+
+    public String getProxyPort() {
+        return this.proxyPort;
+    }
+
+    public void setProxyPort(String proxyPort) {
+        this.proxyPort = proxyPort;
+    }
+
+    public String getProxyUsername() {
+        return this.proxyUsername;
+    }
+
+    public void setProxyUsername(String proxyUsername) {
+        this.proxyUsername = proxyUsername;
+    }
+
+    public String getProxyPassword() {
+        return this.proxyPassword;
+    }
+
+    public void setProxyPassword(String proxyPassword) {
+        this.proxyPassword = proxyPassword;
     }
 
 }

@@ -1355,5 +1355,37 @@ public class ComponentToRepositoryProperty {
             connection.setBatchSize(getParameterValue(node, "BATCH_SIZE"));
             // add for feature 7507
         }
+        if ("UES_PROXY".equals(repositoryValue)) {
+            String parameterValue = getParameterValue(node, "UES_PROXY");
+            connection.setUseProxy(Boolean.valueOf(parameterValue));
+        }
+        if ("PROXY_HOST".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_HOST"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setProxyHost(value);
+            }
+
+        }
+        if ("PROXY_PORT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_PORT"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setProxyPort(value);
+            }
+
+        }
+        if ("PROXY_USERNAME".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_USERNAME"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setProxyUsername(value);
+            }
+
+        }
+        if ("PROXY_PASSWORD".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROXY_PASSWORD"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setProxyPassword(value);
+            }
+
+        }
     }
 }
