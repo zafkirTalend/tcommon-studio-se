@@ -16,6 +16,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.talend.rcp.i18n.Messages;
+import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.ui.login.LoginDialog;
 
 /**
@@ -43,7 +44,8 @@ public class SwitchProjectAction extends Action {
      */
     @Override
     public void run() {
-
+    	ProxyRepositoryFactory.getInstance().logOffProject();    	
+    	
         // The prefered method Actually is a restart :
         PlatformUI.getWorkbench().restart();
 
