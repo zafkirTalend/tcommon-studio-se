@@ -69,7 +69,7 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
             IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
                     IJobletProviderService.class);
             if (service != null && service.isJobletComponent(node)) {
-                String filePath = getTmpFolder() + File.separator + node.getUniqueName() + ".png"; //$NON-NLS-1$
+                String filePath = getTmpFolder(node) + File.separator + node.getUniqueName() + ".png"; //$NON-NLS-1$
                 ImageUtils.save(CoreImageProvider.getComponentIcon(component, ICON_SIZE.ICON_32), filePath, SWT.IMAGE_PNG);
                 return filePath;
 
@@ -205,9 +205,13 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
      * 
      * @return a string representing temporary folder
      */
-    protected String getTmpFolder() {
-        String tmpFold = System.getProperty("user.dir") + File.separatorChar + IHTMLDocConstants.TEMP_FOLDER_NAME; //$NON-NLS-1$
+    protected String getTmpFolder(INode node) {
+        String tmpFold = HTMLDocUtils.getTmpFolder() + File.separatorChar + node.getUniqueName();
         // String tmpFold = System.getProperty("osgi.instance.area") +
+        File tempFile = new File(tmpFold);
+        if (!tempFile.exists()) {
+            tempFile.mkdirs();
+        }
         return tmpFold;
     }
 

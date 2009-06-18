@@ -94,8 +94,9 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.documentation.generation.IDocumentationManager#getExportResources(org.talend.repository.documentation.ExportFileResource[],
-     * java.lang.String, java.lang.String[])
+     * @see
+     * org.talend.repository.documentation.generation.IDocumentationManager#getExportResources(org.talend.repository
+     * .documentation.ExportFileResource[], java.lang.String, java.lang.String[])
      */
     public List<ExportFileResource> getExportResources(ExportFileResource[] exportFileResources, String targetPath,
             String... jobVersion) throws Exception {
@@ -206,29 +207,7 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
      * Deletes the temporary files.
      */
     public void deleteTempFiles() {
-        String tmpFold = HTMLDocUtils.getTmpFolder();
-        File dir = new File(tmpFold);
-        if (dir.exists()) {
-            deleteDirectory(dir);
-        }
+        HTMLDocUtils.deleteTempFiles();
     }
 
-    /**
-     * This method is used for deleting a directory.
-     * 
-     * @param dir
-     */
-    private void deleteDirectory(File dir) {
-        File[] entries = dir.listFiles();
-        int sz = entries.length;
-        for (int i = 0; i < sz; i++) {
-            if (entries[i].isDirectory()) {
-                deleteDirectory(entries[i]);
-            } else {
-                // System.out.println("" + entries[i].delete() + " *** " + entries[i]);
-                entries[i].delete();
-            }
-        }
-        dir.delete();
-    }
 }

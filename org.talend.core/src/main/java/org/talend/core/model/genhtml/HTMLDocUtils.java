@@ -69,6 +69,36 @@ public class HTMLDocUtils {
     }
 
     /**
+     * 
+     * cli Comment method "deleteTempFiles".
+     */
+    public static void deleteTempFiles() {
+        String tmpFold = HTMLDocUtils.getTmpFolder();
+        File dir = new File(tmpFold);
+        if (dir.exists()) {
+            deleteDirectory(dir);
+        }
+    }
+
+    /**
+     * This method is used for deleting a directory.
+     * 
+     * @param dir
+     */
+    private static void deleteDirectory(File dir) {
+        File[] entries = dir.listFiles();
+        for (File file : entries) {
+            if (file.isDirectory()) {
+                deleteDirectory(file);
+            } else {
+                // System.out.println("" + entries[i].delete() + " *** " + entries[i]);
+                file.delete();
+            }
+        }
+        dir.delete();
+    }
+
+    /**
      * Checks if inputed list is null or length is 0.
      * 
      * @param tables
