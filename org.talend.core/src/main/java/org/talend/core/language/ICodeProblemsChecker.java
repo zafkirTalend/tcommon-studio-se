@@ -13,7 +13,6 @@
 package org.talend.core.language;
 
 import java.util.List;
-import java.util.Map;
 
 import org.talend.core.model.process.Problem;
 import org.talend.designer.codegen.IAloneProcessNodeConfigurer;
@@ -46,6 +45,15 @@ public interface ICodeProblemsChecker {
      * @return
      */
     public abstract List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer);
+
+    /**
+     * 
+     * get problemList for red error mark.
+     * 
+     * @param key
+     * @return
+     */
+    public abstract List<Problem> checkProblemsForErrorMark(String key, IAloneProcessNodeConfigurer nodeConfigurer);
 
     /**
      * 

@@ -32,13 +32,52 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
 
     private MultiValueMap multiValueMap = new MultiValueMap();
 
+    private List<Problem> nodeProblems = new ArrayList<Problem>();
+
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.core.language.ICodeProblemsChecker#checkProblemsFromKey(java.lang.String)
      */
     public List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
-        List<Problem> nodeProblems = checkProblems(nodeConfigurer);
+        List<Problem> nodePros = checkProblems(nodeConfigurer);
+        nodeProblems.clear();
+        nodeProblems.addAll(nodePros);
+        if (nodePros == null) {
+            nodePros = null;
+            setProblems(null);
+        } else {
+            setProblems(new ArrayList<Problem>(nodePros));
+            for (Iterator iter = nodePros.iterator(); iter.hasNext();) {
+                Problem problem = (Problem) iter.next();
+                if (key == null && problem.getKey() != null || !key.equals(problem.getKey())) {
+                    iter.remove();
+                }
+            }
+            if (nodePros.size() == 0) {
+                nodePros = null;
+            } else {
+                nodePros = new ArrayList<Problem>(nodePros);
+            }
+        }
+        return nodePros;
+    }
+
+    public List<Problem> checkProblemsForErrorMark(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
+        String proKey = "";
+        if (key != null) {
+            int indeMark = key.indexOf(":");
+
+            if (indeMark > 0) {
+                proKey = key.substring(0, key.indexOf(":"));
+            } else {
+                proKey = key;
+            }
+        } else {
+            proKey = key;
+        }
+
+        // List<Problem> nodeProblems = checkProblems(nodeConfigurer);
         if (nodeProblems == null) {
             nodeProblems = null;
             setProblems(null);
@@ -46,8 +85,22 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
             setProblems(new ArrayList<Problem>(nodeProblems));
             for (Iterator iter = nodeProblems.iterator(); iter.hasNext();) {
                 Problem problem = (Problem) iter.next();
-                if (key == null && problem.getKey() != null || !key.equals(problem.getKey())) {
-                    iter.remove();
+
+                if (problem.getKey() != null) {
+                    int inde = problem.getKey().indexOf(":");
+                    String problemKey = "";
+                    if (inde > 0) {
+                        problemKey = problem.getKey().substring(0, inde);
+                    } else {
+                        problemKey = problem.getKey();
+                    }
+                    if (key == null && problem.getKey() != null || !proKey.equals(problemKey)) {
+                        iter.remove();
+                    }
+                } else {
+                    if (key == null && problem.getKey() != null || !proKey.equals(problem.getKey())) {
+                        iter.remove();
+                    }
                 }
             }
             if (nodeProblems.size() == 0) {
