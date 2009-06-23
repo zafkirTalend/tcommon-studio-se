@@ -270,17 +270,32 @@ public class QueryUtil {
     private static String getSchemaName(String schema, String dbType, String currentTableName) {
         String prefix;
         String suffix;
-        if (EDatabaseTypeName.getTypeFromDbType(dbType).isNeedSchema()) {
+        EDatabaseTypeName typeFromDbType = EDatabaseTypeName.getTypeFromDbType(dbType);
+        if (typeFromDbType.isNeedSchema()) {
+            // wzhang modified to fix bug 7879. value of oracle schema can't attach quotation marks.
+            boolean isOracle = (typeFromDbType == EDatabaseTypeName.ORACLEFORSID || EDatabaseTypeName.ORACLESN == typeFromDbType);
             if (isContext(schema)) {
+                String schemaStr = quoteVariableRefrence(schema, dbType);
+                if (isOracle) {
+                    schemaStr = schema;
+                }
                 if (isContext(currentTableName)) {
-                    prefix = checkAndConcatString(quoteVariableRefrence(schema, dbType), TalendTextUtils.declareString(".")); //$NON-NLS-1$
+                    prefix = checkAndConcatString(schemaStr, TalendTextUtils.declareString(".")); //$NON-NLS-1$
                     suffix = quoteVariableRefrence(currentTableName, dbType);
                 } else {
-                    prefix = quoteVariableRefrence(schema, dbType);
+                    prefix = schemaStr;
                     suffix = checkAndConcatString(TalendTextUtils.declareString("."), quoteStringValue(currentTableName, dbType)); //$NON-NLS-1$
                 }
             } else {
-                prefix = checkAndConcatString(quoteStringValue(schema, dbType), TalendTextUtils.declareString(".")); //$NON-NLS-1$
+                String schemaStr = quoteStringValue(schema, dbType);
+                if (isOracle) {
+                    boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(
+                            ITalendCorePrefConstants.SQL_ADD_QUOTE);
+                    if (isCheck) {
+                        schemaStr = TalendTextUtils.addQuotes(schema);
+                    }
+                }
+                prefix = checkAndConcatString(schemaStr, TalendTextUtils.declareString(".")); //$NON-NLS-1$
                 if (isContext(currentTableName)) {
                     suffix = quoteVariableRefrence(currentTableName, dbType);
                 } else {
