@@ -63,7 +63,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     public ContextComposite(Composite parent, boolean isRepositoryContext) {
-        this(parent, null, true);
+        this(parent, null, isRepositoryContext);
     }
 
     public ContextComposite(Composite parent, IContextManager contextManager, boolean isRepositoryContext) {
