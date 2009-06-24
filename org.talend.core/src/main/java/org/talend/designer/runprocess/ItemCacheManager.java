@@ -154,7 +154,7 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             IRepositoryObject object = factory.getLastVersion(project, jobletId);
-            if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
+            if (object == null || object.getType() != ERepositoryObjectType.JOBLET) {
                 return null;
             }
             lastVersionOfJoblet = (JobletProcessItem) object.getProperty().getItem();
