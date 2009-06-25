@@ -24,6 +24,10 @@ public class BusinessException extends Exception {
     @SuppressWarnings("unused")//$NON-NLS-1$
     private static final long serialVersionUID = 1L;
 
+    public BusinessException() {
+        super();
+    }
+
     public BusinessException(String message, Throwable cause) {
         super(message, cause);
     }
