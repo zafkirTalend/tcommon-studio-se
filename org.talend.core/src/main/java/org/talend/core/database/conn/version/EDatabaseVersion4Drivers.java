@@ -47,6 +47,7 @@ public enum EDatabaseVersion4Drivers {
             new String[] { "terajdbc4.jar", "tdgssconfig.jar", "tdgssjava.jar" })), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     JAVADB_DERBYCLIENT(new DbVersion4Drivers(EDatabaseTypeName.JAVADB_DERBYCLIENT, "derbyclient.jar")), //$NON-NLS-1$
     NETEZZA(new DbVersion4Drivers(EDatabaseTypeName.NETEZZA, "nzjdbc.jar")), //$NON-NLS-1$
+    VERTICA(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "vertica_3.0_jdk_5.jar")), //$NON-NLS-1$
 
     ;
 

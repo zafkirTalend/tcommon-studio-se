@@ -142,6 +142,10 @@ public enum EDatabaseConnTemplate {
             "jdbc:netezza://<host>:<port>/<sid>", //$NON-NLS-1$
             "5480")), //$NON-NLS-1$
 
+    VERTICA(new DbConnStr(EDatabaseTypeName.VERTICA, //
+            "jdbc:vertica://<host>:<port>/<sid>", //$NON-NLS-1$
+            "5433")), //$NON-NLS-1$
+
     GENERAL_JDBC(new DbConnStrForGeneralJDBC(EDatabaseTypeName.GENERAL_JDBC, //
             "jdbc:xxx://<xxx>:<xxx>", //$NON-NLS-1$
             "xxxx")), //$NON-NLS-1$
@@ -252,6 +256,7 @@ public enum EDatabaseConnTemplate {
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_IN_PROGRESS, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_SERVER, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.HSQLDB_WEBSERVER, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.VERTICA, display));
         }
         if (sort) {
             String[] sortedArray = databaseType.toArray(new String[0]);

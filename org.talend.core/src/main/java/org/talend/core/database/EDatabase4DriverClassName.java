@@ -65,6 +65,8 @@ public enum EDatabase4DriverClassName {
 
     TERADATA(EDatabaseTypeName.TERADATA, "com.ncr.teradata.TeraDriver"), //$NON-NLS-1$
 
+    VERTICA(EDatabaseTypeName.VERTICA, "com.vertica.Driver"), //$NON-NLS-1$
+
     //
     ;
 
