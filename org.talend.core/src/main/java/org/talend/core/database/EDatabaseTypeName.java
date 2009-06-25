@@ -115,7 +115,7 @@ public enum EDatabaseTypeName {
 
     public static EDatabaseTypeName getTypeFromDbType(String dbType) {
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-            if (typename.getXmlName().equals(dbType)) {
+            if (typename.getXmlName().toUpperCase().equals(dbType.toUpperCase())) {
                 return typename;
             }
         }

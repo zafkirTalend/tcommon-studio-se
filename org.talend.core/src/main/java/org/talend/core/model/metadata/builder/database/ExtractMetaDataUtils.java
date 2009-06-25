@@ -436,7 +436,12 @@ public class ExtractMetaDataUtils {
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             }
         } else {
-            jarPathList.add(driverJarPathArg);
+            if (driverJarPathArg.contains("\\")) {
+                jarPathList.add(driverJarPathArg);
+            } else {
+                jarPathList.add(getJavaLibPath() + driverJarPathArg);
+            }
+
         }
 
         final String[] driverJarPath = jarPathList.toArray(new String[0]);
