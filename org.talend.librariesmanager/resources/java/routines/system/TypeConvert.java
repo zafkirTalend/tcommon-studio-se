@@ -4025,7 +4025,7 @@ public class TypeConvert {
         if (o == null)
             return false;
         if (o.equalsIgnoreCase("true") || o.equalsIgnoreCase("false")) //$NON-NLS-1$ //$NON-NLS-2$
-            return Boolean.getBoolean(o);
+            return Boolean.valueOf(o);
         throw ConvertTypeIllegalArgumentException.forInputArgument(o);
     }
 
