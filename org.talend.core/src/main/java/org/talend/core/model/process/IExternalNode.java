@@ -17,9 +17,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.List;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.talend.core.model.components.IODataComponentContainer;
@@ -102,7 +102,11 @@ public interface IExternalNode extends INode {
     public IODataComponentContainer getIODataComponents();
 
     public IComponentDocumentation getComponentDocumentation(String componentName, String tempFolderPath);
-    
+
     public boolean isRunRefSubProcessAtStart(String connectionName);
-    
+
+    public ImageDescriptor getScreenshot();
+
+    public void setScreenshot(ImageDescriptor screenshot);
+
 }

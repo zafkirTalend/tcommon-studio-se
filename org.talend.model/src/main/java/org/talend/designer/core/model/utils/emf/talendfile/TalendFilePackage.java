@@ -1065,13 +1065,22 @@ public interface TalendFilePackage extends EPackage {
     int NODE_TYPE__SIZE_Y = 11;
 
     /**
+     * The feature id for the '<em><b>Screenshot</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_TYPE__SCREENSHOT = 12;
+
+    /**
      * The number of structural features of the '<em>Node Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NODE_TYPE_FEATURE_COUNT = 12;
+    int NODE_TYPE_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
@@ -1347,13 +1356,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__SUBJOB = 16;
 
     /**
+     * The feature id for the '<em><b>Screenshot</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__SCREENSHOT = 17;
+
+    /**
      * The number of structural features of the '<em>Process Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 17;
+    int PROCESS_TYPE_FEATURE_COUNT = 18;
 
 
     /**
@@ -2468,6 +2486,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getNodeType_SizeY();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getScreenshot <em>Screenshot</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Screenshot</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeType#getScreenshot()
+     * @see #getNodeType()
+     * @generated
+     */
+    EAttribute getNodeType_Screenshot();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType <em>Note Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2672,6 +2701,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getProcessType_Subjob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot <em>Screenshot</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Screenshot</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot()
+     * @see #getProcessType()
+     * @generated
+     */
+    EAttribute getProcessType_Screenshot();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}'.
@@ -3641,6 +3681,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute NODE_TYPE__SIZE_Y = eINSTANCE.getNodeType_SizeY();
 
         /**
+         * The meta object literal for the '<em><b>Screenshot</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NODE_TYPE__SCREENSHOT = eINSTANCE.getNodeType_Screenshot();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3797,6 +3845,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference PROCESS_TYPE__SUBJOB = eINSTANCE.getProcessType_Subjob();
+
+        /**
+         * The meta object literal for the '<em><b>Screenshot</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROCESS_TYPE__SCREENSHOT = eINSTANCE.getProcessType_Screenshot();
 
         /**
          * The meta object literal for the '<em><b>Logs</b></em>' containment reference feature.

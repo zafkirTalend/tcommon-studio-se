@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getSubjob <em>Subjob</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot <em>Screenshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -207,6 +208,32 @@ public interface ProcessType extends EObject {
      * @generated
      */
     EList getSubjob();
+
+    /**
+     * Returns the value of the '<em><b>Screenshot</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Screenshot</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Screenshot</em>' attribute.
+     * @see #setScreenshot(byte[])
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Screenshot()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.Base64Binary"
+     * @generated
+     */
+    byte[] getScreenshot();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot <em>Screenshot</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Screenshot</em>' attribute.
+     * @see #getScreenshot()
+     * @generated
+     */
+    void setScreenshot(byte[] value);
 
     /**
      * Returns the value of the '<em><b>Logs</b></em>' containment reference.

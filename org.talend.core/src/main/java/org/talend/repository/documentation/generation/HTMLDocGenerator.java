@@ -42,6 +42,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -49,6 +50,7 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
@@ -81,7 +83,9 @@ import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.designer.runprocess.ProcessorUtilities;
@@ -185,6 +189,40 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
             }
 
+            byte[] innerContent = null;
+            ProcessType processType = null;
+            if (resource.getItem() instanceof ProcessItem) {
+                processType = ((ProcessItem) resource.getItem()).getProcess();
+                innerContent = processType.getScreenshot();
+            } else if (resource.getItem() instanceof JobletProcessItem) {
+                processType = ((JobletProcessItem) resource.getItem()).getJobletProcess();
+                innerContent = processType.getScreenshot();
+            }
+
+            if (innerContent != null) {
+                ImageDescriptor imagedesc = ImageUtils.createImageFromData(innerContent);
+                String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
+                ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+                picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
+            }
+            for (NodeType node : (List<NodeType>) processType.getNode()) {
+                if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
+                    byte[] screenshot = node.getScreenshot();
+                    ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
+                    String uniqueName = "";
+                    for (Object o : node.getElementParameter()) {
+                        if (o instanceof ElementParameterType) {
+                            if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) {
+                                uniqueName = ((ElementParameterType) o).getValue();
+                            }
+                        }
+                    }
+                    String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+                    ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+                    picList.add(new File(picFolderPath + File.separatorChar + picName).toURL());
+                }
+            }
+
             List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName + "_" + jobVersion, xslFilePath); //$NON-NLS-1$
 
             addResources(resource, resultFiles);
@@ -263,11 +301,49 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         // + IHTMLDocConstants.TALEND_LOGO_FILE_NAME);
 
         picList.add(logoFile.toURL());
+        // Property property = item.getProperty();
+        // String jobName = property.getLabel();
+        // String jobVersion = property.getVersion();
+        byte[] innerContent = null;
+        ProcessType processType = null;
+        if (resource.getItem() instanceof ProcessItem) {
+            processType = ((ProcessItem) resource.getItem()).getProcess();
+            innerContent = processType.getScreenshot();
+        } else if (resource.getItem() instanceof JobletProcessItem) {
+            processType = ((JobletProcessItem) resource.getItem()).getJobletProcess();
+            innerContent = processType.getScreenshot();
+        }
+
+        if (innerContent != null) {
+            ImageDescriptor imagedesc = ImageUtils.createImageFromData(innerContent);
+            String picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
+            ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+
+        }
+        for (NodeType node : (List<NodeType>) processType.getNode()) {
+            if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
+                byte[] screenshot = node.getScreenshot();
+                ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
+                String uniqueName = "";
+                for (Object o : node.getElementParameter()) {
+                    if (o instanceof ElementParameterType) {
+                        if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) {
+                            uniqueName = ((ElementParameterType) o).getValue();
+                        }
+                    }
+                }
+                String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+                ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+
+            }
+        }
 
         Set keySet = picFilePathMap.keySet();
         for (Object key : keySet) {
             String value = picFilePathMap.get(key);
+
             FileCopyUtils.copy(value, picFolderPath + File.separatorChar + key);
+
             picList.add(new File(picFolderPath + File.separatorChar + key).toURL());
         }
 
@@ -987,18 +1063,19 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             filePath = DocumentationPathProvider.getPathFileName(item, RepositoryConstants.IMG_DIRECTORY_OF_JOBLET_OUTLINE,
                     picName);
         }
-
         Element previewElement = jobElement.addElement("preview"); //$NON-NLS-1$
-        if (filePath == null) {
-            previewElement.addAttribute("picture", ""); //$NON-NLS-1$ //$NON-NLS-2$
-        } else {
-            String filePathStr = filePath.toOSString();
-            File file = new File(filePathStr);
-            if (file.exists()) {
-                previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName); //$NON-NLS-1$
-                picFilePathMap.put(picName, filePathStr);
-            }
-        }
+        previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName); //$NON-NLS-1$
+
+        // if (filePath == null) {
+        //            previewElement.addAttribute("picture", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        // } else {
+        // String filePathStr = filePath.toOSString();
+        // File file = new File(filePathStr);
+        // if (file.exists()) {
+        //                previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName); //$NON-NLS-1$
+        // picFilePathMap.put(picName, filePathStr);
+        // }
+        // }
         return jobElement;
     }
 

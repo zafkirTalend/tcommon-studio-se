@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
@@ -146,7 +147,7 @@ public class ImageUtils {
                         baos = new ByteArrayOutputStream();
                         ImageLoader imageLoader = new ImageLoader();
                         imageLoader.data = new ImageData[] { imageDes.getImageData() };
-                        imageLoader.save(baos, 5);
+                        imageLoader.save(baos, SWT.IMAGE_PNG);
                         byte[] imageByteArray = baos.toByteArray();
                         return imageByteArray;
                     } catch (Exception e) {

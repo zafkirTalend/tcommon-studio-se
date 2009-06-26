@@ -14,6 +14,7 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.components.IODataComponentContainer;
 import org.talend.core.model.metadata.ColumnNameChanged;
@@ -27,6 +28,8 @@ import org.talend.core.model.metadata.ColumnNameChanged;
 public abstract class AbstractExternalNode extends AbstractNode implements IExternalNode {
 
     private IODataComponentContainer ioDataContainer;
+
+    protected ImageDescriptor screenshot = null;
 
     /*
      * (non-Javadoc)
@@ -45,7 +48,8 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.process.IExternalNode#setIODataComponents(org.talend.core.model.components.IODataComponentContainer)
+     * @seeorg.talend.core.model.process.IExternalNode#setIODataComponents(org.talend.core.model.components.
+     * IODataComponentContainer)
      */
     public void setIODataComponents(IODataComponentContainer ioDatacontainer) {
         this.ioDataContainer = ioDatacontainer;
@@ -81,10 +85,20 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
 
     protected abstract void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.IExternalNode#isRunRefSubProcessAtStart(java.lang.String)
      */
     public boolean isRunRefSubProcessAtStart(String connectionName) {
         return true;
+    }
+
+    public ImageDescriptor getScreenshot() {
+        return this.screenshot;
+    }
+
+    public void setScreenshot(ImageDescriptor screenshot) {
+        this.screenshot = screenshot;
     }
 }

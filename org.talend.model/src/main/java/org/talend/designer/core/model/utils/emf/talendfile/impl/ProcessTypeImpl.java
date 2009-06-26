@@ -52,6 +52,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getSubjob <em>Subjob</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshot <em>Screenshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -319,6 +320,26 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList subjob;
 
     /**
+     * The default value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getScreenshot()
+     * @generated
+     * @ordered
+     */
+    protected static final byte[] SCREENSHOT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getScreenshot()
+     * @generated
+     * @ordered
+     */
+    protected byte[] screenshot = SCREENSHOT_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -501,6 +522,27 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             subjob = new EObjectContainmentEList(SubjobType.class, this, TalendFilePackage.PROCESS_TYPE__SUBJOB);
         }
         return subjob;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public byte[] getScreenshot() {
+        return screenshot;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setScreenshot(byte[] newScreenshot) {
+        byte[] oldScreenshot = screenshot;
+        screenshot = newScreenshot;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__SCREENSHOT, oldScreenshot, screenshot));
     }
 
     /**
@@ -782,6 +824,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return getVersion();
             case TalendFilePackage.PROCESS_TYPE__SUBJOB:
                 return getSubjob();
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+                return getScreenshot();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -849,6 +893,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 getSubjob().clear();
                 getSubjob().addAll((Collection)newValue);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+                setScreenshot((byte[])newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -911,6 +958,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__SUBJOB:
                 getSubjob().clear();
                 return;
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+                setScreenshot(SCREENSHOT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -956,6 +1006,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
             case TalendFilePackage.PROCESS_TYPE__SUBJOB:
                 return subjob != null && !subjob.isEmpty();
+            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+                return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
         }
         return super.eIsSet(featureID);
     }
@@ -987,6 +1039,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         result.append(status);
         result.append(", version: ");
         result.append(version);
+        result.append(", screenshot: ");
+        result.append(screenshot);
         result.append(')');
         return result.toString();
     }

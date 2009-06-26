@@ -41,6 +41,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getPosY <em>Pos Y</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeX <em>Size X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeY <em>Size Y</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getScreenshot <em>Screenshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -320,6 +321,26 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @ordered
      */
     protected boolean sizeYESet;
+
+    /**
+     * The default value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getScreenshot()
+     * @generated
+     * @ordered
+     */
+    protected static final byte[] SCREENSHOT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getScreenshot()
+     * @generated
+     * @ordered
+     */
+    protected byte[] screenshot = SCREENSHOT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -728,6 +749,27 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public byte[] getScreenshot() {
+        return screenshot;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setScreenshot(byte[] newScreenshot) {
+        byte[] oldScreenshot = screenshot;
+        screenshot = newScreenshot;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__SCREENSHOT, oldScreenshot, screenshot));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.NODE_TYPE__ELEMENT_PARAMETER:
@@ -769,6 +811,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return new Integer(getSizeX());
             case TalendFilePackage.NODE_TYPE__SIZE_Y:
                 return new Integer(getSizeY());
+            case TalendFilePackage.NODE_TYPE__SCREENSHOT:
+                return getScreenshot();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -818,6 +862,9 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__SIZE_Y:
                 setSizeY(((Integer)newValue).intValue());
                 return;
+            case TalendFilePackage.NODE_TYPE__SCREENSHOT:
+                setScreenshot((byte[])newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -865,6 +912,9 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__SIZE_Y:
                 unsetSizeY();
                 return;
+            case TalendFilePackage.NODE_TYPE__SCREENSHOT:
+                setScreenshot(SCREENSHOT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -900,6 +950,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return isSetSizeX();
             case TalendFilePackage.NODE_TYPE__SIZE_Y:
                 return isSetSizeY();
+            case TalendFilePackage.NODE_TYPE__SCREENSHOT:
+                return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
         }
         return super.eIsSet(featureID);
     }
@@ -933,6 +985,8 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
         if (sizeXESet) result.append(sizeX); else result.append("<unset>");
         result.append(", sizeY: ");
         if (sizeYESet) result.append(sizeY); else result.append("<unset>");
+        result.append(", screenshot: ");
+        result.append(screenshot);
         result.append(')');
         return result.toString();
     }

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Element;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.SWT;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.image.ImageUtils;
@@ -41,7 +40,6 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.images.CoreImageProvider;
-import org.talend.repository.model.RepositoryConstants;
 
 /**
  * This abstract class is defined some common methods for generation HTML. <br/>
@@ -86,24 +84,6 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
     }
 
     /**
-     * Gets tMap's preview image path base on a list of <code>IElementParameter</code>
-     * 
-     * @param elementParameters
-     * @return
-     */
-    protected String getPreviewImagePath(List<? extends IElementParameter> elementParameters) {
-
-        for (IElementParameter parameter : elementParameters) {
-            IElementParameter type = parameter;
-            if (type.getName().equals("PREVIEW")) { //$NON-NLS-1$
-                return type.getValue().toString();
-            }
-        }
-
-        return ""; //$NON-NLS-1$
-    }
-
-    /**
      * Generates component details informaiton.
      * 
      * @param isExternalNodeComponent
@@ -133,18 +113,13 @@ public abstract class AbstractComponentHandler implements IComponentHandler {
 
         componentElement.addAttribute("label", componentLabel == null ? "" : componentLabel); //$NON-NLS-1$ //$NON-NLS-2$
 
-        String previewImagePath, storedPreviewImagePath = ""; //$NON-NLS-1$
+        String previewImagePath = ""; //$NON-NLS-1$
 
         // If component is external node component, gets its preview picture.
         if (isExternalNodeComponent) {
-            previewImagePath = getPreviewImagePath(elementParameters);
+            previewImagePath = node.getUniqueName() + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
             if (!previewImagePath.equals("")) { //$NON-NLS-1$
-                IPath filePath = DocumentationPathProvider.getPathFileName(node.getProcess().getProperty().getItem(),
-                        RepositoryConstants.IMG_DIRECTORY, previewImagePath);
-                File file = new File(filePath.toOSString());
-                if (file.exists()) {
-                    storedPreviewImagePath = filePath.toOSString();
-                    picFilePathMap.put(previewImagePath, storedPreviewImagePath);
+                if (node.getExternalNode().getScreenshot() != null) {
                     componentElement.addAttribute("preview", IHTMLDocConstants.PICTUREFOLDERPATH + previewImagePath); //$NON-NLS-1$
                 }
             }
