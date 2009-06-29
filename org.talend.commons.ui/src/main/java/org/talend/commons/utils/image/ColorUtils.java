@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.commons.utils.image;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -136,5 +138,19 @@ public class ColorUtils {
             return null;
         }
         return color.replaceAll(COMMA, SEMICOLON);
+    }
+
+    private static Map<RGB, Color> colorsMap = new HashMap<RGB, Color>();
+
+    public static Color getCacheColor(RGB rgb) {
+        if (rgb != null) {
+            Color color = colorsMap.get(rgb);
+            if (color == null || color.isDisposed()) {
+                color = new Color(null, rgb);
+                colorsMap.put(rgb, color);
+            }
+            return color;
+        }
+        return null;
     }
 }
