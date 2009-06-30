@@ -48,7 +48,8 @@ public class FreePortFinder {
         try {
             serverSocket = new ServerSocket(port);
         } catch (BindException e) {
-            e.printStackTrace();
+            // bug 7447 statistics and traces generated the same port,the error information always wrote in log.
+            // e.printStackTrace();
             return false;
         } catch (SocketException e) {
             e.printStackTrace();
