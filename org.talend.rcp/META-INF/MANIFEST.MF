@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.ui,
  org.talend.designer.codegen,
  org.eclipse.ui.ide.application,
  org.eclipse.core.resources,
- org.talend.designer.core;bundle-version="2.2.0"
+ org.talend.designer.core
 Eclipse-LazyStart: true
 Export-Package: org.talend.rcp,
  org.talend.rcp.intro

@@ -4,5 +4,5 @@ Bundle-Name: MigrationTool Plug-in nl fragment
 Bundle-SymbolicName: org.talend.migrationTool.nl
 Bundle-Version: 1.0.0
 Bundle-Vendor: .Talend SA.
-Fragment-Host: org.talend.migrationTool;bundle-version="2.2.0"
+Fragment-Host: org.talend.migrationTool
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
