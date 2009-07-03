@@ -3,6 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName Nl Fragment
 Bundle-SymbolicName: org.talend.model.edit.nl
 Bundle-Version: 2.2.0.qualifier
-Fragment-Host: org.talend.model.edit;bundle-version="1.2.0"
+Fragment-Host: org.talend.model.edit
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
