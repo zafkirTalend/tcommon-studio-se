@@ -25,7 +25,7 @@ public final class DateUtils {
 
     public static final String PATTERN_1 = "MM/dd/yyyy";//$NON-NLS-1$
     public static final String PATTERN_2 = "yyyy-MM-dd hh:mm:ss";//$NON-NLS-1$
-    
+    public static final String PATTERN_3 = "yyyy-MM-dd";//$NON-NLS-1$
     public static Date parse(String pattern, String dateText) throws ParseException {
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
