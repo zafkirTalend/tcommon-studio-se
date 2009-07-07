@@ -34,6 +34,7 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
@@ -53,6 +54,8 @@ public class ExtractMetaDataUtils {
 
     public static boolean isReconnect = true;
 
+    public static IMetadataConnection metadataCon; // for teradata to use
+
     // hywang add for bug 7038
     private static List<String> functionlist = new ArrayList<String>();
 
@@ -71,6 +74,11 @@ public class ExtractMetaDataUtils {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             } else if (teradataNeedFakeDatabaseMetaData(dbType)) {
                 dbMetaData = createTeradataFakeDatabaseMetaData(conn);
+                //add by wzhang for bug 8106. set database name for teradata.
+                if (ExtractMetaDataUtils.metadataCon != null) {
+                    TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+                    teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
+                }
             } else {
                 dbMetaData = conn.getMetaData();
             }

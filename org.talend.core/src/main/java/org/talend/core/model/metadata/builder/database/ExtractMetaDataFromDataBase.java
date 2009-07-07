@@ -716,7 +716,9 @@ public class ExtractMetaDataFromDataBase {
      */
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection, int... limit) {
         List<String> itemTablesName = new ArrayList<String>();
-
+        // add by wzhang
+        ExtractMetaDataUtils.metadataCon = iMetadataConnection;
+        // end
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
                 .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
@@ -799,7 +801,9 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection,
             TableInfoParameters tableInfoParameters) {
         List<String> itemTablesName = new ArrayList<String>();
-
+        // add by wzhang
+        ExtractMetaDataUtils.metadataCon = iMetadataConnection;
+        // end
         ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
                 .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
                 .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection

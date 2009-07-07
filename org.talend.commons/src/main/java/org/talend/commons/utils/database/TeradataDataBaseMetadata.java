@@ -33,12 +33,22 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
 
     private Connection connection;
 
+    private String databaseName;
+
     /**
      * 
      * @param metaData
      */
     public TeradataDataBaseMetadata(Connection connection) {
         this.connection = connection;
+    }
+
+    public String getDatabaseName() {
+        return this.databaseName;
+    }
+
+    public void setDatabaseName(String dbName) {
+        this.databaseName = dbName;
     }
 
     /*
@@ -115,6 +125,11 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getTables(String catalog, String database, String tableNamePattern, String[] types) throws SQLException {
+        // modify by wzhang
+        if (databaseName != null) {
+            database = databaseName;
+        }
+        // end
         String sql = "SELECT * from DBC.TABLES WHERE databasename = '" + database //$NON-NLS-1$
                 + "' AND tablekind = 'T' or tablekind = 'V' Order by tablekind, tablename "; //$NON-NLS-1$
         ResultSet rs = null;
@@ -127,7 +142,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             while (rs.next()) {
                 String name = rs.getString("TableName"); //$NON-NLS-1$
                 String creator = rs.getString("CreatorName"); //$NON-NLS-1$
-                String type = rs.getString("tablekind"); //$NON-NLS-1$
+                String type = rs.getString("TableKind"); //$NON-NLS-1$
 
                 String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
@@ -189,14 +204,17 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-
                 String tableName = rs.getString("TableName"); //$NON-NLS-1$
                 String columnName = rs.getString("ColumnName"); //$NON-NLS-1$
                 String typeName = rs.getString("ColumnType"); //$NON-NLS-1$
+                // add by wzhang. for teradata can't get the type for view. just set by default.
+                if (typeName == null) {
+                    typeName = "String"; //$NON-NLS-1$
+                }
                 String columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
-                String decimalDigits = rs.getString("DecimalFractio"); //$NON-NLS-1$
+                String decimalDigits = rs.getString("DecimalFractionalDigits"); //$NON-NLS-1$
                 String isNullable;
-                if (rs.getString("Nullable").equals("Y")) { //$NON-NLS-1$ //$NON-NLS-2$
+                if ("Y".equals(rs.getString("Nullable"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     isNullable = "YES"; //$NON-NLS-1$
                 } else {
                     isNullable = rs.getString("Nullable"); //$NON-NLS-1$
