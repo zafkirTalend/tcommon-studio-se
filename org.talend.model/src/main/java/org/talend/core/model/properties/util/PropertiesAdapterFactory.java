@@ -274,8 +274,8 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseRulesItem(RulesItem object) {
                 return createRulesItemAdapter();
             }
-            public Object caseRight(Right object) {
-                return createRightAdapter();
+            public Object caseUserRight(UserRight object) {
+                return createUserRightAdapter();
             }
             public Object caseRoleRight(RoleRight object) {
                 return createRoleRightAdapter();
@@ -1237,16 +1237,16 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.Right <em>Right</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.UserRight <em>User Right</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see org.talend.core.model.properties.Right
+     * @see org.talend.core.model.properties.UserRight
      * @generated
      */
-    public Adapter createRightAdapter() {
+    public Adapter createUserRightAdapter() {
         return null;
     }
 

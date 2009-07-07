@@ -550,9 +550,9 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.RIGHT: {
-                Right right = (Right)theEObject;
-                Object result = caseRight(right);
+            case PropertiesPackage.USER_RIGHT: {
+                UserRight userRight = (UserRight)theEObject;
+                Object result = caseUserRight(userRight);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1572,17 +1572,17 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Right</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>User Right</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Right</em>'.
+     * @return the result of interpreting the object as an instance of '<em>User Right</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseRight(Right object) {
+    public Object caseUserRight(UserRight object) {
         return null;
     }
 

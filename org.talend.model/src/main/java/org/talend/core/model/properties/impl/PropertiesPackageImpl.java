@@ -89,6 +89,7 @@ import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserModuleAuthorizationType;
 import org.talend.core.model.properties.UserProjectAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorizationType;
+import org.talend.core.model.properties.UserRight;
 import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
@@ -507,7 +508,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass rightEClass = null;
+    private EClass userRightEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -3426,8 +3427,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getRight() {
-        return rightEClass;
+    public EClass getUserRight() {
+        return userRightEClass;
     }
 
     /**
@@ -3435,8 +3436,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getRight_Id() {
-        return (EAttribute)rightEClass.getEStructuralFeatures().get(0);
+    public EAttribute getUserRight_Id() {
+        return (EAttribute)userRightEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -3444,8 +3445,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getRight_Name() {
-        return (EAttribute)rightEClass.getEStructuralFeatures().get(1);
+    public EAttribute getUserRight_Name() {
+        return (EAttribute)userRightEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -3453,8 +3454,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getRight_Description() {
-        return (EAttribute)rightEClass.getEStructuralFeatures().get(2);
+    public EAttribute getUserRight_Description() {
+        return (EAttribute)userRightEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -3462,8 +3463,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getRight_RolesRights() {
-        return (EReference)rightEClass.getEStructuralFeatures().get(3);
+    public EReference getUserRight_RolesRights() {
+        return (EReference)userRightEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -3489,7 +3490,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getRoleRight_Right() {
+    public EReference getRoleRight_UserRight() {
         return (EReference)roleRightEClass.getEStructuralFeatures().get(1);
     }
 
@@ -4354,15 +4355,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         rulesItemEClass = createEClass(RULES_ITEM);
 
-        rightEClass = createEClass(RIGHT);
-        createEAttribute(rightEClass, RIGHT__ID);
-        createEAttribute(rightEClass, RIGHT__NAME);
-        createEAttribute(rightEClass, RIGHT__DESCRIPTION);
-        createEReference(rightEClass, RIGHT__ROLES_RIGHTS);
+        userRightEClass = createEClass(USER_RIGHT);
+        createEAttribute(userRightEClass, USER_RIGHT__ID);
+        createEAttribute(userRightEClass, USER_RIGHT__NAME);
+        createEAttribute(userRightEClass, USER_RIGHT__DESCRIPTION);
+        createEReference(userRightEClass, USER_RIGHT__ROLES_RIGHTS);
 
         roleRightEClass = createEClass(ROLE_RIGHT);
         createEReference(roleRightEClass, ROLE_RIGHT__ROLE);
-        createEReference(roleRightEClass, ROLE_RIGHT__RIGHT);
+        createEReference(roleRightEClass, ROLE_RIGHT__USER_RIGHT);
 
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
@@ -4896,15 +4897,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(rulesItemEClass, RulesItem.class, "RulesItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(rightEClass, Right.class, "Right", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getRight_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Right.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getRight_Name(), ecorePackage.getEString(), "name", null, 1, 1, Right.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getRight_Description(), ecorePackage.getEString(), "description", null, 1, 1, Right.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getRight_RolesRights(), this.getRoleRight(), this.getRoleRight_Right(), "rolesRights", null, 0, -1, Right.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEClass(userRightEClass, UserRight.class, "UserRight", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getUserRight_Id(), ecorePackage.getEInt(), "id", null, 1, 1, UserRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUserRight_Name(), ecorePackage.getEString(), "name", null, 1, 1, UserRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUserRight_Description(), ecorePackage.getEString(), "description", null, 1, 1, UserRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getUserRight_RolesRights(), this.getRoleRight(), this.getRoleRight_UserRight(), "rolesRights", null, 0, -1, UserRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
         initEClass(roleRightEClass, RoleRight.class, "RoleRight", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getRoleRight_Role(), this.getUserRole(), this.getUserRole_RolesRights(), "role", null, 0, 1, RoleRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getRoleRight_Right(), this.getRight(), this.getRight_RolesRights(), "right", null, 0, 1, RoleRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getRoleRight_UserRight(), this.getUserRight(), this.getUserRight_RolesRights(), "userRight", null, 0, 1, RoleRight.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

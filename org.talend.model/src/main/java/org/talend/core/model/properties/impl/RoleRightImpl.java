@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Right;
 import org.talend.core.model.properties.RoleRight;
+import org.talend.core.model.properties.UserRight;
 import org.talend.core.model.properties.UserRole;
 
 /**
@@ -28,7 +29,7 @@ import org.talend.core.model.properties.UserRole;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.RoleRightImpl#getRole <em>Role</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.RoleRightImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.RoleRightImpl#getUserRight <em>User Right</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,14 +47,14 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
     protected UserRole role;
 
     /**
-     * The cached value of the '{@link #getRight() <em>Right</em>}' reference.
+     * The cached value of the '{@link #getUserRight() <em>User Right</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getRight()
+     * @see #getUserRight()
      * @generated
      * @ordered
      */
-    protected Right right;
+    protected UserRight userRight;
 
     /**
      * <!-- begin-user-doc -->
@@ -138,16 +139,16 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
      * <!-- end-user-doc -->
      * @generated
      */
-    public Right getRight() {
-        if (right != null && right.eIsProxy()) {
-            InternalEObject oldRight = (InternalEObject)right;
-            right = (Right)eResolveProxy(oldRight);
-            if (right != oldRight) {
+    public UserRight getUserRight() {
+        if (userRight != null && userRight.eIsProxy()) {
+            InternalEObject oldUserRight = (InternalEObject)userRight;
+            userRight = (UserRight)eResolveProxy(oldUserRight);
+            if (userRight != oldUserRight) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ROLE_RIGHT__RIGHT, oldRight, right));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ROLE_RIGHT__USER_RIGHT, oldUserRight, userRight));
             }
         }
-        return right;
+        return userRight;
     }
 
     /**
@@ -155,8 +156,8 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
      * <!-- end-user-doc -->
      * @generated
      */
-    public Right basicGetRight() {
-        return right;
+    public UserRight basicGetUserRight() {
+        return userRight;
     }
 
     /**
@@ -164,11 +165,11 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetRight(Right newRight, NotificationChain msgs) {
-        Right oldRight = right;
-        right = newRight;
+    public NotificationChain basicSetUserRight(UserRight newUserRight, NotificationChain msgs) {
+        UserRight oldUserRight = userRight;
+        userRight = newUserRight;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.ROLE_RIGHT__RIGHT, oldRight, newRight);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.ROLE_RIGHT__USER_RIGHT, oldUserRight, newUserRight);
             if (msgs == null) msgs = notification; else msgs.add(notification);
         }
         return msgs;
@@ -179,18 +180,18 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setRight(Right newRight) {
-        if (newRight != right) {
+    public void setUserRight(UserRight newUserRight) {
+        if (newUserRight != userRight) {
             NotificationChain msgs = null;
-            if (right != null)
-                msgs = ((InternalEObject)right).eInverseRemove(this, PropertiesPackage.RIGHT__ROLES_RIGHTS, Right.class, msgs);
-            if (newRight != null)
-                msgs = ((InternalEObject)newRight).eInverseAdd(this, PropertiesPackage.RIGHT__ROLES_RIGHTS, Right.class, msgs);
-            msgs = basicSetRight(newRight, msgs);
+            if (userRight != null)
+                msgs = ((InternalEObject)userRight).eInverseRemove(this, PropertiesPackage.USER_RIGHT__ROLES_RIGHTS, UserRight.class, msgs);
+            if (newUserRight != null)
+                msgs = ((InternalEObject)newUserRight).eInverseAdd(this, PropertiesPackage.USER_RIGHT__ROLES_RIGHTS, UserRight.class, msgs);
+            msgs = basicSetUserRight(newUserRight, msgs);
             if (msgs != null) msgs.dispatch();
         }
         else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ROLE_RIGHT__RIGHT, newRight, newRight));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ROLE_RIGHT__USER_RIGHT, newUserRight, newUserRight));
     }
 
     /**
@@ -204,10 +205,10 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
                 if (role != null)
                     msgs = ((InternalEObject)role).eInverseRemove(this, PropertiesPackage.USER_ROLE__ROLES_RIGHTS, UserRole.class, msgs);
                 return basicSetRole((UserRole)otherEnd, msgs);
-            case PropertiesPackage.ROLE_RIGHT__RIGHT:
-                if (right != null)
-                    msgs = ((InternalEObject)right).eInverseRemove(this, PropertiesPackage.RIGHT__ROLES_RIGHTS, Right.class, msgs);
-                return basicSetRight((Right)otherEnd, msgs);
+            case PropertiesPackage.ROLE_RIGHT__USER_RIGHT:
+                if (userRight != null)
+                    msgs = ((InternalEObject)userRight).eInverseRemove(this, PropertiesPackage.USER_RIGHT__ROLES_RIGHTS, UserRight.class, msgs);
+                return basicSetUserRight((UserRight)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -221,8 +222,8 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
         switch (featureID) {
             case PropertiesPackage.ROLE_RIGHT__ROLE:
                 return basicSetRole(null, msgs);
-            case PropertiesPackage.ROLE_RIGHT__RIGHT:
-                return basicSetRight(null, msgs);
+            case PropertiesPackage.ROLE_RIGHT__USER_RIGHT:
+                return basicSetUserRight(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -237,9 +238,9 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
             case PropertiesPackage.ROLE_RIGHT__ROLE:
                 if (resolve) return getRole();
                 return basicGetRole();
-            case PropertiesPackage.ROLE_RIGHT__RIGHT:
-                if (resolve) return getRight();
-                return basicGetRight();
+            case PropertiesPackage.ROLE_RIGHT__USER_RIGHT:
+                if (resolve) return getUserRight();
+                return basicGetUserRight();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -254,8 +255,8 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
             case PropertiesPackage.ROLE_RIGHT__ROLE:
                 setRole((UserRole)newValue);
                 return;
-            case PropertiesPackage.ROLE_RIGHT__RIGHT:
-                setRight((Right)newValue);
+            case PropertiesPackage.ROLE_RIGHT__USER_RIGHT:
+                setUserRight((UserRight)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -271,8 +272,8 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
             case PropertiesPackage.ROLE_RIGHT__ROLE:
                 setRole((UserRole)null);
                 return;
-            case PropertiesPackage.ROLE_RIGHT__RIGHT:
-                setRight((Right)null);
+            case PropertiesPackage.ROLE_RIGHT__USER_RIGHT:
+                setUserRight((UserRight)null);
                 return;
         }
         super.eUnset(featureID);
@@ -287,8 +288,8 @@ public class RoleRightImpl extends EObjectImpl implements RoleRight {
         switch (featureID) {
             case PropertiesPackage.ROLE_RIGHT__ROLE:
                 return role != null;
-            case PropertiesPackage.ROLE_RIGHT__RIGHT:
-                return right != null;
+            case PropertiesPackage.ROLE_RIGHT__USER_RIGHT:
+                return userRight != null;
         }
         return super.eIsSet(featureID);
     }

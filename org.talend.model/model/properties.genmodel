@@ -467,15 +467,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/status"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//RulesItem"/>
-    <genClasses ecoreClass="properties.ecore#//Right">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Right/id"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Right/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Right/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Right/rolesRights"/>
+    <genClasses ecoreClass="properties.ecore#//UserRight">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRight/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRight/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRight/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRight/rolesRights"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//RoleRight">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//RoleRight/role"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//RoleRight/right"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//RoleRight/userRight"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

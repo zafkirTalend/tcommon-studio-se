@@ -580,13 +580,13 @@ public interface PropertiesFactory extends EFactory {
     RulesItem createRulesItem();
 
     /**
-     * Returns a new object of class '<em>Right</em>'.
+     * Returns a new object of class '<em>User Right</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Right</em>'.
+     * @return a new object of class '<em>User Right</em>'.
      * @generated
      */
-    Right createRight();
+    UserRight createUserRight();
 
     /**
      * Returns a new object of class '<em>Role Right</em>'.

@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.RoleRight#getRole <em>Role</em>}</li>
- *   <li>{@link org.talend.core.model.properties.RoleRight#getRight <em>Right</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.RoleRight#getUserRight <em>User Right</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,31 +55,31 @@ public interface RoleRight extends EObject {
     void setRole(UserRole value);
 
     /**
-     * Returns the value of the '<em><b>Right</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Right#getRolesRights <em>Roles Rights</em>}'.
+     * Returns the value of the '<em><b>User Right</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.UserRight#getRolesRights <em>Roles Rights</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Right</em>' reference isn't clear,
+     * If the meaning of the '<em>User Right</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Right</em>' reference.
-     * @see #setRight(Right)
-     * @see org.talend.core.model.properties.PropertiesPackage#getRoleRight_Right()
-     * @see org.talend.core.model.properties.Right#getRolesRights
+     * @return the value of the '<em>User Right</em>' reference.
+     * @see #setUserRight(UserRight)
+     * @see org.talend.core.model.properties.PropertiesPackage#getRoleRight_UserRight()
+     * @see org.talend.core.model.properties.UserRight#getRolesRights
      * @model opposite="rolesRights"
      * @generated
      */
-    Right getRight();
+    UserRight getUserRight();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.RoleRight#getRight <em>Right</em>}' reference.
+     * Sets the value of the '{@link org.talend.core.model.properties.RoleRight#getUserRight <em>User Right</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Right</em>' reference.
-     * @see #getRight()
+     * @param value the new value of the '<em>User Right</em>' reference.
+     * @see #getUserRight()
      * @generated
      */
-    void setRight(Right value);
+    void setUserRight(UserRight value);
 
 } // RoleRight
