@@ -164,6 +164,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="localizedLabel" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixed" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rolesRights" ordered="false"
+        unique="false" upperBound="-1" eType="#//RoleRight" eOpposite="#//RoleRight/role"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="User">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -586,4 +589,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RulesItem" eSuperTypes="#//FileItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Right">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rolesRights" ordered="false"
+        unique="false" upperBound="-1" eType="#//RoleRight" eOpposite="#//RoleRight/right"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoleRight">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//UserRole"
+        eOpposite="#//UserRole/rolesRights"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Right"
+        eOpposite="#//Right/rolesRights"/>
+  </eClassifiers>
 </ecore:EPackage>

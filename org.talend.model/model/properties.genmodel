@@ -151,6 +151,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/localizedLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/fixed"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRole/rolesRights"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//User">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/id"/>
@@ -465,5 +467,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SoaService/status"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//RulesItem"/>
+    <genClasses ecoreClass="properties.ecore#//Right">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Right/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Right/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Right/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Right/rolesRights"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//RoleRight">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//RoleRight/role"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//RoleRight/right"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

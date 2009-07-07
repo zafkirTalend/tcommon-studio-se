@@ -1724,13 +1724,31 @@ public interface PropertiesPackage extends EPackage {
     int USER_ROLE__LOCALIZED_LABEL = 2;
 
     /**
+     * The feature id for the '<em><b>Fixed</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__FIXED = 3;
+
+    /**
+     * The feature id for the '<em><b>Roles Rights</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE__ROLES_RIGHTS = 4;
+
+    /**
      * The number of structural features of the '<em>User Role</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_ROLE_FEATURE_COUNT = 3;
+    int USER_ROLE_FEATURE_COUNT = 5;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5397,13 +5415,105 @@ public interface PropertiesPackage extends EPackage {
     int RULES_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.RightImpl <em>Right</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.RightImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRight()
+     * @generated
+     */
+    int RIGHT = 68;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RIGHT__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RIGHT__NAME = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RIGHT__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Roles Rights</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RIGHT__ROLES_RIGHTS = 3;
+
+    /**
+     * The number of structural features of the '<em>Right</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RIGHT_FEATURE_COUNT = 4;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.RoleRightImpl <em>Role Right</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.RoleRightImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRoleRight()
+     * @generated
+     */
+    int ROLE_RIGHT = 69;
+
+    /**
+     * The feature id for the '<em><b>Role</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROLE_RIGHT__ROLE = 0;
+
+    /**
+     * The feature id for the '<em><b>Right</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROLE_RIGHT__RIGHT = 1;
+
+    /**
+     * The number of structural features of the '<em>Role Right</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROLE_RIGHT_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 68;
+    int FOLDER_TYPE = 70;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5413,7 +5523,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 69;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 71;
 
 
     /**
@@ -5424,7 +5534,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 70;
+    int USER_MODULE_AUTHORIZATION_TYPE = 72;
 
 
     /**
@@ -5435,7 +5545,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 71;
+    int INFORMATION_LEVEL = 73;
 
 
     /**
@@ -9116,6 +9226,92 @@ public interface PropertiesPackage extends EPackage {
     EClass getRulesItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.Right <em>Right</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Right</em>'.
+     * @see org.talend.core.model.properties.Right
+     * @generated
+     */
+    EClass getRight();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Right#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.Right#getId()
+     * @see #getRight()
+     * @generated
+     */
+    EAttribute getRight_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Right#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.Right#getName()
+     * @see #getRight()
+     * @generated
+     */
+    EAttribute getRight_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Right#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.Right#getDescription()
+     * @see #getRight()
+     * @generated
+     */
+    EAttribute getRight_Description();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Right#getRolesRights <em>Roles Rights</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Roles Rights</em>'.
+     * @see org.talend.core.model.properties.Right#getRolesRights()
+     * @see #getRight()
+     * @generated
+     */
+    EReference getRight_RolesRights();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.RoleRight <em>Role Right</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Role Right</em>'.
+     * @see org.talend.core.model.properties.RoleRight
+     * @generated
+     */
+    EClass getRoleRight();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.RoleRight#getRole <em>Role</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Role</em>'.
+     * @see org.talend.core.model.properties.RoleRight#getRole()
+     * @see #getRoleRight()
+     * @generated
+     */
+    EReference getRoleRight_Role();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.RoleRight#getRight <em>Right</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Right</em>'.
+     * @see org.talend.core.model.properties.RoleRight#getRight()
+     * @see #getRoleRight()
+     * @generated
+     */
+    EReference getRoleRight_Right();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9600,6 +9796,28 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getUserRole_LocalizedLabel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.UserRole#isFixed <em>Fixed</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Fixed</em>'.
+     * @see org.talend.core.model.properties.UserRole#isFixed()
+     * @see #getUserRole()
+     * @generated
+     */
+    EAttribute getUserRole_Fixed();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.UserRole#getRolesRights <em>Roles Rights</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Roles Rights</em>'.
+     * @see org.talend.core.model.properties.UserRole#getRolesRights()
+     * @see #getUserRole()
+     * @generated
+     */
+    EReference getUserRole_RolesRights();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -12507,6 +12725,74 @@ public interface PropertiesPackage extends EPackage {
         EClass RULES_ITEM = eINSTANCE.getRulesItem();
 
         /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.RightImpl <em>Right</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.RightImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRight()
+         * @generated
+         */
+        EClass RIGHT = eINSTANCE.getRight();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute RIGHT__ID = eINSTANCE.getRight_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute RIGHT__NAME = eINSTANCE.getRight_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute RIGHT__DESCRIPTION = eINSTANCE.getRight_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Roles Rights</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference RIGHT__ROLES_RIGHTS = eINSTANCE.getRight_RolesRights();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.RoleRightImpl <em>Role Right</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.RoleRightImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRoleRight()
+         * @generated
+         */
+        EClass ROLE_RIGHT = eINSTANCE.getRoleRight();
+
+        /**
+         * The meta object literal for the '<em><b>Role</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ROLE_RIGHT__ROLE = eINSTANCE.getRoleRight_Role();
+
+        /**
+         * The meta object literal for the '<em><b>Right</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ROLE_RIGHT__RIGHT = eINSTANCE.getRoleRight_Right();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -12875,6 +13161,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER_ROLE__LOCALIZED_LABEL = eINSTANCE.getUserRole_LocalizedLabel();
+
+        /**
+         * The meta object literal for the '<em><b>Fixed</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER_ROLE__FIXED = eINSTANCE.getUserRole_Fixed();
+
+        /**
+         * The meta object literal for the '<em><b>Roles Rights</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference USER_ROLE__ROLES_RIGHTS = eINSTANCE.getUserRole_RolesRights();
 
     }
 

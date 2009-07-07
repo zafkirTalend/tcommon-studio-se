@@ -155,6 +155,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.SOA_INPUT_PARAMETER: return createSoaInputParameter();
             case PropertiesPackage.SOA_SERVICE: return createSoaService();
             case PropertiesPackage.RULES_ITEM: return createRulesItem();
+            case PropertiesPackage.RIGHT: return createRight();
+            case PropertiesPackage.ROLE_RIGHT: return createRoleRight();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -807,6 +809,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public RulesItem createRulesItem() {
         RulesItemImpl rulesItem = new RulesItemImpl();
         return rulesItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Right createRight() {
+        RightImpl right = new RightImpl();
+        return right;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RoleRight createRoleRight() {
+        RoleRightImpl roleRight = new RoleRightImpl();
+        return roleRight;
     }
 
     /**

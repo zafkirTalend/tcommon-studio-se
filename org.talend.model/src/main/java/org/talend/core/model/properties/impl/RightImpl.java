@@ -7,37 +7,42 @@
 package org.talend.core.model.properties.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.Right;
 import org.talend.core.model.properties.RoleRight;
-import org.talend.core.model.properties.UserRole;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>User Role</b></em>'.
+ * An implementation of the model object '<em><b>Right</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.properties.impl.UserRoleImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.UserRoleImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.UserRoleImpl#getLocalizedLabel <em>Localized Label</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.UserRoleImpl#isFixed <em>Fixed</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.UserRoleImpl#getRolesRights <em>Roles Rights</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.RightImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.RightImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.RightImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.RightImpl#getRolesRights <em>Roles Rights</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class UserRoleImpl extends EObjectImpl implements UserRole {
+public class RightImpl extends EObjectImpl implements Right {
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -79,44 +84,24 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLocalizedLabel() <em>Localized Label</em>}' attribute.
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLocalizedLabel()
+     * @see #getDescription()
      * @generated
      * @ordered
      */
-    protected static final String LOCALIZED_LABEL_EDEFAULT = null;
+    protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLocalizedLabel() <em>Localized Label</em>}' attribute.
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLocalizedLabel()
+     * @see #getDescription()
      * @generated
      * @ordered
      */
-    protected String localizedLabel = LOCALIZED_LABEL_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isFixed() <em>Fixed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isFixed()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean FIXED_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isFixed() <em>Fixed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isFixed()
-     * @generated
-     * @ordered
-     */
-    protected boolean fixed = FIXED_EDEFAULT;
+    protected String description = DESCRIPTION_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getRolesRights() <em>Roles Rights</em>}' reference list.
@@ -133,7 +118,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected UserRoleImpl() {
+    protected RightImpl() {
         super();
     }
 
@@ -143,7 +128,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      * @generated
      */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.USER_ROLE;
+        return PropertiesPackage.Literals.RIGHT;
     }
 
     /**
@@ -164,7 +149,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
         int oldId = id;
         id = newId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__ID, oldId, id));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.RIGHT__ID, oldId, id));
     }
 
     /**
@@ -185,7 +170,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__NAME, oldName, name));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.RIGHT__NAME, oldName, name));
     }
 
     /**
@@ -193,8 +178,8 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getLocalizedLabel() {
-        return localizedLabel;
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -202,32 +187,11 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setLocalizedLabel(String newLocalizedLabel) {
-        String oldLocalizedLabel = localizedLabel;
-        localizedLabel = newLocalizedLabel;
+    public void setDescription(String newDescription) {
+        String oldDescription = description;
+        description = newDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__LOCALIZED_LABEL, oldLocalizedLabel, localizedLabel));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isFixed() {
-        return fixed;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setFixed(boolean newFixed) {
-        boolean oldFixed = fixed;
-        fixed = newFixed;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER_ROLE__FIXED, oldFixed, fixed));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.RIGHT__DESCRIPTION, oldDescription, description));
     }
 
     /**
@@ -237,7 +201,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public EList getRolesRights() {
         if (rolesRights == null) {
-            rolesRights = new EObjectWithInverseResolvingEList(RoleRight.class, this, PropertiesPackage.USER_ROLE__ROLES_RIGHTS, PropertiesPackage.ROLE_RIGHT__ROLE);
+            rolesRights = new EObjectWithInverseResolvingEList(RoleRight.class, this, PropertiesPackage.RIGHT__ROLES_RIGHTS, PropertiesPackage.ROLE_RIGHT__RIGHT);
         }
         return rolesRights;
     }
@@ -249,7 +213,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case PropertiesPackage.USER_ROLE__ROLES_RIGHTS:
+            case PropertiesPackage.RIGHT__ROLES_RIGHTS:
                 return ((InternalEList)getRolesRights()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -262,7 +226,7 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case PropertiesPackage.USER_ROLE__ROLES_RIGHTS:
+            case PropertiesPackage.RIGHT__ROLES_RIGHTS:
                 return ((InternalEList)getRolesRights()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -275,15 +239,13 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case PropertiesPackage.USER_ROLE__ID:
+            case PropertiesPackage.RIGHT__ID:
                 return new Integer(getId());
-            case PropertiesPackage.USER_ROLE__NAME:
+            case PropertiesPackage.RIGHT__NAME:
                 return getName();
-            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-                return getLocalizedLabel();
-            case PropertiesPackage.USER_ROLE__FIXED:
-                return isFixed() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.USER_ROLE__ROLES_RIGHTS:
+            case PropertiesPackage.RIGHT__DESCRIPTION:
+                return getDescription();
+            case PropertiesPackage.RIGHT__ROLES_RIGHTS:
                 return getRolesRights();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -296,19 +258,16 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case PropertiesPackage.USER_ROLE__ID:
+            case PropertiesPackage.RIGHT__ID:
                 setId(((Integer)newValue).intValue());
                 return;
-            case PropertiesPackage.USER_ROLE__NAME:
+            case PropertiesPackage.RIGHT__NAME:
                 setName((String)newValue);
                 return;
-            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-                setLocalizedLabel((String)newValue);
+            case PropertiesPackage.RIGHT__DESCRIPTION:
+                setDescription((String)newValue);
                 return;
-            case PropertiesPackage.USER_ROLE__FIXED:
-                setFixed(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.USER_ROLE__ROLES_RIGHTS:
+            case PropertiesPackage.RIGHT__ROLES_RIGHTS:
                 getRolesRights().clear();
                 getRolesRights().addAll((Collection)newValue);
                 return;
@@ -323,19 +282,16 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.USER_ROLE__ID:
+            case PropertiesPackage.RIGHT__ID:
                 setId(ID_EDEFAULT);
                 return;
-            case PropertiesPackage.USER_ROLE__NAME:
+            case PropertiesPackage.RIGHT__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-                setLocalizedLabel(LOCALIZED_LABEL_EDEFAULT);
+            case PropertiesPackage.RIGHT__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
                 return;
-            case PropertiesPackage.USER_ROLE__FIXED:
-                setFixed(FIXED_EDEFAULT);
-                return;
-            case PropertiesPackage.USER_ROLE__ROLES_RIGHTS:
+            case PropertiesPackage.RIGHT__ROLES_RIGHTS:
                 getRolesRights().clear();
                 return;
         }
@@ -349,15 +305,13 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.USER_ROLE__ID:
+            case PropertiesPackage.RIGHT__ID:
                 return id != ID_EDEFAULT;
-            case PropertiesPackage.USER_ROLE__NAME:
+            case PropertiesPackage.RIGHT__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case PropertiesPackage.USER_ROLE__LOCALIZED_LABEL:
-                return LOCALIZED_LABEL_EDEFAULT == null ? localizedLabel != null : !LOCALIZED_LABEL_EDEFAULT.equals(localizedLabel);
-            case PropertiesPackage.USER_ROLE__FIXED:
-                return fixed != FIXED_EDEFAULT;
-            case PropertiesPackage.USER_ROLE__ROLES_RIGHTS:
+            case PropertiesPackage.RIGHT__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case PropertiesPackage.RIGHT__ROLES_RIGHTS:
                 return rolesRights != null && !rolesRights.isEmpty();
         }
         return super.eIsSet(featureID);
@@ -376,12 +330,10 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
         result.append(id);
         result.append(", name: ");
         result.append(name);
-        result.append(", localizedLabel: ");
-        result.append(localizedLabel);
-        result.append(", fixed: ");
-        result.append(fixed);
+        result.append(", description: ");
+        result.append(description);
         result.append(')');
         return result.toString();
     }
 
-} //UserRoleImpl
+} //RightImpl

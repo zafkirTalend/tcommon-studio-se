@@ -550,6 +550,18 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.RIGHT: {
+                Right right = (Right)theEObject;
+                Object result = caseRight(right);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.ROLE_RIGHT: {
+                RoleRight roleRight = (RoleRight)theEObject;
+                Object result = caseRoleRight(roleRight);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1556,6 +1568,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseRulesItem(RulesItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Right</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Right</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseRight(Right object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Role Right</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Role Right</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseRoleRight(RoleRight object) {
         return null;
     }
 
