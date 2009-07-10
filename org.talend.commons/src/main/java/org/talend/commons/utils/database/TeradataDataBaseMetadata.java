@@ -140,9 +140,9 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("TableName"); //$NON-NLS-1$
-                String creator = rs.getString("CreatorName"); //$NON-NLS-1$
-                String type = rs.getString("TableKind"); //$NON-NLS-1$
+                String name = rs.getString("TableName").trim(); //$NON-NLS-1$
+                String creator = rs.getString("CreatorName").trim(); //$NON-NLS-1$
+                String type = rs.getString("TableKind").trim(); //$NON-NLS-1$
 
                 String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
@@ -196,6 +196,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         // for real
         String sql = "SELECT * from DBC.COLUMNS Where databasename ='" + database + "' and tablename = '" //$NON-NLS-1$ //$NON-NLS-2$
                 + tableNamePattern + "' order by columnid"; //$NON-NLS-1$
+        boolean needRetrieveFromDriver = false;
 
         ResultSet rs = null;
         Statement stmt = null;
@@ -204,12 +205,13 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                String tableName = rs.getString("TableName"); //$NON-NLS-1$
-                String columnName = rs.getString("ColumnName"); //$NON-NLS-1$
+                String tableName = rs.getString("TableName").trim(); //$NON-NLS-1$
+                String columnName = rs.getString("ColumnName").trim(); //$NON-NLS-1$
                 String typeName = rs.getString("ColumnType"); //$NON-NLS-1$
                 // add by wzhang. for teradata can't get the type for view. just set by default.
                 if (typeName == null) {
                     typeName = "String"; //$NON-NLS-1$
+                    needRetrieveFromDriver = true;
                 }
                 String columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
                 String decimalDigits = rs.getString("DecimalFractionalDigits"); //$NON-NLS-1$
@@ -237,6 +239,9 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             }
         }
 
+        if (needRetrieveFromDriver) {
+            return connection.getMetaData().getColumns(catalog, database, tableNamePattern, columnNamePattern);
+        }
         TeradataResultSet tableResultSet = new TeradataResultSet();
         tableResultSet.setMetadata(COLUMN_META);
         tableResultSet.setData(list);
