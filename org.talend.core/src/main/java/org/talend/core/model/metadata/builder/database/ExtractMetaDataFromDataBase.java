@@ -921,13 +921,26 @@ public class ExtractMetaDataFromDataBase {
     private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern, String dbType)
             throws SQLException {
         ResultSet rsTables = null;
-        String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
+        //  String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
             types[i] = tableInfo.getTypes().get(i).getName();
         }
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
-        rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
+        // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
+        ResultSet rsTableTypes = null;
+        rsTableTypes = dbMetaData.getTableTypes();
+        Set<String> availableTableTypes = new HashSet<String>();
+        String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
+                ETableTypes.TABLETYPE_SYNONYM.getName() };
+        while (rsTableTypes.next()) {
+            String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
+            if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
+                availableTableTypes.add(currentTableType);
+            }
+        }
+        rsTableTypes.close();
+        rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
         return rsTables;
     }
 

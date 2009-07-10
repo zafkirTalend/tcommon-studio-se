@@ -74,7 +74,7 @@ public class ExtractMetaDataUtils {
                 dbMetaData = createFakeDatabaseMetaData(conn);
             } else if (teradataNeedFakeDatabaseMetaData(dbType)) {
                 dbMetaData = createTeradataFakeDatabaseMetaData(conn);
-                //add by wzhang for bug 8106. set database name for teradata.
+                // add by wzhang for bug 8106. set database name for teradata.
                 if (ExtractMetaDataUtils.metadataCon != null) {
                     TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
                     teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
@@ -482,6 +482,10 @@ public class ExtractMetaDataUtils {
 
             connection = ((Driver) klazz.newInstance()).connect(url, info);
 
+        }
+        // throw a new exception.
+        if (connection == null) {
+            throw new Exception("Impossible to initialize the connection !");
         }
         return connection;
     }
