@@ -21,7 +21,6 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Control;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.linking.TableToTablesLinker;
-import org.talend.designer.mapper.ui.dnd.TableEntriesTransfer;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.managers.WebServiceManager;
 

@@ -20,7 +20,6 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
-import org.talend.designer.mapper.managers.TableManager;
 import org.talend.designer.webservice.WebServiceComponent;
 
 /**
@@ -34,14 +33,11 @@ public class WebServiceManager {
 
     private UIManager uiManager;
 
-    TableManager tableManager;
-
     private DelimitedFileConnection recordConnection;
 
     public WebServiceManager(WebServiceComponent connector, int selectedColumnIndex) {
         super();
         this.connector = connector;
-        tableManager = new TableManager();
         recordConnection = ConnectionFactory.eINSTANCE.createDelimitedFileConnection();
     }
 
