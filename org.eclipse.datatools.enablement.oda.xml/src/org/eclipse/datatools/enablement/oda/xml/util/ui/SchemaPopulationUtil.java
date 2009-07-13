@@ -9,7 +9,6 @@
 package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,13 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.apache.xerces.impl.xs.XMLSchemaLoader;
 import org.apache.xerces.impl.xs.XSAttributeGroupDecl;
@@ -44,10 +37,6 @@ import org.apache.xerces.xs.XSTypeDefinition;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 import org.eclipse.datatools.enablement.oda.xml.util.ISaxParserConsumer;
 import org.eclipse.datatools.enablement.oda.xml.util.SaxParser;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * This class is used to offer GUI a utility to get an tree from certain xml/xsd file.
@@ -320,7 +309,6 @@ final class XSDFileSchemaTreePopulator {
     public static ATreeNode getSchemaTree(String fileName, boolean incAttr) throws OdaException, MalformedURLException,
             URISyntaxException {
         includeAttribute = incAttr;
-        xmlPathValue = fileName;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
         URI uri = null;
@@ -548,33 +536,6 @@ final class XSDFileSchemaTreePopulator {
 
         populateRoot(root);
         return root;
-    }
-
-    private static String xmlPathValue = "";
-
-    private static String getSimpleType(String nodeName) {
-        String returnTypeValue = "";
-        try {
-            DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc = parser.parse(new java.io.File(xmlPathValue));
-
-            XPath xpath = XPathFactory.newInstance().newXPath();
-            returnTypeValue = (xpath.evaluate(nodeName, doc));
-            NodeList nodes = (NodeList) xpath.evaluate(nodeName, doc, XPathConstants.NODESET);
-            for (int i = 0, n = nodes.getLength(); i < n; i++) {
-                Node node = nodes.item(i);
-                System.out.println(node);
-            }
-        } catch (XPathExpressionException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return returnTypeValue;
     }
 
     /**
