@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
@@ -58,13 +59,13 @@ public class TableToTablesLinker<D1, D2> extends BgDrawableComposite implements 
 
     private Comparator<LinkDescriptor<TableItem, D1, Table, D2>> drawingLinksComparator;
 
-    private IBackgroundRefresher backgroundRefresher;
+    public IBackgroundRefresher backgroundRefresher;
 
-    private Display display;
+    public Display display;
 
-    private Table source;
+    public Table source;
 
-    private List<Table> targets;
+    public List<Table> targets;
 
     /**
      * DOC amaumont TreeToTableLinker constructor comment.
@@ -255,7 +256,7 @@ public class TableToTablesLinker<D1, D2> extends BgDrawableComposite implements 
      * @param maxWidth
      * @return
      */
-    private int findXRightStartBezierLink(TableItem[] items, int maxWidth) {
+    public int findXRightStartBezierLink(TableItem[] items, int maxWidth) {
         for (int i = 0; i < items.length; i++) {
             TableItem item = items[i];
             if (!item.isDisposed()) {
@@ -407,5 +408,26 @@ public class TableToTablesLinker<D1, D2> extends BgDrawableComposite implements 
      */
     protected LinksManager<TableItem, D1, Table, D2> getLinksManager() {
         return this.linksManager;
+    }
+
+    public Set<String> getInputSource() {
+        return null;
+    }
+
+    public Set<String> getOutputSource() {
+        return null;
+    }
+
+    public void addLinks(TableItem itemSource, Object data1, Table tableTarget, Object data2, String mark) {
+
+    }
+
+    public void onXPathValueChanged(Table sourceTable, Table targetTable, String oldValue, String newValue, String rowname,
+            int itemIndex) {
+
+    }
+
+    public void clearLinks() {
+
     }
 }
