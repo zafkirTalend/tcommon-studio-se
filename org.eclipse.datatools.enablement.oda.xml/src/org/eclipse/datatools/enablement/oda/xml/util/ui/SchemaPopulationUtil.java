@@ -555,7 +555,7 @@ final class XSDFileSchemaTreePopulator {
                 if (dataType.equals("anyType")) {
                     dataType = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition().getName();
                 }
-                if (dataType != null || dataType.length() > 0) {
+                if (dataType != null && dataType.length() > 0) {
                     childNode.setDataType(dataType);
                 }
                 childNode.setType(ATreeNode.ELEMENT_TYPE);
