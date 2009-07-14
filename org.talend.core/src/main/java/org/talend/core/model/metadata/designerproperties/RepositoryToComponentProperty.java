@@ -21,6 +21,9 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
@@ -861,6 +864,62 @@ public class RepositoryToComponentProperty {
         }
         if (value.equals("REGEXP")) { //$NON-NLS-1$
             return connection.getFieldSeparatorValue();
+        }
+        return null;
+    }
+
+    // added by nma to deal with .xsd file
+    public static Object getXmlAndXSDFileValue(XmlFileConnection connection, String value) {
+        EList list = connection.getSchema();
+        XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
+        if (value.equals("FILE_PATH")) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getXmlFilePath())) {
+                return connection.getXmlFilePath();
+            } else {
+                Path p = new Path(connection.getXmlFilePath());
+                if ((p.toPortableString()).endsWith("xsd")) {
+                    FileDialog dial = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.NONE);
+                    dial.setFileName(new Path(p.toPortableString()).toOSString());
+                    String file = dial.open();
+                    if (file != null) {
+                        if (!file.equals("")) {
+                            String portableValue = Path.fromOSString(file).toPortableString();
+                            return portableValue;
+                        }
+                    }
+                }
+                return TalendTextUtils.addQuotes(p.toPortableString());
+            }
+        }
+        if (value.equals("LIMIT")) { //$NON-NLS-1$
+            if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
+                return ""; //$NON-NLS-1$
+            } else {
+                return xmlDesc.getLimitBoucle().toString();
+            }
+        }
+        if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
+            if (xmlDesc == null) {
+                return ""; //$NON-NLS-1$
+            } else {
+                if (isConetxtMode(connection, xmlDesc.getAbsoluteXPathQuery())) {
+                    return xmlDesc.getAbsoluteXPathQuery();
+                } else {
+                    return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
+                }
+            }
+        }
+        if (value.equals("ENCODING")) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getEncoding())) {
+                return connection.getEncoding();
+            } else {
+                if (connection.getEncoding() == null) {
+                    // get the default encoding
+                    return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName()); //$NON-NLS-1$
+                } else {
+                    return TalendTextUtils.addQuotes(connection.getEncoding());
+                }
+            }
         }
         return null;
     }
