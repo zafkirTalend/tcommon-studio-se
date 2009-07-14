@@ -455,10 +455,4 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return CorePlugin.getDefault().getPreferenceStore().getString(value.toUpperCase());
     }
 
-    @Override
-    protected boolean canModifyDBColumn(Object bean) {
-        // TODO
-        return false;
-    }
-
 }
