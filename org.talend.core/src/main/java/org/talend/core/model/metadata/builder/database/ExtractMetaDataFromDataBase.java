@@ -880,7 +880,7 @@ public class ExtractMetaDataFromDataBase {
     private static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
         List<String> itemTablesName = new ArrayList<String>();
         while (resultSet.next()) {
-            itemTablesName.add(resultSet.getString(1));
+            itemTablesName.add(resultSet.getString(1).trim());
         }
         return itemTablesName;
     }
