@@ -27,7 +27,7 @@ public class WebServiceTreeContentProvider implements IStructuredContentProvider
      * 
      * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
      */
-    @Override
+
     public Object[] getElements(Object inputElement) {
         if (inputElement instanceof ParameterInfo) {
             return ((ParameterInfo) inputElement).getParameterInfos().toArray();
@@ -40,7 +40,7 @@ public class WebServiceTreeContentProvider implements IStructuredContentProvider
      * 
      * @see org.eclipse.jface.viewers.IContentProvider#dispose()
      */
-    @Override
+
     public void dispose() {
         // TODO Auto-generated method stub
 
@@ -52,7 +52,7 @@ public class WebServiceTreeContentProvider implements IStructuredContentProvider
      * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer, java.lang.Object,
      * java.lang.Object)
      */
-    @Override
+
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
         // TODO Auto-generated method stub
 
@@ -63,7 +63,7 @@ public class WebServiceTreeContentProvider implements IStructuredContentProvider
      * 
      * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
      */
-    @Override
+
     public Object[] getChildren(Object parentElement) {
         if (parentElement instanceof ParameterInfo) {
             return ((ParameterInfo) parentElement).getParameterInfos().toArray();
@@ -76,7 +76,7 @@ public class WebServiceTreeContentProvider implements IStructuredContentProvider
      * 
      * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
      */
-    @Override
+
     public Object getParent(Object element) {
         if (element != null && element instanceof ParameterInfo) {
             return ((ParameterInfo) element).getParent();
@@ -89,7 +89,7 @@ public class WebServiceTreeContentProvider implements IStructuredContentProvider
      * 
      * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
      */
-    @Override
+
     public boolean hasChildren(Object element) {
         if (element != null) {
             if (element instanceof ParameterInfo) {

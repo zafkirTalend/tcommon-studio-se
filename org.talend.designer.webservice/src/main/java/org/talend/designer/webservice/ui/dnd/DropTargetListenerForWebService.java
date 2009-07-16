@@ -74,7 +74,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.jface.util.TransferDropTargetListener#getTransfer()
      */
-    @Override
+
     public Transfer getTransfer() {
         return TableEntriesTransfer.getInstance();
     }
@@ -84,7 +84,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.jface.util.TransferDropTargetListener#isEnabled(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public boolean isEnabled(DropTargetEvent event) {
         // TODO Auto-generated method stub
         return false;
@@ -95,7 +95,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.swt.dnd.DropTargetListener#dragEnter(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public void dragEnter(DropTargetEvent event) {
         if (event.detail == DND.DROP_DEFAULT) {
             if ((event.operations & DND.DROP_COPY) != 0) {
@@ -122,7 +122,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.swt.dnd.DropTargetListener#dragLeave(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public void dragLeave(DropTargetEvent event) {
 
     }
@@ -132,7 +132,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.swt.dnd.DropTargetListener#dragOperationChanged(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public void dragOperationChanged(DropTargetEvent event) {
 
     }
@@ -142,7 +142,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.swt.dnd.DropTargetListener#dragOver(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public void dragOver(DropTargetEvent event) {
 
     }
@@ -152,7 +152,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.swt.dnd.DropTargetListener#drop(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public void drop(DropTargetEvent event) {
         if (getTransfer().isSupportedType(event.currentDataType)) {
             // boolean canRemove = true;
@@ -255,7 +255,7 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
      * 
      * @see org.eclipse.swt.dnd.DropTargetListener#dropAccept(org.eclipse.swt.dnd.DropTargetEvent)
      */
-    @Override
+
     public void dropAccept(DropTargetEvent event) {
 
     }

@@ -39,7 +39,7 @@ public class DragSourceListenerForWebService implements TransferDragSourceListen
      * 
      * @see org.eclipse.jface.util.TransferDragSourceListener#getTransfer()
      */
-    @Override
+
     public Transfer getTransfer() {
         return TableEntriesTransfer.getInstance();
     }
@@ -49,7 +49,7 @@ public class DragSourceListenerForWebService implements TransferDragSourceListen
      * 
      * @see org.eclipse.swt.dnd.DragSourceListener#dragFinished(org.eclipse.swt.dnd.DragSourceEvent)
      */
-    @Override
+
     public void dragFinished(DragSourceEvent event) {
 
     }
@@ -59,7 +59,7 @@ public class DragSourceListenerForWebService implements TransferDragSourceListen
      * 
      * @see org.eclipse.swt.dnd.DragSourceListener#dragSetData(org.eclipse.swt.dnd.DragSourceEvent)
      */
-    @Override
+
     public void dragSetData(DragSourceEvent event) {
         if (TableEntriesTransfer.getInstance().isSupportedType(event.dataType)) {
             if (draggableControl instanceof Table) {
@@ -75,7 +75,7 @@ public class DragSourceListenerForWebService implements TransferDragSourceListen
      * 
      * @see org.eclipse.swt.dnd.DragSourceListener#dragStart(org.eclipse.swt.dnd.DragSourceEvent)
      */
-    @Override
+
     public void dragStart(DragSourceEvent event) {
         if (draggableControl instanceof Table) {
             Table draggableTable = (Table) draggableControl;

@@ -62,7 +62,6 @@ public class AddArrayIndexDialog extends Dialog {
         this.arraySize = para.getArraySize();
     }
 
-    @Override
     protected Control createDialogArea(Composite parent) {
         Composite createDialogArea = (Composite) super.createDialogArea(parent);
         GridLayout layout = new GridLayout();
@@ -82,7 +81,6 @@ public class AddArrayIndexDialog extends Dialog {
         text.setLayoutData(data);
         text.addModifyListener(new ModifyListener() {
 
-            @Override
             public void modifyText(ModifyEvent e) {
                 indexText = text.getText();
                 // String com = text.getText();
@@ -97,7 +95,6 @@ public class AddArrayIndexDialog extends Dialog {
         return createDialogArea;
     }
 
-    @Override
     protected void okPressed() {
         String com = text.getText();
         int index = Integer.valueOf(com);
@@ -113,7 +110,6 @@ public class AddArrayIndexDialog extends Dialog {
         super.okPressed();
     }
 
-    @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setBounds(500, 300, 250, 150);

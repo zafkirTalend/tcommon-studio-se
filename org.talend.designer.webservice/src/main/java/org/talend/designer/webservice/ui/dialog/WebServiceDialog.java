@@ -49,7 +49,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         return this.webServiceUI;
     }
 
-    @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         if (title != null) {
@@ -89,7 +88,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         return webServiceComponentMain.getWebServiceManager().getUIManager();
     }
 
-    @Override
     protected void cancelPressed() {
         super.cancelPressed();
         getUIManager().setDialogResponse(SWT.CANCEL);
@@ -100,14 +98,13 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
      * 
      * @see org.eclipse.jface.dialogs.Dialog#createButtonsForButtonBar(org.eclipse.swt.widgets.Composite)
      */
-    @Override
+
     protected void createButtonsForButtonBar(Composite parent) {
         // create OK and Cancel buttons by default
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
-    @Override
     protected Control createDialogArea(Composite parent) {
         Composite panel = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -126,7 +123,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         return panel;
     }
 
-    @Override
     protected void okPressed() {
         getWebServiceUI().saveProperties();
         // getWebServiceUI().prepareClosing(SWT.OK);
@@ -228,7 +224,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
 
     }
 
-    @Override
     public void checkPerformed(boolean enable) {
         final Button okBtn = getButton(IDialogConstants.OK_ID);
         if (okBtn != null) {

@@ -143,7 +143,6 @@ public class WebServiceComponent extends AbstractExternalNode {
 
     }
 
-    @Override
     public IExternalData getExternalData() {
         // TODO Auto-generated method stub
         return null;
