@@ -31,22 +31,23 @@ public class ResourceDisposeUtil {
         if (figure == null || newColor == null) {
             return;
         }
-        Color oldColor = figure.getBackgroundColor();
-        if (foreground) {
-            oldColor = figure.getForegroundColor();
-        }
+        // Color oldColor = figure.getBackgroundColor();
+        // if (foreground) {
+        // oldColor = figure.getForegroundColor();
+        // }
         if (foreground) {
             figure.setForegroundColor(newColor);
         } else {
             figure.setBackgroundColor(newColor);
         }
+        // maybe, no need to dispose, because have used the cache
 
-        if (oldColor != null && !oldColor.isDisposed()) {
-            if (oldColor.equals(newColor)) {
-                newColor.dispose();
-            } else {
-                oldColor.dispose();
-            }
-        }
+        // if (oldColor != null && !oldColor.isDisposed()) {
+        // if (oldColor.equals(newColor)) {
+        // newColor.dispose();
+        // } else {
+        // oldColor.dispose();
+        // }
+        // }
     }
 }
