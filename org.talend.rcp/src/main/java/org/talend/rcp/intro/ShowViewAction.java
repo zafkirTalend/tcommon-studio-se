@@ -14,10 +14,18 @@ package org.talend.rcp.intro;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TypedListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.dialogs.ShowViewDialog;
@@ -57,7 +65,45 @@ public class ShowViewAction extends Action {
             return;
         }
 
-        final ShowViewDialog dialog = new ShowViewDialog(window, WorkbenchPlugin.getDefault().getViewRegistry());
+        final ShowViewDialog dialog = new ShowViewDialog(window, WorkbenchPlugin.getDefault().getViewRegistry()) {
+
+            protected Control createDialogArea(Composite parent) {
+                Control control = super.createDialogArea(parent);
+                // TODO
+                // 1) get tree
+                // 2) get keyUp/KeyDown listener.
+                // 3) remove listener.
+                Control[] com = ((Composite) control).getChildren();
+                for (int i = 0; i < com.length; i++) {
+                    Control control2 = com[i];
+                    if (control2 instanceof FilteredTree) {
+                        Tree tree = ((FilteredTree) control2).getViewer().getTree();
+                        Listener[] listenerDown = tree.getListeners(SWT.KeyDown);
+                        Listener[] listeberUp = tree.getListeners(SWT.KeyUp);
+                        for (int j = 0; j < listenerDown.length; j++) {
+                            if (listenerDown[j] instanceof TypedListener) {
+                                if (((TypedListener) listenerDown[j]).getEventListener() instanceof KeyListener) {
+                                    KeyListener keyLis = (KeyListener) ((TypedListener) listenerDown[j]).getEventListener();
+                                    tree.removeKeyListener(keyLis);
+                                }
+                            }
+
+                        }
+                        for (int k = 0; k < listeberUp.length; k++) {
+                            if (listeberUp[k] instanceof TypedListener) {
+                                if (((TypedListener) listeberUp[k]).getEventListener() instanceof KeyListener) {
+                                    KeyListener keyLis = (KeyListener) ((TypedListener) listeberUp[k]).getEventListener();
+                                    tree.removeKeyListener(keyLis);
+                                }
+                            }
+                        }
+                    }
+                }
+                return control;
+            }
+
+        };
+
         dialog.open();
 
         if (dialog.getReturnCode() == Window.CANCEL) {
