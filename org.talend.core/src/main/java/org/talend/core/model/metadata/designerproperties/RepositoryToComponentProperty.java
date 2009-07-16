@@ -21,8 +21,6 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
@@ -878,15 +876,13 @@ public class RepositoryToComponentProperty {
             } else {
                 Path p = new Path(connection.getXmlFilePath());
                 if ((p.toPortableString()).endsWith("xsd")) {
-                    FileDialog dial = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.NONE);
-                    dial.setFileName(new Path(p.toPortableString()).toOSString());
-                    String file = dial.open();
-                    if (file != null) {
-                        if (!file.equals("")) {
-                            String portableValue = Path.fromOSString(file).toPortableString();
-                            return portableValue;
-                        }
-                    }
+                    OpenXSDFileDialog openXSDFileDialog = new OpenXSDFileDialog(PlatformUI.getWorkbench()
+                            .getActiveWorkbenchWindow().getShell());
+                    openXSDFileDialog.setTitle("Select a XML File to Validate");
+                    openXSDFileDialog.setPath(p);
+                    int dialogValue = openXSDFileDialog.open();
+                    if (dialogValue == 0)
+                        return openXSDFileDialog.portableValue;
                 }
                 return TalendTextUtils.addQuotes(p.toPortableString());
             }
