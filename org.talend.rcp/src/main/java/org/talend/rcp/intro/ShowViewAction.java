@@ -18,6 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TypedListener;
@@ -76,6 +77,9 @@ public class ShowViewAction extends Action {
                 Control[] com = ((Composite) control).getChildren();
                 for (int i = 0; i < com.length; i++) {
                     Control control2 = com[i];
+                    if (control2 instanceof Label) {
+                        ((Label) control2).setText("");
+                    }
                     if (control2 instanceof FilteredTree) {
                         Tree tree = ((FilteredTree) control2).getViewer().getTree();
                         Listener[] listenerDown = tree.getListeners(SWT.KeyDown);
@@ -98,6 +102,7 @@ public class ShowViewAction extends Action {
                             }
                         }
                     }
+
                 }
                 return control;
             }
@@ -105,7 +110,6 @@ public class ShowViewAction extends Action {
         };
 
         dialog.open();
-
         if (dialog.getReturnCode() == Window.CANCEL) {
             return;
         }
