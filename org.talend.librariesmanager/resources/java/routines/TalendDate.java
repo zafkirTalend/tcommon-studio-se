@@ -112,9 +112,9 @@ public class TalendDate {
     public static int compareDate(Date date1, Date date2, String pattern) {
         if (date1 == null && date2 == null) {
             return 0;
-        } else if (date1 != null || date2 == null) {
+        } else if (date1 != null && date2 == null) {
             return 1;
-        } else if (date1 == null || date2 != null) {
+        } else if (date1 == null && date2 != null) {
             return -1;
         }
 
