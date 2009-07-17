@@ -57,7 +57,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
 
     private List<INode> componentsList;
 
-    private Map<String, URL> externalNodeHTMLMap;
+    private Map<String, Object> externalNodeHTMLMap;
 
     // private String tempFolderPath;
 
@@ -77,9 +77,10 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
     public ExternalNodeComponentHandler(Map<String, String> picFilePathMap, Element externalNodeElement,
             List<INode> allComponentsList, Map<String, List> sourceConnectionMap, Map<String, List> targetConnectionMap,
             IDesignerCoreService designerCoreService, Map<String, ConnectionItem> repositoryConnectionItemMap,
-            Map<String, String> repositoryDBIdAndNameMap, Map<String, URL> externalNodeHTMLMap/*
-                                                                                               * , String tempFolderPath
-                                                                                               */) {
+            Map<String, String> repositoryDBIdAndNameMap, Map<String, Object> externalNodeHTMLMap/*
+                                                                                                  * , String
+                                                                                                  * tempFolderPath
+                                                                                                  */) {
         this.picFilePathMap = picFilePathMap;
         this.externalNodeElement = externalNodeElement;
         this.componentsList = allComponentsList;

@@ -26,7 +26,6 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ProjectManager;
 
@@ -42,8 +41,6 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
 
     private Map<String, String> picFilePathMap;
 
-    private List<Map> mapList;
-
     private Map<String, ConnectionItem> repositoryConnectionItemMap;
 
     private Map<String, String> repositoryDBIdAndNameMap;
@@ -53,6 +50,8 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
     private Element internalNodeElement;
 
     private List<INode> componentsList;
+
+    private Map<String, Object> internalNodeHTMLMap;
 
     /**
      * DOC Administrator InternalNodeComponentHandler constructor comment.
@@ -69,7 +68,7 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
     public InternalNodeComponentHandler(Map<String, String> picFilePathMap, Element internalNodeElement,
             List<INode> allComponentsList, Map<String, List> sourceConnectionMap, Map<String, List> targetConnectionMap,
             IDesignerCoreService designerCoreService, Map<String, ConnectionItem> repositoryConnectionItemMap,
-            Map<String, String> repositoryDBIdAndNameMap) {
+            Map<String, String> repositoryDBIdAndNameMap, Map<String, Object> internalNodeHTMLMap) {
 
         this.picFilePathMap = picFilePathMap;
         this.internalNodeElement = internalNodeElement;
@@ -79,6 +78,7 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
         this.designerCoreService = designerCoreService;
         this.repositoryConnectionItemMap = repositoryConnectionItemMap;
         this.repositoryDBIdAndNameMap = repositoryDBIdAndNameMap;
+        this.internalNodeHTMLMap = internalNodeHTMLMap;
     }
 
     /*
@@ -92,6 +92,7 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
             Element componentElement = generateComponentDetailsInfo(false, node, this.internalNodeElement, this.picFilePathMap,
                     this.sourceConnectionMap, this.targetConnectionMap, this.repositoryDBIdAndNameMap);
 
+            CorePlugin.getDefault().getRepositoryService().setInternalNodeHTMLMap(node, internalNodeHTMLMap);
             generateComponentElemParamters(node, componentElement);
         }
     }
@@ -177,7 +178,8 @@ public class InternalNodeComponentHandler extends AbstractComponentHandler {
                 // int index = type.getIndexOfItemFromList(type.getDisplayName());
                 // value = checkString(type.getListItemsDisplayName()[index]);
                 // }
-                else if (elemparameter.getRepositoryValue() != null && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
+                else if (elemparameter.getRepositoryValue() != null
+                        && elemparameter.getRepositoryValue().equals("PASSWORD") //$NON-NLS-1$
                         && ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()
                         && !ContextParameterUtils.containContextVariables((String) elemparameter.getValue())) {
                     value = "******"; //$NON-NLS-1$

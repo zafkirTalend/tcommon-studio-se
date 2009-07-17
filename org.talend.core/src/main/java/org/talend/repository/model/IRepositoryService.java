@@ -13,6 +13,7 @@
 package org.talend.repository.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
@@ -120,5 +121,7 @@ public interface IRepositoryService extends IService {
     public TreeViewer getRepositoryTreeView();
 
     public Action getRepositoryViewDoubleClickAction();
+
+    public void setInternalNodeHTMLMap(INode node, Map<String, Object> internalNodeHTMLMap);
 
 }

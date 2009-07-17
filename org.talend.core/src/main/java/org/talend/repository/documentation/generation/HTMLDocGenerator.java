@@ -116,7 +116,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
     private IDesignerCoreService designerCoreService;
 
-    private Map<String, URL> externalNodeHTMLMap = new HashMap<String, URL>();
+    private Map<String, Object> externalNodeHTMLMap = new HashMap();
 
     private ERepositoryObjectType repositoryObjectType;
 
@@ -463,7 +463,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (internalNodeComponentsList.size() > 0) {
             InternalNodeComponentHandler internalNodeComponentHandler = new InternalNodeComponentHandler(this.picFilePathMap,
                     internalNodeElement, internalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
-                    this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap);
+                    this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
+                    externalNodeHTMLMap);
 
             // Generates internal node components information.
             internalNodeComponentHandler.generateComponentInfo();
@@ -1203,16 +1204,18 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
         Set keySet = externalNodeHTMLMap.keySet();
         for (Object key : keySet) {
-            URL html = externalNodeHTMLMap.get(key);
-            if (html != null) {
-                externalList.add(html);// html
+            if (externalNodeHTMLMap.get(key) instanceof URL) {
+                URL html = (URL) externalNodeHTMLMap.get(key);
+                if (html != null) {
+                    externalList.add(html);// html
 
-                String htmlStr = html.toString();
-                String xmlStr = htmlStr.substring(0, htmlStr.lastIndexOf(IHTMLDocConstants.HTML_FILE_SUFFIX))
-                        + IHTMLDocConstants.XML_FILE_SUFFIX;
-                externalList.add(new URL(xmlStr));// xml
+                    String htmlStr = html.toString();
+                    String xmlStr = htmlStr.substring(0, htmlStr.lastIndexOf(IHTMLDocConstants.HTML_FILE_SUFFIX))
+                            + IHTMLDocConstants.XML_FILE_SUFFIX;
+                    externalList.add(new URL(xmlStr));// xml
+                }
+
             }
-
         }
 
         return externalList;

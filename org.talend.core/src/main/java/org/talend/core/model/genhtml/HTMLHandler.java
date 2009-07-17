@@ -59,9 +59,9 @@ public class HTMLHandler {
      * @param xslFileName a string
      */
     public static void generateHTMLFile(String tempFolderPath, String xslFilePath, String xmlFilePath, String htmlFilePath,
-            Map<String, URL> htmlFileMap) {
+            Map<String, Object> htmlFileMap) {
 
-        Map<String, URL> nodeHTMLMap = htmlFileMap;
+        Map<String, Object> nodeHTMLMap = htmlFileMap;
         generateHTMLFile(tempFolderPath, xslFilePath, xmlFilePath, htmlFilePath);
 
         File originalHtmlFile = new File(htmlFilePath);
@@ -87,15 +87,20 @@ public class HTMLHandler {
                 for (String key : htmlFileMap.keySet()) {
                     String compareStr = "<!--" + key + "ended-->"; // tMap_1ended--> //$NON-NLS-1$ //$NON-NLS-2$
                     if (lineStr.indexOf(compareStr) != -1) {
-                        File externalNodeHTMLFile = new File(nodeHTMLMap.get(key).getPath());
 
-                        String content = (String) externalNodeFileCache.get(externalNodeHTMLFile.getAbsolutePath());
-                        if (content == null) {
-                            content = FileUtils.readFileToString(externalNodeHTMLFile);
-                            // put file content into cache
-                            externalNodeFileCache.put(externalNodeHTMLFile.getAbsolutePath(), content);
+                        if (htmlFileMap.get(key) instanceof URL) {
+                            File externalNodeHTMLFile = new File(((URL) nodeHTMLMap.get(key)).getPath());
+
+                            String content = (String) externalNodeFileCache.get(externalNodeHTMLFile.getAbsolutePath());
+                            if (content == null) {
+                                content = FileUtils.readFileToString(externalNodeHTMLFile);
+                                // put file content into cache
+                                externalNodeFileCache.put(externalNodeHTMLFile.getAbsolutePath(), content);
+                            }
+                            newMainHTMLWriter.write(content);
+                        } else if (htmlFileMap.get(key) instanceof String) {
+                            newMainHTMLWriter.write((String) htmlFileMap.get(key));
                         }
-                        newMainHTMLWriter.write(content);
                     }
                     // htmlFileMap.remove(key);
                 }
