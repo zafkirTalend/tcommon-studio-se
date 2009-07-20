@@ -882,7 +882,7 @@ public class RepositoryToComponentProperty {
                     openXSDFileDialog.setPath(p);
                     int dialogValue = openXSDFileDialog.open();
                     if (dialogValue == 0)
-                        return openXSDFileDialog.portableValue;
+                        return TalendTextUtils.addQuotes(openXSDFileDialog.portableValue);
                 }
                 return TalendTextUtils.addQuotes(p.toPortableString());
             }

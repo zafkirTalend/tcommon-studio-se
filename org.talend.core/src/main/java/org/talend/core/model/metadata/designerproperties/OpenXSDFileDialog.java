@@ -37,7 +37,7 @@ import org.talend.core.CorePlugin;
 public class OpenXSDFileDialog extends TitleAreaDialog {
 
     /**
-     * DOC Administrator findDialog constructor comment.
+     * Dialog to open XML files when dragging and dropping a xsd metadata xml item, added by nma, 17/07/2009.
      * 
      * @param parentShell
      */
@@ -91,8 +91,6 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
     protected Control createDialogArea(Composite parent) {
         final Composite container = (Composite) super.createDialogArea(parent);
         GridLayout layout = new GridLayout(14, false);
-        // layout.marginLeft = 2;
-        // layout.marginRight = 2;
         container.setLayout(layout);
 
         final Label label = new Label(container, SWT.NONE);
@@ -124,7 +122,6 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
 
         label.setText("File Name: ");
         GridData data = new GridData(GridData.BEGINNING);
-        // data.widthHint = 25;
         data.horizontalSpan = 1;
         label.setLayoutData(data);
 
