@@ -137,6 +137,14 @@ public class ImageUtils {
         return null;
     }
 
+    public static void disposeImages(byte[] data) {
+        if (data != null) {
+            if (imageFromDataCachedImages.get(data) != null && !imageFromDataCachedImages.get(data).isDisposed()) {
+                imageFromDataCachedImages.get(data).dispose();
+            }
+        }
+    }
+
     public static byte[] saveImageToData(ImageDescriptor imageDes) {
         if (imageDes != null) {
             if (imageDes != null) {
@@ -156,6 +164,8 @@ public class ImageUtils {
                         if (baos != null) {
                             try {
                                 baos.close();
+                                if (img != null && !img.isDisposed())
+                                    img.dispose();
                             } catch (IOException e) {
                                 ExceptionHandler.process(e);
                             }
