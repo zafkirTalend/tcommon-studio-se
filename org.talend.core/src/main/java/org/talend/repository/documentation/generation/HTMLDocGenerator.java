@@ -55,6 +55,7 @@ import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.genhtml.FileCopyUtils;
@@ -840,8 +841,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     contextParamElement.addAttribute("promptNeeded", HTMLDocUtils.checkString(Boolean.toString(param //$NON-NLS-1$
                             .isPromptNeeded())));
                     contextParamElement.addAttribute("type", HTMLDocUtils.checkString(param.getType())); //$NON-NLS-1$
-                    contextParamElement.addAttribute("value", HTMLDocUtils.checkString(param.getValue())); //$NON-NLS-1$
-
+                    // wzhang modified to fix bug 8058
+                    if (PasswordEncryptUtil.isPasswordType(param.getType())) {
+                        contextParamElement.addAttribute("value", "******"); //$NON-NLS-1$ //$NON-NLS-2$
+                    } else {
+                        contextParamElement.addAttribute("value", HTMLDocUtils.checkString(param.getValue())); //$NON-NLS-1$
+                    }
                     // replace repository id with context label
                     if (param.getRepositoryContextId() != null) {
                         ContextItem contextItem = ContextUtils.getContextItemById(param.getRepositoryContextId());
