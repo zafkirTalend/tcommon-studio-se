@@ -842,7 +842,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                             .isPromptNeeded())));
                     contextParamElement.addAttribute("type", HTMLDocUtils.checkString(param.getType())); //$NON-NLS-1$
                     // wzhang modified to fix bug 8058
-                    if (PasswordEncryptUtil.isPasswordType(param.getType())) {
+                    if (ProjectManager.getInstance().getCurrentProject().getEmfProject().isHidePassword()
+                            && PasswordEncryptUtil.isPasswordType(param.getType())) {
                         contextParamElement.addAttribute("value", "******"); //$NON-NLS-1$ //$NON-NLS-2$
                     } else {
                         contextParamElement.addAttribute("value", HTMLDocUtils.checkString(param.getValue())); //$NON-NLS-1$
