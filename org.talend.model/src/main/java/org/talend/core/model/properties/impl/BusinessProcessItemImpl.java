@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -21,6 +22,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.designer.business.model.business.BusinessProcess;
 
 /**
@@ -32,6 +34,7 @@ import org.talend.designer.business.model.business.BusinessProcess;
  *   <li>{@link org.talend.core.model.properties.impl.BusinessProcessItemImpl#getNotation <em>Notation</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.BusinessProcessItemImpl#getSemantic <em>Semantic</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.BusinessProcessItemImpl#getNotationHolder <em>Notation Holder</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.BusinessProcessItemImpl#getSvgBusinessProcessItem <em>Svg Business Process Item</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +71,16 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
      * @ordered
      */
     protected NotationHolder notationHolder;
+
+    /**
+     * The cached value of the '{@link #getSvgBusinessProcessItem() <em>Svg Business Process Item</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSvgBusinessProcessItem()
+     * @generated
+     * @ordered
+     */
+    protected SVGBusinessProcessItem svgBusinessProcessItem;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -235,6 +248,94 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SVGBusinessProcessItem getSvgBusinessProcessItem() {
+        if (svgBusinessProcessItem != null && svgBusinessProcessItem.eIsProxy()) {
+            InternalEObject oldSvgBusinessProcessItem = (InternalEObject)svgBusinessProcessItem;
+            svgBusinessProcessItem = (SVGBusinessProcessItem)eResolveProxy(oldSvgBusinessProcessItem);
+            if (svgBusinessProcessItem != oldSvgBusinessProcessItem) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM, oldSvgBusinessProcessItem, svgBusinessProcessItem));
+            }
+        }
+        return svgBusinessProcessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SVGBusinessProcessItem basicGetSvgBusinessProcessItem() {
+        return svgBusinessProcessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetSvgBusinessProcessItem(SVGBusinessProcessItem newSvgBusinessProcessItem, NotificationChain msgs) {
+        SVGBusinessProcessItem oldSvgBusinessProcessItem = svgBusinessProcessItem;
+        svgBusinessProcessItem = newSvgBusinessProcessItem;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM, oldSvgBusinessProcessItem, newSvgBusinessProcessItem);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSvgBusinessProcessItem(SVGBusinessProcessItem newSvgBusinessProcessItem) {
+        if (newSvgBusinessProcessItem != svgBusinessProcessItem) {
+            NotificationChain msgs = null;
+            if (svgBusinessProcessItem != null)
+                msgs = ((InternalEObject)svgBusinessProcessItem).eInverseRemove(this, PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM, SVGBusinessProcessItem.class, msgs);
+            if (newSvgBusinessProcessItem != null)
+                msgs = ((InternalEObject)newSvgBusinessProcessItem).eInverseAdd(this, PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM, SVGBusinessProcessItem.class, msgs);
+            msgs = basicSetSvgBusinessProcessItem(newSvgBusinessProcessItem, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM, newSvgBusinessProcessItem, newSvgBusinessProcessItem));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM:
+                if (svgBusinessProcessItem != null)
+                    msgs = ((InternalEObject)svgBusinessProcessItem).eInverseRemove(this, PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM, SVGBusinessProcessItem.class, msgs);
+                return basicSetSvgBusinessProcessItem((SVGBusinessProcessItem)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM:
+                return basicSetSvgBusinessProcessItem(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -249,6 +350,9 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
             case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
                 if (resolve) return getNotationHolder();
                 return basicGetNotationHolder();
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM:
+                if (resolve) return getSvgBusinessProcessItem();
+                return basicGetSvgBusinessProcessItem();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -267,6 +371,9 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
                 return;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
                 setNotationHolder((NotationHolder)newValue);
+                return;
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM:
+                setSvgBusinessProcessItem((SVGBusinessProcessItem)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -287,6 +394,9 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
             case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
                 setNotationHolder((NotationHolder)null);
                 return;
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM:
+                setSvgBusinessProcessItem((SVGBusinessProcessItem)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -303,6 +413,8 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
                 return semantic != null;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM__NOTATION_HOLDER:
                 return notationHolder != null;
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM:
+                return svgBusinessProcessItem != null;
         }
         return super.eIsSet(featureID);
     }

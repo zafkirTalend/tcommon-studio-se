@@ -26,6 +26,8 @@ public enum ERepositoryActionName {
     JOB_PROPERTIES_CHANGE("job properties change"), //$NON-NLS-1$
     JOB_DELETE_TO_RECYCLE_BIN("job delete to recycle bin"), //$NON-NLS-1$
     JOB_DELETE_FOREVER("job delete forever"), //$NON-NLS-1$
+    BUSINESS_DELETE_TO_RECYCLE_BIN("business delete to recycle bin"),
+    BUSINESS_DELETE_FOREVER("business delete forever"),
 
     // for normal job
     FOLDER_CREATE("folder create"), //$NON-NLS-1$

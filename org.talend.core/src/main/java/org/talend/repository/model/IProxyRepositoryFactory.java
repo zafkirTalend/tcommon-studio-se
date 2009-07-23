@@ -155,6 +155,21 @@ public interface IProxyRepositoryFactory {
      * @param project
      * @return
      * @throws PersistenceException
+     * @see org.talend.core.model.repository.factories.IBusinessProcessFactory#getBusinessProcess(org.talend.core.model.general.Project)
+     */
+    public abstract RootContainer<String, IRepositoryObject> getSVGBusinessProcess(Project project) throws PersistenceException;
+
+    /**
+     * @return
+     * @throws PersistenceException
+     * @see org.talend.core.model.repository.factories.IBusinessProcessFactory#getBusinessProcess(org.talend.core.model.general.Project)
+     */
+    public abstract RootContainer<String, IRepositoryObject> getSVGBusinessProcess() throws PersistenceException;
+
+    /**
+     * @param project
+     * @return
+     * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IDocumentationFactory#getDocumentation(org.talend.core.model.general.Project)
      */
     public abstract RootContainer<String, IRepositoryObject> getDocumentation(Project project) throws PersistenceException;

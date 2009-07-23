@@ -39,6 +39,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
@@ -55,6 +56,7 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
  */
 public enum ERepositoryObjectType {
     BUSINESS_PROCESS("repository.businessProcess"), //$NON-NLS-1$
+    SVG_BUSINESS_PROCESS("repository.svgBusinessProcess"), //$NON-NLS-1$
     PROCESS("repository.process"), //$NON-NLS-1$
     CONTEXT("repository.context"), //$NON-NLS-1$
     ROUTINES("repository.routines"), //$NON-NLS-1$
@@ -152,6 +154,8 @@ public enum ERepositoryObjectType {
         switch (type) {
         case BUSINESS_PROCESS:
             return "businessProcess"; //$NON-NLS-1$
+        case SVG_BUSINESS_PROCESS:
+            return "businessProcessSVG";
         case PROCESS:
             return "process"; //$NON-NLS-1$
         case JOBLET:
@@ -365,6 +369,12 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
                 return METADATA_FILE_EBCDIC;
+            }
+
+            @Override
+            public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
+                // TODO Auto-generated method stub
+                return SVG_BUSINESS_PROCESS;
             }
 
             public Object defaultCase(EObject object) {

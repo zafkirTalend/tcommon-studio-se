@@ -939,13 +939,22 @@ public interface PropertiesPackage extends EPackage {
     int BUSINESS_PROCESS_ITEM__NOTATION_HOLDER = ITEM_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Svg Business Process Item</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM = ITEM_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Business Process Item</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int BUSINESS_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
+    int BUSINESS_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -5507,13 +5516,86 @@ public interface PropertiesPackage extends EPackage {
     int ROLE_RIGHT_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SVGBusinessProcessItemImpl <em>SVG Business Process Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SVGBusinessProcessItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSVGBusinessProcessItem()
+     * @generated
+     */
+    int SVG_BUSINESS_PROCESS_ITEM = 70;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The feature id for the '<em><b>Business Process Item</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>SVG Business Process Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 70;
+    int FOLDER_TYPE = 71;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5523,7 +5605,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 71;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 72;
 
 
     /**
@@ -5534,7 +5616,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 72;
+    int USER_MODULE_AUTHORIZATION_TYPE = 73;
 
 
     /**
@@ -5545,7 +5627,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 73;
+    int INFORMATION_LEVEL = 74;
 
 
     /**
@@ -6137,6 +6219,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getBusinessProcessItem_NotationHolder();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.BusinessProcessItem#getSvgBusinessProcessItem <em>Svg Business Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Svg Business Process Item</em>'.
+     * @see org.talend.core.model.properties.BusinessProcessItem#getSvgBusinessProcessItem()
+     * @see #getBusinessProcessItem()
+     * @generated
+     */
+    EReference getBusinessProcessItem_SvgBusinessProcessItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ItemState <em>Item State</em>}'.
@@ -9312,6 +9405,27 @@ public interface PropertiesPackage extends EPackage {
     EReference getRoleRight_UserRight();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SVGBusinessProcessItem <em>SVG Business Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SVG Business Process Item</em>'.
+     * @see org.talend.core.model.properties.SVGBusinessProcessItem
+     * @generated
+     */
+    EClass getSVGBusinessProcessItem();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.SVGBusinessProcessItem#getBusinessProcessItem <em>Business Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Business Process Item</em>'.
+     * @see org.talend.core.model.properties.SVGBusinessProcessItem#getBusinessProcessItem()
+     * @see #getSVGBusinessProcessItem()
+     * @generated
+     */
+    EReference getSVGBusinessProcessItem_BusinessProcessItem();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10302,6 +10416,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference BUSINESS_PROCESS_ITEM__NOTATION_HOLDER = eINSTANCE.getBusinessProcessItem_NotationHolder();
+
+        /**
+         * The meta object literal for the '<em><b>Svg Business Process Item</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference BUSINESS_PROCESS_ITEM__SVG_BUSINESS_PROCESS_ITEM = eINSTANCE.getBusinessProcessItem_SvgBusinessProcessItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ItemStateImpl <em>Item State</em>}' class.
@@ -12791,6 +12913,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference ROLE_RIGHT__USER_RIGHT = eINSTANCE.getRoleRight_UserRight();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SVGBusinessProcessItemImpl <em>SVG Business Process Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SVGBusinessProcessItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSVGBusinessProcessItem()
+         * @generated
+         */
+        EClass SVG_BUSINESS_PROCESS_ITEM = eINSTANCE.getSVGBusinessProcessItem();
+
+        /**
+         * The meta object literal for the '<em><b>Business Process Item</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM = eINSTANCE.getSVGBusinessProcessItem_BusinessProcessItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.

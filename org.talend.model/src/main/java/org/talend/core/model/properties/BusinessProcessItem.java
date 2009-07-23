@@ -18,6 +18,7 @@ import org.talend.designer.business.model.business.BusinessProcess;
  *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getNotation <em>Notation</em>}</li>
  *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getSemantic <em>Semantic</em>}</li>
  *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getNotationHolder <em>Notation Holder</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getSvgBusinessProcessItem <em>Svg Business Process Item</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,6 +102,34 @@ public interface BusinessProcessItem extends Item {
      * @generated
      */
     void setNotationHolder(NotationHolder value);
+
+    /**
+     * Returns the value of the '<em><b>Svg Business Process Item</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.SVGBusinessProcessItem#getBusinessProcessItem <em>Business Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Svg Business Process Item</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Svg Business Process Item</em>' reference.
+     * @see #setSvgBusinessProcessItem(SVGBusinessProcessItem)
+     * @see org.talend.core.model.properties.PropertiesPackage#getBusinessProcessItem_SvgBusinessProcessItem()
+     * @see org.talend.core.model.properties.SVGBusinessProcessItem#getBusinessProcessItem
+     * @model opposite="businessProcessItem" required="true"
+     * @generated
+     */
+    SVGBusinessProcessItem getSvgBusinessProcessItem();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getSvgBusinessProcessItem <em>Svg Business Process Item</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Svg Business Process Item</em>' reference.
+     * @see #getSvgBusinessProcessItem()
+     * @generated
+     */
+    void setSvgBusinessProcessItem(SVGBusinessProcessItem value);
 
     public void computeNotationHolder();
 

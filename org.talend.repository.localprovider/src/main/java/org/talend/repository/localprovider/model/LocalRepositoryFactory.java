@@ -80,6 +80,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
@@ -350,6 +351,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         ConnectionPackage.eINSTANCE.getClass();
 
         needsBinFolder.add(ERepositoryObjectType.BUSINESS_PROCESS);
+        needsBinFolder.add(ERepositoryObjectType.SVG_BUSINESS_PROCESS);
         needsBinFolder.add(ERepositoryObjectType.DOCUMENTATION);
         needsBinFolder.add(ERepositoryObjectType.METADATA_CONNECTIONS);
         needsBinFolder.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
@@ -1205,6 +1207,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
                 itemResource = save((BusinessProcessItem) item);
                 break;
+            case PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM:
+                itemResource = save((SVGBusinessProcessItem) item);
+                break;
             case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM:
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
@@ -1347,6 +1352,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             switch (eClass.getClassifierID()) {
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
                 itemResource = create(project2, (BusinessProcessItem) item, path);
+                break;
+            case PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM:
+                itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.SVG_BUSINESS_PROCESS);
                 break;
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_CONNECTIONS, path);

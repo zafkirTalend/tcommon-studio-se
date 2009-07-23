@@ -157,6 +157,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.RULES_ITEM: return createRulesItem();
             case PropertiesPackage.USER_RIGHT: return createUserRight();
             case PropertiesPackage.ROLE_RIGHT: return createRoleRight();
+            case PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM: return createSVGBusinessProcessItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -829,6 +830,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public RoleRight createRoleRight() {
         RoleRightImpl roleRight = new RoleRightImpl();
         return roleRight;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SVGBusinessProcessItem createSVGBusinessProcessItem() {
+        SVGBusinessProcessItemImpl svgBusinessProcessItem = new SVGBusinessProcessItemImpl();
+        return svgBusinessProcessItem;
     }
 
     /**

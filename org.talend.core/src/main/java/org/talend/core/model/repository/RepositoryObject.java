@@ -53,6 +53,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
@@ -304,6 +305,12 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
 
                 return ERepositoryObjectType.DOCUMENTATION;
+            }
+
+            @Override
+            public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
+                // TODO Auto-generated method stub
+                return ERepositoryObjectType.SVG_BUSINESS_PROCESS;
             }
 
             public Object defaultCase(EObject object) {

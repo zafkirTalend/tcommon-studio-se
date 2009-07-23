@@ -598,6 +598,15 @@ public interface PropertiesFactory extends EFactory {
     RoleRight createRoleRight();
 
     /**
+     * Returns a new object of class '<em>SVG Business Process Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SVG Business Process Item</em>'.
+     * @generated
+     */
+    SVGBusinessProcessItem createSVGBusinessProcessItem();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

@@ -280,6 +280,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseRoleRight(RoleRight object) {
                 return createRoleRightAdapter();
             }
+            public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
+                return createSVGBusinessProcessItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1261,6 +1264,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createRoleRightAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SVGBusinessProcessItem <em>SVG Business Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SVGBusinessProcessItem
+     * @generated
+     */
+    public Adapter createSVGBusinessProcessItemAdapter() {
         return null;
     }
 

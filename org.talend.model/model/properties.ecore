@@ -114,6 +114,8 @@
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="semantic" eType="ecore:EClass Business.ecore#//BusinessProcess"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="notationHolder" eType="#//NotationHolder"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="svgBusinessProcessItem"
+        lowerBound="1" eType="#//SVGBusinessProcessItem" eOpposite="#//SVGBusinessProcessItem/businessProcessItem"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileItem" abstract="true" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -603,5 +605,9 @@
         eOpposite="#//UserRole/rolesRights"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="userRight" eType="#//UserRight"
         eOpposite="#//UserRight/rolesRights"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SVGBusinessProcessItem" eSuperTypes="#//FileItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="businessProcessItem" eType="#//BusinessProcessItem"
+        eOpposite="#//BusinessProcessItem/svgBusinessProcessItem"/>
   </eClassifiers>
 </ecore:EPackage>
