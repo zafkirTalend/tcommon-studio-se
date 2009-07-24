@@ -31,12 +31,15 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaP
 import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.extended.command.MetadataExportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataImportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataPasteCommand;
 import org.talend.core.ui.extended.command.SaveAsGenericSchemaCommand;
 import org.talend.core.ui.metadata.dialog.ExtendedTableResetDBTypesCommand;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * $Id$
@@ -61,7 +64,11 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
         if (dbmsId != null) {
             resetDBTypesButton = createResetDBTypesPushButton(dbmsId);
         }
-        saveAsGenericSchemaButton = createSaveAsGenericSchemaButton(dbmsId);
+        RepositoryNode node = CorePlugin.getDefault().getRepositoryService().getRootRepositoryNode(
+                ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
+        if (node != null) {
+            saveAsGenericSchemaButton = createSaveAsGenericSchemaButton(dbmsId);
+        }
         updateEnabledStateOfButtons();
     }
 
