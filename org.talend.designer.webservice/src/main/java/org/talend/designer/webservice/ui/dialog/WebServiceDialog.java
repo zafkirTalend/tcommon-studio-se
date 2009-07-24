@@ -9,12 +9,15 @@ import java.util.Set;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.designer.webservice.WebServiceComponent;
@@ -38,6 +41,8 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
     private WebServiceComponentMain webServiceComponentMain;
 
     private boolean maximized;
+
+    private CTabFolder tabFolder;
 
     public WebServiceDialog(Shell parentShell, WebServiceComponentMain webServiceComponentMain) {
         super(parentShell);
@@ -88,6 +93,18 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         return webServiceComponentMain.getWebServiceManager().getUIManager();
     }
 
+    protected void buttonPressed(int buttonId) {
+        if (IDialogConstants.OK_ID == buttonId) {
+            okPressed();
+        } else if (IDialogConstants.CANCEL_ID == buttonId) {
+            cancelPressed();
+        } else if (IDialogConstants.NEXT_ID == buttonId) {
+            nextPressed();
+        } else if (IDialogConstants.BACK_ID == buttonId) {
+            backPressed();
+        }
+    }
+
     protected void cancelPressed() {
         super.cancelPressed();
         getUIManager().setDialogResponse(SWT.CANCEL);
@@ -101,6 +118,8 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
 
     protected void createButtonsForButtonBar(Composite parent) {
         // create OK and Cancel buttons by default
+        createButton(parent, IDialogConstants.BACK_ID, IDialogConstants.BACK_LABEL, false);
+        createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, false);
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
@@ -123,11 +142,42 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         return panel;
     }
 
+    protected void makeNextAndBackButton() {
+        tabFolder = webServiceUI.getTabFolder();
+        if (tabFolder.getSelectionIndex() == 0) {
+
+        }
+
+    }
+
+    protected void backPressed() {
+        tabFolder = webServiceUI.getTabFolder();
+        int curreSelect = tabFolder.getSelectionIndex();
+        if (curreSelect > 0) {
+            tabFolder.setSelection(curreSelect - 1);
+
+        }
+    }
+
+    protected void nextPressed() {
+        tabFolder = webServiceUI.getTabFolder();
+        Function function = webServiceUI.getCurrentFunction();
+        int curreSelect = tabFolder.getSelectionIndex();
+        if (function == null) {
+            warningDialog("Please Select a Operation!");
+        } else if (curreSelect < 2 && function != null) {
+            tabFolder.setSelection(curreSelect + 1);
+            if ((curreSelect + 1) == 3) {
+
+            }
+
+        }
+    }
+
     protected void okPressed() {
         getWebServiceUI().saveProperties();
         // getWebServiceUI().prepareClosing(SWT.OK);
         saveValue();
-        super.okPressed();
 
     }
 
@@ -150,6 +200,20 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         if (function != null) {
             IElementParameter METHODPara = wenCom.getElementParameter("METHOD");
             METHODPara.setValue(function.getName());
+
+            IElementParameter SOAPACTIONPara = wenCom.getElementParameter("SOAPACTION");
+            SOAPACTIONPara.setValue(function.getSoapAction());
+            System.out.print("-----" + function.getSoapAction());
+
+            IElementParameter METHODNSPara = wenCom.getElementParameter("METHOD_NS");
+            METHODNSPara.setValue(function.getNameSpaceURI());
+
+            IElementParameter SOAPEncoding = wenCom.getElementParameter("SOAP_ENCODING");
+            SOAPEncoding.setValue(function.getEncodingStyle());
+
+            IElementParameter ADDRESSLocation = wenCom.getElementParameter("ADDRESS_LOCATION");
+            ADDRESSLocation.setValue(function.getAddressLocation());
+
         }
 
         IElementParameter INPUT_PARAMSPara = wenCom.getElementParameter("INPUT_PARAMS");
@@ -166,10 +230,20 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             if (inputData.getInputColumnValue() != null) {
                 inputMap.put("EXPRESSION", inputData.getInputColumnValue());
             }
+            // else if (inputData.getInputColumnValue() == null) {
+            // warningDialog("Please Select a Input Item.");
+            // return;
+            // }
 
             if (inputData.getParameter() != null) {
                 inputMap.put("ELEMENT", inputData.getParameter().getName());
+                inputMap.put("NAMESPACE", inputData.getParameter().getNameSpace());
+                inputMap.put("TYPE", inputData.getParameter().getKind());
             }
+            // else if (inputData.getParameter() == null) {
+            // warningDialog("Please Select a Input Item.");
+            // return;
+            // }
 
             inputparaValue.add(inputMap);
         }
@@ -194,8 +268,11 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             if (para.getName() == null || "".equals(para.getName())) {
                 continue;
             }
-            Map<String, String> eleMap = new HashMap<String, String>(1);
+
+            Map<String, String> eleMap = new HashMap<String, String>(3);
             eleMap.put("ELEMENT", para.getName());
+            eleMap.put("NAMESPACE", para.getNameSpace());
+            eleMap.put("TYPE", para.getKind());
             outputMap.add(eleMap);
         }
 
@@ -204,13 +281,33 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             Map<String, String> dataMap = new HashMap<String, String>(2);
             if (data.getParameterName() != null) {
                 dataMap.put("EXPRESSION", data.getParameterName());
+            } else if (data.getParameterName() == null) {
+                warningDialog("Please Select a Output Item.");
+                return;
             }
+
+            if (data.getMetadataColumn() != null) {
+                dataMap.put("COLUMN", data.getMetadataColumn().getLabel());
+            }
+            // else if (data.getMetadataColumn() == null) {
+            // warningDialog("Please Select a Output Item.");
+            // return;
+            // }
+
+            // Map<String, String> dataMap2 = new HashMap<String, String>(2);
+            // if (data.getParameterList().size() > 0) {
+            // for (ParameterInfo para : data.getParameterList()) {
+            // dataMap2.put("", para.getNameSpace());
+            // dataMap2.put("", para.getKind());
+            // }
+            // }
             //
             // if (data.getOutputColumnValue() != null) {
             // dataMap.put(data.getParameterName(), data.getOutputColumnValue());
             // }
 
             outputMap.add(dataMap);
+            // outputMap.add(dataMap2);
         }
 
         for (String outsource : outsourceList) {
@@ -222,6 +319,15 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             outputMap.add(sourceMap);
         }
 
+        super.okPressed();
+
+    }
+
+    private void warningDialog(String title) {
+        MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WARNING | SWT.OK);
+        box.setText("WARNING"); //$NON-NLS-1$
+        box.setMessage(title); //$NON-NLS-1$
+        box.open();
     }
 
     public void checkPerformed(boolean enable) {

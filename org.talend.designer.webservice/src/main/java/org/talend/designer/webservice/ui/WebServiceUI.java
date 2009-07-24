@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.webservice.ui;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +38,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -205,6 +208,16 @@ public class WebServiceUI {
 
     private int currentIndexForOutExpress = -1;
 
+    private String originalProxyHost;
+
+    private String originalProxyPort;
+
+    private String originalProxyUser;
+
+    private String originalProxyPassword;
+
+    private boolean usingProxy = false;
+
     public int getSelectedColumnIndex() {
         return this.selectedColumnIndex;
     }
@@ -278,7 +291,16 @@ public class WebServiceUI {
             String str = (String) obj;
             String wsdlUrl = (String) connector.getElementParameter("ENDPOINT").getValue(); //$NON-NLS-1$
             WSDLDiscoveryHelper ws = new WSDLDiscoveryHelper();
+
+            WebServiceComponent webServiceComponent = webServiceManager.getWebServiceComponent();
+            boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
+            if (isUseProxy) {
+                useProxy();
+            }
             List<Function> funList = ws.getFunctionsAvailable(wsdlUrl);
+            if (isUseProxy && usingProxy) {
+                RemoveUseProxy();
+            }
             for (Function fun : funList) {
                 if (fun.getName().equals(str)) {
                     allfunList.clear();
@@ -461,6 +483,88 @@ public class WebServiceUI {
     }
 
     /**
+     * DOC Comment method "useProxy".
+     */
+    private void useProxy() {
+        String proxyHost = "";
+        String proxyPort = "";
+        String proxyUser = "";
+        String proxyPassword = "";
+        IElementParameter proxyHostParameter = webServiceManager.getWebServiceComponent().getElementParameter("PROXY_HOST");
+        IElementParameter proxyPortParameter = webServiceManager.getWebServiceComponent().getElementParameter("PROXY_PORT");
+        IElementParameter proxyUserParameter = webServiceManager.getWebServiceComponent().getElementParameter("PROXY_USERNAME");
+        IElementParameter proxyPasswordParameter = webServiceManager.getWebServiceComponent().getElementParameter(
+                "PROXY_PASSWORD");
+        if (proxyHostParameter != null) {
+            proxyHost = proxyHostParameter.toString();
+        }
+        if (proxyPortParameter != null) {
+            proxyPort = proxyPortParameter.toString();
+        }
+        if (proxyUserParameter != null) {
+            proxyUser = proxyUserParameter.toString();
+        }
+        if (proxyPasswordParameter != null) {
+            proxyPassword = proxyPasswordParameter.toString();
+        }
+
+        originalProxyHost = System.getProperty("http.proxyHost");
+        originalProxyPort = System.getProperty("http.proxyPort");
+        originalProxyUser = System.getProperty("http.proxyUser");
+        originalProxyPassword = System.getProperty("http.proxyPassword");
+
+        System.setProperty("http.proxyHost", proxyHost);
+        System.setProperty("http.proxyPort", proxyPort);
+        System.setProperty("http.proxyUser", proxyUser);
+        System.setProperty("http.proxyPassword", proxyPassword);
+        usingProxy = true;
+
+    }
+
+    /**
+     * DOC Comment method "UnUseProxy".
+     */
+    private void RemoveUseProxy() {
+        System.setProperty("http.proxyHost", originalProxyHost);
+        System.setProperty("http.proxyPort", originalProxyPort);
+        System.setProperty("http.proxyUser", originalProxyUser);
+        System.setProperty("http.proxyPassword", originalProxyPassword);
+        usingProxy = false;
+
+    }
+
+    /**
+     * DOC Comment method "useAuth".
+     */
+    private void useAuth() {
+        try {
+            URL url = new URL(URLValue);
+            StringBuffer des = new StringBuffer();
+            if ("http".equals(url.getProtocol())) {
+                des.append("http://");
+                des.append("user");
+                des.append(":");
+                des.append("ps");
+                des.append("@");
+                des.append(url.getHost());
+                if (url.getPort() != -1) {
+                    des.append(":");
+                    des.append(url.getPort());
+                }
+                des.append(url.getPath());
+                // System.out.println(des);
+
+            }
+            URLValue = des.toString();
+
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
+    }
+
+    /**
      * Sets the listener.
      * 
      * @param listener the listener to set
@@ -546,6 +650,18 @@ public class WebServiceUI {
                 if (expressinPutTableView == null) {
                     return;
                 }
+
+                if (currentFunction == null) {
+
+                    tabFolder.setSelection(wsdlTabItem);
+
+                    MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WARNING | SWT.OK);
+                    box.setText("WARNING"); //$NON-NLS-1$ 
+                    box.setMessage("Please Select a Operation."); //$NON-NLS-1$
+                    box.open();
+                    return;
+                }
+
                 ExtendedTableModel<InputMappingData> inputModel = expressinPutTableView.getExtendedTableModel();
                 boolean removeLinksIn = true;
                 goin: for (InputMappingData indata : inputModel.getBeansList()) {
@@ -554,6 +670,7 @@ public class WebServiceUI {
                         break goin;
                     }
                 }
+
                 ExtendedTableModel<OutPutMappingData> outputModel = expressoutPutTableView.getExtendedTableModel();
                 boolean removeLinksOut = true;
                 goout: for (OutPutMappingData outdata : outputModel.getBeansList()) {
@@ -588,30 +705,20 @@ public class WebServiceUI {
         wsdlComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         // WSDL URL
-        Composite wsdlUrlcomposite = new Composite(wsdlComposite, SWT.NONE);
+        Composite wsdlUrlcomposite = new Composite(wsdlComposite, SWT.NULL);
         GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
         layoutData.verticalIndent = 2;
         wsdlUrlcomposite.setLayoutData(layoutData);
-        layout = new GridLayout();
-        layout.numColumns = 6;
-        // layout.horizontalSpacing = 1;
+        layout = new GridLayout(4, false);
         wsdlUrlcomposite.setLayout(layout);
 
-        Composite comForPath = new Composite(wsdlUrlcomposite, SWT.NONE);
-        GridData pathData = new GridData(GridData.FILL_BOTH);
-        pathData.verticalSpan = 5;
-        // pathData.verticalIndent = 2;
-        comForPath.setLayoutData(pathData);
-        layout = new GridLayout(3, false);
-        layout.verticalSpacing = 2;
-        comForPath.setLayout(layout);
-
-        wsdlField = new LabelledFileField(comForPath, ExternalWebServiceUIProperties.FILE_LABEL,
+        wsdlField = new LabelledFileField(wsdlUrlcomposite, ExternalWebServiceUIProperties.FILE_LABEL,
                 ExternalWebServiceUIProperties.FILE_EXTENSIONS, 1, SWT.BORDER) {
 
             protected void setFileFieldValue(String result) {
                 if (result != null) {
                     getTextControl().setText(PathUtils.getPortablePath(result));
+                    getDataFromNet();
                 }
             }
 
@@ -620,7 +727,8 @@ public class WebServiceUI {
         if (wsdlUrl != null) {
             wsdlField.setText(wsdlUrl);
         }
-        refreshbut = new Button(wsdlUrlcomposite, SWT.PUSH);
+
+        refreshbut = new Button(wsdlUrlcomposite, SWT.PUSH | SWT.CENTER);
         refreshbut.setImage(ImageProvider.getImage(EImage.REFRESH_ICON));
         GridData butData = new GridData();
         butData.verticalSpan = 1;
@@ -677,7 +785,6 @@ public class WebServiceUI {
                 rowColumn.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
             }
-
         };
 
         addListenerForURLCom();
@@ -688,17 +795,7 @@ public class WebServiceUI {
         refreshbut.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                List<Function> funList = new ArrayList<Function>();
-                URLValue = wsdlField.getText();
-                if (URLValue == null) {
-                    URLValue = ""; //$NON-NLS-1$
-                }
-                WSDLDiscoveryHelper ws = new WSDLDiscoveryHelper();
-                funList = ws.getFunctionsAvailable(URLValue);
-
-                ExtendedTableModel<Function> listModel = listTableView.getExtendedTableModel();
-                listModel.removeAll();
-                listModel.addAll(funList);
+                getDataFromNet();
             }
         });
 
@@ -718,32 +815,45 @@ public class WebServiceUI {
                 List<ParameterInfo> listOut = currentFunction.getOutputParameters();
                 ExtendedTableModel<InputMappingData> columnModel = expressinPutTableView.getExtendedTableModel();
                 columnModel.removeAll();
-                for (int i = 0; i < listIn.size(); i++) {
-                    // if (list.size() > 0) {
-                    ParameterInfo pa = listIn.get(i);
+                if (listIn == null) {
                     InputMappingData inData = new InputMappingData();
-                    inData.setParameterName(pa.getName());
-                    inData.setParameter(pa);
-
-                    // exForInput.removeAll();
-                    // boolean canaddforIn = true;
-                    // List<InputMappingData> paExList = columnModel.getBeansList();
-                    // for (int j = 0; j < paExList.size(); j++) {
-                    // InputMappingData currentPa = paExList.get(j);
-                    // if (currentPa == pa) {
-                    // canaddforIn = false;
-                    // }
-                    // }
-                    // if (canaddforIn) {
+                    inData.setParameterName("NEED NOT INPUT!!");
                     columnModel.add(inData);
-                    // }
+
+                } else {
+                    for (int i = 0; i < listIn.size(); i++) {
+                        // if (list.size() > 0) {
+                        ParameterInfo pa = listIn.get(i);
+                        InputMappingData inData = new InputMappingData();
+                        inData.setParameterName(pa.getName());
+                        inData.setParameter(pa);
+
+                        // exForInput.removeAll();
+                        // boolean canaddforIn = true;
+                        // List<InputMappingData> paExList = columnModel.getBeansList();
+                        // for (int j = 0; j < paExList.size(); j++) {
+                        // InputMappingData currentPa = paExList.get(j);
+                        // if (currentPa == pa) {
+                        // canaddforIn = false;
+                        // }
+                        // }
+                        // if (canaddforIn) {
+                        columnModel.add(inData);
+                        // }
+                    }
                 }
 
                 ExtendedTableModel<ParameterInfo> rowForOutput = rowoutPutTableView.getExtendedTableModel();
                 rowForOutput.removeAll();
-                for (int i = 0; i < listOut.size(); i++) {
-                    ParameterInfo pa = listOut.get(i);
+                if (listOut == null) {
+                    ParameterInfo pa = new ParameterInfo();
+                    pa.setName("OUTPUT IS NULL!!");
                     rowForOutput.add(pa);
+                } else {
+                    for (int i = 0; i < listOut.size(); i++) {
+                        ParameterInfo pa = listOut.get(i);
+                        rowForOutput.add(pa);
+                    }
                 }
                 ExtendedTableModel<OutPutMappingData> exforoutput = expressoutPutTableView.getExtendedTableModel();
                 exforoutput.removeAll();
@@ -759,6 +869,36 @@ public class WebServiceUI {
         });
     }
 
+    private void getDataFromNet() {
+        List<Function> funList = new ArrayList<Function>();
+        URLValue = wsdlField.getText();
+        if (URLValue == null) {
+            URLValue = ""; //$NON-NLS-1$
+        }
+        WSDLDiscoveryHelper ws = new WSDLDiscoveryHelper();
+
+        WebServiceComponent webServiceComponent = webServiceManager.getWebServiceComponent();
+        boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
+        if (isUseProxy) {
+            useProxy();
+        }
+
+        boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
+        if (isUseAuth) {
+            useAuth();
+        }
+
+        funList = ws.getFunctionsAvailable(URLValue);
+
+        if (isUseProxy && usingProxy) {
+            RemoveUseProxy();
+        }
+
+        ExtendedTableModel<Function> listModel = listTableView.getExtendedTableModel();
+        listModel.removeAll();
+        listModel.addAll(funList);
+    }
+
     private Composite createInputMappingStatus() {
 
         SashForm inputComposite = new SashForm(tabFolder, SWT.NONE);
@@ -766,10 +906,12 @@ public class WebServiceUI {
         layout.marginWidth = 20;
         layout.marginHeight = 20;
         layout.horizontalSpacing = 150;
+
         inputComposite.setLayout(layout);
         inputComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
         inputComposite.setBackgroundMode(SWT.INHERIT_FORCE);
 
+        // input mapping cloumn.
         SashForm comforRow = new SashForm(inputComposite, SWT.BORDER);
         GridData data = new GridData(GridData.FILL_BOTH);
         data.widthHint = 220;
@@ -778,7 +920,7 @@ public class WebServiceUI {
         comforRow.setLayout(new FillLayout());
         tabTotabLinkForin = new WebServiceTableLiner(inputComposite);
         ExtendedTableModel<IMetadataColumn> model = new ExtendedTableModel<IMetadataColumn>("INPUTCOLUMN", inPutcolumnList); //$NON-NLS-1$
-        rowinPutTableView = new AbstractDataTableEditorView<IMetadataColumn>(comforRow, SWT.NONE, model, false, true, false) {
+        rowinPutTableView = new AbstractDataTableEditorView<IMetadataColumn>(comforRow, SWT.BORDER, model, false, true, false) {
 
             protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
                 super.setTableViewerCreatorOptions(newTableViewerCreator);
@@ -810,6 +952,8 @@ public class WebServiceUI {
             }
 
         };
+
+        // input mapping right SashForm.
         rowTableForin = rowinPutTableView.getTable();
         new DragAndDropForWebService(webServiceManager, rowinPutTableView, null, connector, true, false);
 
@@ -837,6 +981,8 @@ public class WebServiceUI {
         butComData1.horizontalSpan = 1;
         GridData butComData2 = new GridData(GridData.FILL_BOTH);
         butComData2.horizontalSpan = 2;
+
+        // input mapping add button.
         addListButForIn = new Button(butCom, SWT.PUSH);
         addListButForIn.setEnabled(false);
         addListButForIn.setImage(ImageProvider.getImage(EImage.ADD_ICON));
@@ -844,6 +990,7 @@ public class WebServiceUI {
         addListButForIn.setLayoutData(butComData1);
         addListButForIn.pack();
 
+        // input mapping remove button.
         removeButForIn = new Button(butCom, SWT.PUSH);
         removeButForIn.setEnabled(false);
         removeButForIn.setImage(ImageProvider.getImage(EImage.DELETE_ICON));
@@ -851,12 +998,14 @@ public class WebServiceUI {
         removeButForIn.setLayoutData(butComData1);
         removeButForIn.pack();
 
+        // input mapping Normalize button.
         normalizeButForIn = new Button(butCom, SWT.PUSH);
         normalizeButForIn.setEnabled(false);
         normalizeButForIn.setText(Messages.getString("WebServiceUI.Normalize")); //$NON-NLS-1$
         normalizeButForIn.setLayoutData(butComData2);
         normalizeButForIn.pack();
 
+        // input mapping Denormalize button.
         denorButForIn = new Button(butCom, SWT.PUSH);
         denorButForIn.setEnabled(false);
         denorButForIn.setText(Messages.getString("WebServiceUI.Denormalize")); //$NON-NLS-1$
@@ -881,15 +1030,17 @@ public class WebServiceUI {
             }
 
             protected void createColumns(TableViewerCreator<InputMappingData> tableViewerCreator, final Table table) {
+                // input mapping ecpress cloumn.
                 TableViewerCreatorColumn<InputMappingData, String> expressionColumn = new TableViewerCreatorColumn<InputMappingData, String>(
                         tableViewerCreator);
                 expressionColumn.setTitle(Messages.getString("WebServiceUI.EXPRESSION")); //$NON-NLS-1$
                 expressionColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<InputMappingData, String>() {
 
                     public String get(InputMappingData bean) {
-                        // if ("".equals(bean.getInputColumnValue()) || bean.getInputColumnValue() == null) {
-                        // return "";
-                        // } else {
+                        if ("".equals(bean.getInputColumnValue()) || bean.getInputColumnValue() == null) {
+                            return "";
+                        }
+                        // else {
                         // StringBuffer expression = new StringBuffer();
                         // for (IMetadataColumn column : inPutcolumnList) {
                         // if (bean.getInputColumnValue().contains(column.getLabel())) {
@@ -931,6 +1082,7 @@ public class WebServiceUI {
 
                 });
 
+                // input mapping element.
                 TableViewerCreatorColumn<InputMappingData, String> elementColumn = new TableViewerCreatorColumn<InputMappingData, String>(
                         tableViewerCreator);
                 elementColumn.setTitle(Messages.getString("WebServiceUI.ELEMENT")); //$NON-NLS-1$
@@ -996,7 +1148,7 @@ public class WebServiceUI {
         tabTotabLinkForin.init(rowTableForin, tabs, backgroundRefresher);
         addListenerForInputCom();
         initLinksForIn();
-
+        inputComposite.setWeights(new int[] { 5, 2, 5 });
         return inputComposite;
     }
 
@@ -1016,6 +1168,9 @@ public class WebServiceUI {
                 currentElementIndexForIn = expressTableForIn.getSelectionIndex();
                 currentInputMappingData = (InputMappingData) selectedItem[0].getData();
                 // currentSelectedInParameter = inputData.getParameter();
+                if (currentInputMappingData.getParameter() == null) {
+                    return;
+                }
                 List<ParameterInfo> infoList = currentInputMappingData.getParameter().getParameterInfos();
                 ParameterInfo infoPa = currentInputMappingData.getParameter().getParent();
 
@@ -1188,6 +1343,7 @@ public class WebServiceUI {
         layout.marginWidth = 20;
         layout.marginHeight = 20;
         layout.horizontalSpacing = 150;
+
         outputComposite.setLayout(layout);
         outputComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
         outputComposite.setBackgroundMode(SWT.INHERIT_FORCE);
@@ -1354,6 +1510,9 @@ public class WebServiceUI {
                         StringBuffer paraName = new StringBuffer();
                         String paraNameof = bean.getParameterName();
                         List<ParameterInfo> paraList = bean.getParameterList();
+                        if ("".equals(paraNameof) || paraNameof == null) {
+                            return "";
+                        }
                         for (ParameterInfo para : paraList) {
                             if (para.getParent() != null) {
                                 String name = new ParameterInfoUtil().getParentName(para);
@@ -1434,6 +1593,7 @@ public class WebServiceUI {
         tabTotabLinkForout.init(rowTableForout, tabs, backgroundRefresher);
         initLinksForOut();
         addListenerForOutputCom();
+        outputComposite.setWeights(new int[] { 5, 2, 5 });
         return outputComposite;
     }
 
@@ -1474,6 +1634,10 @@ public class WebServiceUI {
                 if (currentSelectedOutExpress.getParameterList().size() > 1) {
                     denorButForOut.setEnabled(false);
                     normalizeButForOut.setEnabled(false);
+                    return;
+                }
+                List<ParameterInfo> list = currentSelectedOutExpress.getParameterList();
+                if (list.size() <= 0) {
                     return;
                 }
                 List<ParameterInfo> infoList = currentSelectedOutExpress.getParameterList().get(0).getParameterInfos();

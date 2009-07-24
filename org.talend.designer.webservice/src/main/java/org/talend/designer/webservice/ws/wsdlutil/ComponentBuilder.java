@@ -26,7 +26,6 @@ import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
 import javax.wsdl.factory.WSDLFactory;
-import javax.wsdl.xml.WSDLReader;
 import javax.xml.namespace.QName;
 
 import org.exolab.castor.xml.schema.ComplexType;
@@ -38,13 +37,13 @@ import org.exolab.castor.xml.schema.SimpleTypesFactory;
 import org.exolab.castor.xml.schema.Structure;
 import org.exolab.castor.xml.schema.XMLType;
 import org.jdom.input.DOMBuilder;
+import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ServiceInfo;
 
 /**
- * 
- * @author gcui
+ * DOC gcui class global comment. Detailled comment
  */
 public class ComponentBuilder {
 
@@ -66,8 +65,12 @@ public class ComponentBuilder {
     }
 
     public ServiceInfo buildserviceinformation(ServiceInfo serviceinfo) throws Exception {
-        WSDLReader reader = wsdlFactory.newWSDLReader();
-        Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
+        // WSDLReader reader = wsdlFactory.newWSDLReader();
+        // Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
+        ServiceDiscoveryHelper sdh;
+        sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
+        Definition def = sdh.getDefinition();
+
         wsdlTypes = createSchemaFromTypes(def);
 
         Map services = def.getServices();
@@ -76,6 +79,43 @@ public class ComponentBuilder {
             populateComponent(serviceinfo, (Service) svcIter.next());
         }
         return serviceinfo;
+    }
+
+    protected Vector createSchemaFromTypes(Definition wsdlDefinition) {
+        Vector schemas = new Vector();
+        org.w3c.dom.Element schemaElementt = null;
+        if (wsdlDefinition.getTypes() != null) {
+            Vector schemaExtElem = findExtensibilityElement(wsdlDefinition.getTypes().getExtensibilityElements(), "schema");
+            for (int i = 0; i < schemaExtElem.size(); i++) {
+                ExtensibilityElement schemaElement = (ExtensibilityElement) schemaExtElem.elementAt(i);
+                if (schemaElement != null && schemaElement instanceof UnknownExtensibilityElement) {
+                    schemaElementt = ((UnknownExtensibilityElement) schemaElement).getElement();
+                    Schema schema = createschemafromtype(schemaElementt, wsdlDefinition);
+                    schemas.add(schema);
+                } else if (schemaElement != null && schemaElement instanceof javax.wsdl.extensions.schema.Schema) {
+                    schemaElementt = ((javax.wsdl.extensions.schema.Schema) schemaElement).getElement();
+                    Schema schema = createschemafromtype(schemaElementt, wsdlDefinition);
+                    schemas.add(schema);
+                }
+            }
+
+        }
+        return schemas;
+    }
+
+    private static Vector findExtensibilityElement(List extensibilityElements, String elementType) {
+
+        Vector elements = new Vector();
+        if (extensibilityElements != null) {
+            Iterator iter = extensibilityElements.iterator();
+            while (iter.hasNext()) {
+                ExtensibilityElement elment = (ExtensibilityElement) iter.next();
+                if (elment.getElementType().getLocalPart().equalsIgnoreCase(elementType)) {
+                    elements.add(elment);
+                }
+            }
+        }
+        return elements;
     }
 
     private Schema createschemafromtype(org.w3c.dom.Element schemaElement, Definition wsdlDefinition) {
@@ -106,33 +146,9 @@ public class ComponentBuilder {
         try {
             schema = XMLSupport.convertElementToSchema(jdomSchemaElement);
         } catch (Exception e) {
-            System.out.println("a");
             System.err.println(e.getMessage());
-            System.out.println("a");
         }
         return schema;
-    }
-
-    protected Vector createSchemaFromTypes(Definition wsdlDefinition) {
-        Vector schemas = new Vector();
-        org.w3c.dom.Element schemaElementt = null;
-        if (wsdlDefinition.getTypes() != null) {
-            Vector schemaExtElem = findExtensibilityElement(wsdlDefinition.getTypes().getExtensibilityElements(), "schema");
-            for (int i = 0; i < schemaExtElem.size(); i++) {
-                ExtensibilityElement schemaElement = (ExtensibilityElement) schemaExtElem.elementAt(i);
-                if (schemaElement != null && schemaElement instanceof UnknownExtensibilityElement) {
-                    schemaElementt = ((UnknownExtensibilityElement) schemaElement).getElement();
-                    Schema schema = createschemafromtype(schemaElementt, wsdlDefinition);
-                    schemas.add(schema);
-                } else if (schemaElement != null && schemaElement instanceof javax.wsdl.extensions.schema.Schema) {
-                    schemaElementt = ((javax.wsdl.extensions.schema.Schema) schemaElement).getElement();
-                    Schema schema = createschemafromtype(schemaElementt, wsdlDefinition);
-                    schemas.add(schema);
-                }
-            }
-
-        }
-        return schemas;
     }
 
     private ServiceInfo populateComponent(ServiceInfo component, Service service) {
@@ -186,9 +202,7 @@ public class ComponentBuilder {
                 if (operElem != null && operElem instanceof SOAPOperation) {
 
                     OperationInfo operationInfo = new OperationInfo(style);
-
                     buildOperation(operationInfo, oper);
-
                     operationInfos.add(operationInfo);
                 }
             }
@@ -263,7 +277,6 @@ public class ComponentBuilder {
         if (manner == 1) {
             tip = "input";
         } else {
-
             tip = "output";
         }
 
@@ -292,9 +305,7 @@ public class ComponentBuilder {
                 }
             }
             operationInfo.setWsdltype(wsdlTypes);
-
         }
-
     }
 
     private void buildComplexParameter(ComplexType type, ParameterInfo parentParameterInfo, OperationInfo containOperationInfo,
@@ -337,14 +348,10 @@ public class ComponentBuilder {
                             param.setParent(parentParameterInfo);
                             parentParameterInfo.getParameterInfos().add(param);
                         }
-
                     }
-
                 }
             }
-
         }
-
     }
 
     private ParameterInfo createSimpleParamInfor(OperationInfo containOperationInfo, ElementDecl elementDecl, int input) {
@@ -356,13 +363,6 @@ public class ComponentBuilder {
                 parameter1.setNameSpace(elementDecl.getSchema().getTargetNamespace());
             }
         }
-        // if ((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1) {
-        // parameter1.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
-        // System.out.println("Arrays");
-        // } else if (elementDecl.getMaxOccurs() == -1) {
-        // parameter1.setArraySize(-1);
-        // System.out.println("Arrays");
-        // }
         if (input == 1) {
             containOperationInfo.addInparameter(parameter1);
         } else if (input == 2) {
@@ -393,6 +393,7 @@ public class ComponentBuilder {
 
             }
             if (elemDecl != null) {
+                elemDecl.getType();
                 xmlType = elemDecl.getType();
                 // System.out.println(xmlType);
             }
@@ -400,20 +401,5 @@ public class ComponentBuilder {
         }
 
         return xmlType;
-    }
-
-    private static Vector findExtensibilityElement(List extensibilityElements, String elementType) {
-        int i = 0;
-        Vector elements = new Vector();
-        if (extensibilityElements != null) {
-            Iterator iter = extensibilityElements.iterator();
-            while (iter.hasNext()) {
-                ExtensibilityElement elment = (ExtensibilityElement) iter.next();
-                if (elment.getElementType().getLocalPart().equalsIgnoreCase(elementType)) {
-                    elements.add(elment);
-                }
-            }
-        }
-        return elements;
     }
 }

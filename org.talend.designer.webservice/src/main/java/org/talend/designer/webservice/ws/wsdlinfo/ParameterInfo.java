@@ -27,13 +27,11 @@ public class ParameterInfo {
 
     private String nameSpace;
 
-    private List<ParameterInfo> parameterInfos = new ArrayList<ParameterInfo>();// list of parameters, only filled if
+    /* list of parameters, only filled if complex type */
+    private List<ParameterInfo> parameterInfos = new ArrayList<ParameterInfo>();
 
-    // complex type
-
-    private int arraySize; // only if type is array
-
-    // private Array array();
+    /* only if type is array */
+    private int arraySize;
 
     private ParameterInfo parent;
 

@@ -1,8 +1,11 @@
 package org.talend.designer.webservice.ws;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.wsdl.Definition;
 import javax.wsdl.WSDLException;
@@ -11,18 +14,38 @@ import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
 import org.talend.designer.webservice.ws.helper.ServiceInvokerHelper;
+import org.talend.designer.webservice.ws.wsdlinfo.Function;
+import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 
 /**
  * DOC gcui class global comment. Detailled comment
  */
 public class WSDLDiscoveryHelper2 extends ServiceInvokerHelper {
 
-    public static void main(String[] args) {
+    public static List<Function> functionsAvailable;
+
+    public static List<ParameterInfo> inputParameters;
+
+    public static List<ParameterInfo> outputParameters;
+
+    private Vector wsdlTypes = new Vector();
+
+    /**
+     * DOC gcui Comment method "getFunctionsAvailable".
+     * 
+     * @param wsdlURI
+     * @return
+     */
+    public static List<Function> getFunctionsAvailable(String wsdlURI) {
+        functionsAvailable = new ArrayList();
         ServiceDiscoveryHelper sdh;
         try {
-            sdh = new ServiceDiscoveryHelper("C:/Documents and Settings/Administrator/桌面/wsdl/testExample.wsdl");
+            sdh = new ServiceDiscoveryHelper(wsdlURI);
             Definition def = sdh.getDefinition();
 
+            // wsdlTypes = createSchemaFromTypes(def);
+
+            def.getTypes();
             Map m1 = def.getBindings();
             Set<javax.xml.namespace.QName> h1 = m1.keySet();
             for (javax.xml.namespace.QName s : h1) {
@@ -53,7 +76,13 @@ public class WSDLDiscoveryHelper2 extends ServiceInvokerHelper {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return functionsAvailable;
+    }
 
+    public static void main(String[] args) {
+
+        List<Function> test = new ArrayList<Function>();
+        test = getFunctionsAvailable("C:/Documents and Settings/Administrator/桌面/myServiceTest.wsdl");
     }
 
 }

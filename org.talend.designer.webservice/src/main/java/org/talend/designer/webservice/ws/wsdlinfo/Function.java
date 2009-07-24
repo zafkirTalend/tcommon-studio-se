@@ -18,6 +18,10 @@ public class Function {
 
     private String nameSpaceURI;
 
+    private String encodingStyle;
+
+    private String addressLocation;
+
     public Function(String name) {
         super();
         this.name = name;
@@ -61,6 +65,22 @@ public class Function {
 
     public void setNameSpaceURI(String nameSpaceURI) {
         this.nameSpaceURI = nameSpaceURI;
+    }
+
+    public String getEncodingStyle() {
+        return this.encodingStyle;
+    }
+
+    public void setEncodingStyle(String encodingStyle) {
+        this.encodingStyle = encodingStyle;
+    }
+
+    public String getAddressLocation() {
+        return this.addressLocation;
+    }
+
+    public void setAddressLocation(String addressLocation) {
+        this.addressLocation = addressLocation;
     }
 
 }

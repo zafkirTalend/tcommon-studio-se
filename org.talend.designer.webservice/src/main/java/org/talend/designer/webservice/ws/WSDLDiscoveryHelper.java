@@ -32,9 +32,11 @@ public class WSDLDiscoveryHelper {
         functionsAvailable = new ArrayList();
         try {
             ComponentBuilder builder = new ComponentBuilder();
+
             ServiceInfo serviceInfo = new ServiceInfo();
             serviceInfo.setWsdlUri(wsdlURI);
             serviceInfo = builder.buildserviceinformation(serviceInfo);
+
             Iterator iter = serviceInfo.getOperations();
             while (iter.hasNext()) {
 
@@ -49,20 +51,31 @@ public class WSDLDiscoveryHelper {
                 if (oper.getNamespaceURI() != null) {
                     f.setNameSpaceURI(oper.getNamespaceURI());
                 }
+                if (oper.getEncodingStyle() != null) {
+                    f.setEncodingStyle(oper.getEncodingStyle());
+                }
+
+                if (oper.getTargetURL() != null) {
+                    f.setAddressLocation(oper.getTargetURL());
+                }
+
                 List inps = oper.getInparameters();
                 List outps = oper.getOutparameters();
                 // input parameters
                 inputParameters = new ArrayList();
                 if (inps.size() == 0) {
                     inputParameters.add(new ParameterInfo());
-                } else {
+                    operationName = operationName + "):";
+                } else if (inps.size() > 0 && inps != null) {
                     for (Iterator iterator1 = inps.iterator(); iterator1.hasNext();) {
                         ParameterInfo element = (ParameterInfo) iterator1.next();
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         inputParameters.add(element);
                         System.out.println("INPUT------" + element.getName() + "----" + element.getKind());
-                        operationName = operationName + element.getKind() + ",";
+                        if (element.getKind() != null) {
+                            operationName = operationName + element.getKind() + ",";
+                        }
                     }
                     int operationNamelen = operationName.length();
                     operationName = operationName.substring(0, operationNamelen - 1) + "):";
@@ -104,5 +117,6 @@ public class WSDLDiscoveryHelper {
         //getFunctionsAvailable("F:/strivecui_work_log/week_21(0622-0626)/TestAxis/src/org/soyatec/wsdl/testExample.wsdl"
         // );
         // test = getFunctionsAvailable("C:/Documents and Settings/Administrator/桌面/wsdl/mathservice.asmx.wsdl");
+        // test = getFunctionsAvailable("http://www.deeptraining.com/webservices/mathservice.asmx?WSDL");
     }
 }
