@@ -63,6 +63,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.WebServiceComponentMain;
@@ -73,6 +74,7 @@ import org.talend.designer.webservice.i18n.Messages;
 import org.talend.designer.webservice.managers.UIManager;
 import org.talend.designer.webservice.managers.WebServiceManager;
 import org.talend.designer.webservice.ui.dialog.AddListDialog;
+import org.talend.designer.webservice.ui.dialog.WebServiceDialog;
 import org.talend.designer.webservice.ui.dialog.WebServiceEventListener;
 import org.talend.designer.webservice.ui.dnd.DragAndDropForWebService;
 import org.talend.designer.webservice.ui.link.WebServiceTableLiner;
@@ -89,6 +91,8 @@ public class WebServiceUI {
             ITalendCorePrefConstants.PREVIEW_LIMIT);
 
     private WebServiceManager webServiceManager;
+
+    private WebServiceDialog webServiceDialog;
 
     private Composite uiParent;
 
@@ -225,6 +229,7 @@ public class WebServiceUI {
     public WebServiceUI(Composite uiParent, WebServiceComponentMain webServiceMain) {
         super();
         this.uiParent = uiParent;
+        this.webServiceDialog = webServiceMain.getDialog();
         this.webServiceManager = webServiceMain.getWebServiceManager();
         this.connector = webServiceMain.getWebServiceComponent();
         URLValue = new String();
@@ -324,18 +329,21 @@ public class WebServiceUI {
             if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String expr = (String) map.get("EXPRESSION"); //$NON-NLS-1$
                 if (inPutcolumnList == null || inPutcolumnList.size() <= 0) {
-                    return;
-                }
+                    Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
+                    data.setInputColumnValue(expr);
 
-                Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
-                data.setInputColumnValue(expr);
-                for (IMetadataColumn column : inPutcolumnList) {
-                    Set<Entry<String, String>> set = exPmap.entrySet();
-                    Iterator<Entry<String, String>> ite = set.iterator();
-                    while (ite.hasNext()) {
-                        if (ite.next().getKey().equals(column.getLabel())) {// (expr.contains(column.getLabel())) {
-                            List<IMetadataColumn> columnList = data.getMetadataColumnList();
-                            columnList.add(column);
+                } else {
+
+                    Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
+                    data.setInputColumnValue(expr);
+                    for (IMetadataColumn column : inPutcolumnList) {
+                        Set<Entry<String, String>> set = exPmap.entrySet();
+                        Iterator<Entry<String, String>> ite = set.iterator();
+                        while (ite.hasNext()) {
+                            if (ite.next().getKey().equals(column.getLabel())) {// (expr.contains(column.getLabel())) {
+                                List<IMetadataColumn> columnList = data.getMetadataColumnList();
+                                columnList.add(column);
+                            }
                         }
                     }
                 }
@@ -662,6 +670,21 @@ public class WebServiceUI {
                     return;
                 }
 
+                // set dialog back button and next button can use or not.
+                int crruenSelect = tabFolder.getSelectionIndex();
+                if (crruenSelect == 0) {
+                    webServiceDialog.setBackButtonUnuse();
+                    webServiceDialog.setNextButtonCanuse();
+                }
+                if (crruenSelect == 2) {
+                    webServiceDialog.setBackButtonCanuse();
+                    webServiceDialog.setNextButtonUnuse();
+                }
+                if (crruenSelect == 1) {
+                    webServiceDialog.setBackButtonCanuse();
+                    webServiceDialog.setNextButtonCanuse();
+                }
+
                 ExtendedTableModel<InputMappingData> inputModel = expressinPutTableView.getExtendedTableModel();
                 boolean removeLinksIn = true;
                 goin: for (InputMappingData indata : inputModel.getBeansList()) {
@@ -692,7 +715,6 @@ public class WebServiceUI {
             }
 
         });
-
     }
 
     private Composite createWSDLStatus() {
@@ -717,7 +739,7 @@ public class WebServiceUI {
 
             protected void setFileFieldValue(String result) {
                 if (result != null) {
-                    getTextControl().setText(PathUtils.getPortablePath(result));
+                    getTextControl().setText(TalendTextUtils.addQuotes(PathUtils.getPortablePath(result)));
                     getDataFromNet();
                 }
             }
@@ -796,10 +818,14 @@ public class WebServiceUI {
 
             public void widgetSelected(SelectionEvent e) {
                 getDataFromNet();
+                // listTable.setSelection(listTable.getItem(0));
+                // listTable.select(0);
             }
         });
-
+        // TableItem firstItem = listTable.getItem(0);
+        // currentFunction = firstItem.getData();
         listTable = listTableView.getTable();
+
         listTable.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {

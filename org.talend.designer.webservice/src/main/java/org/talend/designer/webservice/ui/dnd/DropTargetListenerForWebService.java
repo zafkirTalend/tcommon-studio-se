@@ -169,31 +169,42 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
             }
             ExtendedTableModel tabelModel = draggableControlView.getExtendedTableModel();
             if (tabelModel.getBeansList().size() == 0 || tabelModel.getBeansList().size() == selevIndex) {
-                if (tabelModel.getName().equals("INPUTMAPPING")) {
-                    InputMappingData inData = new InputMappingData();
-                    IMetadataColumn inputColumn = null;
-                    if (tabitem.getData() instanceof IMetadataColumn) {
-                        inputColumn = (IMetadataColumn) tabitem.getData();
-                        List<IMetadataColumn> columnList = inData.getMetadataColumnList();
-                        columnList.add(inputColumn);
-                        inData.setInputColumnValue(initInRoWName() + "." + inputColumn.getLabel());
-                        inData.setParameterName("");
-                        tabelModel.add(inData);
-                    }
-                    // inData.setInputColumnValue(tabitem.getData())
-                } else if (tabelModel.getName().equals("OUTPUTMAPPING")) {
-                    OutPutMappingData outData = new OutPutMappingData();
-                    if (tabitem.getData() instanceof ParameterInfo) {
-                        ParameterInfo para = (ParameterInfo) tabitem.getData();
-
-                        outData.setParameterName(para.getName());
-                        outData.getParameterList().add(para);
-                        // outData.setParameter(para);
-                        outData.setOutputColumnValue("");
-                        tabelModel.add(outData);
-                    }
-
-                }
+                // if (tabelModel.getName().equals("INPUTMAPPING")) {
+                // InputMappingData inData = new InputMappingData();
+                // IMetadataColumn inputColumn = null;
+                // if (tabitem.getData() instanceof IMetadataColumn) {
+                // inputColumn = (IMetadataColumn) tabitem.getData();
+                // List<IMetadataColumn> columnList = inData.getMetadataColumnList();
+                // columnList.add(inputColumn);
+                // inData.setInputColumnValue(initInRoWName() + "." + inputColumn.getLabel());
+                // inData.setParameterName("");
+                // if (tabelModel.getBeansList().size() > 0) {
+                // tabelModel.remove(tabelModel.getBeansList().size());
+                // tabelModel.add(inData, tabelModel.getBeansList().size());
+                // } else {
+                // tabelModel.add(inData);
+                // }
+                // }
+                // // inData.setInputColumnValue(tabitem.getData())
+                // } else if (tabelModel.getName().equals("OUTPUTMAPPING")) {
+                // OutPutMappingData outData = new OutPutMappingData();
+                // if (tabitem.getData() instanceof ParameterInfo) {
+                // ParameterInfo para = (ParameterInfo) tabitem.getData();
+                //
+                // outData.setParameterName(para.getName());
+                // outData.getParameterList().add(para);
+                // // outData.setParameter(para);
+                // outData.setOutputColumnValue("");
+                // if (tabelModel.getBeansList().size() > 0) {
+                // tabelModel.remove(tabelModel.getBeansList().size());
+                // tabelModel.add(outData, tabelModel.getBeansList().size());
+                // } else {
+                // tabelModel.add(outData);
+                // }
+                // }
+                //
+                // }
+                return;
             } else if (tabelModel.getBeansList().size() > 0) {
                 if (tabelModel.getBeansList().size() < selevIndex) {
                     return;

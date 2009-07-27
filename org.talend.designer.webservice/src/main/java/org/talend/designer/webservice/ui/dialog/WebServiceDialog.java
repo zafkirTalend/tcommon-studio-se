@@ -44,6 +44,10 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
 
     private CTabFolder tabFolder;
 
+    private Button backButton;
+
+    private Button nextButton;
+
     public WebServiceDialog(Shell parentShell, WebServiceComponentMain webServiceComponentMain) {
         super(parentShell);
         this.webServiceComponentMain = webServiceComponentMain;
@@ -122,6 +126,9 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         createButton(parent, IDialogConstants.NEXT_ID, IDialogConstants.NEXT_LABEL, false);
         createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, false);
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
+        backButton = getButton(IDialogConstants.BACK_ID);
+        backButton.setEnabled(false);
+        nextButton = getButton(IDialogConstants.NEXT_ID);
     }
 
     protected Control createDialogArea(Composite parent) {
@@ -142,20 +149,17 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         return panel;
     }
 
-    protected void makeNextAndBackButton() {
-        tabFolder = webServiceUI.getTabFolder();
-        if (tabFolder.getSelectionIndex() == 0) {
-
-        }
-
-    }
-
     protected void backPressed() {
         tabFolder = webServiceUI.getTabFolder();
         int curreSelect = tabFolder.getSelectionIndex();
         if (curreSelect > 0) {
             tabFolder.setSelection(curreSelect - 1);
-
+            if (!nextButton.getEnabled()) {
+                nextButton.setEnabled(true);
+            }
+            if ((curreSelect - 1) == 0) {
+                backButton.setEnabled(false);
+            }
         }
     }
 
@@ -167,8 +171,11 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             warningDialog("Please Select a Operation!");
         } else if (curreSelect < 2 && function != null) {
             tabFolder.setSelection(curreSelect + 1);
-            if ((curreSelect + 1) == 3) {
-
+            if (!backButton.getEnabled()) {
+                backButton.setEnabled(true);
+            }
+            if ((curreSelect + 1) == 2) {
+                nextButton.setEnabled(false);
             }
 
         }
@@ -203,7 +210,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
 
             IElementParameter SOAPACTIONPara = wenCom.getElementParameter("SOAPACTION");
             SOAPACTIONPara.setValue(function.getSoapAction());
-            System.out.print("-----" + function.getSoapAction());
 
             IElementParameter METHODNSPara = wenCom.getElementParameter("METHOD_NS");
             METHODNSPara.setValue(function.getNameSpaceURI());
@@ -240,10 +246,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
                 inputMap.put("NAMESPACE", inputData.getParameter().getNameSpace());
                 inputMap.put("TYPE", inputData.getParameter().getKind());
             }
-            // else if (inputData.getParameter() == null) {
-            // warningDialog("Please Select a Input Item.");
-            // return;
-            // }
 
             inputparaValue.add(inputMap);
         }
@@ -336,6 +338,30 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             okBtn.setEnabled(enable);
         }
 
+    }
+
+    public Button getBackButton() {
+        return this.backButton;
+    }
+
+    public Button getNextButton() {
+        return this.nextButton;
+    }
+
+    public void setBackButtonUnuse() {
+        backButton.setEnabled(false);
+    }
+
+    public void setNextButtonUnuse() {
+        nextButton.setEnabled(false);
+    }
+
+    public void setBackButtonCanuse() {
+        backButton.setEnabled(true);
+    }
+
+    public void setNextButtonCanuse() {
+        nextButton.setEnabled(true);
     }
 
 }

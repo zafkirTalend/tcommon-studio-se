@@ -30,6 +30,12 @@ public class WebServiceComponentMain {
 
     private WebServiceManager webServiceManager;
 
+    private WebServiceDialog dialog;
+
+    public WebServiceDialog getDialog() {
+        return this.dialog;
+    }
+
     public WebServiceComponentMain(WebServiceComponent connector) {
         super();
         this.connector = connector;
@@ -41,7 +47,7 @@ public class WebServiceComponentMain {
     }
 
     public Dialog createDialog(Shell parentShell) {
-        WebServiceDialog dialog = new WebServiceDialog(parentShell, this);
+        dialog = new WebServiceDialog(parentShell, this);
         IComponent component = connector.getComponent();
         dialog.setTitle("Talend Open Studio - " + connector.getUniqueName());
 

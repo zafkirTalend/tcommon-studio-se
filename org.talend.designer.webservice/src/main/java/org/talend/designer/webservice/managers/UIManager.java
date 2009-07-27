@@ -33,7 +33,7 @@ public class UIManager {
 
     private int dialogResponse = SWT.NONE;
 
-    public UIManager(WebServiceManager multiSchemaManager) {
+    public UIManager(WebServiceManager webSchemaManager) {
         super();
         this.webServiceManager = webServiceManager;
     }

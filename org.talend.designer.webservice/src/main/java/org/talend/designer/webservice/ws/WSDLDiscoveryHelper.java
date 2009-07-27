@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
@@ -30,6 +31,7 @@ public class WSDLDiscoveryHelper {
      */
     public static synchronized List<Function> getFunctionsAvailable(String wsdlURI) {
         functionsAvailable = new ArrayList();
+        wsdlURI = TalendTextUtils.removeQuotes(wsdlURI);
         try {
             ComponentBuilder builder = new ComponentBuilder();
 
@@ -72,7 +74,6 @@ public class WSDLDiscoveryHelper {
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         inputParameters.add(element);
-                        System.out.println("INPUT------" + element.getName() + "----" + element.getKind());
                         if (element.getKind() != null) {
                             operationName = operationName + element.getKind() + ",";
                         }
@@ -91,14 +92,12 @@ public class WSDLDiscoveryHelper {
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         outputParameters.add(element);
-                        System.out.println("OUTPUT---" + element.getName() + "----" + element.getKind());
                         operationName = operationName + element.getKind() + ",";
                     }
                     int operationNamelen = operationName.length();
                     operationName = operationName.substring(0, operationNamelen - 1);
                     f.setOutputParameters(outputParameters);
                 }
-                System.out.println(operationName);
                 f.setName(operationName);
                 functionsAvailable.add(f);
             }
