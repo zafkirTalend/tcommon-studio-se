@@ -39,6 +39,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL <em>Standard SQL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -657,5 +658,31 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setCdcConns(CDCConnection value);
+
+    /**
+     * Returns the value of the '<em><b>Cdc Type Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Cdc Type Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Cdc Type Mode</em>' attribute.
+     * @see #setCdcTypeMode(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_CdcTypeMode()
+     * @model
+     * @generated
+     */
+    String getCdcTypeMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Cdc Type Mode</em>' attribute.
+     * @see #getCdcTypeMode()
+     * @generated
+     */
+    void setCdcTypeMode(String value);
 
 } // DatabaseConnection

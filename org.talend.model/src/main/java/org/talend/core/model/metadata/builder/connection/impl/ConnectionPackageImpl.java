@@ -1077,6 +1077,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getDatabaseConnection_CdcTypeMode() {
+        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSAPConnection() {
         return sapConnectionEClass;
     }
@@ -2434,6 +2443,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__STANDARD_SQL);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SYSTEM_SQL);
         createEReference(databaseConnectionEClass, DATABASE_CONNECTION__CDC_CONNS);
+        createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__CDC_TYPE_MODE);
 
         sapConnectionEClass = createEClass(SAP_CONNECTION);
         createEAttribute(sapConnectionEClass, SAP_CONNECTION__HOST);
@@ -2751,6 +2761,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getDatabaseConnection_StandardSQL(), ecorePackage.getEBoolean(), "StandardSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_SystemSQL(), ecorePackage.getEBoolean(), "SystemSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDatabaseConnection_CdcConns(), this.getCDCConnection(), this.getCDCConnection_Connection(), "cdcConns", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_CdcTypeMode(), ecorePackage.getEString(), "cdcTypeMode", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sapConnectionEClass, SAPConnection.class, "SAPConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSAPConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

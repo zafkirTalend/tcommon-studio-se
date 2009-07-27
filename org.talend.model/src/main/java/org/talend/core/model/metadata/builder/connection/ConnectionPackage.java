@@ -2162,13 +2162,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__CDC_CONNS = CONNECTION_FEATURE_COUNT + 22;
 
     /**
+     * The feature id for the '<em><b>Cdc Type Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__CDC_TYPE_MODE = CONNECTION_FEATURE_COUNT + 23;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 23;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.
@@ -6446,6 +6455,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getDatabaseConnection_CdcConns();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Cdc Type Mode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_CdcTypeMode();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPConnection <em>SAP Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8718,6 +8738,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference DATABASE_CONNECTION__CDC_CONNS = eINSTANCE.getDatabaseConnection_CdcConns();
+
+        /**
+         * The meta object literal for the '<em><b>Cdc Type Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__CDC_TYPE_MODE = eINSTANCE.getDatabaseConnection_CdcTypeMode();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.

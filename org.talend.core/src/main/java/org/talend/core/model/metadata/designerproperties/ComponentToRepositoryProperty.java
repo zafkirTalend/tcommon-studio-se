@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTypeMode;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -442,6 +443,12 @@ public class ComponentToRepositoryProperty {
                 } else {
                     connection.setSchema(TalendTextUtils.removeQuotes(value));
                 }
+            }
+        }
+        if ("CDC_TYPE_MODE".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "CDC_TYPE_MODE"); //$NON-NLS-1$
+            if (value != null && Boolean.valueOf(value).booleanValue()) {
+                connection.setCdcTypeMode(CDCTypeMode.LOG_MODE.getName());
             }
         }
         if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
