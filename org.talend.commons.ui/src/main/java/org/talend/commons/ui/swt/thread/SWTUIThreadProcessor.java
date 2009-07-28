@@ -96,6 +96,39 @@ public abstract class SWTUIThreadProcessor {
         }
     }
 
+    public void execute2() {
+
+        if (isStopped) {
+            isStopped = false;
+            exception = null;
+
+            thread = new Thread() {
+
+                public void run() {
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        public void run() {
+
+                            if (!isStopped) {
+                                updateUIInThreadIfThreadIsNotCanceled();
+                            } else {
+                                updateUIInThreadIfThreadIsCanceled();
+                            }
+                            updateUIInThreadIfThreadFinally();
+                            isStopped = true;
+                        }
+                    });
+
+                }
+            };
+            thread.start();
+        } else {
+            isStopped = true;
+            forceStop();
+            postProcessCancle();
+        }
+    }
+
     /**
      * 
      * cli Comment method "forceStop". (bug 6976)
