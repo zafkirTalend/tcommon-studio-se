@@ -56,6 +56,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
+import org.talend.rcp.exportLogs.ExportLogsAction;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.ui.actions.toolbar.ProjectSettingsAction;
 
@@ -81,6 +82,8 @@ public class ActionBarBuildHelper implements IActionBarHelper {
     protected ICoolBarManager coolBar;
 
     protected static SwitchProjectAction switchProjectAction;
+
+    protected static ExportLogsAction exportLogsAction;
 
     protected static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
 
@@ -236,6 +239,9 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         helpMenu.add(ActionFactory.HELP_CONTENTS.create(window));
         IWorkbenchAction create = ActionFactory.ABOUT.create(window);
         helpMenu.add(create);
+
+        exportLogsAction = new ExportLogsAction();
+        helpMenu.add(exportLogsAction);
     }
 
     public void fillCoolBar(ICoolBarManager coolBar) {
