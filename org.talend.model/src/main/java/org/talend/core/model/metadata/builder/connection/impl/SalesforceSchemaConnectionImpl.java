@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyUsername <em>Proxy Username</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyPassword <em>Proxy Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getBatchSize <em>Batch Size</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseHttpProxy <em>Use Http Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -279,6 +280,26 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected String batchSize = BATCH_SIZE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseHttpProxy() <em>Use Http Proxy</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseHttpProxy()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_HTTP_PROXY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseHttpProxy() <em>Use Http Proxy</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseHttpProxy()
+     * @generated
+     * @ordered
+     */
+    protected boolean useHttpProxy = USE_HTTP_PROXY_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -555,6 +576,27 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isUseHttpProxy() {
+        return useHttpProxy;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseHttpProxy(boolean newUseHttpProxy) {
+        boolean oldUseHttpProxy = useHttpProxy;
+        useHttpProxy = newUseHttpProxy;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY, oldUseHttpProxy, useHttpProxy));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
@@ -581,6 +623,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return getProxyPassword();
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
                 return getBatchSize();
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+                return isUseHttpProxy() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -627,6 +671,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
                 setBatchSize((String)newValue);
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+                setUseHttpProxy(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -675,6 +722,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
                 setBatchSize(BATCH_SIZE_EDEFAULT);
                 return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+                setUseHttpProxy(USE_HTTP_PROXY_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -710,6 +760,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
                 return BATCH_SIZE_EDEFAULT == null ? batchSize != null : !BATCH_SIZE_EDEFAULT.equals(batchSize);
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+                return useHttpProxy != USE_HTTP_PROXY_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -747,6 +799,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(proxyPassword);
         result.append(", batchSize: ");
         result.append(batchSize);
+        result.append(", useHttpProxy: ");
+        result.append(useHttpProxy);
         result.append(')');
         return result.toString();
     }

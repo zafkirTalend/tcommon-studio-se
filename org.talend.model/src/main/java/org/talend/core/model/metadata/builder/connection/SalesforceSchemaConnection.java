@@ -27,6 +27,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername <em>Proxy Username</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize <em>Batch Size</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy <em>Use Http Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -346,5 +347,31 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setBatchSize(String value);
+
+    /**
+     * Returns the value of the '<em><b>Use Http Proxy</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use Http Proxy</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use Http Proxy</em>' attribute.
+     * @see #setUseHttpProxy(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_UseHttpProxy()
+     * @model
+     * @generated
+     */
+    boolean isUseHttpProxy();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy <em>Use Http Proxy</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use Http Proxy</em>' attribute.
+     * @see #isUseHttpProxy()
+     * @generated
+     */
+    void setUseHttpProxy(boolean value);
 
 } // SalesforceSchemaConnection

@@ -34,6 +34,8 @@ public class SalesforceSchemaBean {
 
     private boolean useProxy = false;
 
+    private boolean uesHttp = false;
+
     private String proxyHost = null;
 
     private String proxyPort = null;
@@ -187,6 +189,14 @@ public class SalesforceSchemaBean {
 
     public void setProxyPassword(String proxyPassword) {
         this.proxyPassword = proxyPassword;
+    }
+
+    public boolean isUesHttp() {
+        return this.uesHttp;
+    }
+
+    public void setUesHttp(boolean uesHttp) {
+        this.uesHttp = uesHttp;
     }
 
 }
