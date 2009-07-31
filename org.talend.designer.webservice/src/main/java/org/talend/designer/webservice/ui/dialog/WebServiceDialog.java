@@ -214,7 +214,7 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             IElementParameter METHODNSPara = wenCom.getElementParameter("METHOD_NS");
             METHODNSPara.setValue(function.getNameSpaceURI());
 
-            IElementParameter SOAPEncoding = wenCom.getElementParameter("SOAP_ENCODING");
+            IElementParameter SOAPEncoding = wenCom.getElementParameter("SOAP_ENCODING_URI");
             SOAPEncoding.setValue(function.getEncodingStyle());
 
             IElementParameter ADDRESSLocation = wenCom.getElementParameter("ADDRESS_LOCATION");
