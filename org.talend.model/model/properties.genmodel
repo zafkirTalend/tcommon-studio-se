@@ -481,5 +481,8 @@
     <genClasses ecoreClass="properties.ecore#//SVGBusinessProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//SVGBusinessProcessItem/businessProcessItem"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//TDQItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TDQItem/filename"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

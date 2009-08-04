@@ -607,6 +607,15 @@ public interface PropertiesFactory extends EFactory {
     SVGBusinessProcessItem createSVGBusinessProcessItem();
 
     /**
+     * Returns a new object of class '<em>TDQ Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>TDQ Item</em>'.
+     * @generated
+     */
+    TDQItem createTDQItem();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

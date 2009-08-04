@@ -5589,13 +5589,59 @@ public interface PropertiesPackage extends EPackage {
     int SVG_BUSINESS_PROCESS_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
+     * @generated
+     */
+    int TDQ_ITEM = 71;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__FILENAME = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>TDQ Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 71;
+    int FOLDER_TYPE = 72;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5605,7 +5651,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 72;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 73;
 
 
     /**
@@ -5616,7 +5662,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 73;
+    int USER_MODULE_AUTHORIZATION_TYPE = 74;
 
 
     /**
@@ -5627,7 +5673,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 74;
+    int INFORMATION_LEVEL = 75;
 
 
     /**
@@ -9426,6 +9472,27 @@ public interface PropertiesPackage extends EPackage {
     EReference getSVGBusinessProcessItem_BusinessProcessItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQItem <em>TDQ Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQ Item</em>'.
+     * @see org.talend.core.model.properties.TDQItem
+     * @generated
+     */
+    EClass getTDQItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TDQItem#getFilename <em>Filename</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Filename</em>'.
+     * @see org.talend.core.model.properties.TDQItem#getFilename()
+     * @see #getTDQItem()
+     * @generated
+     */
+    EAttribute getTDQItem_Filename();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -12931,6 +12998,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM = eINSTANCE.getSVGBusinessProcessItem_BusinessProcessItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
+         * @generated
+         */
+        EClass TDQ_ITEM = eINSTANCE.getTDQItem();
+
+        /**
+         * The meta object literal for the '<em><b>Filename</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TDQ_ITEM__FILENAME = eINSTANCE.getTDQItem_Filename();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.

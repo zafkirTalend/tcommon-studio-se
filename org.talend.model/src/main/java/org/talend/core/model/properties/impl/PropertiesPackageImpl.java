@@ -81,6 +81,7 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -517,6 +518,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass svgBusinessProcessItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3495,6 +3503,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQItem() {
+        return tdqItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTDQItem_Filename() {
+        return (EAttribute)tdqItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4367,6 +4393,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         svgBusinessProcessItemEClass = createEClass(SVG_BUSINESS_PROCESS_ITEM);
         createEReference(svgBusinessProcessItemEClass, SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM);
 
+        tdqItemEClass = createEClass(TDQ_ITEM);
+        createEAttribute(tdqItemEClass, TDQ_ITEM__FILENAME);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -4440,6 +4469,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         sqlPatternItemEClass.getESuperTypes().add(this.getFileItem());
         rulesItemEClass.getESuperTypes().add(this.getFileItem());
         svgBusinessProcessItemEClass.getESuperTypes().add(this.getFileItem());
+        tdqItemEClass.getESuperTypes().add(this.getItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4913,6 +4943,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(svgBusinessProcessItemEClass, SVGBusinessProcessItem.class, "SVGBusinessProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getSVGBusinessProcessItem_BusinessProcessItem(), this.getBusinessProcessItem(), this.getBusinessProcessItem_SvgBusinessProcessItem(), "businessProcessItem", null, 0, 1, SVGBusinessProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(tdqItemEClass, TDQItem.class, "TDQItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTDQItem_Filename(), ecorePackage.getEString(), "filename", null, 0, 1, TDQItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
