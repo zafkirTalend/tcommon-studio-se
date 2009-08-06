@@ -4,6 +4,7 @@
         <file-match-pattern match-pattern="." include-pattern="true"/>
     </fileset>
     <filter name="FilesFromPackage" enabled="true">
+        <filter-data value="src/main/java/org/talend/json"/>
         <filter-data value="src/main/java/org/talend/utils/eclipse"/>
     </filter>
     <filter name="NonSrcDirs" enabled="true"/>
