@@ -25,6 +25,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -100,6 +101,12 @@ class ExportItemWizardPage extends WizardPage {
 
     private static final String[] FILE_EXPORT_MASK = { "*.zip;*.tar;*.tar.gz", "*.*" }; //$NON-NLS-1$ //$NON-NLS-2$
 
+    private static final String DESTINATION_FILE = "destinationFile";
+
+    private static final String DIRECTORY_PATH = "directoryPath";
+
+    private static final String ARCHIVE_PATH = "archivePath";
+
     private String lastPath;
 
     private CheckboxRepositoryView exportItemsTreeViewer;
@@ -135,6 +142,17 @@ class ExportItemWizardPage extends WizardPage {
 
         createItemRoot(workArea);
         createItemList(workArea);
+    }
+
+    private String reloadExportPath(String pathType) {
+        if (getDialogSettings() != null) {
+            IDialogSettings section = getDialogSettings().getSection(DESTINATION_FILE);
+            if (section == null) {
+                section = getDialogSettings().addNewSection(DESTINATION_FILE);
+            }
+            return section.get(pathType);
+        }
+        return null;
     }
 
     /**
@@ -321,6 +339,9 @@ class ExportItemWizardPage extends WizardPage {
         this.directoryPathField = new Text(projectGroup, SWT.BORDER);
 
         this.directoryPathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
+        if (reloadExportPath(DIRECTORY_PATH) != null) {
+            this.directoryPathField.setText(reloadExportPath(DIRECTORY_PATH));
+        }
 
         browseDirectoriesButton = new Button(projectGroup, SWT.PUSH);
         browseDirectoriesButton.setText(DataTransferMessages.DataTransfer_browse);
@@ -334,6 +355,10 @@ class ExportItemWizardPage extends WizardPage {
         archivePathField = new Text(projectGroup, SWT.BORDER);
 
         archivePathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
+        if (reloadExportPath(ARCHIVE_PATH) != null) {
+            this.archivePathField.setText(reloadExportPath(ARCHIVE_PATH));
+        }
+
         // browse button
         browseArchivesButton = new Button(projectGroup, SWT.PUSH);
         browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
@@ -588,6 +613,8 @@ class ExportItemWizardPage extends WizardPage {
             previouslyBrowsedDirectory = selectedDirectory;
             directoryPathField.setText(previouslyBrowsedDirectory);
             lastPath = directoryPathField.getText().trim();
+            saveExportPath(DIRECTORY_PATH);
+
         }
 
     }
@@ -621,8 +648,20 @@ class ExportItemWizardPage extends WizardPage {
             previouslyBrowsedArchive = selectedArchive;
             archivePathField.setText(previouslyBrowsedArchive);
             lastPath = archivePathField.getText().trim();
+            saveExportPath(ARCHIVE_PATH);
+
         }
 
+    }
+
+    private void saveExportPath(String pathType) {
+        if (getDialogSettings() != null) {
+            IDialogSettings section = getDialogSettings().getSection(DESTINATION_FILE);
+            if (section == null) {
+                section = getDialogSettings().addNewSection(DESTINATION_FILE);
+            }
+            section.put(pathType, lastPath);
+        }
     }
 
     private void directoryRadioSelected() {
