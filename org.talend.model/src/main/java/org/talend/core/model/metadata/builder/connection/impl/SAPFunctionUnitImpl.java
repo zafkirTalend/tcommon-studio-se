@@ -6,17 +6,21 @@
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
@@ -40,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getOutputParameterTable <em>Output Parameter Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getMetadataTable <em>Metadata Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getTables <em>Tables</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,6 +162,16 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
 	protected MetadataTable metadataTable;
 
 	/**
+     * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTables()
+     * @generated
+     * @ordered
+     */
+    protected EList tables;
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -430,6 +445,18 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
 
 	/**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getTables() {
+        if (tables == null) {
+            tables = new EObjectContainmentEList(MetadataTable.class, this, ConnectionPackage.SAP_FUNCTION_UNIT__TABLES);
+        }
+        return tables;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -466,6 +493,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return basicSetMetadataTable(null, msgs);
             case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
                 return basicSetConnection(null, msgs);
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
+                return ((InternalEList)getTables()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -506,6 +535,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return getMetadataTable();
             case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
                 return getConnection();
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
+                return getTables();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -540,6 +571,10 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return;
             case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
                 setConnection((SAPConnection)newValue);
+                return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
+                getTables().clear();
+                getTables().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -576,6 +611,9 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
             case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
                 setConnection((SAPConnection)null);
                 return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
+                getTables().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -603,6 +641,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return metadataTable != null;
             case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
                 return getConnection() != null;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
+                return tables != null && !tables.isEmpty();
         }
         return super.eIsSet(featureID);
     }

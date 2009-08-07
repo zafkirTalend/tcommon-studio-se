@@ -98,6 +98,10 @@ public class SchemaXPathQuerysDialog extends Dialog {
 
     private String[] getMappingValues() {
         String mappingValues = (String) mapping.get(MAPPING);
+        if (mappingValues == null) {
+            String[] mapValue = { "" };
+            return mapValue;
+        }
         return mappingValues.split(COMMA);
     }
 

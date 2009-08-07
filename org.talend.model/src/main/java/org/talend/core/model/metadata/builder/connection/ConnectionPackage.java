@@ -2524,13 +2524,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_UNIT__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 7;
 
     /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
+
+    /**
      * The number of structural features of the '<em>SAP Function Unit</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
+    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
@@ -6671,6 +6680,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPFunctionUnit_Connection();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables <em>Tables</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Tables</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EReference getSAPFunctionUnit_Tables();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn <em>SAP Function Parameter Column</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8914,6 +8934,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__CONNECTION = eINSTANCE.getSAPFunctionUnit_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_UNIT__TABLES = eINSTANCE.getSAPFunctionUnit_Tables();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.

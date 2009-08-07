@@ -35,16 +35,20 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IEbcdicConstant;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.EbcdicConnectionItem;
+import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.ui.IEBCDICProviderService;
+import org.talend.core.ui.ISAPProviderService;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.EProcessType;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.ESelectionCategory;
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForEBCDICCommand;
+import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForSAPCommand;
 import org.talend.core.ui.metadata.dialog.MetadataDialog;
 
 /**
@@ -91,12 +95,46 @@ public class SchemaCellEditor extends DialogCellEditor {
     protected Object openDialogBox(Control cellEditorWindow) {
 
         String schemaToEdit = (String) this.getValue();
+        String oldValue = schemaToEdit;
 
         boolean metaReadonly = false;
 
         final List<IMetadataTable> metadatas = node.getMetadataList();
         IMetadataTable tableToEdit = null;
         if (schemaToEdit == null || "".equals(schemaToEdit)) { //$NON-NLS-1$
+            // for SAP
+            SAPConnectionItem sapItem = getSAPRepositoryItem();
+            if (sapItem != null) {
+                SchemaOperationChoiceDialog choiceDialog = new SchemaOperationChoiceDialog(cellEditorWindow.getShell(), node,
+                        sapItem, EProcessType.CREATE, schemaToEdit, node.getProcess().isReadOnly());
+                if (choiceDialog.open() == Window.OK) {
+                    if (choiceDialog.getSelctionType() == ESelectionCategory.REPOSITORY) {
+                        org.talend.core.model.metadata.builder.connection.MetadataTable selectedMetadataTable = choiceDialog
+                                .getSelectedMetadataTable();
+                        if (selectedMetadataTable != null) {
+                            final IMetadataTable metaTable = ConvertionHelper.convert(selectedMetadataTable);
+                            int index = 0;
+                            if (getTableViewer() != null) {
+                                index = getTableViewer().getTable().getSelectionIndex();
+                            }
+                            //
+                            executeCommand(new RepositoryChangeMetadataForSAPCommand(node, ISAPConstant.TABLE_SCHEMAS, metaTable
+                                    .getLabel(), metaTable, index));
+                            //
+                            if (getTableViewer() != null) {
+                                getTableViewer().refresh(true);
+                            }
+                            return selectedMetadataTable.getLabel();
+                        }
+                        return null;
+                    } else {
+                        // built-in
+                    }
+                } else {
+                    this.setValue(oldValue);
+                    return oldValue;
+                }
+            }
 
             // for EBCDIC (bug 5860)
             EbcdicConnectionItem repositoryItem = getRepositoryItem();
@@ -131,7 +169,8 @@ public class SchemaCellEditor extends DialogCellEditor {
                 }
             }
             // built-in
-            InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(), Messages.getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
+            InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(), Messages
+                    .getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
                     "", new IInputValidator() { //$NON-NLS-1$
 
                         public String isValid(String newText) {
@@ -242,6 +281,74 @@ public class SchemaCellEditor extends DialogCellEditor {
                     }
                 }
             }
+
+            if (getTableViewer() != null && tableToEdit != null && isSAPNode(node)) {
+                Table tTable = getTableViewer().getTable();
+                Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+                if (data instanceof Map) {
+                    final Map<String, Object> valueMap = (Map<String, Object>) data;
+                    final String key = ISAPConstant.FIELD_SCHEMA + ISAPConstant.REF_TYPE;
+                    Object repositoyType = valueMap.get(key);
+                    SAPConnectionItem repositoryItem = getSAPRepositoryItem();
+
+                    EProcessType processType = EProcessType.BUILTIN;
+                    if (repositoryItem != null) {
+                        if (repositoyType != null && ISAPConstant.REF_ATTR_REPOSITORY.equals(repositoyType)) {
+                            processType = EProcessType.REPOSITORY;
+                        }
+                    }
+                    SchemaOperationChoiceDialog choiceDialog = new SchemaOperationChoiceDialog(cellEditorWindow.getShell(), node,
+                            repositoryItem, processType, schemaToEdit, node.getProcess().isReadOnly());
+                    if (choiceDialog.open() == Window.OK) {
+                        ESelectionCategory selctionType = choiceDialog.getSelctionType();
+                        switch (selctionType) {
+                        case SHOW_SCHEMA:
+                            if (processType == EProcessType.REPOSITORY) {
+                                metaReadonly = true; // readonly
+                            }
+                            break;
+                        case REPOSITORY:
+                            final org.talend.core.model.metadata.builder.connection.MetadataTable selectedMetadataTable = choiceDialog
+                                    .getSelectedMetadataTable();
+                            if (selectedMetadataTable != null) {
+                                String newSchema = selectedMetadataTable.getLabel();
+                                if (!schemaToEdit.equals(newSchema) || processType == EProcessType.BUILTIN) {
+                                    // changed
+                                    RepositoryChangeMetadataForSAPCommand cmd = new RepositoryChangeMetadataForSAPCommand(node,
+                                            ISAPConstant.TABLE_SCHEMAS, newSchema, schemaToEdit, ConvertionHelper //$NON-NLS-1$
+                                                    .convert(selectedMetadataTable), tableToEdit, tTable.getSelectionIndex());
+
+                                    // (node, ISAPConstant.TABLE_SCHEMAS, metaTable.getLabel(), metaTable, index)
+                                    executeCommand(cmd);
+                                    if (getTableViewer() != null) {
+                                        getTableViewer().refresh();
+                                    }
+                                }
+                                return newSchema;
+                            } else {
+                                // built-in
+                            }
+                        case BUILDIN:
+                            executeCommand(new Command() {
+
+                                @Override
+                                public void execute() {
+                                    valueMap.remove(key);
+                                    if (getTableViewer() != null) {
+                                        getTableViewer().refresh();
+                                    }
+                                }
+
+                            });
+                            return schemaToEdit; // keep
+                        default:
+
+                        }
+                    } else {
+                        return null;
+                    }
+                }
+            }
         }
 
         if (tableToEdit != null) {
@@ -281,6 +388,17 @@ public class SchemaCellEditor extends DialogCellEditor {
         return false;
     }
 
+    private boolean isSAPNode(INode node) {
+        if (PluginChecker.isSAPWizardPluginLoaded()) {
+            ISAPProviderService service = (ISAPProviderService) GlobalServiceRegister.getDefault().getService(
+                    ISAPProviderService.class);
+            if (service != null) {
+                return service.isSAPNode(node);
+            }
+        }
+        return false;
+    }
+
     private EbcdicConnectionItem getRepositoryItem() {
         if (PluginChecker.isEBCDICPluginLoaded()) {
             IEBCDICProviderService service = (IEBCDICProviderService) GlobalServiceRegister.getDefault().getService(
@@ -289,6 +407,17 @@ public class SchemaCellEditor extends DialogCellEditor {
                 return service.getRepositoryItem(node);
             }
 
+        }
+        return null;
+    }
+
+    private SAPConnectionItem getSAPRepositoryItem() {
+        if (PluginChecker.isSAPWizardPluginLoaded()) {
+            ISAPProviderService service = (ISAPProviderService) GlobalServiceRegister.getDefault().getService(
+                    ISAPProviderService.class);
+            if (service != null) {
+                return service.getRepositoryItem(node);
+            }
         }
         return null;
     }

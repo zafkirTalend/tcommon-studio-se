@@ -163,6 +163,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/OutputParameterTable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/MetadataTable"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/tables"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Name"/>

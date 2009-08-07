@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.celleditor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -35,8 +36,12 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
+import org.talend.core.model.properties.SAPConnectionItem;
 
 /**
  * nrousseau class global comment. Detailled comment
@@ -78,7 +83,9 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
 
     private final INode node;
 
-    private final EbcdicConnectionItem item;
+    private final ConnectionItem item;
+
+    // private final ConnectionItem connItem;
 
     private MetadataTable selectedTable;
 
@@ -90,6 +97,19 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
 
     public SchemaOperationChoiceDialog(Shell parentShell, INode node, EbcdicConnectionItem item, EProcessType pType,
             String schemaName, boolean readOnlyJob) {
+        super(parentShell);
+        this.node = node;
+        this.item = item;
+        this.processType = pType;
+        this.schemaName = schemaName;
+        this.readOnlyJob = readOnlyJob;
+        this.setTitle(TITLE);
+        this.setMessage(MESSAGE);
+        this.setHelpAvailable(false);
+    }
+
+    public SchemaOperationChoiceDialog(Shell parentShell, INode node, ConnectionItem item, EProcessType pType, String schemaName,
+            boolean readOnlyJob) {
         super(parentShell);
         this.node = node;
         this.item = item;
@@ -243,13 +263,23 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
         GridData layoutData = new GridData();
         layoutData.widthHint = 150;
         schemaCombo.setLayoutData(layoutData);
-        if (item != null) {
-            EList tables = item.getConnection().getTables();
-            for (MetadataTable table : (List<MetadataTable>) tables) {
+        if (item != null && item instanceof SAPConnectionItem) {
+            List<MetadataTable> tables = getCurrentTables(item);
+            for (MetadataTable table : tables) {
                 schemaCombo.add(table.getLabel());
             }
             if (schemaCombo.getItemCount() > 0) {
                 schemaCombo.select(0);
+            }
+        } else {
+            if (item != null) {
+                EList tables = item.getConnection().getTables();
+                for (MetadataTable table : (List<MetadataTable>) tables) {
+                    schemaCombo.add(table.getLabel());
+                }
+                if (schemaCombo.getItemCount() > 0) {
+                    schemaCombo.select(0);
+                }
             }
         }
         schemaCombo.addModifyListener(new ModifyListener() {
@@ -308,15 +338,48 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
     protected void okPressed() {
         this.selectedTable = null;
         if (getSelctionType() == ESelectionCategory.REPOSITORY) {
-            EList tables = item.getConnection().getTables();
-            for (MetadataTable table : (List<MetadataTable>) tables) {
-                if (table.getLabel().equals(schemaCombo.getText())) {
-                    this.selectedTable = table;
-                    break;
+            if (item instanceof SAPConnectionItem) {
+                List<MetadataTable> tables = getCurrentTables(item);
+                for (MetadataTable table : tables) {
+                    if (table.getLabel().equals(schemaCombo.getText())) {
+                        this.selectedTable = (MetadataTable) table;
+                        break;
+                    }
+                }
+            } else {
+                EList tables = item.getConnection().getTables();
+                for (MetadataTable table : (List<MetadataTable>) tables) {
+                    if (table.getLabel().equals(schemaCombo.getText())) {
+                        this.selectedTable = table;
+                        break;
+                    }
                 }
             }
         }
         super.okPressed();
+
+    }
+
+    protected List<MetadataTable> getCurrentTables(ConnectionItem sapItem) {
+        SAPConnection sapConn = (SAPConnection) item.getConnection();
+        SAPFunctionUnit currentFun = null;
+        EList<SAPFunctionUnit> funList = sapConn.getFuntions();
+        String currFunName = ((String) node.getElementParameter("SAP_FUNCTION").getValue()).replaceAll("\"", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        for (SAPFunctionUnit funUnit : funList) {
+            if (funUnit.getLabel().equals(currFunName.trim())) {
+                currentFun = funUnit;
+                break;
+            } else if (funUnit.getName().equals(currFunName.trim())) {
+                currentFun = funUnit;
+                break;
+            }
+        }
+        if (currentFun != null) {
+            List<MetadataTable> tables = currentFun.getTables();
+            return tables;
+        } else {
+            return new ArrayList<MetadataTable>();
+        }
 
     }
 

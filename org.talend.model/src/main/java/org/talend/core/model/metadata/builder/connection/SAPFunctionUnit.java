@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputParameterTable <em>Output Parameter Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getMetadataTable <em>Metadata Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables <em>Tables</em>}</li>
  * </ul>
  * </p>
  *
@@ -245,5 +247,21 @@ public interface SAPFunctionUnit extends AbstractMetadataObject {
      * @generated
      */
 	void setConnection(SAPConnection value);
+
+    /**
+     * Returns the value of the '<em><b>Tables</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataTable}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Tables</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Tables</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_Tables()
+     * @model type="org.talend.core.model.metadata.builder.connection.MetadataTable" containment="true"
+     * @generated
+     */
+    EList getTables();
 
 } // SAPFunctionUnit

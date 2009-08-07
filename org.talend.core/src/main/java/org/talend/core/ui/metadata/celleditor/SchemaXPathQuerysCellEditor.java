@@ -98,8 +98,16 @@ public class SchemaXPathQuerysCellEditor extends DialogCellEditor {
     public static IMetadataTable findMetadataTable(INode node, String tableName) {
         for (IMetadataTable table : node.getMetadataList()) {
             // need check the compare for table name or label, seems the schema cell modification is used by label.
-            if (table.getTableName().equals(tableName)) {
+            String tabRow = table.getTableName();
+
+            if (tabRow.equals(tableName)) {
                 return table;
+            } else {
+                String tabRowLabel = table.getLabel();
+                if (tabRowLabel.equals(tableName)) {
+                    return table;
+                }
+
             }
         }
         return null;
