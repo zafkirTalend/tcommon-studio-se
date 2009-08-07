@@ -65,6 +65,7 @@ import org.talend.commons.ui.swt.advanced.composite.FilteredCheckboxTree;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.local.ExportItemUtil;
@@ -187,14 +188,39 @@ class ExportItemWizardPage extends WizardPage {
         if (!selection.isEmpty()) {
             repositoryNodes.addAll(selection.toList());
             Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
-            nodes.addAll(repositoryNodes);
-            nodes.addAll(checkedNodes);
-            ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
 
             for (RepositoryNode node : repositoryNodes) {
+                expandRoot(node);
                 expandParent(viewer, node);
-                exportItemsTreeViewer.refresh(node);
+                checkElement(node, nodes);
             }
+            ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
+        }
+
+    }
+
+    private void checkElement(RepositoryNode node, Set<RepositoryNode> nodes) {
+
+        ERepositoryObjectType objectType = node.getObjectType();
+        Property property = null;
+
+        switch (objectType) {
+        case METADATA_CON_TABLE:
+        case METADATA_CON_VIEW:
+        case METADATA_CON_SYNONYM:
+        case METADATA_CON_QUERY:
+            if (node.getObject() != null) {
+                property = node.getObject().getProperty();
+            }
+            break;
+        }
+        if (property != null) {
+            RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(property.getId(), false);
+            if (repositoryNode != null) {
+                nodes.add(repositoryNode);
+            }
+        } else {
+            nodes.add(node);
         }
 
     }
@@ -203,7 +229,81 @@ class ExportItemWizardPage extends WizardPage {
         RepositoryNode parent = node.getParent();
         if (parent != null) {
             expandParent(viewer, parent);
-            viewer.setExpandedState(parent, true);
+            if (ERepositoryObjectType.METADATA_CONNECTIONS.equals(node.getObjectType())) {
+                viewer.expandToLevel(node, TreeViewer.ALL_LEVELS);
+            } else {
+                viewer.setExpandedState(node, true);
+            }
+
+        }
+    }
+
+    private void expandRoot(RepositoryNode node) {
+        // expand root node for metadata , routines , documentation
+        ERepositoryObjectType objectType = node.getObjectType();
+
+        if (ERepositoryObjectType.FOLDER.equals(objectType)) {
+            RepositoryNode rootNode = getParentNodeNotFolder(node);
+            objectType = rootNode.getContentType();
+
+        }
+
+        if (objectType == null) {
+            return;
+        }
+        switch (objectType) {
+        case METADATA_CON_TABLE:
+        case METADATA_CON_VIEW:
+        case METADATA_CON_SYNONYM:
+        case METADATA_CON_QUERY:
+        case METADATA_CONNECTIONS:
+        case METADATA_FILE_DELIMITED:
+        case METADATA_FILE_POSITIONAL:
+        case METADATA_FILE_REGEXP:
+        case METADATA_FILE_XML:
+        case METADATA_FILE_LDIF:
+        case METADATA_FILE_EXCEL:
+        case METADATA_GENERIC_SCHEMA:
+        case METADATA_LDAP_SCHEMA:
+        case METADATA_SALESFORCE_SCHEMA:
+        case METADATA_WSDL_SCHEMA:
+        case METADATA_FILE_EBCDIC:
+        case METADATA_FILE_RULES:
+        case METADATA_SAPCONNECTIONS:
+        case METADATA_SAP_FUNCTION:
+            objectType = ERepositoryObjectType.METADATA;
+            break;
+        case ROUTINES:
+        case SNIPPETS:
+            objectType = ERepositoryObjectType.ROUTINES;
+            break;
+        case DOCUMENTATION:
+        case JOB_DOC:
+        case JOBLET_DOC:
+            objectType = ERepositoryObjectType.DOCUMENTATION;
+            break;
+        default:
+        }
+        if (objectType != null) {
+            switch (objectType) {
+            case METADATA:
+                viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getMetadataNode(), 1);
+                break;
+            case ROUTINES:
+                viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getCodeNode(), 2);
+                break;
+            case DOCUMENTATION:
+                viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getDocNode(), 2);
+            }
+
+        }
+    }
+
+    private RepositoryNode getParentNodeNotFolder(RepositoryNode node) {
+        if (ERepositoryObjectType.FOLDER.equals(node.getObjectType())) {
+            return getParentNodeNotFolder(node.getParent());
+        } else {
+            return node;
         }
     }
 
