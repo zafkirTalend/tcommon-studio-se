@@ -198,7 +198,7 @@ public class TalendString {
         result.add(car); /* '\u00DC' alt-0220 */
         car = new String("Y"); //$NON-NLS-1$
         result.add(car); /* '\u00DD' alt-0221 */
-        car = new String("Þ"); //$NON-NLS-1$
+        car = new String("_"); //$NON-NLS-1$
         result.add(car); /* '\u00DE' alt-0222 */
         car = new String("B"); //$NON-NLS-1$
         result.add(car); /* '\u00DF' alt-0223 */
@@ -244,7 +244,7 @@ public class TalendString {
         result.add(car); /* '\u00FC' alt-0252 */
         car = new String("y"); //$NON-NLS-1$
         result.add(car); /* '\u00FD' alt-0253 */
-        car = new String("þ"); //$NON-NLS-1$
+        car = new String("_"); //$NON-NLS-1$
         result.add(car); /* '\u00FE' alt-0254 */
         car = new String("y"); //$NON-NLS-1$
         result.add(car); /* '\u00FF' alt-0255 */
