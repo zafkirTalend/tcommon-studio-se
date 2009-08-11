@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getUrlPath <em>Url Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -256,5 +257,31 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     boolean isSetSHOW();
+
+    /**
+     * Returns the value of the '<em><b>Url Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Url Path</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Url Path</em>' attribute.
+     * @see #setUrlPath(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_UrlPath()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
+    String getUrlPath();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getUrlPath <em>Url Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Url Path</em>' attribute.
+     * @see #getUrlPath()
+     * @generated
+     */
+    void setUrlPath(String value);
 
 } // IMPORTType
