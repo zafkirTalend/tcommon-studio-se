@@ -12,14 +12,17 @@
 // ============================================================================
 package org.talend.repository.localprovider.imports;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -120,6 +123,8 @@ public class ImportItemUtil {
 
     ProjectManager projectManager = ProjectManager.getInstance();
 
+    public static boolean isRoutineItem = false;
+
     public void clear() {
         deletedItems.clear();
     }
@@ -174,6 +179,10 @@ public class ImportItemUtil {
             // we do not import built in routines
             if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
                 RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
+                if (itemRecord.getItem() instanceof RoutineItem) {
+                    isRoutineItem = true;
+                }
+
                 if (routineItem.isBuiltIn()) {
                     isSystem = true;
                 }
@@ -533,6 +542,7 @@ public class ImportItemUtil {
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
         int nbItems = 0;
+
         for (IPath path : collector.getPaths()) {
             if (isPropertyPath(path)) {
                 nbItems++;
@@ -661,7 +671,7 @@ public class ImportItemUtil {
                 return null;
             }
         }
-
+        needJarPath = collector.getPaths();
         return projectFilePath;
     }
 
@@ -924,5 +934,60 @@ public class ImportItemUtil {
             cache.clear();
             lockState.clear();
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void deployJarToDes() {
+        File file = null;
+        Set set = this.needJarPath;
+
+        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+            String value = iterator.next().toString();
+            if (value.endsWith("jar")) {
+                file = new File(value);
+                try {
+                    CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+
+    private static Set needJarPath;
+
+    public void deployJarToDesForArchive(String desPath) {
+        File file = null;
+        Set set = this.needJarPath;
+        ZipToFileUtil zipToFile = new ZipToFileUtil(8);
+        desPath = desPath.replace("\\", "/");
+        zipToFile.unZip(desPath);
+        desPath = desPath.substring(0, desPath.lastIndexOf("/"));
+        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+            String value = iterator.next().toString();
+            if (value.endsWith("jar")) {
+                value = desPath + "/" + value;
+                file = new File(value);
+                try {
+
+                    CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
     }
 }

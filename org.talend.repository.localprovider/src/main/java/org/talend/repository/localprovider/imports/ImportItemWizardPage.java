@@ -150,7 +150,9 @@ class ImportItemWizardPage extends WizardPage {
 
     protected RepositoryNode rNode;
 
+    @SuppressWarnings("restriction")
     protected ImportItemWizardPage(RepositoryNode rNode, String pageName) {
+
         super(pageName);
         this.rNode = rNode;
         setDescription(Messages.getString("ImportItemWizardPage.ImportDescription")); //$NON-NLS-1$
@@ -856,7 +858,6 @@ class ImportItemWizardPage extends WizardPage {
             }
         }
         final List<ItemRecord> itemRecords = new ArrayList<ItemRecord>(tempItemRecords);
-
         try {
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
@@ -868,27 +869,48 @@ class ImportItemWizardPage extends WizardPage {
 
                     repositoryUtil.setErrors(false);
                     repositoryUtil.clear();
-                    repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite, destinationPath);
 
+                    repositoryUtil.importItemRecords(manager, itemRecords, monitor, overwrite, destinationPath);
                     if (repositoryUtil.hasErrors()) {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$
                     }
+
                 }
 
             };
+
             new ProgressMonitorDialog(getShell()).run(true, true, op);
+
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
-            if (targetException instanceof PersistenceException) {
-                MessageDialog.openWarning(getShell(), Messages.getString("ImportItemWizardPage.ImportSelectedItems"), //$NON-NLS-1$
-                        Messages.getString("ImportItemWizardPage.ErrorsOccured")); //$NON-NLS-1$
+            if (!ImportItemUtil.isRoutineItem) {
+                if (targetException instanceof PersistenceException) {
+                    MessageDialog.openWarning(getShell(), Messages.getString("ImportItemWizardPage.ImportSelectedItems"), //$NON-NLS-1$
+                            Messages.getString("ImportItemWizardPage.ErrorsOccured")); //$NON-NLS-1$
+                }
             }
+
         } catch (InterruptedException e) {
             //
         }
         ResourcesManager curManager = (ResourcesManager) this.manager;
         if (curManager instanceof ProviderManager)
             curManager.closeResource();
+
+        ImportItemUtil importItemUtil = new ImportItemUtil();
+        if (ImportItemUtil.isRoutineItem) {
+            if (archivePathField.getText().endsWith("zip")) {
+                String path = archivePathField.getText().replace("\\", "/");
+                importItemUtil.deployJarToDesForArchive(path);
+                path = path.substring(0, path.lastIndexOf("."));
+                ZipToFileUtil.deleteDirectory(path);
+            }
+
+            if (!directoryPathField.getText().endsWith("zip") && directoryPathField.getText() != null
+                    && !"".equals(directoryPathField.getText())) {
+                importItemUtil.deployJarToDes();
+            }
+        }
         return true;
     }
 
