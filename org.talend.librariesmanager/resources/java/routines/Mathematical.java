@@ -198,8 +198,8 @@ public class Mathematical {
      * {example} DIV(3.14,3.14)
      * 
      */
-    public static double DIV(double a, double b) {
-        return a / b;
+    public static int DIV(double a, double b) {
+        return (int) (a / b);
     }
 
     /**
