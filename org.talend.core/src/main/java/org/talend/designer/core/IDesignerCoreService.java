@@ -27,6 +27,7 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
@@ -144,4 +145,7 @@ public interface IDesignerCoreService extends IService {
             Map<String, String> changedNameColumns);
 
     public IConnection getConnection(List<? extends IConnection> connections, IMetadataTable table);
+
+    public void createStatsLogAndImplicitParamter(Project project);
+
 }
