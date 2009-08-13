@@ -40,6 +40,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -508,6 +510,20 @@ class ExportItemWizardPage extends WizardPage {
 
         });
 
+        directoryPathField.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                if (getDialogSettings() != null) {
+                    IDialogSettings section = getDialogSettings().getSection(DESTINATION_FILE);
+                    if (section == null) {
+                        section = getDialogSettings().addNewSection(DESTINATION_FILE);
+                    }
+                    section.put(DIRECTORY_PATH, directoryPathField.getText());
+                }
+            }
+
+        });
+
         archivePathField.addTraverseListener(new TraverseListener() {
 
             public void keyTraversed(TraverseEvent e) {
@@ -526,6 +542,20 @@ class ExportItemWizardPage extends WizardPage {
             }
         });
 
+        archivePathField.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                if (getDialogSettings() != null) {
+                    IDialogSettings section = getDialogSettings().getSection(DESTINATION_FILE);
+                    if (section == null) {
+                        section = getDialogSettings().addNewSection(DESTINATION_FILE);
+                    }
+                    section.put(ARCHIVE_PATH, archivePathField.getText());
+                }
+
+            }
+
+        });
         itemFromDirectoryRadio.addSelectionListener(new SelectionAdapter() {
 
             @Override
