@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository.localprovider;
 
-import org.talend.repository.localprovider.model.XmiResourceManager;
+import org.talend.repository.localprovider.model.LocalRepositoryFactory;
 import org.talend.repository.model.IRepositoryLocalProviderService;
 
 /**
@@ -29,6 +29,6 @@ public class RepositoryLocalProviderService implements IRepositoryLocalProviderS
      * @see org.talend.repository.model.IRepositoryLocalProviderService#resetXmiResourceSet()
      */
     public void resetXmiResourceSet() {
-        XmiResourceManager.resetResourceSet();
+        LocalRepositoryFactory.getInstance().xmiResourceManager.resetResourceSet();
     }
 }

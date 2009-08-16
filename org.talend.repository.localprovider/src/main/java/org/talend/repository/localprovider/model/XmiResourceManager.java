@@ -59,7 +59,7 @@ public class XmiResourceManager {
 
     // PTODO mhelleboid should use a custom ResourceFactory
     // PTODO mhelleboid test duplicate resourcesUri in resourceSet !
-    public static ResourceSet resourceSet = new ResourceSetImpl();
+    public ResourceSet resourceSet = new ResourceSetImpl();
 
     private boolean useOldProjectFile;
 
@@ -67,7 +67,7 @@ public class XmiResourceManager {
         setUseOldProjectFile(false);
     }
 
-    public static void resetResourceSet() {
+    public void resetResourceSet() {
         resourceSet = new ResourceSetImpl();
     }
 
@@ -199,7 +199,7 @@ public class XmiResourceManager {
         resource.setURI(URIHelper.convert(path));
     }
 
-    public static void saveResource(Resource resource) throws PersistenceException {
+    public void saveResource(Resource resource) throws PersistenceException {
         EmfHelper.saveResource(resource);
     }
 
@@ -312,9 +312,16 @@ public class XmiResourceManager {
         this.useOldProjectFile = useOldProjectFile;
     }
 
-    public static void unloadResources() {
+    public void unloadResources() {
         List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
         for (Resource resource : resources) {
+            resource.unload();
+            resourceSet.getResources().remove(resource);
+        }
+    }
+
+    public void unloadResources(Property property) {
+        for (Resource resource : getAffectedResources(property)) {
             resource.unload();
             resourceSet.getResources().remove(resource);
         }

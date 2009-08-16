@@ -116,7 +116,7 @@ class ImportItemWizardPage extends WizardPage {
 
     private Object lastPath;
 
-    private ItemRecord[] selectedItems = new ItemRecord[0];
+    private List<ItemRecord> selectedItems = new ArrayList<ItemRecord>();;
 
     private CheckboxTreeViewer itemsList;
 
@@ -372,7 +372,7 @@ class ImportItemWizardPage extends WizardPage {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                itemsList.setCheckedElements(selectedItems);
+                itemsList.setCheckedElements(selectedItems.toArray());
             }
         });
         Dialog.applyDialogFont(selectAll);
@@ -647,14 +647,16 @@ class ImportItemWizardPage extends WizardPage {
         lastPath = path;
 
         if (path == null || path.length() == 0) {
-            selectedItems = new ItemRecord[0];
+            selectedItems = new ArrayList<ItemRecord>();
             itemsList.refresh(true);
-            itemsList.setCheckedElements(selectedItems);
+            itemsList.setCheckedElements(selectedItems.toArray());
             checkValidItems();
             return;
         }
 
-        items.clear();
+        if (items != null) {
+            items.clear();
+        }
 
         final boolean dirSelected = this.itemFromDirectoryRadio.getSelection();
         try {
@@ -714,10 +716,13 @@ class ImportItemWizardPage extends WizardPage {
      * DOC hcw Comment method "populateItems".
      */
     private void populateItems() {
+        selectedItems.clear();
+        items.clear();
         IRunnableWithProgress op = new IRunnableWithProgress() {
 
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                items = repositoryUtil.populateItems(manager, overwrite, monitor);
+                repositoryUtil.clearAllData();
+                items.addAll(repositoryUtil.populateItems(manager, overwrite, monitor));
             }
 
         };
@@ -737,11 +742,7 @@ class ImportItemWizardPage extends WizardPage {
             errorsList.refresh();
         }
 
-        selectedItems = new ItemRecord[items.size()];
-        int index = 0;
-        for (ItemRecord itemRecord : items) {
-            selectedItems[index++] = itemRecord;
-        }
+        selectedItems.addAll(items);
 
         itemsList.refresh(true);
         itemsList.expandAll();
@@ -812,8 +813,7 @@ class ImportItemWizardPage extends WizardPage {
     public ItemRecord[] getValidItems() {
 
         List validItems = new ArrayList();
-        for (int i = 0; i < selectedItems.length; i++) {
-            ItemRecord itemRecord = selectedItems[i];
+        for (ItemRecord itemRecord : selectedItems) {
             if (itemRecord.isValid()) {
                 validItems.add(itemRecord);
 
@@ -822,8 +822,7 @@ class ImportItemWizardPage extends WizardPage {
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
     }
 
-    @SuppressWarnings("unchecked")
-    private Object[] getCheckedElements() {
+    private List<ItemRecord> getCheckedElements() {
         // add this if user use filter
         Set checkedElements = new HashSet();
         for (Object obj : filteredCheckboxTree.getCheckedLeafNodes()) {
@@ -836,28 +835,25 @@ class ImportItemWizardPage extends WizardPage {
             }
         }
         // sort the item
-        List list = new ArrayList(checkedElements);
+        List<ItemRecord> list = new ArrayList<ItemRecord>(checkedElements);
         Collections.sort(list, new Comparator<ItemRecord>() {
 
             public int compare(ItemRecord o1, ItemRecord o2) {
                 return TreeBuilder.compare(o1, o2);
             }
         });
-        return list.toArray();
+        return list;
     }
 
     public boolean performFinish() {
-
-        final Object[] checkedElements = getCheckedElements();
-        List<ItemRecord> tempItemRecords = new ArrayList<ItemRecord>();
-        for (int i = 0; i < checkedElements.length; i++) {
-            tempItemRecords.add((ItemRecord) checkedElements[i]);
-            Item item = ((ItemRecord) checkedElements[i]).getProperty().getItem();
+        final List<ItemRecord> itemRecords = getCheckedElements();
+        for (ItemRecord itemRecord : itemRecords) {
+            Item item = itemRecord.getProperty().getItem();
             if (item instanceof JobletProcessItem) {
                 needToRefreshPalette = true;
             }
         }
-        final List<ItemRecord> itemRecords = new ArrayList<ItemRecord>(tempItemRecords);
+
         try {
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
@@ -901,7 +897,7 @@ class ImportItemWizardPage extends WizardPage {
         if (ImportItemUtil.isRoutineItem) {
             if (archivePathField.getText().endsWith("zip")) {
                 String path = archivePathField.getText().replace("\\", "/");
-                importItemUtil.deployJarToDesForArchive(path);
+                // importItemUtil.deployJarToDesForArchive(path);
                 path = path.substring(0, path.lastIndexOf("."));
                 ZipToFileUtil.deleteDirectory(path);
             }
@@ -911,10 +907,15 @@ class ImportItemWizardPage extends WizardPage {
                 importItemUtil.deployJarToDes();
             }
         }
+        selectedItems = null;
+        items.clear();
         return true;
     }
 
     public boolean performCancel() {
+        selectedItems = null;
+        items.clear();
+        repositoryUtil.clearAllData();
         return true;
     }
 

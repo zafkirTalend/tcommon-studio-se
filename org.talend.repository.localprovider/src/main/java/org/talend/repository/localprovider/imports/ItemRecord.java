@@ -23,6 +23,7 @@ import org.eclipse.swt.graphics.Image;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.ui.images.CoreImageProvider;
 
 /**
@@ -50,6 +51,16 @@ public class ItemRecord {
     private boolean imported = false;
 
     private String label;
+
+    private IRepositoryObject existingItemWithSameId;
+
+    private ERepositoryObjectType repositoryType;
+
+    private String itemId;
+
+    private String importPath;
+
+    private String itemVersion;
 
     public ItemRecord(IPath path) {
         this.path = path;
@@ -178,5 +189,45 @@ public class ItemRecord {
         resourceSet.getResources().clear();
         property = null;
         resourceSet = null;
+    }
+
+    public IRepositoryObject getExistingItemWithSameId() {
+        return existingItemWithSameId;
+    }
+
+    public void setExistingItemWithSameId(IRepositoryObject existingItemWithSameId) {
+        this.existingItemWithSameId = existingItemWithSameId;
+    }
+
+    public ERepositoryObjectType getRepositoryType() {
+        return repositoryType;
+    }
+
+    public void setRepositoryType(ERepositoryObjectType repositoryType) {
+        this.repositoryType = repositoryType;
+    }
+
+    public String getImportPath() {
+        return importPath;
+    }
+
+    public void setImportPath(String importPath) {
+        this.importPath = importPath;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemVersion() {
+        return itemVersion;
+    }
+
+    public void setItemVersion(String itemVersion) {
+        this.itemVersion = itemVersion;
     }
 }

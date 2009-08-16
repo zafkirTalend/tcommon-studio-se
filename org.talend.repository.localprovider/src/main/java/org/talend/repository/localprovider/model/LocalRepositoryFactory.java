@@ -328,9 +328,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     }
                 }
             } else if (current instanceof IFolder) { // &&
-                // (!current.getName().equals
-                // ("bin"))) {
-                if (searchInChildren) {
+                if (searchInChildren || (withDeleted && current.getName().equals("bin"))) {
                     toReturn
                             .addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true, withDeleted));
                 }
@@ -402,6 +400,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         try {
             prj.create(desc, null);
             prj.open(IResource.BACKGROUND_REFRESH, null);
+            prj.setDefaultCharset("UTF-8", null);
         } catch (CoreException e) {
             throw new PersistenceException(e);
         }
@@ -935,7 +934,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    protected XmiResourceManager xmiResourceManager = new XmiResourceManager();
+    public XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
     public void lock(Item item) throws PersistenceException {
         if (getStatus(item) == ERepositoryStatus.DEFAULT) {
@@ -1634,6 +1633,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected void saveProject() throws PersistenceException {
         org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
         xmiResourceManager.saveResource(loadProject.eResource());
+    }
+
+    public void unloadResources(Property property) {
+        xmiResourceManager.unloadResources(property);
+    }
+
+    public void unloadResources() {
+        xmiResourceManager.unloadResources();
     }
 
 }
