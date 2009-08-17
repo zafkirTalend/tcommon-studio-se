@@ -37,6 +37,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.designer.core.IDesignerCoreService;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -390,7 +391,8 @@ public class ExtractMetaDataUtils {
     }
 
     private static int getDBConnectionTimeout() {
-        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
         if (preferenceStore != null && preferenceStore.getBoolean(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED)) {
             return preferenceStore.getInt(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT);
         }

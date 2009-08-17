@@ -146,9 +146,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.COMMAND_STR,
                 ITalendCorePrefConstants.DEFAULT_COMMAND_STR);
-        // db connection time out
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT_ACTIVED, true);
-        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DB_CONNECTION_TIMEOUT, 15);
+
         //
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_WARNING, true);
     }

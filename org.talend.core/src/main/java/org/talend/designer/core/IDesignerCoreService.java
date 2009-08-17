@@ -21,6 +21,7 @@ import java.util.Set;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -83,6 +84,8 @@ public interface IDesignerCoreService extends IService {
     public void synchronizeDesignerUI(PropertyChangeEvent evt);
 
     public String getPreferenceStore(String key);
+
+    public IPreferenceStore getDesignerCorePreferenceStore();
 
     public PaletteRoot createPalette(IComponentsFactory factory);
 
