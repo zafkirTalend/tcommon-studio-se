@@ -64,7 +64,8 @@ public class ExtractMetaDataFromDataBase {
     public enum ETableTypes {
         TABLETYPE_TABLE("TABLE"), //$NON-NLS-1$
         TABLETYPE_VIEW("VIEW"), //$NON-NLS-1$
-        TABLETYPE_SYNONYM("SYNONYM");//$NON-NLS-1$
+        TABLETYPE_SYNONYM("SYNONYM"), //$NON-NLS-1$
+        TABLETYPE_ALL_SYNONYM("ALL_SYNONYM"); //$NON-NLS-1$
 
         private final String name;
 
@@ -134,7 +135,24 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
-
+            // if (ExtractMetaDataUtils.conn != null &&
+            // ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver")
+            // && ExtractMetaDataUtils.getValue()) {
+            // String sql = "select synonym_name from all_synonyms";
+            // Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+            // ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+            // ResultSet rsTables1 = stmt.executeQuery(sql);
+            // itemTablesName = getTableNamesFromQuery(rsTables1);
+            // getMetadataTables(medataTables, rsTables1, dbMetaData.supportsSchemasInTableDefinitions(), limit);
+            // rsTables1.close();
+            // stmt.close();
+            //
+            // tableTypeMap.clear();
+            // for (String synonymName : itemTablesName) {
+            // tableTypeMap.put(synonymName, ETableTypes.TABLETYPE_SYNONYM.getName());
+            // }
+            // System.out.println("aaaaaaaaaaa");
+            // } else {
             if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) { //$NON-NLS-1$
                 rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
             } else {
@@ -142,6 +160,7 @@ public class ExtractMetaDataFromDataBase {
             }
             getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), limit);
             rsTables.close();
+            // }
 
         } catch (SQLException e) {
             // e.printStackTrace();
@@ -297,8 +316,8 @@ public class ExtractMetaDataFromDataBase {
      */
     public static String getTableNameBySynonym(Connection conn, String name) {
         try {
-            // String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
-            String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'";
+            String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
+            // String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'";
             Statement sta;
             sta = conn.createStatement();
             ExtractMetaDataUtils.setQueryStatementTimeout(sta);
@@ -780,9 +799,10 @@ public class ExtractMetaDataFromDataBase {
      * @return a string representing table type
      */
     public static String getTableTypeByTableName(String tableName) {
-
-        if (tableTypeMap.containsKey(tableName)) {
-            return tableTypeMap.get(tableName);
+        if (!"".equals(tableName) && tableName != null) {
+            if (tableTypeMap.containsKey(tableName)) {
+                return tableTypeMap.get(tableName);
+            }
         }
 
         return null;
@@ -826,24 +846,42 @@ public class ExtractMetaDataFromDataBase {
                     stmt.close();
                 }
             } else {
+                // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
+                if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver")
+                        && ExtractMetaDataUtils.getValue()) {
+                    String sql = "select synonym_name from all_synonyms";
+                    Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                    ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                    ResultSet rsTables = stmt.executeQuery(sql);
+                    itemTablesName = getTableNamesFromQuery(rsTables);
+                    rsTables.close();
+                    stmt.close();
 
-                Set<String> nameFiters = tableInfoParameters.getNameFilters();
-                if (nameFiters.isEmpty()) {
-                    itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters,
-                            "", iMetadataConnection.getDbType())); //$NON-NLS-1$
+                    tableTypeMap.clear();
+                    for (String synonymName : itemTablesName) {
+
+                        tableTypeMap.put(synonymName, ETableTypes.TABLETYPE_SYNONYM.getName());
+
+                    }
+
                 } else {
-                    for (String s : nameFiters) {
-                        List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
-                                tableInfoParameters, s, iMetadataConnection.getDbType()));
-                        for (String string : tableNamesFromTables) {
-                            if (!itemTablesName.contains(string)) {
-                                itemTablesName.add(string);
+                    Set<String> nameFiters = tableInfoParameters.getNameFilters();
+                    if (nameFiters.isEmpty()) {
+                        itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters,
+                                "", iMetadataConnection.getDbType())); //$NON-NLS-1$
+                    } else {
+                        for (String s : nameFiters) {
+                            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
+                                    tableInfoParameters, s, iMetadataConnection.getDbType()));
+                            for (String string : tableNamesFromTables) {
+                                if (!itemTablesName.contains(string)) {
+                                    itemTablesName.add(string);
+                                }
                             }
                         }
                     }
                 }
             }
-
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -930,7 +968,7 @@ public class ExtractMetaDataFromDataBase {
     private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern, String dbType)
             throws SQLException {
         ResultSet rsTables = null;
-        // String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
+        String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
         for (int i = 0; i < types.length; i++) {
             types[i] = tableInfo.getTypes().get(i).getName();
@@ -949,8 +987,8 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         rsTableTypes.close();
-        rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
-        // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
+        // rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
+        rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         return rsTables;
     }
 
