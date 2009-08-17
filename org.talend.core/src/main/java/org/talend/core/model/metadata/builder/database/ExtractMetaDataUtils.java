@@ -485,6 +485,7 @@ public class ExtractMetaDataUtils {
             connection = ((Driver) klazz.newInstance()).connect(url, info);
 
         }
+
         // throw a new exception.
         if (connection == null) {
             throw new Exception("Impossible to initialize the connection !");
@@ -535,5 +536,15 @@ public class ExtractMetaDataUtils {
 
         }
         return functionlist;
+    }
+
+    public static boolean value;
+
+    public static boolean getValue() {
+        return value;
+    }
+
+    public static void setVale(boolean val) {
+        value = val;
     }
 }
