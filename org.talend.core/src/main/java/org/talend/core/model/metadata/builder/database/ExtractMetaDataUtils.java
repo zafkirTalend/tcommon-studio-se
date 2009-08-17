@@ -538,13 +538,4 @@ public class ExtractMetaDataUtils {
         return functionlist;
     }
 
-    public static boolean value;
-
-    public static boolean getValue() {
-        return value;
-    }
-
-    public static void setVale(boolean val) {
-        value = val;
-    }
 }
