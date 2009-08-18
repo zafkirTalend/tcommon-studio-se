@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.exolab.castor.xml.schema.Schema;
+import org.talend.designer.webservice.ws.helper.conf.ServiceHelperConfiguration;
 
 /**
  * 
@@ -13,7 +14,11 @@ import org.exolab.castor.xml.schema.Schema;
 public class ServiceInfo {
 
     /** server name */
-    private String name;
+    private String serverName;
+
+    private String serverNameSpace;
+
+    private List<PortNames> portNames;
 
     /** WSDL URI */
     private String wsdluri;//
@@ -23,6 +28,8 @@ public class ServiceInfo {
     private String targetnamespace;
 
     private Schema wsdlType;
+
+    private ServiceHelperConfiguration authConfig;
 
     /** The list of operations that this service defines. */
     List operations = new ArrayList();
@@ -48,7 +55,7 @@ public class ServiceInfo {
     }
 
     public String toString() {
-        return getName();
+        return getServerName();
     }
 
     public String getTargetnamespace() {
@@ -75,12 +82,36 @@ public class ServiceInfo {
         this.wsdluri = wsdluri;
     }
 
-    public String getName() {
-        return name;
+    public String getServerName() {
+        return serverName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setServerName(String name) {
+        this.serverName = name;
+    }
+
+    public String getServerNameSpace() {
+        return this.serverNameSpace;
+    }
+
+    public void setServerNameSpace(String serverNameSpace) {
+        this.serverNameSpace = serverNameSpace;
+    }
+
+    public List<PortNames> getPortNames() {
+        return this.portNames;
+    }
+
+    public void setPortNames(List<PortNames> portNames) {
+        this.portNames = portNames;
+    }
+
+    public ServiceHelperConfiguration getAuthConfig() {
+        return this.authConfig;
+    }
+
+    public void setAuthConfig(ServiceHelperConfiguration authConfig) {
+        this.authConfig = authConfig;
     }
 
 }

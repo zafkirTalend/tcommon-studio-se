@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.webservice.ui;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,9 +19,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -44,7 +42,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Tree;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
@@ -63,8 +60,10 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.metadata.dialog.MetadataDialog;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.WebServiceComponentMain;
 import org.talend.designer.webservice.data.ExternalWebServiceUIProperties;
@@ -74,13 +73,16 @@ import org.talend.designer.webservice.i18n.Messages;
 import org.talend.designer.webservice.managers.UIManager;
 import org.talend.designer.webservice.managers.WebServiceManager;
 import org.talend.designer.webservice.ui.dialog.AddListDialog;
+import org.talend.designer.webservice.ui.dialog.InputIndexValidator;
 import org.talend.designer.webservice.ui.dialog.WebServiceDialog;
 import org.talend.designer.webservice.ui.dialog.WebServiceEventListener;
 import org.talend.designer.webservice.ui.dnd.DragAndDropForWebService;
 import org.talend.designer.webservice.ui.link.WebServiceTableLiner;
 import org.talend.designer.webservice.ws.WSDLDiscoveryHelper;
+import org.talend.designer.webservice.ws.helper.conf.ServiceHelperConfiguration;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
+import org.talend.designer.webservice.ws.wsdlinfo.PortNames;
 
 /**
  * gcui class global comment. Detailled comment
@@ -98,9 +100,9 @@ public class WebServiceUI {
 
     private LabelledFileField wsdlField;
 
-    private TableViewer wsdlTableViewer;
-
     private Label operationLabel;
+
+    private Label portNameLabel;
 
     private CTabFolder tabFolder;
 
@@ -113,8 +115,6 @@ public class WebServiceUI {
     private Composite outputComposite;
 
     private String inComeName;
-
-    private String outComeName;
 
     private Composite inputComposite;
 
@@ -130,9 +130,11 @@ public class WebServiceUI {
 
     private AbstractDataTableEditorView<Function> listTableView;
 
-    private AbstractDataTableEditorView<IMetadataColumn> rowinPutTableView;
+    private AbstractDataTableEditorView<PortNames> portListTableView;
 
-    private AbstractDataTableEditorView<ParameterInfo> rowoutPutTableView;
+    private AbstractDataTableEditorView<IMetadataColumn> columnInPutTableView;
+
+    private AbstractDataTableEditorView<OutPutMappingData> rowoutPutTableView;
 
     private AbstractDataTableEditorView<InputMappingData> expressinPutTableView;
 
@@ -140,13 +142,11 @@ public class WebServiceUI {
 
     private WebServiceEventListener listener;
 
-    private TreeViewer treeView;
-
-    private Tree tree;
-
     private Button refreshbut;
 
     private Table listTable;
+
+    private Table portListTable;
 
     private Button addListButForIn;
 
@@ -164,6 +164,8 @@ public class WebServiceUI {
 
     private Button denorButForOut;
 
+    private Button schemaButton;
+
     private Table expressTableForIn;
 
     private Table expressTableForout;
@@ -171,6 +173,8 @@ public class WebServiceUI {
     private Table rowTableForout;
 
     private Table rowTableForin;
+
+    private AddListDialog dialogInputList;
 
     private WebServiceComponent connector;
 
@@ -180,9 +184,11 @@ public class WebServiceUI {
 
     private List<Function> allfunList = new ArrayList<Function>();
 
-    private List<ParameterInfo> inParaList = new ArrayList<ParameterInfo>();
+    private List<PortNames> allPortNames = new ArrayList<PortNames>();
 
-    private List<ParameterInfo> outParaList = new ArrayList<ParameterInfo>();
+    // private List<ParameterInfo> inParaList = new ArrayList<ParameterInfo>();
+
+    private List<OutPutMappingData> outParaList = new ArrayList<OutPutMappingData>();
 
     private List<InputMappingData> inputMappingList = new ArrayList<InputMappingData>();
 
@@ -194,6 +200,8 @@ public class WebServiceUI {
 
     private InputMappingData currentInputMappingData;
 
+    private OutPutMappingData currentOutputMappingData;
+
     private ParameterInfo currentSelectedInChildren;
 
     private ParameterInfo currentOutputParameter;
@@ -204,6 +212,8 @@ public class WebServiceUI {
 
     private Function currentFunction;
 
+    private PortNames currentPortName;
+
     private List<IMetadataColumn> forOutColumnList = new ArrayList<IMetadataColumn>();
 
     private int currentElementIndexForIn = -1;
@@ -212,19 +222,25 @@ public class WebServiceUI {
 
     private int currentIndexForOutExpress = -1;
 
-    private String originalProxyHost;
+    private ServiceHelperConfiguration serverConfig = null;
 
-    private String originalProxyPort;
+    private Boolean isOutPutArray = false;
 
-    private String originalProxyUser;
+    private IMetadataTable inputMetaCopy = null;
 
-    private String originalProxyPassword;
+    private IMetadataTable outputMetaCopy = null;
 
-    private boolean usingProxy = false;
+    private IMetadataTable inputMetadata = null;
 
-    public int getSelectedColumnIndex() {
-        return this.selectedColumnIndex;
-    }
+    private IMetadataTable outputMetadata = null;
+
+    private IMetadataTable temInputMetadata = null;
+
+    private IMetadataTable temOutputMetadata = null;
+
+    private INode outputNode = null;
+
+    private INode inputNode = null;
 
     public WebServiceUI(Composite uiParent, WebServiceComponentMain webServiceMain) {
         super();
@@ -238,6 +254,8 @@ public class WebServiceUI {
         getLastFunction();
         getInputElementList();
         getOutputElementList();
+        initInputMetaCopy();
+        initOutputMetaCopy();
     }
 
     private void getInConnList() {
@@ -268,7 +286,7 @@ public class WebServiceUI {
             if (conn == null) {
                 continue;
             }
-            IMetadataTable metaTable = conn.getMetadataTable();
+            IMetadataTable metaTable = this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
             if (metaTable == null) {
                 continue;
             }
@@ -295,21 +313,38 @@ public class WebServiceUI {
         if (obj instanceof String) {
             String str = (String) obj;
             String wsdlUrl = (String) connector.getElementParameter("ENDPOINT").getValue(); //$NON-NLS-1$
+            String currentURL = (String) connector.getElementParameter("PORT_NAME").getValue(); //$NON-NLS-1$
             WSDLDiscoveryHelper ws = new WSDLDiscoveryHelper();
+            List<Function> funList = new ArrayList<Function>();
 
             WebServiceComponent webServiceComponent = webServiceManager.getWebServiceComponent();
             boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
             if (isUseProxy) {
                 useProxy();
             }
-            List<Function> funList = ws.getFunctionsAvailable(wsdlUrl);
-            if (isUseProxy && usingProxy) {
-                RemoveUseProxy();
+            boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
+            if (isUseAuth) {
+                useAuth();
             }
+            if (serverConfig != null) {
+                funList = ws.getFunctionsAvailable(wsdlUrl, serverConfig);
+
+            } else {
+                funList = ws.getFunctionsAvailable(wsdlUrl);
+            }
+
+            PortNames retrivePortName = new PortNames();
+            retrivePortName.setPortName(currentURL);
+            allPortNames.clear();
+            allPortNames.add(retrivePortName);
+
             for (Function fun : funList) {
                 if (fun.getName().equals(str)) {
                     allfunList.clear();
                     allfunList.add(fun);
+                    if (fun != null) {
+                        currentFunction = fun;
+                    }
                     return;
                 }
             }
@@ -350,13 +385,20 @@ public class WebServiceUI {
             }
             if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String paraName = map.get("ELEMENT"); //$NON-NLS-1$
+                String reArrayParaName = "";
+                if (paraName.endsWith("]")) {
+                    int lastArray = paraName.lastIndexOf("[");
+                    reArrayParaName = paraName.substring(0, lastArray);
+                }
                 if (allfunList == null || allfunList.size() <= 0) {
                     return;
                 }
                 Function fun = allfunList.get(0);
                 List<ParameterInfo> list = fun.getInputParameters();
                 goin: for (ParameterInfo para : list) {
-                    if (para.getName().equals(paraName)) {
+                    if (para.getName().equals(paraName) || paraName.endsWith(para.getName())
+                            || reArrayParaName.endsWith(para.getName())) {
+                        // paraName = para.getName();
                         mark = false;
                         childList.clear();
                         data.setParameter(para);
@@ -369,7 +411,9 @@ public class WebServiceUI {
                 }
                 if (mark) {
                     goout: for (ParameterInfo para : childList) {
-                        if (para.getName().equals(paraName)) {
+                        if (para.getName().equals(paraName) || paraName.endsWith(para.getName())
+                                || reArrayParaName.endsWith(para.getName())) {
+                            // paraName = para.getName();
                             data.setParameter(para);
                             data.setParameterName(paraName);
                             // if (para.getParameterInfos().size() > 0) {
@@ -393,7 +437,7 @@ public class WebServiceUI {
         IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS"); //$NON-NLS-1$
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
         List<OutPutMappingData> list = new ArrayList<OutPutMappingData>();
-        WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*(\\w+)\\s*"); //$NON-NLS-1$
+        WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*\\w+(\\[\\d+\\])?\\s*"); //$NON-NLS-1$
         List<ParameterInfo> childList = new ArrayList<ParameterInfo>();
         for (Map<String, String> map : outputMap) {
             boolean mark = true;
@@ -401,38 +445,50 @@ public class WebServiceUI {
 
             if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String ele = (String) map.get("ELEMENT"); //$NON-NLS-1$
+                String reArrayOutEle = "";
+                if (ele.endsWith("]")) {
+                    int lastArray = ele.lastIndexOf("[");
+                    reArrayOutEle = ele.substring(0, lastArray);
+                }
                 if (allfunList == null || allfunList.size() <= 0) {
                     return;
                 }
                 Function fun = allfunList.get(0);
                 List<ParameterInfo> outPaList = fun.getOutputParameters();
                 goin: for (ParameterInfo para : outPaList) {
-                    if (para.getName().equals(ele)) {
+                    if (para.getName().equals(ele) || ele.endsWith(para.getName()) || reArrayOutEle.endsWith(para.getName())) {
                         childList.clear();
                         mark = false;
-                        data.getParameterList().add(para);
-                        data.setParameterName(para.getName());
+                        data.setParameter(para);
+                        data.setParameterName(ele);
+                        outParaList.add(data);
                         if (para.getParameterInfos().size() > 0) {
                             childList.addAll(new ParameterInfoUtil().getAllChildren(para));
                         }
-                        if (para != null) {
-                            outParaList.add(para);
-                        }
+                        // if (para != null) {
+                        // OutPutMappingData outData = new OutPutMappingData();
+                        // outData.setParameter(para);
+                        // outData.setParameterName(ele);
+                        // outParaList.add(outData);
+                        // }
                         break goin;
                     }
                 }
 
                 if (mark) {
                     goout: for (ParameterInfo para : childList) {
-                        if (para.getName().equals(ele)) {
-                            data.getParameterList().add(para);
-                            data.setParameterName(para.getName());
+                        if (para.getName().equals(ele) || ele.endsWith(para.getName()) || reArrayOutEle.endsWith(para.getName())) {
+                            data.setParameter(para);
+                            data.setParameterName(ele);
+                            outParaList.add(data);
                             // if (para.getParameterInfos().size() > 0) {
                             // childList.addAll(para.getParameterInfos());
                             // }
-                            if (para != null) {
-                                outParaList.add(para);
-                            }
+                            // if (para != null) {
+                            // OutPutMappingData outData = new OutPutMappingData();
+                            // outData.setParameter(para);
+                            // outParaList.add(outData);
+                            // }
                             break goout;
                         }
                     }
@@ -442,18 +498,31 @@ public class WebServiceUI {
 
             if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String exp = (String) map.get("EXPRESSION"); //$NON-NLS-1$
+                String reArrayOutExp = "";
+                if (exp.endsWith("]")) {
+                    int lastArray = exp.lastIndexOf("[");
+                    reArrayOutExp = exp.substring(0, lastArray);
+                }
                 if ("".equals(exp) || exp == null) { //$NON-NLS-1$
                     continue;
                 }
                 data.setParameterName(exp);
-                Set<String> expList = webParser.parseOutTableEntryLocations(exp);
-                for (ParameterInfo outInfo : outParaList) {
-                    Iterator<String> ite = expList.iterator();
-                    while (ite.hasNext()) {
-                        if (ite.next().equals(outInfo.getName())) {
-                            data.getParameterList().add(outInfo);
-                        }
+                // Set<String> expList = webParser.parseOutTableEntryLocations(exp);
+                for (OutPutMappingData outMappingData : outParaList) {
+                    ParameterInfo outInfo = outMappingData.getParameter();
+                    String outInfoName = outMappingData.getParameterName();
+                    // if (outInfoName != null) {
+                    // int m = outInfoName.lastIndexOf(".");
+                    // outInfoName = outInfoName.substring(m + 1);
+                    // } else {
+                    // outInfoName = outInfo.getName();
+                    // }
+                    // Iterator<String> ite = expList.iterator();
+                    // while (ite.hasNext()) {
+                    if (exp.equals(outInfoName)) {
+                        data.getParameterList().add(outInfo);
                     }
+                    // }
                 }
 
                 if (data != null && data.getParameterName() != null) {
@@ -487,13 +556,10 @@ public class WebServiceUI {
         }
     }
 
-    private void getOutPutExpressionList() {
-    }
-
     /**
      * DOC Comment method "useProxy".
      */
-    private void useProxy() {
+    private ServiceHelperConfiguration useProxy() {
         String proxyHost = "";
         String proxyPort = "";
         String proxyUser = "";
@@ -503,72 +569,56 @@ public class WebServiceUI {
         IElementParameter proxyUserParameter = webServiceManager.getWebServiceComponent().getElementParameter("PROXY_USERNAME");
         IElementParameter proxyPasswordParameter = webServiceManager.getWebServiceComponent().getElementParameter(
                 "PROXY_PASSWORD");
-        if (proxyHostParameter != null) {
-            proxyHost = proxyHostParameter.toString();
-        }
-        if (proxyPortParameter != null) {
-            proxyPort = proxyPortParameter.toString();
-        }
-        if (proxyUserParameter != null) {
-            proxyUser = proxyUserParameter.toString();
-        }
-        if (proxyPasswordParameter != null) {
-            proxyPassword = proxyPasswordParameter.toString();
-        }
 
-        originalProxyHost = System.getProperty("http.proxyHost");
-        originalProxyPort = System.getProperty("http.proxyPort");
-        originalProxyUser = System.getProperty("http.proxyUser");
-        originalProxyPassword = System.getProperty("http.proxyPassword");
+        if (proxyHostParameter.getValue() != null) {
+            proxyHost = TalendTextUtils.removeQuotes(proxyHostParameter.getValue().toString());
+        }
+        if (proxyPortParameter.getValue() != null) {
+            proxyPort = TalendTextUtils.removeQuotes(proxyPortParameter.getValue().toString());
+        }
+        if (proxyUserParameter.getValue() != null) {
+            proxyUser = TalendTextUtils.removeQuotes(proxyUserParameter.getValue().toString());
+        }
+        if (proxyPasswordParameter.getValue() != null) {
+            proxyPassword = TalendTextUtils.removeQuotes(proxyPasswordParameter.getValue().toString());
+        }
+        if (serverConfig == null) {
+            serverConfig = new ServiceHelperConfiguration();
+        }
+        serverConfig.setUsername(proxyHost);
+        serverConfig.setPassword(proxyPort);
+        serverConfig.setUsername(proxyUser);
+        serverConfig.setPassword(proxyPassword);
 
-        System.setProperty("http.proxyHost", proxyHost);
-        System.setProperty("http.proxyPort", proxyPort);
-        System.setProperty("http.proxyUser", proxyUser);
-        System.setProperty("http.proxyPassword", proxyPassword);
-        usingProxy = true;
-
-    }
-
-    /**
-     * DOC Comment method "UnUseProxy".
-     */
-    private void RemoveUseProxy() {
-        System.setProperty("http.proxyHost", originalProxyHost);
-        System.setProperty("http.proxyPort", originalProxyPort);
-        System.setProperty("http.proxyUser", originalProxyUser);
-        System.setProperty("http.proxyPassword", originalProxyPassword);
-        usingProxy = false;
+        return serverConfig;
 
     }
 
     /**
      * DOC Comment method "useAuth".
      */
-    private void useAuth() {
-        try {
-            URL url = new URL(URLValue);
-            StringBuffer des = new StringBuffer();
-            if ("http".equals(url.getProtocol())) {
-                des.append("http://");
-                des.append("user");
-                des.append(":");
-                des.append("ps");
-                des.append("@");
-                des.append(url.getHost());
-                if (url.getPort() != -1) {
-                    des.append(":");
-                    des.append(url.getPort());
-                }
-                des.append(url.getPath());
-                // System.out.println(des);
+    private ServiceHelperConfiguration useAuth() {
 
-            }
-            URLValue = des.toString();
+        String authUsername = "";
+        String authPassword = "";
 
-        } catch (Exception e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        IElementParameter authUsernameParameter = webServiceManager.getWebServiceComponent().getElementParameter("AUTH_USERNAME");
+        IElementParameter authPasswordParameter = webServiceManager.getWebServiceComponent().getElementParameter("AUTH_PASSWORD");
+        if (authUsernameParameter.getValue() != null) {
+            authUsername = authUsernameParameter.getValue().toString();
+            authUsername = TalendTextUtils.removeQuotes(authUsername);
         }
+        if (authPasswordParameter.getValue() != null) {
+            authPassword = authPasswordParameter.getValue().toString();
+            authPassword = TalendTextUtils.removeQuotes(authPassword);
+        }
+        if (serverConfig == null) {
+            serverConfig = new ServiceHelperConfiguration();
+        }
+        serverConfig.setUsername(authUsername);
+        serverConfig.setPassword(authPassword);
+
+        return serverConfig;
 
     }
 
@@ -592,16 +642,9 @@ public class WebServiceUI {
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         composite.setLayout(new FormLayout());
 
-        Composite fileGroup = new Composite(composite, SWT.NONE);
-        FormData formData = new FormData();
-        formData.top = new FormAttachment(0, 0);
-        formData.left = new FormAttachment(0, 5);
-        formData.right = new FormAttachment(100, -10);
-        fileGroup.setLayoutData(formData);
-
         allContentForm = new SashForm(composite, SWT.NONE);
-        formData = new FormData();
-        formData.top = new FormAttachment(fileGroup, 5);
+        FormData formData = new FormData();
+        formData.top = new FormAttachment(5, 5);
         formData.left = new FormAttachment(0, 5);
         formData.right = new FormAttachment(100, -5);
         formData.bottom = new FormAttachment(100, -5);
@@ -619,9 +662,9 @@ public class WebServiceUI {
     }
 
     private void createViewers(SashForm allContentForm) {
-        allContentForm.setLayout(new FillLayout());
-        allContentForm.setOrientation(SWT.VERTICAL);
-        allContentForm.setSashWidth(ExternalWebServiceUIProperties.SASHFORM_WIDTH);
+        // allContentForm.setLayout(new FillLayout());
+        // allContentForm.setOrientation(SWT.VERTICAL);
+        // allContentForm.setSashWidth(ExternalWebServiceUIProperties.SASHFORM_WIDTH);
 
         createHeader(allContentForm);
 
@@ -629,27 +672,24 @@ public class WebServiceUI {
 
     private void createHeader(SashForm allContentForm) {
         //
-        tabFolder = new CTabFolder(allContentForm, SWT.NULL);
+        tabFolder = new CTabFolder(allContentForm, SWT.NONE);
         tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         wsdlTabItem = new CTabItem(tabFolder, SWT.NONE);
         wsdlTabItem.setText(ExternalWebServiceUIProperties.WSDL_LABEL);
         tabFolder.setSelection(wsdlTabItem);
+        tabFolder.setSimple(false);
+        // tabFolder.setSelectionForeground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+        // tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLUE));
 
         inputMappingTabItem = new CTabItem(tabFolder, SWT.BORDER);
         inputMappingTabItem.setText(ExternalWebServiceUIProperties.INPUT_LABEL);
-        // inputComposite = Form.startNewGridLayout(tabFolder, 1);
-        // inputMappingTabItem.setControl(inputComposite);
 
         outputMappingTabItem = new CTabItem(tabFolder, SWT.BORDER);
         outputMappingTabItem.setText(ExternalWebServiceUIProperties.OUTPUT_LABEL);
-        // outputComposite = Form.startNewGridLayout(tabFolder, 2);
-        // outputMappingTabItem.setControl(outputComposite);
-        // getList();
+
         wsdlTabItem.setControl(createWSDLStatus());
-
         inputMappingTabItem.setControl(createInputMappingStatus());
-
         outputMappingTabItem.setControl(createOutputMappingStatus());
 
         tabFolder.addSelectionListener(new SelectionAdapter() {
@@ -660,9 +700,7 @@ public class WebServiceUI {
                 }
 
                 if (currentFunction == null) {
-
                     tabFolder.setSelection(wsdlTabItem);
-
                     MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WARNING | SWT.OK);
                     box.setText("WARNING"); //$NON-NLS-1$ 
                     box.setMessage("Please Select a Operation."); //$NON-NLS-1$
@@ -708,12 +746,7 @@ public class WebServiceUI {
                 }
                 expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                 rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
-
-                // else {
-                // initLinksForIn();
-                // }
             }
-
         });
     }
 
@@ -727,9 +760,10 @@ public class WebServiceUI {
         wsdlComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         // WSDL URL
-        Composite wsdlUrlcomposite = new Composite(wsdlComposite, SWT.NULL);
+        Composite wsdlUrlcomposite = new Composite(wsdlComposite, SWT.NONE);
         GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
         layoutData.verticalIndent = 2;
+        layoutData.verticalSpan = 1;
         wsdlUrlcomposite.setLayoutData(layoutData);
         layout = new GridLayout(4, false);
         wsdlUrlcomposite.setLayout(layout);
@@ -756,15 +790,68 @@ public class WebServiceUI {
         butData.verticalSpan = 1;
         refreshbut.setLayoutData(butData);
 
+        // add port name UI
+        Composite wsdlPortcomposite = new Composite(wsdlComposite, SWT.NONE);
+        GridData portlayoutData = new GridData(GridData.FILL_HORIZONTAL);
+        portlayoutData.verticalIndent = 2;
+        portlayoutData.verticalSpan = 3;
+        wsdlPortcomposite.setLayoutData(portlayoutData);
+        layout = new GridLayout(2, false);
+        layout.verticalSpacing = 1;
+        wsdlPortcomposite.setLayout(layout);
+
+        portNameLabel = new Label(wsdlPortcomposite, SWT.NONE);
+        portNameLabel.setText(Messages.getString("WebServiceUI.Port")); //$NON-NLS-1$
+        GridData portLabelGridData = new GridData();
+        portLabelGridData.verticalAlignment = SWT.TOP;
+        portNameLabel.setLayoutData(portLabelGridData);
+
+        Composite portTabComposite = new Composite(wsdlPortcomposite, SWT.BORDER);
+        portTabComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        portTabComposite.setLayout(new FillLayout());
+
+        ExtendedTableModel<PortNames> portModel = new ExtendedTableModel<PortNames>("PORTNAMELIST", allPortNames); //$NON-NLS-1$
+        portListTableView = new AbstractDataTableEditorView<PortNames>(portTabComposite, SWT.NONE, portModel, false, true, false) {
+
+            protected void setTableViewerCreatorOptions(TableViewerCreator<PortNames> newTableViewerCreator) {
+                super.setTableViewerCreatorOptions(newTableViewerCreator);
+                newTableViewerCreator.setHeaderVisible(false);
+                newTableViewerCreator.setVerticalScroll(true);
+                newTableViewerCreator.setReadOnly(true);
+            }
+
+            protected void createColumns(TableViewerCreator<PortNames> tableViewerCreator, Table table) {
+                TableViewerCreatorColumn rowColumn = new TableViewerCreatorColumn(tableViewerCreator);
+                rowColumn.setTitle(Messages.getString("WebServiceUI.COLUMN")); //$NON-NLS-1$
+                rowColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<PortNames, String>() {
+
+                    public String get(PortNames bean) {
+                        return bean.getPortName();
+                    }
+
+                    public void set(PortNames bean, String value) {
+                        bean.setPortName(value);
+                    }
+
+                });
+                rowColumn.setWeight(60);
+                rowColumn.setModifiable(true);
+                rowColumn.setMinimumWidth(60);
+                rowColumn.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+
+            }
+        };
+
         // WSDL Operation
         Composite wsdlOperationcomposite = new Composite(wsdlComposite, SWT.NONE);
-        GridData operationlayoutData = new GridData(GridData.FILL_HORIZONTAL);
+        GridData operationlayoutData = new GridData(GridData.FILL_BOTH);
         operationlayoutData.verticalIndent = 2;
+        operationlayoutData.verticalSpan = 5;
         wsdlOperationcomposite.setLayoutData(operationlayoutData);
         layout = new GridLayout(2, false);
-        layout.verticalSpacing = 2;
+        layout.verticalSpacing = 3;
         wsdlOperationcomposite.setLayout(layout);
-        wsdlOperationcomposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        // wsdlOperationcomposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         operationLabel = new Label(wsdlOperationcomposite, SWT.NONE);
         operationLabel.setText(Messages.getString("WebServiceUI.Operation")); //$NON-NLS-1$
@@ -772,8 +859,10 @@ public class WebServiceUI {
         opertionLabelGridData.verticalAlignment = SWT.TOP;
         operationLabel.setLayoutData(opertionLabelGridData);
 
-        Composite tabComposite = new Composite(wsdlOperationcomposite, SWT.NONE);
-        tabComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        Composite tabComposite = new Composite(wsdlOperationcomposite, SWT.BORDER);
+        GridData tabGridData = new GridData(GridData.FILL_BOTH);
+        // tabGridData.verticalSpan = 3;
+        tabComposite.setLayoutData(tabGridData);
         tabComposite.setLayout(new FillLayout());
 
         ExtendedTableModel<Function> funModel = new ExtendedTableModel<Function>("FUNCTIONLIST", allfunList); //$NON-NLS-1$
@@ -809,11 +898,11 @@ public class WebServiceUI {
             }
         };
 
-        addListenerForURLCom();
+        addListenerForWSDLCom();
         return wsdlComposite;
     }
 
-    private void addListenerForURLCom() {
+    private void addListenerForWSDLCom() {
         refreshbut.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -825,6 +914,7 @@ public class WebServiceUI {
         // TableItem firstItem = listTable.getItem(0);
         // currentFunction = firstItem.getData();
         listTable = listTableView.getTable();
+        portListTable = portListTableView.getTable();
 
         listTable.addSelectionListener(new SelectionAdapter() {
 
@@ -869,16 +959,18 @@ public class WebServiceUI {
                     }
                 }
 
-                ExtendedTableModel<ParameterInfo> rowForOutput = rowoutPutTableView.getExtendedTableModel();
+                ExtendedTableModel<OutPutMappingData> rowForOutput = rowoutPutTableView.getExtendedTableModel();
                 rowForOutput.removeAll();
                 if (listOut == null) {
-                    ParameterInfo pa = new ParameterInfo();
-                    pa.setName("OUTPUT IS NULL!!");
-                    rowForOutput.add(pa);
+                    OutPutMappingData outData = new OutPutMappingData();
+                    outData.setParameterName("OUTPUT IS NULL!!");
+                    rowForOutput.add(outData);
                 } else {
                     for (int i = 0; i < listOut.size(); i++) {
+                        OutPutMappingData outData = new OutPutMappingData();
                         ParameterInfo pa = listOut.get(i);
-                        rowForOutput.add(pa);
+                        outData.setParameter(pa);
+                        rowForOutput.add(outData);
                     }
                 }
                 ExtendedTableModel<OutPutMappingData> exforoutput = expressoutPutTableView.getExtendedTableModel();
@@ -889,14 +981,21 @@ public class WebServiceUI {
                     outData.setMetadataColumn(column);
                     exforoutput.add(outData);
                 }
-
             }
+        });
 
+        portListTable.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                TableItem[] item = portListTable.getSelection();
+                currentPortName = (PortNames) item[0].getData();
+            }
         });
     }
 
     private void getDataFromNet() {
         List<Function> funList = new ArrayList<Function>();
+        List<PortNames> portNameList = new ArrayList<PortNames>();
         URLValue = wsdlField.getText();
         if (URLValue == null) {
             URLValue = ""; //$NON-NLS-1$
@@ -913,16 +1012,26 @@ public class WebServiceUI {
         if (isUseAuth) {
             useAuth();
         }
+        if (serverConfig != null) {
+            funList = ws.getFunctionsAvailable(URLValue, serverConfig);
 
-        funList = ws.getFunctionsAvailable(URLValue);
-
-        if (isUseProxy && usingProxy) {
-            RemoveUseProxy();
+        } else {
+            funList = ws.getFunctionsAvailable(URLValue);
         }
 
+        if (!funList.isEmpty()) {
+            if (funList.get(0) != null) {
+                if (funList.get(0).getPortNames() != null) {
+                    portNameList = funList.get(0).getPortNames();
+                }
+            }
+        }
         ExtendedTableModel<Function> listModel = listTableView.getExtendedTableModel();
+        ExtendedTableModel<PortNames> portListModel = portListTableView.getExtendedTableModel();
         listModel.removeAll();
         listModel.addAll(funList);
+        portListModel.removeAll();
+        portListModel.addAll(portNameList);
     }
 
     private Composite createInputMappingStatus() {
@@ -946,7 +1055,7 @@ public class WebServiceUI {
         comforRow.setLayout(new FillLayout());
         tabTotabLinkForin = new WebServiceTableLiner(inputComposite);
         ExtendedTableModel<IMetadataColumn> model = new ExtendedTableModel<IMetadataColumn>("INPUTCOLUMN", inPutcolumnList); //$NON-NLS-1$
-        rowinPutTableView = new AbstractDataTableEditorView<IMetadataColumn>(comforRow, SWT.BORDER, model, false, true, false) {
+        columnInPutTableView = new AbstractDataTableEditorView<IMetadataColumn>(comforRow, SWT.BORDER, model, false, true, false) {
 
             protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
                 super.setTableViewerCreatorOptions(newTableViewerCreator);
@@ -980,8 +1089,8 @@ public class WebServiceUI {
         };
 
         // input mapping right SashForm.
-        rowTableForin = rowinPutTableView.getTable();
-        new DragAndDropForWebService(webServiceManager, rowinPutTableView, null, connector, true, false);
+        rowTableForin = columnInPutTableView.getTable();
+        new DragAndDropForWebService(webServiceManager, columnInPutTableView, null, connector, true, false);
 
         SashForm comforRow1 = new SashForm(inputComposite, SWT.NONE);
         data = new GridData(GridData.FILL_BOTH);
@@ -1056,7 +1165,7 @@ public class WebServiceUI {
             }
 
             protected void createColumns(TableViewerCreator<InputMappingData> tableViewerCreator, final Table table) {
-                // input mapping ecpress cloumn.
+                // input mapping express cloumn.
                 TableViewerCreatorColumn<InputMappingData, String> expressionColumn = new TableViewerCreatorColumn<InputMappingData, String>(
                         tableViewerCreator);
                 expressionColumn.setTitle(Messages.getString("WebServiceUI.EXPRESSION")); //$NON-NLS-1$
@@ -1118,21 +1227,19 @@ public class WebServiceUI {
                         ParameterInfo para = bean.getParameter();
                         if (para != null) {
                             List<ParameterInfo> paraList = new ParameterInfoUtil().getAllChildren(para);// para.
-                            // getParameterInfos
-                            // ();
                             if (paraList != null && paraList.size() > 0 && para.getParent() == null) {
                                 boolean flag = isExpanded(table, para, paraList, "IN"); //$NON-NLS-1$
                                 if (flag) {
                                     return "[-] " + para.getName(); //$NON-NLS-1$
                                 }
                                 return "[+] " + para.getName();// bean.getParameterName(); //$NON-NLS-1$
-                            }
-                            // else if (paraList != null && paraList.size() > 0 && para.getParent() != null) {
-                            // String name = new ParameterInfoUtil().getParentName(para);
-                            // return " [-] " + name;
-                            // }
-                            else if (para.getParent() != null) {
-                                String name = new ParameterInfoUtil().getParentName(para);
+                            } else if (para.getParent() != null) {
+                                String name;
+                                if (bean.getParameterName() != null) {
+                                    name = bean.getParameterName();
+                                } else {
+                                    name = new ParameterInfoUtil().getParentName(para);
+                                }
                                 return " |-- " + name; //$NON-NLS-1$
                             }
                         }
@@ -1182,9 +1289,7 @@ public class WebServiceUI {
         rowTableForin.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-
             }
-
         });
 
         expressTableForIn.addSelectionListener(new SelectionAdapter() {
@@ -1192,15 +1297,23 @@ public class WebServiceUI {
             public void widgetSelected(SelectionEvent e) {
                 TableItem[] selectedItem = expressTableForIn.getSelection();
                 currentElementIndexForIn = expressTableForIn.getSelectionIndex();
+
                 currentInputMappingData = (InputMappingData) selectedItem[0].getData();
                 // currentSelectedInParameter = inputData.getParameter();
                 if (currentInputMappingData.getParameter() == null) {
                     return;
                 }
                 List<ParameterInfo> infoList = currentInputMappingData.getParameter().getParameterInfos();
+                Boolean isArray = false;
+                String isArrayName = currentInputMappingData.getParameterName();
+                if ((currentInputMappingData.getParameter().getArraySize() == -1 || currentInputMappingData.getParameter()
+                        .getArraySize() > 1)
+                        && !isArrayName.endsWith("]")) {
+                    isArray = true;
+                }
                 ParameterInfo infoPa = currentInputMappingData.getParameter().getParent();
 
-                if (infoList != null && infoList.size() > 0) {
+                if (infoList != null && infoList.size() > 0 || isArray) {
                     addListButForIn.setEnabled(true);
                 } else {
                     addListButForIn.setEnabled(false);
@@ -1221,13 +1334,13 @@ public class WebServiceUI {
                     if (column == null) {
                         return;
                     }
-                    if (column.getTalendType().equals("id_List") && (infoList == null || infoList.size() <= 0)) { //$NON-NLS-1$
+                    if (column.getTalendType().equals("id_List") && !isArray) { //$NON-NLS-1$
                         denorButForIn.setEnabled(true);
                     } else {
                         denorButForIn.setEnabled(false);
                     }
 
-                    if (!column.getTalendType().equals("id_List") && infoList != null && infoList.size() > 0) { //$NON-NLS-1$
+                    if (!column.getTalendType().equals("id_List") && isArray) { //$NON-NLS-1$
                         normalizeButForIn.setEnabled(true);
                     } else {
                         normalizeButForIn.setEnabled(false);
@@ -1237,6 +1350,7 @@ public class WebServiceUI {
             }
 
         });
+
         addListButForIn.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -1252,7 +1366,6 @@ public class WebServiceUI {
                 // InputMappingData data = new InputMappingData();
                 // data.setParameter(childPara);
                 // data.setParameterName(childPara.getName());
-                //
                 // expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
                 // }
                 // }
@@ -1262,12 +1375,37 @@ public class WebServiceUI {
                 if (items.length <= 0) {
                     return;
                 }
-                AddListDialog dialog = new AddListDialog(shell, ((InputMappingData) items[0].getData()).getParameter());
-                dialog.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
+                // if select is array.
+                ParameterInfo para = ((InputMappingData) items[0].getData()).getParameter();
+
+                if (para.getArraySize() == -1 && para.getParameterInfos().isEmpty()) {
+                    InputDialog dlg = new InputDialog(shell,
+                            "", Messages.getString("AddListDialog.INPUTINDEX"), "", new InputIndexValidator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    if (dlg.open() == dlg.OK) {
+                        String indexValue = dlg.getValue();
+                        InputMappingData data = new InputMappingData();
+                        data.setParameter(para);
+                        if (para.getParent() != null) {
+                            String name = ((InputMappingData) items[0].getData()).getParameterName() + "[" + indexValue + "]";
+                            data.setParameterName(name);
+                        } else {
+                            data.setParameterName(para.getName());
+                        }
+                        inputMappingList.size();
+                        // expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
+                        expressinPutTableView.getExtendedTableModel().add(data, inputMappingList.size() + 1);
+                        expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                    }
+                    return;
+                }
+
+                // if select is list.
+                dialogInputList = new AddListDialog(shell, ((InputMappingData) items[0].getData()).getParameter());
+                dialogInputList.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
                 Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);//ExternalWebServiceUIProperties.getBoundsMapper
                 // ();
                 if (ExternalWebServiceUIProperties.isShellMaximized()) {
-                    dialog.setMaximized(ExternalWebServiceUIProperties.isShellMaximized());
+                    dialogInputList.setMaximized(ExternalWebServiceUIProperties.isShellMaximized());
                 } else {
                     boundsMapper = ExternalWebServiceUIProperties.getBoundsMapper();
                     if (boundsMapper.x < 0) {
@@ -1276,9 +1414,11 @@ public class WebServiceUI {
                     if (boundsMapper.y < 0) {
                         boundsMapper.y = 0;
                     }
-                    dialog.setSize(boundsMapper);
-                    if (dialog.open() == AddListDialog.OK) {
-                        currentSelectedInChildren = dialog.getSelectedParaInfo();
+                    dialogInputList.setSize(boundsMapper);
+                    if (dialogInputList.open() == AddListDialog.OK) {
+
+                        currentSelectedInChildren = dialogInputList.getSelectedParaInfo();
+
                         if (currentSelectedInChildren == null || currentSelectedInChildren.getName() == null) {
                             return;
                         }
@@ -1286,9 +1426,18 @@ public class WebServiceUI {
                             // if (currentSelectedInChildren.getParent() == currentInputMappingData.getParameter()) {
                             InputMappingData data = new InputMappingData();
                             data.setParameter(currentSelectedInChildren);
-                            data.setParameterName(currentSelectedInChildren.getName());
-                            expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
+                            // else if (para.getParent() != null) {
+                            // String name = new ParameterInfoUtil().getParentName(para);
+                            //                                return " |-- " + name; //$NON-NLS-1$
+                            // }
+                            if (currentSelectedInChildren.getParent() != null) {
+                                String name = dialogInputList.getParaUtil().getParentName(currentSelectedInChildren);
+                                data.setParameterName(name);
+                            } else {
+                                data.setParameterName(currentSelectedInChildren.getName());
 
+                            }
+                            expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
                             expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                             // } else {
                             // List<ParameterInfo> paraList = getAllMostParameterInfo(currentSelectedInChildren, "IN");
@@ -1408,46 +1557,51 @@ public class WebServiceUI {
         safhExRow.setLayoutData(new GridData(GridData.FILL_BOTH));
         safhExRow.setLayout(new FillLayout());
 
-        ExtendedTableModel<ParameterInfo> model = new ExtendedTableModel<ParameterInfo>("OUTPUTELEMENT", outParaList); //$NON-NLS-1$
-        rowoutPutTableView = new AbstractDataTableEditorView<ParameterInfo>(safhExRow, SWT.NONE, model, false, true, false) {
+        ExtendedTableModel<OutPutMappingData> model = new ExtendedTableModel<OutPutMappingData>("OUTPUTELEMENT", outParaList); //$NON-NLS-1$
+        rowoutPutTableView = new AbstractDataTableEditorView<OutPutMappingData>(safhExRow, SWT.NONE, model, false, true, false) {
 
-            protected void setTableViewerCreatorOptions(TableViewerCreator<ParameterInfo> newTableViewerCreator) {
+            protected void setTableViewerCreatorOptions(TableViewerCreator<OutPutMappingData> newTableViewerCreator) {
                 super.setTableViewerCreatorOptions(newTableViewerCreator);
                 newTableViewerCreator.setHeaderVisible(true);
                 newTableViewerCreator.setVerticalScroll(true);
                 newTableViewerCreator.setReadOnly(true);
             }
 
-            protected void createColumns(TableViewerCreator<ParameterInfo> tableViewerCreator, final Table table) {
+            protected void createColumns(TableViewerCreator<OutPutMappingData> tableViewerCreator, final Table table) {
                 TableViewerCreatorColumn rowColumn = new TableViewerCreatorColumn(tableViewerCreator);
                 rowColumn.setTitle(Messages.getString("WebServiceUI.ELEMENT")); //$NON-NLS-1$
-                rowColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<ParameterInfo, String>() {
+                rowColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<OutPutMappingData, String>() {
 
-                    public String get(ParameterInfo bean) {
+                    public String get(OutPutMappingData bean) {
 
-                        List<ParameterInfo> paraList = new ParameterInfoUtil().getAllChildren(bean);// bean.
-                        // getParameterInfos
-                        // ();
-                        if (paraList != null && paraList.size() > 0 && bean.getParent() == null) {
-                            boolean flag = isExpanded(table, bean, paraList, "OUT"); //$NON-NLS-1$
-                            if (flag) {
-                                return "[-] " + bean.getName(); //$NON-NLS-1$
+                        ParameterInfo para = bean.getParameter();
+
+                        if (para != null) {
+                            List<ParameterInfo> paraList = new ParameterInfoUtil().getAllChildren(para);// para.
+                            if (paraList != null && paraList.size() > 0 && para.getParent() == null) {
+                                boolean flag = isExpanded(table, para, paraList, "OUT"); //$NON-NLS-1$
+                                if (flag) {
+                                    return "[-] " + para.getName(); //$NON-NLS-1$
+                                }
+                                return "[+] " + para.getName();// bean.getParameterName(); //$NON-NLS-1$
+                            } else if (para.getParent() != null) {
+                                String name = "";
+                                if (bean.getParameterName() != null) {
+                                    name = bean.getParameterName();
+                                } else {
+                                    name = new ParameterInfoUtil().getParentName(para);
+                                }
+                                return " |-- " + name; //$NON-NLS-1$
                             }
-                            return "[+] " + bean.getName();// bean.getParameterName(); //$NON-NLS-1$
+                            // return para.getName();
                         }
-                        // else if (paraList != null && paraList.size() > 0 && bean.getParent() != null) {
-                        // String name = new ParameterInfoUtil().getParentName(bean);
-                        // return " [-] " + name;
-                        // }
-                        else if (bean.getParent() != null) {
-                            String name = new ParameterInfoUtil().getParentName(bean);
-                            return " |-- " + name; //$NON-NLS-1$
+                        if (bean.getParameterName() == null) {
+                            return para.getName();
                         }
-
-                        return bean.getName();
+                        return bean.getParameterName();
                     }
 
-                    public void set(ParameterInfo bean, String value) {
+                    public void set(OutPutMappingData bean, String value) {
                         if (value.contains("[+] ")) { //$NON-NLS-1$
                             value.replace("[+] ", ""); //$NON-NLS-1$ //$NON-NLS-2$
                         } else if (value.contains("[-] ")) { //$NON-NLS-1$
@@ -1459,7 +1613,7 @@ public class WebServiceUI {
                         else if (value.contains(" |-- ")) { //$NON-NLS-1$
                             value.replace(" |-- ", ""); //$NON-NLS-1$ //$NON-NLS-2$
                         }
-                        bean.setName(value);
+                        bean.setParameterName(value);
 
                     }
 
@@ -1497,6 +1651,13 @@ public class WebServiceUI {
         butCom.setLayout(butComLayout);
         butComData = new GridData(GridData.FILL_BOTH);
         butComData.horizontalSpan = 1;
+
+        Label schemaLabel = new Label(butCom, SWT.RIGHT);
+        schemaLabel.setText("Edit Schema:");
+        schemaLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        schemaButton = new Button(butCom, SWT.PUSH);
+        schemaButton.setText("...");
 
         normalizeButForOut = new Button(butCom, SWT.PUSH);
         normalizeButForOut.setEnabled(false);
@@ -1541,20 +1702,26 @@ public class WebServiceUI {
                         }
                         for (ParameterInfo para : paraList) {
                             if (para.getParent() != null) {
-                                String name = new ParameterInfoUtil().getParentName(para);
+                                String name;
+                                if (bean.getParameterName() != null) {
+                                    name = bean.getParameterName();
+                                } else {
+                                    name = new ParameterInfoUtil().getParentName(para);
+                                }
                                 paraName.append(name);
                                 paraName.append(" "); //$NON-NLS-1$
                             }
                         }
                         if (!"".equals(paraName.toString())) { //$NON-NLS-1$
-                            if (paraNameof.contains("denormalize(") && paraNameof.contains(",':')")) { //$NON-NLS-1$ //$NON-NLS-2$
-                                return "denormalize(" + paraName.toString() + ",':')"; //$NON-NLS-1$ //$NON-NLS-2$
-                            } else if (paraNameof.contains("normalize(") && paraNameof.contains(",':')")) { //$NON-NLS-1$ //$NON-NLS-2$
-                                return "normalize(" + paraName.toString() + ",':')"; //$NON-NLS-1$ //$NON-NLS-2$
-                            }
+                            //                            if (paraNameof.contains("denormalize(") && paraNameof.contains(",':')")) { //$NON-NLS-1$ //$NON-NLS-2$
+                            //                                return "denormalize(" + paraName.toString() + ",':')"; //$NON-NLS-1$ //$NON-NLS-2$
+                            //                            } else if (paraNameof.contains("normalize(") && paraNameof.contains(",':')")) { //$NON-NLS-1$ //$NON-NLS-2$
+                            //                                return "normalize(" + paraName.toString() + ",':')"; //$NON-NLS-1$ //$NON-NLS-2$
+                            // }
                             return paraName.toString();
+                        } else {
+                            return bean.getParameterName();
                         }
-                        return bean.getParameterName();
                     }
 
                     public void set(OutPutMappingData bean, String value) {
@@ -1629,12 +1796,25 @@ public class WebServiceUI {
             public void widgetSelected(SelectionEvent e) {
                 TableItem[] items = rowTableForout.getSelection();
                 currentElementIndexForOut = rowTableForout.getSelectionIndex();
-                currentOutputParameter = (ParameterInfo) items[0].getData();
-                int arraySize = currentOutputParameter.getArraySize();
+                currentOutputParameter = ((OutPutMappingData) items[0].getData()).getParameter();
+                currentOutputMappingData = (OutPutMappingData) items[0].getData();
+                // int arraySize = currentOutputParameter.getArraySize();
                 List<ParameterInfo> infoList = currentOutputParameter.getParameterInfos();
                 ParameterInfo infoPa = currentOutputParameter.getParent();
 
-                if (infoList != null && infoList.size() > 0) {
+                Boolean isArray = false;
+                String isArrayName = "";
+                if (currentOutputMappingData.getParameterName() != null) {
+                    isArrayName = currentOutputMappingData.getParameterName();
+                }
+                if ((currentOutputMappingData.getParameter().getArraySize() == -1 || currentOutputMappingData.getParameter()
+                        .getArraySize() > 1)
+                        && !isArrayName.endsWith("]")) {
+                    isArray = true;
+                    isOutPutArray = true;
+                }
+
+                if (infoList != null && infoList.size() > 0 || isArray) {
                     addListButForOut.setEnabled(true);
                 } else {
                     addListButForOut.setEnabled(false);
@@ -1671,13 +1851,23 @@ public class WebServiceUI {
                 if (column == null) {
                     return;
                 }
-                if (column.getTalendType().equals("id_List") && (infoList == null || infoList.size() <= 0)) { //$NON-NLS-1$
+                Boolean isArray = false;
+                String isArrayName = "";
+                if (currentSelectedOutExpress != null) {
+                    if (currentSelectedOutExpress.getParameterName() != null) {
+                        isArrayName = currentSelectedOutExpress.getParameterName();
+                    }
+                    if ((currentSelectedOutExpress.getParameterList().get(0).getArraySize() != 0) && !isArrayName.endsWith("]")) {
+                        isArray = true;
+                    }
+                }
+                if (isArray && !(column.getTalendType().equals("id_List"))) { //$NON-NLS-1$
                     denorButForOut.setEnabled(true);
                 } else {
                     denorButForOut.setEnabled(false);
                 }
 
-                if (!column.getTalendType().equals("id_List") && infoList != null && infoList.size() > 0) { //$NON-NLS-1$
+                if (column.getTalendType().equals("id_List") && !isArray) { //$NON-NLS-1$
                     normalizeButForOut.setEnabled(true);
                 } else {
                     normalizeButForOut.setEnabled(false);
@@ -1692,28 +1882,37 @@ public class WebServiceUI {
             public void widgetSelected(SelectionEvent e) {
                 Shell shell = uiParent.getShell();
 
-                // if (currentOutputParameter.getArraySize() != 0) {
-                // AddArrayIndexDialog arrayDialog = new AddArrayIndexDialog(shell, currentOutputParameter);
-                // if (arrayDialog.open() == AddArrayIndexDialog.OK) {
-                // int index = arrayDialog.returnIndex();
-                // if (index != -1) {
-                // ParameterInfo info = currentOutputParameter.getParameterInfos().get(index);
-                // if (info != null) {
-                // rowoutPutTableView.getExtendedTableModel().add(info, currentElementIndexForOut + 1);
-                // rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
-                // }
-                // }
-                // }
-                // return;
-                // }
                 TableItem[] items = rowTableForout.getSelection();
                 if (items.length <= 0) {
                     return;
                 }
-                AddListDialog dialog = new AddListDialog(shell, (ParameterInfo) items[0].getData());
+
+                // if select is array.
+                ParameterInfo para = ((OutPutMappingData) items[0].getData()).getParameter();
+                if (para.getArraySize() == -1 && para.getParameterInfos().isEmpty()) {
+                    InputDialog dlg = new InputDialog(shell,
+                            "", Messages.getString("AddListDialog.INPUTINDEX"), "", new InputIndexValidator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    int openCode = dlg.open();
+                    if (openCode == InputDialog.OK) {
+                        String indexValue = dlg.getValue();
+                        OutPutMappingData data = new OutPutMappingData();
+                        data.setParameter(para);
+                        if (para.getParent() != null) {
+                            String name = ((OutPutMappingData) items[0].getData()).getParameterName() + "[" + indexValue + "]";
+                            data.setParameterName(name);
+                        } else {
+                            data.setParameterName(para.getName());
+                        }
+                        rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut - 1);
+                        rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                    }
+                    return;
+                }
+
+                // if select is a list.
+                AddListDialog dialog = new AddListDialog(shell, ((OutPutMappingData) items[0].getData()).getParameter());
                 dialog.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
                 Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);//ExternalWebServiceUIProperties.getBoundsMapper
-                // ();
                 if (ExternalWebServiceUIProperties.isShellMaximized()) {
                     dialog.setMaximized(ExternalWebServiceUIProperties.isShellMaximized());
                 } else {
@@ -1727,32 +1926,25 @@ public class WebServiceUI {
                     dialog.setSize(boundsMapper);
                     if (dialog.open() == AddListDialog.OK) {
                         currentSelectedOutChildren = dialog.getSelectedParaInfo();
+
                         if (currentSelectedOutChildren == null || currentSelectedOutChildren.getName() == null) {
                             return;
                         }
                         if (currentElementIndexForOut >= 0) {
-                            // if (currentSelectedOutChildren.getParent() == currentOutputParameter) {
+                            OutPutMappingData data = new OutPutMappingData();
+                            data.setParameter(currentSelectedOutChildren);
+                            if (currentSelectedOutChildren.getParent() != null) {
+                                String name = dialog.getParaUtil().getParentName(currentSelectedOutChildren);
+                                data.setParameterName(name);
+                            } else {
+                                data.setParameterName(currentSelectedOutChildren.getName());
 
-                            rowoutPutTableView.getExtendedTableModel().add(currentSelectedOutChildren,
-                                    currentElementIndexForOut + 1);
+                            }
+
+                            rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + 1);
 
                             rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
-                            // } else {
-                            // List<ParameterInfo> paraList = getAllMostParameterInfo(currentSelectedOutChildren,
-                            // "OUT");
-                            // int index = 1;
-                            // for (int i = paraList.size() - 1; i >= 0; i--) {
-                            // ParameterInfo parentPara = paraList.get(i);
-                            // if (parentPara == null) {
-                            // continue;
-                            // }
-                            //
-                            // rowoutPutTableView.getExtendedTableModel().add(parentPara, currentElementIndexForOut +
-                            // index);
-                            // index++;
-                            // }
-                            // rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
-                            // }
+
                         }
                     }
 
@@ -1766,12 +1958,13 @@ public class WebServiceUI {
             public void widgetSelected(SelectionEvent e) {
                 TableItem[] items = rowTableForout.getSelection();
                 for (int i = 0; i < items.length; i++) {
-                    ParameterInfo info = (ParameterInfo) items[i].getData();
+                    OutPutMappingData info = (OutPutMappingData) items[i].getData();
+                    // ParameterInfo info = (ParameterInfo) items[i].getData();
                     rowoutPutTableView.getExtendedTableModel().remove(info);
                     tabTotabLinkForout.updateLinksStyleAndControlsSelection(rowTableForout);
                 }
                 items = rowTableForout.getSelection();
-                if (((ParameterInfo) items[0].getData()).getParameterInfos().size() == 0) {
+                if (((OutPutMappingData) items[0].getData()).getParameter().getParameterInfos().size() == 0) {
                     addListButForOut.setEnabled(false);
                 }
                 rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
@@ -1810,6 +2003,151 @@ public class WebServiceUI {
             }
         });
 
+        schemaButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                // create the Schema MetadataDialog
+                MetadataDialog metaDialog = null;
+
+                if (inputMetaCopy != null) {
+                    metaDialog = new MetadataDialog(uiParent.getShell(), inputMetaCopy, inputNode, outputMetaCopy, outputNode,
+                            null);
+                } else {
+                    metaDialog = new MetadataDialog(uiParent.getShell(), outputMetaCopy, outputNode, null);
+                }
+
+                // IElementParameter param = outputNode.getElementParameter("SCHEMA");
+                int openCode = metaDialog.open();
+                if (openCode == MetadataDialog.OK) {
+                    inputMetaCopy = metaDialog.getInputMetaData();
+                    outputMetaCopy = metaDialog.getOutputMetaData();
+                    // save modify input schema to inout column.
+                    if (inputMetadata != null) {
+                        if (!inputMetaCopy.sameMetadataAs(temInputMetadata, IMetadataColumn.OPTIONS_NONE)) {
+                            List<IMetadataColumn> inNewColumn = inputMetaCopy.getListColumns();
+                            inPutcolumnList.clear();
+                            inPutcolumnList.addAll(inNewColumn);
+                            temInputMetadata = inputMetaCopy.clone();
+                            columnInPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                        }
+                    }
+
+                    if (!outputMetaCopy.sameMetadataAs(temOutputMetadata, IMetadataColumn.OPTIONS_NONE)) {
+                        List<IMetadataColumn> outNewColumn = outputMetaCopy.getListColumns();
+                        // List<IMetadataColumn> outOldColumnList = temOutputMetadata.getListColumns();
+
+                        if (outNewColumn.isEmpty()) {
+                            outPutcolumnList.clear();
+                        } else {
+                            // modify schema name.
+                            for (int i = 0; i < outPutcolumnList.size(); i++) {
+                                OutPutMappingData outcol = outPutcolumnList.get(i);
+                                IMetadataColumn oldCol = outcol.getMetadataColumn();
+                                if (!outcol.getOutputColumnValue().equals(oldCol.getLabel())) {
+                                    outcol.setOutputColumnValue(oldCol.getLabel());
+                                }
+                            }
+                            // add schema.
+                            for (int i = 0; i < outNewColumn.size(); i++) {
+                                IMetadataColumn newCol = outNewColumn.get(i);
+                                if (isAdd(newCol, outPutcolumnList)) {
+                                    forOutColumnList.add(newCol);
+                                    OutPutMappingData outData = new OutPutMappingData();
+                                    outData.setOutputColumnValue(newCol.getLabel());
+                                    outData.setMetadataColumn(newCol);
+                                    outPutcolumnList.add(outData);
+                                }
+                            }
+                            // delete schema.
+                            for (int i = 0; i < outPutcolumnList.size(); i++) {
+                                OutPutMappingData outcol = outPutcolumnList.get(i);
+                                IMetadataColumn oldCol = outcol.getMetadataColumn();
+                                // if (!outcol.getOutputColumnValue().equals(oldCol.getLabel())) {
+                                // outcol.setOutputColumnValue(oldCol.getLabel());
+                                // }
+                                if (isDelete(oldCol, outNewColumn)) {
+                                    // forOutColumnList.remove(oldCol);
+                                    outPutcolumnList.remove(outcol);
+                                    i--;
+                                }
+                            }
+                        }
+                        temOutputMetadata = outputMetaCopy.clone();
+                        expressoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                    }
+                } else if (openCode == MetadataDialog.CANCEL) {
+                    outputMetaCopy = temOutputMetadata.clone();
+                    return;
+                }
+            }
+
+            private boolean isDeleteInputColumn(IMetadataColumn oldCol, List<IMetadataColumn> inNewColumn) {
+                for (int i = 0; i < inNewColumn.size(); i++) {
+                    IMetadataColumn newCol = inNewColumn.get(i);
+                    if ((oldCol.getLabel()).equals(newCol.getLabel())) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            private boolean isAddInputColumn(IMetadataColumn newCol, List<IMetadataColumn> inPutcolumnList) {
+                for (int i = 0; i < inPutcolumnList.size(); i++) {
+
+                    if ((newCol.getLabel()).equals(inPutcolumnList.get(i).getLabel())) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            private boolean isDelete(IMetadataColumn oldCol, List<IMetadataColumn> list) {
+
+                for (int i = 0; i < list.size(); i++) {
+                    IMetadataColumn newCol = list.get(i);
+                    if ((oldCol.getLabel()).equals(newCol.getLabel())) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            private boolean isAdd(IMetadataColumn newCol, List<OutPutMappingData> outOldcolumnList) {
+                // Iterator<OutPutMappingData> outIter=outPutcolumnList.iterator();
+                for (int i = 0; i < outOldcolumnList.size(); i++) {
+                    IMetadataColumn outIter = outOldcolumnList.get(i).getMetadataColumn();
+                    if ((newCol.getLabel()).equals(outIter.getLabel())) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+        });
+
+    }
+
+    private void initInputMetaCopy() {
+        List<? extends IConnection> inConnList = connector.getIncomingConnections();
+        for (int i = 0; i < inConnList.size(); i++) {
+            IConnection inConn = inConnList.get(i);
+            if (inConn == null) {
+                continue;
+            }
+            inputNode = (inConn.getSource());
+            inputMetadata = inConn.getMetadataTable();
+        }
+        if (inputMetadata != null) {
+            inputMetaCopy = inputMetadata.clone();
+            temInputMetadata = inputMetadata.clone();
+        }
+    }
+
+    private void initOutputMetaCopy() {
+        outputNode = this.getWebServiceManager().getWebServiceComponent();
+        outputMetadata = this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
+        outputMetaCopy = outputMetadata.clone();
+        temOutputMetadata = outputMetadata.clone();
     }
 
     private UIManager getUIManager() {
@@ -1856,8 +2194,16 @@ public class WebServiceUI {
         return expressoutPutTableView.getExtendedTableModel().getBeansList();
     }
 
-    public List<ParameterInfo> getOutputElement() {
+    public List<OutPutMappingData> getOutputElement() {
         return rowoutPutTableView.getExtendedTableModel().getBeansList();
+    }
+
+    public PortNames getCurrentPortName() {
+        return currentPortName;
+    }
+
+    public List<PortNames> getAllPortNames() {
+        return this.allPortNames;
     }
 
     public Set<String> getInSourceList() {
@@ -1866,6 +2212,42 @@ public class WebServiceUI {
 
     public Set<String> getOutSourceList() {
         return tabTotabLinkForout.getOutputSource();
+    }
+
+    public int getSelectedColumnIndex() {
+        return this.selectedColumnIndex;
+    }
+
+    public IMetadataTable getInputMetaCopy() {
+        return this.inputMetaCopy;
+    }
+
+    public void setInputMetaCopy(IMetadataTable inputMetaCopy) {
+        this.inputMetaCopy = inputMetaCopy;
+    }
+
+    public IMetadataTable getOutputMetaCopy() {
+        return this.outputMetaCopy;
+    }
+
+    public void setOutputMetaCopy(IMetadataTable outputMetaCopy) {
+        this.outputMetaCopy = outputMetaCopy;
+    }
+
+    public IMetadataTable getInputMetadata() {
+        return this.inputMetadata;
+    }
+
+    public void setInputMetadata(IMetadataTable inputMetadata) {
+        this.inputMetadata = inputMetadata;
+    }
+
+    public IMetadataTable getOutputMetadata() {
+        return this.outputMetadata;
+    }
+
+    public void setOutputMetadata(IMetadataTable outputMetadata) {
+        this.outputMetadata = outputMetadata;
     }
 
     private void initLinksForIn() {
@@ -1944,7 +2326,7 @@ public class WebServiceUI {
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
         TableItem[] items = rowTableForout.getItems();
         TableItem[] tarItems = expressTableForout.getItems();
-        WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*(\\w+)\\s*"); //$NON-NLS-1$
+        WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*\\w+(\\[\\d+?\\])?\\s*"); //$NON-NLS-1$
         for (Map<String, String> map : outputMap) {
             if (map.get("SOURCE") != null && map.get("SOURCE") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String source = (String) map.get("SOURCE"); //$NON-NLS-1$
@@ -1952,14 +2334,18 @@ public class WebServiceUI {
                 TableItem sourceItem = null;
                 Object sourceData = null;
                 goin: for (int i = 0; i < items.length; i++) {
-                    if (items[i].getData() != null && ((ParameterInfo) items[i].getData()).getName() != null
-                            && ((ParameterInfo) items[i].getData()).getName().equals(source)) {
-                        sourceItem = items[i];
-                        sourceData = items[i].getData();
-                        if (sourceItem == null) {
-                            continue;
-                        } else {
-                            break goin;
+                    if (items[i].getData() != null && ((OutPutMappingData) items[i].getData()).getParameter().getName() != null) {
+                        String sourseName = ((OutPutMappingData) items[i].getData()).getParameterName();
+                        // int m = sourseName.lastIndexOf(".");
+                        // sourseName = sourseName.substring(m + 1);
+                        if (sourseName.equals(source)) {
+                            sourceItem = items[i];
+                            sourceData = items[i].getData();
+                            if (sourceItem == null) {
+                                continue;
+                            } else {
+                                break goin;
+                            }
                         }
                     }
                 }
@@ -1975,20 +2361,28 @@ public class WebServiceUI {
                             continue;
                         }
                         Set<String> set = webParser.parseOutTableEntryLocations(columnName);
-                        Iterator<String> ite = set.iterator();
-                        while (ite.hasNext()) {
-                            String columnValue = ite.next();
-                            if (columnValue.equals(source)) {
-                                targetItem = tarItems[i];
-                                targetData = tarItems[i].getData();
-
-                                if (targetItem == null) {
-                                    continue;
-                                }
-                                tabTotabLinkForout.addLinks(sourceItem, sourceData, targetItem.getParent(), targetData,
-                                        "OUTPUTMAPPING"); //$NON-NLS-1$
-                            }
+                        if (columnName.indexOf("normalize") == 0) {
+                            columnName = columnName.trim().substring(10, columnName.length() - 5);
                         }
+                        if (columnName.indexOf("denormalize") == 0) {
+                            columnName = columnName.trim().substring(12, columnName.length() - 5);
+                        }
+                        Set<String> set1 = webParser.parseOutTableEntryLocations(columnName);
+                        // Set<String> set = webParser.parseOutTableEntryLocations(columnName);
+                        // Iterator<String> ite = set.iterator();
+                        // while (ite.hasNext()) {
+                        // String columnValue = ite.next();
+                        if (columnName.equals(source)) {
+                            targetItem = tarItems[i];
+                            targetData = tarItems[i].getData();
+
+                            if (targetItem == null) {
+                                continue;
+                            }
+                            tabTotabLinkForout.addLinks(sourceItem, sourceData, targetItem.getParent(), targetData,
+                                    "OUTPUTMAPPING"); //$NON-NLS-1$
+                        }
+                        // }
 
                     }
                 }
@@ -2090,7 +2484,7 @@ public class WebServiceUI {
                 }
             }
             if (index + 1 < items.length) {
-                ParameterInfo paraToComp = (ParameterInfo) items[index + 1].getData();
+                ParameterInfo paraToComp = ((OutPutMappingData) items[index + 1].getData()).getParameter();
                 for (ParameterInfo info : paraList) {
                     if (paraToComp == info) {
                         flag = true;

@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.webservice.ui.dialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -55,6 +56,8 @@ public class AddListDialog extends Dialog {
     private String title;
 
     private ParameterInfo selectedParaInfo;
+
+    private ParameterInfoUtil paraUtil;
 
     private Shell parentShell;
 
@@ -134,36 +137,112 @@ public class AddListDialog extends Dialog {
     protected void okPressed() {
         boolean falg = false;
         ParameterInfo selPara = getSelectedParaInfo();
-        ParameterInfoUtil paraUtil = new ParameterInfoUtil();
+        ParameterInfo usePara = null;
+        paraUtil = new ParameterInfoUtil();
         int currentindex = -1;
         int arraySize = selPara.getArraySize();
-        if (arraySize == 0 && selPara.getParameterInfos().size() == 0) {
+
+        // if selected have branch.
+        if (!selPara.getParameterInfos().isEmpty()) {
+            MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK);
+            box.setText(Messages.getString("AddListDialog.Error")); //$NON-NLS-1$
+            box.setMessage("Please Select " + selPara.getName() + " branch Item."); //$NON-NLS-1$
+            box.open();
+            return;
+
+        }
+
+        // if select a array item.
+        if (selPara.getArraySize() == -1) {
+            AddArrayIndexDialog dlg = new AddArrayIndexDialog(parentShell, selPara);
+            int openCode = dlg.open();
+            if (openCode == AddArrayIndexDialog.OK) {
+                String indexValue = dlg.getIndexText();
+                currentindex = Integer.valueOf(indexValue);
+            } else {
+                return;
+            }
+            paraUtil.setCurrentindex(currentindex);
+            // super.okPressed();
+        }
+
+        // if select item's parent is array.
+        if (arraySize == 0 && selPara.getParent() != null && !getAllArrayFromParents(selPara, null).isEmpty()) {
             List<ParameterInfo> paraList = paraUtil.getAllParameterInfo(selPara);
             goout: for (ParameterInfo para : paraList) {
                 if (para.getArraySize() != 0) {
                     falg = true;
+                    usePara = para;
+                    arraySize = para.getArraySize();
                     break goout;
                 }
             }
         }
         if (falg) {
-            InputDialog dlg = new InputDialog(parentShell, "", Messages.getString("AddListDialog.INPUTINDEX"), "", null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            if (dlg.open() == dlg.OK) {
-                String indexValue = dlg.getValue();
-                currentindex = Integer.valueOf(indexValue);
+            String title = "";
+            if (usePara != null && usePara.getName() != null) {
+                title = usePara.getName() + " index is :";
             }
-            if (currentindex < 0 || (arraySize != -1 && currentindex > arraySize)) {
-                currentindex = -1;
-                MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
-                box.setText(Messages.getString("AddListDialog.Error")); //$NON-NLS-1$
-                box.setMessage(Messages.getString("AddListDialog.CHECKSIZE")); //$NON-NLS-1$
-                box.open();
-                return;
+            if (getAllArrayFromParents(selPara, null).size() == 1) {
+                InputDialog dlg = new InputDialog(parentShell, title, title, "", new InputIndexValidator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                int openCode = dlg.open();
+                if (openCode == InputDialog.OK) {
+                    String indexValue = dlg.getValue();
+                    currentindex = Integer.valueOf(indexValue);
+                } else if (openCode == InputDialog.CANCEL) {
+                    // super.cancelPressed();
+                    return;
+                }
+                if (arraySize != -1 && currentindex > arraySize) {
+                    currentindex = -1;
+                    MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
+                    box.setText(Messages.getString("AddListDialog.Error")); //$NON-NLS-1$
+                    box.setMessage(Messages.getString("AddListDialog.CHECKSIZE")); //$NON-NLS-1$
+                    box.open();
+                    return;
+                }
+                paraUtil.setCurrentindex(currentindex);
+                super.okPressed();
+            } else if (getAllArrayFromParents(selPara, null).size() > 1) {
+
+                AddArrayIndexForParentsDialog multiDialog = new AddArrayIndexForParentsDialog(parentShell, selPara);
+                int openCode = multiDialog.open();
+                if (openCode == AddArrayIndexForParentsDialog.OK) {
+                    List indexList = null;
+                    if (multiDialog.getArrayIndexList() != null) {
+                        indexList = multiDialog.getArrayIndexList();
+                    }
+                    paraUtil.setCurrenIndexList(indexList);
+                    super.okPressed();
+                } else {
+                    return;
+                }
             }
+
         }
 
-        paraUtil.setCurrentindex(currentindex);
+        // paraUtil.setCurrentindex(currentindex);
         super.okPressed();
+    }
+
+    private void checkSizeBox() {
+
+    }
+
+    private List<ParameterInfo> getAllArrayFromParents(ParameterInfo parameter, List<ParameterInfo> allArrayParents) {
+        if (allArrayParents == null) {
+            allArrayParents = new ArrayList<ParameterInfo>();
+        }
+        if (parameter.getParent() != null) {
+            ParameterInfo parent = parameter.getParent();
+            if (parent.getArraySize() != 0) {
+                allArrayParents.add(parent);
+            }
+
+            getAllArrayFromParents(parent, allArrayParents);
+        }
+
+        return allArrayParents;
     }
 
     @Override
@@ -201,6 +280,14 @@ public class AddListDialog extends Dialog {
      */
     public void setMaximized(boolean maximized) {
         this.maximized = maximized;
+    }
+
+    public ParameterInfoUtil getParaUtil() {
+        return this.paraUtil;
+    }
+
+    public void setParaUtil(ParameterInfoUtil paraUtil) {
+        this.paraUtil = paraUtil;
     }
 
 }

@@ -27,6 +27,8 @@ public class InputMappingData {
 
     private String InputColumnValue;
 
+    private String inputElementValue;
+
     private ParameterInfo parameter;
 
     private List<IMetadataColumn> metadataColumnList = new ArrayList<IMetadataColumn>();
@@ -62,4 +64,13 @@ public class InputMappingData {
     public void setInputColumnValue(String inputColumnValue) {
         this.InputColumnValue = inputColumnValue;
     }
+
+    public String getInputElementValue() {
+        return this.inputElementValue;
+    }
+
+    public void setInputElementValue(String inputElementValue) {
+        this.inputElementValue = inputElementValue;
+    }
+
 }

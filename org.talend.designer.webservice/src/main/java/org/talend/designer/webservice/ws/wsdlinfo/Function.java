@@ -22,6 +22,12 @@ public class Function {
 
     private String addressLocation;
 
+    private String serverName;
+
+    private String serverNameSpace;
+
+    private List<PortNames> portNames;
+
     public Function(String name) {
         super();
         this.name = name;
@@ -81,6 +87,30 @@ public class Function {
 
     public void setAddressLocation(String addressLocation) {
         this.addressLocation = addressLocation;
+    }
+
+    public String getServerName() {
+        return this.serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
+    public String getServerNameSpace() {
+        return this.serverNameSpace;
+    }
+
+    public void setServerNameSpace(String serverNameSpace) {
+        this.serverNameSpace = serverNameSpace;
+    }
+
+    public List<PortNames> getPortNames() {
+        return this.portNames;
+    }
+
+    public void setPortNames(List<PortNames> portNames) {
+        this.portNames = portNames;
     }
 
 }

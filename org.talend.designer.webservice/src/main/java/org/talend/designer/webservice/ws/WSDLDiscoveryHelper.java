@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.designer.webservice.ws.helper.conf.ServiceHelperConfiguration;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
@@ -29,7 +30,7 @@ public class WSDLDiscoveryHelper {
      * @param wsdlURI
      * @return
      */
-    public static synchronized List<Function> getFunctionsAvailable(String wsdlURI) {
+    public static List<Function> getFunctionsAvailable(String wsdlURI, ServiceHelperConfiguration config) {
         functionsAvailable = new ArrayList();
         wsdlURI = TalendTextUtils.removeQuotes(wsdlURI);
         try {
@@ -37,6 +38,7 @@ public class WSDLDiscoveryHelper {
 
             ServiceInfo serviceInfo = new ServiceInfo();
             serviceInfo.setWsdlUri(wsdlURI);
+            serviceInfo.setAuthConfig(config);
             serviceInfo = builder.buildserviceinformation(serviceInfo);
 
             Iterator iter = serviceInfo.getOperations();
@@ -47,6 +49,15 @@ public class WSDLDiscoveryHelper {
                 Function f = new Function(oper.getTargetMethodName());
                 String operationName = oper.getTargetMethodName() + "(";
 
+                if (serviceInfo.getServerName() != null) {
+                    f.setServerName(serviceInfo.getServerName());
+                }
+                if (serviceInfo.getServerNameSpace() != null) {
+                    f.setServerNameSpace(serviceInfo.getServerNameSpace());
+                }
+                if (serviceInfo.getPortNames() != null) {
+                    f.setPortNames(serviceInfo.getPortNames());
+                }
                 if (oper.getSoapActionURI() != null) {
                     f.setSoapAction(oper.getSoapActionURI());
                 }
@@ -76,6 +87,8 @@ public class WSDLDiscoveryHelper {
                         inputParameters.add(element);
                         if (element.getKind() != null) {
                             operationName = operationName + element.getKind() + ",";
+                        } else if (element.getKind() == null && element.getName() != null) {
+                            operationName = operationName + element.getName() + ",";
                         }
                     }
                     int operationNamelen = operationName.length();
@@ -109,9 +122,15 @@ public class WSDLDiscoveryHelper {
         return functionsAvailable;
     }
 
+    public static List<Function> getFunctionsAvailable(String wsdlURI) {
+        ServiceHelperConfiguration config = null;
+        return getFunctionsAvailable(wsdlURI, config);
+
+    }
+
     public static void main(String[] args) {
         List<Function> test = new ArrayList<Function>();
-        test = getFunctionsAvailable("C:/Documents and Settings/Administrator/桌面/wsdl/Person.wsdl");
+        test = getFunctionsAvailable("\"C:/Documents and Settings/Administrator/桌面/wsdl/Person.wsdl\"");
         // test =
         //getFunctionsAvailable("F:/strivecui_work_log/week_21(0622-0626)/TestAxis/src/org/soyatec/wsdl/testExample.wsdl"
         // );

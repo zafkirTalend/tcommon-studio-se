@@ -95,7 +95,14 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
         if (mark.equals("INPUTMAPPING")) {
             sourceInList.add(((IMetadataColumn) itemSource.getData()).getLabel());
         } else if (mark.equals("OUTPUTMAPPING")) {
-            sourceOutList.add(((ParameterInfo) itemSource.getData()).getName());
+            if (((OutPutMappingData) itemSource.getData()).getParameterName() != null) {
+                String sourseName = ((OutPutMappingData) itemSource.getData()).getParameterName();
+                // int m = sourseName.lastIndexOf(".");
+                // sourseName = sourseName.substring(m + 1);
+                sourceOutList.add(sourseName);
+            } else {
+                sourceOutList.add(((OutPutMappingData) itemSource.getData()).getParameter().getName());
+            }
         }
     }
 
@@ -384,9 +391,20 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
             if (items[i].getData() instanceof IMetadataColumn) {
                 column = (IMetadataColumn) items[i].getData();
                 columnLabel = column.getLabel();
-            } else if (items[i].getData() instanceof ParameterInfo) {
-                parame = (ParameterInfo) items[i].getData();
-                columnLabel = parame.getName();
+            }
+            // else if (items[i].getData() instanceof ParameterInfo) {
+            // parame = (ParameterInfo) items[i].getData();
+            // columnLabel = parame.getName();
+            // }
+            else if (items[i].getData() instanceof OutPutMappingData) {
+                parame = ((OutPutMappingData) items[i].getData()).getParameter();
+                if (!parame.getParameterInfos().isEmpty()) {
+                    continue;
+                }
+                // columnLabel = parame.getName();
+                columnLabel = ((OutPutMappingData) items[i].getData()).getParameterName();
+                int m = columnLabel.lastIndexOf(".");
+                columnLabel = columnLabel.substring(m + 1);
             }
 
             if (newValue.contains(columnLabel)) {
@@ -421,7 +439,7 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
                     }
 
                 } else {
-                    WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*(\\w+)\\s*");
+                    WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*\\w+(\\[\\d+?\\])?\\s*");
                     Set<String> set = webParser.parseOutTableEntryLocations(newValue);
                     Iterator<String> ite = set.iterator();
                     while (ite.hasNext()) {
@@ -472,7 +490,7 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
                             }
                         }
                     } else {
-                        WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*(\\w+)\\s*");
+                        WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*\\w+(\\[\\d+?\\])?\\s*");
                         Set<String> set = webParser.parseOutTableEntryLocations(newValue);
                         Iterator<String> ite = set.iterator();
                         while (ite.hasNext()) {
@@ -532,12 +550,20 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
         if (pos > 0) {
             before = isWordandNum(String.valueOf(newValue.charAt(pos - 1)));
         } else {
-            before = true;
+            if (newValue.endsWith(String.valueOf(oldValue.charAt(oldValue.length() - 1)))) {
+                before = true;
+            } else {
+                before = false;
+            }
         }
         if ((pos + oldValue.length()) <= newValue.length() - 1) {
             after = isWordandNum(String.valueOf(newValue.charAt(pos + oldValue.length())));
         } else {
-            after = true;
+            if (newValue.endsWith(String.valueOf(oldValue.charAt(oldValue.length() - 1)))) {
+                after = true;
+            } else {
+                after = false;
+            }
         }
         return before && after;
     }

@@ -17,12 +17,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.talend.core.model.components.IODataComponent;
+import org.talend.core.model.components.IODataComponentContainer;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.AbstractExternalNode;
 import org.talend.core.model.process.IComponentDocumentation;
+import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.IExternalData;
+import org.talend.designer.core.model.components.EParameterName;
 
 /**
  * gcui class global comment. Detailled comment
@@ -30,6 +37,8 @@ import org.talend.core.model.process.IExternalData;
 public class WebServiceComponent extends AbstractExternalNode {
 
     private WebServiceComponentMain webServiceComponentMain;
+
+    private IMetadataTable inputMetadata;
 
     private void initWebServiceComponentMain() {
         webServiceComponentMain = new WebServiceComponentMain(this);
@@ -98,6 +107,7 @@ public class WebServiceComponent extends AbstractExternalNode {
      */
     public int open(Display display) { // button event
         initWebServiceComponentMain();
+        this.getElementParameter(EParameterName.UPDATE_COMPONENTS.getName()).setValue(Boolean.TRUE);
         webServiceComponentMain.createUI(display);
         return webServiceComponentMain.getDialogResponse();
     }
@@ -109,6 +119,7 @@ public class WebServiceComponent extends AbstractExternalNode {
      */
     public int open(Composite parent) {// double click in job
         initWebServiceComponentMain();
+        this.getElementParameter(EParameterName.UPDATE_COMPONENTS.getName()).setValue(Boolean.TRUE);
         webServiceComponentMain.createDialog(parent.getShell());
         return webServiceComponentMain.getDialogResponse();
     }
@@ -146,6 +157,35 @@ public class WebServiceComponent extends AbstractExternalNode {
     public IExternalData getExternalData() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public IMetadataTable getInputMetadata() {
+        return this.inputMetadata;
+    }
+
+    public void setInputMetadata(IMetadataTable inputMetadata) {
+        this.inputMetadata = inputMetadata;
+    }
+
+    @Override
+    public IODataComponentContainer getIODataComponents() {
+        IODataComponentContainer inAndOut = new IODataComponentContainer();
+
+        List<IODataComponent> outputs = inAndOut.getOuputs();
+        for (IConnection currentConnection : getOutgoingConnections()) {
+            if (currentConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                IODataComponent component = new IODataComponent(currentConnection, getMetadataList().get(0));
+                outputs.add(component);
+            }
+        }
+        List<IODataComponent> inputs = inAndOut.getInputs();
+        for (IConnection currentConnection : getIncomingConnections()) {
+            if (currentConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                IODataComponent component = new IODataComponent(currentConnection, inputMetadata);
+                inputs.add(component);
+            }
+        }
+        return inAndOut;
     }
 
 }

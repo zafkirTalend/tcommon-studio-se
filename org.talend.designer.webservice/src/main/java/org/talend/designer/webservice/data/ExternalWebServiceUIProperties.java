@@ -17,11 +17,11 @@ public class ExternalWebServiceUIProperties {
 
     public static final String FILE_LABEL = "WSDL";
 
-    public static final String INPUT_LABEL = "Input mapping";
+    public static final String INPUT_LABEL = " Input mapping ";
 
-    public static final String OUTPUT_LABEL = "Output mapping";
+    public static final String OUTPUT_LABEL = " Output mapping ";
 
-    public static final String WSDL_LABEL = "WSDL";
+    public static final String WSDL_LABEL = "  WSDL  ";
 
     public static final String PREVIEW_STRING = WSDL_LABEL + "..."; //$NON-NLS-1$
 

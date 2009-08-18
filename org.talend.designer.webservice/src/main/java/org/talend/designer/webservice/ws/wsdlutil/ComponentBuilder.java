@@ -40,6 +40,7 @@ import org.jdom.input.DOMBuilder;
 import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
+import org.talend.designer.webservice.ws.wsdlinfo.PortNames;
 import org.talend.designer.webservice.ws.wsdlinfo.ServiceInfo;
 
 /**
@@ -52,6 +53,8 @@ public class ComponentBuilder {
     SimpleTypesFactory simpleTypesFactory = null;
 
     private Vector wsdlTypes = new Vector();
+
+    private int inOrOut;
 
     public final static String DEFAULT_SOAP_ENCODING_STYLE = "http://schemas.xmlsoap.org/soap/encoding/";
 
@@ -68,7 +71,12 @@ public class ComponentBuilder {
         // WSDLReader reader = wsdlFactory.newWSDLReader();
         // Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
         ServiceDiscoveryHelper sdh;
-        sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
+        if (serviceinfo.getAuthConfig() != null && serviceinfo.getWsdlUri().indexOf("http") == 0) {
+            sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri(), serviceinfo.getAuthConfig());
+
+        } else {
+            sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
+        }
         Definition def = sdh.getDefinition();
 
         wsdlTypes = createSchemaFromTypes(def);
@@ -155,12 +163,24 @@ public class ComponentBuilder {
         QName qName = service.getQName();
         String namespace = qName.getNamespaceURI();
         String name = qName.getLocalPart();
-        component.setName(name);
+        component.setServerName(name);
+        component.setServerNameSpace(namespace);
         Map ports = service.getPorts();
         Iterator portIter = ports.values().iterator();
         while (portIter.hasNext()) {
             Port port = (Port) portIter.next();
             Binding binding = port.getBinding();
+            if (port.getName() != null && component.getPortNames() == null) {
+                List<PortNames> portNames = new ArrayList();
+                PortNames portName = new PortNames();
+                portName.setPortName(port.getName());
+                portNames.add(portName);
+                component.setPortNames(portNames);
+            } else if (port.getName() != null && component.getPortNames() != null) {
+                PortNames portName = new PortNames();
+                portName.setPortName(port.getName());
+                component.getPortNames().add(portName);
+            }
             List operations = buildOperations(binding);
             Iterator operIter = operations.iterator();
             while (operIter.hasNext()) {
@@ -227,22 +247,15 @@ public class ComponentBuilder {
 
         if (bodyElem != null && bodyElem instanceof SOAPBody) {
             SOAPBody soapBody = (SOAPBody) bodyElem;
-
             List styles = soapBody.getEncodingStyles();
             String encodingStyle = null;
-
             if (styles != null) {
-
                 encodingStyle = styles.get(0).toString();
             }
-
             if (encodingStyle == null) {
-
                 encodingStyle = DEFAULT_SOAP_ENCODING_STYLE;
             }
-
             operationInfo.setEncodingStyle(encodingStyle.toString());
-
             operationInfo.setTargetObjectURI(soapBody.getNamespaceURI());
         }
 
@@ -257,11 +270,8 @@ public class ComponentBuilder {
         }
 
         Output outDef = oper.getOutput();
-
         if (outDef != null) {
-
             Message outMsg = outDef.getMessage();
-
             if (outMsg != null) {
                 operationInfo.setOutputMessageName(outMsg.getQName().getLocalPart());
                 getParameterFromMessage(operationInfo, outMsg, 2);
@@ -274,6 +284,7 @@ public class ComponentBuilder {
 
     private void getParameterFromMessage(OperationInfo operationInfo, Message msg, int manner) {
         String tip = "";
+        inOrOut = manner;
         if (manner == 1) {
             tip = "input";
         } else {
@@ -281,14 +292,68 @@ public class ComponentBuilder {
         }
 
         List msgParts = msg.getOrderedParts(null);
+        msg.getQName();
         Schema wsdlType = null;
         Iterator iter = msgParts.iterator();
         while (iter.hasNext()) {
             Part part = (Part) iter.next();
             String targetnamespace = "";
+            ComplexType complexType = null;
             XMLType xmlType = getXMLType(part, wsdlType, operationInfo);
+
+            if (xmlType == null) {
+                for (int i = 0; i < wsdlTypes.size(); i++) {
+                    wsdlType = (Schema) (wsdlTypes.elementAt(i));
+                    if (wsdlType != null && wsdlType.getTargetNamespace() != null) {
+                        targetnamespace = wsdlType.getTargetNamespace();
+                    }
+                    operationInfo.setNamespaceURI(targetnamespace);
+                    if (part.getTypeName() != null) {
+                        if (part.getTypeName().getLocalPart() != null) {
+                            complexType = wsdlType.getComplexType(part.getTypeName().getLocalPart());
+                        }
+                    }
+                }
+            }
+
             if (xmlType != null && xmlType.isComplexType()) {
-                buildComplexParameter((ComplexType) xmlType, null, operationInfo, manner);
+                if (part.getName() != null) {
+                    ParameterInfo parameter = new ParameterInfo();
+                    String partName = part.getName();
+                    parameter.setName(partName);
+                    if (xmlType.getName() != null) {
+                        // if (part.getTypeName().getLocalPart() != null) {
+                        parameter.setKind(xmlType.getName());
+                        // }
+                    }
+                    if (manner == 1) {
+                        operationInfo.addInparameter(parameter);
+                    } else {
+                        operationInfo.addOutparameter(parameter);
+                    }
+                    buildComplexParameter((ComplexType) xmlType, parameter, operationInfo, 3);
+                } else {
+                    buildComplexParameter((ComplexType) xmlType, null, operationInfo, manner);
+                }
+            } else if (xmlType == null && part.getTypeName().getLocalPart() != null && complexType != null) {
+                ParameterInfo parameter = new ParameterInfo();
+                if (part.getName() != null) {
+                    String partName = part.getName();
+                    parameter.setName(partName);
+                    if (part.getTypeName() != null) {
+                        if (part.getTypeName().getLocalPart() != null) {
+                            parameter.setKind(part.getTypeName().getLocalPart());
+                        }
+                    }
+                    if (manner == 1) {
+                        operationInfo.addInparameter(parameter);
+                    } else {
+                        operationInfo.addOutparameter(parameter);
+                    }
+                    buildComplexParameter(complexType, parameter, operationInfo, 3);
+                } else {
+                    buildComplexParameter(complexType, null, operationInfo, manner);
+                }
             } else {
                 String partName = part.getName();
                 ParameterInfo parameter = new ParameterInfo();
@@ -297,7 +362,17 @@ public class ComponentBuilder {
                     if (part.getTypeName().getLocalPart() != null) {
                         parameter.setKind(part.getTypeName().getLocalPart());
                     }
+                } else if (xmlType != null) {
+                    if (xmlType.getName() != null) {
+                        parameter.setKind(xmlType.getName());
+                    }
                 }
+
+                // if ((xmlType.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1 && parentParameterInfo != null) {
+                // parameter1.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
+                // } else if (elementDecl.getMaxOccurs() == -1 && parentParameterInfo != null) {
+                // parameter1.setArraySize(-1);
+                // }
                 if (manner == 1) {
                     operationInfo.addInparameter(parameter);
                 } else {
@@ -328,20 +403,24 @@ public class ComponentBuilder {
                 Structure item = (Structure) groupEnum.nextElement();
                 if (item.getStructureType() == Structure.ELEMENT) {
                     ElementDecl elementDecl = (ElementDecl) item;
-
                     XMLType xmlType = elementDecl.getType();
+
                     if (xmlType != null && xmlType.isComplexType()) {
+
                         ParameterInfo parameter1 = createSimpleParamInfor(containOperationInfo, elementDecl, manner);
-                        if ((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1 && parentParameterInfo != null) {
-                            parentParameterInfo.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
-                        } else if (elementDecl.getMaxOccurs() == -1 && parentParameterInfo != null) {
-                            parentParameterInfo.setArraySize(-1);
+
+                        if ((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1) {
+                            parameter1.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
+                        } else if (elementDecl.getMaxOccurs() == -1) {
+                            parameter1.setArraySize(-1);
                         }
+
                         if (parentParameterInfo != null) {
                             parameter1.setParent(parentParameterInfo);
                             parentParameterInfo.getParameterInfos().add(parameter1);
                         }
                         buildComplexParameter((ComplexType) xmlType, parameter1, containOperationInfo, 3);
+
                     } else {
                         ParameterInfo param = createSimpleParamInfor(containOperationInfo, elementDecl, manner);
                         if (parentParameterInfo != null) {
@@ -357,11 +436,21 @@ public class ComponentBuilder {
     private ParameterInfo createSimpleParamInfor(OperationInfo containOperationInfo, ElementDecl elementDecl, int input) {
         ParameterInfo parameter1 = new ParameterInfo();
         parameter1.setName(elementDecl.getName());
-        parameter1.setKind(elementDecl.getType().getName());
+        if (elementDecl.getType() != null) {
+            if (elementDecl.getType().getName() != null) {
+                parameter1.setKind(elementDecl.getType().getName());
+            }
+        }
         if (elementDecl.getSchema() != null) {
             if (elementDecl.getSchema().getTargetNamespace() != null) {
                 parameter1.setNameSpace(elementDecl.getSchema().getTargetNamespace());
             }
+        }
+
+        if ((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1) {
+            parameter1.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
+        } else if (elementDecl.getMaxOccurs() == -1) {
+            parameter1.setArraySize(-1);
         }
         if (input == 1) {
             containOperationInfo.addInparameter(parameter1);
@@ -384,8 +473,10 @@ public class ComponentBuilder {
             ElementDecl elemDecl = null;
             for (int i = 0; i < wsdlTypes.size(); i++) {
                 wsdlType = (Schema) (wsdlTypes.elementAt(i));
-                String targetnamespace = wsdlType.getTargetNamespace();
-                operationInfo.setNamespaceURI(targetnamespace);
+                if (wsdlType != null && wsdlType.getTargetNamespace() != null) {
+                    String targetnamespace = wsdlType.getTargetNamespace();
+                    operationInfo.setNamespaceURI(targetnamespace);
+                }
                 elemDecl = wsdlType.getElementDecl(elemName);
                 if (elemDecl != null) {
                     break;
@@ -393,12 +484,26 @@ public class ComponentBuilder {
 
             }
             if (elemDecl != null) {
-                elemDecl.getType();
+                // elemDecl.getType();
                 xmlType = elemDecl.getType();
                 // System.out.println(xmlType);
             }
 
         }
+        // else if (part.getTypeName() != null) {
+        // String elemName = part.getTypeName().getLocalPart();
+        // ElementDecl elemDecl = null;
+        // for (int i = 0; i < wsdlTypes.size(); i++) {
+        // wsdlType = (Schema) (wsdlTypes.elementAt(i));
+        // String targetnamespace = wsdlType.getTargetNamespace();
+        // operationInfo.setNamespaceURI(targetnamespace);
+        // ComplexType complexType = wsdlType.getComplexType(part.getTypeName().getLocalPart());
+        // if (complexType != null) {
+        // buildComplexParameter(complexType, null, operationInfo, inOrOut);
+        // }
+        // }
+        //
+        // }
 
         return xmlType;
     }

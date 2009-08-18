@@ -15,6 +15,7 @@ package org.talend.designer.webservice.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.designer.webservice.data.ArrayIndexList;
 import org.talend.designer.webservice.data.InputMappingData;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 
@@ -24,6 +25,8 @@ import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 public class ParameterInfoUtil {
 
     private int currentindex;
+
+    private List<ArrayIndexList> currenIndexList;
 
     public List<ParameterInfo> getAllMostParameterInfo(ParameterInfo para, String mark, Object obj) {
         ParameterInfo parentPara = para.getParent();
@@ -45,11 +48,19 @@ public class ParameterInfoUtil {
     }
 
     public int getCurrentindex() {
-        return this.currentindex;
+        return currentindex;
     }
 
     public void setCurrentindex(int currentindex) {
         this.currentindex = currentindex;
+    }
+
+    public List<ArrayIndexList> getCurrenIndexList() {
+        return this.currenIndexList;
+    }
+
+    public void setCurrenIndexList(List<ArrayIndexList> currenIndexList) {
+        this.currenIndexList = currenIndexList;
     }
 
     public List<ParameterInfo> getAllChildren(ParameterInfo para) {
@@ -78,6 +89,11 @@ public class ParameterInfoUtil {
     }
 
     public String getParentName(ParameterInfo para) {
+        if (currenIndexList != null) {
+            if (!currenIndexList.isEmpty()) {
+                return getParentName(para, 2);
+            }
+        }
         List<ParameterInfo> paraList = getAllParameterInfo(para);
         StringBuffer buffer = new StringBuffer();
         ParameterInfo nearArrayParent = null;
@@ -97,19 +113,46 @@ public class ParameterInfoUtil {
             if (nearArrayParent != null && parentPara == nearArrayParent) {
                 if (para.getArraySize() == 0 && para.getParameterInfos().size() == 0 && getCurrentindex() != -1 && i != 0) {
                     buffer.append("[" + getCurrentindex() + "]");
+                } else if (para.getArraySize() != 0 && para.getParameterInfos().size() == 0 && getCurrentindex() != -1) {
+                    buffer.append("[" + getCurrentindex() + "]");
                 }
+                // else if (getCurrentindex() == -1) {
+                // buffer.append(getCurrentindex());
+                // }
             }
-
             if (i != 0) {
                 buffer.append(".");
             }
-            if (para.getArraySize() != 0) {
-                if (i == 0) {
-                    buffer.append("[]");
+            // if (para.getArraySize() != 0) {
+            // if (i == 0) {
+            // buffer.append("[]");
+            // }
+            // }
+        }
+        return buffer.toString();
+    }
+
+    public String getParentName(ParameterInfo para, int multi) {
+        List<ParameterInfo> paraList = getAllParameterInfo(para);
+        StringBuffer buffer = new StringBuffer();
+
+        for (int i = paraList.size() - 1; i >= 0; i--) {
+            ParameterInfo parentPara = paraList.get(i);
+            if (parentPara == null) {
+                continue;
+            }
+            buffer.append(parentPara.getName());
+
+            for (int m = 0; m < currenIndexList.size(); m++) {
+                if (currenIndexList.get(m).getParameterName().equals(parentPara.getName())) {
+                    buffer.append("[" + currenIndexList.get(m).getIndexNum() + "]");
                 }
             }
-
+            if (i != 0) {
+                buffer.append(".");
+            }
         }
+
         return buffer.toString();
     }
 }

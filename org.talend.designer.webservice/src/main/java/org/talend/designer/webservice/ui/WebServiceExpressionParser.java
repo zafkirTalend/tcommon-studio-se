@@ -85,7 +85,7 @@ public class WebServiceExpressionParser {
 
             while (matcher.contains(patternMatcherInput, pattern)) {
                 MatchResult matchResult = matcher.getMatch();
-                String columnName = matchResult.group(1);
+                String columnName = matchResult.group(0);
                 set.add(columnName);
             }
         }

@@ -27,9 +27,23 @@ public class OutPutMappingData {
 
     private String outputColumnValue;
 
+    private String outputElementValue;
+
+    private ParameterInfo parameter;
+
     private List<ParameterInfo> parameterList = new ArrayList<ParameterInfo>();
 
     private IMetadataColumn metadataColumn;
+
+    private List<IMetadataColumn> metadataColumnList = new ArrayList<IMetadataColumn>();
+
+    public List<IMetadataColumn> getMetadataColumnList() {
+        return this.metadataColumnList;
+    }
+
+    public void setMetadataColumnList(List<IMetadataColumn> metadataColumnList) {
+        this.metadataColumnList = metadataColumnList;
+    }
 
     public IMetadataColumn getMetadataColumn() {
         return this.metadataColumn;
@@ -62,4 +76,21 @@ public class OutPutMappingData {
     public void setOutputColumnValue(String outputColumnValue) {
         this.outputColumnValue = outputColumnValue;
     }
+
+    public String getOutputElementValue() {
+        return this.outputElementValue;
+    }
+
+    public void setOutputElementValue(String outputElementValue) {
+        this.outputElementValue = outputElementValue;
+    }
+
+    public ParameterInfo getParameter() {
+        return this.parameter;
+    }
+
+    public void setParameter(ParameterInfo parameter) {
+        this.parameter = parameter;
+    }
+
 }

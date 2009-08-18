@@ -31,6 +31,7 @@ import org.talend.core.model.process.IConnection;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.data.InputMappingData;
 import org.talend.designer.webservice.data.OutPutMappingData;
+import org.talend.designer.webservice.ui.ParameterInfoUtil;
 import org.talend.designer.webservice.ui.link.WebServiceTableLiner;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 
@@ -236,12 +237,38 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
                     if (tabitem.getData() instanceof ParameterInfo) {
                         ParameterInfo para = (ParameterInfo) tabitem.getData();
                         if (outData.getParameterName() == null || "".equals(outData.getParameterName())) {
-                            outData.setParameterName(para.getName());
+                            if (para.getParent() != null) {
+                                String name = new ParameterInfoUtil().getParentName(para);
+                                outData.setParameterName(name);
+                            } else {
+                                outData.setParameterName(para.getName());
+                            }
                         } else {
                             outData.setParameterName(outData.getParameterName() + " " + para.getName());
                         }
                         outData.getParameterList().add(para);
                         // outData.setParameter(para);
+                    } else if (tabitem.getData() instanceof OutPutMappingData) {
+                        if (((OutPutMappingData) tabitem.getData()).getParameter() instanceof ParameterInfo) {
+                            ParameterInfo para = ((OutPutMappingData) tabitem.getData()).getParameter();
+                            if (outData.getParameterName() == null || "".equals(outData.getParameterName())) {
+                                if (para.getParent() != null) {
+                                    String name = "";
+                                    if (((OutPutMappingData) tabitem.getData()).getParameterName() != null) {
+                                        name = ((OutPutMappingData) tabitem.getData()).getParameterName();
+                                    } else {
+                                        name = new ParameterInfoUtil().getParentName(para);
+                                    }
+                                    outData.setParameterName(name);
+                                } else {
+                                    outData.setParameterName(para.getName());
+                                }
+                            } else {
+                                outData.setParameterName(outData.getParameterName() + " " + para.getName());
+                            }
+                            outData.getParameterList().add(para);
+                            // outData.setParameter(para);
+                        }
                     }
 
                     tabelModel.remove(selevIndex);

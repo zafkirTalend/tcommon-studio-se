@@ -16,8 +16,12 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -38,11 +42,25 @@ public class AddArrayIndexDialog extends Dialog {
 
     private ParameterInfo para;
 
+    private ParameterInfo selectedParaInfo;
+
     private int arraySize = 0;
 
     private Shell parentShell;
 
-    private String indexText;
+    private String indexText = "-1";
+
+    private String title;
+
+    private Button arrayButton;
+
+    private Button arrayToItemButton;
+
+    private boolean maximized;
+
+    private int index;
+
+    private Rectangle size;
 
     /**
      * DOC Administrator ErrorMessageDialog constructor comment.
@@ -60,25 +78,47 @@ public class AddArrayIndexDialog extends Dialog {
         this.parentShell = parentShell;
         this.para = para;
         this.arraySize = para.getArraySize();
+
     }
 
     protected Control createDialogArea(Composite parent) {
         Composite createDialogArea = (Composite) super.createDialogArea(parent);
         GridLayout layout = new GridLayout();
         layout.horizontalSpacing = 1;
-        layout.numColumns = 5;
+        layout.numColumns = 2;
         createDialogArea.setLayout(layout);
 
         GridData data = new GridData(GridData.FILL_HORIZONTAL);
-        data.horizontalSpan = 1;
-        titleLable = new Label(createDialogArea, SWT.NONE);
-        titleLable.setText(Messages.getString("AddArrayIndexDialog.index")); //$NON-NLS-1$
-        titleLable.setLayoutData(data);
+
+        GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
+        layoutData.horizontalSpan = 2;
+        arrayButton = new Button(createDialogArea, SWT.RADIO);
+        arrayButton.setText("Get all the list element.");
+        arrayButton.setLayoutData(layoutData);
+        arrayButton.setSelection(true);
+        arrayButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                text.setEnabled(false);
+            }
+        });
+
+        arrayToItemButton = new Button(createDialogArea, SWT.RADIO);
+        arrayToItemButton.setText("Get one element of the list.");
+        arrayToItemButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                text.setEnabled(true);
+            }
+        });
 
         data = new GridData(GridData.FILL_HORIZONTAL);
-        data.horizontalSpan = 4;
+        data.horizontalSpan = 1;
         text = new Text(createDialogArea, SWT.BORDER);
         text.setLayoutData(data);
+        text.setEnabled(false);
         text.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
@@ -95,9 +135,21 @@ public class AddArrayIndexDialog extends Dialog {
         return createDialogArea;
     }
 
+    public ParameterInfo getSelectedParaInfo() {
+        return selectedParaInfo;
+    }
+
     protected void okPressed() {
         String com = text.getText();
-        int index = Integer.valueOf(com);
+        index = Integer.valueOf(indexText);
+
+        if (text.getEnabled() == true && ("".equals(text.getText()) || text.getText() == null)) {
+            MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK);
+            box.setText(Messages.getString("AddArrayIndexDialog.Error")); //$NON-NLS-1$
+            box.setMessage(Messages.getString("AddArrayIndexDialog.Input_Index")); //$NON-NLS-1$
+            box.open();
+            return;
+        }
 
         if (arraySize != -1 && (index < 0 || index > arraySize)) {
             MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
@@ -110,9 +162,41 @@ public class AddArrayIndexDialog extends Dialog {
         super.okPressed();
     }
 
+    @Override
+    protected void cancelPressed() {
+        // TODO Auto-generated method stub
+        super.cancelPressed();
+    }
+
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
-        newShell.setBounds(500, 300, 250, 150);
+        newShell.setBounds(500, 300, 350, 150);
+        if (para.getName() != null) {
+            newShell.setText(para.getName() + "is an Array Type Element.");
+        } else {
+            newShell.setText(Messages.getString("AddArrayIndexDialog.ArrayORElement"));
+        }
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+
+    }
+
+    public void setMaximized(boolean maximized) {
+        this.maximized = maximized;
+    }
+
+    public void setSize(Rectangle size) {
+        this.size = size;
+    }
+
+    public String getIndexText() {
+        return this.indexText;
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
     public int returnIndex() {
