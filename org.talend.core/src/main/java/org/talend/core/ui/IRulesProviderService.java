@@ -12,7 +12,15 @@
 // ============================================================================
 package org.talend.core.ui;
 
+import java.io.IOException;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.SystemException;
 import org.talend.core.IService;
+import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.Item;
 
 /**
  * hywang class global comment. Detailled comment
@@ -20,4 +28,13 @@ import org.talend.core.IService;
 public interface IRulesProviderService extends IService {
 
     public void syncAllRules();
+
+    public void syncRule(Item item) throws SystemException;
+
+    public IFile getRuleFile(Item item, String extension) throws SystemException;
+
+    public IFile getFinalRuleFile(Item item) throws CoreException;
+
+    public void generateFinalRuleFiles(String currentJavaProject, IProcess process) throws PersistenceException, SystemException,
+            IOException, CoreException;
 }

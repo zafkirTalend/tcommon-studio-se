@@ -60,6 +60,7 @@ public enum EParameterFieldType {
     PALO_DIM_SELECTION,
     WSDL2JAVA,
     ICON_SELECTION,
+    RULE_TYPE, // hywang add for feature 6484
     TNS_EDITOR;
 
     public String getName() {

@@ -53,6 +53,7 @@ import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.License;
 import org.talend.core.model.properties.LinkDocumentationItem;
+import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
@@ -525,6 +526,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass tdqItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass linkRulesItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3521,6 +3529,42 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLinkRulesItem() {
+        return linkRulesItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLinkRulesItem_Name() {
+        return (EAttribute)linkRulesItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getLinkRulesItem_Link() {
+        return (EReference)linkRulesItemEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLinkRulesItem_Extension() {
+        return (EAttribute)linkRulesItemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4396,6 +4440,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqItemEClass = createEClass(TDQ_ITEM);
         createEAttribute(tdqItemEClass, TDQ_ITEM__FILENAME);
 
+        linkRulesItemEClass = createEClass(LINK_RULES_ITEM);
+        createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__NAME);
+        createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__EXTENSION);
+        createEReference(linkRulesItemEClass, LINK_RULES_ITEM__LINK);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -4470,6 +4519,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         rulesItemEClass.getESuperTypes().add(this.getFileItem());
         svgBusinessProcessItemEClass.getESuperTypes().add(this.getFileItem());
         tdqItemEClass.getESuperTypes().add(this.getItem());
+        linkRulesItemEClass.getESuperTypes().add(this.getItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4946,6 +4996,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(tdqItemEClass, TDQItem.class, "TDQItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTDQItem_Filename(), ecorePackage.getEString(), "filename", null, 0, 1, TDQItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(linkRulesItemEClass, LinkRulesItem.class, "LinkRulesItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLinkRulesItem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, LinkRulesItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLinkRulesItem_Extension(), ecorePackage.getEString(), "extension", null, 0, 1, LinkRulesItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getLinkRulesItem_Link(), this.getLinkType(), null, "link", null, 0, 1, LinkRulesItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

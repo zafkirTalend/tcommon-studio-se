@@ -25,8 +25,10 @@ import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.SQLPatternItem;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.utils.PerlVarParserUtils;
 import org.talend.core.model.utils.SQLPatternUtils;
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.ItemCacheManager;
@@ -332,6 +334,21 @@ public final class ElementParameterParser {
                 }
                 return processItem.getProperty().getVersion();
             }
+            if ("SELECTED_FILE".equals(param.getRepositoryValue())) {
+                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE");
+                if (propertyParam != null) {
+                    try {
+                        IRepositoryObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                                (String) propertyParam.getValue());
+                        String rule = "rules/final/" + object.getLabel() + object.getVersion() + ".drl";
+                        return TalendTextUtils.addQuotes(rule);
+                    } catch (Exception e) {
+                        return "";
+                    }
+
+                }
+            }
+
             return (String) value;
         }
         if (param.getField() == EParameterFieldType.RADIO || param.getField() == EParameterFieldType.CHECK

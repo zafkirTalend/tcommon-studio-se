@@ -100,6 +100,8 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_EBCDIC_CONNECTION_ICON;
         case METADATA_FILE_RULES:
             return ECoreImage.METADATA_RULES_ICON;
+        case METADATA_FILE_LINKRULES:
+            return ECoreImage.METADATA_RULES_ICON;
         default:
             return EImage.DEFAULT_IMAGE;
         }

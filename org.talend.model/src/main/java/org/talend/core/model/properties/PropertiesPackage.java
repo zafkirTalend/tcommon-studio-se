@@ -5635,13 +5635,77 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkRulesItemImpl <em>Link Rules Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.LinkRulesItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLinkRulesItem()
+     * @generated
+     */
+    int LINK_RULES_ITEM = 72;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__NAME = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__EXTENSION = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Link</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__LINK = ITEM_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Link Rules Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 72;
+    int FOLDER_TYPE = 73;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5651,7 +5715,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 73;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 74;
 
 
     /**
@@ -5662,7 +5726,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 74;
+    int USER_MODULE_AUTHORIZATION_TYPE = 75;
 
 
     /**
@@ -5673,7 +5737,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 75;
+    int INFORMATION_LEVEL = 76;
 
 
     /**
@@ -9493,6 +9557,49 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTDQItem_Filename();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.LinkRulesItem <em>Link Rules Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Link Rules Item</em>'.
+     * @see org.talend.core.model.properties.LinkRulesItem
+     * @generated
+     */
+    EClass getLinkRulesItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.LinkRulesItem#getName()
+     * @see #getLinkRulesItem()
+     * @generated
+     */
+    EAttribute getLinkRulesItem_Name();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.LinkRulesItem#getLink <em>Link</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Link</em>'.
+     * @see org.talend.core.model.properties.LinkRulesItem#getLink()
+     * @see #getLinkRulesItem()
+     * @generated
+     */
+    EReference getLinkRulesItem_Link();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Extension</em>'.
+     * @see org.talend.core.model.properties.LinkRulesItem#getExtension()
+     * @see #getLinkRulesItem()
+     * @generated
+     */
+    EAttribute getLinkRulesItem_Extension();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TaskExecutionHistory <em>Task Execution History</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -13016,6 +13123,40 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TDQ_ITEM__FILENAME = eINSTANCE.getTDQItem_Filename();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.LinkRulesItemImpl <em>Link Rules Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.LinkRulesItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLinkRulesItem()
+         * @generated
+         */
+        EClass LINK_RULES_ITEM = eINSTANCE.getLinkRulesItem();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LINK_RULES_ITEM__NAME = eINSTANCE.getLinkRulesItem_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Link</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference LINK_RULES_ITEM__LINK = eINSTANCE.getLinkRulesItem_Link();
+
+        /**
+         * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LINK_RULES_ITEM__EXTENSION = eINSTANCE.getLinkRulesItem_Extension();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.

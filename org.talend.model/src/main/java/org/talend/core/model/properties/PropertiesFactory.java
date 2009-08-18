@@ -616,6 +616,15 @@ public interface PropertiesFactory extends EFactory {
     TDQItem createTDQItem();
 
     /**
+     * Returns a new object of class '<em>Link Rules Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Link Rules Item</em>'.
+     * @generated
+     */
+    LinkRulesItem createLinkRulesItem();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

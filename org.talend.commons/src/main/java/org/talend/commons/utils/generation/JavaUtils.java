@@ -77,6 +77,9 @@ public final class JavaUtils {
     /** Java Rules Directory. */
     public static final String JAVA_RULES_DIRECTORY = "rules"; //$NON-NLS-1$
 
+    /** Java Rules Template Directory. */
+    public static final String JAVA_RULES_TEMPLATE_DIRECTORY = "template"; //$NON-NLS-1$
+
     /** Java Metadata Directory. */
     public static final String JAVA_METADATA_DIRECTORY = "metadata"; //$NON-NLS-1$
 

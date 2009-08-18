@@ -286,6 +286,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseTDQItem(TDQItem object) {
                 return createTDQItemAdapter();
             }
+            public Object caseLinkRulesItem(LinkRulesItem object) {
+                return createLinkRulesItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1295,6 +1298,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTDQItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.LinkRulesItem <em>Link Rules Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.LinkRulesItem
+     * @generated
+     */
+    public Adapter createLinkRulesItemAdapter() {
         return null;
     }
 

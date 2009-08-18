@@ -72,6 +72,7 @@ import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
+import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -1185,6 +1186,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource create(IProject project, LinkRulesItem item, IPath path) throws PersistenceException { // hywang
+        // 6484
+        Resource itemResource = xmiResourceManager.createItemResource(project, item, path,
+                ERepositoryObjectType.METADATA_FILE_LINKRULES, false);
+        itemResource.getContents().add(item.getLink());
+
+        return itemResource;
+    }
+
     private Resource save(LinkDocumentationItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
 
@@ -1424,8 +1434,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.LINK_DOCUMENTATION_ITEM:
                 itemResource = create(project2, (LinkDocumentationItem) item, path);
                 break;
-            case PropertiesPackage.RULES_ITEM:
+            case PropertiesPackage.RULES_ITEM: // hywang add for 6484
                 itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.METADATA_FILE_RULES);
+                break;
+            case PropertiesPackage.LINK_RULES_ITEM: // hywang add for 6484
+                itemResource = create(project2, (LinkRulesItem) item, path);
                 break;
             default:
                 throw new UnsupportedOperationException();

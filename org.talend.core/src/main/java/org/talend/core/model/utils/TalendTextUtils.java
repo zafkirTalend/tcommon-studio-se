@@ -50,6 +50,8 @@ public class TalendTextUtils {
 
     public static final String RBRACKET = "]"; //$NON-NLS-1$
 
+    public static final String JAVA_END_STRING = "."; //$NON-NLS-1$
+
     private static final int LINE_MAX_NUM = 100;
 
     private static final String JAVA_DECLARE_STRING = "\""; //$NON-NLS-1$

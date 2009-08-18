@@ -87,6 +87,9 @@ public class StatusHelper {
             case PropertiesPackage.RULES_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
+            case PropertiesPackage.LINK_RULES_ITEM:
+                status = repositoryFactory.getTechnicalStatus();
+                break;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
             case PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM:
             case PropertiesPackage.DOCUMENTATION_ITEM:

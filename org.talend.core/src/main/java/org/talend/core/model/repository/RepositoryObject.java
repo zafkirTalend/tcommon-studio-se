@@ -44,6 +44,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
+import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -206,6 +207,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseRulesItem(RulesItem object) {
                 return ERepositoryObjectType.METADATA_FILE_RULES;
+            }
+
+            public Object caseLinkRulesItem(LinkRulesItem object) {
+                return ERepositoryObjectType.METADATA_FILE_LINKRULES;
             }
 
             /*

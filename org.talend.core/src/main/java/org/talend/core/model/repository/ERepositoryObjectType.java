@@ -32,6 +32,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
+import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
@@ -72,6 +73,7 @@ public enum ERepositoryObjectType {
 
     // feature 0006484 add
     METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataLinkFileRules.alias"),
 
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -200,6 +202,8 @@ public enum ERepositoryObjectType {
             return "metadata/SalesforceSchema"; //$NON-NLS-1$
         case METADATA_FILE_RULES:
             return "metadata/rules"; //$NON-NLS-1$
+        case METADATA_FILE_LINKRULES:
+            return "metadata/rules"; //$NON-NLS-1$
         default:
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {
@@ -245,6 +249,11 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseRulesItem(RulesItem object) {
                 return METADATA_FILE_RULES;
+            }
+
+            @Override
+            public Object caseLinkRulesItem(LinkRulesItem object) {
+                return METADATA_FILE_LINKRULES;
             }
 
             /*
