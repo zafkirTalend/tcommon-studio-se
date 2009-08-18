@@ -507,6 +507,9 @@ public class ExtractMetaDataUtils {
 
     // hywang added for bug 7038
     private static List<String> getAllDBFuctions(DatabaseMetaData dbMetadata) {
+        if (dbMetadata == null) {
+            return functionlist;
+        }
         try {
             String[] systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$
             String[] numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$
