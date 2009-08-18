@@ -265,4 +265,8 @@ public interface IProcessor {
      * @param clear if "clear", remove all old library configuration.
      */
     public void computeLibrariesPath(boolean clear);
+
+    public String[] getProxyParameters();
+
+    public void setProxyParameters(String[] proxyParameters);
 }
