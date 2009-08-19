@@ -19,8 +19,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.IService;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 /**
  * hywang class global comment. Detailled comment
@@ -37,4 +39,8 @@ public interface IRulesProviderService extends IService {
 
     public void generateFinalRuleFiles(String currentJavaProject, IProcess process) throws PersistenceException, SystemException,
             IOException, CoreException;
+
+    public boolean isRuleComponent(INode node);
+
+    public boolean isRuleComponent(NodeType node);
 }

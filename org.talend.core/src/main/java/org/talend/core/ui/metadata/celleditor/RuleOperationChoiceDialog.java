@@ -47,6 +47,7 @@ import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -467,13 +468,18 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                         ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
                     } else if (this.currentRepositoryItem.getExtension().equals(".xls")) { //$NON-NLS-N$
                         // rulesItem xls
-                        IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault()
-                                .getService(IRulesProviderService.class);
-                        try {
-                            rulesService.syncRule(currentRepositoryItem);
-                            String path = rulesService.getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$
-                            ruleNames = readExc(path);
-                        } catch (SystemException e) {
+                        if (PluginChecker.isRulesPluginLoaded()) {
+                            IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault()
+                                    .getService(IRulesProviderService.class);
+                            if (rulesService != null) {
+                                try {
+                                    rulesService.syncRule(currentRepositoryItem);
+                                    String path = rulesService
+                                            .getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$
+                                    ruleNames = readExc(path);
+                                } catch (SystemException e) {
+                                }
+                            }
                         }
                     }
                 }
