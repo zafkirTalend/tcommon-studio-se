@@ -27,6 +27,7 @@ public enum EComponentCategory {
     DOC("Documentation", 4), //$NON-NLS-1$
     CONTEXT("Context", 5), //$NON-NLS-1$
     VERSIONS("Version", 9), //$NON-NLS-1$
+    SVNHISTORY("SVN History", 9), //$NON-NLS-1$
     LOGS("Logs", 6), //$NON-NLS-1$
     STATSANDLOGS("Stats & Logs", 7), //$NON-NLS-1$
     TECHNICAL("Technical", 8), // for non displayed parameters //$NON-NLS-1$

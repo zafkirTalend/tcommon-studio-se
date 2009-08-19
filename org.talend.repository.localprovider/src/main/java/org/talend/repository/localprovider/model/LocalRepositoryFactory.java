@@ -1335,6 +1335,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
+    private Resource propertyResource;
+
+    public Resource getPropertyResource() {
+        return this.propertyResource;
+    }
+
     public void create(Project project, Item item, IPath path) throws PersistenceException {
         computePropertyMaxInformationLevel(item.getProperty());
 
@@ -1447,7 +1453,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new UnsupportedOperationException();
         }
 
-        Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
+        propertyResource = xmiResourceManager.createPropertyResource(itemResource);
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
@@ -1463,7 +1469,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         xmiResourceManager.saveResource(itemResource);
         xmiResourceManager.saveResource(propertyResource);
-
         // saveProject();
     }
 

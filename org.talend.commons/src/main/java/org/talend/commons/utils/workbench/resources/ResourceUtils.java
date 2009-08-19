@@ -192,6 +192,14 @@ public final class ResourceUtils {
         }
     }
 
+    public static IFile getFileMember(IContainer container, IPath path) throws PersistenceException {
+        return container.getFile(path);
+    }
+
+    public static IResource getResourceMember(IContainer container, IPath path) throws PersistenceException {
+        return container.findMember(path);
+    }
+
     public static IFolder[] getSubMembers(IContainer container) throws PersistenceException {
         IResource[] members = getMembers(container);
         List<IFolder> toReturn = new ArrayList<IFolder>();
@@ -242,6 +250,15 @@ public final class ResourceUtils {
     public static void deleteFile(IFile file) throws PersistenceException {
         try {
             file.delete(true, false, null);
+        } catch (CoreException e) {
+            String msg = Messages.getString("resources.file.notDeleted", file.getName()); //$NON-NLS-1$
+            throw new PersistenceException(msg, e);
+        }
+    }
+
+    public static void deleteRevisionFile(IFile file) throws PersistenceException {
+        try {
+            file.delete(false, true, null);
         } catch (CoreException e) {
             String msg = Messages.getString("resources.file.notDeleted", file.getName()); //$NON-NLS-1$
             throw new PersistenceException(msg, e);

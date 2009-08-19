@@ -114,6 +114,10 @@ public class XmiResourceManager {
         return resourceSet.createResource(propertyResourceURI);
     }
 
+    public Resource createPropertyResource(URI propertyResourceURI) {
+        return resourceSet.createResource(propertyResourceURI);
+    }
+
     public Resource createItemResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
             boolean byteArrayResource) throws PersistenceException {
         URI itemResourceURI = getItemResourceURI(project, repositoryObjectType, path, item);
@@ -136,6 +140,11 @@ public class XmiResourceManager {
 
     public void deleteResource(Resource resource) throws PersistenceException {
         ResourceUtils.deleteFile(URIHelper.getFile(resource.getURI()));
+        resourceSet.getResources().remove(resource);
+    }
+
+    public void deleteLogiclResource(Resource resource) throws PersistenceException {
+        ResourceUtils.deleteRevisionFile(URIHelper.getFile(resource.getURI()));
         resourceSet.getResources().remove(resource);
     }
 

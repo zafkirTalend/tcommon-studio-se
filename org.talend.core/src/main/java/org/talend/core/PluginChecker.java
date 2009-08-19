@@ -47,6 +47,8 @@ public class PluginChecker {
 
     private static final String PREVIEW_PLUGIN_ID = "org.talend.designer.component.preview"; //$NON-NLS-1$   
 
+    private static final String SVN_PROVIDER_PLUGIN_ID = "org.talend.repository.svnprovider"; //$NON-NLS-1$   
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -135,5 +137,9 @@ public class PluginChecker {
 
     public static boolean isPreviewPluginLoaded() {
         return isPluginLoaded(PREVIEW_PLUGIN_ID);
+    }
+
+    public static boolean isSVNProviderPluginLoaded() {
+        return isPluginLoaded(SVN_PROVIDER_PLUGIN_ID);
     }
 }
