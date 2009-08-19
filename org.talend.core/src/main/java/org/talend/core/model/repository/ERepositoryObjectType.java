@@ -69,7 +69,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
-    METADATA_SAP_FUNCTION("repository.SAPFunction", false), //$NON-NLS-1$
+    METADATA_SAP_FUNCTION("repository.SAPFunction", true), //$NON-NLS-1$
 
     // feature 0006484 add
     METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
