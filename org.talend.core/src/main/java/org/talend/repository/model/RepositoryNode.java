@@ -320,7 +320,10 @@ public class RepositoryNode {
     }
 
     public void setProperties(EProperties key, Object value) {
-        properties.put(key, value);
+        if (value != null && key != null) {
+            properties.put(key, value);
+        }
+
     }
 
     // TODO SML Remove theses props
