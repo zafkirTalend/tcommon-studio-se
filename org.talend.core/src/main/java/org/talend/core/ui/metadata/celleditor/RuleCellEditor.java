@@ -86,7 +86,7 @@ public class RuleCellEditor extends DialogCellEditor {
     protected Object openDialogBox(Control cellEditorWindow) {
 
         String ruleToEdit = (String) this.getValue();
-
+        String oldValue = ruleToEdit;
         // for Rule(feature 6484),hywang add
         Object[] allRules = null;
         RulesItem[] repositoryRuleItems = null;
@@ -134,22 +134,26 @@ public class RuleCellEditor extends DialogCellEditor {
         }
         RuleOperationChoiceDialog ruleChoiceDialog = new RuleOperationChoiceDialog(cellEditorWindow.getShell(), node,
                 repositoryRuleItems, linkRuleItems, EProcessTypeForRule.CREATE, ruleToEdit, node.getProcess().isReadOnly());
-        if (ruleChoiceDialog.open() == Window.OK) {
+        if (ruleChoiceDialog.open() == Window.OK && ruleChoiceDialog.isRepositoryBtnChecked()) {
             return TalendTextUtils.QUOTATION_MARK + ruleChoiceDialog.getSelectedRuleFileName() + TalendTextUtils.QUOTATION_MARK;
-            // else {
-            // // from file system
-            // OpenDrlFileFromFileSystemDialog fd = new
-            // OpenDrlFileFromFileSystemDialog(this.getTableViewer().getControl()
-            // .getShell(), SWT.OPEN);
-            // String[] ruleExtensions = new String[] { drlExtension };
-            // fd.setFilterExtensions(ruleExtensions);
-            // String fileName = fd.open();
-            // if (fileName != null) {
-            // return builtInRule + fd.getFileName();
-            // }
-            // }
-        }
+        } else if (!ruleChoiceDialog.isCancel()) {
+            // create a rule
+            CreateRuleDialog createDialog = new CreateRuleDialog(ruleChoiceDialog.getShell(), node);
+            createDialog.create();
+            if (createDialog.open() == Window.OK) {
+                if (createDialog.getName() != null && !createDialog.getName().equals("")) {
+                    return TalendTextUtils.addQuotes(createDialog.getName());
+                } else {
+                    return "";
+                }
+            } else {
+                this.setValue(oldValue);
+                return oldValue;
+            }
 
-        return "";
+        } else {
+            this.setValue(oldValue);
+            return oldValue;
+        }
     }
 }

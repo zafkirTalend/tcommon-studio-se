@@ -92,7 +92,13 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private Button viewSchemaBtn;
 
-    // private Button repositoryBtn;
+    private Button repositoryBtn, createBtn;
+
+    private boolean isRepositoryBtnChecked = false;
+
+    public boolean isRepositoryBtnChecked() {
+        return this.isRepositoryBtnChecked;
+    }
 
     private Combo ruleCombo;
 
@@ -122,9 +128,15 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private LinkRulesItem currentRepositoryLinkItem;
 
+    private boolean isCancel = false;
+
     // private Label versionLabel;
 
     // private final Map<String, List<IRepositoryObject>> allVersions;
+
+    public boolean isCancel() {
+        return this.isCancel;
+    }
 
     public RuleOperationChoiceDialog(Shell parentShell, INode node, RulesItem[] items, LinkRulesItem[] linkItems,
             EProcessTypeForRule pType, String ruleName, boolean readOnlyJob) {
@@ -202,8 +214,8 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     }
 
     private void createCreationComposite(Group group) {
-        //        createBuiltInButton(group, "Select a rule file from file system"); //$NON-NLS-1$
-        //        createRepositoryButton(group, "Select a rule file from repository"); //$NON-NLS-1$
+        createCreateRuleButton(group, "Create a rule with guide"); //$NON-NLS-1$
+        createSelectFromRepositoryButton(group, "Select a rule from repository"); //$NON-NLS-1$
         createRuleCombo(group);
         // createVersionCombo(group);
         // repositoryBtn.setSelection(true);
@@ -251,59 +263,61 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
         mainLabel.setText("Select a rule from repository:"); //$NON-NLS-N$
     }
 
-    // private void createBuiltInButton(Composite composite, String message) {
-    // builtinBtn = new Button(composite, SWT.RADIO);
-    // builtinBtn.setText(message);
-    // builtinBtn.addSelectionListener(new SelectionAdapter() {
-    //
-    // @Override
-    // public void widgetSelected(SelectionEvent e) {
-    // if (builtinBtn.getSelection()) {
-    // setSelection(ESelectionCategoryForRule.BUILDIN);
-    // if (ruleCombo != null) {
-    // ruleCombo.setVisible(false);
-    // }
-    // if (ruleLabel != null) {
-    // ruleLabel.setVisible(false);
-    // }
-    // if (versionLabel != null) {
-    // versionLabel.setVisible(false);
-    // }
-    // }
-    // setButtonAndStatus(true);
-    // }
-    //
-    // });
-    //
-    // }
+    private void createCreateRuleButton(Composite composite, String message) {
+        createBtn = new Button(composite, SWT.RADIO);
+        createBtn.setText(message);
+        createBtn.addSelectionListener(new SelectionAdapter() {
 
-    // private void createRepositoryButton(Composite composite, String message) {
-    // repositoryBtn = new Button(composite, SWT.RADIO);
-    // repositoryBtn.setText(message);
-    // repositoryBtn.addSelectionListener(new SelectionAdapter() {
-    //
-    // @Override
-    // public void widgetSelected(SelectionEvent e) {
-    // if (repositoryBtn.getSelection()) {
-    // setSelection(ESelectionCategoryForRule.REPOSITORY);
-    //
-    // setButtonAndStatus(checkSchema());
-    // if (ruleCombo != null) {
-    // ruleCombo.setVisible(true);
-    // }
-    // if (ruleLabel != null) {
-    // ruleLabel.setVisible(true);
-    // }
-    // if (versionLabel != null) {
-    // versionLabel.setVisible(true);
-    // }
-    // }
-    //
-    // }
-    //
-    // });
-    //
-    // }
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                isRepositoryBtnChecked = false;
+                if (createBtn.getSelection()) {
+                    setSelection(ESelectionCategoryForRule.BUILDIN);
+                    if (ruleCombo != null) {
+                        ruleCombo.setVisible(false);
+                    }
+                    if (ruleLabel != null) {
+                        ruleLabel.setVisible(false);
+                    }
+                    // if (versionLabel != null) {
+                    // versionLabel.setVisible(false);
+                    // }
+                }
+                setButtonAndStatus(true);
+            }
+
+        });
+
+    }
+
+    private void createSelectFromRepositoryButton(Composite composite, String message) {
+        repositoryBtn = new Button(composite, SWT.RADIO);
+        repositoryBtn.setText(message);
+        repositoryBtn.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (repositoryBtn.getSelection()) {
+                    isRepositoryBtnChecked = true;
+                    setSelection(ESelectionCategoryForRule.REPOSITORY);
+
+                    setButtonAndStatus(checkSchema());
+                    if (ruleCombo != null) {
+                        ruleCombo.setVisible(true);
+                    }
+                    if (ruleLabel != null) {
+                        ruleLabel.setVisible(true);
+                    }
+                    // if (versionLabel != null) {
+                    // versionLabel.setVisible(true);
+                    // }
+                }
+
+            }
+
+        });
+
+    }
 
     private void createRuleCombo(Composite composite) {
         ruleLabel = new Label(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
@@ -415,6 +429,13 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     }
 
+    @Override
+    protected void cancelPressed() {
+        // TODO Auto-generated method stub
+        this.isCancel = true;
+        super.cancelPressed();
+    }
+
     public String getSelectedRuleFileName() {
         return this.selectedRuleFileName;
     }
@@ -468,17 +489,15 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                         ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
                     } else if (this.currentRepositoryItem.getExtension().equals(".xls")) { //$NON-NLS-N$
                         // rulesItem xls
+                        IRulesProviderService rulesService = null;
                         if (PluginChecker.isRulesPluginLoaded()) {
-                            IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault()
-                                    .getService(IRulesProviderService.class);
-                            if (rulesService != null) {
-                                try {
-                                    rulesService.syncRule(currentRepositoryItem);
-                                    String path = rulesService
-                                            .getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$
-                                    ruleNames = readExc(path);
-                                } catch (SystemException e) {
-                                }
+                            rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
+                                    IRulesProviderService.class);
+                            try {
+                                rulesService.syncRule(currentRepositoryItem);
+                                String path = rulesService.getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$
+                                ruleNames = readExc(path);
+                            } catch (SystemException e) {
                             }
                         }
                     }

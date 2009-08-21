@@ -37,6 +37,8 @@ public interface IRulesProviderService extends IService {
 
     public IFile getFinalRuleFile(Item item) throws CoreException;
 
+    public void addRule(Item item, String ruleName, String condition, String outputId);
+
     public void generateFinalRuleFiles(String currentJavaProject, IProcess process) throws PersistenceException, SystemException,
             IOException, CoreException;
 
