@@ -206,8 +206,13 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     private void checkElement(RepositoryNode node, Set<RepositoryNode> nodes) {
-
+        if (node == null) {
+            return;
+        }
         ERepositoryObjectType objectType = node.getObjectType();
+        if (objectType == null) {
+            return;
+        }
         Property property = null;
 
         switch (objectType) {
