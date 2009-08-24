@@ -367,12 +367,20 @@ public class ExtractMetaDataFromDataBase {
 
             try {
                 ResultSet keys;
+                boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataConnection.getDbType());
                 if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
-                    keys = dbMetaData.getPrimaryKeys(null, originSchema, medataTable.getLabel());
+                    if (!isAccess) {
+                        keys = dbMetaData.getPrimaryKeys(null, originSchema, medataTable.getLabel());
+                    } else {
+                        keys = dbMetaData.getIndexInfo(null, originSchema, medataTable.getLabel(), true, true);
+                    }
                 } else {
-                    keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
-                    // keys = dbMetaData.getIndexInfo(null, null, medataTable.getLabel(), true, true);
-                    // String keyname = null;
+                    if (!isAccess) {
+                        keys = dbMetaData.getPrimaryKeys(null, null, medataTable.getLabel());
+                    } else {
+                        keys = dbMetaData.getIndexInfo(null, null, medataTable.getLabel(), true, true);
+                    }
+
                     // // get the primary key information
                     // while (keys.next()) {
                     // // System.out.println("-----------");
