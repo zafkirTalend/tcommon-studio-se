@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -162,20 +163,20 @@ public class ColorManager {
     }
 
     public static void initDefaultColors(IPreferenceStore store) {
-        PreferenceConverter.setDefault(store, NULL_COLOR, DEFAULT_STRING_COLOR);
-        PreferenceConverter.setDefault(store, COMMENT1_COLOR, DEFAULT_COMMENT1_COLOR);
-        PreferenceConverter.setDefault(store, COMMENT2_COLOR, DEFAULT_COMMENT2_COLOR);
-        PreferenceConverter.setDefault(store, LITERAL1_COLOR, DEFAULT_LITERAL1_COLOR);
-        PreferenceConverter.setDefault(store, LITERAL2_COLOR, DEFAULT_LITERAL2_COLOR);
-        PreferenceConverter.setDefault(store, LABEL_COLOR, DEFAULT_LABEL_COLOR);
-        PreferenceConverter.setDefault(store, KEYWORD1_COLOR, DEFAULT_KEYWORD1_COLOR);
-        PreferenceConverter.setDefault(store, KEYWORD2_COLOR, DEFAULT_KEYWORD2_COLOR);
-        PreferenceConverter.setDefault(store, KEYWORD3_COLOR, DEFAULT_KEYWORD3_COLOR);
-        PreferenceConverter.setDefault(store, FUNCTION_COLOR, DEFAULT_FUNCTION_COLOR);
-        PreferenceConverter.setDefault(store, MARKUP_COLOR, DEFAULT_MARKUP_COLOR);
-        PreferenceConverter.setDefault(store, OPERATOR_COLOR, DEFAULT_OPERATOR_COLOR);
-        PreferenceConverter.setDefault(store, DIGIT_COLOR, DEFAULT_DIGIT_COLOR);
-        PreferenceConverter.setDefault(store, INVALID_COLOR, DEFAULT_INVALID_COLOR);
+        store.setDefault(NULL_COLOR, StringConverter.asString(DEFAULT_STRING_COLOR));
+        store.setDefault(COMMENT1_COLOR, StringConverter.asString(DEFAULT_COMMENT1_COLOR));
+        store.setDefault(COMMENT2_COLOR, StringConverter.asString(DEFAULT_COMMENT2_COLOR));
+        store.setDefault(LITERAL1_COLOR, StringConverter.asString(DEFAULT_LITERAL1_COLOR));
+        store.setDefault(LITERAL2_COLOR, StringConverter.asString(DEFAULT_LITERAL2_COLOR));
+        store.setDefault(LABEL_COLOR, StringConverter.asString(DEFAULT_LABEL_COLOR));
+        store.setDefault(KEYWORD1_COLOR, StringConverter.asString(DEFAULT_KEYWORD1_COLOR));
+        store.setDefault(KEYWORD2_COLOR, StringConverter.asString(DEFAULT_KEYWORD2_COLOR));
+        store.setDefault(KEYWORD3_COLOR, StringConverter.asString(DEFAULT_KEYWORD3_COLOR));
+        store.setDefault(FUNCTION_COLOR, StringConverter.asString(DEFAULT_FUNCTION_COLOR));
+        store.setDefault(MARKUP_COLOR, StringConverter.asString(DEFAULT_MARKUP_COLOR));
+        store.setDefault(OPERATOR_COLOR, StringConverter.asString(DEFAULT_OPERATOR_COLOR));
+        store.setDefault(DIGIT_COLOR, StringConverter.asString(DEFAULT_DIGIT_COLOR));
+        store.setDefault(INVALID_COLOR, StringConverter.asString(DEFAULT_INVALID_COLOR));
 
         String bold = BOLD_SUFFIX;
         store.setDefault(COMMENT1_COLOR + bold, false);

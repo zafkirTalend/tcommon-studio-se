@@ -13,7 +13,7 @@
 package org.talend.core.model.utils;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.RGB;
 import org.talend.commons.utils.image.ColorUtils;
 import org.talend.core.CorePlugin;
@@ -66,17 +66,19 @@ public final class DesignerColorUtils {
         if (store == null) { // store must be the designer core preference store.
             return;
         }
+
         // background
-        PreferenceConverter.setDefault(store, DesignerColorUtils.JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME,
-                DesignerColorUtils.DEFAULT_EDITOR_COLOR);
-        PreferenceConverter.setDefault(store, DesignerColorUtils.READONLY_BACKGROUND_COLOR_NAME,
-                DesignerColorUtils.DEFAULT_READONLY_COLOR);
+        store.setDefault(DesignerColorUtils.JOBDESIGNER_EGITOR_BACKGROUND_COLOR_NAME, StringConverter
+                .asString(DesignerColorUtils.DEFAULT_EDITOR_COLOR));
+        store.setDefault(DesignerColorUtils.READONLY_BACKGROUND_COLOR_NAME, StringConverter
+                .asString(DesignerColorUtils.DEFAULT_READONLY_COLOR));
         // subjob
-        PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_COLOR_NAME, DesignerColorUtils.SUBJOB_COLOR);
-        PreferenceConverter.setDefault(store, DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME, DesignerColorUtils.SUBJOB_TITLE_COLOR);
+        store.setDefault(DesignerColorUtils.SUBJOB_COLOR_NAME, StringConverter.asString(DesignerColorUtils.SUBJOB_COLOR));
+        store.setDefault(DesignerColorUtils.SUBJOB_TITLE_COLOR_NAME, StringConverter
+                .asString(DesignerColorUtils.SUBJOB_TITLE_COLOR));
         // connection
         for (EConnectionType connType : EConnectionType.values()) {
-            PreferenceConverter.setDefault(store, getPreferenceConnectionName(connType), connType.getRGB());
+            store.setDefault(getPreferenceConnectionName(connType), StringConverter.asString(connType.getRGB()));
         }
     }
 
