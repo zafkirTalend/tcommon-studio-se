@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
@@ -50,6 +51,9 @@ public class ContextUtils {
     }
 
     private static void initJavaKeyWords() {
+        if (Platform.getOS().equals(Platform.OS_AIX)) {
+            return;
+        }
         keywords.clear();
         Mode mode = Modes.getMode("java.xml"); //$NON-NLS-1$
         KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();

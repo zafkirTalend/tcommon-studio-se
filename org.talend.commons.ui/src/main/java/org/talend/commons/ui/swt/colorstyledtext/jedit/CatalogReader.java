@@ -22,6 +22,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 
@@ -62,7 +63,9 @@ public class CatalogReader {
         List<Mode> modes = new ArrayList<Mode>(A_50);
         for (Iterator iter = modeE.iterator(); iter.hasNext();) {
             Element modeElement = (Element) iter.next();
-            modes.add(newMode(modeElement));
+            if (!Platform.getOS().equals(Platform.OS_AIX)) {
+                modes.add(newMode(modeElement));
+            }
         }
         return (Mode[]) modes.toArray(new Mode[modes.size()]);
     }

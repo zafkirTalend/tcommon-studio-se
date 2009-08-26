@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.Platform;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
@@ -43,6 +44,9 @@ public class KeywordsValidator {
     }
 
     public static Set<String> getKeywords(ECodeLanguage lang) {
+        if (Platform.getOS().equals(Platform.OS_AIX)) {
+            return null;
+        }
         Set<String> words = keywords.get(lang);
         if (words == null) {
             words = new HashSet<String>();
