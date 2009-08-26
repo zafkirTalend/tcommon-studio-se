@@ -48,7 +48,11 @@ public class RepositoryConstants {
 
     public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
-    public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]=]+$"; //$NON-NLS-1$
+    public static final String REPOSITORY_ITEM_PATTERN_INTERN = "a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]="; //$NON-NLS-1$
+    
+    public static final String REPOSITORY_ITEM_PATTERN = "^[" + REPOSITORY_ITEM_PATTERN_INTERN + "]+$"; //$NON-NLS-1$
+
+    public static final String REPOSITORY_ITEM_WILDCARD = "^[" + REPOSITORY_ITEM_PATTERN_INTERN + "\\*\\?]+$"; //$NON-NLS-1$
 
     public static final String PORT_ITEM_PATTERN = "^[0-9]"; //$NON-NLS-1$
 
