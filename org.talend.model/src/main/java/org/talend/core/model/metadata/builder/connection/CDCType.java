@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.CDCType#getLinkDB <em>Link DB</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.CDCType#getSubscribers <em>Subscribers</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.CDCType#getCdcConnection <em>Cdc Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.CDCType#getJournalName <em>Journal Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,4 +97,30 @@ public interface CDCType extends AbstractMetadataObject {
      * @generated
      */
     void setCdcConnection(CDCConnection value);
+
+    /**
+     * Returns the value of the '<em><b>Journal Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Journal Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Journal Name</em>' attribute.
+     * @see #setJournalName(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getCDCType_JournalName()
+     * @model
+     * @generated
+     */
+    String getJournalName();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.CDCType#getJournalName <em>Journal Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Journal Name</em>' attribute.
+     * @see #getJournalName()
+     * @generated
+     */
+    void setJournalName(String value);
 } // CDCType

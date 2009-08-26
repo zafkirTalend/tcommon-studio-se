@@ -301,6 +301,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//CDCType/linkDB"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//CDCType/subscribers"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//CDCType/cdcConnection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//CDCType/journalName"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SubscriberTable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SubscriberTable/system"/>

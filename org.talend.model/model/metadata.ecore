@@ -357,6 +357,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="subscribers" upperBound="-1"
         eType="#//SubscriberTable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cdcConnection" eType="#//CDCConnection"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="journalName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubscriberTable" eSuperTypes="#//MetadataTable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="system" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

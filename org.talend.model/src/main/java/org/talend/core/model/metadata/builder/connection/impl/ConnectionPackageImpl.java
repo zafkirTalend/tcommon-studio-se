@@ -2271,6 +2271,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getCDCType_JournalName() {
+        return (EAttribute)cdcTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSubscriberTable() {
         return subscriberTableEClass;
     }
@@ -2620,6 +2629,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(cdcTypeEClass, CDC_TYPE__LINK_DB);
         createEReference(cdcTypeEClass, CDC_TYPE__SUBSCRIBERS);
         createEReference(cdcTypeEClass, CDC_TYPE__CDC_CONNECTION);
+        createEAttribute(cdcTypeEClass, CDC_TYPE__JOURNAL_NAME);
 
         subscriberTableEClass = createEClass(SUBSCRIBER_TABLE);
         createEAttribute(subscriberTableEClass, SUBSCRIBER_TABLE__SYSTEM);
@@ -2940,6 +2950,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getCDCType_LinkDB(), ecorePackage.getEString(), "linkDB", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCDCType_Subscribers(), this.getSubscriberTable(), null, "subscribers", null, 0, -1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCDCType_CdcConnection(), this.getCDCConnection(), null, "cdcConnection", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCDCType_JournalName(), ecorePackage.getEString(), "journalName", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(subscriberTableEClass, SubscriberTable.class, "SubscriberTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSubscriberTable_System(), ecorePackage.getEBoolean(), "system", null, 0, 1, SubscriberTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

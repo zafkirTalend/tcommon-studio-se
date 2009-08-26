@@ -5381,13 +5381,22 @@ public interface ConnectionPackage extends EPackage {
     int CDC_TYPE__CDC_CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Journal Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CDC_TYPE__JOURNAL_NAME = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>CDC Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CDC_TYPE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+    int CDC_TYPE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl <em>Subscriber Table</em>}' class.
@@ -7972,6 +7981,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getCDCType_CdcConnection();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.CDCType#getJournalName <em>Journal Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Journal Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.CDCType#getJournalName()
+     * @see #getCDCType()
+     * @generated
+     */
+    EAttribute getCDCType_JournalName();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SubscriberTable <em>Subscriber Table</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9927,6 +9947,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference CDC_TYPE__CDC_CONNECTION = eINSTANCE.getCDCType_CdcConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Journal Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CDC_TYPE__JOURNAL_NAME = eINSTANCE.getCDCType_JournalName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl <em>Subscriber Table</em>}' class.

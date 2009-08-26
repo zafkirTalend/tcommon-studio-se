@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.SubscriberTable;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl#getLinkDB <em>Link DB</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl#getSubscribers <em>Subscribers</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl#getCdcConnection <em>Cdc Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl#getJournalName <em>Journal Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,6 +76,26 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
      * @ordered
      */
     protected CDCConnection cdcConnection;
+
+    /**
+     * The default value of the '{@link #getJournalName() <em>Journal Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJournalName()
+     * @generated
+     * @ordered
+     */
+    protected static final String JOURNAL_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getJournalName() <em>Journal Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJournalName()
+     * @generated
+     * @ordered
+     */
+    protected String journalName = JOURNAL_NAME_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -158,6 +179,27 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getJournalName() {
+        return journalName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJournalName(String newJournalName) {
+        String oldJournalName = journalName;
+        journalName = newJournalName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CDC_TYPE__JOURNAL_NAME, oldJournalName, journalName));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -182,6 +224,8 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
             case ConnectionPackage.CDC_TYPE__CDC_CONNECTION:
                 if (resolve) return getCdcConnection();
                 return basicGetCdcConnection();
+            case ConnectionPackage.CDC_TYPE__JOURNAL_NAME:
+                return getJournalName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -202,6 +246,9 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
             case ConnectionPackage.CDC_TYPE__CDC_CONNECTION:
                 setCdcConnection((CDCConnection)newValue);
                 return;
+            case ConnectionPackage.CDC_TYPE__JOURNAL_NAME:
+                setJournalName((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -221,6 +268,9 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
             case ConnectionPackage.CDC_TYPE__CDC_CONNECTION:
                 setCdcConnection((CDCConnection)null);
                 return;
+            case ConnectionPackage.CDC_TYPE__JOURNAL_NAME:
+                setJournalName(JOURNAL_NAME_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -237,6 +287,8 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
                 return subscribers != null && !subscribers.isEmpty();
             case ConnectionPackage.CDC_TYPE__CDC_CONNECTION:
                 return cdcConnection != null;
+            case ConnectionPackage.CDC_TYPE__JOURNAL_NAME:
+                return JOURNAL_NAME_EDEFAULT == null ? journalName != null : !JOURNAL_NAME_EDEFAULT.equals(journalName);
         }
         return super.eIsSet(featureID);
     }
@@ -251,6 +303,8 @@ public class CDCTypeImpl extends AbstractMetadataObjectImpl implements CDCType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (linkDB: ");
         result.append(linkDB);
+        result.append(", journalName: ");
+        result.append(journalName);
         result.append(')');
         return result.toString();
     }
