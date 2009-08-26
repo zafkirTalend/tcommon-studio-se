@@ -152,7 +152,7 @@ public class TalendDate {
     }
 
     /**
-     * add number of day, month ... to a date
+     * add number of day, month ... to a date (with Java date type !)
      * 
      * @param date (a <code>Date</code> type value)
      * @param nb (the value to add)
@@ -171,11 +171,8 @@ public class TalendDate {
      * 
      * {examples}
      * 
-     * ->> addDate(2008/11/24 12:15:25, 5,"dd") return 2008/11/29 12:15:25
-     * 
-     * ->> addDate(2008/11/24 12:15:25, 5,"yyyy")return 2013/11/25 12:15:25
-     * 
-     * ->> addDate(2008/11/24 12:15:25, 5,"MM") return 2009/02/24 12:15:25
+     * ->> addDate(dateVariable), 5,"dd") return a date with 2008/11/29 12:15:25 (with dateVariable is a date with
+     * 2008/11/24 12:15:25) #
      * 
      * ->> addDate(2008/11/24 12:15:25, 5,"ss") return 2008/11/24 12:15:30 #
      * 
@@ -207,6 +204,49 @@ public class TalendDate {
         }
 
         return c1.getTime();
+    }
+
+    /**
+     * add number of day, month ... to a date (with Date given in String with a pattern)
+     * 
+     * @param date (a Date given in string)
+     * @param pattern (the pattern for the related date)
+     * @param nb (the value to add)
+     * @param dateType (date pattern = ("yyyy","MM","dd","HH","mm","ss","SSS" ))
+     * @return a new date
+     * 
+     * {talendTypes} Date
+     * 
+     * {Category} TalendDate
+     * 
+     * {param} date(myDate) date : the date to update
+     * 
+     * {param} date(pattern) string : the pattern
+     * 
+     * {param} date(addValue) nb : the added value
+     * 
+     * {param} date("MM") dateType : the part to add
+     * 
+     * {examples}
+     * 
+     * ->> addDate("2008/11/24 12:15:25", "yyyy-MM-dd HH:mm:ss", 5,"dd") return "2008/11/29 12:15:25"
+     * 
+     * ->> addDate("2008/11/24 12:15:25", "yyyy/MM/DD HH:MM:SS", 5,"ss") return "2008/11/24 12:15:30" #
+     * 
+     */
+    public static Date addDateWithPattern(String string, String pattern, int nb, String dateType) {
+        if (string == null || dateType == null) {
+            return null;
+        }
+        java.util.Date date = null;
+
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
+        try {
+            date = sdf.parse(string);
+        } catch (ParseException e) {
+            throw new RuntimeException(pattern + " can't support the date!"); //$NON-NLS-1$
+        }
+        return addDate(date, nb, dateType);
     }
 
     /**
