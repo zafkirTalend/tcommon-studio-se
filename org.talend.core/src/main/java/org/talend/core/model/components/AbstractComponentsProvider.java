@@ -97,7 +97,7 @@ public abstract class AbstractComponentsProvider {
                 .append(IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER);
 
         // bug fix : several headless instance should not use the same folder
-        if (CommonsPlugin.isHeadless()) {
+        if (CommonsPlugin.isStoreLibsInWorkspace()) {
             String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
             path = path.append(folderName + "-" + workspaceName); //$NON-NLS-1$
         } else {
