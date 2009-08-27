@@ -42,8 +42,8 @@ public class PreferencesUtilities {
     }
 
     public static String getLibrariesPath(ECodeLanguage language) {
-        if (CommonsPlugin.isHeadless()) {
-            return getHeadlessLibPath(language);
+        if (CommonsPlugin.isStoreLibsInWorkspace()) {
+            return getWorkSpaceLibPath(language);
         }
         boolean singleMode = getPreferenceStore().getBoolean(EXTERNAL_LIB_PATH_MODE_SINGLE);
         switch (language) {
@@ -64,7 +64,7 @@ public class PreferencesUtilities {
         }
     }
 
-    private static String getHeadlessLibPath(ECodeLanguage language) {
+    private static String getWorkSpaceLibPath(ECodeLanguage language) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("."); //$NON-NLS-1$
         stringBuilder.append(language.getCaseName());

@@ -30,6 +30,17 @@ public class CommonsPlugin extends Plugin {
 
     private static boolean headless = false;
 
+    private static boolean storeLibsInWorkspace = false;
+
+    
+    public static boolean isStoreLibsInWorkspace() {
+        return storeLibsInWorkspace;
+    }
+
+    public static void setStoreLibsInWorkspace(boolean storeLibsInWorkspace) {
+        CommonsPlugin.storeLibsInWorkspace = storeLibsInWorkspace;
+    }
+
     /**
      * Default Constructor.
      */
