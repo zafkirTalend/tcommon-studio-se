@@ -30,7 +30,6 @@ Export-Package: org.talend.core.model,
  org.talend.designer.joblet.model.impl,
  org.talend.designer.joblet.model.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.gmf.runtime.notation;visibility:=reexport,
