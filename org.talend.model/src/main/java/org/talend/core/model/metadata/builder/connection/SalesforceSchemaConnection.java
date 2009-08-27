@@ -28,6 +28,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize <em>Batch Size</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy <em>Use Http Proxy</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}</li>
  * </ul>
  * </p>
  *
@@ -373,5 +374,31 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setUseHttpProxy(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Use Alphbet</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use Alphbet</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use Alphbet</em>' attribute.
+     * @see #setUseAlphbet(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_UseAlphbet()
+     * @model
+     * @generated
+     */
+    boolean isUseAlphbet();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use Alphbet</em>' attribute.
+     * @see #isUseAlphbet()
+     * @generated
+     */
+    void setUseAlphbet(boolean value);
 
 } // SalesforceSchemaConnection

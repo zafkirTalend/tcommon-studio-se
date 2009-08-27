@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getProxyPassword <em>Proxy Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getBatchSize <em>Batch Size</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseHttpProxy <em>Use Http Proxy</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseAlphbet <em>Use Alphbet</em>}</li>
  * </ul>
  * </p>
  *
@@ -300,6 +301,26 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected boolean useHttpProxy = USE_HTTP_PROXY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseAlphbet() <em>Use Alphbet</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseAlphbet()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_ALPHBET_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseAlphbet() <em>Use Alphbet</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseAlphbet()
+     * @generated
+     * @ordered
+     */
+    protected boolean useAlphbet = USE_ALPHBET_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -597,6 +618,27 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isUseAlphbet() {
+        return useAlphbet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseAlphbet(boolean newUseAlphbet) {
+        boolean oldUseAlphbet = useAlphbet;
+        useAlphbet = newUseAlphbet;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET, oldUseAlphbet, useAlphbet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
@@ -625,6 +667,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return getBatchSize();
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
                 return isUseHttpProxy() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+                return isUseAlphbet() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -674,6 +718,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
                 setUseHttpProxy(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+                setUseAlphbet(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -725,6 +772,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
                 setUseHttpProxy(USE_HTTP_PROXY_EDEFAULT);
                 return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+                setUseAlphbet(USE_ALPHBET_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -762,6 +812,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return BATCH_SIZE_EDEFAULT == null ? batchSize != null : !BATCH_SIZE_EDEFAULT.equals(batchSize);
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
                 return useHttpProxy != USE_HTTP_PROXY_EDEFAULT;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+                return useAlphbet != USE_ALPHBET_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -801,6 +853,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(batchSize);
         result.append(", useHttpProxy: ");
         result.append(useHttpProxy);
+        result.append(", useAlphbet: ");
+        result.append(useAlphbet);
         result.append(')');
         return result.toString();
     }

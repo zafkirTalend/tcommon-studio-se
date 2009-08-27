@@ -5235,13 +5235,22 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY = CONNECTION_FEATURE_COUNT + 12;
 
     /**
+     * The feature id for the '<em><b>Use Alphbet</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET = CONNECTION_FEATURE_COUNT + 13;
+
+    /**
      * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 13;
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 14;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
@@ -7906,6 +7915,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceSchemaConnection_UseHttpProxy();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Alphbet</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_UseAlphbet();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -9887,6 +9907,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY = eINSTANCE.getSalesforceSchemaConnection_UseHttpProxy();
+
+        /**
+         * The meta object literal for the '<em><b>Use Alphbet</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET = eINSTANCE.getSalesforceSchemaConnection_UseAlphbet();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
