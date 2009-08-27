@@ -60,6 +60,15 @@ public class ProcessUtils {
 
     }
 
+    public static Collection<IRepositoryObject> getAllProcessDependencies(Collection<Item> items) {
+        Collection<IRepositoryObject> dependencies = getContextDependenciesOfProcess(items);
+        dependencies.addAll(getMetadataDependenciesOfProcess(items));
+        dependencies.addAll(getChildPorcessDependenciesOfProcess(items));
+        dependencies.addAll(getJobletDependenciesOfProcess(items));
+        return dependencies;
+    }
+
+    
     private static Collection<IRepositoryObject> getContextDependenciesOfProcess(Collection<Item> items) {
         Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
         for (Item item : items) {
