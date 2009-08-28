@@ -40,7 +40,6 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.components.IComponent;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -49,6 +48,7 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.core.ReplaceNodesInProcessProvider;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -171,25 +171,6 @@ public class ProcessorUtilities {
         }
     }
 
-    /**
-     * 
-     * DOC aiming Comment method "isContainsJoblet".
-     * 
-     * @param jobInfo
-     * @return
-     */
-    private static boolean isContainsJoblet(JobInfo jobInfo) {
-        if (jobInfo.getProcess() != null) {
-            List<? extends INode> gNodes = jobInfo.getProcess().getGraphicalNodes();
-            for (INode node : gNodes) {
-                if (IComponent.FAMILY.equalsIgnoreCase(node.getComponent().getOriginalFamilyName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     private static boolean isCodeGenerationNeeded(JobInfo jobInfo) {
         // if we do any export, the code generation will always be needed.
         if (exportConfig && (!(jobInfo.getProcess() instanceof IProcess2))) {
@@ -198,10 +179,11 @@ public class ProcessorUtilities {
         if (jobInfo.isForceRegenerate()) {
             return true;
         }
-        // achen modify if job contains a joblet always regeneration
-        if (isContainsJoblet(jobInfo)) {
+
+        if (ReplaceNodesInProcessProvider.isNeedForceRebuild((IProcess2) jobInfo.getProcess())) {
             return true;
         }
+
         // end
         IProcess attachedProcess = jobInfo.getProcess();
         if (attachedProcess != null && attachedProcess instanceof IProcess2) {
@@ -322,7 +304,6 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
-
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
         boolean toReturn = true;
