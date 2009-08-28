@@ -98,7 +98,10 @@ public class JavaFunctionParser extends AbstractFunctionParser {
 
                 addEveryProjectElements(root, elements);
 
-                for (IJavaElement element : elements) {
+                // for (IJavaElement element : elements) {
+                // see bug 8055,reversal the getLastName() method
+                for (int i = elements.size(); i > 0; i--) {
+                    IJavaElement element = elements.get(i - 1);
                     if (element instanceof ICompilationUnit) {
                         ICompilationUnit compilationUnit = (ICompilationUnit) element;
                         IType[] types = compilationUnit.getAllTypes();
