@@ -27,6 +27,8 @@ public class ParameterInfo {
 
     private String nameSpace;
 
+    private String ParaFullName;
+
     /* list of parameters, only filled if complex type */
     private List<ParameterInfo> parameterInfos = new ArrayList<ParameterInfo>();
 
@@ -125,6 +127,14 @@ public class ParameterInfo {
 
     public void setNameSpace(String nameSpace) {
         this.nameSpace = nameSpace;
+    }
+
+    public String getParaFullName() {
+        return this.ParaFullName;
+    }
+
+    public void setParaFullName(String paraFullName) {
+        this.ParaFullName = paraFullName;
     }
 
 }

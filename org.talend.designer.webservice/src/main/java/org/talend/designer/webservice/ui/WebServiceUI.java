@@ -385,10 +385,13 @@ public class WebServiceUI {
             }
             if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String paraName = map.get("ELEMENT"); //$NON-NLS-1$
-                String reArrayParaName = "";
-                if (paraName.endsWith("]")) {
-                    int lastArray = paraName.lastIndexOf("[");
-                    reArrayParaName = paraName.substring(0, lastArray);
+                String reArrayParaName = paraName;
+                // if (paraName.endsWith("]")) {
+                // int lastArray = paraName.lastIndexOf("[");
+                // reArrayParaName = paraName.substring(0, lastArray);
+                // }
+                if (reArrayParaName.contains("[")) {
+                    reArrayParaName = paraName.replaceAll("\\[\\d+\\]", "");
                 }
                 if (allfunList == null || allfunList.size() <= 0) {
                     return;
@@ -396,8 +399,8 @@ public class WebServiceUI {
                 Function fun = allfunList.get(0);
                 List<ParameterInfo> list = fun.getInputParameters();
                 goin: for (ParameterInfo para : list) {
-                    if (para.getName().equals(paraName) || paraName.endsWith(para.getName())
-                            || reArrayParaName.endsWith(para.getName())) {
+                    String firstParaName = para.getName();
+                    if (para.getName().equals(reArrayParaName)) {
                         // paraName = para.getName();
                         mark = false;
                         childList.clear();
@@ -408,6 +411,23 @@ public class WebServiceUI {
                         }
                         break goin;
                     }
+                    // else if (!para.getParameterInfos().isEmpty()) {
+                    // List<ParameterInfo> nexChildlist = para.getParameterInfos();
+                    // for (ParameterInfo nexPara : nexChildlist) {
+                    // String nextParaName = firstParaName + "." + nexPara.getName();
+                    // if (nextParaName.equals(reArrayParaName)) {
+                    // mark = false;
+                    // childList.clear();
+                    // data.setParameter(para);
+                    // data.setParameterName(paraName);
+                    // if (para.getParameterInfos().size() > 0) {
+                    // childList.addAll(new ParameterInfoUtil().getAllChildren(para));
+                    // }
+                    // break goin;
+                    //
+                    // }
+                    // }
+                    // }
                 }
                 if (mark) {
                     goout: for (ParameterInfo para : childList) {
@@ -456,7 +476,7 @@ public class WebServiceUI {
                 Function fun = allfunList.get(0);
                 List<ParameterInfo> outPaList = fun.getOutputParameters();
                 goin: for (ParameterInfo para : outPaList) {
-                    if (para.getName().equals(ele) || ele.endsWith(para.getName()) || reArrayOutEle.endsWith(para.getName())) {
+                    if (para.getName().equals(ele)) {
                         childList.clear();
                         mark = false;
                         data.setParameter(para);
@@ -957,15 +977,17 @@ public class WebServiceUI {
                         columnModel.add(inData);
                         // }
                     }
+                    expressTableForIn.setSelection(0);
                 }
 
                 ExtendedTableModel<OutPutMappingData> rowForOutput = rowoutPutTableView.getExtendedTableModel();
                 rowForOutput.removeAll();
-                if (listOut == null) {
-                    OutPutMappingData outData = new OutPutMappingData();
-                    outData.setParameterName("OUTPUT IS NULL!!");
-                    rowForOutput.add(outData);
-                } else {
+                // if (listOut == null) {
+                // OutPutMappingData outData = new OutPutMappingData();
+                // outData.setParameterName("OUTPUT IS NULL!!");
+                // rowForOutput.add(outData);
+                // } else
+                if (listOut != null) {
                     for (int i = 0; i < listOut.size(); i++) {
                         OutPutMappingData outData = new OutPutMappingData();
                         ParameterInfo pa = listOut.get(i);
@@ -981,6 +1003,7 @@ public class WebServiceUI {
                     outData.setMetadataColumn(column);
                     exforoutput.add(outData);
                 }
+                rowTableForout.setSelection(0);
             }
         });
 
@@ -1394,6 +1417,7 @@ public class WebServiceUI {
                         inputMappingList.size();
                         // expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
                         expressinPutTableView.getExtendedTableModel().add(data, inputMappingList.size() + 1);
+                        expressTableForIn.select(0);
                         expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                     }
                     return;
@@ -1437,7 +1461,13 @@ public class WebServiceUI {
                                 data.setParameterName(currentSelectedInChildren.getName());
 
                             }
-                            expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
+                            if (currentElementIndexForIn == 0) {
+                                expressinPutTableView.getExtendedTableModel().add(data, -1);
+                            } else {
+                                expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
+                            }
+                            // expressinPutTableView.getTableViewerCreator().getTableViewer().setSelection(data);
+                            expressTableForIn.select(0);
                             expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                             // } else {
                             // List<ParameterInfo> paraList = getAllMostParameterInfo(currentSelectedInChildren, "IN");
@@ -1470,6 +1500,11 @@ public class WebServiceUI {
                 TableItem[] items = expressTableForIn.getSelection();
                 for (int i = 0; i < items.length; i++) {
                     InputMappingData info = (InputMappingData) items[i].getData();
+                    // if (info.getInputColumnValue() != null && !"".equals(info.getInputColumnValue())) {
+                    // // info.getInputColumnValue().
+                    // info.setInputColumnValue(null);
+                    // info.getMetadataColumnList().clear();
+                    // }
                     expressinPutTableView.getExtendedTableModel().remove(info);
                 }
 
@@ -1477,7 +1512,11 @@ public class WebServiceUI {
                 if ((((InputMappingData) items[0].getData()).getParameter()).getParameterInfos().size() == 0) {
                     addListButForIn.setEnabled(false);
                 }
+                if ((((InputMappingData) items[0].getData()).getParameter()).getParent() == null) {
+                    removeButForIn.setEnabled(false);
+                }
                 expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                // columnInPutTableView.getTableViewerCreator().getTableViewer().refresh();
             }
 
         });
@@ -1903,7 +1942,12 @@ public class WebServiceUI {
                         } else {
                             data.setParameterName(para.getName());
                         }
-                        rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut - 1);
+                        if (currentElementIndexForOut == 0) {
+                            rowoutPutTableView.getExtendedTableModel().add(data, -1);
+                        } else {
+                            rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut - 1);
+                        }
+                        rowTableForout.setSelection(0);
                         rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
                     }
                     return;
@@ -1944,6 +1988,7 @@ public class WebServiceUI {
                             rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + 1);
 
                             rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                            rowTableForout.setSelection(0);
 
                         }
                     }
@@ -1966,6 +2011,9 @@ public class WebServiceUI {
                 items = rowTableForout.getSelection();
                 if (((OutPutMappingData) items[0].getData()).getParameter().getParameterInfos().size() == 0) {
                     addListButForOut.setEnabled(false);
+                }
+                if ((((OutPutMappingData) items[0].getData()).getParameter()).getParent() == null) {
+                    removeButForout.setEnabled(false);
                 }
                 rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
             }
@@ -2362,10 +2410,12 @@ public class WebServiceUI {
                         }
                         Set<String> set = webParser.parseOutTableEntryLocations(columnName);
                         if (columnName.indexOf("normalize") == 0) {
-                            columnName = columnName.trim().substring(10, columnName.length() - 5);
+                            columnName = columnName.trim();
+                            columnName = columnName.substring(10, columnName.length() - 5);
                         }
                         if (columnName.indexOf("denormalize") == 0) {
-                            columnName = columnName.trim().substring(12, columnName.length() - 5);
+                            columnName = columnName.trim();
+                            columnName = columnName.substring(12, columnName.length() - 5);
                         }
                         Set<String> set1 = webParser.parseOutTableEntryLocations(columnName);
                         // Set<String> set = webParser.parseOutTableEntryLocations(columnName);

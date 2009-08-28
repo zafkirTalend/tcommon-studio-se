@@ -82,6 +82,7 @@ public class WSDLDiscoveryHelper {
                 } else if (inps.size() > 0 && inps != null) {
                     for (Iterator iterator1 = inps.iterator(); iterator1.hasNext();) {
                         ParameterInfo element = (ParameterInfo) iterator1.next();
+                        getParaFullName(element);
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         inputParameters.add(element);
@@ -89,6 +90,8 @@ public class WSDLDiscoveryHelper {
                             operationName = operationName + element.getKind() + ",";
                         } else if (element.getKind() == null && element.getName() != null) {
                             operationName = operationName + element.getName() + ",";
+                        } else if (element.getKind() == null) {
+                            operationName = operationName + "noType" + ",";
                         }
                     }
                     int operationNamelen = operationName.length();
@@ -102,10 +105,15 @@ public class WSDLDiscoveryHelper {
                 } else {
                     for (Iterator iterator2 = outps.iterator(); iterator2.hasNext();) {
                         ParameterInfo element = (ParameterInfo) iterator2.next();
+                        getParaFullName(element);
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         outputParameters.add(element);
-                        operationName = operationName + element.getKind() + ",";
+                        if (element.getKind() != null) {
+                            operationName = operationName + element.getKind() + ",";
+                        } else {
+                            operationName = operationName + "noType" + ",";
+                        }
                     }
                     int operationNamelen = operationName.length();
                     operationName = operationName.substring(0, operationNamelen - 1);
@@ -120,6 +128,34 @@ public class WSDLDiscoveryHelper {
         }
 
         return functionsAvailable;
+    }
+
+    /**
+     * DOC gcui Comment method "getParaFullName".
+     * 
+     * @param element
+     */
+    private static void getParaFullName(ParameterInfo paraElement) {
+        paraElement.setParaFullName(paraElement.getName());
+        List<ParameterInfo> allChildList = getAllChildren(paraElement);
+
+    }
+
+    public static List<ParameterInfo> getAllChildren(ParameterInfo para) {
+        List<ParameterInfo> list = new ArrayList<ParameterInfo>();
+        List<ParameterInfo> childList = para.getParameterInfos();
+        for (ParameterInfo paraC : childList) {
+            if (paraC.getParent().getParaFullName() != null) {
+                paraC.setParaFullName(paraC.getParent().getParaFullName() + "." + paraC.getName());
+            }
+        }
+        list.addAll(childList);
+        for (ParameterInfo paraC : childList) {
+            if (paraC.getParameterInfos().size() > 0) {
+                list.addAll(getAllChildren(paraC));
+            }
+        }
+        return list;
     }
 
     public static List<Function> getFunctionsAvailable(String wsdlURI) {

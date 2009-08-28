@@ -228,7 +228,9 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
                     ArrayList<TableItem> tableItemsToSelect = (ArrayList<TableItem>) itemsToSelect.get(table);
                     table.deselectAll();
                     TableItem[] tableItems = tableItemsToSelect.toArray(new TableItem[0]);
-                    table.setSelection(tableItems);
+                    if (tableItems[0] != null) {
+                        table.setSelection(tableItems);
+                    }
                 }
             } else {
                 // loopTableEditorView.getTable().deselectAll();
