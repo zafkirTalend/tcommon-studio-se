@@ -3645,13 +3645,40 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 35;
 
     /**
+     * The feature id for the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__REQUEST_ID = 36;
+
+    /**
+     * The feature id for the '<em><b>Resuming Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__RESUMING_MODE = 37;
+
+    /**
+     * The feature id for the '<em><b>Error Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__ERROR_CODE = 38;
+
+    /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 36;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 39;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -10006,6 +10033,39 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTaskExecutionHistory_IdRemoteJobExecution();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getRequestId <em>Request Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Request Id</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getRequestId()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_RequestId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#isResumingMode <em>Resuming Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Resuming Mode</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#isResumingMode()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ResumingMode();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Error Code</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getErrorCode()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ErrorCode();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -13455,6 +13515,30 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = eINSTANCE.getTaskExecutionHistory_IdRemoteJobExecution();
+
+        /**
+         * The meta object literal for the '<em><b>Request Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__REQUEST_ID = eINSTANCE.getTaskExecutionHistory_RequestId();
+
+        /**
+         * The meta object literal for the '<em><b>Resuming Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__RESUMING_MODE = eINSTANCE.getTaskExecutionHistory_ResumingMode();
+
+        /**
+         * The meta object literal for the '<em><b>Error Code</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__ERROR_CODE = eINSTANCE.getTaskExecutionHistory_ErrorCode();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

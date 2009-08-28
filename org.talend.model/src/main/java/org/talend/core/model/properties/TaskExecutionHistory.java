@@ -54,6 +54,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getServerJobEndDate <em>Server Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getRequestId <em>Request Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#isResumingMode <em>Resuming Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -997,5 +1000,83 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setIdRemoteJobExecution(String value);
+
+    /**
+     * Returns the value of the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Request Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Request Id</em>' attribute.
+     * @see #setRequestId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_RequestId()
+     * @model
+     * @generated
+     */
+    String getRequestId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getRequestId <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Request Id</em>' attribute.
+     * @see #getRequestId()
+     * @generated
+     */
+    void setRequestId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Resuming Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Resuming Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Resuming Mode</em>' attribute.
+     * @see #setResumingMode(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ResumingMode()
+     * @model
+     * @generated
+     */
+    boolean isResumingMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#isResumingMode <em>Resuming Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Resuming Mode</em>' attribute.
+     * @see #isResumingMode()
+     * @generated
+     */
+    void setResumingMode(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Error Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Error Code</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Error Code</em>' attribute.
+     * @see #setErrorCode(Integer)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ErrorCode()
+     * @model
+     * @generated
+     */
+    Integer getErrorCode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Error Code</em>' attribute.
+     * @see #getErrorCode()
+     * @generated
+     */
+    void setErrorCode(Integer value);
 
 } // TaskExecutionHistory

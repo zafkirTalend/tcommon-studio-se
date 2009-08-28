@@ -61,6 +61,9 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobEndDate <em>Server Job End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getRequestId <em>Request Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isResumingMode <em>Resuming Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getErrorCode <em>Error Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -786,6 +789,66 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * @ordered
      */
     protected String idRemoteJobExecution = ID_REMOTE_JOB_EXECUTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected static final String REQUEST_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequestId()
+     * @generated
+     * @ordered
+     */
+    protected String requestId = REQUEST_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isResumingMode() <em>Resuming Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isResumingMode()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean RESUMING_MODE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isResumingMode() <em>Resuming Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isResumingMode()
+     * @generated
+     * @ordered
+     */
+    protected boolean resumingMode = RESUMING_MODE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getErrorCode()
+     * @generated
+     * @ordered
+     */
+    protected static final Integer ERROR_CODE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getErrorCode()
+     * @generated
+     * @ordered
+     */
+    protected Integer errorCode = ERROR_CODE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1566,6 +1629,69 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRequestId(String newRequestId) {
+        String oldRequestId = requestId;
+        requestId = newRequestId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID, oldRequestId, requestId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isResumingMode() {
+        return resumingMode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setResumingMode(boolean newResumingMode) {
+        boolean oldResumingMode = resumingMode;
+        resumingMode = newResumingMode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE, oldResumingMode, resumingMode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Integer getErrorCode() {
+        return errorCode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setErrorCode(Integer newErrorCode) {
+        Integer oldErrorCode = errorCode;
+        errorCode = newErrorCode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE, oldErrorCode, errorCode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
@@ -1640,6 +1766,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getIdRemoteJob();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
                 return getIdRemoteJobExecution();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                return getRequestId();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                return isResumingMode() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                return getErrorCode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1758,6 +1890,15 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
                 setIdRemoteJobExecution((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                setRequestId((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                setResumingMode(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                setErrorCode((Integer)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1878,6 +2019,15 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
                 setIdRemoteJobExecution(ID_REMOTE_JOB_EXECUTION_EDEFAULT);
                 return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                setRequestId(REQUEST_ID_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                setResumingMode(RESUMING_MODE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                setErrorCode(ERROR_CODE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1961,6 +2111,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
                 return ID_REMOTE_JOB_EXECUTION_EDEFAULT == null ? idRemoteJobExecution != null : !ID_REMOTE_JOB_EXECUTION_EDEFAULT.equals(idRemoteJobExecution);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                return resumingMode != RESUMING_MODE_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
         }
         return super.eIsSet(featureID);
     }
@@ -2046,6 +2202,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(idRemoteJob);
         result.append(", idRemoteJobExecution: ");
         result.append(idRemoteJobExecution);
+        result.append(", requestId: ");
+        result.append(requestId);
+        result.append(", resumingMode: ");
+        result.append(resumingMode);
+        result.append(", errorCode: ");
+        result.append(errorCode);
         result.append(')');
         return result.toString();
     }
