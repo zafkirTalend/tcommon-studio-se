@@ -13,7 +13,6 @@
 package org.talend.repository.localprovider.ui.actions;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,15 +64,12 @@ import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.swt.advanced.composite.FilteredCheckboxTree;
-import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl;
 import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ProjectRepositoryNode;
@@ -822,44 +818,8 @@ class ExportItemWizardPage extends WizardPage {
         Collection<Item> selectedItems = getSelectedItems();
         try {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
-            // IFileExporterFullPath exporter = exportItemUtil.getExporter();
             Collection<Item> allItems = exportItemUtil.getAllVersions(selectedItems);
             exportItemUtil.exportItems(new File(lastPath), allItems, new NullProgressMonitor());
-            String jarName = null;
-            List jarNameList = new ArrayList();
-            for (Item item : allItems) {
-                if (item instanceof RoutineItem) {
-                    List list = ((RoutineItem) item).getImports();
-                    for (int i = 0; i < list.size(); i++) {
-                        jarName = ((IMPORTTypeImpl) list.get(i)).getMODULE();
-                        jarNameList.add(jarName.toString());
-                    }
-
-                }
-
-            }
-            String newlastpath = lastPath.replace("\\", "/");
-            String path = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
-            path = path.substring(1, path.length());
-
-            for (int j = 0; j < jarNameList.size(); j++) {
-                if (!newlastpath.endsWith("zip")) {
-                    // newlastpath = newlastpath.substring(0, newlastpath.length() - 4);
-                    copyJarToDestination(path + "/" + jarNameList.get(j), newlastpath + "/" + exportItemUtil.getNeedProjectPath()
-                            + "/" + jarNameList.get(j));
-                } else {
-                    int size = newlastpath.lastIndexOf("/") + 1;
-                    String newpath = newlastpath.substring(size, newlastpath.length() - 4);
-                    try {
-                        exportItemUtil.getExporter().write(path + "/" + jarNameList.get(j),
-                                newpath + "/" + exportItemUtil.getNeedProjectPath() + "/" + jarNameList.get(j));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
             if (exportItemUtil.getExporter() != null) {
                 exportItemUtil.getExporter().finished();
             }
@@ -997,20 +957,6 @@ class ExportItemWizardPage extends WizardPage {
 
         @Override
         protected void hookDoubleClickAction() {
-        }
-
-    }
-
-    private void copyJarToDestination(String sourcePath, String destinationPath) {
-        // String path = CorePlugin.getDefault().getLibrariesService().getJavaLibrariesPath();
-        File sourceFile = new File(sourcePath);
-        File destinationFile = new File(destinationPath);
-        if (sourceFile.exists()) {
-            try {
-                FilesUtils.copyFile(sourceFile, destinationFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
     }

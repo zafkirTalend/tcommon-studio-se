@@ -895,15 +895,12 @@ class ImportItemWizardPage extends WizardPage {
 
         ImportItemUtil importItemUtil = new ImportItemUtil();
         if (ImportItemUtil.isRoutineItem) {
-            if (archivePathField.getText().endsWith("zip")) {
+            if (browseArchivesButton.isEnabled()) {
                 String path = archivePathField.getText().replace("\\", "/");
-                // importItemUtil.deployJarToDesForArchive(path);
-                path = path.substring(0, path.lastIndexOf("."));
-                ZipToFileUtil.deleteDirectory(path);
-            }
-
-            if (!directoryPathField.getText().endsWith("zip") && directoryPathField.getText() != null
-                    && !"".equals(directoryPathField.getText())) {
+                importItemUtil.deployJarToDesForArchive(path);
+                IPath rootPath = new Path(path).removeFileExtension().removeFileExtension();
+                ZipToFileUtil.deleteDirectory(rootPath.toString());
+            } else {
                 importItemUtil.deployJarToDes();
             }
         }

@@ -94,12 +94,12 @@ public class ZipToFileUtil {
         String pathPrefix = "/";
         try {
             this.zipIn = new ZipInputStream(new BufferedInputStream(new FileInputStream(unZipfileName)));
-            if (unZipfileName.indexOf("/") == 0) {
-                pathPrefix = unZipfileName.substring(0, unZipfileName.lastIndexOf("/"));
-            } else {
-                pathPrefix = unZipfileName.substring(0, unZipfileName.lastIndexOf("/"));
-                pathPrefix = pathPrefix + "/";
-            }
+            // if (unZipfileName.indexOf("/") == 0) {
+            // pathPrefix = unZipfileName.substring(0, unZipfileName.lastIndexOf("/"));
+            // } else {
+            pathPrefix = unZipfileName.substring(0, unZipfileName.lastIndexOf("/"));
+            pathPrefix = pathPrefix + "/";
+            // }
             while ((this.zipEntry = this.zipIn.getNextEntry()) != null) {
                 file = new File(pathPrefix + this.zipEntry.getName());
                 if (this.zipEntry.isDirectory()) {

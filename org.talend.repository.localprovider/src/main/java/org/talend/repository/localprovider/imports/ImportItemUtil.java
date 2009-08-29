@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.generation.JavaUtils;
@@ -1023,11 +1024,9 @@ public class ImportItemUtil {
                 try {
                     CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
                 } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    ExceptionHandler.process(e);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    ExceptionHandler.process(e);
                 }
             }
 
@@ -1054,11 +1053,9 @@ public class ImportItemUtil {
                     CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
 
                 } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    ExceptionHandler.process(e);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    ExceptionHandler.process(e);
                 }
             }
 
