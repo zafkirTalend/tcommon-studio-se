@@ -378,8 +378,8 @@ public class TalendDate {
         }
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        c.add(Calendar.MONTH, 1);
-        c.set(Calendar.DATE, -1);
+        c.set(Calendar.DATE, 1);
+        c.roll(Calendar.DATE, -1);
         return c.getTime();
     }
 
