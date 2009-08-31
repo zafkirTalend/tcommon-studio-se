@@ -174,7 +174,7 @@ public class ProcessorUtilities {
 
     private static boolean isCodeGenerationNeeded(JobInfo jobInfo) {
         // if we do any export, the code generation will always be needed.
-        if (exportConfig && (!(jobInfo.getProcess() instanceof IProcess2))) {
+        if (exportConfig || (!(jobInfo.getProcess() instanceof IProcess2))) {
             return true;
         }
         if (jobInfo.isForceRegenerate()) {
