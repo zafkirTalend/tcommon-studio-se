@@ -137,7 +137,7 @@ public abstract class RepositoryUpdateManager {
     }
 
     public boolean doWork() {
-        return doWork(true);
+        return doWork(true, false);
     }
 
     public boolean needForcePropagation() {
@@ -149,7 +149,7 @@ public abstract class RepositoryUpdateManager {
     }
 
     @SuppressWarnings("restriction")
-    public boolean doWork(boolean show) {
+    public boolean doWork(boolean show, boolean onlySimpleShow) {
         // check the dialog.
         boolean checked = true;
         boolean showed = false;
@@ -207,7 +207,7 @@ public abstract class RepositoryUpdateManager {
             if (checkedResults != null && !checkedResults.isEmpty()) {
                 if (showed || parameter == null || unShowDialog(checkedResults) || openPropagationDialog()) {
                     IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-                    return designerCoreService.executeUpdatesManager(checkedResults);
+                    return designerCoreService.executeUpdatesManager(checkedResults, onlySimpleShow);
                 }
                 return false;
             }
@@ -488,7 +488,7 @@ public abstract class RepositoryUpdateManager {
     }
 
     /**
-     * DOC YeXiaowei Comment method "checkSettingInJobTemplateWizard".
+     * YeXiaowei Comment method "checkSettingInJobTemplateWizard".
      */
     private List<UpdateResult> checkSettingInJobTemplateWizard() {
         List<IProcess> processes = CorePlugin.getDefault().getDesignerCoreService().getProcessForJobTemplate();
@@ -651,13 +651,17 @@ public abstract class RepositoryUpdateManager {
         return updateDBConnection(connection, true);
     }
 
+    public static boolean updateDBConnection(Connection connection, boolean show) {
+        return updateDBConnection(connection, show);
+    }
+
     /**
      * 
      * ggu Comment method "updateQuery".
      * 
      * if show is false, will work for context menu action.
      */
-    public static boolean updateDBConnection(Connection connection, boolean show) {
+    public static boolean updateDBConnection(Connection connection, boolean show, final boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connection) {
 
             @Override
@@ -670,7 +674,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 
     /**
@@ -680,7 +684,7 @@ public abstract class RepositoryUpdateManager {
      * for repository wizard.
      */
     public static boolean updateFileConnection(Connection connection) {
-        return updateFileConnection(connection, true);
+        return updateFileConnection(connection, true, false);
     }
 
     /**
@@ -689,7 +693,7 @@ public abstract class RepositoryUpdateManager {
      * 
      * if show is false, will work for context menu action.
      */
-    public static boolean updateFileConnection(Connection connection, boolean show) {
+    public static boolean updateFileConnection(Connection connection, boolean show, boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connection) {
 
             @Override
@@ -701,7 +705,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 
     @SuppressWarnings("unchecked")
@@ -772,7 +776,7 @@ public abstract class RepositoryUpdateManager {
         }
         if (update) {
             // update
-            return updateSchema(newTable, connItem, schemaRenamedMap, true);
+            return updateSchema(newTable, connItem, schemaRenamedMap, true, false);
         }
         return false;
     }
@@ -794,7 +798,7 @@ public abstract class RepositoryUpdateManager {
         }
         // update
         if (update) {
-            return updateSchema(connItem, connItem, schemaRenamedMap, true);
+            return updateSchema(connItem, connItem, schemaRenamedMap, true, false);
         }
         return false;
 
@@ -829,13 +833,13 @@ public abstract class RepositoryUpdateManager {
 
     /**
      * 
-     * DOC xye Comment method "updateSAPFunction".
+     * xye Comment method "updateSAPFunction".
      * 
      * @param sapFunction
      * @param show
      * @return
      */
-    public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction, boolean show) {
+    public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction, boolean show, boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapFunction) {
 
             @Override
@@ -848,18 +852,18 @@ public abstract class RepositoryUpdateManager {
 
         };
 
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 
     /**
      * 
-     * DOC xye Comment method "updateSAPFunction".
+     * xye Comment method "updateSAPFunction".
      * 
      * @param sapFunction
      * @return
      */
     public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction) {
-        return updateSAPFunction(sapFunction, true);
+        return updateSAPFunction(sapFunction, true, false);
     }
 
     /**
@@ -870,11 +874,15 @@ public abstract class RepositoryUpdateManager {
      */
     public static boolean updateSchema(final MetadataTable metadataTable, boolean show) {
 
-        return updateSchema(metadataTable, null, null, show);
+        return updateSchema(metadataTable, null, null, show, false);
+    }
+
+    public static boolean updateSchema(final MetadataTable metadataTable, boolean show, boolean onlySimpleShow) {
+        return updateSchema(metadataTable, null, null, show, onlySimpleShow);
     }
 
     private static boolean updateSchema(final Object table, ConnectionItem connItem, Map<String, String> schemaRenamedMap,
-            boolean show) {
+            boolean show, boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table) {
 
             @Override
@@ -889,7 +897,7 @@ public abstract class RepositoryUpdateManager {
         // set renamed schema
         repositoryUpdateManager.setSchemaRenamedMap(schemaRenamedMap);
 
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 
     /**
@@ -900,7 +908,7 @@ public abstract class RepositoryUpdateManager {
      */
     public static boolean updateQuery(QueriesConnection queryConn) {
 
-        return updateQueryObject(queryConn, true);
+        return updateQueryObject(queryConn, true, false);
     }
 
     /**
@@ -910,10 +918,14 @@ public abstract class RepositoryUpdateManager {
      * if show is false, will work for context menu action.
      */
     public static boolean updateQuery(Query query, boolean show) {
-        return updateQueryObject(query, show);
+        return updateQueryObject(query, show, false);
     }
 
-    private static boolean updateQueryObject(Object parameter, boolean show) {
+    public static boolean updateQuery(Query query, boolean show, boolean onlySimpleShow) {
+        return updateQueryObject(query, show, onlySimpleShow);
+    }
+
+    private static boolean updateQueryObject(Object parameter, boolean show, boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter) {
 
             @Override
@@ -924,7 +936,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 
     /**
@@ -934,7 +946,11 @@ public abstract class RepositoryUpdateManager {
      * if show is false, will work for context menu action.
      */
     public static boolean updateContext(ContextItem item, boolean show) {
-        return updateContext(null, item, show);
+        return updateContext(null, item, show, false);
+    }
+
+    public static boolean updateContext(ContextItem item, boolean show, boolean onlySimpleShow) {
+        return updateContext(null, item, show, onlySimpleShow);
     }
 
     /**
@@ -945,10 +961,11 @@ public abstract class RepositoryUpdateManager {
      */
     public static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item) {
 
-        return updateContext(repositoryContextManager, item, true);
+        return updateContext(repositoryContextManager, item, true, false);
     }
 
-    private static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item, boolean show) {
+    private static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item, boolean show,
+            boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item) {
 
             @Override
@@ -974,7 +991,7 @@ public abstract class RepositoryUpdateManager {
             repositoryUpdateManager.setNewParametersMap(newParametersMap);
 
         }
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 
     public Map<ContextItem, Set<String>> getNewParametersMap() {
@@ -1019,7 +1036,7 @@ public abstract class RepositoryUpdateManager {
         return tables;
     }
 
-    public static boolean updateJoblet(JobletProcessItem item, boolean show) {
+    public static boolean updateJoblet(JobletProcessItem item, boolean show, boolean onlySimpleShow) {
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item) {
 
             @Override
@@ -1032,6 +1049,6 @@ public abstract class RepositoryUpdateManager {
         };
         repositoryUpdateManager.setOnlyOpeningJob(true);
 
-        return repositoryUpdateManager.doWork(show);
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
     }
 }

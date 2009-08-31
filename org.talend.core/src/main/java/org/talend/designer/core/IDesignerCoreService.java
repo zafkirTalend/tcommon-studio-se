@@ -118,7 +118,7 @@ public interface IDesignerCoreService extends IService {
 
     public INode getRefrenceNode(String componentName);
 
-    public boolean executeUpdatesManager(List<UpdateResult> results);
+    public boolean executeUpdatesManager(List<UpdateResult> results, boolean onlySimpleShow);
 
     public Map<String, Date> getLastGeneratedJobsDateMap();
 
