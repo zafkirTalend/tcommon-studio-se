@@ -377,6 +377,7 @@ public interface SalesforceSchemaConnection extends Connection {
 
     /**
      * Returns the value of the '<em><b>Use Alphbet</b></em>' attribute.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Use Alphbet</em>' attribute isn't clear,
@@ -386,7 +387,7 @@ public interface SalesforceSchemaConnection extends Connection {
      * @return the value of the '<em>Use Alphbet</em>' attribute.
      * @see #setUseAlphbet(boolean)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_UseAlphbet()
-     * @model
+     * @model default="true"
      * @generated
      */
     boolean isUseAlphbet();

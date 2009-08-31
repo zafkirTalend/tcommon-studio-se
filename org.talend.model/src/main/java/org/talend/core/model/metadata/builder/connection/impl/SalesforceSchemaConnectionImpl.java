@@ -310,7 +310,7 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @generated
      * @ordered
      */
-    protected static final boolean USE_ALPHBET_EDEFAULT = false;
+    protected static final boolean USE_ALPHBET_EDEFAULT = true;
 
     /**
      * The cached value of the '{@link #isUseAlphbet() <em>Use Alphbet</em>}' attribute.
