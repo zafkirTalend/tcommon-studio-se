@@ -1417,7 +1417,7 @@ public class WebServiceUI {
                         inputMappingList.size();
                         // expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
                         expressinPutTableView.getExtendedTableModel().add(data, inputMappingList.size() + 1);
-                        expressTableForIn.select(0);
+                        expressTableForIn.select(currentElementIndexForIn);
                         expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                     }
                     return;
@@ -1467,7 +1467,7 @@ public class WebServiceUI {
                                 expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
                             }
                             // expressinPutTableView.getTableViewerCreator().getTableViewer().setSelection(data);
-                            expressTableForIn.select(0);
+                            expressTableForIn.select(currentElementIndexForIn);
                             expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                             // } else {
                             // List<ParameterInfo> paraList = getAllMostParameterInfo(currentSelectedInChildren, "IN");
@@ -1945,9 +1945,9 @@ public class WebServiceUI {
                         if (currentElementIndexForOut == 0) {
                             rowoutPutTableView.getExtendedTableModel().add(data, -1);
                         } else {
-                            rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut - 1);
+                            rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + 1);
                         }
-                        rowTableForout.setSelection(0);
+                        rowTableForout.setSelection(currentElementIndexForOut);
                         rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
                     }
                     return;
@@ -1988,7 +1988,7 @@ public class WebServiceUI {
                             rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + 1);
 
                             rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
-                            rowTableForout.setSelection(0);
+                            rowTableForout.setSelection(currentElementIndexForOut);
 
                         }
                     }
