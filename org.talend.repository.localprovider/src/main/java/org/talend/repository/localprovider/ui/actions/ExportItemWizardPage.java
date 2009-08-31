@@ -446,8 +446,10 @@ class ExportItemWizardPage extends WizardPage {
         this.directoryPathField = new Text(projectGroup, SWT.BORDER);
 
         this.directoryPathField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
-        if (reloadExportPath(DIRECTORY_PATH) != null) {
-            this.directoryPathField.setText(reloadExportPath(DIRECTORY_PATH));
+        String reloaded = reloadExportPath(DIRECTORY_PATH);
+        if (reloaded != null) {
+            this.directoryPathField.setText(reloaded);
+            this.lastPath = reloaded;
         }
 
         browseDirectoriesButton = new Button(projectGroup, SWT.PUSH);
