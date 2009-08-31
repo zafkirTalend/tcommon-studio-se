@@ -53,6 +53,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl;
 import org.talend.repository.job.deletion.JobResource;
 import org.talend.repository.job.deletion.JobResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -734,7 +735,12 @@ public class ProcessorUtilities {
     private static Set<JobInfo> getAllJobInfo(ProcessItem processItem, Set<JobInfo> jobInfos) {
         ProcessType ptype = processItem.getProcess();
         // trunjob component
-        EList<NodeType> nodes = ptype.getNode();
+        EList<NodeType> nodes;
+        if (((ProcessTypeImpl) ptype).lazyBool == true) {
+            nodes = ((ProcessTypeImpl) ptype).getLazyNode();
+        } else {
+            nodes = ptype.getNode();
+        }
         for (NodeType node : nodes) {
             if ("tRunJob".equalsIgnoreCase(node.getComponentName())) { //$NON-NLS-1$
                 String jobId = getParameterValue(node.getElementParameter(), "PROCESS:PROCESS_TYPE_PROCESS"); //$NON-NLS-1$

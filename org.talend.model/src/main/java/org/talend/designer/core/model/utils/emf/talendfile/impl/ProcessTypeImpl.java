@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.designer.core.model.utils.emf.talendfile.impl;
@@ -29,40 +28,45 @@ import org.talend.designer.core.model.utils.emf.talendfile.SubjobType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Process Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Process Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRequired <em>Required</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getContext <em>Context</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNode <em>Node</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getConnection <em>Connection</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNote <em>Note</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getLogs <em>Logs</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getAuthor <em>Author</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getComment <em>Comment</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDefaultContext <em>Default Context</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getPurpose <em>Purpose</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRepositoryContextId <em>Repository Context Id</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getStatus <em>Status</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getSubjob <em>Subjob</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshot <em>Screenshot</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDescription <em>Description
+ * </em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRequired <em>Required</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getContext <em>Context</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getParameters <em>Parameters
+ * </em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNode <em>Node</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getConnection <em>Connection
+ * </em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNote <em>Note</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getLogs <em>Logs</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getAuthor <em>Author</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getComment <em>Comment</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDefaultContext <em>Default
+ * Context</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getPurpose <em>Purpose</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRepositoryContextId <em>
+ * Repository Context Id</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getStatus <em>Status</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getVersion <em>Version</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getSubjob <em>Subjob</em>}</li>
+ * <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshot <em>Screenshot
+ * </em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
+
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -70,9 +74,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -80,9 +84,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getRequired() <em>Required</em>}' containment reference.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getRequired() <em>Required</em>}' containment reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getRequired()
      * @generated
      * @ordered
@@ -90,9 +94,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected RequiredType required;
 
     /**
-     * The cached value of the '{@link #getContext() <em>Context</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getContext() <em>Context</em>}' containment reference list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getContext()
      * @generated
      * @ordered
@@ -100,9 +104,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList context;
 
     /**
-     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getParameters()
      * @generated
      * @ordered
@@ -110,9 +114,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected ParametersType parameters;
 
     /**
-     * The cached value of the '{@link #getNode() <em>Node</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getNode() <em>Node</em>}' containment reference list. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getNode()
      * @generated
      * @ordered
@@ -120,9 +124,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList node;
 
     /**
-     * The cached value of the '{@link #getConnection() <em>Connection</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getConnection() <em>Connection</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getConnection()
      * @generated
      * @ordered
@@ -130,9 +134,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList connection;
 
     /**
-     * The cached value of the '{@link #getNote() <em>Note</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getNote() <em>Note</em>}' containment reference list. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getNote()
      * @generated
      * @ordered
@@ -140,9 +144,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList note;
 
     /**
-     * The cached value of the '{@link #getLogs() <em>Logs</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getLogs() <em>Logs</em>}' containment reference. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getLogs()
      * @generated
      * @ordered
@@ -150,9 +154,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected LogsType logs;
 
     /**
-     * The default value of the '{@link #getAuthor() <em>Author</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getAuthor() <em>Author</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getAuthor()
      * @generated
      * @ordered
@@ -160,9 +164,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String AUTHOR_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getAuthor() <em>Author</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAuthor() <em>Author</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getAuthor()
      * @generated
      * @ordered
@@ -170,9 +174,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String author = AUTHOR_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -180,9 +184,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String COMMENT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getComment()
      * @generated
      * @ordered
@@ -190,9 +194,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String comment = COMMENT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDefaultContext() <em>Default Context</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getDefaultContext() <em>Default Context</em>}' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getDefaultContext()
      * @generated
      * @ordered
@@ -200,9 +204,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String DEFAULT_CONTEXT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDefaultContext() <em>Default Context</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getDefaultContext() <em>Default Context</em>}' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getDefaultContext()
      * @generated
      * @ordered
@@ -210,9 +214,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String defaultContext = DEFAULT_CONTEXT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getName()
      * @generated
      * @ordered
@@ -220,9 +224,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getName()
      * @generated
      * @ordered
@@ -230,9 +234,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPurpose() <em>Purpose</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getPurpose() <em>Purpose</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getPurpose()
      * @generated
      * @ordered
@@ -240,9 +244,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String PURPOSE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPurpose() <em>Purpose</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getPurpose() <em>Purpose</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getPurpose()
      * @generated
      * @ordered
@@ -250,9 +254,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String purpose = PURPOSE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRepositoryContextId()
      * @generated
      * @ordered
@@ -260,9 +264,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String REPOSITORY_CONTEXT_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRepositoryContextId()
      * @generated
      * @ordered
@@ -270,9 +274,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String repositoryContextId = REPOSITORY_CONTEXT_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getStatus()
      * @generated
      * @ordered
@@ -280,9 +284,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getStatus()
      * @generated
      * @ordered
@@ -290,9 +294,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String status = STATUS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getVersion()
      * @generated
      * @ordered
@@ -300,9 +304,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final String VERSION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getVersion()
      * @generated
      * @ordered
@@ -310,9 +314,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected String version = VERSION_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getSubjob() <em>Subjob</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getSubjob() <em>Subjob</em>}' containment reference list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getSubjob()
      * @generated
      * @ordered
@@ -320,9 +324,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList subjob;
 
     /**
-     * The default value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getScreenshot()
      * @generated
      * @ordered
@@ -330,9 +334,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected static final byte[] SCREENSHOT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getScreenshot() <em>Screenshot</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getScreenshot()
      * @generated
      * @ordered
@@ -340,17 +344,20 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected byte[] screenshot = SCREENSHOT_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ProcessTypeImpl() {
         super();
+        lazyBool = false;
     }
 
+    public static boolean lazyBool = false;
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -358,8 +365,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getDescription() {
@@ -367,20 +374,21 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDescription(String newDescription) {
         String oldDescription = description;
         description = newDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__DESCRIPTION, oldDescription, description));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__DESCRIPTION, oldDescription,
+                    description));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public RequiredType getRequired() {
@@ -388,42 +396,49 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public NotificationChain basicSetRequired(RequiredType newRequired, NotificationChain msgs) {
         RequiredType oldRequired = required;
         required = newRequired;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REQUIRED, oldRequired, newRequired);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    TalendFilePackage.PROCESS_TYPE__REQUIRED, oldRequired, newRequired);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setRequired(RequiredType newRequired) {
         if (newRequired != required) {
             NotificationChain msgs = null;
             if (required != null)
-                msgs = ((InternalEObject)required).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__REQUIRED, null, msgs);
+                msgs = ((InternalEObject) required).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - TalendFilePackage.PROCESS_TYPE__REQUIRED, null, msgs);
             if (newRequired != null)
-                msgs = ((InternalEObject)newRequired).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__REQUIRED, null, msgs);
+                msgs = ((InternalEObject) newRequired).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                        - TalendFilePackage.PROCESS_TYPE__REQUIRED, null, msgs);
             msgs = basicSetRequired(newRequired, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REQUIRED, newRequired, newRequired));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REQUIRED, newRequired,
+                    newRequired));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList getContext() {
@@ -433,9 +448,14 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         return context;
     }
 
+    public EList getLazyContext() {
+        context = new EObjectContainmentEList(ContextType.class, this, TalendFilePackage.PROCESS_TYPE__CONTEXT);
+        return context;
+    }
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ParametersType getParameters() {
@@ -443,42 +463,49 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public NotificationChain basicSetParameters(ParametersType newParameters, NotificationChain msgs) {
         ParametersType oldParameters = parameters;
         parameters = newParameters;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__PARAMETERS, oldParameters, newParameters);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    TalendFilePackage.PROCESS_TYPE__PARAMETERS, oldParameters, newParameters);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setParameters(ParametersType newParameters) {
         if (newParameters != parameters) {
             NotificationChain msgs = null;
             if (parameters != null)
-                msgs = ((InternalEObject)parameters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__PARAMETERS, null, msgs);
+                msgs = ((InternalEObject) parameters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - TalendFilePackage.PROCESS_TYPE__PARAMETERS, null, msgs);
             if (newParameters != null)
-                msgs = ((InternalEObject)newParameters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__PARAMETERS, null, msgs);
+                msgs = ((InternalEObject) newParameters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                        - TalendFilePackage.PROCESS_TYPE__PARAMETERS, null, msgs);
             msgs = basicSetParameters(newParameters, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__PARAMETERS, newParameters, newParameters));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__PARAMETERS, newParameters,
+                    newParameters));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList getNode() {
@@ -488,9 +515,14 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         return node;
     }
 
+    public EList getLazyNode() {
+        node = new EObjectContainmentEList(NodeType.class, this, TalendFilePackage.PROCESS_TYPE__NODE);
+        return node;
+    }
+
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList getConnection() {
@@ -501,8 +533,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList getNote() {
@@ -513,8 +545,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList getSubjob() {
@@ -525,8 +557,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public byte[] getScreenshot() {
@@ -534,20 +566,21 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setScreenshot(byte[] newScreenshot) {
         byte[] oldScreenshot = screenshot;
         screenshot = newScreenshot;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__SCREENSHOT, oldScreenshot, screenshot));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__SCREENSHOT, oldScreenshot,
+                    screenshot));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public LogsType getLogs() {
@@ -555,42 +588,48 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public NotificationChain basicSetLogs(LogsType newLogs, NotificationChain msgs) {
         LogsType oldLogs = logs;
         logs = newLogs;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__LOGS, oldLogs, newLogs);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__LOGS,
+                    oldLogs, newLogs);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setLogs(LogsType newLogs) {
         if (newLogs != logs) {
             NotificationChain msgs = null;
             if (logs != null)
-                msgs = ((InternalEObject)logs).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__LOGS, null, msgs);
+                msgs = ((InternalEObject) logs).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - TalendFilePackage.PROCESS_TYPE__LOGS, null, msgs);
             if (newLogs != null)
-                msgs = ((InternalEObject)newLogs).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__LOGS, null, msgs);
+                msgs = ((InternalEObject) newLogs).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                        - TalendFilePackage.PROCESS_TYPE__LOGS, null, msgs);
             msgs = basicSetLogs(newLogs, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__LOGS, newLogs, newLogs));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getAuthor() {
@@ -598,8 +637,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setAuthor(String newAuthor) {
@@ -610,8 +649,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getComment() {
@@ -619,8 +658,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setComment(String newComment) {
@@ -631,8 +670,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getDefaultContext() {
@@ -640,20 +679,21 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDefaultContext(String newDefaultContext) {
         String oldDefaultContext = defaultContext;
         defaultContext = newDefaultContext;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT, oldDefaultContext, defaultContext));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT,
+                    oldDefaultContext, defaultContext));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getName() {
@@ -661,8 +701,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setName(String newName) {
@@ -673,8 +713,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getPurpose() {
@@ -682,8 +722,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setPurpose(String newPurpose) {
@@ -694,8 +734,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getRepositoryContextId() {
@@ -703,20 +743,21 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setRepositoryContextId(String newRepositoryContextId) {
         String oldRepositoryContextId = repositoryContextId;
         repositoryContextId = newRepositoryContextId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID,
+                    oldRepositoryContextId, repositoryContextId));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getStatus() {
@@ -724,8 +765,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setStatus(String newStatus) {
@@ -736,8 +777,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getVersion() {
@@ -745,8 +786,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setVersion(String newVersion) {
@@ -757,268 +798,270 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
-                return basicSetRequired(null, msgs);
-            case TalendFilePackage.PROCESS_TYPE__CONTEXT:
-                return ((InternalEList)getContext()).basicRemove(otherEnd, msgs);
-            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
-                return basicSetParameters(null, msgs);
-            case TalendFilePackage.PROCESS_TYPE__NODE:
-                return ((InternalEList)getNode()).basicRemove(otherEnd, msgs);
-            case TalendFilePackage.PROCESS_TYPE__CONNECTION:
-                return ((InternalEList)getConnection()).basicRemove(otherEnd, msgs);
-            case TalendFilePackage.PROCESS_TYPE__NOTE:
-                return ((InternalEList)getNote()).basicRemove(otherEnd, msgs);
-            case TalendFilePackage.PROCESS_TYPE__LOGS:
-                return basicSetLogs(null, msgs);
-            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
-                return ((InternalEList)getSubjob()).basicRemove(otherEnd, msgs);
+        case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+            return basicSetRequired(null, msgs);
+        case TalendFilePackage.PROCESS_TYPE__CONTEXT:
+            return ((InternalEList) getContext()).basicRemove(otherEnd, msgs);
+        case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+            return basicSetParameters(null, msgs);
+        case TalendFilePackage.PROCESS_TYPE__NODE:
+            return ((InternalEList) getNode()).basicRemove(otherEnd, msgs);
+        case TalendFilePackage.PROCESS_TYPE__CONNECTION:
+            return ((InternalEList) getConnection()).basicRemove(otherEnd, msgs);
+        case TalendFilePackage.PROCESS_TYPE__NOTE:
+            return ((InternalEList) getNote()).basicRemove(otherEnd, msgs);
+        case TalendFilePackage.PROCESS_TYPE__LOGS:
+            return basicSetLogs(null, msgs);
+        case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+            return ((InternalEList) getSubjob()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
-                return getDescription();
-            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
-                return getRequired();
-            case TalendFilePackage.PROCESS_TYPE__CONTEXT:
-                return getContext();
-            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
-                return getParameters();
-            case TalendFilePackage.PROCESS_TYPE__NODE:
-                return getNode();
-            case TalendFilePackage.PROCESS_TYPE__CONNECTION:
-                return getConnection();
-            case TalendFilePackage.PROCESS_TYPE__NOTE:
-                return getNote();
-            case TalendFilePackage.PROCESS_TYPE__LOGS:
-                return getLogs();
-            case TalendFilePackage.PROCESS_TYPE__AUTHOR:
-                return getAuthor();
-            case TalendFilePackage.PROCESS_TYPE__COMMENT:
-                return getComment();
-            case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
-                return getDefaultContext();
-            case TalendFilePackage.PROCESS_TYPE__NAME:
-                return getName();
-            case TalendFilePackage.PROCESS_TYPE__PURPOSE:
-                return getPurpose();
-            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
-                return getRepositoryContextId();
-            case TalendFilePackage.PROCESS_TYPE__STATUS:
-                return getStatus();
-            case TalendFilePackage.PROCESS_TYPE__VERSION:
-                return getVersion();
-            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
-                return getSubjob();
-            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
-                return getScreenshot();
+        case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
+            return getDescription();
+        case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+            return getRequired();
+        case TalendFilePackage.PROCESS_TYPE__CONTEXT:
+            return getContext();
+        case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+            return getParameters();
+        case TalendFilePackage.PROCESS_TYPE__NODE:
+            return getNode();
+        case TalendFilePackage.PROCESS_TYPE__CONNECTION:
+            return getConnection();
+        case TalendFilePackage.PROCESS_TYPE__NOTE:
+            return getNote();
+        case TalendFilePackage.PROCESS_TYPE__LOGS:
+            return getLogs();
+        case TalendFilePackage.PROCESS_TYPE__AUTHOR:
+            return getAuthor();
+        case TalendFilePackage.PROCESS_TYPE__COMMENT:
+            return getComment();
+        case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
+            return getDefaultContext();
+        case TalendFilePackage.PROCESS_TYPE__NAME:
+            return getName();
+        case TalendFilePackage.PROCESS_TYPE__PURPOSE:
+            return getPurpose();
+        case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+            return getRepositoryContextId();
+        case TalendFilePackage.PROCESS_TYPE__STATUS:
+            return getStatus();
+        case TalendFilePackage.PROCESS_TYPE__VERSION:
+            return getVersion();
+        case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+            return getSubjob();
+        case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+            return getScreenshot();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
-                setRequired((RequiredType)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__CONTEXT:
-                getContext().clear();
-                getContext().addAll((Collection)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
-                setParameters((ParametersType)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__NODE:
-                getNode().clear();
-                getNode().addAll((Collection)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__CONNECTION:
-                getConnection().clear();
-                getConnection().addAll((Collection)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__NOTE:
-                getNote().clear();
-                getNote().addAll((Collection)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__LOGS:
-                setLogs((LogsType)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__AUTHOR:
-                setAuthor((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__COMMENT:
-                setComment((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
-                setDefaultContext((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__NAME:
-                setName((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__PURPOSE:
-                setPurpose((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
-                setRepositoryContextId((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__STATUS:
-                setStatus((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__VERSION:
-                setVersion((String)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
-                getSubjob().clear();
-                getSubjob().addAll((Collection)newValue);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
-                setScreenshot((byte[])newValue);
-                return;
+        case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
+            setDescription((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+            setRequired((RequiredType) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__CONTEXT:
+            getContext().clear();
+            getContext().addAll((Collection) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+            setParameters((ParametersType) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__NODE:
+            getNode().clear();
+            getNode().addAll((Collection) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__CONNECTION:
+            getConnection().clear();
+            getConnection().addAll((Collection) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__NOTE:
+            getNote().clear();
+            getNote().addAll((Collection) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__LOGS:
+            setLogs((LogsType) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__AUTHOR:
+            setAuthor((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__COMMENT:
+            setComment((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
+            setDefaultContext((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__NAME:
+            setName((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__PURPOSE:
+            setPurpose((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+            setRepositoryContextId((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__STATUS:
+            setStatus((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__VERSION:
+            setVersion((String) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+            getSubjob().clear();
+            getSubjob().addAll((Collection) newValue);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+            setScreenshot((byte[]) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
-                setRequired((RequiredType)null);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__CONTEXT:
-                getContext().clear();
-                return;
-            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
-                setParameters((ParametersType)null);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__NODE:
-                getNode().clear();
-                return;
-            case TalendFilePackage.PROCESS_TYPE__CONNECTION:
-                getConnection().clear();
-                return;
-            case TalendFilePackage.PROCESS_TYPE__NOTE:
-                getNote().clear();
-                return;
-            case TalendFilePackage.PROCESS_TYPE__LOGS:
-                setLogs((LogsType)null);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__AUTHOR:
-                setAuthor(AUTHOR_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__COMMENT:
-                setComment(COMMENT_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
-                setDefaultContext(DEFAULT_CONTEXT_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__NAME:
-                setName(NAME_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__PURPOSE:
-                setPurpose(PURPOSE_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
-                setRepositoryContextId(REPOSITORY_CONTEXT_ID_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__STATUS:
-                setStatus(STATUS_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__VERSION:
-                setVersion(VERSION_EDEFAULT);
-                return;
-            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
-                getSubjob().clear();
-                return;
-            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
-                setScreenshot(SCREENSHOT_EDEFAULT);
-                return;
+        case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
+            setDescription(DESCRIPTION_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+            setRequired((RequiredType) null);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__CONTEXT:
+            getContext().clear();
+            return;
+        case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+            setParameters((ParametersType) null);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__NODE:
+            getNode().clear();
+            return;
+        case TalendFilePackage.PROCESS_TYPE__CONNECTION:
+            getConnection().clear();
+            return;
+        case TalendFilePackage.PROCESS_TYPE__NOTE:
+            getNote().clear();
+            return;
+        case TalendFilePackage.PROCESS_TYPE__LOGS:
+            setLogs((LogsType) null);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__AUTHOR:
+            setAuthor(AUTHOR_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__COMMENT:
+            setComment(COMMENT_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
+            setDefaultContext(DEFAULT_CONTEXT_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__NAME:
+            setName(NAME_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__PURPOSE:
+            setPurpose(PURPOSE_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+            setRepositoryContextId(REPOSITORY_CONTEXT_ID_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__STATUS:
+            setStatus(STATUS_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__VERSION:
+            setVersion(VERSION_EDEFAULT);
+            return;
+        case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+            getSubjob().clear();
+            return;
+        case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+            setScreenshot(SCREENSHOT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
-                return required != null;
-            case TalendFilePackage.PROCESS_TYPE__CONTEXT:
-                return context != null && !context.isEmpty();
-            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
-                return parameters != null;
-            case TalendFilePackage.PROCESS_TYPE__NODE:
-                return node != null && !node.isEmpty();
-            case TalendFilePackage.PROCESS_TYPE__CONNECTION:
-                return connection != null && !connection.isEmpty();
-            case TalendFilePackage.PROCESS_TYPE__NOTE:
-                return note != null && !note.isEmpty();
-            case TalendFilePackage.PROCESS_TYPE__LOGS:
-                return logs != null;
-            case TalendFilePackage.PROCESS_TYPE__AUTHOR:
-                return AUTHOR_EDEFAULT == null ? author != null : !AUTHOR_EDEFAULT.equals(author);
-            case TalendFilePackage.PROCESS_TYPE__COMMENT:
-                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-            case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
-                return DEFAULT_CONTEXT_EDEFAULT == null ? defaultContext != null : !DEFAULT_CONTEXT_EDEFAULT.equals(defaultContext);
-            case TalendFilePackage.PROCESS_TYPE__NAME:
-                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case TalendFilePackage.PROCESS_TYPE__PURPOSE:
-                return PURPOSE_EDEFAULT == null ? purpose != null : !PURPOSE_EDEFAULT.equals(purpose);
-            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
-                return REPOSITORY_CONTEXT_ID_EDEFAULT == null ? repositoryContextId != null : !REPOSITORY_CONTEXT_ID_EDEFAULT.equals(repositoryContextId);
-            case TalendFilePackage.PROCESS_TYPE__STATUS:
-                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
-            case TalendFilePackage.PROCESS_TYPE__VERSION:
-                return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-            case TalendFilePackage.PROCESS_TYPE__SUBJOB:
-                return subjob != null && !subjob.isEmpty();
-            case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
-                return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
+        case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
+            return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+        case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+            return required != null;
+        case TalendFilePackage.PROCESS_TYPE__CONTEXT:
+            return context != null && !context.isEmpty();
+        case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+            return parameters != null;
+        case TalendFilePackage.PROCESS_TYPE__NODE:
+            return node != null && !node.isEmpty();
+        case TalendFilePackage.PROCESS_TYPE__CONNECTION:
+            return connection != null && !connection.isEmpty();
+        case TalendFilePackage.PROCESS_TYPE__NOTE:
+            return note != null && !note.isEmpty();
+        case TalendFilePackage.PROCESS_TYPE__LOGS:
+            return logs != null;
+        case TalendFilePackage.PROCESS_TYPE__AUTHOR:
+            return AUTHOR_EDEFAULT == null ? author != null : !AUTHOR_EDEFAULT.equals(author);
+        case TalendFilePackage.PROCESS_TYPE__COMMENT:
+            return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+        case TalendFilePackage.PROCESS_TYPE__DEFAULT_CONTEXT:
+            return DEFAULT_CONTEXT_EDEFAULT == null ? defaultContext != null : !DEFAULT_CONTEXT_EDEFAULT.equals(defaultContext);
+        case TalendFilePackage.PROCESS_TYPE__NAME:
+            return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        case TalendFilePackage.PROCESS_TYPE__PURPOSE:
+            return PURPOSE_EDEFAULT == null ? purpose != null : !PURPOSE_EDEFAULT.equals(purpose);
+        case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+            return REPOSITORY_CONTEXT_ID_EDEFAULT == null ? repositoryContextId != null : !REPOSITORY_CONTEXT_ID_EDEFAULT
+                    .equals(repositoryContextId);
+        case TalendFilePackage.PROCESS_TYPE__STATUS:
+            return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+        case TalendFilePackage.PROCESS_TYPE__VERSION:
+            return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+        case TalendFilePackage.PROCESS_TYPE__SUBJOB:
+            return subjob != null && !subjob.isEmpty();
+        case TalendFilePackage.PROCESS_TYPE__SCREENSHOT:
+            return SCREENSHOT_EDEFAULT == null ? screenshot != null : !SCREENSHOT_EDEFAULT.equals(screenshot);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (description: ");
@@ -1045,4 +1088,4 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         return result.toString();
     }
 
-} //ProcessTypeImpl
+} // ProcessTypeImpl
