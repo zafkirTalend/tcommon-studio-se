@@ -101,7 +101,7 @@ public class ComponentsFactoryProvider {
                 for (Object curSetting : list) {
                     if (curSetting instanceof ComponentSetting) {
                         String curFamily = ((ComponentSetting) curSetting).getFamily();
-                        if (curFamily.equals(family)) {
+                        if (curFamily != null && curFamily.equals(family)) {
                             existingFamily = true;
                             break;
                         }
