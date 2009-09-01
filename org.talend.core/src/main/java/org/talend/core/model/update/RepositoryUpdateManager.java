@@ -648,11 +648,11 @@ public abstract class RepositoryUpdateManager {
      * for repository wizard.
      */
     public static boolean updateDBConnection(Connection connection) {
-        return updateDBConnection(connection, true);
+        return updateDBConnection(connection, true, false);
     }
 
     public static boolean updateDBConnection(Connection connection, boolean show) {
-        return updateDBConnection(connection, show);
+        return updateDBConnection(connection, show, false);
     }
 
     /**
