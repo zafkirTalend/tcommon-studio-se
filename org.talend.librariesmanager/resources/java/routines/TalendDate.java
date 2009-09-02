@@ -215,7 +215,7 @@ public class TalendDate {
      * @param dateType (date pattern = ("yyyy","MM","dd","HH","mm","ss","SSS" ))
      * @return a new date
      * 
-     * {talendTypes} Date
+     * {talendTypes} String
      * 
      * {Category} TalendDate
      * 
@@ -234,7 +234,7 @@ public class TalendDate {
      * ->> addDate("2008/11/24 12:15:25", "yyyy/MM/DD HH:MM:SS", 5,"ss") return "2008/11/24 12:15:30" #
      * 
      */
-    public static Date addDateWithPattern(String string, String pattern, int nb, String dateType) {
+    public static String addDate(String string, String pattern, int nb, String dateType) {
         if (string == null || dateType == null) {
             return null;
         }
@@ -246,7 +246,9 @@ public class TalendDate {
         } catch (ParseException e) {
             throw new RuntimeException(pattern + " can't support the date!"); //$NON-NLS-1$
         }
-        return addDate(date, nb, dateType);
+        String dateString = sdf.format(addDate(date, nb, dateType));
+
+        return dateString;
     }
 
     /**
