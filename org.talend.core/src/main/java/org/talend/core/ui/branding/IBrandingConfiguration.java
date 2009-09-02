@@ -66,4 +66,6 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     public String getAdditionalTitle();
 
     public void setAdditionalTitle(String title);
+
+    public String getInitialWindowPerspectiveId();
 }

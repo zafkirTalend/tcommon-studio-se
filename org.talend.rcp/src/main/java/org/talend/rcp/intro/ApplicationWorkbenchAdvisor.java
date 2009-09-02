@@ -29,6 +29,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.codegen.CodeGeneratorActivator;
 import org.talend.designer.runprocess.RunProcessPlugin;
@@ -70,6 +71,17 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
     @Override
     public String getInitialWindowPerspectiveId() {
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
+        if (brandingService != null) {
+            IBrandingConfiguration brandingConfiguration = brandingService.getBrandingConfiguration();
+            if (brandingConfiguration != null) {
+                String perspectiveId = brandingConfiguration.getInitialWindowPerspectiveId();
+                if (perspectiveId != null) {
+                    return perspectiveId;
+                }
+            }
+        }
         return PERSPECTIVE_ID;
     }
 

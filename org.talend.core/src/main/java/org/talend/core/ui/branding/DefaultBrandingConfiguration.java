@@ -275,4 +275,8 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
     public void setAdditionalTitle(String title) {
         this.title = title;
     }
+
+    public String getInitialWindowPerspectiveId() {
+        return "org.talend.rcp.perspective";
+    }
 }
