@@ -380,8 +380,8 @@ public class TalendDate {
         }
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        c.set(Calendar.DATE, 1);
-        c.roll(Calendar.DATE, -1);
+        int lastDay = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+        c.set(Calendar.DATE, lastDay);
         return c.getTime();
     }
 
