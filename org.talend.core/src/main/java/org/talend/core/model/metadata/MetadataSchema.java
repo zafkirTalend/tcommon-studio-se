@@ -315,7 +315,8 @@ public class MetadataSchema {
                 // final Node parameter = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
                 // final Node preview = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
 
-                metadataColumn.setLabel(label.getNodeValue());
+                String nodeValue = MetadataTool.validateColumnName(label.getNodeValue(), 0);
+                metadataColumn.setLabel(nodeValue);
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
                 if (sourceType != null) {

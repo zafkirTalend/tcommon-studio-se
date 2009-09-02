@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.PatternCompiler;
@@ -23,9 +24,14 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -40,11 +46,13 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.routines.IRoutinesService;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -58,7 +66,9 @@ public class MetadataTool {
 
     private static final int MAX = 255;
 
-    private static final String VALIDATE_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
+    private static final String VALIDATE_PATTERN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
+
+    private static final String VALIDATE_PATTERN_SCHEMA_NAME = "^[a-zA-Z_0-9][a-zA-Z_0-9]*$"; //$NON-NLS-1$
 
     public static List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
@@ -545,6 +555,28 @@ public class MetadataTool {
      * 
      */
     public static String validateColumnName(String columnName, int index) {
+        validataValue(columnName, index);
+        org.apache.oro.text.regex.Pattern validPatternColumnNameRegexp = null;
+        PatternCompiler compiler = new Perl5Compiler();
+
+        try {
+            validPatternColumnNameRegexp = compiler.compile(VALIDATE_PATTERN_NAME);
+        } catch (MalformedPatternException e) {
+            throw new RuntimeException(e);
+        }
+        Perl5Matcher matcher = new Perl5Matcher();
+        boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
+        if (!match) {
+            columnName = "Column" + index; //$NON-NLS-1$
+        }
+        return columnName;
+
+    }
+
+    /**
+     * wzhang Comment method "validataValue".
+     */
+    public static String validataValue(String columnName, int index) {
         if (columnName == null) {
             return null;
         }
@@ -559,21 +591,76 @@ public class MetadataTool {
         if (org.apache.commons.lang.StringUtils.countMatches(testColumnName, underLine) < (columnName.length() / 2)) {
             return testColumnName;
         }
-        org.apache.oro.text.regex.Pattern validPatternColumnNameRegexp = null;
-        PatternCompiler compiler = new Perl5Compiler();
+        return columnName;
+    }
 
+    /**
+     * wzhang Comment method "checkSchema".
+     */
+    public static void checkSchema(Shell shell, KeyEvent event) {
+        if ((!Character.isIdentifierIgnorable(event.character))
+                && (!Pattern.matches(RepositoryConstants.SCHEMA_NAME_PATTERN, "" + event.character))) { //$NON-NLS-1$
+            event.doit = false;
+            MessageDialog.openError(shell,
+                    Messages.getString("MetadataTool.invalidChar"), Messages.getString("MetadataTool.errorMessage")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+    }
+
+    /**
+     * wzhang Comment method "validateSchema".
+     */
+    public static void validateSchema(String value) {
+        if (value == null) {
+            MessageDialog.openError(Display.getCurrent().getActiveShell(), Messages.getString("MetadataTool.nullValue"), Messages.getString("MetadataTool.nameNull")); //$NON-NLS-1$ //$NON-NLS-2$
+            return;
+        }
+        PatternCompiler compiler = new Perl5Compiler();
+        org.apache.oro.text.regex.Pattern pattern = null;
         try {
-            validPatternColumnNameRegexp = compiler.compile(VALIDATE_PATTERN_COLUMN_NAME);
+            pattern = compiler.compile(VALIDATE_PATTERN_NAME);
         } catch (MalformedPatternException e) {
             throw new RuntimeException(e);
         }
         Perl5Matcher matcher = new Perl5Matcher();
-        boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
-        if (!match) {
-            columnName = "Column" + index; //$NON-NLS-1$
+        boolean match = matcher.matches(value, pattern);
+        if (!match || KeywordsValidator.isKeyword(value)) {
+            MessageDialog.openError(Display.getCurrent().getActiveShell(), Messages.getString("MetadataTool.invalid"), Messages.getString("MetadataTool.schemaInvalid")); //$NON-NLS-1$ //$NON-NLS-2$
+            return;
         }
-        return columnName;
+    }
 
+    /**
+     * 
+     * wzhangComment method "validateSchemaValue".
+     * 
+     * @param value
+     * @param beanPosition
+     * @param list
+     * @return
+     */
+    public static String validateSchemaValue(String value, int beanPosition, List<String> list) {
+        if (value == null) {
+            return Messages.getString("MetadataTool.schemaNull"); //$NON-NLS-1$
+        }
+        PatternCompiler compiler = new Perl5Compiler();
+        org.apache.oro.text.regex.Pattern pattern = null;
+        try {
+            pattern = compiler.compile(VALIDATE_PATTERN_SCHEMA_NAME);
+        } catch (MalformedPatternException e) {
+            throw new RuntimeException(e);
+        }
+        Perl5Matcher matcher = new Perl5Matcher();
+        boolean match = matcher.matches(value, pattern);
+        if (!match || KeywordsValidator.isKeyword(value)) {
+            return Messages.getString("MetadataTool.schemaIn"); //$NON-NLS-1$
+        }
+        int listSize = list.size();
+        for (int i = 0; i < listSize; i++) {
+            if (value.equals(list.get(i)) && i != beanPosition) {
+                return Messages.getString("MetadataTool.schemaExist"); //$NON-NLS-1$
+            }
+        }
+        return null;
     }
 
     /**
