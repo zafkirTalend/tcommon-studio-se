@@ -331,6 +331,7 @@ public class SimpleHtmlFigure extends Figure {
 
     @Override
     public void paint(Graphics graphics) {
+
         if (alpha != -1) {
             graphics.setAlpha(alpha);
         } else {
