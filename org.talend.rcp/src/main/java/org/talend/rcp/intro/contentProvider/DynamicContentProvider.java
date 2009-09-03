@@ -84,7 +84,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                 input.setAttribute("checked", "checked");
             }
             input.setAttribute("onclick", url);
-            input.appendChild(dom.createTextNode("Do not disply again when startup "));
+            input.appendChild(dom.createTextNode("Do not display again"));
             parent.appendChild(input);
         }
 
