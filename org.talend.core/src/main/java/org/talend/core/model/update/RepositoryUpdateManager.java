@@ -77,7 +77,7 @@ public abstract class RepositoryUpdateManager {
     /**
      * used for filter result.
      */
-    private Object parameter;
+    protected Object parameter;
 
     private Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
 
@@ -149,7 +149,7 @@ public abstract class RepositoryUpdateManager {
     }
 
     @SuppressWarnings("restriction")
-    public boolean doWork(boolean show, boolean onlySimpleShow) {
+    public boolean doWork(boolean show, final boolean onlySimpleShow) {
         // check the dialog.
         boolean checked = true;
         boolean showed = false;
@@ -177,7 +177,7 @@ public abstract class RepositoryUpdateManager {
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes());
+                    List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes(), onlySimpleShow);
                     if (returnResult != null) {
                         results.addAll(returnResult);
                     }
@@ -370,8 +370,8 @@ public abstract class RepositoryUpdateManager {
      * @param sourceItem - modified repository item.
      * @return
      */
-    private List<UpdateResult> checkJobItemsForUpdate(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types)
-            throws InterruptedException {
+    private List<UpdateResult> checkJobItemsForUpdate(IProgressMonitor parentMonitor, final Set<EUpdateItemType> types,
+            final boolean onlySimpleShow) throws InterruptedException {
         if (types == null || types.isEmpty()) {
             return null;
         }
@@ -446,7 +446,8 @@ public abstract class RepositoryUpdateManager {
                         continue;
                     }
                     parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
-                    List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types);
+                    List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types,
+                            onlySimpleShow);
                     if (updatesNeededFromItems != null) {
                         resultList.addAll(updatesNeededFromItems);
                     }
@@ -458,7 +459,7 @@ public abstract class RepositoryUpdateManager {
                 checkMonitorCanceled(parentMonitor);
                 parentMonitor.subTask(getUpdateJobInfor(process.getProperty()));
 
-                List<UpdateResult> resultFromProcess = getResultFromProcess(process, types);
+                List<UpdateResult> resultFromProcess = getResultFromProcess(process, types, onlySimpleShow);
                 if (resultFromProcess != null) {
                     resultList.addAll(resultFromProcess);
                 }
@@ -537,7 +538,8 @@ public abstract class RepositoryUpdateManager {
         return (openProcessMap.get(property.getId(), property.getLabel(), property.getVersion()) != null);
     }
 
-    private List<UpdateResult> getResultFromProcess(IProcess process, final Set<EUpdateItemType> types) {
+    protected List<UpdateResult> getResultFromProcess(IProcess process, final Set<EUpdateItemType> types,
+            final boolean onlySimpleShow) {
         if (process == null || types == null) {
             return null;
         }
@@ -560,7 +562,7 @@ public abstract class RepositoryUpdateManager {
             }
             //
             for (EUpdateItemType type : types) {
-                List<UpdateResult> updatesNeeded = updateManager.getUpdatesNeeded(type);
+                List<UpdateResult> updatesNeeded = updateManager.getUpdatesNeeded(type, onlySimpleShow);
                 if (updatesNeeded != null) {
                     resultList.addAll(updatesNeeded);
                 }
@@ -569,8 +571,8 @@ public abstract class RepositoryUpdateManager {
         return resultList;
     }
 
-    private List<UpdateResult> getUpdatesNeededFromItems(IProgressMonitor parentMonitor, Item item,
-            final Set<EUpdateItemType> types) {
+    protected List<UpdateResult> getUpdatesNeededFromItems(IProgressMonitor parentMonitor, Item item,
+            final Set<EUpdateItemType> types, final boolean onlySimpleShow) {
         if (item == null || types == null) {
             return null;
         }
@@ -589,7 +591,7 @@ public abstract class RepositoryUpdateManager {
         if (process != null && process instanceof IProcess2) {
             IProcess2 process2 = (IProcess2) process;
             // for save item
-            List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types);
+            List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types, onlySimpleShow);
             // set
             addItemForResult(process2, resultFromProcess);
             return resultFromProcess;

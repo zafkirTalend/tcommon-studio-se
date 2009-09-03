@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.model.update;
 
-import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 
 /**
@@ -61,7 +60,7 @@ public abstract class UpdateResult {
     /**
      * only for repository item update.
      */
-    private IProcess2 process2 = null;
+    private Object processOrItem = null;
 
     /**
      * ggu UpdateCheckResult constructor comment.
@@ -117,12 +116,12 @@ public abstract class UpdateResult {
         return this.job;
     }
 
-    public IProcess2 getItemProcess() {
-        return this.process2;
+    public Object getItemProcess() {
+        return this.processOrItem;
     }
 
-    public void setItemProcess(IProcess2 process2) {
-        this.process2 = process2;
+    public void setItemProcess(Object processOrItem) {
+        this.processOrItem = processOrItem;
     }
 
     public boolean isReadOnly() {
