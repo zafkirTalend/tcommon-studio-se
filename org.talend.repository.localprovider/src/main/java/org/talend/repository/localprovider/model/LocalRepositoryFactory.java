@@ -1355,6 +1355,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             item.getProperty().setCreationDate(new Date());
         }
 
+        if (item.getProperty().getModificationDate() == null) {
+            item.getProperty().setModificationDate(item.getProperty().getCreationDate());
+        }
+
         ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
         itemState.setDeleted(false);
         itemState.setPath(path.toString());

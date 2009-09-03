@@ -29,6 +29,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.epic.core.preferences.PerlMainPreferencePage;
 import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.core.CorePlugin;
+import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -110,6 +111,18 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH, Messages
                 .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(ireportPath);
+        
+        
+        if(PluginChecker.isTIS()){
+            BooleanFieldEditor alwaysWelcome = new BooleanFieldEditor(
+                    ITalendCorePrefConstants.ALWAYS_WELCOME,
+                    Messages.getString("CorePreferencePage.alwaysWelcome"), //$NON-NLS-1$
+                    getFieldEditorParent()
+                );
+                addField(alwaysWelcome);
+      
+        }
+        
         
 //            groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
 //                    .getString("CorePreferencePage.groupBySource"),  getFieldEditorParent());//$NON-NLS-1$

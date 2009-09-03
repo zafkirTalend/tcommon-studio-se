@@ -47,6 +47,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
@@ -117,6 +118,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      */
     @Override
     public void postWindowOpen() {
+        // intro
+        if (PluginChecker.isTIS()) {
+            IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+            boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
+            if (alwaysWelcome) {
+                getWindowConfigurer().getWindow().getWorkbench().getIntroManager().showIntro(getWindowConfigurer().getWindow(),
+                        !alwaysWelcome);
+            }
+        }
+
         createActions();
         registerActions();
         adviser.getHelper().postWindowOpen();
@@ -133,6 +144,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             String[] prefsId = { "org.talend.designer.core.ui.preferences.RepositoryPreferencePage" }; //$NON-NLS-1$
             ApplicationDeletionUtil.removePreferencePages(this.getWindowConfigurer().getWindow(), Arrays.asList(prefsId));
         }
+
     }
 
     /**

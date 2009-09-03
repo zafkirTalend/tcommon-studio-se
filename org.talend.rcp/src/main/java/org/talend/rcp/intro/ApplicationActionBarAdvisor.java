@@ -68,6 +68,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         helper.setWindow(window);
         introAction = ActionFactory.INTRO.create(myWindow);
         register(introAction);
+        CloseIntroAction  action= new CloseIntroAction();
+        register(action);
         registerGlobalActions();
     }
 

@@ -110,6 +110,8 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50"); //$NON-NLS-1$
 
+        node.putBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME, true);
+
         // MHIRT : remove the automatic update check
         initializeUpdatePreference();
 
