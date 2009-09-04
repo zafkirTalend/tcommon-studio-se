@@ -44,7 +44,7 @@ import org.talend.utils.sugars.ReturnCode;
  * 
  */
 public final class FilesUtils {
-    
+
     private FilesUtils() {
         super();
     }
@@ -204,6 +204,18 @@ public final class FilesUtils {
             in.close();
         }
         return lines;
+    }
+
+    /**
+     * Create all the folders if they don't exist for the following path.
+     * 
+     * @param path
+     * @return the return code with a non null error message if the state is false. When the state is ok, there is no
+     * message.
+     * @throws IOException
+     */
+    public static ReturnCode createFoldersIfNotExists(String path) throws IOException {
+        return createFoldersIfNotExists(path, false);
     }
 
     /**

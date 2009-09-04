@@ -91,19 +91,9 @@ public class SimpleCache<K, V> {
 
     protected Map<HashKey<K>, V> cache = new HashMap<HashKey<K>, V>();
 
-    private int maxItems = Integer.MAX_VALUE;
+    private int maxItems;
 
-    private long maxTime = Long.MAX_VALUE;
-
-    public SimpleCache(int maxItems) {
-        super();
-        this.maxItems = maxItems;
-    }
-
-    public SimpleCache(long maxTime) {
-        super();
-        this.maxTime = maxTime;
-    }
+    private long maxTime;
 
     public SimpleCache(long maxTime, int maxItems) {
         super();
@@ -118,7 +108,7 @@ public class SimpleCache<K, V> {
 
     public V put(K key, V value) {
         int sizeItems = keysOrderedByPutTime.size();
-        if (sizeItems >= maxItems) {
+        if (maxItems > 0 && sizeItems >= maxItems) {
             keysOrderedByPutTime.remove(0);
         }
         if (maxTime != Long.MAX_VALUE) {
