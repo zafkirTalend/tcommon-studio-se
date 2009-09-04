@@ -1842,13 +1842,22 @@ public interface ConnectionPackage extends EPackage {
     int EBCDIC_CONNECTION__MID_FILE = FILE_CONNECTION_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Data File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION__DATA_FILE = FILE_CONNECTION_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Ebcdic Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 1;
+    int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
@@ -6243,6 +6252,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getEbcdicConnection_MidFile();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getDataFile <em>Data File</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Data File</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getDataFile()
+     * @see #getEbcdicConnection()
+     * @generated
+     */
+    EAttribute getEbcdicConnection_DataFile();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Database Connection</em>'.
@@ -8625,6 +8645,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute EBCDIC_CONNECTION__MID_FILE = eINSTANCE.getEbcdicConnection_MidFile();
+
+        /**
+         * The meta object literal for the '<em><b>Data File</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EBCDIC_CONNECTION__DATA_FILE = eINSTANCE.getEbcdicConnection_DataFile();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.

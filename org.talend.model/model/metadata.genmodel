@@ -117,6 +117,7 @@
     <genClasses ecoreClass="metadata.ecore#//PositionalFileConnection"/>
     <genClasses ecoreClass="metadata.ecore#//EbcdicConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/MidFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/DataFile"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DatabaseConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DatabaseType"/>

@@ -952,10 +952,11 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setEbcdicValue(EbcdicConnection connection, INode node, String repositoryValue) {
-        if ("FILE_PATH".equals(repositoryValue)) { //$NON-NLS-1$
+        if ("DATA_FILE".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "FILENAME"); //$NON-NLS-1$
             if (value != null) {
                 connection.setFilePath(value);
+                connection.setDataFile(value);
             }
         }
         if ("XC2J_FILE".equals(repositoryValue)) { //$NON-NLS-1$

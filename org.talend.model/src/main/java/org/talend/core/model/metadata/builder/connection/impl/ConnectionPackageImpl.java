@@ -875,6 +875,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getEbcdicConnection_DataFile() {
+        return (EAttribute)ebcdicConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2454,6 +2463,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         ebcdicConnectionEClass = createEClass(EBCDIC_CONNECTION);
         createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__MID_FILE);
+        createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__DATA_FILE);
 
         databaseConnectionEClass = createEClass(DATABASE_CONNECTION);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATABASE_TYPE);
@@ -2776,6 +2786,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(ebcdicConnectionEClass, EbcdicConnection.class, "EbcdicConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getEbcdicConnection_MidFile(), ecorePackage.getEString(), "MidFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEbcdicConnection_DataFile(), ecorePackage.getEString(), "DataFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(databaseConnectionEClass, DatabaseConnection.class, "DatabaseConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDatabaseConnection_DatabaseType(), ecorePackage.getEString(), "DatabaseType", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
