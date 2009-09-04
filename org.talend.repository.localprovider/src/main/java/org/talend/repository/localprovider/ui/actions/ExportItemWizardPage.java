@@ -65,6 +65,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.swt.advanced.composite.FilteredCheckboxTree;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -189,6 +190,7 @@ class ExportItemWizardPage extends WizardPage {
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
             repositoryNodes.addAll(selection.toList());
+            repositoryNodes.addAll(checkedNodes);
             Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
 
             for (RepositoryNode node : repositoryNodes) {
@@ -206,20 +208,20 @@ class ExportItemWizardPage extends WizardPage {
             return;
         }
         ERepositoryObjectType objectType = node.getObjectType();
-        if (objectType == null) {
-            return;
-        }
-        Property property = null;
 
-        switch (objectType) {
-        case METADATA_CON_TABLE:
-        case METADATA_CON_VIEW:
-        case METADATA_CON_SYNONYM:
-        case METADATA_CON_QUERY:
-            if (node.getObject() != null) {
-                property = node.getObject().getProperty();
+        Property property = null;
+        if (objectType != null) {
+            switch (objectType) {
+            case METADATA_CON_TABLE:
+            case METADATA_CON_VIEW:
+            case METADATA_CON_SYNONYM:
+            case METADATA_CON_QUERY:
+                if (node.getObject() != null) {
+                    property = node.getObject().getProperty();
+                }
+                break;
             }
-            break;
+
         }
         if (property != null) {
             RepositoryNode repositoryNode = RepositoryNodeUtilities.getRepositoryNode(property.getId(), false);
@@ -245,56 +247,58 @@ class ExportItemWizardPage extends WizardPage {
         }
     }
 
+    // expand root node for node in metadata , routines , documentation
     private void expandRoot(RepositoryNode node) {
-        // expand root node for metadata , routines , documentation
         ERepositoryObjectType objectType = node.getObjectType();
 
+        // for user folders in metadata , routines , documentation
         if (ERepositoryObjectType.FOLDER.equals(objectType)) {
             RepositoryNode rootNode = getParentNodeNotFolder(node);
             objectType = rootNode.getContentType();
-
         }
-
         if (objectType == null) {
-            return;
+            objectType = node.getContentType();
         }
-        switch (objectType) {
-        case METADATA_CON_TABLE:
-        case METADATA_CON_VIEW:
-        case METADATA_CON_SYNONYM:
-        case METADATA_CON_QUERY:
-        case METADATA_CONNECTIONS:
-        case METADATA_FILE_DELIMITED:
-        case METADATA_FILE_POSITIONAL:
-        case METADATA_FILE_REGEXP:
-        case METADATA_FILE_XML:
-        case METADATA_FILE_LDIF:
-        case METADATA_FILE_EXCEL:
-        case METADATA_GENERIC_SCHEMA:
-        case METADATA_LDAP_SCHEMA:
-        case METADATA_SALESFORCE_SCHEMA:
-        case METADATA_WSDL_SCHEMA:
-        case METADATA_FILE_EBCDIC:
-        case METADATA_FILE_RULES:
-        case METADATA_SAPCONNECTIONS:
-        case METADATA_SAP_FUNCTION:
-            objectType = ERepositoryObjectType.METADATA;
-            break;
-        case ROUTINES:
-        case SNIPPETS:
-            objectType = ERepositoryObjectType.ROUTINES;
-            break;
-        case DOCUMENTATION:
-        case JOB_DOC:
-        case JOBLET_DOC:
-            objectType = ERepositoryObjectType.DOCUMENTATION;
-            break;
-        default:
+
+        if (objectType != null) {
+            switch (objectType) {
+            case METADATA_CON_TABLE:
+            case METADATA_CON_VIEW:
+            case METADATA_CON_SYNONYM:
+            case METADATA_CON_QUERY:
+            case METADATA_CONNECTIONS:
+            case METADATA_FILE_DELIMITED:
+            case METADATA_FILE_POSITIONAL:
+            case METADATA_FILE_REGEXP:
+            case METADATA_FILE_XML:
+            case METADATA_FILE_LDIF:
+            case METADATA_FILE_EXCEL:
+            case METADATA_GENERIC_SCHEMA:
+            case METADATA_LDAP_SCHEMA:
+            case METADATA_SALESFORCE_SCHEMA:
+            case METADATA_WSDL_SCHEMA:
+            case METADATA_FILE_EBCDIC:
+            case METADATA_FILE_RULES:
+            case METADATA_SAPCONNECTIONS:
+            case METADATA_SAP_FUNCTION:
+                objectType = ERepositoryObjectType.METADATA;
+                break;
+            case ROUTINES:
+            case SNIPPETS:
+                objectType = ERepositoryObjectType.ROUTINES;
+                break;
+            case DOCUMENTATION:
+            case JOB_DOC:
+            case JOBLET_DOC:
+                objectType = ERepositoryObjectType.DOCUMENTATION;
+                break;
+            default:
+            }
         }
         if (objectType != null) {
             switch (objectType) {
             case METADATA:
-                viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getMetadataNode(), 1);
+                viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getMetadataNode(), 2);
                 break;
             case ROUTINES:
                 viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getCodeNode(), 2);
@@ -585,11 +589,14 @@ class ExportItemWizardPage extends WizardPage {
                 viewer.expandToLevel(4);
                 exportDependenciesSelected();
                 viewer.collapseAll();
+                Set<RepositoryNode> allNode = new HashSet<RepositoryNode>();
+                allNode.addAll(repositoryNodes);
+                allNode.addAll(checkedNodes);
                 Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
-                nodes.addAll(repositoryNodes);
-                nodes.addAll(checkedNodes);
-                for (RepositoryNode node : nodes) {
-                    RepositoryNodeUtilities.expandNode(exportItemsTreeViewer, node, nodes);
+                for (RepositoryNode node : allNode) {
+                    expandRoot(node);
+                    expandParent(viewer, node);
+                    checkElement(node, nodes);
                 }
 
                 ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
@@ -617,10 +624,17 @@ class ExportItemWizardPage extends WizardPage {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
+                        // process dependent items
                         Collection<IRepositoryObject> repContextObjects = ProcessUtils.getProcessDependencies(
                                 ERepositoryObjectType.CONTEXT, selectedItems);
                         if (repContextObjects != null) {
                             repositoryObjects.addAll(repContextObjects);
+                        }
+                        // metadata dependent items
+                        Collection<IRepositoryObject> repContext = MetadataTool
+                                .getContextDependenciesOfMetadataConnection(selectedItems);
+                        if (repContext != null) {
+                            repositoryObjects.addAll(repContext);
                         }
                     }
                 });

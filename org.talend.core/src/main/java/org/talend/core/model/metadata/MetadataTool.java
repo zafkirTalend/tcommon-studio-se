@@ -13,6 +13,7 @@
 package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
@@ -28,6 +29,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -44,6 +46,8 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.impl.ConnectionItemImpl;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.utils.KeywordsValidator;
@@ -611,7 +615,8 @@ public class MetadataTool {
      */
     public static void validateSchema(String value) {
         if (value == null) {
-            MessageDialog.openError(Display.getCurrent().getActiveShell(), Messages.getString("MetadataTool.nullValue"), Messages.getString("MetadataTool.nameNull")); //$NON-NLS-1$ //$NON-NLS-2$
+            MessageDialog.openError(Display.getCurrent().getActiveShell(),
+                    Messages.getString("MetadataTool.nullValue"), Messages.getString("MetadataTool.nameNull")); //$NON-NLS-1$ //$NON-NLS-2$
             return;
         }
         PatternCompiler compiler = new Perl5Compiler();
@@ -624,7 +629,8 @@ public class MetadataTool {
         Perl5Matcher matcher = new Perl5Matcher();
         boolean match = matcher.matches(value, pattern);
         if (!match || KeywordsValidator.isKeyword(value)) {
-            MessageDialog.openError(Display.getCurrent().getActiveShell(), Messages.getString("MetadataTool.invalid"), Messages.getString("MetadataTool.schemaInvalid")); //$NON-NLS-1$ //$NON-NLS-2$
+            MessageDialog.openError(Display.getCurrent().getActiveShell(),
+                    Messages.getString("MetadataTool.invalid"), Messages.getString("MetadataTool.schemaInvalid")); //$NON-NLS-1$ //$NON-NLS-2$
             return;
         }
     }
@@ -712,5 +718,34 @@ public class MetadataTool {
             }
         }
         return false;
+    }
+
+    public static Collection<IRepositoryObject> getContextDependenciesOfMetadataConnection(Collection<Item> items) {
+        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        try {
+            for (Item item : items) {
+                if (item == null) {
+                    continue;
+                }
+                if (item instanceof ConnectionItemImpl) {
+                    Connection connection = ((ConnectionItemImpl) item).getConnection();
+                    if (connection != null) {
+                        IRepositoryObject lastVersion = null;
+                        if (connection.getContextId() != null) {
+                            lastVersion = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                                    connection.getContextId());
+                        }
+                        if (lastVersion != null) {
+                            repositoryObjects.add(lastVersion);
+                        }
+                    }
+
+                }
+
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return repositoryObjects;
     }
 }
