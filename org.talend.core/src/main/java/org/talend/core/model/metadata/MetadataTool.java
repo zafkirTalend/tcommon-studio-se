@@ -35,6 +35,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
@@ -747,5 +748,26 @@ public class MetadataTool {
             ExceptionHandler.process(e);
         }
         return repositoryObjects;
+    }
+
+    /**
+     * 
+     * cli Comment method "processFieldLength".
+     * 
+     */
+    public static void processFieldsLength(AbstractMetadataObject metadataObj) {
+        if (metadataObj != null) {
+            final int max = 255;
+            // if the comment length of metadata object is more than 255. will be cut
+            String comment = metadataObj.getComment();
+            if (comment != null && comment.length() > max) {
+                final String dots = "..."; //$NON-NLS-1$
+                comment = comment.substring(0, max - 4);
+                if (!comment.endsWith(dots)) {
+                    comment += dots;
+                }
+                metadataObj.setComment(comment);
+            }
+        }
     }
 }
