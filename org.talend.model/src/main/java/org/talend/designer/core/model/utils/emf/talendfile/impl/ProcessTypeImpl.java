@@ -5,6 +5,7 @@
  */
 package org.talend.designer.core.model.utils.emf.talendfile.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -350,10 +351,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      */
     protected ProcessTypeImpl() {
         super();
-        lazyBool = false;
     }
-
-    public static boolean lazyBool = false;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -436,21 +434,23 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                     newRequired));
     }
 
+    ArrayList contextDataStore = new ArrayList();
+
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      */
     public EList getContext() {
+
         if (context == null) {
             context = new EObjectContainmentEList(ContextType.class, this, TalendFilePackage.PROCESS_TYPE__CONTEXT);
         }
         return context;
     }
 
-    public EList getLazyContext() {
-        context = new EObjectContainmentEList(ContextType.class, this, TalendFilePackage.PROCESS_TYPE__CONTEXT);
-        return context;
+    public ArrayList getJobContextsComboValue() {
+        return contextDataStore;
     }
 
     /**
@@ -512,11 +512,6 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         if (node == null) {
             node = new EObjectContainmentEList(NodeType.class, this, TalendFilePackage.PROCESS_TYPE__NODE);
         }
-        return node;
-    }
-
-    public EList getLazyNode() {
-        node = new EObjectContainmentEList(NodeType.class, this, TalendFilePackage.PROCESS_TYPE__NODE);
         return node;
     }
 
