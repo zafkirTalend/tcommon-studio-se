@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.talend.core">
+<schema targetNamespace="org.talend.core" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.talend.core" id="librariesNeeded" name="Libraries needed"/>
@@ -11,8 +11,13 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
-         <sequence>
+         <sequence minOccurs="0" maxOccurs="unbounded">
             <element ref="libraryNeeded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
@@ -129,13 +134,5 @@
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="copyright"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
 </schema>

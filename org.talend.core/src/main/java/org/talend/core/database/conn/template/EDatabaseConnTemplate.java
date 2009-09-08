@@ -131,7 +131,7 @@ public enum EDatabaseConnTemplate {
             "7210")), //$NON-NLS-1$
 
     SAS(new DbConnStr(EDatabaseTypeName.SAS, //
-            "jdbc:sasiom://<host>:<port>", //$NON-NLS-1$
+            "jdbc:sasiom://<host>:<port>/<sid>", //$NON-NLS-1$
             "7070")), //$NON-NLS-1$
 
     PARACCEL(new DbConnStr(EDatabaseTypeName.PARACCEL, //
