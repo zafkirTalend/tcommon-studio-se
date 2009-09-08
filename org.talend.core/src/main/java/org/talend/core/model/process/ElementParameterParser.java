@@ -336,7 +336,7 @@ public final class ElementParameterParser {
             }
             if ("SELECTED_FILE".equals(param.getRepositoryValue())) {
                 IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE");
-                if (propertyParam != null) {
+                if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) {
                     try {
                         IRepositoryObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
                                 (String) propertyParam.getValue());
