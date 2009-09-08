@@ -39,7 +39,6 @@ public class ResumeUtil {
                 writer.write("jobContext" + fieldSeparator);// jobContext
                 writer.write("jobVersion" + fieldSeparator);// jobVersion
                 writer.write("threadId" + fieldSeparator);// threadId
-                writer.write("duration" + fieldSeparator);// duration
                 writer.write("logPriority" + fieldSeparator);// logPriority
                 writer.write("errorCode" + fieldSeparator);// errorCode
                 writer.write("message" + fieldSeparator);// message
@@ -66,15 +65,15 @@ public class ResumeUtil {
     }
 
     // step3: add log item one by one
-    public void addLog(String eventDate, String type, String partName, String parentPart, String duration, String threadId,
-            String logPriority, String errorCode, String message, String stackTrace) {
+    public void addLog(String eventDate, String type, String partName, String parentPart, String threadId, String logPriority,
+            String errorCode, String message, String stackTrace) {
 
         if (writer == null) {
             return;
         }
 
-        JobLogItem item = new JobLogItem(eventDate, type, partName, parentPart, duration, threadId, logPriority, errorCode,
-                message, stackTrace);
+        JobLogItem item = new JobLogItem(eventDate, type, partName, parentPart, threadId, logPriority, errorCode, message,
+                stackTrace);
         try {
             writer.write(item.eventDate + fieldSeparator);// eventDate--------------->???
             writer.write(commonInfo.pid + fieldSeparator);// pid
@@ -84,13 +83,14 @@ public class ResumeUtil {
             writer.write(item.partName + fieldSeparator);// partName
             if (item.parentPart != null) {
                 writer.write(item.parentPart + fieldSeparator);// parentPart
+            } else {
+                writer.write(fieldSeparator);// parentPart
             }
             writer.write(commonInfo.project + fieldSeparator);// project
             writer.write(commonInfo.jobName + fieldSeparator);// jobName
             writer.write(commonInfo.jobContext + fieldSeparator);// jobContext
             writer.write(commonInfo.jobVersion + fieldSeparator);// jobVersion
             writer.write(item.threadId + fieldSeparator);// threadId
-            writer.write(item.duration + fieldSeparator);// duration
             writer.write(item.logPriority + fieldSeparator);// logPriority
             writer.write(item.errorCode + fieldSeparator);// errorCode
             writer.write(item.message + fieldSeparator);// message
@@ -107,13 +107,13 @@ public class ResumeUtil {
             final java.util.Map<String, Object> globalMap) throws Exception {
         /*
          * String resuming_checkpoint_path =
-         * "/JOB:parentJob/SUBJOB:tRunJob_1/COMPONENT:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
          */
         String currentJob_checkpoint_path = null;
 
         // 1. get currentJob_checkpoint_path
         if (resuming_checkpoint_path != null) {
-            int indexOf = resuming_checkpoint_path.indexOf("/COMPONENT:");
+            int indexOf = resuming_checkpoint_path.indexOf("/NODE:");
 
             if (indexOf != -1) {
                 // currentJob_checkpoint_path: /JOB:parentJob/SUBJOB:tRunJob_1
@@ -151,13 +151,13 @@ public class ResumeUtil {
     public static String getChildJobCheckPointPath(String resuming_checkpoint_path) {
         /*
          * String resuming_checkpoint_path =
-         * "/JOB:parentJob/SUBJOB:tRunJob_1/COMPONENT:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
          */
         String childJob_checkpoint_path = null;
 
         // get currentJob_checkpoint_path
         if (resuming_checkpoint_path != null) {
-            int indexOf = resuming_checkpoint_path.indexOf("/COMPONENT:");
+            int indexOf = resuming_checkpoint_path.indexOf("/NODE:");
 
             if (indexOf != -1) {
                 String temp = resuming_checkpoint_path.substring(indexOf);
@@ -209,13 +209,12 @@ public class ResumeUtil {
     // 10 fields
     public class JobLogItem {
 
-        public JobLogItem(String eventDate, String type, String partName, String parentPart, String duration, String threadId,
-                String logPriority, String errorCode, String message, String stackTrace) {
+        public JobLogItem(String eventDate, String type, String partName, String parentPart, String threadId, String logPriority,
+                String errorCode, String message, String stackTrace) {
             this.eventDate = eventDate;
             this.type = type;
             this.partName = partName;
             this.parentPart = parentPart;
-            this.duration = duration;
             this.threadId = threadId;
             this.logPriority = logPriority;
             this.errorCode = errorCode;
@@ -234,15 +233,13 @@ public class ResumeUtil {
 
         public String threadId = null;// 12
 
-        public String duration = null;// 13
+        public String logPriority = null;// 13
 
-        public String logPriority = null;// 14
+        public String errorCode = null;// 14
 
-        public String errorCode = null;// 15
+        public String message = null;// 15
 
-        public String message = null;// 16
-
-        public String stackTrace = null;// 17
+        public String stackTrace = null;// 16
     }
 
     public enum LogPriority {
