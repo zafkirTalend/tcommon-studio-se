@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.core.IService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.ICodeProblemsChecker;
@@ -114,4 +115,6 @@ public interface IRunProcessService extends IService {
     public boolean enableTraceForActiveRunProcess();
 
     public void saveJobBeforeRun(IProcess activeProcess);
+
+    public IPreferenceStore getPreferenceStore();
 }
