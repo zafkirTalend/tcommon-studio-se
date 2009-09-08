@@ -111,8 +111,15 @@ public class WSDLDiscoveryHelper {
                         outputParameters.add(element);
                         if (element.getKind() != null) {
                             operationName = operationName + element.getKind() + ",";
-                        } else {
-                            operationName = operationName + "noType" + ",";
+                        } else if (element.getParameterInfos() != null && !element.getParameterInfos().isEmpty()) {
+                            for (Iterator iterator3 = element.getParameterInfos().iterator(); iterator3.hasNext();) {
+                                ParameterInfo elementBranch = (ParameterInfo) iterator3.next();
+                                if (elementBranch.getKind() != null) {
+                                    operationName = operationName + elementBranch.getKind() + ",";
+                                } else {
+                                    operationName = operationName + "noType" + ",";
+                                }
+                            }
                         }
                     }
                     int operationNamelen = operationName.length();

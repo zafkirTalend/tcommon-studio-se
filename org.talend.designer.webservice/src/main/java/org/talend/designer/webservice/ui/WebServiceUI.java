@@ -204,6 +204,8 @@ public class WebServiceUI {
 
     private ParameterInfo currentSelectedInChildren;
 
+    private List<ParameterInfo> multiSelectedInChildren;
+
     private ParameterInfo currentOutputParameter;
 
     private ParameterInfo currentSelectedOutChildren;
@@ -951,48 +953,44 @@ public class WebServiceUI {
                 List<ParameterInfo> listOut = currentFunction.getOutputParameters();
                 ExtendedTableModel<InputMappingData> columnModel = expressinPutTableView.getExtendedTableModel();
                 columnModel.removeAll();
-                if (listIn == null) {
-                    InputMappingData inData = new InputMappingData();
-                    inData.setParameterName("NEED NOT INPUT!!");
-                    columnModel.add(inData);
-
-                } else {
+                if (listIn != null) {
                     for (int i = 0; i < listIn.size(); i++) {
-                        // if (list.size() > 0) {
                         ParameterInfo pa = listIn.get(i);
                         InputMappingData inData = new InputMappingData();
                         inData.setParameterName(pa.getName());
                         inData.setParameter(pa);
 
-                        // exForInput.removeAll();
-                        // boolean canaddforIn = true;
-                        // List<InputMappingData> paExList = columnModel.getBeansList();
-                        // for (int j = 0; j < paExList.size(); j++) {
-                        // InputMappingData currentPa = paExList.get(j);
-                        // if (currentPa == pa) {
-                        // canaddforIn = false;
-                        // }
-                        // }
-                        // if (canaddforIn) {
                         columnModel.add(inData);
-                        // }
                     }
-                    expressTableForIn.setSelection(0);
+                    ParameterInfo onlyOneInPara = isOnlyOnePara(listIn);
+                    if (onlyOneInPara != null) {
+                        if (onlyOneInPara.getParent() != null) {
+                            InputMappingData inData = new InputMappingData();
+                            inData.setParameterName(onlyOneInPara.getParaFullName());
+                            inData.setParameter(onlyOneInPara);
+                            columnModel.add(inData);
+                        }
+                    }
                 }
+                expressTableForIn.setSelection(0);
 
                 ExtendedTableModel<OutPutMappingData> rowForOutput = rowoutPutTableView.getExtendedTableModel();
                 rowForOutput.removeAll();
-                // if (listOut == null) {
-                // OutPutMappingData outData = new OutPutMappingData();
-                // outData.setParameterName("OUTPUT IS NULL!!");
-                // rowForOutput.add(outData);
-                // } else
                 if (listOut != null) {
                     for (int i = 0; i < listOut.size(); i++) {
                         OutPutMappingData outData = new OutPutMappingData();
                         ParameterInfo pa = listOut.get(i);
                         outData.setParameter(pa);
                         rowForOutput.add(outData);
+                    }
+                    ParameterInfo onlyOneOutPara = isOnlyOnePara(listOut);
+                    if (onlyOneOutPara != null) {
+                        if (onlyOneOutPara.getParent() != null) {
+                            OutPutMappingData outData = new OutPutMappingData();
+                            outData.setParameterName(onlyOneOutPara.getParaFullName());
+                            outData.setParameter(onlyOneOutPara);
+                            rowForOutput.add(outData);
+                        }
                     }
                 }
                 ExtendedTableModel<OutPutMappingData> exforoutput = expressoutPutTableView.getExtendedTableModel();
@@ -1014,6 +1012,19 @@ public class WebServiceUI {
                 currentPortName = (PortNames) item[0].getData();
             }
         });
+    }
+
+    private ParameterInfo isOnlyOnePara(List<ParameterInfo> list) {
+        if (list.size() == 1) {
+            ParameterInfo first = list.get(0);
+            if (first.getParameterInfos() != null && !first.getParameterInfos().isEmpty()) {
+                return isOnlyOnePara(list.get(0).getParameterInfos());
+            } else
+                return first;
+
+        }
+
+        return null;
     }
 
     private void getDataFromNet() {
@@ -1441,51 +1452,60 @@ public class WebServiceUI {
                     dialogInputList.setSize(boundsMapper);
                     if (dialogInputList.open() == AddListDialog.OK) {
 
-                        currentSelectedInChildren = dialogInputList.getSelectedParaInfo();
+                        multiSelectedInChildren = dialogInputList.getParamList();
+                        if (multiSelectedInChildren != null && !multiSelectedInChildren.isEmpty()) {
+                            int selectAmount = multiSelectedInChildren.size();
+                            for (int i = 0; i < selectAmount; i++) {
+                                ParameterInfo paramet = multiSelectedInChildren.get(i);
+                                InputMappingData data = new InputMappingData();
+                                data.setParameter(paramet);
+                                if (paramet.getParent() != null) {
+                                    String name = dialogInputList.getParaUtil().getParentName(paramet);
+                                    data.setParameterName(name);
+                                } else {
+                                    data.setParameterName(paramet.getName());
 
-                        if (currentSelectedInChildren == null || currentSelectedInChildren.getName() == null) {
-                            return;
-                        }
-                        if (currentElementIndexForIn >= 0) {
-                            // if (currentSelectedInChildren.getParent() == currentInputMappingData.getParameter()) {
-                            InputMappingData data = new InputMappingData();
-                            data.setParameter(currentSelectedInChildren);
-                            // else if (para.getParent() != null) {
-                            // String name = new ParameterInfoUtil().getParentName(para);
-                            //                                return " |-- " + name; //$NON-NLS-1$
-                            // }
-                            if (currentSelectedInChildren.getParent() != null) {
-                                String name = dialogInputList.getParaUtil().getParentName(currentSelectedInChildren);
-                                data.setParameterName(name);
-                            } else {
-                                data.setParameterName(currentSelectedInChildren.getName());
+                                }
+                                if (currentElementIndexForIn == 0) {
+                                    expressinPutTableView.getExtendedTableModel().add(data, -1);
+                                } else {
+                                    expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + i + 1);
+                                }
+                            }
 
-                            }
-                            if (currentElementIndexForIn == 0) {
-                                expressinPutTableView.getExtendedTableModel().add(data, -1);
-                            } else {
-                                expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
-                            }
-                            // expressinPutTableView.getTableViewerCreator().getTableViewer().setSelection(data);
                             expressTableForIn.select(currentElementIndexForIn);
                             expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
-                            // } else {
-                            // List<ParameterInfo> paraList = getAllMostParameterInfo(currentSelectedInChildren, "IN");
-                            // int index = 1;
-                            // for (int i = paraList.size() - 1; i >= 0; i--) {
-                            // ParameterInfo parentPara = paraList.get(i);
-                            // if (parentPara == null) {
-                            // continue;
-                            // }
-                            // InputMappingData data = new InputMappingData();
-                            // data.setParameter(parentPara);
-                            // data.setParameterName(parentPara.getName());
-                            // expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn +
-                            // index);
-                            // index++;
-                            // }
-                            // expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
-                            // }
+                        } else {
+
+                            currentSelectedInChildren = dialogInputList.getSelectedParaInfo();
+                            if (currentSelectedInChildren == null || currentSelectedInChildren.getName() == null) {
+                                return;
+                            }
+                            if (currentElementIndexForIn >= 0) {
+                                // if (currentSelectedInChildren.getParent() == currentInputMappingData.getParameter())
+                                // {
+                                InputMappingData data = new InputMappingData();
+                                data.setParameter(currentSelectedInChildren);
+                                // else if (para.getParent() != null) {
+                                // String name = new ParameterInfoUtil().getParentName(para);
+                                //                                return " |-- " + name; //$NON-NLS-1$
+                                // }
+                                if (currentSelectedInChildren.getParent() != null) {
+                                    String name = dialogInputList.getParaUtil().getParentName(currentSelectedInChildren);
+                                    data.setParameterName(name);
+                                } else {
+                                    data.setParameterName(currentSelectedInChildren.getName());
+
+                                }
+                                if (currentElementIndexForIn == 0) {
+                                    expressinPutTableView.getExtendedTableModel().add(data, -1);
+                                } else {
+                                    expressinPutTableView.getExtendedTableModel().add(data, currentElementIndexForIn + 1);
+                                }
+                                expressTableForIn.select(currentElementIndexForIn);
+                                expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
+
+                            }
                         }
                     }
 
@@ -1969,27 +1989,49 @@ public class WebServiceUI {
                     }
                     dialog.setSize(boundsMapper);
                     if (dialog.open() == AddListDialog.OK) {
-                        currentSelectedOutChildren = dialog.getSelectedParaInfo();
 
-                        if (currentSelectedOutChildren == null || currentSelectedOutChildren.getName() == null) {
-                            return;
-                        }
-                        if (currentElementIndexForOut >= 0) {
-                            OutPutMappingData data = new OutPutMappingData();
-                            data.setParameter(currentSelectedOutChildren);
-                            if (currentSelectedOutChildren.getParent() != null) {
-                                String name = dialog.getParaUtil().getParentName(currentSelectedOutChildren);
-                                data.setParameterName(name);
-                            } else {
-                                data.setParameterName(currentSelectedOutChildren.getName());
+                        multiSelectedInChildren = dialog.getParamList();
+                        if (multiSelectedInChildren != null && !multiSelectedInChildren.isEmpty()) {
+                            int selectAmount = multiSelectedInChildren.size();
+                            for (int i = 0; i < selectAmount; i++) {
+                                ParameterInfo paramet = multiSelectedInChildren.get(i);
+                                OutPutMappingData data = new OutPutMappingData();
+                                data.setParameter(paramet);
+                                if (paramet.getParent() != null) {
+                                    String name = dialog.getParaUtil().getParentName(paramet);
+                                    data.setParameterName(name);
+                                } else {
+                                    data.setParameterName(paramet.getName());
 
+                                }
+                                rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + i + 1);
                             }
-
-                            rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + 1);
 
                             rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
                             rowTableForout.setSelection(currentElementIndexForOut);
 
+                        } else {
+                            currentSelectedOutChildren = dialog.getSelectedParaInfo();
+                            if (currentSelectedOutChildren == null || currentSelectedOutChildren.getName() == null) {
+                                return;
+                            }
+                            if (currentElementIndexForOut >= 0) {
+                                OutPutMappingData data = new OutPutMappingData();
+                                data.setParameter(currentSelectedOutChildren);
+                                if (currentSelectedOutChildren.getParent() != null) {
+                                    String name = dialog.getParaUtil().getParentName(currentSelectedOutChildren);
+                                    data.setParameterName(name);
+                                } else {
+                                    data.setParameterName(currentSelectedOutChildren.getName());
+
+                                }
+
+                                rowoutPutTableView.getExtendedTableModel().add(data, currentElementIndexForOut + 1);
+
+                                rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                                rowTableForout.setSelection(currentElementIndexForOut);
+
+                            }
                         }
                     }
 

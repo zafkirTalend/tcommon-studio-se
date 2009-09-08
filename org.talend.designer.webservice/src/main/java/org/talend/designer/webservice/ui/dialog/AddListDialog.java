@@ -17,13 +17,12 @@ import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -57,9 +56,13 @@ public class AddListDialog extends Dialog {
 
     private ParameterInfo selectedParaInfo;
 
+    private List<ParameterInfo> paramList;
+
     private ParameterInfoUtil paraUtil;
 
     private Shell parentShell;
+
+    private SelectAction selectAction;
 
     /**
      * DOC Administrator AddListDialog constructor comment.
@@ -69,6 +72,7 @@ public class AddListDialog extends Dialog {
     protected AddListDialog(Shell parentShell) {
         super(parentShell);
         this.parentShell = parentShell;
+        selectAction = new SelectAction();
         setShellStyle(getShellStyle() | SWT.RESIZE);
     }
 
@@ -81,6 +85,7 @@ public class AddListDialog extends Dialog {
         super(parentShell);
         this.para = para;
         this.parentShell = parentShell;
+        selectAction = new SelectAction();
         // Composite baseCom = new Composite(parentShell, SWT.NONE);
         // createTreeDialogArea(baseCom);
     }
@@ -91,7 +96,7 @@ public class AddListDialog extends Dialog {
         Composite createDialogArea = (Composite) super.createDialogArea(parent);
         createDialogArea.setLayout(new FillLayout());
         SashForm baseCom = new SashForm(createDialogArea, SWT.VERTICAL | SWT.BORDER);
-        treeViewer = new TreeViewer(baseCom, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL);
+        treeViewer = new TreeViewer(baseCom, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI);
         tree = treeViewer.getTree();
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
@@ -103,34 +108,65 @@ public class AddListDialog extends Dialog {
 
         treeViewer.setInput(para);
 
-        tree.addSelectionListener(new SelectionAdapter() {
+        treeViewer.addSelectionChangedListener(selectAction);
 
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                ISelection select = (ISelection) treeViewer.getSelection();
-                Object obj = ((IStructuredSelection) select).getFirstElement();
-                if (obj instanceof ParameterInfo) {
-                    // if (((ParameterInfo) obj).getParameterInfos().size() > 0) {
-                    // // ErrorDialog dialog = new ErrorDialog(parentShell, "", "", null, 0);
-                    // // dialog.open();
-                    // selectedParaInfo = null;
-                    // } else {
-                    selectedParaInfo = (ParameterInfo) obj;
-                    // }
-                }
-            }
-
-        });
+        // tree.addSelectionListener(new SelectionAdapter() {
+        //
+        // @Override
+        // public void widgetSelected(SelectionEvent e) {
+        // TreeItem[] selects = tree.getSelection();
+        // ISelection select = (ISelection) treeViewer.getSelection();
+        // Object obj = ((IStructuredSelection) select).getFirstElement();
+        // if (obj instanceof ParameterInfo) {
+        // // if (((ParameterInfo) obj).getParameterInfos().size() > 0) {
+        // // // ErrorDialog dialog = new ErrorDialog(parentShell, "", "", null, 0);
+        // // // dialog.open();
+        // // selectedParaInfo = null;
+        // // } else {
+        // selectedParaInfo = (ParameterInfo) obj;
+        // // }
+        // }
+        // }
+        //
+        // });
         return baseCom;
     }
 
-    // @Override
-    // protected Point getInitialSize() {
-    // return super.getInitialSize();
-    // }
+    public class SelectAction implements ISelectionChangedListener {
+
+        public void selectionChanged(SelectionChangedEvent event) {
+            IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
+            if (selection.size() == 1) {
+                Object obj = selection.getFirstElement();
+                if (obj instanceof ParameterInfo) {
+                    selectedParaInfo = (ParameterInfo) obj;
+                }
+            } else if (selection.size() > 1) {
+                // Iterator iterator=selection.iterator();
+                paramList = selection.toList();
+                for (ParameterInfo para : paramList) {
+                    if (getAllArrayFromParents(para, null).size() != 0 || para.getArraySize() != 0) {
+                        paramList = null;
+                        Object obj = selection.getFirstElement();
+                        if (obj instanceof ParameterInfo) {
+                            selectedParaInfo = (ParameterInfo) obj;
+                        }
+                        break;
+                    }
+
+                }
+
+            }
+
+        }
+    }
 
     public ParameterInfo getSelectedParaInfo() {
         return selectedParaInfo;
+    }
+
+    public List<ParameterInfo> getParamList() {
+        return this.paramList;
     }
 
     @Override
@@ -142,6 +178,11 @@ public class AddListDialog extends Dialog {
         int currentindex = -1;
         int arraySize = selPara.getArraySize();
 
+        // if select multi simple type items.
+        if (paramList != null && !paramList.isEmpty()) {
+
+        }
+
         // if selected have branch.
         if (!selPara.getParameterInfos().isEmpty()) {
             MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK);
@@ -149,7 +190,6 @@ public class AddListDialog extends Dialog {
             box.setMessage("Please Select " + selPara.getName() + " branch Item."); //$NON-NLS-1$
             box.open();
             return;
-
         }
 
         // if select a array item.
