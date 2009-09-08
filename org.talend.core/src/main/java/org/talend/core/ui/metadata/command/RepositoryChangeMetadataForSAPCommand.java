@@ -24,6 +24,9 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.MultiSchemasUtil;
+import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 
@@ -42,6 +45,8 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
 
     private Integer index;
 
+    private SAPFunctionUnit functionUnit;
+
     /**
      * 
      * hwang RepositoryChangeMetadataForSAPCommand constructor comment.
@@ -50,6 +55,12 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
      */
     public RepositoryChangeMetadataForSAPCommand(INode node, String propName, Object propValue, IMetadataTable newOutputMetadata) {
         this(node, propName, propValue, null, newOutputMetadata, null, null);
+    }
+
+    public RepositoryChangeMetadataForSAPCommand(INode node, String propName, Object propValue, IMetadataTable newOutputMetadata,
+            SAPFunctionUnit functionUnit) {
+        this(node, propName, propValue, null, newOutputMetadata, null, null);
+        this.functionUnit = functionUnit;
     }
 
     public RepositoryChangeMetadataForSAPCommand(INode node, String propName, Object newPropValue,
@@ -132,7 +143,13 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
         // if no value, set default field value
         Object fieldValue = valueMap.get(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE);
         if (fieldValue == null || "".equals(fieldValue)) { //$NON-NLS-1$
-            valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "table_output");// ///
+            if (newOutputMetadata.getLabel().equals("OUTPUT_SINGLE")) {
+                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "output_single");
+            } else if (isStructure(newOutputMetadata.getLabel())) {
+                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "output_structure");
+            } else {
+                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "table_output");
+            }
         }
         valueMap.put(ISAPConstant.FIELD_SCHEMA + ISAPConstant.REF_TYPE, ISAPConstant.REF_ATTR_REPOSITORY);
 
@@ -170,4 +187,26 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
         node.getMetadataList().add(newOutputMetadata);
     }
 
+    private boolean isStructure(String label) {
+        if (functionUnit == null) {
+            return false;
+        }
+        OutputSAPFunctionParameterTable outputParameterTable = functionUnit.getOutputParameterTable();
+        for (Object obj : outputParameterTable.getColumns()) {
+            if (obj instanceof SAPFunctionParameterColumn) {
+                SAPFunctionParameterColumn column = (SAPFunctionParameterColumn) obj;
+                if (column == null || column.getStructureOrTableName() == null) {
+                    continue;
+                }
+                if (column.getStructureOrTableName().equals(label)) {
+                    String type = column.getParameterType();
+                    if (type.startsWith("output") && type.endsWith("structure")) {
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
+    }
 }
