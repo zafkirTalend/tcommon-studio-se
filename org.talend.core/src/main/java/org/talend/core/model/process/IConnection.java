@@ -76,6 +76,8 @@ public interface IConnection extends IElement {
 
     public int getInputId();
 
+    public int getOutputId();
+
     public boolean isUseByMetter();
 
     /**

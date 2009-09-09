@@ -50,6 +50,8 @@ public abstract class AbstractConnection implements IConnection {
 
     private int inputId;
 
+    private int outputId;
+
     public boolean isActivate() {
         return this.activate;
     }
@@ -181,6 +183,14 @@ public abstract class AbstractConnection implements IConnection {
         this.inputId = inputId;
     }
 
+    public int getOutputId() {
+        return outputId;
+    }
+
+    public void setOutputId(int outputId) {
+        this.outputId = outputId;
+    }
+    
     @SuppressWarnings("unchecked")
     public boolean isUseByMetter() {
         INode sourceNode = this.getSource();
