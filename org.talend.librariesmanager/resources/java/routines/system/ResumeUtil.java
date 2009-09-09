@@ -103,6 +103,7 @@ public class ResumeUtil {
     }
 
     // Util: invoke target check point
+    @Deprecated
     public static void invokeTargetCheckPoint(String resuming_checkpoint_path, Object jobObject,
             final java.util.Map<String, Object> globalMap) throws Exception {
         /*
@@ -145,6 +146,51 @@ public class ResumeUtil {
                 }
             }
         }
+    }
+
+    // Util: get the method name of resume entry. it is a method name of one subjob in current job.
+    public static String getResumeEntryMethodName(String resuming_checkpoint_path) {
+        /*
+         * String resuming_checkpoint_path =
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
+         */
+        String currentJob_checkpoint_path = null;
+
+        // 1. get currentJob_checkpoint_path
+        if (resuming_checkpoint_path != null) {
+            int indexOf = resuming_checkpoint_path.indexOf("/NODE:");
+
+            if (indexOf != -1) {
+                // currentJob_checkpoint_path: /JOB:parentJob/SUBJOB:tRunJob_1
+                currentJob_checkpoint_path = resuming_checkpoint_path.substring(0, indexOf);
+            } else {
+                // currentJob_checkpoint_path: /JOB:ChildJob/SUBJOB:tSystem_2
+                currentJob_checkpoint_path = resuming_checkpoint_path;
+            }
+        }
+
+        String currentJob_subJob_resuming = null;
+        // 2. get the target SUBJOB
+        if (currentJob_checkpoint_path != null) {
+            int indexOf = currentJob_checkpoint_path.indexOf("/SUBJOB:");
+            if (indexOf != -1) {
+                currentJob_subJob_resuming = currentJob_checkpoint_path.substring(indexOf + 8);
+            }
+        }
+
+        String subjobMethodName = null;
+        if (currentJob_subJob_resuming != null) {
+            subjobMethodName = currentJob_subJob_resuming + "Process";
+        }
+
+        // do check
+        if (resuming_checkpoint_path != null && subjobMethodName == null) {
+            throw new RuntimeException("There parse the \"resuming_checkpoint_path=" + resuming_checkpoint_path
+                    + "\" failed, because there can't get the entry method name to resume correctly.");
+        }
+
+        // System.out.println(subjobMethodName);
+        return subjobMethodName;
     }
 
     // Util: get check poit path for child job-->used by tRunJob
