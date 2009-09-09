@@ -1,5 +1,6 @@
 package routines;
 
+import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,12 @@ public class TalendDate {
      */
 
     public synchronized static String formatDate(String pattern, java.util.Date date) {
-        return FastDateParser.getInstance(pattern).format(date);
+    	DateFormat format = FastDateParser.getInstance(pattern);
+    	synchronized(format) {
+    		 String dateString = null;
+    		dateString = format.format(date);
+    		return dateString;
+      	}
     }
 
     /**
