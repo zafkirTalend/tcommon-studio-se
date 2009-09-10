@@ -625,6 +625,24 @@ public interface PropertiesFactory extends EFactory {
     LinkRulesItem createLinkRulesItem();
 
     /**
+     * Returns a new object of class '<em>Item Relations</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Item Relations</em>'.
+     * @generated
+     */
+    ItemRelations createItemRelations();
+
+    /**
+     * Returns a new object of class '<em>Item Relation</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Item Relation</em>'.
+     * @generated
+     */
+    ItemRelation createItemRelation();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

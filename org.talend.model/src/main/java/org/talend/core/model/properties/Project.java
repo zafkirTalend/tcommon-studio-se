@@ -7,6 +7,7 @@ package org.talend.core.model.properties;
 
 import java.util.Date;
 
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
@@ -44,6 +45,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getStatAndLogsSettings <em>Stat And Logs Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#isHidePassword <em>Hide Password</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getItemsRelations <em>Items Relations</em>}</li>
  * </ul>
  * </p>
  *
@@ -487,6 +489,22 @@ public interface Project extends EObject {
      * @generated
      */
     void setHidePassword(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Items Relations</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ItemRelations}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Items Relations</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Items Relations</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ItemsRelations()
+     * @model type="org.talend.core.model.properties.ItemRelations" containment="true"
+     * @generated
+     */
+    EList getItemsRelations();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

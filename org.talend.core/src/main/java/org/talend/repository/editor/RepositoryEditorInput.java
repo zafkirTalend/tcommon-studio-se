@@ -26,7 +26,9 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -144,6 +146,11 @@ public class RepositoryEditorInput extends FileEditorInput {
                     ((ProcessItem) getProcessItem()).setProcess(processType);
                 }
                 factory.save(getProcessItem());
+
+                if (CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore().getBoolean(
+                        ITalendCorePrefConstants.ITEM_INDEX)) {
+                    RelationshipItemBuilder.getInstance().addOrUpdateItem(getProcessItem());
+                }
                 if (monitor != null) {
                     monitor.worked(50);
                 }

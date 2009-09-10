@@ -85,4 +85,6 @@ public interface ITalendCorePrefConstants {
 
     String DB_CONNECTION_TIMEOUT = "db_conn_timeout"; //$NON-NLS-1$
 
+    String ITEM_INDEX = "itemIndex"; //$NON-NLS-1$
+
 }

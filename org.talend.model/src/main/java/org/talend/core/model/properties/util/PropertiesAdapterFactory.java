@@ -289,6 +289,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseLinkRulesItem(LinkRulesItem object) {
                 return createLinkRulesItemAdapter();
             }
+            public Object caseItemRelations(ItemRelations object) {
+                return createItemRelationsAdapter();
+            }
+            public Object caseItemRelation(ItemRelation object) {
+                return createItemRelationAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1312,6 +1318,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLinkRulesItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ItemRelations <em>Item Relations</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ItemRelations
+     * @generated
+     */
+    public Adapter createItemRelationsAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ItemRelation <em>Item Relation</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ItemRelation
+     * @generated
+     */
+    public Adapter createItemRelationAdapter() {
         return null;
     }
 

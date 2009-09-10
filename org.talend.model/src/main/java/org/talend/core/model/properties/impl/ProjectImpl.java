@@ -8,6 +8,7 @@ package org.talend.core.model.properties.impl;
 import java.util.Collection;
 import java.util.Date;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -17,11 +18,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ComponentSetting;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
+import org.talend.core.model.properties.ItemRelations;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectComponentAuthorisation;
 import org.talend.core.model.properties.ProjectReference;
@@ -63,6 +66,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getStatAndLogsSettings <em>Stat And Logs Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isHidePassword <em>Hide Password</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelations <em>Items Relations</em>}</li>
  * </ul>
  * </p>
  *
@@ -456,6 +460,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected boolean hidePassword = HIDE_PASSWORD_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getItemsRelations() <em>Items Relations</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getItemsRelations()
+     * @generated
+     * @ordered
+     */
+    protected EList itemsRelations;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -853,6 +867,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getItemsRelations() {
+        if (itemsRelations == null) {
+            itemsRelations = new EObjectContainmentEList(ItemRelations.class, this, PropertiesPackage.PROJECT__ITEMS_RELATIONS);
+        }
+        return itemsRelations;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1004,6 +1030,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return basicSetStatAndLogsSettings(null, msgs);
             case PropertiesPackage.PROJECT__IMPLICIT_CONTEXT_SETTINGS:
                 return basicSetImplicitContextSettings(null, msgs);
+            case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
+                return ((InternalEList)getItemsRelations()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -1067,6 +1095,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getImplicitContextSettings();
             case PropertiesPackage.PROJECT__HIDE_PASSWORD:
                 return isHidePassword() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
+                return getItemsRelations();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1165,6 +1195,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__HIDE_PASSWORD:
                 setHidePassword(((Boolean)newValue).booleanValue());
                 return;
+            case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
+                getItemsRelations().clear();
+                getItemsRelations().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1253,6 +1287,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__HIDE_PASSWORD:
                 setHidePassword(HIDE_PASSWORD_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
+                getItemsRelations().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1315,6 +1352,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return implicitContextSettings != null;
             case PropertiesPackage.PROJECT__HIDE_PASSWORD:
                 return hidePassword != HIDE_PASSWORD_EDEFAULT;
+            case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
+                return itemsRelations != null && !itemsRelations.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -19,8 +19,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="local" unique="false" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="folders" unique="false"
-        upperBound="-1" eType="#//FolderItem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="folders" upperBound="-1"
+        eType="#//FolderItem" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleteDate" unique="false"
@@ -51,6 +51,8 @@
         eType="#//ImplicitContextSettings" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hidePassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ItemsRelations" upperBound="-1"
+        eType="#//ItemRelations" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
@@ -168,7 +170,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixed" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rolesRights" ordered="false"
-        unique="false" upperBound="-1" eType="#//RoleRight" eOpposite="#//RoleRight/role"/>
+        upperBound="-1" eType="#//RoleRight" eOpposite="#//RoleRight/role"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="User">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -213,8 +215,8 @@
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
-        upperBound="-1" eType="#//Item" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//Item" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" lowerBound="1"
         eType="#//FolderType"/>
   </eClassifiers>
@@ -601,7 +603,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rolesRights" ordered="false"
-        unique="false" upperBound="-1" eType="#//RoleRight" eOpposite="#//RoleRight/userRight"/>
+        upperBound="-1" eType="#//RoleRight" eOpposite="#//RoleRight/userRight"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoleRight">
     <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//UserRole"
@@ -620,5 +622,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="extension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="link" eType="#//LinkType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ItemRelations">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseItem" eType="#//ItemRelation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedItems" upperBound="-1"
+        eType="#//ItemRelation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ItemRelation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

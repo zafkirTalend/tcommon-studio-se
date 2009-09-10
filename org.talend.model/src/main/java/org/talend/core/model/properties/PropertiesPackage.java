@@ -302,13 +302,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__HIDE_PASSWORD = 25;
 
     /**
+     * The feature id for the '<em><b>Items Relations</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__ITEMS_RELATIONS = 26;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 26;
+    int PROJECT_FEATURE_COUNT = 27;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -5726,13 +5735,96 @@ public interface PropertiesPackage extends EPackage {
     int LINK_RULES_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ItemRelationsImpl <em>Item Relations</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ItemRelationsImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelations()
+     * @generated
+     */
+    int ITEM_RELATIONS = 73;
+
+    /**
+     * The feature id for the '<em><b>Base Item</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATIONS__BASE_ITEM = 0;
+
+    /**
+     * The feature id for the '<em><b>Related Items</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATIONS__RELATED_ITEMS = 1;
+
+    /**
+     * The number of structural features of the '<em>Item Relations</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATIONS_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ItemRelationImpl <em>Item Relation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ItemRelationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelation()
+     * @generated
+     */
+    int ITEM_RELATION = 74;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATION__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATION__VERSION = 1;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATION__TYPE = 2;
+
+    /**
+     * The number of structural features of the '<em>Item Relation</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_RELATION_FEATURE_COUNT = 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 73;
+    int FOLDER_TYPE = 75;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5742,7 +5834,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 74;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 76;
 
 
     /**
@@ -5753,7 +5845,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 75;
+    int USER_MODULE_AUTHORIZATION_TYPE = 77;
 
 
     /**
@@ -5764,7 +5856,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 76;
+    int INFORMATION_LEVEL = 78;
 
 
     /**
@@ -6020,6 +6112,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_HidePassword();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Project#getItemsRelations <em>Items Relations</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Items Relations</em>'.
+     * @see org.talend.core.model.properties.Project#getItemsRelations()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_ItemsRelations();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
@@ -9616,6 +9719,81 @@ public interface PropertiesPackage extends EPackage {
     EReference getLinkRulesItem_Link();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ItemRelations <em>Item Relations</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Item Relations</em>'.
+     * @see org.talend.core.model.properties.ItemRelations
+     * @generated
+     */
+    EClass getItemRelations();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ItemRelations#getBaseItem <em>Base Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Base Item</em>'.
+     * @see org.talend.core.model.properties.ItemRelations#getBaseItem()
+     * @see #getItemRelations()
+     * @generated
+     */
+    EReference getItemRelations_BaseItem();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ItemRelations#getRelatedItems <em>Related Items</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Related Items</em>'.
+     * @see org.talend.core.model.properties.ItemRelations#getRelatedItems()
+     * @see #getItemRelations()
+     * @generated
+     */
+    EReference getItemRelations_RelatedItems();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ItemRelation <em>Item Relation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Item Relation</em>'.
+     * @see org.talend.core.model.properties.ItemRelation
+     * @generated
+     */
+    EClass getItemRelation();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemRelation#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ItemRelation#getId()
+     * @see #getItemRelation()
+     * @generated
+     */
+    EAttribute getItemRelation_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemRelation#getVersion <em>Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Version</em>'.
+     * @see org.talend.core.model.properties.ItemRelation#getVersion()
+     * @see #getItemRelation()
+     * @generated
+     */
+    EAttribute getItemRelation_Version();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemRelation#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.ItemRelation#getType()
+     * @see #getItemRelation()
+     * @generated
+     */
+    EAttribute getItemRelation_Type();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10379,6 +10557,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__HIDE_PASSWORD = eINSTANCE.getProject_HidePassword();
+
+        /**
+         * The meta object literal for the '<em><b>Items Relations</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__ITEMS_RELATIONS = eINSTANCE.getProject_ItemsRelations();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
@@ -13209,6 +13395,66 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference LINK_RULES_ITEM__LINK = eINSTANCE.getLinkRulesItem_Link();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ItemRelationsImpl <em>Item Relations</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ItemRelationsImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelations()
+         * @generated
+         */
+        EClass ITEM_RELATIONS = eINSTANCE.getItemRelations();
+
+        /**
+         * The meta object literal for the '<em><b>Base Item</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ITEM_RELATIONS__BASE_ITEM = eINSTANCE.getItemRelations_BaseItem();
+
+        /**
+         * The meta object literal for the '<em><b>Related Items</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ITEM_RELATIONS__RELATED_ITEMS = eINSTANCE.getItemRelations_RelatedItems();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ItemRelationImpl <em>Item Relation</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ItemRelationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelation()
+         * @generated
+         */
+        EClass ITEM_RELATION = eINSTANCE.getItemRelation();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_RELATION__ID = eINSTANCE.getItemRelation_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_RELATION__VERSION = eINSTANCE.getItemRelation_Version();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_RELATION__TYPE = eINSTANCE.getItemRelation_Type();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.

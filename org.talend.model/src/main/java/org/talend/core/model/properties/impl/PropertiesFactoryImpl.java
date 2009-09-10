@@ -160,6 +160,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM: return createSVGBusinessProcessItem();
             case PropertiesPackage.TDQ_ITEM: return createTDQItem();
             case PropertiesPackage.LINK_RULES_ITEM: return createLinkRulesItem();
+            case PropertiesPackage.ITEM_RELATIONS: return createItemRelations();
+            case PropertiesPackage.ITEM_RELATION: return createItemRelation();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -862,6 +864,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public LinkRulesItem createLinkRulesItem() {
         LinkRulesItemImpl linkRulesItem = new LinkRulesItemImpl();
         return linkRulesItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ItemRelations createItemRelations() {
+        ItemRelationsImpl itemRelations = new ItemRelationsImpl();
+        return itemRelations;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ItemRelation createItemRelation() {
+        ItemRelationImpl itemRelation = new ItemRelationImpl();
+        return itemRelation;
     }
 
     /**
