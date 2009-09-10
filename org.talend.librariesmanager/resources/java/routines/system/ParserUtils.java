@@ -144,16 +144,14 @@ public class ParserUtils {
         // System.err.println("Current string to parse '" + s + "'");
         // }
         DateFormat format = FastDateParser.getInstance(pattern);
-        synchronized(format) {
-	        ParsePosition pp = new ParsePosition(0);
-	        pp.setIndex(0);
-	        date = format.parse(s, pp);
-	        if (pp.getIndex() != s.length() || date == null) {
-	            throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-	        }
+        ParsePosition pp = new ParsePosition(0);
+        pp.setIndex(0);
+        date = format.parse(s, pp);
+        if (pp.getIndex() != s.length() || date == null) {
+            throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+        }
 
         return date;
-        }
     }
 
     public synchronized static java.util.Date parseTo_Date(String s, String pattern, boolean lenient) {
@@ -172,16 +170,14 @@ public class ParserUtils {
         // System.err.println("Current string to parse '" + s + "'");
         // }
         DateFormat format = FastDateParser.getInstance(pattern, lenient);
-        synchronized(format) {
-	        ParsePosition pp = new ParsePosition(0);
-	        pp.setIndex(0);
-	        date = format.parse(s, pp);
-	        if (pp.getIndex() != s.length() || date == null) {
-	            throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-	        }
-	
-	        return date;
+        ParsePosition pp = new ParsePosition(0);
+        pp.setIndex(0);
+        date = format.parse(s, pp);
+        if (pp.getIndex() != s.length() || date == null) {
+            throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
+
+        return date;
     }
 
     public static java.util.Date parseTo_Date(java.util.Date date, String pattern) {

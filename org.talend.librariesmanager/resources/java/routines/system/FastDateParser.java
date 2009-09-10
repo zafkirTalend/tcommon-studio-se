@@ -28,9 +28,16 @@ public class FastDateParser {
     private FastDateParser() {
         super();
     }
+    
+    private static ThreadLocal<java.util.HashMap<DateFormatKey, java.text.DateFormat>> localCache = new ThreadLocal() {
 
-    private static java.util.HashMap<DateFormatKey, java.text.DateFormat> cache = new java.util.HashMap<DateFormatKey, java.text.DateFormat>();
-
+		@Override
+		protected Object initialValue() {
+			return new java.util.HashMap<DateFormatKey, java.text.DateFormat>();
+		}
+    	
+    };
+    
     private static DateFormatKey dateFormatKey = getInstance().new DateFormatKey();
 
     // Warning : DateFormat objects returned by this method are not thread safe
@@ -49,7 +56,7 @@ public class FastDateParser {
     public static java.text.DateFormat getInstance(String pattern, Locale locale, boolean lenient) {
         dateFormatKey.pattern = pattern;
         dateFormatKey.locale = locale;
-        java.text.DateFormat format = cache.get(dateFormatKey);
+        java.text.DateFormat format = localCache.get().get(dateFormatKey);
         if (format == null) {
             if (pattern.equals("yyyy-MM-dd")) { //$NON-NLS-1$
                 format = new DateParser();
@@ -62,7 +69,7 @@ public class FastDateParser {
                     format = new java.text.SimpleDateFormat(pattern);
                 }
             }
-            cache.put(getInstance().new DateFormatKey(pattern, locale), format);
+            localCache.get().put(getInstance().new DateFormatKey(pattern, locale), format);
         }
         if (format.isLenient() != lenient) {
             format.setLenient(lenient);
