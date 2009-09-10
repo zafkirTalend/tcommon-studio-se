@@ -39,7 +39,7 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.ui.IRulesProviderService;
 
 /**
- * DOC Administrator class global comment. Detailled comment
+ * DOC hywang class global comment. Detailled comment
  */
 public class CreateRuleDialog extends SelectionDialog {
 
@@ -49,9 +49,12 @@ public class CreateRuleDialog extends SelectionDialog {
 
     private String name;
 
-    public CreateRuleDialog(Shell parent, INode node) {
+    private String selectedSchemaName;
+
+    public CreateRuleDialog(Shell parent, INode node, String selectedSchemaName) {
         super(parent);
         this.node = node;
+        this.selectedSchemaName = selectedSchemaName;
         this.setTitle(Messages.getString("CreateRuleDialog.title")); //$NON-NLS-1$
         this.setHelpAvailable(false);
     }
@@ -98,6 +101,7 @@ public class CreateRuleDialog extends SelectionDialog {
         nameLabel.setText(Messages.getString("CreateRuleDialog.nameLabel")); //$NON-NLS-1$
         nameText = new Text(composite, SWT.BORDER);
         nameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        nameText.setText(selectedSchemaName);
         nameText.setEditable(true);
     }
 
@@ -135,7 +139,6 @@ public class CreateRuleDialog extends SelectionDialog {
                                 index = Integer.toString(0);
                             }
                         }
-
                         rulesService.addRule(item, nameText.getText(), conditionText.getText(), index);
                     }
                 } catch (PersistenceException e) {

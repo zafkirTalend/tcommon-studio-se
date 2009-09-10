@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.celleditor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
@@ -44,9 +46,11 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.ui.IEBCDICProviderService;
+import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.ISAPProviderService;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.EProcessType;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.ESelectionCategory;
+import org.talend.core.ui.metadata.command.ChangeRuleMetadataCommand;
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForEBCDICCommand;
 import org.talend.core.ui.metadata.command.RepositoryChangeMetadataForSAPCommand;
 import org.talend.core.ui.metadata.dialog.MetadataDialog;
@@ -168,6 +172,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                     return null;
                 }
             }
+
             // built-in
             InputDialog dialogInput = new InputDialog(cellEditorWindow.getShell(), Messages
                     .getString("SchemaCellEditor.giveSchemaName"), Messages.getString("SchemaCellEditor.schemaName"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,35 +192,102 @@ public class SchemaCellEditor extends DialogCellEditor {
                     });
 
             if (dialogInput.open() == InputDialog.OK) {
-                node.getProcess().addUniqueConnectionName(dialogInput.getValue());
-                final MetadataTable table = new MetadataTable();
-                table.setLabel(dialogInput.getValue());
-                table.setTableName(dialogInput.getValue());
-                tableToEdit = table;
-                metadatas.add(table);
-                executeCommand(new Command() {
+                Object newPropValue = dialogInput.getValue();
+                if (!isRulesComponent(node)) {
+                    node.getProcess().addUniqueConnectionName(dialogInput.getValue());
+                    final MetadataTable table = new MetadataTable();
+                    table.setLabel(dialogInput.getValue());
+                    table.setTableName(dialogInput.getValue());
+                    tableToEdit = table;
+                    metadatas.add(table);
+                    executeCommand(new Command() {
 
-                    @Override
-                    public void execute() {
-                        if (getTableViewer() != null) {
-                            Table tTable = getTableViewer().getTable();
-                            Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
-                            if (data instanceof Map) {
-                                final Map<String, Object> valueMap = (Map<String, Object>) data;
-                                Object code = valueMap.get(IEbcdicConstant.FIELD_CODE);
-                                if (code == null || "".equals(code)) { //$NON-NLS-1$
-                                    valueMap.put(IEbcdicConstant.FIELD_CODE, table.getTableName());
-                                    valueMap.put(IEbcdicConstant.FIELD_SCHEMA, table.getTableName());
+                        @Override
+                        public void execute() {
+                            if (getTableViewer() != null) {
+                                Table tTable = getTableViewer().getTable();
+                                Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+                                if (data instanceof Map) {
+                                    final Map<String, Object> valueMap = (Map<String, Object>) data;
+                                    Object code = valueMap.get(IEbcdicConstant.FIELD_CODE);
+                                    if (code == null || "".equals(code)) { //$NON-NLS-1$
+                                        valueMap.put(IEbcdicConstant.FIELD_CODE, table.getTableName());
+                                        valueMap.put(IEbcdicConstant.FIELD_SCHEMA, table.getTableName());
+                                    }
+                                }
+                                getTableViewer().refresh();
+                            }
+                        }
+                    });
+                } else { // when create a new schema for rule ,open metadataDialog,for rules
+                    // 1.getinput connection and current output connection
+                    INode inputNode = null, outputNode = null;
+                    IMetadataTable originalInputTable = null, originalCurrentOutTable = null, finalOutTable = null, finalInputTable = null;
+                    MetadataDialog metaDialog = null;
+                    int index = getTableViewer().getTable().getSelectionIndex();
+                    // IElementParameter param = node.getElementParameter("SCHEMAS");
+
+                    if (node.getIncomingConnections().size() > 0) {
+                        // for rules there is only one input,so just get the first element
+                        if (node.getOutgoingConnections().size() > 0) {
+                            outputNode = node.getOutgoingConnections().get(0).getTarget();
+                        }
+                        originalInputTable = node.getIncomingConnections().get(0).getMetadataTable();
+                        inputNode = node.getIncomingConnections().get(0).getSource();
+                        if (outputNode == null) {
+                            outputNode = node;
+                        }
+                        List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
+                        originalCurrentOutTable = new MetadataTable();
+                        originalCurrentOutTable.setListColumns(listColumns);
+                        // 2.open metadataDialog,set finalOutTable
+                        metaDialog = new MetadataDialog(new Shell(), originalInputTable, inputNode, originalCurrentOutTable,
+                                outputNode, tableEditorView.getTableViewerCreator().getCommandStack());
+                        if (metaDialog.open() == Window.OK) {
+                            finalInputTable = metaDialog.getInputMetaData().clone();
+                            finalOutTable = metaDialog.getOutputMetaData().clone();
+                            // 3.ChangeRuleMetadataCommand
+                            ChangeRuleMetadataCommand changeRuleMetadataCommand = new ChangeRuleMetadataCommand(node, "SCHEMAS",
+                                    newPropValue, finalOutTable, index);
+                            executeCommand(changeRuleMetadataCommand);
+                            if (getTableViewer() != null) {
+                                getTableViewer().refresh();
+                            }
+                        }
+                    } else {
+                        node.getProcess().addUniqueConnectionName(dialogInput.getValue());
+                        final MetadataTable table = new MetadataTable();
+                        table.setLabel(dialogInput.getValue());
+                        table.setTableName(dialogInput.getValue());
+                        tableToEdit = table;
+                        metadatas.add(table);
+                        executeCommand(new Command() {
+
+                            @Override
+                            public void execute() {
+                                if (getTableViewer() != null) {
+                                    Table tTable = getTableViewer().getTable();
+                                    Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
+                                    if (data instanceof Map) {
+                                        final Map<String, Object> valueMap = (Map<String, Object>) data;
+                                        Object code = valueMap.get(IEbcdicConstant.FIELD_CODE);
+                                        if (code == null || "".equals(code)) { //$NON-NLS-1$
+                                            valueMap.put(IEbcdicConstant.FIELD_CODE, table.getTableName());
+                                            valueMap.put(IEbcdicConstant.FIELD_SCHEMA, table.getTableName());
+                                        }
+                                    }
+                                    getTableViewer().refresh();
                                 }
                             }
-                            getTableViewer().refresh();
-                        }
+                        });
                     }
-                });
-            }
-        } else {
-            tableToEdit = MetadataTool.getMetadataTableFromNodeTableName(node, schemaToEdit);
 
+                }
+            }
+
+        } else {
+
+            tableToEdit = MetadataTool.getMetadataTableFromNodeTableName(node, schemaToEdit);
             if (getTableViewer() != null && tableToEdit != null && isEBCDICNode(node)) {
                 Table tTable = getTableViewer().getTable();
                 Object data = tTable.getItem(tTable.getSelectionIndex()).getData();
@@ -349,6 +421,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                     }
                 }
             }
+
         }
 
         if (tableToEdit != null) {
@@ -394,6 +467,17 @@ public class SchemaCellEditor extends DialogCellEditor {
                     ISAPProviderService.class);
             if (service != null) {
                 return service.isSAPNode(node);
+            }
+        }
+        return false;
+    }
+
+    private boolean isRulesComponent(INode node) {
+        if (PluginChecker.isRulesPluginLoaded()) {
+            IRulesProviderService service = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
+                    IRulesProviderService.class);
+            if (service != null) {
+                return service.isRuleComponent(node);
             }
         }
         return false;

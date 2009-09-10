@@ -13,14 +13,15 @@
 package org.talend.core.ui.metadata.celleditor;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -29,11 +30,9 @@ import jxl.read.biff.BiffException;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -49,7 +48,6 @@ import org.talend.commons.exception.SystemException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
@@ -65,7 +63,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     /**
      * 
-     * nrousseau ESelectionCategory.
+     * hywang ESelectionCategoryForRule.
      */
     public enum ESelectionCategoryForRule {
         SHOW_SCHEMA,
@@ -75,12 +73,12 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     /**
      * 
-     * nrousseau EProcessType.
+     * hywang EProcessTypeForRule.
      */
     public enum EProcessTypeForRule {
         CREATE,
         BUILTIN,
-        REPOSITORY;
+        XLS_REPOSITORY;
 
     }
 
@@ -92,9 +90,13 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private Button viewSchemaBtn;
 
-    private Button repositoryBtn, createBtn;
+    private Button repositoryBtn, createBtn, viewRulesBtn;
 
     private boolean isRepositoryBtnChecked = false;
+
+    private boolean isCheckViewRules = false;
+
+    private final EProcessTypeForRule processType;
 
     public boolean isRepositoryBtnChecked() {
         return this.isRepositoryBtnChecked;
@@ -102,7 +104,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private Combo ruleCombo;
 
-    private Label status;
+    // private Label status;
 
     private final INode node;
 
@@ -111,8 +113,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     private final LinkRulesItem[] linkItems;
 
     private MetadataTable selectedTable;
-
-    private final EProcessTypeForRule processType;
 
     private final String ruleName;
 
@@ -139,15 +139,15 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     }
 
     public RuleOperationChoiceDialog(Shell parentShell, INode node, RulesItem[] items, LinkRulesItem[] linkItems,
-            EProcessTypeForRule pType, String ruleName, boolean readOnlyJob) {
+            EProcessTypeForRule processType, String ruleName, boolean readOnlyJob) {
         super(parentShell);
         this.node = node;
         this.items = items;
         this.linkItems = linkItems;
-        this.processType = pType;
         this.ruleName = ruleName;
         this.readOnlyJob = readOnlyJob;
         // this.allVersions = allVersions;
+        this.processType = processType;
         this.setTitle(TITLE);
         this.setMessage(MESSAGE);
         this.setHelpAvailable(false);
@@ -170,11 +170,11 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
         createOptionArea(composite);
 
-        status = new Label(composite, SWT.NONE);
-        status.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        status.setText(Messages.getString("SchemaOperationChoiceDialog.StatusMessage")); //$NON-NLS-1$
-        status.setForeground(new Color(null, 255, 0, 0));
-        status.setVisible(false);
+        // status = new Label(composite, SWT.NONE);
+        // status.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        //        status.setText(Messages.getString("SchemaOperationChoiceDialog.StatusMessage")); //$NON-NLS-1$
+        // status.setForeground(new Color(null, 255, 0, 0));
+        // status.setVisible(false);
         return composite;
     }
 
@@ -202,9 +202,9 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
             setSelection(ESelectionCategoryForRule.SHOW_SCHEMA);
             createBuiltInComposite(group);
             break;
-        case REPOSITORY:
+        case XLS_REPOSITORY:
             setSelection(ESelectionCategoryForRule.SHOW_SCHEMA);
-            createRepositoryComposite(group);
+            createRepositoryXLSComposite(group);
             break;
         default:
         }
@@ -214,6 +214,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     }
 
     private void createCreationComposite(Group group) {
+        createViewRules(group, "Edit Rules"); //$NON-NLS-N$
         createCreateRuleButton(group, "Create a rule with guide"); //$NON-NLS-1$
         createSelectFromRepositoryButton(group, "Select a rule from repository"); //$NON-NLS-1$
         createRuleCombo(group);
@@ -222,50 +223,47 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     }
 
     private void createBuiltInComposite(Group group) {
-        createViewSchemaButton(group, Messages.getString("SchemaOperationChoiceDialog.EditSchemaMessage")); //$NON-NLS-1$
-        //        createRepositoryButton(group, Messages.getString("SchemaOperationChoiceDialog.ChangeRepositoryMessage")); //$NON-NLS-1$
+        //        createViewSchemaButton(group, Messages.getString("SchemaOperationChoiceDialog.EditSchemaMessage")); //$NON-NLS-1$
+        createSelectFromRepositoryButton(group, "Select a rule from file");
         createRuleCombo(group);
-        // createVersionCombo(group);
 
     }
 
-    private void createRepositoryComposite(Group group) {
-        createViewSchemaButton(group, Messages.getString("SchemaOperationChoiceDialog.ViewSchemaMessage")); //$NON-NLS-1$
-        //        createBuiltInButton(group, Messages.getString("SchemaOperationChoiceDialog.ChangeBuiltInMessage")); //$NON-NLS-1$
-        //        createRepositoryButton(group, Messages.getString("SchemaOperationChoiceDialog.ChangeRepositoryMessage")); //$NON-NLS-1$
-        createLabel(group);
+    private void createRepositoryXLSComposite(Group group) {
+        createViewRules(group, "View Rules(Read-only)"); //$NON-NLS-N$
+        createSelectFromRepositoryButton(group, "Select a rule from repository"); //$NON-NLS-1$
         createRuleCombo(group);
-        // createVersionCombo(group);
     }
 
-    private void createViewSchemaButton(Composite composite, String message) {
-        viewSchemaBtn = new Button(composite, SWT.RADIO);
-        viewSchemaBtn.setSelection(getSelctionType() == ESelectionCategoryForRule.SHOW_SCHEMA);
-        viewSchemaBtn.setText(message);
-        viewSchemaBtn.addSelectionListener(new SelectionAdapter() {
+    // private void createViewSchemaButton(Composite composite, String message) {
+    // viewSchemaBtn = new Button(composite, SWT.RADIO);
+    // viewSchemaBtn.setSelection(getSelctionType() == ESelectionCategoryForRule.SHOW_SCHEMA);
+    // viewSchemaBtn.setText(message);
+    // viewSchemaBtn.addSelectionListener(new SelectionAdapter() {
+    //
+    // @Override
+    // public void widgetSelected(SelectionEvent e) {
+    // if (viewSchemaBtn.getSelection()) {
+    // setSelection(ESelectionCategoryForRule.SHOW_SCHEMA);
+    // if (ruleCombo != null) {
+    // ruleCombo.setVisible(false);
+    // }
+    // }
+    // setButtonAndStatus(true);
+    // }
+    // });
+    //
+    // }
 
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                if (viewSchemaBtn.getSelection()) {
-                    setSelection(ESelectionCategoryForRule.SHOW_SCHEMA);
-                    if (ruleCombo != null) {
-                        ruleCombo.setVisible(false);
-                    }
-                }
-                setButtonAndStatus(true);
-            }
-        });
-
-    }
-
-    private void createLabel(Composite composite) {
-        Label mainLabel = new Label(composite, SWT.NONE);
-        mainLabel.setText("Select a rule from repository:"); //$NON-NLS-N$
-    }
+    // private void createLabel(Composite composite) {
+    // Label mainLabel = new Label(composite, SWT.NONE);
+    //        mainLabel.setText("Select a rule from repository:"); //$NON-NLS-N$
+    // }
 
     private void createCreateRuleButton(Composite composite, String message) {
         createBtn = new Button(composite, SWT.RADIO);
         createBtn.setText(message);
+        // createBtn.setVisible(showBtn);
         createBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -293,6 +291,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     private void createSelectFromRepositoryButton(Composite composite, String message) {
         repositoryBtn = new Button(composite, SWT.RADIO);
         repositoryBtn.setText(message);
+        repositoryBtn.setVisible(true);
         repositoryBtn.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -301,7 +300,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                     isRepositoryBtnChecked = true;
                     setSelection(ESelectionCategoryForRule.REPOSITORY);
 
-                    setButtonAndStatus(checkSchema());
+                    // setButtonAndStatus(checkSchema());
                     if (ruleCombo != null) {
                         ruleCombo.setVisible(true);
                     }
@@ -319,14 +318,31 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     }
 
+    private void createViewRules(Composite composite, String message) {
+        viewRulesBtn = new Button(composite, SWT.RADIO);
+        viewRulesBtn.setText(message);
+        viewRulesBtn.setVisible(true);
+        viewRulesBtn.addSelectionListener(new SelectionListener() {
+
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
+
+            public void widgetSelected(SelectionEvent e) {
+                ruleCombo.setVisible(false);
+                ruleLabel.setVisible(false);
+            }
+
+        });
+
+    }
+
     private void createRuleCombo(Composite composite) {
         ruleLabel = new Label(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
         ruleLabel.setText("Rule:"); //$NON-NLS-N$
         ruleLabel.setVisible(true);
         ruleCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
         ruleCombo.setVisible(true);
-        GridData layoutData = new GridData();
-        layoutData.widthHint = 40;
+        GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
         ruleCombo.setLayoutData(layoutData);
         // for (RulesItem item : items) {
         // ruleCombo.add(item.getProperty().getLabel());
@@ -339,13 +355,13 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                 ruleCombo.select(0);
             }
         }
-        ruleCombo.addModifyListener(new ModifyListener() {
-
-            public void modifyText(ModifyEvent e) {
-                setButtonAndStatus(checkSchema());
-            }
-
-        });
+        // ruleCombo.addModifyListener(new ModifyListener() {
+        //
+        // public void modifyText(ModifyEvent e) {
+        // setButtonAndStatus(checkSchema());
+        // }
+        //
+        // });
 
     }
 
@@ -387,26 +403,26 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
         Button okBtn = getButton(IDialogConstants.OK_ID);
         if (okBtn != null) {
             okBtn.setEnabled(enable);
-            status.setVisible(!enable);
+            // status.setVisible(!enable);
         }
     }
 
-    private boolean checkSchema() {
-        boolean valid = true;
-        // valid = node.getProcess().checkValidConnectionName(schemaName);
-        if (valid) {
-            if (MetadataTool.getMetadataTableFromNode(node, ruleCombo.getText()) != null) {
-                valid = false;
-            }
-        }
-        if (!valid && processType == EProcessTypeForRule.BUILTIN) {
-            // only, change to repository
-            if (ruleCombo.getText().equals(ruleName)) {
-                valid = true;
-            }
-        }
-        return valid;
-    }
+    // private boolean checkSchema() {
+    // boolean valid = true;
+    // // valid = node.getProcess().checkValidConnectionName(schemaName);
+    // if (valid) {
+    // if (MetadataTool.getMetadataTableFromNode(node, ruleCombo.getText()) != null) {
+    // valid = false;
+    // }
+    // }
+    // if (!valid && processType == EProcessTypeForRule.BUILTIN) {
+    // // only, change to repository
+    // if (ruleCombo.getText().equals(ruleName)) {
+    // valid = true;
+    // }
+    // }
+    // return valid;
+    // }
 
     @Override
     protected void okPressed() {
@@ -421,12 +437,21 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
         } else {
             convertName = ""; //$NON-NLS-N$
         }
+        if (viewRulesBtn != null) {
+            if (viewRulesBtn.getSelection()) {
+                isCheckViewRules = true;
+            }
+        }
         // }
         // }
         this.selectedRuleFileName = convertName;
         // }
         super.okPressed();
 
+    }
+
+    public boolean isCheckViewRules() {
+        return this.isCheckViewRules;
     }
 
     @Override
@@ -518,25 +543,15 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                 && ("BUILT_IN").equals(node.getElementParameter("PROPERTY_TYPE").getValue()) //$NON-NLS-1$ //$NON-NLS-2$
                 && node.getElementParameter("SELECTED_FILE").getValue() != null) { //$NON-NLS-N$
             // get rules names from built-in drl or xls
-            String fileFullPath = node.getElementParameter("SELECTED_FILE").getValue().toString();
-            String extension = fileFullPath.substring(fileFullPath.length() - 4, fileFullPath.length() - 1);
-            if ("xls".equals(extension)) { //$NON-NLS-N$
-                // parse xls file to get rules names
-                try {
-                    ruleNames = readExc(fileFullPath.replaceAll(TalendTextUtils.QUOTATION_MARK, ""));
-                } catch (BiffException e) {
-                    ExceptionHandler.process(e);
-                } catch (IOException e) {
-                    ExceptionHandler.process(e);
-                }
-                currentRulesContent = "";
-            } else if ("drl".equals(extension)) { //$NON-NLS-N$
-                // parse drl file to get rules names
-                currentRulesContent = readFileByLines(fileFullPath.replaceAll(TalendTextUtils.QUOTATION_MARK, ""));
+            String fileFullPath = node.getElementParameter("SELECTED_FILE").getValue().toString().replaceAll("\"", "");
+            if (fileFullPath.endsWith(".drl")) {
+                currentRulesContent = readFileByLines(fileFullPath);
                 ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
-            } else {
-
             }
+            if (fileFullPath.endsWith(".xls")) {
+                ruleNames = readExc(fileFullPath);
+            }
+
         }
 
         return ruleNames;
@@ -545,22 +560,32 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     private String[] devideRules2SingleRuleFromRepositoryDrl(String content) {
         List<String> names = new ArrayList<String>();
         String[] ruleNames = null;
+        Pattern regex = Pattern.compile("\\s*rule\\s+(.*)", //$NON-NLS-N$
+                Pattern.CANON_EQ);
+        InputStreamReader isr = null;
+        BufferedReader reader = null;
         if (content != null && !content.equals("")) {
             try {
-                Pattern regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$
-                        Pattern.CANON_EQ);
-                Matcher regexMatcher = regex.matcher(content);
-                while (regexMatcher.find()) {
-                    names.add(regexMatcher.group(1));
-
-                }
-                if (names.isEmpty()) {
-                    regex = Pattern.compile("\\s*rule\\x20(.*)", //$NON-NLS-N$
-                            Pattern.CANON_EQ);
-                    regexMatcher = regex.matcher(content);
-                    while (regexMatcher.find()) {
-                        names.add(regexMatcher.group(1));
-
+                isr = new InputStreamReader(new ByteArrayInputStream(content.getBytes()));
+                reader = new BufferedReader(isr);
+                String tempString = null;
+                int line = 1;
+                while ((tempString = reader.readLine()) != null) {
+                    tempString = tempString.trim();
+                    if (!tempString.startsWith("#")) { //$NON-NLS-N$
+                        Matcher regexMatcher = regex.matcher(tempString);
+                        while (regexMatcher.find()) {
+                            names.add(regexMatcher.group(1));
+                        }
+                        if (names.isEmpty()) {
+                            regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$
+                                    Pattern.CANON_EQ);
+                            regexMatcher = regex.matcher(tempString);
+                            while (regexMatcher.find()) {
+                                names.add(TalendTextUtils.removeQuotes(regexMatcher.group(1)));
+                            }
+                        }
+                        line++;
                     }
                 }
                 if (names != null && !names.isEmpty()) {
@@ -572,8 +597,20 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                         }
                     }
                 }
-            } catch (PatternSyntaxException ex) {
+            } catch (Exception e) {
                 // Syntax error in the regular expression
+                ExceptionHandler.process(e);
+            } finally {
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                    if (isr != null) {
+                        isr.close();
+                    }
+                } catch (IOException e1) {
+                    ExceptionHandler.process(e1);
+                }
             }
         }
 

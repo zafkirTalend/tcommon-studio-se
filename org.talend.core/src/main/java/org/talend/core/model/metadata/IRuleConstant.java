@@ -19,6 +19,8 @@ public class IRuleConstant {
 
     public static final String FIELD_RULE = "RULE"; //$NON-NLS-1$
 
+    public static final String SCHEMA = "SCHEMA"; //$NON-NLS-1$
+
     public static final String PROPERTY = "PROPERTY"; //$NON-NLS-1$
 
     public static final String PROPERTY_TYPE = "PROPERTY_TYPE"; //$NON-NLS-1$

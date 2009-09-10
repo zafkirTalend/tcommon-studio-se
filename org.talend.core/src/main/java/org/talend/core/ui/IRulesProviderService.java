@@ -16,12 +16,15 @@ import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PartInitException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.IService;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.RulesItem;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 /**
@@ -45,4 +48,8 @@ public interface IRulesProviderService extends IService {
     public boolean isRuleComponent(INode node);
 
     public boolean isRuleComponent(NodeType node);
+
+    public IEditorPart openRulesEditor(RulesItem rulesItem) throws SystemException, PartInitException;
+
+    public void openedByBrowser(Item item, IFile file);
 }

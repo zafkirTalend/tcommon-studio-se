@@ -17,13 +17,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.CodeGenerationUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.utils.PerlVarParserUtils;
@@ -334,16 +337,39 @@ public final class ElementParameterParser {
                 }
                 return processItem.getProperty().getVersion();
             }
+            // hywang add for 6484
             if ("SELECTED_FILE".equals(param.getRepositoryValue())) {
                 IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE");
                 if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) {
                     try {
                         IRepositoryObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
                                 (String) propertyParam.getValue());
-                        String rule = "rules/final/" + object.getLabel() + object.getVersion() + ".drl";
-                        return TalendTextUtils.addQuotes(rule);
+                        if (object != null) {
+                            Item item = object.getProperty().getItem();
+                            String extension = null;
+
+                            String rule = "";
+                            // String processLabelAndVersion = null;
+                            if (item instanceof RulesItem) {
+                                RulesItem rulesItem = (RulesItem) item;
+                                extension = rulesItem.getExtension();
+                                // if (param.getElement() instanceof INode) {
+                                // INode node = (INode) param.getElement();
+                                // IProcess process = node.getProcess();
+                                // String jobLabel = process.getProperty().getLabel();
+                                // String jobVersion = process.getProperty().getVersion();
+                                // processLabelAndVersion = JavaResourcesHelper.getJobFolderName(jobLabel, jobVersion);
+                                // }
+
+                                rule = "rules/final/" + rulesItem.getProperty().getLabel() + rulesItem.getProperty().getVersion()
+                                        + extension;
+                            }
+                            return TalendTextUtils.addQuotes(rule);
+                        } else {
+                            return param.getValue().toString();
+                        }
                     } catch (Exception e) {
-                        return "";
+                        ExceptionHandler.process(e);
                     }
 
                 }
