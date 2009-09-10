@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterCol
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.utils.TalendTextUtils;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -138,8 +139,10 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
             valueMap = new HashMap<String, Object>();
             paramValues.add(valueMap);
         }
+        String uinqueTableName = node.getProcess().generateUniqueConnectionName(
+                MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
 
-        valueMap.put(ISAPConstant.FIELD_SCHEMA, newPropValue);// ////
+        valueMap.put(ISAPConstant.FIELD_SCHEMA, uinqueTableName);
         // if no value, set default field value
         Object fieldValue = valueMap.get(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE);
         if (fieldValue == null || "".equals(fieldValue)) { //$NON-NLS-1$
@@ -155,7 +158,7 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
 
         Object tableNameValue = valueMap.get(ISAPConstant.FIELD_SAP_TABLE_NAME);
         if (tableNameValue == null || "".equals(tableNameValue)) {
-            valueMap.put(ISAPConstant.FIELD_SAP_TABLE_NAME, newOutputMetadata.getLabel());
+            valueMap.put(ISAPConstant.FIELD_SAP_TABLE_NAME, TalendTextUtils.addQuotes(newOutputMetadata.getLabel()));
         }
         Object mapValue = valueMap.get(ISAPConstant.FIELD_MAPPING);
         List<IMetadataColumn> columnList = newOutputMetadata.getListColumns();
@@ -179,8 +182,8 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
             node.getMetadataList().remove(oldOutputMetadata);
         }
 
-        String uinqueTableName = node.getProcess().generateUniqueConnectionName(
-                MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
+        // String uinqueTableName = node.getProcess().generateUniqueConnectionName(
+        // MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
         newOutputMetadata.setLabel((String) newPropValue);
         newOutputMetadata.setTableName(uinqueTableName);
         node.getProcess().addUniqueConnectionName(uinqueTableName);

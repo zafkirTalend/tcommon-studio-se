@@ -55,9 +55,11 @@ public abstract class UniqueStringGenerator<B> {
             boolean allAreDifferent = true;
             for (int j = 0; j < labels.length; j++) {
                 String label = labels[j];
-                if (label.equals(newColumnName)) {
-                    allAreDifferent = false;
-                    break;
+                if (label != null) {
+                    if (label.equals(newColumnName)) {
+                        allAreDifferent = false;
+                        break;
+                    }
                 }
             }
             if (allAreDifferent) {

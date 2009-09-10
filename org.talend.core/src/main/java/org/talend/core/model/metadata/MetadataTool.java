@@ -546,7 +546,7 @@ public class MetadataTool {
         }
         for (IMetadataTable metadata : node.getMetadataList()) {
             // if (name.equals(metadata.getTableName())) {
-            if (name.equals(metadata.getLabel())) {
+            if (name.equals(metadata.getLabel()) || name.equals(metadata.getTableName())) {
                 return metadata;
             }
         }
