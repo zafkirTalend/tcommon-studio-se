@@ -133,6 +133,7 @@ public enum ECoreImage implements IImage {
     TRACE_ON("/icons/trace_on.png"), //$NON-NLS-1$
     TRACE_OFF("/icons/trace_off.png"), //$NON-NLS-1$
 
+    RESUMING_CHECKPOINT_ICON("/icons/resuming_checkpoint_icon.png"), //$NON-NLS-1$
     PALETTE_OK_ICON("/icons/palette_ok.png"), //$NON-NLS-1$
     PALETTE_CLEAR_ICON("/icons/clear_toolbox.png"), //$NON-NLS-1$
     JOBLET_COMPONENT_ICON("/icons/joblet_component.png"), //$NON-NLS-1$
