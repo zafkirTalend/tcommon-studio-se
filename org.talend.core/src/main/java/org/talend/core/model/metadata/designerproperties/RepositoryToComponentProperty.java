@@ -1068,7 +1068,7 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getHost())) {
                 return connection.getHost();
             } else {
-                return TalendTextUtils.addQuotes(connection.getHost());
+                return TalendTextUtils.addQuotes(connection.getHost()).replaceAll("\\\\", "\\\\\\\\");
             }
         }
 
@@ -1080,7 +1080,7 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getSelectedDN())) {
                 return connection.getSelectedDN();
             } else {
-                return TalendTextUtils.addQuotes(connection.getSelectedDN());
+                return TalendTextUtils.addQuotes(connection.getSelectedDN()).replaceAll("\\\\", "\\\\\\\\");
             }
         }
         String protocol = connection.getProtocol();// Simple or Anonymous
@@ -1100,14 +1100,14 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getBindPrincipal())) {
                 return connection.getBindPrincipal();
             } else {
-                return TalendTextUtils.addQuotes(connection.getBindPrincipal());
+                return TalendTextUtils.addQuotes(connection.getBindPrincipal()).replaceAll("\\\\", "\\\\\\\\");
             }
         }
         if (useAuthen && value.equals("PASSWD")) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getBindPassword())) {
                 return connection.getBindPassword();
             } else {
-                return TalendTextUtils.addQuotes(connection.getBindPassword());
+                return TalendTextUtils.addQuotes(connection.getBindPassword()).replaceAll("\\\\", "\\\\\\\\");
             }
         }
         if (value.equals("FILTER")) { //$NON-NLS-1$

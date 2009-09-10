@@ -789,7 +789,7 @@ public class ComponentToRepositoryProperty {
      */
     private static void setLDAPSchemaValue(LDAPSchemaConnection connection, INode node, String repositoryValue) {
         if ("HOST".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "HOST"); //$NON-NLS-1$
+            String value = getParameterValue(node, "HOST").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
             if (value != null) {
                 connection.setHost(value);
             }
@@ -801,7 +801,7 @@ public class ComponentToRepositoryProperty {
             }
         }
         if ("BASEDN".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "BASEDN"); //$NON-NLS-1$
+            String value = getParameterValue(node, "BASEDN").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
             if (value != null) {
                 connection.setSelectedDN(value);
             }
@@ -824,13 +824,13 @@ public class ComponentToRepositoryProperty {
         }
 
         if ("USER".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "USER"); //$NON-NLS-1$
+            String value = getParameterValue(node, "USER").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
             if (value != null) {
                 connection.setBindPrincipal(value);
             }
         }
         if ("PASSWD".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "PASSWD"); //$NON-NLS-1$
+            String value = getParameterValue(node, "PASSWD").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
             if (value != null) {
                 connection.setBindPassword(value);
             }
