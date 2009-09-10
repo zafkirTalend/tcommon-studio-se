@@ -312,6 +312,10 @@ public class RelationshipItemBuilder {
         }
     }
 
+    /**
+     * 
+     * Relation class global comment. Detailled comment.
+     */
     public class Relation {
 
         private String type;
