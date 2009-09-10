@@ -1,21 +1,40 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2009 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
 package routines.system;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Date;
 
+/**
+ * ResumeUtil.
+ * 
+ */
 public class ResumeUtil {
 
-    final private static String fieldSeparator = ",";
+    // final private static String fieldSeparator = ",";
 
     String logFileName = null;
 
-    Writer writer = null;
+    SimpleCsvWriter csvWriter = null;
 
     ResumeCommonInfo commonInfo = null;
 
     // step1: init the log file name
-    public ResumeUtil(String logFileName) {
+    public ResumeUtil(String logFileName, boolean createNewFile) {
         if (logFileName == null || logFileName.equals("null")) {
             return;
         }
@@ -23,27 +42,28 @@ public class ResumeUtil {
         this.logFileName = logFileName;
         File file = new File(logFileName);
         try {
-            this.writer = new FileWriter(logFileName, true);
+            this.csvWriter = new SimpleCsvWriter(new FileWriter(logFileName, createNewFile));
 
             // output the header part
             if (file.length() == 0) {
-                writer.write("eventDate" + fieldSeparator);// eventDate--------------->???
-                writer.write("pid" + fieldSeparator);// pid
-                writer.write("root_pid" + fieldSeparator);// root_pid
-                writer.write("father_pid" + fieldSeparator);// father_pid
-                writer.write("type" + fieldSeparator);// type---------------->???
-                writer.write("partName" + fieldSeparator);// partName
-                writer.write("parentPart" + fieldSeparator);// parentPart
-                writer.write("project" + fieldSeparator);// project
-                writer.write("jobName" + fieldSeparator);// jobName
-                writer.write("jobContext" + fieldSeparator);// jobContext
-                writer.write("jobVersion" + fieldSeparator);// jobVersion
-                writer.write("threadId" + fieldSeparator);// threadId
-                writer.write("logPriority" + fieldSeparator);// logPriority
-                writer.write("errorCode" + fieldSeparator);// errorCode
-                writer.write("message" + fieldSeparator);// message
-                writer.write("stackTrace");// stackTrace
-                writer.write("\n");
+                csvWriter.write("eventDate");// eventDate--------------->???
+                csvWriter.write("pid");// pid
+                csvWriter.write("root_pid");// root_pid
+                csvWriter.write("father_pid");// father_pid
+                csvWriter.write("type");// type---------------->???
+                csvWriter.write("partName");// partName
+                csvWriter.write("parentPart");// parentPart
+                csvWriter.write("project");// project
+                csvWriter.write("jobName");// jobName
+                csvWriter.write("jobContext");// jobContext
+                csvWriter.write("jobVersion");// jobVersion
+                csvWriter.write("threadId");// threadId
+                csvWriter.write("logPriority");// logPriority
+                csvWriter.write("errorCode");// errorCode
+                csvWriter.write("message");// message
+                csvWriter.write("stackTrace");// stackTrace
+                csvWriter.endRecord();
+                csvWriter.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,38 +85,38 @@ public class ResumeUtil {
     }
 
     // step3: add log item one by one
-    public void addLog(String eventDate, String type, String partName, String parentPart, String threadId, String logPriority,
-            String errorCode, String message, String stackTrace) {
+    public void addLog(String type, String partName, String parentPart, String threadId, String logPriority, String errorCode,
+            String message, String stackTrace) {
 
-        if (writer == null) {
+        if (csvWriter == null) {
             return;
         }
+
+        String eventDate = FormatterUtils.format_Date(new Date(), "yyyy-MM-dd HH:mm:ss.S");
 
         JobLogItem item = new JobLogItem(eventDate, type, partName, parentPart, threadId, logPriority, errorCode, message,
                 stackTrace);
         try {
-            writer.write(item.eventDate + fieldSeparator);// eventDate--------------->???
-            writer.write(commonInfo.pid + fieldSeparator);// pid
-            writer.write(commonInfo.root_pid + fieldSeparator);// root_pid
-            writer.write(commonInfo.father_pid + fieldSeparator);// father_pid
-            writer.write(item.type + fieldSeparator);// type---------------->???
-            writer.write(item.partName + fieldSeparator);// partName
-            if (item.parentPart != null) {
-                writer.write(item.parentPart + fieldSeparator);// parentPart
-            } else {
-                writer.write(fieldSeparator);// parentPart
-            }
-            writer.write(commonInfo.project + fieldSeparator);// project
-            writer.write(commonInfo.jobName + fieldSeparator);// jobName
-            writer.write(commonInfo.jobContext + fieldSeparator);// jobContext
-            writer.write(commonInfo.jobVersion + fieldSeparator);// jobVersion
-            writer.write(item.threadId + fieldSeparator);// threadId
-            writer.write(item.logPriority + fieldSeparator);// logPriority
-            writer.write(item.errorCode + fieldSeparator);// errorCode
-            writer.write(item.message + fieldSeparator);// message
-            writer.write(item.stackTrace);// stackTrace
-            writer.write("\n");
-            writer.flush();
+            csvWriter.write(item.eventDate);// eventDate--------------->???
+            csvWriter.write(commonInfo.pid);// pid
+            csvWriter.write(commonInfo.root_pid);// root_pid
+            csvWriter.write(commonInfo.father_pid);// father_pid
+            csvWriter.write(item.type);// type---------------->???
+            csvWriter.write(item.partName);// partName
+
+            csvWriter.write(item.parentPart);// parentPart
+
+            csvWriter.write(commonInfo.project);// project
+            csvWriter.write(commonInfo.jobName);// jobName
+            csvWriter.write(commonInfo.jobContext);// jobContext
+            csvWriter.write(commonInfo.jobVersion);// jobVersion
+            csvWriter.write(item.threadId);// threadId
+            csvWriter.write(item.logPriority);// logPriority
+            csvWriter.write(item.errorCode);// errorCode
+            csvWriter.write(item.message);// message
+            csvWriter.write(item.stackTrace);// stackTrace
+            csvWriter.endRecord();
+            csvWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,9 +204,11 @@ public class ResumeUtil {
         }
 
         // do check
-        if (resuming_checkpoint_path != null && subjobMethodName == null) {
-            throw new RuntimeException("There parse the \"resuming_checkpoint_path=" + resuming_checkpoint_path
-                    + "\" failed, because there can't get the entry method name to resume correctly.");
+        if (resuming_checkpoint_path != null) {
+            if (subjobMethodName == null || !subjobMethodName.matches("[\\w]*_[\\d]*Process")) {
+                throw new RuntimeException("Parse the \"resuming_checkpoint_path=" + resuming_checkpoint_path
+                        + "\" failed. There can't get the a valid resume subjob name.");
+            }
         }
 
         // System.out.println(subjobMethodName);
@@ -226,9 +248,6 @@ public class ResumeUtil {
         java.io.PrintStream ps = new java.io.PrintStream(out, true);
         exception.printStackTrace(ps);
         String str = out.toString();
-        if (str.length() > 0) {
-            str = "\"" + str + "\"";
-        }
         return str;
     }
 
@@ -301,5 +320,126 @@ public class ResumeUtil {
         SYSTEM_LOG,
         USER_DEF_LOG,
         JOB_ENDED;
+    }
+
+    /**
+     * this class is reference with CsvWriter.
+     * 
+     * Because java.io.PrintWriter with this limit. {@link PrintWriter}, If automatic flushing is enabled it will be
+     * done only when...
+     * 
+     * This limit will affect parentJob/childrenJob operate the same csv writer file, they always hold data buffer
+     * themselves, and flush() can't really flush.
+     * 
+     * SimpleCsvWriter is without this problem.
+     * 
+     * @author wyang
+     */
+    public class SimpleCsvWriter {
+
+        private Writer writer = null;
+
+        private boolean firstColumn = true;
+
+        private static final int ESCAPE_MODE_BACKSLASH = 2;
+
+        private static final int EscapeMode = ESCAPE_MODE_BACKSLASH;
+
+        private static final char TextQualifier = '"';
+
+        private static final char BACKSLASH = '\\';
+
+        private static final char Delimiter = ',';
+
+        // JDK1.5 can't pass compile
+        // private String lineSeparator = (String) java.security.AccessController
+        // .doPrivileged(new sun.security.action.GetPropertyAction("line.separator"));
+
+        private String lineSeparator = System.getProperty("line.separator");
+
+        public SimpleCsvWriter(Writer writer) {
+            this.writer = writer;
+        }
+
+        /**
+         * writer a column
+         */
+        public void write(String content) throws IOException {
+
+            if (content == null) {
+                content = "";
+            }
+
+            if (!firstColumn) {
+                writer.write(Delimiter);
+            }
+
+            writer.write(TextQualifier);
+
+            // only support backslash mode
+            if (EscapeMode == ESCAPE_MODE_BACKSLASH) {
+                content = replace(content, "" + BACKSLASH, "" + BACKSLASH + BACKSLASH);
+                content = replace(content, "" + TextQualifier, "" + BACKSLASH + TextQualifier);
+            }
+
+            writer.write(content);
+
+            writer.write(TextQualifier);
+
+            firstColumn = false;
+        }
+
+        /**
+         * finish a record, prepare the next one
+         */
+        public void endRecord() throws IOException {
+            writer.write(lineSeparator);
+            firstColumn = true;
+        }
+
+        /**
+         * flush
+         */
+        public void flush() {
+            try {
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * close
+         */
+        public void close() {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private String replace(String original, String pattern, String replace) {
+            final int len = pattern.length();
+            int found = original.indexOf(pattern);
+
+            if (found > -1) {
+                StringBuffer sb = new StringBuffer();
+                int start = 0;
+
+                while (found != -1) {
+                    sb.append(original.substring(start, found));
+                    sb.append(replace);
+                    start = found + len;
+                    found = original.indexOf(pattern, start);
+                }
+
+                sb.append(original.substring(start));
+
+                return sb.toString();
+            } else {
+                return original;
+            }
+        }
     }
 }
