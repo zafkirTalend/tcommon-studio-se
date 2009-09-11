@@ -58,4 +58,6 @@ public interface IJobletProviderService extends IService {
     public void loadComponentsFromProviders();
 
     public IComponent setPropertyForJobletComponent(String id, String version);
+
+    public void updateParametersFromJoblet(INode node, IComponent newComponent);
 }

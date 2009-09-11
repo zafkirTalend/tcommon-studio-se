@@ -25,5 +25,6 @@ public enum EComponentType {
     EMF,
     JOB_CONTEXT_LOAD,
     JOBLET,
-    JOBLET_INPUT_OUTPUT
+    JOBLET_INPUT_OUTPUT,
+    JOBLET_TRIGGER
 }
