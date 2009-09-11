@@ -141,7 +141,8 @@
         <module name="UpperEll"/>
         <module name="TypeName">
             <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Interface naming"/>
-            <property name="severity" value="error"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
             <property name="format" value="^[I][A-Z][a-zA-Z0-9]*$"/>
             <property name="tokens" value="INTERFACE_DEF"/>
         </module>
