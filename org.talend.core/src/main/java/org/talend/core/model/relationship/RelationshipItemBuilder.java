@@ -78,7 +78,7 @@ public class RelationshipItemBuilder {
 
         itemToTest.setId(itemId);
         itemToTest.setType(relationType);
-        itemToTest.setVersion(relationType);
+        itemToTest.setVersion(version);
 
         if (itemsRelations.containsKey(itemToTest)) {
             return itemsRelations.get(itemToTest);

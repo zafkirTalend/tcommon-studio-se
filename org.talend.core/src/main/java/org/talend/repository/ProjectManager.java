@@ -158,7 +158,11 @@ public final class ProjectManager {
             }
         }
         // default
-        return getCurrentProject().getEmfProject();
+        Project p = getCurrentProject();
+        if (p != null) {
+            return p.getEmfProject();
+        }
+        return null;
     }
 
     public IProject getResourceProject(org.talend.core.model.properties.Project project) {
@@ -169,7 +173,11 @@ public final class ProjectManager {
                 //
             }
         }
-        return ResourcesPlugin.getWorkspace().getRoot().getProject(getCurrentProject().getEmfProject().getTechnicalLabel());
+        Project p = getCurrentProject();
+        if (p != null) {
+            return ResourcesPlugin.getWorkspace().getRoot().getProject(p.getEmfProject().getTechnicalLabel());
+        }
+        return null;
     }
 
     public IProject getResourceProject(EObject object) {
@@ -185,8 +193,9 @@ public final class ProjectManager {
     public boolean isInCurrentMainProject(EObject object) {
         if (object != null) {
             org.talend.core.model.properties.Project project = getProject(object);
-            if (project != null) {
-                return project.getTechnicalLabel().equals(getCurrentProject().getEmfProject().getTechnicalLabel());
+            Project p = getCurrentProject();
+            if (project != null && p != null) {
+                return project.getTechnicalLabel().equals(p.getEmfProject().getTechnicalLabel());
             }
         }
         return false;
@@ -200,16 +209,17 @@ public final class ProjectManager {
      */
     public boolean isInCurrentMainProject(RepositoryNode node) {
         if (node != null) {
+            Project curP = getCurrentProject();
             if (PluginChecker.isRefProjectLoaded()) {
                 IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
                         IReferencedProjectService.class);
-                if (service != null && service.isMergeRefProject()) {
+                if (service != null && service.isMergeRefProject() && curP != null) {
                     IRepositoryObject object = node.getObject();
                     if (object == null) {
                         return true;
                     }
                     org.talend.core.model.properties.Project emfProject = getProject(object.getProperty().getItem());
-                    org.talend.core.model.properties.Project curProject = getCurrentProject().getEmfProject();
+                    org.talend.core.model.properties.Project curProject = curP.getEmfProject();
                     return emfProject.equals(curProject);
 
                 } else {
@@ -217,7 +227,7 @@ public final class ProjectManager {
                     if (root != null) {
                         Project project = root.getProject();
                         if (project != null) {
-                            return project.equals(getCurrentProject());
+                            return project.equals(curP);
                         } else {
                             return true;
                         }
@@ -229,8 +239,8 @@ public final class ProjectManager {
                 IProjectRepositoryNode root = node.getRoot();
                 if (root != null) {
                     Project project = root.getProject();
-                    if (project != null) {
-                        return project.getTechnicalLabel().equals(getCurrentProject().getTechnicalLabel());
+                    if (project != null && curP != null) {
+                        return project.getTechnicalLabel().equals(curP.getTechnicalLabel());
                     } else {
                         return true;
                     }
