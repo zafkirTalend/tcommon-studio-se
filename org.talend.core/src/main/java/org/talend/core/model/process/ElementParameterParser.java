@@ -29,6 +29,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlVarParserUtils;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -338,8 +339,8 @@ public final class ElementParameterParser {
                 return processItem.getProperty().getVersion();
             }
             // hywang add for 6484
-            if ("SELECTED_FILE".equals(param.getRepositoryValue())) {
-                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE");
+            if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-N$
+                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-N$
                 if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) {
                     try {
                         IRepositoryObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
@@ -349,20 +350,20 @@ public final class ElementParameterParser {
                             String extension = null;
 
                             String rule = "";
-                            // String processLabelAndVersion = null;
+                            String processLabelAndVersion = null;
                             if (item instanceof RulesItem) {
                                 RulesItem rulesItem = (RulesItem) item;
                                 extension = rulesItem.getExtension();
-                                // if (param.getElement() instanceof INode) {
-                                // INode node = (INode) param.getElement();
-                                // IProcess process = node.getProcess();
-                                // String jobLabel = process.getProperty().getLabel();
-                                // String jobVersion = process.getProperty().getVersion();
-                                // processLabelAndVersion = JavaResourcesHelper.getJobFolderName(jobLabel, jobVersion);
-                                // }
+                                if (param.getElement() instanceof INode) {
+                                    INode node = (INode) param.getElement();
+                                    IProcess process = node.getProcess();
+                                    String jobLabel = process.getProperty().getLabel();
+                                    String jobVersion = process.getProperty().getVersion();
+                                    processLabelAndVersion = JavaResourcesHelper.getJobFolderName(jobLabel, jobVersion);
+                                }
 
-                                rule = "rules/final/" + rulesItem.getProperty().getLabel() + rulesItem.getProperty().getVersion()
-                                        + extension;
+                                rule = "rules/final/" + processLabelAndVersion + "/" + rulesItem.getProperty().getLabel()
+                                        + rulesItem.getProperty().getVersion() + extension;
                             }
                             return TalendTextUtils.addQuotes(rule);
                         } else {

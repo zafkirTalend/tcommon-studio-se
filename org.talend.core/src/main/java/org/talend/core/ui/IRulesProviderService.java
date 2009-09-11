@@ -38,7 +38,7 @@ public interface IRulesProviderService extends IService {
 
     public IFile getRuleFile(Item item, String extension) throws SystemException;
 
-    public IFile getFinalRuleFile(Item item) throws CoreException;
+    public IFile getFinalRuleFile(Item item, String processLabelAndVersion) throws CoreException;
 
     public void addRule(Item item, String ruleName, String condition, String outputId);
 
