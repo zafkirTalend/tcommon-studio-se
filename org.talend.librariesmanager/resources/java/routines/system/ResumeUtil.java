@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ResumeUtil.
@@ -33,37 +35,58 @@ public class ResumeUtil {
 
     ResumeCommonInfo commonInfo = null;
 
+    // it is a flag, all jobs(parentjob/childjob) with the same root_pid will
+    // share only one FileWriter.
+    String root_pid = null;
+
+    // <pid, SimpleCsvWriter>.
+    private static Map<String, SimpleCsvWriter> sharedWriterMap = new HashMap<String, SimpleCsvWriter>();
+
     // step1: init the log file name
-    public ResumeUtil(String logFileName, boolean createNewFile) {
+    public ResumeUtil(String logFileName, boolean createNewFile, String root_pid) {
         if (logFileName == null || logFileName.equals("null")) {
             return;
         }
 
+        // only assign value one time.
+        if (this.root_pid == null) {
+            this.root_pid = root_pid;
+        }
+
+        SimpleCsvWriter sharedWriter = sharedWriterMap.get(root_pid);
+
         this.logFileName = logFileName;
         File file = new File(logFileName);
         try {
-            this.csvWriter = new SimpleCsvWriter(new FileWriter(logFileName, createNewFile));
+            if (sharedWriter == null) {
+                this.csvWriter = new SimpleCsvWriter(new FileWriter(logFileName, createNewFile));
 
-            // output the header part
-            if (file.length() == 0) {
-                csvWriter.write("eventDate");// eventDate--------------->???
-                csvWriter.write("pid");// pid
-                csvWriter.write("root_pid");// root_pid
-                csvWriter.write("father_pid");// father_pid
-                csvWriter.write("type");// type---------------->???
-                csvWriter.write("partName");// partName
-                csvWriter.write("parentPart");// parentPart
-                csvWriter.write("project");// project
-                csvWriter.write("jobName");// jobName
-                csvWriter.write("jobContext");// jobContext
-                csvWriter.write("jobVersion");// jobVersion
-                csvWriter.write("threadId");// threadId
-                csvWriter.write("logPriority");// logPriority
-                csvWriter.write("errorCode");// errorCode
-                csvWriter.write("message");// message
-                csvWriter.write("stackTrace");// stackTrace
-                csvWriter.endRecord();
-                csvWriter.flush();
+                // shared
+                sharedWriterMap.put(this.root_pid, this.csvWriter);
+
+                // output the header part
+                if (file.length() == 0) {
+                    csvWriter.write("eventDate");// eventDate--------------->???
+                    csvWriter.write("pid");// pid
+                    csvWriter.write("root_pid");// root_pid
+                    csvWriter.write("father_pid");// father_pid
+                    csvWriter.write("type");// type---------------->???
+                    csvWriter.write("partName");// partName
+                    csvWriter.write("parentPart");// parentPart
+                    csvWriter.write("project");// project
+                    csvWriter.write("jobName");// jobName
+                    csvWriter.write("jobContext");// jobContext
+                    csvWriter.write("jobVersion");// jobVersion
+                    csvWriter.write("threadId");// threadId
+                    csvWriter.write("logPriority");// logPriority
+                    csvWriter.write("errorCode");// errorCode
+                    csvWriter.write("message");// message
+                    csvWriter.write("stackTrace");// stackTrace
+                    csvWriter.endRecord();
+                    csvWriter.flush();
+                }
+            } else {
+                csvWriter = sharedWriter;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,13 +133,20 @@ public class ResumeUtil {
             csvWriter.write(commonInfo.jobName);// jobName
             csvWriter.write(commonInfo.jobContext);// jobContext
             csvWriter.write(commonInfo.jobVersion);// jobVersion
-            csvWriter.write(item.threadId);// threadId
+            csvWriter.write(null);// threadId
             csvWriter.write(item.logPriority);// logPriority
             csvWriter.write(item.errorCode);// errorCode
             csvWriter.write(item.message);// message
             csvWriter.write(item.stackTrace);// stackTrace
             csvWriter.endRecord();
             csvWriter.flush();
+
+            // for test the order
+            // System.out.print(item.partName + ",");// partName
+            // System.out.print(item.parentPart + ",");// parentPart
+            // System.out.print(commonInfo.project + ",");// project
+            // System.out.print(commonInfo.jobName + ",");// jobName
+            // System.out.println();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,7 +158,7 @@ public class ResumeUtil {
             final java.util.Map<String, Object> globalMap) throws Exception {
         /*
          * String resuming_checkpoint_path =
-         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2" ;
          */
         String currentJob_checkpoint_path = null;
 
@@ -168,11 +198,12 @@ public class ResumeUtil {
         }
     }
 
-    // Util: get the method name of resume entry. it is a method name of one subjob in current job.
+    // Util: get the method name of resume entry. it is a method name of one
+    // subjob in current job.
     public static String getResumeEntryMethodName(String resuming_checkpoint_path) {
         /*
          * String resuming_checkpoint_path =
-         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2" ;
          */
         String currentJob_checkpoint_path = null;
 
@@ -219,7 +250,7 @@ public class ResumeUtil {
     public static String getChildJobCheckPointPath(String resuming_checkpoint_path) {
         /*
          * String resuming_checkpoint_path =
-         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2";
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2" ;
          */
         String childJob_checkpoint_path = null;
 
@@ -352,8 +383,10 @@ public class ResumeUtil {
         private static final char Delimiter = ',';
 
         // JDK1.5 can't pass compile
-        // private String lineSeparator = (String) java.security.AccessController
-        // .doPrivileged(new sun.security.action.GetPropertyAction("line.separator"));
+        // private String lineSeparator = (String)
+        // java.security.AccessController
+        // .doPrivileged(new
+        // sun.security.action.GetPropertyAction("line.separator"));
 
         private String lineSeparator = System.getProperty("line.separator");
 
