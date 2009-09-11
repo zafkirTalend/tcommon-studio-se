@@ -590,7 +590,7 @@ public class MetadataTool {
      * 
      */
     public static String validateColumnName(String columnName, int index) {
-        validataValue(columnName, index);
+        columnName = validataValue(columnName, index);
         org.apache.oro.text.regex.Pattern validPatternColumnNameRegexp = null;
         PatternCompiler compiler = new Perl5Compiler();
 
