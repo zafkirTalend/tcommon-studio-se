@@ -49,7 +49,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         Document dom = parent.getOwnerDocument();
         String url = "";
         if (ERepositoryObjectType.PROCESS.name().equals(id)) {
-            latestItems = getLatestModifiedItems(ERepositoryObjectType.PROCESS, 5);
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.PROCESS, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.core&"
                     + "class=org.talend.designer.core.ui.action.EditProcess&"
                     + "id=org.talend.designer.core.actions.editprocess&nodeId=";
@@ -58,7 +58,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                 parent.appendChild(dom.createElement("br"));
             }
         } else if (ERepositoryObjectType.BUSINESS_PROCESS.name().equals(id)) {
-            latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 5);
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.BUSINESS_PROCESS, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.designer.business.diagram&"
                     + "class=org.talend.designer.business.diagram.custom.actions.OpenDiagramAction&"
                     + "id=org.talend.designer.business.diagram.Action2&nodeId=";
@@ -68,7 +68,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             hyperlink.setAttribute("href", url + object.getId());
             hyperlink.setAttribute("title", "Modified at " + object.getModificationDate() + " by " + object.getAuthor() + "\n"
                     + "Created at " + object.getCreationDate() + " by" + object.getAuthor());
-            hyperlink.appendChild(dom.createTextNode(object.getLabel()));
+            hyperlink.appendChild(dom.createTextNode(object.getLabel() + " " + object.getVersion()));
             parent.appendChild(hyperlink);
             parent.appendChild(dom.createElement("br"));
         }
