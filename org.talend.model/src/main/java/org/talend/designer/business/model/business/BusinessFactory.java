@@ -313,6 +313,15 @@ public interface BusinessFactory extends EFactory {
     Ldap createLdap();
 
     /**
+     * Returns a new object of class '<em>SAP Function</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Function</em>'.
+     * @generated
+     */
+    SAPFunction createSAPFunction();
+
+    /**
      * Returns a new object of class '<em>Context</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

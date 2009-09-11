@@ -72,5 +72,5 @@ public interface IDiagramModelService extends IService {
 
     public IFile getDiagramFile(IWorkbenchPage page);
 
-    public void addDeleteAssignmentAction(IMenuManager mgr);
+    public void addDeleteAssignmentAction(IMenuManager mgr, ISelection selection);
 }

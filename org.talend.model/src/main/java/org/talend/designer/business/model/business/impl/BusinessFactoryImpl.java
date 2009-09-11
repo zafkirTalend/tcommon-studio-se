@@ -43,6 +43,7 @@ import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SAPFunction;
 import org.talend.designer.business.model.business.SQLPattern;
 import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
@@ -133,6 +134,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.COPYBOOK: return createCopybook();
             case BusinessPackage.WSDL: return createWsdl();
             case BusinessPackage.LDAP: return createLdap();
+            case BusinessPackage.SAP_FUNCTION: return createSAPFunction();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -449,6 +451,16 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public Ldap createLdap() {
         LdapImpl ldap = new LdapImpl();
         return ldap;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunction createSAPFunction() {
+        SAPFunctionImpl sapFunction = new SAPFunctionImpl();
+        return sapFunction;
     }
 
     /**

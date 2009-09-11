@@ -46,6 +46,7 @@ import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
+import org.talend.designer.business.model.business.SAPFunction;
 import org.talend.designer.business.model.business.SQLPattern;
 import org.talend.designer.business.model.business.Salesforce;
 import org.talend.designer.business.model.business.SapFunctionMetadata;
@@ -301,6 +302,13 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass ldapEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapFunctionEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -897,6 +905,15 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getSAPFunction() {
+        return sapFunctionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getContext() {
         return contextEClass;
     }
@@ -1067,6 +1084,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         wsdlEClass = createEClass(WSDL);
 
         ldapEClass = createEClass(LDAP);
+
+        sapFunctionEClass = createEClass(SAP_FUNCTION);
     }
 
     /**
@@ -1129,6 +1148,7 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         copybookEClass.getESuperTypes().add(this.getTalendItem());
         wsdlEClass.getESuperTypes().add(this.getTalendItem());
         ldapEClass.getESuperTypes().add(this.getTalendItem());
+        sapFunctionEClass.getESuperTypes().add(this.getTalendItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1236,6 +1256,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(wsdlEClass, Wsdl.class, "Wsdl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(ldapEClass, Ldap.class, "Ldap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(sapFunctionEClass, SAPFunction.class, "SAPFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

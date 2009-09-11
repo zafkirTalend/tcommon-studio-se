@@ -93,4 +93,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="Copybook" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Wsdl" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Ldap" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPFunction" eSuperTypes="#//TalendItem"/>
 </ecore:EPackage>

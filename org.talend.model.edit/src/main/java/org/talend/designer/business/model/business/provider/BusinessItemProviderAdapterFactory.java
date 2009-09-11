@@ -796,6 +796,28 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.SAPFunction} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SAPFunctionItemProvider sapFunctionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.SAPFunction}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createSAPFunctionAdapter() {
+        if (sapFunctionItemProvider == null) {
+            sapFunctionItemProvider = new SAPFunctionItemProvider(this);
+        }
+
+        return sapFunctionItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.Context} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1032,6 +1054,7 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (copybookItemProvider != null) copybookItemProvider.dispose();
         if (wsdlItemProvider != null) wsdlItemProvider.dispose();
         if (ldapItemProvider != null) ldapItemProvider.dispose();
+        if (sapFunctionItemProvider != null) sapFunctionItemProvider.dispose();
     }
 
 }

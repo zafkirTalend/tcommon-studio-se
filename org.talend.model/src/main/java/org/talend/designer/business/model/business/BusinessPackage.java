@@ -3347,6 +3347,88 @@ public interface BusinessPackage extends EPackage {
     int LDAP_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.SAPFunctionImpl <em>SAP Function</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.SAPFunctionImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSAPFunction()
+     * @generated
+     */
+    int SAP_FUNCTION = 42;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>SAP Function</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Repository <em>Repository</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Repository</em>'.
@@ -3919,6 +4001,16 @@ public interface BusinessPackage extends EPackage {
      * @generated
      */
     EClass getLdap();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.SAPFunction <em>SAP Function</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Function</em>'.
+     * @see org.talend.designer.business.model.business.SAPFunction
+     * @generated
+     */
+    EClass getSAPFunction();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Context <em>Context</em>}'.
@@ -4514,6 +4606,16 @@ public interface BusinessPackage extends EPackage {
          * @generated
          */
         EClass LDAP = eINSTANCE.getLdap();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.SAPFunctionImpl <em>SAP Function</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.SAPFunctionImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSAPFunction()
+         * @generated
+         */
+        EClass SAP_FUNCTION = eINSTANCE.getSAPFunction();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.ContextImpl <em>Context</em>}' class.

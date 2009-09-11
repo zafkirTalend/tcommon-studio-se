@@ -279,12 +279,42 @@ public class MetadataTool {
         connection = getConnectionFromRepository(linkedRepository);
 
         if (connection != null) {
-            for (Object tableObj : getMetadataTableFromConnection(connection)) {
+            if (connection instanceof SAPConnection) {
+                return getMetadataTableFromSAPFunction((SAPConnection) connection, name2);
+            }
+            EList tables = connection.getTables();
+            for (Object tableObj : tables) {
                 MetadataTable table = (MetadataTable) tableObj;
                 if (table.getLabel().equals(name2)) {
                     return table;
                 }
             }
+        }
+        return null;
+    }
+
+    private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
+        String functionName = null;
+        String metadataName = null;
+        String[] names = name.split(" - ");
+        if (names.length == 2) {
+            functionName = names[0];
+            metadataName = names[1];
+        } else {
+            return null;
+        }
+
+        for (Object obj : connection.getFuntions()) {
+            SAPFunctionUnit function = (SAPFunctionUnit) obj;
+            if (functionName.equals(function.getLabel())) {
+                for (Object object : function.getTables()) {
+                    MetadataTable table = (MetadataTable) object;
+                    if (metadataName.equals(table.getLabel())) {
+                        return table;
+                    }
+                }
+            }
+
         }
         return null;
     }
@@ -316,7 +346,7 @@ public class MetadataTool {
             if (functions != null && !functions.isEmpty()) {
                 final EList tables = new BasicEList();
                 for (int i = 0; i < functions.size(); i++) {
-                    tables.add(((SAPFunctionUnit) functions.get(i)).getMetadataTable());
+                    tables.add(((SAPFunctionUnit) functions.get(i)).getTables());
                 }
                 return tables;
             }
@@ -769,5 +799,38 @@ public class MetadataTool {
                 metadataObj.setComment(comment);
             }
         }
+    }
+
+    public static SAPFunctionUnit getSAPFunctionFromRepository(String functionRepositoryId) {
+        org.talend.core.model.metadata.builder.connection.Connection connection;
+
+        String[] names = functionRepositoryId.split(" - "); //$NON-NLS-1$
+        String name2 = null;
+        if (names.length < 2) {
+            return null;
+        }
+        String linkedRepository = names[0];
+        if (names.length == 2) {
+            name2 = names[1];
+        } else if (names.length > 2) {
+            name2 = functionRepositoryId.substring(linkedRepository.length() + 3);
+        }
+
+        connection = getConnectionFromRepository(linkedRepository);
+        if (connection != null) {
+            if (connection instanceof SAPConnection) {
+                SAPConnection sapConn = (SAPConnection) connection;
+                EList funtions = sapConn.getFuntions();
+                for (Object obj : funtions) {
+                    SAPFunctionUnit funciton = (SAPFunctionUnit) obj;
+                    if (name2.equals(funciton.getLabel())) {
+                        return funciton;
+                    }
+
+                }
+            }
+        }
+        return null;
+
     }
 }
