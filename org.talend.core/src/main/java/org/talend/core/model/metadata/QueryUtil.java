@@ -166,7 +166,7 @@ public class QueryUtil {
             }
 
         }
-
+        boolean isCheck = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         String query = TalendTextUtils.declareString("SELECT "); //$NON-NLS-1$
         if (isContextQuery) { // new line
             String end = ENTER + CON + checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
@@ -176,8 +176,15 @@ public class QueryUtil {
             query = checkAndConcatString(query, columnsQuery) + end;
         } else if (dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for bug0007563
             String declareString = TalendTextUtils.getStringDeclare();
-            String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] //$NON-NLS-1$
-                    + declareString);
+            String end = ""; //$NON-NLS-N$
+            if (!isCheck) { // hywang add isCheck for informix
+                end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] //$NON-NLS-1$
+                        + declareString);
+            } else {
+                end = checkAndConcatString(
+                        TalendTextUtils.declareString(" FROM "), declareString + realTableName[0].substring(2, realTableName[0].length() - 2) //$NON-NLS-1$
+                                + declareString);
+            }
             query = checkAndConcatString(checkAndConcatString(query, columnsQuery), end);
         } else {
             String end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), tableNameWithQuoteIfNeed); //$NON-NLS-1$
