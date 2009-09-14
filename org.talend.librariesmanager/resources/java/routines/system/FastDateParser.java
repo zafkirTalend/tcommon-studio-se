@@ -29,16 +29,24 @@ public class FastDateParser {
         super();
     }
     
-    private static ThreadLocal<java.util.HashMap<DateFormatKey, java.text.DateFormat>> localCache = new ThreadLocal() {
+    private static ThreadLocal<java.util.HashMap<DateFormatKey, java.text.DateFormat>> localCache = new ThreadLocal<java.util.HashMap<DateFormatKey, java.text.DateFormat>>() {
 
 		@Override
-		protected Object initialValue() {
+		protected java.util.HashMap<DateFormatKey, java.text.DateFormat> initialValue() {
 			return new java.util.HashMap<DateFormatKey, java.text.DateFormat>();
 		}
     	
     };
     
-    private static DateFormatKey dateFormatKey = getInstance().new DateFormatKey();
+    private static ThreadLocal<DateFormatKey> localDateFormatKey= new ThreadLocal<DateFormatKey>() {
+
+		@Override
+		protected DateFormatKey initialValue() {
+			// TODO Auto-generated method stub
+			return getInstance().new DateFormatKey();
+		}
+    	
+    };
 
     // Warning : DateFormat objects returned by this method are not thread safe
     public static java.text.DateFormat getInstance(String pattern) {
@@ -54,9 +62,9 @@ public class FastDateParser {
     }
 
     public static java.text.DateFormat getInstance(String pattern, Locale locale, boolean lenient) {
-        dateFormatKey.pattern = pattern;
-        dateFormatKey.locale = locale;
-        java.text.DateFormat format = localCache.get().get(dateFormatKey);
+    	localDateFormatKey.get().pattern = pattern;
+    	localDateFormatKey.get().locale = locale;
+        java.text.DateFormat format = localCache.get().get(localDateFormatKey.get());
         if (format == null) {
             if (pattern.equals("yyyy-MM-dd")) { //$NON-NLS-1$
                 format = new DateParser();
