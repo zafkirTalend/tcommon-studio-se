@@ -125,7 +125,7 @@ public class FastDateParser {
                 pos.setIndex(source.length());
 
                 calendar.clear();
-                calendar.set(year, month, day, 0, 0, 0);
+                calendar.set(year, month, day);
                 return calendar.getTime();
             } catch (Exception e) {
                 pos.setErrorIndex(index);
