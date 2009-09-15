@@ -85,9 +85,12 @@ public class LogCatcherUtils {
 
     public java.util.List<LogCatcherMessage> getMessages() {
         java.util.List<LogCatcherMessage> messagesToSend = new java.util.ArrayList<LogCatcherMessage>();
-        for (LogCatcherMessage lcm : messages) {
-            messagesToSend.add(lcm);
+        synchronized(messages) {
+        	  for (LogCatcherMessage lcm : messages) {
+                  messagesToSend.add(lcm);
+              }
         }
+      
         messages.clear();
         return messagesToSend;
     }

@@ -223,9 +223,11 @@ public class AssertCatcherUtils {
 
     public java.util.List<AssertCatcherMessage> getMessages() {
         java.util.List<AssertCatcherMessage> messagesToSend = new java.util.ArrayList<AssertCatcherMessage>();
-        for (AssertCatcherMessage acm : messages) {
-            messagesToSend.add(acm);
-        }
+	    synchronized(messages) {
+	        for (AssertCatcherMessage acm : messages) {
+	            messagesToSend.add(acm);
+	        }
+	    }
         messages.clear();
         return messagesToSend;
     }

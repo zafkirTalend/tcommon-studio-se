@@ -157,9 +157,11 @@ public class MetterCatcherUtils {
 
     public java.util.List<MetterCatcherMessage> getMessages() {
         java.util.List<MetterCatcherMessage> messagesToSend = new java.util.ArrayList<MetterCatcherMessage>();
-        for (MetterCatcherMessage scm : messages) {
-            messagesToSend.add(scm);
-        }
+	    synchronized(messages) {
+	    	for (MetterCatcherMessage scm : messages) {
+	              messagesToSend.add(scm);
+	    	}  
+	    }
         messages.clear();
         return messagesToSend;
     }

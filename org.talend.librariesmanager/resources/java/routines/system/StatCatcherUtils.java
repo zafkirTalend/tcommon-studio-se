@@ -163,8 +163,10 @@ public class StatCatcherUtils {
 
     public java.util.List<StatCatcherMessage> getMessages() {
         java.util.List<StatCatcherMessage> messagesToSend = new java.util.ArrayList<StatCatcherMessage>();
-        for (StatCatcherMessage scm : messages) {
-            messagesToSend.add(scm);
+        synchronized(messages) {
+	        for (StatCatcherMessage scm : messages) {
+	            messagesToSend.add(scm);
+	        }
         }
         messages.clear();
         return messagesToSend;
