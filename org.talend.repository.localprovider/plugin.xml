@@ -54,7 +54,7 @@
       <actionSet
             id="org.talend.repository.localprovider.actionSet"
             label="Local Action set"
-            visible="true">
+            visible="false">
          <action
                class="org.talend.repository.localprovider.ui.actions.ImportItemAction"
                icon="platform:/plugin/org.talend.commons.ui/icons/import.gif"

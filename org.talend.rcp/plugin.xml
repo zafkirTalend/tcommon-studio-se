@@ -10,6 +10,32 @@
             name="Design Workspace">
       </perspective>
    </extension>
+   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.talend.rcp.perspective">
+         <actionSet
+               id="org.talend.debug.ui.launchActionSet">
+         </actionSet>
+         <actionSet
+               id="org.talend.repository.CreateactionSet">
+         </actionSet>
+         <actionSet
+               id="org.talend.repository.actionSet">
+         </actionSet>
+         <actionSet
+               id="org.talend.repository.localprovider.actionSet">
+         </actionSet>
+         <actionSet
+         	id="org.talend.repository.bootTalendActionSet">
+         </actionSet>
+         <actionSet
+         	id="org.talend.repository.refproject.mergeReferenceActionSet">
+         </actionSet> 
+      </perspectiveExtension>
+   </extension>
+   
 <extension
       point="org.eclipse.ui.commands">
    <category
