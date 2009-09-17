@@ -47,8 +47,12 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTypeMode;
 import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 
 /**
@@ -156,6 +160,9 @@ public class ComponentToRepositoryProperty {
                 if (o instanceof String || o instanceof Boolean || o instanceof Integer || o instanceof Long
                         || o instanceof Character) {
                     String value = String.valueOf(o);
+                    if (isConetxtParaMode(value)) {
+                        value = getContextOriginalValue(node, value);
+                    }
                     if (value != null) {
                         return TalendTextUtils.removeQuotes(value);
                     }
@@ -170,9 +177,18 @@ public class ComponentToRepositoryProperty {
             if (param.getRepositoryValue() != null) {
                 if (param.getRepositoryValue().equals(repositoryName)) {
                     if (param.getField().equals(EParameterFieldType.CLOSED_LIST)) {
-                        return getRepositoryItemFromRepositoryName(param, repositoryName);
+                        String repositoryItem = getRepositoryItemFromRepositoryName(param, repositoryName);
+                        if (isConetxtParaMode(repositoryItem)) {
+                            return getContextOriginalValue(node, repositoryItem);
+                        }
+                        return repositoryItem;
+                    } else {
+                        String value = (String) param.getValue();
+                        if (isConetxtParaMode(value)) {
+                            return getContextOriginalValue(node, value);
+                        }
+                        return value;
                     }
-                    return (String) param.getValue();
                 }
             }
         }
@@ -814,7 +830,7 @@ public class ComponentToRepositoryProperty {
         }
 
         if ("AUTHENTIFICATION".equals(repositoryValue)) { //$NON-NLS-1$
-            IElementParameter param = node.getElementParameter(""); //$NON-NLS-1$
+            IElementParameter param = node.getElementParameter("AUTHENTIFICATION"); //$NON-NLS-1$
             if (param != null) {
                 Object o = param.getValue();
                 if (o != null && o instanceof Boolean) {
@@ -1395,5 +1411,37 @@ public class ComponentToRepositoryProperty {
             }
 
         }
+    }
+
+    /**
+     * wzhang Comment method "isConetxtParaMode".
+     */
+    private static boolean isConetxtParaMode(String value) {
+        if (value == null) {
+            return false;
+        }
+        if (ContextParameterUtils.isContainContextParam(value)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * wzhang Comment method "getContextOriginalValue".
+     */
+    private static String getContextOriginalValue(INode node, String value) {
+        if (isConetxtParaMode(value)) {
+            String variable = ContextParameterUtils.getVariableFromCode(value);
+            IContextManager contextManager = node.getProcess().getContextManager();
+            IContext context = contextManager.getContext(value);
+            List<IContextParameter> contextParameterList = context.getContextParameterList();
+            for (IContextParameter contextPara : contextParameterList) {
+                String contextName = contextPara.getName();
+                if (contextName != null && contextName.equals(variable)) {
+                    value = contextPara.getValue();
+                }
+            }
+        }
+        return value;
     }
 }
