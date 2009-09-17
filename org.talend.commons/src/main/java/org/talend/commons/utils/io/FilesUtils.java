@@ -113,7 +113,7 @@ public class FilesUtils {
         // 2. if the target exists, compare their sizes, once defferent, for the copy.
         // 2. target exists but source has been modified recently(not used right now)
 
-        if (!target.exists() || source.length() != target.length()) {
+        if (!source.getAbsolutePath().contains(".svn") && (!target.exists() || source.lastModified() > target.lastModified())) {
             copyFile(new FileInputStream(source), target);
         }
     }
