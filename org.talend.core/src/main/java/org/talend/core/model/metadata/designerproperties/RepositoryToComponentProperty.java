@@ -621,6 +621,15 @@ public class RepositoryToComponentProperty {
         if (value.equals("CDC_TYPE_MODE")) { //$NON-NLS-1$
             return new Boolean(CDCTypeMode.LOG_MODE.getName().equals(connection.getCdcTypeMode()));
         }
+        // add this for tJavaDB embeded "DB Root Path"
+        if (value.equals("DIRECTORY")) {//$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getDBRootPath())) {
+                return connection.getDBRootPath();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDBRootPath());
+            }
+
+        }
         return null;
     }
 
