@@ -329,4 +329,33 @@ public class NodeUtil {
 
         return realConnection;
     }
+
+    /**
+     * DOC wliu
+     * <p>
+     * judge if the current connection is the last output connection of the component
+     * </p>
+     * Notice: It is used in subtree_end.javajet. And the aim is for feature5996
+     * 
+     * @param connection
+     * @return
+     */
+    public static boolean isLastMultiplyingOutputComponents(IConnection connection) {
+
+        List<? extends IConnection> conns = connection.getSource().getOutgoingConnections();
+        int last = 0;
+        if (conns != null && conns.size() > 0) {
+            for (int i = 0; i < conns.size(); i++) {
+                if (conns.get(i).getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
+                    last = i;
+                }
+            }
+        }
+
+        if (connection.getName().equals(conns.get(last).getName())) {
+            return true;
+        }
+
+        return false;
+    }
 }
