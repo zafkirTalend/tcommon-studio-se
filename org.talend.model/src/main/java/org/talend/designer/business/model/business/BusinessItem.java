@@ -106,6 +106,7 @@ public interface BusinessItem extends EObject {
 
     /**
      * Returns the value of the '<em><b>VAlignment</b></em>' attribute.
+     * The default value is <code>"VCENTRE"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>VAlignment</em>' attribute isn't clear,
@@ -115,7 +116,7 @@ public interface BusinessItem extends EObject {
      * @return the value of the '<em>VAlignment</em>' attribute.
      * @see #setVAlignment(String)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_VAlignment()
-     * @model
+     * @model default="VCENTRE"
      * @generated
      */
     String getVAlignment();
@@ -132,6 +133,7 @@ public interface BusinessItem extends EObject {
 
     /**
      * Returns the value of the '<em><b>HAlignment</b></em>' attribute.
+     * The default value is <code>"HCENTRE"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>HAlignment</em>' attribute isn't clear,
@@ -141,7 +143,7 @@ public interface BusinessItem extends EObject {
      * @return the value of the '<em>HAlignment</em>' attribute.
      * @see #setHAlignment(String)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_HAlignment()
-     * @model
+     * @model default="HCENTRE"
      * @generated
      */
     String getHAlignment();

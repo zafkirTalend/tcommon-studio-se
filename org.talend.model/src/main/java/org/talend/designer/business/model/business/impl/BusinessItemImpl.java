@@ -83,7 +83,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * @generated
      * @ordered
      */
-    protected static final String VALIGNMENT_EDEFAULT = null;
+    protected static final String VALIGNMENT_EDEFAULT = "VCENTRE";
 
     /**
      * The cached value of the '{@link #getVAlignment() <em>VAlignment</em>}' attribute.
@@ -103,7 +103,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * @generated
      * @ordered
      */
-    protected static final String HALIGNMENT_EDEFAULT = null;
+    protected static final String HALIGNMENT_EDEFAULT = "HCENTRE";
 
     /**
      * The cached value of the '{@link #getHAlignment() <em>HAlignment</em>}' attribute.

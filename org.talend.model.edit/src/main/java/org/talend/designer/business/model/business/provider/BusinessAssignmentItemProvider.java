@@ -58,8 +58,8 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
         ITableItemLabelProvider {
 
     /**
-     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This constructs an instance from a factory and a notifier.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public BusinessAssignmentItemProvider(AdapterFactory adapterFactory) {
@@ -67,8 +67,8 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
     }
 
     /**
-     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This returns the property descriptors for the adapted class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public List getPropertyDescriptors(Object object) {
@@ -154,17 +154,17 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
         updateChildren(notification);
 
         switch (notification.getFeatureID(BusinessAssignment.class)) {
-        case BusinessPackage.BUSINESS_ASSIGNMENT__COMMENT:
-            fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-            return;
+            case BusinessPackage.BUSINESS_ASSIGNMENT__COMMENT:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
         }
         super.notifyChanged(notification);
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
-     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+     * that can be created under this object.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
@@ -172,8 +172,8 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
     }
 
     /**
-     * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Return the resource locator for this item provider's resources.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ResourceLocator getResourceLocator() {

@@ -52,7 +52,7 @@ public class SAPFunctionItemProvider extends TalendItemItemProvider implements I
     /**
      * This returns SAPFunction.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.METADATA_SAPCONNECTION_ICON.getPath()).createImage();
@@ -61,7 +61,7 @@ public class SAPFunctionItemProvider extends TalendItemItemProvider implements I
     /**
      * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         return super.getText(object);
