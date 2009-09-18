@@ -37,6 +37,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.update.UpdateResult;
 import org.talend.core.utils.CsvArray;
 import org.talend.designer.runprocess.ProcessorException;
@@ -150,5 +151,9 @@ public interface IDesignerCoreService extends IService {
     public IConnection getConnection(List<? extends IConnection> connections, IMetadataTable table);
 
     public void createStatsLogAndImplicitParamter(Project project);
+
+    public void removeJobLaunch(IRepositoryObject objToDelete);
+
+    public void renameJobLaunch(IRepositoryObject obj, String originalName);
 
 }
