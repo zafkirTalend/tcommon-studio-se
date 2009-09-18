@@ -13,6 +13,7 @@
 package org.talend.core.ui.context;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -151,6 +152,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
             return;
         }
         createContext(returnValue);
+
         refreshViewer();
     }
 
@@ -194,7 +196,25 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
             param.setContext(newContext);
             newParamList.add(param);
         }
+
         getAllContexts().add(newContext);
+
+        Collections.sort(getAllContexts(), new ContextCompare());
+    }
+
+    /**
+     * DOC hshen ContextCompare class global comment. Detailled comment
+     */
+    private class ContextCompare implements java.util.Comparator<IContext> {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
+        public int compare(IContext o1, IContext o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
     }
 
     @Override
