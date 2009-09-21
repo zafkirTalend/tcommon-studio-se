@@ -301,9 +301,10 @@ public class ExtractMetaDataUtils {
      * @param String pwd
      * @param String schemaBase
      */
-    public static void getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
+    public static List getConnection(String dbType, String url, String username, String pwd, String dataBase, String schemaBase,
             final String driverClassName, final String driverJarPath, String dbVersion) {
         boolean isColsed = false;
+        List conList = new ArrayList();
         try {
             if (conn != null) {
                 isColsed = conn.isClosed();
@@ -311,12 +312,25 @@ public class ExtractMetaDataUtils {
         } catch (Exception e) {
             log.error(e.toString());
         }
+        // bug 9162
+        List list = new ArrayList();
+        DriverShim wapperDriver = null;
         if (isReconnect || conn == null || isColsed) {
             try {
                 closeConnection(true); // colse before connection.
                 checkDBConnectionTimeout();
-                conn = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion);
 
+                list = connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersion);
+                if (list != null && list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) instanceof Connection) {
+                            conn = (Connection) list.get(i);
+                        }
+                        if (list.get(i) instanceof DriverShim) {
+                            wapperDriver = (DriverShim) list.get(i);
+                        }
+                    }
+                }
                 if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
                     final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
                             EDatabaseTypeName.ORACLEFORSID.getProduct());
@@ -332,6 +346,10 @@ public class ExtractMetaDataUtils {
                     // schema = dataBase;
                     // }
                 }
+                conList.add(conn);
+                if (wapperDriver != null) {
+                    conList.add(wapperDriver);
+                }
             } catch (SQLException e) {
                 log.error(e.toString());
                 throw new RuntimeException(e);
@@ -340,6 +358,7 @@ public class ExtractMetaDataUtils {
                 throw new RuntimeException(e);
             }
         }
+        return conList;
     }
 
     /**
@@ -429,9 +448,11 @@ public class ExtractMetaDataUtils {
      * @return
      * @throws Exception
      */
-    public static Connection connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
+    public static List connect(String dbType, String url, String username, String pwd, final String driverClassNameArg,
             final String driverJarPathArg, String dbVersion) throws Exception {
         Connection connection = null;
+        DriverShim wapperDriver = null;
+        List conList = new ArrayList();
 
         String driverClassName = driverClassNameArg;
 
@@ -467,14 +488,37 @@ public class ExtractMetaDataUtils {
                 ExtractMetaDataUtils.checkAccessDbq(url);
             }
         }
+        // bug 9162
+        List list = new ArrayList();
         ExtractMetaDataUtils.checkDBConnectionTimeout();
         if (dbType != null && dbType.equalsIgnoreCase(EDatabaseTypeName.GENERAL_JDBC.getXmlName())) {
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
+            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
+            if (list != null && list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Connection) {
+                        connection = (Connection) list.get(i);
+                    }
+                    if (list.get(i) instanceof DriverShim) {
+                        wapperDriver = (DriverShim) list.get(i);
+                    }
+                }
+            }
+
         } else if (dbType != null && isValidJarFile(driverJarPath)) {
             // Load jdbc driver class dynamicly
             JDBCDriverLoader loader = new JDBCDriverLoader();
-            connection = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
+            list = loader.getConnection(driverJarPath, driverClassName, url, username, pwd, dbType, dbVersion);
+            if (list != null && list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Connection) {
+                        connection = (Connection) list.get(i);
+                    }
+                    if (list.get(i) instanceof DriverShim) {
+                        wapperDriver = (DriverShim) list.get(i);
+                    }
+                }
+            }
         } else {
             // Don't use DriverManager
             Class<?> klazz = Class.forName(driverClassName);
@@ -490,7 +534,11 @@ public class ExtractMetaDataUtils {
         if (connection == null) {
             throw new Exception("Impossible to initialize the connection !");
         }
-        return connection;
+        conList.add(connection);
+        if (wapperDriver != null) {
+            conList.add(wapperDriver);
+        }
+        return conList;
     }
 
     /**

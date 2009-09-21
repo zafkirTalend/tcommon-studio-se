@@ -14,6 +14,8 @@ package org.talend.core.model.metadata.builder.database;
 
 import java.sql.Connection;
 import java.sql.Driver;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
@@ -38,9 +40,10 @@ public class JDBCDriverLoader {
      * @param password
      * @return
      */
-    public Connection getConnection(String[] jarPath, String driverClassName, String url, String username, String password,
+    public List getConnection(String[] jarPath, String driverClassName, String url, String username, String password,
             String dbType, String dbVersion) throws Exception {
         // qli modified to fix the bug 7656.
+        List list = new ArrayList();
         HotClassLoader loader;
         boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
         if (flog) {
@@ -60,7 +63,7 @@ public class JDBCDriverLoader {
         }
 
         DriverShim wapperDriver = null;
-
+        Connection connection = null;
         try {
             Class<?> driver = Class.forName(driverClassName, true, loader);
             // Object driver = loader.loadClass(driverClassName).newInstance();
@@ -70,19 +73,13 @@ public class JDBCDriverLoader {
             Properties info = new Properties();
             info.put("user", username); //$NON-NLS-1$
             info.put("password", password); //$NON-NLS-1$
-            Connection connection = wapperDriver.connect(url, info);
+            connection = wapperDriver.connect(url, info);
             // DriverManager.deregisterDriver(wapperDriver);
-
-            return connection;
-
+            // bug 9162
+            list.add(connection);
+            list.add(wapperDriver);
+            return list;
         } catch (Throwable e) {
-            // if (wapperDriver != null) {
-            // try {
-            // // DriverManager.deregisterDriver(wapperDriver);
-            // } catch (SQLException e1) {
-            // ExceptionHandler.process(e);
-            // }
-            // }
             throw new RuntimeException(e);
         }
 

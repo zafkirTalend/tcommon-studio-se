@@ -656,10 +656,21 @@ public class ExtractMetaDataFromDataBase {
         Connection connection = null;
         ConnectionStatus connectionStatus = new ConnectionStatus();
         connectionStatus.setResult(false);
+        DriverShim wapperDriver = null;
         try {
-            connection = ExtractMetaDataUtils
-                    .connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersionString);
+            List list = new ArrayList();
 
+            list = ExtractMetaDataUtils.connect(dbType, url, username, pwd, driverClassName, driverJarPath, dbVersionString);
+            if (list != null && list.size() > 0) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) instanceof Connection) {
+                        connection = (Connection) list.get(i);
+                    }
+                    if (list.get(i) instanceof DriverShim) {
+                        wapperDriver = (DriverShim) list.get(i);
+                    }
+                }
+            }
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
                 final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
                 final boolean equals = product.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
@@ -686,6 +697,15 @@ public class ExtractMetaDataFromDataBase {
             } catch (SQLException e) {
                 //
             }
+            // zli
+            if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && wapperDriver != null) { //$NON-NLS-1$
+                try {
+                    wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+                } catch (SQLException e) {
+                    // exception of shutdown success. no need to catch.
+                }
+            }
+
         }
         return connectionStatus;
     }
@@ -750,16 +770,38 @@ public class ExtractMetaDataFromDataBase {
         // add by wzhang
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
-                .getDbVersionString());
+        // bug 9162
+        List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
+                iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
+                iMetadataConnection.getDbVersionString());
+        Connection conn = null;
+        DriverShim wapperDriver = null;
+
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) instanceof Connection) {
+                    conn = (Connection) list.get(i);
+                }
+                if (list.get(i) instanceof DriverShim) {
+                    wapperDriver = (DriverShim) list.get(i);
+                }
+            }
+        }
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
                 .getSchema(), limit);
+
         ExtractMetaDataUtils.closeConnection();
+        if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && wapperDriver != null) { //$NON-NLS-1$
+            try {
+                wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
+            } catch (SQLException e) {
+                // exception of shutdown success. no need to catch.
+            }
+        }
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
         while (iterate.hasNext()) {
