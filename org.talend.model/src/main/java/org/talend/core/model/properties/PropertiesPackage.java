@@ -3689,6 +3689,8 @@ public interface PropertiesPackage extends EPackage {
      */
     int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 39;
 
+    int TASK_EXECUTION_HISTORY__JVM_VALUES = 40;
+    
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
