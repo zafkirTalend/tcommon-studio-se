@@ -335,4 +335,19 @@ public class XmiResourceManager {
             resourceSet.getResources().remove(resource);
         }
     }
+    
+    /**
+     * Method "unloadResource" unload and remove the specification resource from the resource set. MOD mzhao
+     * 
+     * @param uriString the uri sting of resource.
+     */
+    public synchronized void unloadResource(String uriString) {
+        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+        for (Resource res : resources) {
+            if (uriString.equals(res.getURI().toString())) {
+                res.unload();
+                resourceSet.getResources().remove(res);
+            }
+        }
+    }
 }

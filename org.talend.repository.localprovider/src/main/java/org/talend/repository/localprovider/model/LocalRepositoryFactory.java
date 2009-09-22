@@ -1595,7 +1595,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(project);
         try {
-            return ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
+            // MOD mzhao feature 9207
+            String folderName = ERepositoryObjectType.getFolderName(repositoryObjectType);
+            if (folderName.isEmpty()) {
+                return null;
+            }
+            return ResourceUtils.getFolder(fsProject, folderName, true);
         } catch (ResourceNotFoundException rex) {
             //
         }
@@ -1659,6 +1664,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void unloadResources(Property property) {
         xmiResourceManager.unloadResources(property);
+    }
+
+    /**
+     * MOD mzhao feature 9207
+     */
+    public void unloadResources(String uriString) {
+        xmiResourceManager.unloadResource(uriString);
     }
 
     public void unloadResources() {

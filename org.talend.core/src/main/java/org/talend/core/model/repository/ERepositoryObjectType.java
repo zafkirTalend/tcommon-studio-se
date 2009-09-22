@@ -44,6 +44,7 @@ import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
@@ -96,7 +97,9 @@ public enum ERepositoryObjectType {
     JOBLET("repository.joblet"), //$NON-NLS-1$
     METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     JOBLETS("repository.joblets"), //$NON-NLS-1$
-    JOBLET_DOC("repository.jobletdoc"); //$NON-NLS-1$
+    JOBLET_DOC("repository.jobletdoc"), //$NON-NLS-1$
+    // MOD mzhao feature 9207
+    TDQ_ELEMENT("tdq.element"); //$NON-NLS-1$
 
     private String key;
 
@@ -203,7 +206,10 @@ public enum ERepositoryObjectType {
         case METADATA_FILE_RULES:
             return "metadata/rules"; //$NON-NLS-1$
         case METADATA_FILE_LINKRULES:
-            return "metadata/rules"; //$NON-NLS-1$
+            return "metadata/rules";
+        // MOD mzhao feature 9207
+        case TDQ_ELEMENT:
+            return "";//$NON-NLS-1$
         default:
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {
@@ -384,6 +390,13 @@ public enum ERepositoryObjectType {
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
                 // TODO Auto-generated method stub
                 return SVG_BUSINESS_PROCESS;
+            }
+            
+
+            // MOD mzhao feature 9207
+            @Override
+            public Object caseTDQItem(TDQItem object) {
+                return TDQ_ELEMENT;
             }
 
             public Object defaultCase(EObject object) {
