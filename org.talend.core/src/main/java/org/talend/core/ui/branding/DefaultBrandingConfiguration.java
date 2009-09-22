@@ -279,4 +279,8 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
     public String getInitialWindowPerspectiveId() {
         return "org.talend.rcp.perspective";
     }
+
+    public String getTISProductNameForWelcome() {
+        return "Integeration Suite Studio";
+    }
 }

@@ -49,6 +49,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
+import org.talend.core.tis.intro.dynamic.DrawWelcomeLogo;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
@@ -109,6 +110,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             service.getBrandingConfiguration().setHelper(helper);
         }
         helper.preWindowOpen(configurer);
+        if (PluginChecker.isTIS()) {
+            DrawWelcomeLogo.drawLogo(service, buildId.toString());
+        }
     }
 
     /*
