@@ -272,6 +272,36 @@ public class ResumeUtil {
         return childJob_checkpoint_path;
     }
 
+    // Util: get right tRunJob name, only one tRunJob will transmit the "resuming_checkpoint_path" to child job-->used
+    // by tRunJob
+    public static String getRighttRunJob(String resuming_checkpoint_path) {
+        /*
+         * String resuming_checkpoint_path =
+         * "/JOB:parentJob/SUBJOB:tRunJob_1/NODE:tRunJob_1/JOB:ChildJob/SUBJOB:tSystem_2" ;
+         */
+        String tRunJobName = null;
+
+        // get currentJob_checkpoint_path
+        if (resuming_checkpoint_path != null) {
+            int indexOf = resuming_checkpoint_path.indexOf("/NODE:");
+
+            if (indexOf != -1) {
+                String temp = resuming_checkpoint_path.substring(indexOf);
+
+                int index = temp.indexOf("/JOB:");
+
+                if (index != -1) {
+                    // /NODE:tRunJob_1 ---> tRunJob_1
+                    tRunJobName = temp.substring(6, index);
+                }
+            }
+        }
+
+        // System.out.println(tRunJobName);
+
+        return tRunJobName;
+    }
+
     // Util: get String type of ExceptionStackTrace
     public static String getExceptionStackTrace(Exception exception) {
         java.io.OutputStream out = new java.io.ByteArrayOutputStream();
