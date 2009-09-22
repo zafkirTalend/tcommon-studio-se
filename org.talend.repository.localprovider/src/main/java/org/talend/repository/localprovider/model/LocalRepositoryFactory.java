@@ -98,7 +98,7 @@ import org.talend.repository.localprovider.imports.ImportItemUtil;
 import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
-import org.talend.repository.model.IRepositoryFactory;
+import org.talend.repository.model.ILocalRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.URIHelper;
@@ -112,7 +112,7 @@ import org.talend.repository.ui.views.RepositoryLabelProvider;
  * 14:30:39 tguiu Exp $
  * 
  */
-public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
+public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements ILocalRepositoryFactory {
 
     private static final String BIN = "bin"; //$NON-NLS-1$
 
