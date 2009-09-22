@@ -682,7 +682,7 @@ public class MetadataTool {
         PatternCompiler compiler = new Perl5Compiler();
         org.apache.oro.text.regex.Pattern pattern = null;
         try {
-            pattern = compiler.compile(VALIDATE_PATTERN_SCHEMA_NAME);
+            pattern = compiler.compile(VALIDATE_PATTERN_NAME);
         } catch (MalformedPatternException e) {
             throw new RuntimeException(e);
         }
