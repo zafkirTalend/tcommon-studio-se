@@ -129,6 +129,8 @@ class ExportItemWizardPage extends WizardPage {
 
     Set<RepositoryNode> checkedNodes = new HashSet<RepositoryNode>();
 
+    Set<RepositoryNode> allNode = new HashSet<RepositoryNode>();
+
     protected ExportItemWizardPage(String pageName, IStructuredSelection selection) {
         super(pageName);
         repositoryView = RepositoryView.show();
@@ -200,7 +202,24 @@ class ExportItemWizardPage extends WizardPage {
             }
             ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
         }
+    }
 
+    private void refreshExportDependNodes() {
+        checkedNodes.clear();
+        Object[] checkedObj = ((CheckboxTreeViewer) viewer).getCheckedElements();
+        for (int i = 0; i < checkedObj.length; i++) {
+            if (checkedObj[i] instanceof RepositoryNode) {
+                RepositoryNode checkedNode = (RepositoryNode) checkedObj[i];
+                if (checkedNode != null && !RepositoryNode.NO_ID.equals(checkedNode.getId())) {
+                    if (checkedNode.getChildren().isEmpty()) {
+                        checkedNodes.add(checkedNode);
+                    }
+                }
+            }
+        }
+        allNode.clear();
+        allNode.addAll(repositoryNodes);
+        allNode.addAll(checkedNodes);
     }
 
     private void checkElement(RepositoryNode node, Set<RepositoryNode> nodes) {
@@ -322,20 +341,7 @@ class ExportItemWizardPage extends WizardPage {
         viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
             public void selectionChanged(SelectionChangedEvent event) {
-                checkedNodes.clear();
-                Object[] checkedObj = ((CheckboxTreeViewer) viewer).getCheckedElements();
-
-                for (int i = 0; i < checkedObj.length; i++) {
-                    if (checkedObj[i] instanceof RepositoryNode) {
-                        RepositoryNode checkedNode = (RepositoryNode) checkedObj[i];
-                        if (checkedNode != null && !RepositoryNode.NO_ID.equals(checkedNode.getId())) {
-                            if (checkedNode.getChildren().isEmpty()) {
-                                checkedNodes.add(checkedNode);
-                            }
-                        }
-                    }
-
-                }
+                refreshExportDependNodes();
             }
 
         });
@@ -585,22 +591,26 @@ class ExportItemWizardPage extends WizardPage {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
+                refreshExportDependNodes();
                 viewer.expandAll();
                 viewer.expandToLevel(4);
                 exportDependenciesSelected();
                 viewer.collapseAll();
-                Set<RepositoryNode> allNode = new HashSet<RepositoryNode>();
-                allNode.addAll(repositoryNodes);
-                allNode.addAll(checkedNodes);
+                allNode.clear();
+                if (exportDependencies.getSelection() == true) {
+                    allNode.addAll(checkedNodes);
+                } else {
+                    repositoryNodes.clear();
+                    repositoryNodes.addAll(selection.toList());
+                    allNode.addAll(repositoryNodes);
+                }
                 Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
                 for (RepositoryNode node : allNode) {
                     expandRoot(node);
                     expandParent(viewer, node);
                     checkElement(node, nodes);
                 }
-
                 ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
-
             }
         });
     }
@@ -686,6 +696,7 @@ class ExportItemWizardPage extends WizardPage {
                                         .getRepositoryNode(repositoryObject, false);
                                 if (repositoryNode != null && !repositoryNodes.contains(repositoryNode)) {
                                     repositoryNodes.add(repositoryNode);
+                                    checkedNodes.add(repositoryNode);
                                 }
 
                             }
@@ -695,6 +706,7 @@ class ExportItemWizardPage extends WizardPage {
                                         .getRepositoryNode(repositoryObject, false);
                                 if (repositoryNode != null && repositoryNodes.contains(repositoryNode)) {
                                     repositoryNodes.remove(repositoryNode);
+                                    checkedNodes.remove(repositoryNode);
                                 }
                             }
                         }
