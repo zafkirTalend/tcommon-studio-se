@@ -1597,7 +1597,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         try {
             // MOD mzhao feature 9207
             String folderName = ERepositoryObjectType.getFolderName(repositoryObjectType);
-            if (folderName.isEmpty()) {
+            if (folderName.trim().equals("")) {
                 return null;
             }
             return ResourceUtils.getFolder(fsProject, folderName, true);
