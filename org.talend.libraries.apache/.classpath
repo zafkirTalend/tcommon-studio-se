@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-digester-1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-betwixt-0.8.jar" sourcepath="/home/zhao/桌面/commons-betwixt-0.8-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-beanutils.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-cli-2.0-SNAPSHOT.jar" sourcepath="libs_src/commons-cli-2.0-SNAPSHOT"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.3.jar" sourcepath="libs_src/commons-codec-1.3/src/java/"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.2.jar" sourcepath="/org.talend.libraries/libs_src"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-io-1.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-io-1.3.2.jar" sourcepath="/home/zhao/桌面/Talend/commons-io-1.3.2-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.1.jar" sourcepath="/org.talend.libraries"/>
 	<classpathentry exported="true" kind="lib" path="lib/jakarta-oro-2.0.8.jar" sourcepath="libs_src/jakarta-oro-2.0.8/src/java"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.jar"/>
