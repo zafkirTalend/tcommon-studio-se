@@ -32,15 +32,22 @@ public class SimpleCache<K, V> {
      * 
      * @param <K> key
      */
-    class HashKey<K> {
+    class HashKeyValue<K, V> {
 
         private K key;
 
+        private V value;
+
         private long addTime;
 
-        public HashKey(K key) {
+        public HashKeyValue(K key) {
             this.key = key;
             this.addTime = System.currentTimeMillis();
+        }
+
+        public HashKeyValue(K key, V value) {
+            this(key);
+            this.value = value;
         }
 
         /*
@@ -70,7 +77,7 @@ public class SimpleCache<K, V> {
                 return false;
             if (getClass() != obj.getClass())
                 return false;
-            HashKey other = (HashKey) obj;
+            HashKeyValue other = (HashKeyValue) obj;
             if (!getOuterType().equals(other.getOuterType()))
                 return false;
             if (key == null) {
@@ -84,12 +91,40 @@ public class SimpleCache<K, V> {
         private SimpleCache getOuterType() {
             return SimpleCache.this;
         }
+        
+        /**
+         * Getter for value.
+         * 
+         * @return the value
+         */
+        public V getValue() {
+            return value;
+        }
+        
+        /**
+         * Getter for key.
+         * 
+         * @return the key
+         */
+        public K getKey() {
+            return key;
+        }
+
+        
+        /**
+         * Getter for addTime.
+         * 
+         * @return the addTime
+         */
+        public long getAddTime() {
+            return addTime;
+        }
 
     }
 
-    List<HashKey<K>> keysOrderedByPutTime = new ArrayList<HashKey<K>>();
+    List<HashKeyValue<K, V>> keysOrderedByPutTime = new ArrayList<HashKeyValue<K, V>>();
 
-    protected Map<HashKey<K>, V> cache = new HashMap<HashKey<K>, V>();
+    protected Map<HashKeyValue<K, V>, HashKeyValue<K, V>> cache = new HashMap<HashKeyValue<K, V>, HashKeyValue<K, V>>();
 
     private int maxItems;
 
@@ -102,10 +137,29 @@ public class SimpleCache<K, V> {
     }
 
     public V get(K key) {
-        HashKey<K> internalKey = new HashKey<K>(key);
-        return cache.get(internalKey);
+        HashKeyValue<K, V> internalKey = new HashKeyValue<K, V>(key);
+        HashKeyValue<K, V> keyValue = cache.get(internalKey);
+        return keyValue.getValue();
     }
 
+    public Long getAddTime(K key) {
+        HashKeyValue<K, V> internalKey = new HashKeyValue<K, V>(key);
+        HashKeyValue<K, V> keyValue = cache.get(internalKey);
+        if (keyValue != null) {
+            return keyValue.getAddTime();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "put".
+     * 
+     * @param key
+     * @param value
+     * @return previous value for the same key
+     */
     public V put(K key, V value) {
         int sizeItems = keysOrderedByPutTime.size();
         if (maxItems > 0 && sizeItems >= maxItems) {
@@ -113,8 +167,8 @@ public class SimpleCache<K, V> {
         }
         if (maxTime != Long.MAX_VALUE) {
             long currentTimeMillis = System.currentTimeMillis();
-            for (Iterator<HashKey<K>> iterator = keysOrderedByPutTime.iterator(); iterator.hasNext();) {
-                HashKey<K> hashKey = iterator.next();
+            for (Iterator<HashKeyValue<K, V>> iterator = keysOrderedByPutTime.iterator(); iterator.hasNext();) {
+                HashKeyValue<K, V> hashKey = iterator.next();
                 if (hashKey.addTime - currentTimeMillis > maxTime) {
                     iterator.remove();
                 } else {
@@ -122,9 +176,14 @@ public class SimpleCache<K, V> {
                 }
             }
         }
-        HashKey<K> internalKey = new HashKey<K>(key);
-        keysOrderedByPutTime.add(internalKey);
-        return cache.put(internalKey, value);
+        HashKeyValue<K, V> internalKeyValue = new HashKeyValue<K, V>(key, value);
+        keysOrderedByPutTime.add(internalKeyValue);
+        HashKeyValue<K, V> previousKeyValue = cache.put(internalKeyValue, internalKeyValue);
+        if (previousKeyValue != null) {
+            return previousKeyValue.getValue();
+        } else {
+            return null;
+        }
     }
 
 }
