@@ -49,6 +49,8 @@ public class PluginChecker {
 
     private static final String SVN_PROVIDER_PLUGIN_ID = "org.talend.repository.svnprovider"; //$NON-NLS-1$   
 
+    private static final String CORE_TIS_PLUGIN_ID = "org.talend.core.tis"; //$NON-NLS-1$   
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -141,5 +143,9 @@ public class PluginChecker {
 
     public static boolean isSVNProviderPluginLoaded() {
         return isPluginLoaded(SVN_PROVIDER_PLUGIN_ID);
+    }
+
+    public static boolean isCoreTISPluginLoaded() {
+        return isPluginLoaded(CORE_TIS_PLUGIN_ID);
     }
 }

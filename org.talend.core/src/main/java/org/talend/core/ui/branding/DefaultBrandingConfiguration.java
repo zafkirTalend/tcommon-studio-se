@@ -24,7 +24,11 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.tis.ICoreTisService;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -282,5 +286,14 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     public String getTISProductNameForWelcome() {
         return "Integeration Suite Studio";
+    }
+
+    public void generateWelcomeHeaderImage() {
+        if (PluginChecker.isCoreTISPluginLoaded()) {
+            String version = (String) CorePlugin.getDefault().getBundle().getHeaders().get(
+                    org.osgi.framework.Constants.BUNDLE_VERSION);
+            ICoreTisService service = (ICoreTisService) GlobalServiceRegister.getDefault().getService(ICoreTisService.class);
+            service.drawWelcomeLogo(version);
+        }
     }
 }

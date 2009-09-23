@@ -49,7 +49,8 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
-import org.talend.core.tis.intro.dynamic.DrawWelcomeLogo;
+import org.talend.core.ui.branding.DefaultBrandingConfiguration;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
@@ -104,14 +105,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                         + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel() + " (" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
                         + Messages.getString("ApplicationWorkbenchWindowAdvisor.repositoryConnection") + ": " + prefManipulator.getLastConnection() + ")"); //$NON-NLS-1$ //$NON-NLS-2$
         IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
-        ActionBarBuildHelper helper = (ActionBarBuildHelper) service.getBrandingConfiguration().getHelper();
+        IBrandingConfiguration brandingConfiguration = service.getBrandingConfiguration();
+        ActionBarBuildHelper helper = (ActionBarBuildHelper) brandingConfiguration.getHelper();
         if (helper == null) {
             helper = new ActionBarBuildHelper();
-            service.getBrandingConfiguration().setHelper(helper);
+            brandingConfiguration.setHelper(helper);
         }
         helper.preWindowOpen(configurer);
-        if (PluginChecker.isTIS()) {
-            DrawWelcomeLogo.drawLogo(service, buildId.toString());
+        // generate welcome header image.
+        if (brandingConfiguration instanceof DefaultBrandingConfiguration) {
+            ((DefaultBrandingConfiguration) brandingConfiguration).generateWelcomeHeaderImage();
         }
     }
 
