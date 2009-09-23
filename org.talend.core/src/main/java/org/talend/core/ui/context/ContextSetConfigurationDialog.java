@@ -213,7 +213,9 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
         public int compare(IContext o1, IContext o2) {
-            return o1.getName().compareTo(o2.getName());
+            String name1 = o1.getName().toUpperCase();
+            String name2 = o2.getName().toUpperCase();
+            return name1.compareTo(name2);
         }
     }
 
