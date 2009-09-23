@@ -40,10 +40,14 @@ public class KeywordsValidator {
 
     public static boolean isKeyword(ECodeLanguage lang, String word) {
         Set<String> words = getKeywords(lang);
+        // added by nma, for AIX commandline NPE, 7950.
+        if (words == null)
+            return false;
         return words.contains(word);
     }
 
     public static Set<String> getKeywords(ECodeLanguage lang) {
+        // added by nma, for AIX commandline, 7950.
         if (Platform.getOS().equals(Platform.OS_AIX)) {
             return null;
         }
@@ -65,7 +69,10 @@ public class KeywordsValidator {
 
     // hshen
     public static boolean isSqlKeyword(String word) {
-
+        // added by nma, for AIX commandline NPE, 7950.
+        if (Platform.getOS().equals(Platform.OS_AIX)) {
+            return false;
+        }
         if (sqlKeywords.isEmpty()) {
             Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
             KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
