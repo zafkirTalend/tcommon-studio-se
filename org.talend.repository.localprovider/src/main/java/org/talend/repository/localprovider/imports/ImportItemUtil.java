@@ -701,7 +701,7 @@ public class ImportItemUtil {
         // old task, added for an old version of TOS, not used anymore.
         toReturn.add("org.talend.repository.migration.ReplaceOldContextScriptCodeMigrationTask"); //$NON-NLS-1$
         toReturn.add("org.talend.designer.core.model.process.migration.SynchronizeSchemaOnlyForPerlDemo"); //$NON-NLS-1$
-
+        toReturn.add("org.talend.repository.model.migration.RenametFSFilterRow"); //$NON-NLS-1$        
         return toReturn;
     }
 
