@@ -575,13 +575,13 @@ final class XSDFileSchemaTreePopulator {
                     XSComplexTypeDecl complexType = (XSComplexTypeDecl) element.getTypeDefinition();
                     // If the complex type is explicitly defined, that is, it has name.
                     if (complexType.getName() != null) {
-                        node.setDataType(complexType.getName());
+                        childNode.setDataType(complexType.getName());
                         ATreeNode n = findComplexElement(childNode, complexType.getName());
                         if (namespaceNode != null) {
-                            node.addChild(namespaceNode);
+                            childNode.addChild(namespaceNode);
                         }
                         if (n != null) {
-                            node.addChild(n.getChildren());
+                            childNode.addChild(n.getChildren());
                         }
                     }
                     // If the complex type is implicitly defined, that is, it has no name.
