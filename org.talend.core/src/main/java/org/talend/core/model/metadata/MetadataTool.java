@@ -25,6 +25,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
@@ -785,20 +786,43 @@ public class MetadataTool {
      * cli Comment method "processFieldLength".
      * 
      */
-    public static void processFieldsLength(AbstractMetadataObject metadataObj) {
-        if (metadataObj != null) {
-            final int max = 255;
+    public static void processFieldsLength(EObject obj) {
+        if (obj != null) {
+
             // if the comment length of metadata object is more than 255. will be cut
-            String comment = metadataObj.getComment();
-            if (comment != null && comment.length() > max) {
-                final String dots = "..."; //$NON-NLS-1$
-                comment = comment.substring(0, max - 4);
-                if (!comment.endsWith(dots)) {
-                    comment += dots;
+            if (obj instanceof AbstractMetadataObject) {
+                AbstractMetadataObject metadataObj = (AbstractMetadataObject) obj;
+                String comment = processFieldsLength(metadataObj.getComment());
+                if (comment != null) {
+                    metadataObj.setComment(comment);
                 }
-                metadataObj.setComment(comment);
+            } else if (obj instanceof MetadataType) {
+                MetadataType type = (MetadataType) obj;
+                String comment = processFieldsLength(type.getComment());
+                if (comment != null) {
+                    type.setComment(comment);
+                }
+            } else if (obj instanceof ColumnType) {
+                ColumnType type = (ColumnType) obj;
+                String comment = processFieldsLength(type.getComment());
+                if (comment != null) {
+                    type.setComment(comment);
+                }
             }
         }
+    }
+
+    private static String processFieldsLength(String comment) {
+        final int max = 255;
+        if (comment != null && comment.length() > max) {
+            final String dots = "..."; //$NON-NLS-1$
+            comment = comment.substring(0, max - 4);
+            if (!comment.endsWith(dots)) {
+                comment += dots;
+            }
+            return comment;
+        }
+        return null; // don't process
     }
 
     public static SAPFunctionUnit getSAPFunctionFromRepository(String functionRepositoryId) {
