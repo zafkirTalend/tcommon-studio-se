@@ -550,8 +550,8 @@ final class XSDFileSchemaTreePopulator {
             childNode.setValue(((XSParticleDecl) list.item(j)).getTerm().getName());
 
             if (((XSParticleDecl) list.item(j)).getTerm() instanceof XSElementDecl) {
-                String dataType = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition().getBaseType()
-                        .getName();
+                XSElementDecl element = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm());
+                String dataType = element.getTypeDefinition().getBaseType().getName();
                 if (dataType.equals("anyType")) {
                     dataType = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition().getName();
                 }
@@ -560,6 +560,36 @@ final class XSDFileSchemaTreePopulator {
                 }
                 childNode.setType(ATreeNode.ELEMENT_TYPE);
                 node.addChild(childNode);
+
+                // added by nrousseau to fix bug of partial loading of XSD file -- bug:9269
+                String namespace = element.getNamespace();
+                ATreeNode namespaceNode = null;
+                if (namespace != null) {
+                    namespaceNode = new ATreeNode();
+                    namespaceNode.setDataType(namespace);
+                    namespaceNode.setType(ATreeNode.NAMESPACE_TYPE);
+                    namespaceNode.setValue(namespace);
+                }
+
+                if (element.getTypeDefinition() instanceof XSComplexTypeDecl) {
+                    XSComplexTypeDecl complexType = (XSComplexTypeDecl) element.getTypeDefinition();
+                    // If the complex type is explicitly defined, that is, it has name.
+                    if (complexType.getName() != null) {
+                        node.setDataType(complexType.getName());
+                        ATreeNode n = findComplexElement(childNode, complexType.getName());
+                        if (namespaceNode != null) {
+                            node.addChild(namespaceNode);
+                        }
+                        if (n != null) {
+                            node.addChild(n.getChildren());
+                        }
+                    }
+                    // If the complex type is implicitly defined, that is, it has no name.
+                    else {
+                        addParticleAndAttributeInfo(childNode, complexType, childNode, new VisitingRecorder());
+                    }
+                }
+                // end of fix -- bug:9269
             }
             // If the particle itself is of XSModelGroupImpl type, which means that they have child types, then do
             // recursive job
