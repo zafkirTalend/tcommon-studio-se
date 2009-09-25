@@ -591,7 +591,7 @@ public class MetadataTool {
      * 
      */
     public static String validateColumnName(String columnName, int index) {
-        columnName = validataValue(columnName, index);
+        columnName = validateValue(columnName);
         org.apache.oro.text.regex.Pattern validPatternColumnNameRegexp = null;
         PatternCompiler compiler = new Perl5Compiler();
 
@@ -612,7 +612,7 @@ public class MetadataTool {
     /**
      * wzhang Comment method "validataValue".
      */
-    public static String validataValue(String columnName, int index) {
+    public static String validateValue(String columnName) {
         if (columnName == null) {
             return null;
         }

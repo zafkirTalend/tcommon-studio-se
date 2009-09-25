@@ -987,7 +987,7 @@ public class ExtractMetaDataFromDataBase {
         if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
             dbtype = "TIMESTAMP"; //$NON-NLS-1$
         }
-        return MetadataTool.validataValue(dbtype, columnIndex);
+        return MetadataTool.validateValue(dbtype);
     }
 
     /**
