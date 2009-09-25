@@ -42,6 +42,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -986,7 +987,7 @@ public class ExtractMetaDataFromDataBase {
         if (dbtype.startsWith("TIMESTAMP(") && dbtype.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
             dbtype = "TIMESTAMP"; //$NON-NLS-1$
         }
-        return dbtype;
+        return MetadataTool.validataValue(dbtype, columnIndex);
     }
 
     /**

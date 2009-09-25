@@ -616,7 +616,7 @@ public class MetadataTool {
         if (columnName == null) {
             return null;
         }
-        columnName = mappingGermanyEspecialChar(columnName);
+        columnName = mapSpecialChar(columnName);
         final String underLine = "_"; //$NON-NLS-1$
         if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
             columnName = underLine + columnName;
@@ -703,11 +703,11 @@ public class MetadataTool {
 
     /**
      * 
-     * qli Comment method "mappingGermanyEspecialChar".
+     * qli Comment method "mapSpecialChar".
      * 
      * 
      */
-    private static String mappingGermanyEspecialChar(String columnName) {
+    private static String mapSpecialChar(String columnName) {
         IRoutinesService service = (IRoutinesService) GlobalServiceRegister.getDefault().getService(IRoutinesService.class);
         if (service != null) {
             Vector map = service.getAccents();
@@ -719,18 +719,18 @@ public class MetadataTool {
             map.setElementAt("oe", 54);//$NON-NLS-1$
             map.setElementAt("ue", 60);//$NON-NLS-1$
 
-            return initGermanyMapping(columnName, map);
+            return initSpecificMapping(columnName, map);
         }
         return columnName;
     }
 
     /**
      * 
-     * qli Comment method "initGermanyMapping".
+     * qli Comment method "initSpecificMapping".
      * 
      * 
      */
-    private static String initGermanyMapping(String columnName, Vector map) {
+    private static String initSpecificMapping(String columnName, Vector map) {
         for (int i = 0; i < columnName.toCharArray().length; i++) {
             int carVal = columnName.charAt(i);
             if (carVal >= MIN && carVal <= MAX) {
