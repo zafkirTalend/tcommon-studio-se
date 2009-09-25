@@ -109,6 +109,9 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     public void refreshTableTab() {
+        if (getContextManager() != null && tableValues != null) {
+            tableValues.refresh();
+        }
         refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
