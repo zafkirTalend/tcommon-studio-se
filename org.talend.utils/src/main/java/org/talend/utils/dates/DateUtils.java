@@ -24,12 +24,41 @@ import java.util.Date;
 public final class DateUtils {
 
     public static final String PATTERN_1 = "MM/dd/yyyy";//$NON-NLS-1$
+
     public static final String PATTERN_2 = "yyyy-MM-dd hh:mm:ss";//$NON-NLS-1$
+
     public static final String PATTERN_3 = "yyyy-MM-dd";//$NON-NLS-1$
+
+    /**
+     * DOC bZhou DateUtils constructor comment.
+     */
+    private DateUtils() {
+
+    }
+
+    /**
+     * DOC bZhou Comment method "parse".
+     * 
+     * @param pattern
+     * @param dateText
+     * @return
+     * @throws ParseException
+     */
     public static Date parse(String pattern, String dateText) throws ParseException {
         Date date = null;
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         date = sdf.parse(dateText);
         return date;
+    }
+
+    /**
+     * DOC bZhou Comment method "getCurrentDate".
+     * 
+     * @param pattern
+     * @return
+     */
+    public static String getCurrentDate(String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(new Date());
     }
 }
