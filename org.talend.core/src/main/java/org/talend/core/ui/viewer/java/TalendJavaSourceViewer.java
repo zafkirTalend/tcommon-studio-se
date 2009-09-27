@@ -242,8 +242,12 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         buff
                 .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n"); //$NON-NLS-1$
 
-        buff.append(parseVariables(dataBean.getVariables()));
-        buff.append("\tpublic " + dataBean.getExpressionType() + " myFunction(){\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        if (dataBean != null) {
+            buff.append(parseVariables(dataBean.getVariables()));
+            buff.append("\tpublic " + dataBean.getExpressionType() + " myFunction(){\n"); //$NON-NLS-1$ //$NON-NLS-2$
+
+        }
+
         buff.append("\t\treturn \n"); //$NON-NLS-1$
 
         int length = buff.toString().length();
