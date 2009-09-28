@@ -359,6 +359,10 @@ public class ProcessorUtilities {
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
         if (isCodeGenerationNeeded(jobInfo)) {
+            if ((currentProcess instanceof IProcess2) && exportConfig) {
+                // to force to regenerate the data nodes
+                ((IProcess2) currentProcess).setProcessModified(true);
+            }
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.generatingJob") + currentJobName); //$NON-NLS-1$
             IContext currentContext;
             if (jobInfo.getContext() == null) {
