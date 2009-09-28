@@ -718,6 +718,12 @@ public class MetadataTool {
             map.setElementAt("ae", 36);//$NON-NLS-1$
             map.setElementAt("oe", 54);//$NON-NLS-1$
             map.setElementAt("ue", 60);//$NON-NLS-1$
+            Vector addedMap = new Vector();
+            for (int i = 257; i < 304; i++) {
+                addedMap.add(String.valueOf((char) i));
+            }
+            map.addAll(addedMap);
+            map.add("I");//$NON-NLS-1$
 
             return initSpecificMapping(columnName, map);
         }
@@ -733,10 +739,12 @@ public class MetadataTool {
     private static String initSpecificMapping(String columnName, Vector map) {
         for (int i = 0; i < columnName.toCharArray().length; i++) {
             int carVal = columnName.charAt(i);
-            if (carVal >= MIN && carVal <= MAX) {
+            if (carVal >= MIN && carVal <= MIN + map.size()) {
                 String oldVal = String.valueOf(columnName.toCharArray()[i]);
                 String newVal = (String) map.get(carVal - MIN);
-                columnName = columnName.replaceAll(oldVal, newVal);
+                if (!(oldVal.equals(newVal))) {
+                    columnName = columnName.replaceAll(oldVal, newVal);
+                }
             }
         }
 
