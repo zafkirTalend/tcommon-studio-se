@@ -578,7 +578,7 @@ final class XSDFileSchemaTreePopulator {
                         childNode.setDataType(complexType.getName());
                         ATreeNode n = findComplexElement(childNode, complexType.getName());
                         if (namespaceNode != null) {
-                            childNode.addChild(namespaceNode);
+                            // childNode.addChild(namespaceNode);
                         }
                         if (n != null) {
                             childNode.addChild(n.getChildren());
