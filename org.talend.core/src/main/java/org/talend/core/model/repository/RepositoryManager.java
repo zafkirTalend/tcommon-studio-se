@@ -45,7 +45,7 @@ import org.talend.repository.ui.views.IRepositoryView;
 public final class RepositoryManager {
 
     public static IPreferenceStore getPreferenceStore() {
-        return CorePlugin.getDefault().getRepositoryService().getRepositoryPreferenceStore();
+        return CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore();
     }
 
     public static boolean isRefreshManually() {
