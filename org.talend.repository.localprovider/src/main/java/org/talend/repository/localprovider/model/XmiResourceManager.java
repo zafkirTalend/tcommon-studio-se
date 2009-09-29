@@ -65,10 +65,14 @@ public class XmiResourceManager {
 
     public XmiResourceManager() {
         setUseOldProjectFile(false);
+        resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
+        resourceSet.getLoadOptions().put("OPTION_USE_PARSER_POOL", Boolean.TRUE);
     }
 
     public void resetResourceSet() {
         resourceSet = new ResourceSetImpl();
+        resourceSet.getLoadOptions().put("OPTION_DEFER_IDREF_RESOLUTION", Boolean.TRUE);
+        resourceSet.getLoadOptions().put("OPTION_USE_PARSER_POOL", Boolean.TRUE);
     }
 
     public Project loadProject(IProject project) throws PersistenceException {
@@ -335,7 +339,7 @@ public class XmiResourceManager {
             resourceSet.getResources().remove(resource);
         }
     }
-    
+
     /**
      * Method "unloadResource" unload and remove the specification resource from the resource set. MOD mzhao
      * 
