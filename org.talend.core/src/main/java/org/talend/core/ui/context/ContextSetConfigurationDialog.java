@@ -109,6 +109,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
                     manager.onContextChangeDefault(manager.getContextManager(), (IContext) obj);
                     fTableViewer.refresh(true);
                 }
+                updateButtonAvailability();
             }
         });
     }
