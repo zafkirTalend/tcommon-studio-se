@@ -188,4 +188,9 @@ public class WebServiceComponent extends AbstractExternalNode {
         return inAndOut;
     }
 
+    public IExternalData getTMapExternalData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
