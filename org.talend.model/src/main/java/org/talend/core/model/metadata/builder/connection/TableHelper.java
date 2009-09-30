@@ -56,6 +56,9 @@ public class TableHelper extends SubItemHelper {
     private static List<String> doGetTableNames(Connection connection) {
         List<String> result = new ArrayList<String>(15);
         for (Object table : connection.getTables()) {
+            if (table == null) {
+                continue;
+            }
             result.add(((MetadataTable) table).getLabel());
         }
         return result;

@@ -109,4 +109,6 @@ public interface IExternalNode extends INode {
 
     public void setScreenshot(ImageDescriptor screenshot);
 
+    public IExternalData getTMapExternalData();
+
 }
