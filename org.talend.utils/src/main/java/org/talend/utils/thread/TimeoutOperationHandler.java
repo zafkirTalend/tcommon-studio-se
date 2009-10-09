@@ -58,7 +58,7 @@ public abstract class TimeoutOperationHandler<R> {
                 try {
                     result = TimeoutOperationHandler.this.internalRun();
                 } catch (Throwable t) {
-                    log.error(t.getMessage());
+                    log.error(t.getMessage(), t);
                     operationError = t;
                 } finally {
                     finalizeOperation();
