@@ -285,7 +285,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
     }
 
     public String getTISProductNameForWelcome() {
-        return "Integeration Suite Studio";
+        return "Integration Suite Studio";
     }
 
     public void generateWelcomeHeaderImage() {
