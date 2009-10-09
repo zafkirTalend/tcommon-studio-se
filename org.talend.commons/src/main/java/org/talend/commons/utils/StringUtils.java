@@ -319,4 +319,16 @@ public class StringUtils {
 
         return sb.toString();
     }
+
+    public static String subString(String str, int len) {
+        if (len < 0) {
+            return str;
+        }
+        if ("".equals(str) || str == null)
+            return null;
+        else if (str.length() <= len) {
+            return str;
+        } else
+            return str.substring(0, len);
+    }
 }
