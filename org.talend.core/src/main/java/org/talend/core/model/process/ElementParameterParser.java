@@ -380,7 +380,11 @@ public final class ElementParameterParser {
         }
         if (param.getField() == EParameterFieldType.RADIO || param.getField() == EParameterFieldType.CHECK
                 || param.getField() == EParameterFieldType.AS400_CHECK) {
-            return ((Boolean) param.getValue()).toString();
+            if (value instanceof Boolean) {
+                return ((Boolean) param.getValue()).toString();
+            } else {
+                return Boolean.FALSE.toString();
+            }
         }
 
         if (param.getField() == EParameterFieldType.TABLE) {
