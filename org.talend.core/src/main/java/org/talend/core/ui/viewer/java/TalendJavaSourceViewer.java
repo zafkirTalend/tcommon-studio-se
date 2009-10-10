@@ -265,6 +265,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         String selectedPart = "[" + uniqueName + " " + codePart + " ] start"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
         IDocument originalDocument = editor.getDocumentProvider().getDocument(editor.getEditorInput());
+
         int documentOffset = -1;
         String globalFields = ""; //$NON-NLS-1$
         String localFields = ""; //$NON-NLS-1$
@@ -273,9 +274,17 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
         IDocument newDoc = new Document();
         boolean checkCode = false;
-        FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(originalDocument);
+
+        FindReplaceDocumentAdapter frda = null;
+        String documentText = originalDocument.get(); // hywang modified for bug 9180
+        if (documentText != null && !documentText.equals("") && documentText.length() > 0) {
+            frda = new FindReplaceDocumentAdapter(originalDocument);
+        }
         try {
-            Region region = (Region) frda.find(0, selectedPart, true, false, false, false);
+            Region region = null;
+            if (frda != null) {
+                region = (Region) frda.find(0, selectedPart, true, false, false, false);
+            }
             if (region != null) {
                 checkCode = true;
                 documentOffset = region.getOffset();
