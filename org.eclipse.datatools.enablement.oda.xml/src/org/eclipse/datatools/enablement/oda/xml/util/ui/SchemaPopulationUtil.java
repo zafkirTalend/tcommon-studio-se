@@ -504,34 +504,32 @@ final class XSDFileSchemaTreePopulator {
             node.setDataType(element.getTypeName());
             root.addChild(node);
 
+            if (includeAttribute) {
+                XSAttributeGroupDecl group = element.getAttrGrp();
+                if (group != null) {
+                    XSObjectList list = group.getAttributeUses();
+                    for (int j = 0; j < list.getLength(); j++) {
+                        ATreeNode childNode = new ATreeNode();
+                        childNode.setValue(((XSAttributeUseImpl) list.item(j)).getAttrDeclaration().getName());
+                        childNode.setType(ATreeNode.ATTRIBUTE_TYPE);
+                        // two different datatype definitions need two getting ways, added by nma.
+                        String dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getName();
+                        if (dataType == null || dataType.length() == 0) {
+                            dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getBaseType().getName();
+                        }
+                        if (dataType != null && dataType.length() > 0) {
+                            childNode.setDataType(dataType);
+                        }
+                        node.addChild(childNode);
+                    }
+                }
+            }
+
             XSParticle particle = element.getParticle();
             if (particle != null) {
                 XSObjectList list = ((XSModelGroupImpl) particle.getTerm()).getParticles();
                 populateTreeNodeWithParticles(node, list);
             }
-
-            if (!includeAttribute) {
-                continue;
-            }
-            XSAttributeGroupDecl group = element.getAttrGrp();
-            if (group != null) {
-                XSObjectList list = group.getAttributeUses();
-                for (int j = 0; j < list.getLength(); j++) {
-                    ATreeNode childNode = new ATreeNode();
-                    childNode.setValue(((XSAttributeUseImpl) list.item(j)).getAttrDeclaration().getName());
-                    childNode.setType(ATreeNode.ATTRIBUTE_TYPE);
-                    String dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getName();
-                    // two different datatype definitions need two getting ways, added by nma.
-                    if (dataType == null || dataType.length() == 0) {
-                        dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getBaseType().getName();
-                    }
-                    if (dataType != null && dataType.length() > 0) {
-                        childNode.setDataType(dataType);
-                    }
-                    node.addChild(childNode);
-                }
-            }
-
         }
 
         populateRoot(root);
