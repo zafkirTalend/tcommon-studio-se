@@ -33,6 +33,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlVarParserUtils;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.ItemCacheManager;
@@ -337,6 +338,27 @@ public final class ElementParameterParser {
                     return ""; //$NON-NLS-1$
                 }
                 return processItem.getProperty().getVersion();
+            }
+            if (param.getName().equals("PROCESS_TYPE_CONTEXT")) {
+                String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
+                ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
+                if (processItem == null) {
+                    return ""; //$NON-NLS-1$
+                }
+                // check if the selected context exists, if not, use the default context of the job.
+                boolean contextExists = false;
+                for (Object object : processItem.getProcess().getContext()) {
+                    if (object instanceof ContextType) {
+                        if (((ContextType) object).getName() != null && ((ContextType) object).getName().equals(value)) {
+                            contextExists = true;
+                            continue;
+                        }
+                    }
+                }
+                if (!contextExists) {
+                    return processItem.getProcess().getDefaultContext();
+                }
+                return (String) value;
             }
             // hywang add for 6484
             if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-N$

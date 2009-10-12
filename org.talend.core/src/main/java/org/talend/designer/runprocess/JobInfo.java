@@ -15,6 +15,7 @@ package org.talend.designer.runprocess;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 
 /**
  * DOC nrousseau ProcessController class global comment. Detailled comment <br/>
@@ -71,6 +72,20 @@ public class JobInfo {
         jobName = processItem.getProperty().getLabel();
         this.contextName = contextName;
         jobVersion = processItem.getProperty().getVersion();
+
+        // check if the selected context exists, if not, use the default context of the job.
+        boolean contextExists = false;
+        for (Object object : processItem.getProcess().getContext()) {
+            if (object instanceof ContextType) {
+                if (((ContextType) object).getName() != null && ((ContextType) object).getName().equals(contextName)) {
+                    contextExists = true;
+                    continue;
+                }
+            }
+        }
+        if (!contextExists) {
+            this.contextName = processItem.getProcess().getDefaultContext();
+        }
     }
 
     /**
@@ -85,6 +100,20 @@ public class JobInfo {
         jobName = processItem.getProperty().getLabel();
         this.contextName = contextName;
         jobVersion = processVersion;
+
+        // check if the selected context exists, if not, use the default context of the job.
+        boolean contextExists = false;
+        for (Object object : processItem.getProcess().getContext()) {
+            if (object instanceof ContextType) {
+                if (((ContextType) object).getName() != null && ((ContextType) object).getName().equals(contextName)) {
+                    contextExists = true;
+                    continue;
+                }
+            }
+        }
+        if (!contextExists) {
+            this.contextName = processItem.getProcess().getDefaultContext();
+        }
     }
 
     public String getContextName() {
