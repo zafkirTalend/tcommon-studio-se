@@ -373,6 +373,11 @@ final class XSDFileSchemaTreePopulator {
             root.addChild(node);
         }
 
+        // if no base element, display all complex types / attributes directly.
+        if (map.getLength() == 0) {
+            root.addChild(complexTypesRoot.getChildren());
+        }
+
         populateRoot(root);
         return root;
 
@@ -406,12 +411,12 @@ final class XSDFileSchemaTreePopulator {
                 XSAttributeUseImpl attr = (XSAttributeUseImpl) list.item(j);
                 String dataType = attr.fAttrDecl.getTypeDefinition().getName();
                 // notes added by nma. two datatype definitions may need two different getting ways.
-                // if (dataType == null || dataType.length() == 0) {
-                // dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getBaseType().getName();
-                // }
-                // if (dataType != null && dataType.length() > 0) {
-                // childNode.setDataType(dataType);
-                // }
+                if (dataType == null || dataType.length() == 0) {
+                    dataType = ((XSAttributeUseImpl) list.item(j)).fAttrDecl.getTypeDefinition().getBaseType().getName();
+                }
+                if (dataType != null && dataType.length() > 0) {
+                    childNode.setDataType(dataType);
+                }
                 childNode.setDataType(dataType);
                 childNode.setValue(attr.getAttrDeclaration().getName());
                 childNode.setType(ATreeNode.ATTRIBUTE_TYPE);
