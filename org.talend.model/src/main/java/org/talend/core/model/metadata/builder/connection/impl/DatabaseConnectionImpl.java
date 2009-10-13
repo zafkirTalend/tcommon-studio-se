@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSystemSQL <em>System SQL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcConns <em>Cdc Conns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSQLMode <em>SQL Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -519,6 +520,35 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String cdcTypeMode = CDC_TYPE_MODE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSQLMode() <em>SQL Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSQLMode()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SQL_MODE_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isSQLMode() <em>SQL Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSQLMode()
+     * @generated
+     * @ordered
+     */
+    protected boolean sqlMode = SQL_MODE_EDEFAULT;
+
+    /**
+     * This is true if the SQL Mode attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean sqlModeESet;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1034,6 +1064,52 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSQLMode() {
+        return sqlMode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSQLMode(boolean newSQLMode) {
+        boolean oldSQLMode = sqlMode;
+        sqlMode = newSQLMode;
+        boolean oldSQLModeESet = sqlModeESet;
+        sqlModeESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_MODE, oldSQLMode, sqlMode, !oldSQLModeESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetSQLMode() {
+        boolean oldSQLMode = sqlMode;
+        boolean oldSQLModeESet = sqlModeESet;
+        sqlMode = SQL_MODE_EDEFAULT;
+        sqlModeESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ConnectionPackage.DATABASE_CONNECTION__SQL_MODE, oldSQLMode, SQL_MODE_EDEFAULT, oldSQLModeESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetSQLMode() {
+        return sqlModeESet;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1200,6 +1276,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
                 setCdcTypeMode((String)newValue);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+                setSQLMode(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1283,6 +1362,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
                 setCdcTypeMode(CDC_TYPE_MODE_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+                unsetSQLMode();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1342,6 +1424,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return cdcConns != null;
             case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
                 return CDC_TYPE_MODE_EDEFAULT == null ? cdcTypeMode != null : !CDC_TYPE_MODE_EDEFAULT.equals(cdcTypeMode);
+            case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+                return isSetSQLMode();
         }
         return super.eIsSet(featureID);
     }
@@ -1401,6 +1485,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(systemSQL);
         result.append(", cdcTypeMode: ");
         result.append(cdcTypeMode);
+        result.append(", SQLMode: ");
+        if (sqlModeESet) result.append(sqlMode); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

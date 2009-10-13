@@ -105,4 +105,9 @@ public interface IMetadataConnection extends IMetadata {
     public String getDbVersionString();
 
     public void setDbVersionString(String dbVersionString);
+
+    public boolean isSqlMode();
+
+    public void setSqlMode(boolean sqlMode);
+
 }

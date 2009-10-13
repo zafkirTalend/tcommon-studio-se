@@ -40,6 +40,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}</li>
  * </ul>
  * </p>
  *
@@ -684,5 +685,59 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setCdcTypeMode(String value);
+
+    /**
+     * Returns the value of the '<em><b>SQL Mode</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SQL Mode</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SQL Mode</em>' attribute.
+     * @see #isSetSQLMode()
+     * @see #unsetSQLMode()
+     * @see #setSQLMode(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_SQLMode()
+     * @model default="true" unsettable="true"
+     * @generated
+     */
+    boolean isSQLMode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SQL Mode</em>' attribute.
+     * @see #isSetSQLMode()
+     * @see #unsetSQLMode()
+     * @see #isSQLMode()
+     * @generated
+     */
+    void setSQLMode(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetSQLMode()
+     * @see #isSQLMode()
+     * @see #setSQLMode(boolean)
+     * @generated
+     */
+    void unsetSQLMode();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>SQL Mode</em>' attribute is set.
+     * @see #unsetSQLMode()
+     * @see #isSQLMode()
+     * @see #setSQLMode(boolean)
+     * @generated
+     */
+    boolean isSetSQLMode();
 
 } // DatabaseConnection

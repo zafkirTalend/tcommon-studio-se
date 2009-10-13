@@ -73,13 +73,12 @@ public class ExtractMetaDataUtils {
 
             if (needFakeDatabaseMetaData(dbType)) {
                 dbMetaData = createFakeDatabaseMetaData(conn);
-            } else if (teradataNeedFakeDatabaseMetaData(dbType)) {
+            } else if (ExtractMetaDataUtils.metadataCon != null && teradataNeedFakeDatabaseMetaData(dbType)
+                    && ExtractMetaDataUtils.metadataCon.isSqlMode()) {
                 dbMetaData = createTeradataFakeDatabaseMetaData(conn);
                 // add by wzhang for bug 8106. set database name for teradata.
-                if (ExtractMetaDataUtils.metadataCon != null) {
-                    TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
-                    teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
-                }
+                TeradataDataBaseMetadata teraDbmeta = (TeradataDataBaseMetadata) dbMetaData;
+                teraDbmeta.setDatabaseName(ExtractMetaDataUtils.metadataCon.getDatabase());
             } else {
                 dbMetaData = conn.getMetaData();
             }

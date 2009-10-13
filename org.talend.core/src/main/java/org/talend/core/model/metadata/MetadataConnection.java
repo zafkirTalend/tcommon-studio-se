@@ -70,6 +70,16 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
 
     private String additionalParams;
 
+    private boolean sqlMode;
+
+    public boolean isSqlMode() {
+        return this.sqlMode;
+    }
+
+    public void setSqlMode(boolean sqlMode) {
+        this.sqlMode = sqlMode;
+    }
+
     /*
      * (non-Javadoc)
      * 

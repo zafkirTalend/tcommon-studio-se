@@ -2180,13 +2180,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__CDC_TYPE_MODE = CONNECTION_FEATURE_COUNT + 23;
 
     /**
+     * The feature id for the '<em><b>SQL Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__SQL_MODE = CONNECTION_FEATURE_COUNT + 24;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 24;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 25;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.
@@ -6522,6 +6531,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_CdcTypeMode();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SQL Mode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_SQLMode();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPConnection <em>SAP Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -8854,6 +8874,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__CDC_TYPE_MODE = eINSTANCE.getDatabaseConnection_CdcTypeMode();
+
+        /**
+         * The meta object literal for the '<em><b>SQL Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__SQL_MODE = eINSTANCE.getDatabaseConnection_SQLMode();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.

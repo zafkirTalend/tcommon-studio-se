@@ -73,6 +73,7 @@ public final class ConvertionHelper {
         result.setMapping(connection.getDbmsId());
         result.setProduct(connection.getProductId());
         result.setDbRootPath(connection.getDBRootPath());
+        result.setSqlMode(connection.isSQLMode());
         return result;
     }
 
