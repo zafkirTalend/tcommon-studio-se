@@ -59,6 +59,13 @@ import org.talend.repository.model.IRepositoryService;
 public class ExtractMetaDataFromDataBase {
 
     /**
+     * 
+     */
+    private static final String GET_ALL_SYNONYMS = "select distinct synonym_name\n" + //$NON-NLS-1$
+            "from all_synonyms, all_tab_columns\n" + //$NON-NLS-1$
+            "where all_synonyms.table_name = all_tab_columns.table_name"; //$NON-NLS-1$
+
+    /**
      * qzhang TableInfoParameters class global comment. Detailled comment <br/>
      * 
      */
@@ -111,57 +118,75 @@ public class ExtractMetaDataFromDataBase {
 
     private static MappingTypeRetriever mappingTypeRetriever;
 
+    private static DatabaseMetaData oldMetadata = null;
+
+    private static String oldSchema = null;
+
+    private static int[] oldLimit;
+
+    private static boolean oldUseAllSynonyms = false;
+
+    private static List<IMetadataTable> oldMetadataRetrieved = null;
+
     /**
      * DOC cantoine. Method to return a Collection of Tables for a DB connection.
      * 
      * @param DatabaseMetaData dbMetaData
      * @return Collection of MetadataTable
      */
-    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, String schema, int... limit) {
-        List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
+    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, IMetadataConnection iMetadataConnection,
+            int... limit) {
+        String schema = iMetadataConnection.getSchema();
+        if (dbMetaData.equals(oldMetadata) && schema.equals(oldSchema) && limit.equals(oldLimit)
+                && (oldUseAllSynonyms == ExtractMetaDataUtils.isUseAllSynonyms())) {
+            return oldMetadataRetrieved;
+        }
+        List<String> tablesToFilter = new ArrayList<String>();
+        if (EDatabaseTypeName.ORACLEFORSID.getProduct().equals(iMetadataConnection.getProduct())) {
+            Statement stmt;
+            try {
+                stmt = ExtractMetaDataUtils.conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                ResultSet rsTables = stmt.executeQuery(TableInfoParameters.ORACLE_10G_RECBIN_SQL);
+                tablesToFilter = getTableNamesFromQuery(rsTables);
+                rsTables.close();
+                stmt.close();
+            } catch (SQLException e) {
+                ExceptionHandler.process(e);
+            }
+        }
 
+        List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
         try {
             ResultSet rsTables = null, rsTableTypes = null;
-            rsTableTypes = dbMetaData.getTableTypes();
-            Set<String> availableTableTypes = new HashSet<String>();
-            String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
-                    ETableTypes.TABLETYPE_SYNONYM.getName() };
-            List<String> itemTablesName = new ArrayList<String>();
+            if (!ExtractMetaDataUtils.isUseAllSynonyms()) {
+                rsTableTypes = dbMetaData.getTableTypes();
+                Set<String> availableTableTypes = new HashSet<String>();
+                String[] neededTableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
+                        ETableTypes.TABLETYPE_SYNONYM.getName() };
 
-            while (rsTableTypes.next()) {
-                // StringUtils.trimToEmpty(name) is because bug 4547
-                String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
-                if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
-                    availableTableTypes.add(currentTableType);
+                while (rsTableTypes.next()) {
+                    // StringUtils.trimToEmpty(name) is because bug 4547
+                    String currentTableType = StringUtils.trimToEmpty(rsTableTypes.getString("TABLE_TYPE")); //$NON-NLS-1$
+                    if (ArrayUtils.contains(neededTableTypes, currentTableType)) {
+                        availableTableTypes.add(currentTableType);
+                    }
                 }
-            }
-            rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
-            // if (ExtractMetaDataUtils.conn != null &&
-            // ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver")
-            // && ExtractMetaDataUtils.getValue()) {
-            // String sql = "select synonym_name from all_synonyms";
-            // Statement stmt = ExtractMetaDataUtils.conn.createStatement();
-            // ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-            // ResultSet rsTables1 = stmt.executeQuery(sql);
-            // itemTablesName = getTableNamesFromQuery(rsTables1);
-            // getMetadataTables(medataTables, rsTables1, dbMetaData.supportsSchemasInTableDefinitions(), limit);
-            // rsTables1.close();
-            // stmt.close();
-            //
-            // tableTypeMap.clear();
-            // for (String synonymName : itemTablesName) {
-            // tableTypeMap.put(synonymName, ETableTypes.TABLETYPE_SYNONYM.getName());
-            // }
-            // System.out.println("aaaaaaaaaaa");
-            // } else {
-            if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) { //$NON-NLS-1$
-                rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
+                rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
+
+                if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) { //$NON-NLS-1$
+                    rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
+                } else {
+                    rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
+                }
             } else {
-                rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
+                String sql = GET_ALL_SYNONYMS;
+                Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                rsTables = stmt.executeQuery(sql);
             }
-            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), limit);
+            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), tablesToFilter, limit);
             rsTables.close();
-            // }
 
         } catch (SQLException e) {
             // e.printStackTrace();
@@ -174,6 +199,11 @@ public class ExtractMetaDataFromDataBase {
             log.error(e.toString());
             throw new RuntimeException(e);
         }
+        oldMetadata = dbMetaData;
+        oldSchema = schema;
+        oldLimit = limit;
+        oldUseAllSynonyms = ExtractMetaDataUtils.isUseAllSynonyms();
+        oldMetadataRetrieved = medataTables;
         return medataTables;
     }
 
@@ -185,7 +215,7 @@ public class ExtractMetaDataFromDataBase {
      * @throws SQLException
      */
     private static void getMetadataTables(List<IMetadataTable> medataTables, ResultSet rsTables, boolean supportSchema,
-            int... limit) throws SQLException {
+            List<String> tablesToFilter, int... limit) throws SQLException {
         if (rsTables == null) {
             return;
         }
@@ -196,6 +226,7 @@ public class ExtractMetaDataFromDataBase {
             limitNum = limit[0];
         }
         while (rsTables.next()) {
+            boolean isSynonym = false;
             MetadataTable medataTable = new MetadataTable();
             medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
             // See bug 5029 In some Linux odbc driver for MS SQL, their columns in ResultSet have not alias names.
@@ -206,7 +237,12 @@ public class ExtractMetaDataFromDataBase {
                 tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, 3);
             }
             if (tableName == null) {
-                System.out.println(Messages.getString("ExtractMetaDataFromDataBase.nameNull")); //$NON-NLS-1$
+                // in case it's in fact a synonym
+                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "SYNONYM_NAME", null);
+                isSynonym = true;
+            }
+            if (tableName == null || tablesToFilter.contains(tableName)) {
+                continue;
             }
 
             medataTable.setLabel(tableName); //$NON-NLS-1$
@@ -231,6 +267,10 @@ public class ExtractMetaDataFromDataBase {
             }
             if ("V".equals(tableType)) { //$NON-NLS-1$
                 tableType = ETableTypes.TABLETYPE_VIEW.getName();
+            }
+
+            if (isSynonym) {
+                tableType = "SYNONYM";
             }
 
             try {
@@ -271,8 +311,8 @@ public class ExtractMetaDataFromDataBase {
             String dbType = iMetadataConnection.getDbType();
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
-                    .getSchema());
+            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
+                    .extractTablesFromDB(dbMetaData, iMetadataConnection);
             Iterator iterate = metadataTables.iterator();
             IMetadataTable metaTable1 = new MetadataTable();
             while (iterate.hasNext()) {
@@ -289,6 +329,9 @@ public class ExtractMetaDataFromDataBase {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
                 metaTable1.setLabel(tableName);
                 metaTable1.setTableName(tableName);
+            } else {
+                metaTable1.setLabel(tableLabel);
+                metaTable1.setTableName(tableLabel);
             }
 
             metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
@@ -318,7 +361,7 @@ public class ExtractMetaDataFromDataBase {
     public static String getTableNameBySynonym(Connection conn, String name) {
         try {
             String sql = "select TABLE_NAME from ALL_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ 
-            // String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'";
+            // String sql = "select * from all_tab_columns where upper(table_name)='" + name + "' order by column_id";
             Statement sta;
             sta = conn.createStatement();
             ExtractMetaDataUtils.setQueryStatementTimeout(sta);
@@ -351,7 +394,6 @@ public class ExtractMetaDataFromDataBase {
     public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
             IMetadataConnection metadataConnection, String databaseType) {
         columnIndex = 0;
-
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
         HashMap<String, String> primaryKeys = new HashMap<String, String>();
@@ -411,12 +453,20 @@ public class ExtractMetaDataFromDataBase {
             // PTODO ftang: should to support all kinds of databases not only for Mysql.
             Connection connection = dbMetaData.getConnection();
             checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
-            String tableName = medataTable.getTableName();
+            String tableName = medataTable.getLabel();
             ResultSet columns;
-            if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
-                columns = dbMetaData.getColumns(null, originSchema, tableName, null);
+
+            if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                String sql = "select * from all_tab_columns where table_name='" + tableName + "' ";
+                Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
+                columns = stmt.executeQuery(sql);
             } else {
-                columns = dbMetaData.getColumns(null, null, tableName, null);
+                if (dbMetaData.supportsSchemasInDataManipulation() && (originSchema != null)) {
+                    columns = dbMetaData.getColumns(null, originSchema, tableName, null);
+                } else {
+                    columns = dbMetaData.getColumns(null, null, tableName, null);
+                }
             }
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
@@ -467,7 +517,11 @@ public class ExtractMetaDataFromDataBase {
                         metadataColumn.setKey(false);
                     }
 
-                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME", null).toUpperCase(); //$NON-NLS-1$
+                    String typeName = "TYPE_NAME";
+                    if (ExtractMetaDataUtils.isUseAllSynonyms()) {
+                        typeName = "DATA_TYPE";
+                    }
+                    String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
 
@@ -792,8 +846,8 @@ public class ExtractMetaDataFromDataBase {
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
-        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
-                .getSchema(), limit);
+        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
+                limit);
 
         ExtractMetaDataUtils.closeConnection();
         if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && wapperDriver != null) { //$NON-NLS-1$
@@ -830,8 +884,7 @@ public class ExtractMetaDataFromDataBase {
         String dbType = iMetadataConnection.getDbType();
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
-        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection
-                .getSchema());
+        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection);
         ExtractMetaDataUtils.closeConnection();
 
         Iterator<IMetadataTable> iterate = metadataTables.iterator();
@@ -899,8 +952,8 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
                 if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver")
-                        && ExtractMetaDataUtils.getValue()) {
-                    String sql = "select synonym_name from all_synonyms";
+                        && ExtractMetaDataUtils.isUseAllSynonyms()) {
+                    String sql = GET_ALL_SYNONYMS;
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                     ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                     ResultSet rsTables = stmt.executeQuery(sql);
@@ -908,11 +961,9 @@ public class ExtractMetaDataFromDataBase {
                     rsTables.close();
                     stmt.close();
 
-                    tableTypeMap.clear();
+                    // tableTypeMap.clear();
                     for (String synonymName : itemTablesName) {
-
                         tableTypeMap.put(synonymName, ETableTypes.TABLETYPE_SYNONYM.getName());
-
                     }
 
                 } else {

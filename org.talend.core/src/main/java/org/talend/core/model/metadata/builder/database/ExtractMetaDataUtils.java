@@ -589,13 +589,13 @@ public class ExtractMetaDataUtils {
         return functionlist;
     }
 
-    public static boolean value;
+    public static boolean useAllSynonyms;
 
-    public static boolean getValue() {
-        return value;
+    public static boolean isUseAllSynonyms() {
+        return useAllSynonyms;
     }
 
-    public static void setVale(boolean val) {
-        value = val;
+    public static void setUseAllSynonyms(boolean val) {
+        useAllSynonyms = val;
     }
 }
