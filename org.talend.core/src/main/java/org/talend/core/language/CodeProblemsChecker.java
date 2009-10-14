@@ -42,7 +42,9 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
     public List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
         List<Problem> nodePros = checkProblems(nodeConfigurer);
         nodeProblems.clear();
-        nodeProblems.addAll(nodePros);
+        if (nodePros != null) {
+            nodeProblems.addAll(nodePros);
+        }
         if (nodePros == null) {
             nodePros = null;
             setProblems(null);
