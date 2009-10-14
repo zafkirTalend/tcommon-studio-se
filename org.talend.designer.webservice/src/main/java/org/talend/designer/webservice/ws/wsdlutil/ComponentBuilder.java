@@ -26,6 +26,7 @@ import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
 import javax.wsdl.factory.WSDLFactory;
+import javax.wsdl.xml.WSDLReader;
 import javax.xml.namespace.QName;
 
 import org.exolab.castor.xml.schema.ComplexType;
@@ -37,7 +38,6 @@ import org.exolab.castor.xml.schema.SimpleTypesFactory;
 import org.exolab.castor.xml.schema.Structure;
 import org.exolab.castor.xml.schema.XMLType;
 import org.jdom.input.DOMBuilder;
-import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.PortNames;
@@ -68,16 +68,16 @@ public class ComponentBuilder {
     }
 
     public ServiceInfo buildserviceinformation(ServiceInfo serviceinfo) throws Exception {
-        // WSDLReader reader = wsdlFactory.newWSDLReader();
-        // Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
-        ServiceDiscoveryHelper sdh;
-        if (serviceinfo.getAuthConfig() != null && serviceinfo.getWsdlUri().indexOf("http") == 0) {
-            sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri(), serviceinfo.getAuthConfig());
-
-        } else {
-            sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
-        }
-        Definition def = sdh.getDefinition();
+        WSDLReader reader = wsdlFactory.newWSDLReader();
+        Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
+        // ServiceDiscoveryHelper sdh;
+        // if (serviceinfo.getAuthConfig() != null && serviceinfo.getWsdlUri().indexOf("http") == 0) {
+        // sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri(), serviceinfo.getAuthConfig());
+        //
+        // } else {
+        // sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
+        // }
+        // Definition def = sdh.getDefinition();
 
         wsdlTypes = createSchemaFromTypes(def);
 
@@ -92,6 +92,7 @@ public class ComponentBuilder {
     protected Vector createSchemaFromTypes(Definition wsdlDefinition) {
         Vector schemas = new Vector();
         org.w3c.dom.Element schemaElementt = null;
+        Map importElement = null;
         if (wsdlDefinition.getTypes() != null) {
             Vector schemaExtElem = findExtensibilityElement(wsdlDefinition.getTypes().getExtensibilityElements(), "schema");
             for (int i = 0; i < schemaExtElem.size(); i++) {
@@ -100,15 +101,50 @@ public class ComponentBuilder {
                     schemaElementt = ((UnknownExtensibilityElement) schemaElement).getElement();
                     Schema schema = createschemafromtype(schemaElementt, wsdlDefinition);
                     schemas.add(schema);
-                } else if (schemaElement != null && schemaElement instanceof javax.wsdl.extensions.schema.Schema) {
+
+                    importElement = ((javax.wsdl.extensions.schema.Schema) schemaElement).getImports();
+                    if (importElement != null && importElement.size() > 0) {
+                        findImportSchema(wsdlDefinition, schemas, importElement);
+                    }
+                }
+
+                if (schemaElement != null && schemaElement instanceof javax.wsdl.extensions.schema.Schema) {
                     schemaElementt = ((javax.wsdl.extensions.schema.Schema) schemaElement).getElement();
                     Schema schema = createschemafromtype(schemaElementt, wsdlDefinition);
                     schemas.add(schema);
+
+                    importElement = ((javax.wsdl.extensions.schema.Schema) schemaElement).getImports();
+                    if (importElement != null && importElement.size() > 0) {
+
+                        findImportSchema(wsdlDefinition, schemas, importElement);
+                    }
                 }
             }
 
         }
         return schemas;
+    }
+
+    private void findImportSchema(Definition wsdlDefinition, Vector schemas, Map importElement) {
+        org.w3c.dom.Element schemaElementt;
+        Iterator keyIterator = importElement.keySet().iterator();
+        while (keyIterator.hasNext()) {
+            String key = keyIterator.next().toString();
+            Vector importEle = (Vector) importElement.get(key);
+
+            for (int i = 0; i < importEle.size(); i++) {
+                schemaElementt = ((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i)).getReferencedSchema()
+                        .getElement();
+                Schema schemaImport = createschemafromtype(schemaElementt, wsdlDefinition);
+                schemas.add(schemaImport);
+                importElement = ((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i)).getReferencedSchema()
+                        .getImports();
+                if (importElement != null && importElement.size() > 0) {
+
+                    findImportSchema(wsdlDefinition, schemas, importElement);
+                }
+            }
+        }
     }
 
     private static Vector findExtensibilityElement(List extensibilityElements, String elementType) {
@@ -335,7 +371,8 @@ public class ComponentBuilder {
                 } else {
                     buildComplexParameter((ComplexType) xmlType, null, operationInfo, manner);
                 }
-            } else if (xmlType == null && part.getTypeName().getLocalPart() != null && complexType != null) {
+            } else if (xmlType == null && part.getTypeName() != null && part.getTypeName().getLocalPart() != null
+                    && complexType != null) {
                 ParameterInfo parameter = new ParameterInfo();
                 if (part.getName() != null) {
                     String partName = part.getName();
