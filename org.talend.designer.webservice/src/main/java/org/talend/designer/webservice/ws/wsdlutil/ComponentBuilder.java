@@ -26,7 +26,6 @@ import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
 import javax.wsdl.factory.WSDLFactory;
-import javax.wsdl.xml.WSDLReader;
 import javax.xml.namespace.QName;
 
 import org.exolab.castor.xml.schema.ComplexType;
@@ -38,6 +37,7 @@ import org.exolab.castor.xml.schema.SimpleTypesFactory;
 import org.exolab.castor.xml.schema.Structure;
 import org.exolab.castor.xml.schema.XMLType;
 import org.jdom.input.DOMBuilder;
+import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.PortNames;
@@ -68,16 +68,16 @@ public class ComponentBuilder {
     }
 
     public ServiceInfo buildserviceinformation(ServiceInfo serviceinfo) throws Exception {
-        WSDLReader reader = wsdlFactory.newWSDLReader();
-        Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
-        // ServiceDiscoveryHelper sdh;
-        // if (serviceinfo.getAuthConfig() != null && serviceinfo.getWsdlUri().indexOf("http") == 0) {
-        // sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri(), serviceinfo.getAuthConfig());
-        //
-        // } else {
-        // sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
-        // }
-        // Definition def = sdh.getDefinition();
+        // WSDLReader reader = wsdlFactory.newWSDLReader();
+        // Definition def = reader.readWSDL(null, serviceinfo.getWsdlUri());
+        ServiceDiscoveryHelper sdh;
+        if (serviceinfo.getAuthConfig() != null && serviceinfo.getWsdlUri().indexOf("http") == 0) {
+            sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri(), serviceinfo.getAuthConfig());
+
+        } else {
+            sdh = new ServiceDiscoveryHelper(serviceinfo.getWsdlUri());
+        }
+        Definition def = sdh.getDefinition();
 
         wsdlTypes = createSchemaFromTypes(def);
 
