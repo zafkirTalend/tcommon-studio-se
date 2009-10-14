@@ -134,6 +134,10 @@ public class EmfHelper {
     }
 
     public static void saveResource(Resource resource) throws PersistenceException {
+        if (resource == null) {
+            return;
+        }
+
         try {
             HashMap options = new HashMap(2);
             options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
