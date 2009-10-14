@@ -32,7 +32,7 @@ public enum EComponentCategory {
     STATSANDLOGS("Stats & Logs", 7), //$NON-NLS-1$
     TECHNICAL("Technical", 8), // for non displayed parameters //$NON-NLS-1$
     ADVANCED("Advanced settings", 9), //$NON-NLS-1$
-    RESUMING("Resuming", 15), //$NON-NLS-1$
+    RESUMING("Error recovery", 15), //$NON-NLS-1$
     BASIC("Basic settings", 10), //$NON-NLS-1$
     ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED), //$NON-NLS-1$
     EXTRA("Extra", 12), //$NON-NLS-1$
