@@ -41,6 +41,11 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
      */
     public List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
         List<Problem> nodePros = checkProblems(nodeConfigurer);
+        updateNodeProblems(nodePros, key);
+        return nodePros;
+    }
+
+    public void updateNodeProblems(List<Problem> nodePros, String key) {
         nodeProblems.clear();
         if (nodePros != null) {
             nodeProblems.addAll(nodePros);
@@ -62,7 +67,6 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
                 nodePros = new ArrayList<Problem>(nodePros);
             }
         }
-        return nodePros;
     }
 
     public List<Problem> checkProblemsForErrorMark(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
@@ -146,6 +150,10 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
                 multiValueMap.put(problem.getKey(), problem);
             }
         }
+    }
+
+    public List<Problem> getNodeProblems() {
+        return this.nodeProblems;
     }
 
 }
