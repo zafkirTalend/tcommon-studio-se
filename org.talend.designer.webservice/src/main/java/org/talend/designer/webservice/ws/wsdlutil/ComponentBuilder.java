@@ -37,6 +37,7 @@ import org.exolab.castor.xml.schema.SimpleTypesFactory;
 import org.exolab.castor.xml.schema.Structure;
 import org.exolab.castor.xml.schema.XMLType;
 import org.jdom.input.DOMBuilder;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
@@ -62,8 +63,8 @@ public class ComponentBuilder {
         try {
             wsdlFactory = WSDLFactory.newInstance();
             simpleTypesFactory = new SimpleTypesFactory();
-        } catch (Throwable t) {
-            System.err.println(t.getMessage());
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
         }
     }
 
@@ -164,13 +165,14 @@ public class ComponentBuilder {
 
     private Schema createschemafromtype(org.w3c.dom.Element schemaElement, Definition wsdlDefinition) {
         if (schemaElement == null) {
-            System.err.println("Unable to find schema extensibility element in WSDL");
+            ExceptionHandler.process(new Exception("Unable to find schema extensibility element in WSDL"));
             return null;
         }
         DOMBuilder domBuilder = new DOMBuilder();
         org.jdom.Element jdomSchemaElement = domBuilder.build(schemaElement);
         if (jdomSchemaElement == null) {
-            System.err.println("Unable to read schema defined in WSDL");
+            ExceptionHandler.process(new Exception("Unable to read schema defined in WSDL"));
+            // System.err.println("Unable to read schema defined in WSDL");
             return null;
         }
         Map namespaces = wsdlDefinition.getNamespaces();
@@ -190,7 +192,7 @@ public class ComponentBuilder {
         try {
             schema = XMLSupport.convertElementToSchema(jdomSchemaElement);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            ExceptionHandler.process(e);
         }
         return schema;
     }
@@ -499,7 +501,7 @@ public class ComponentBuilder {
 
     protected XMLType getXMLType(Part part, Schema wsdlType, OperationInfo operationInfo) {
         if (wsdlTypes == null) {
-            System.out.println("null is here in the 1 ");
+            ExceptionHandler.process(new Exception("null is here in the input"));
             return null;
         }
 

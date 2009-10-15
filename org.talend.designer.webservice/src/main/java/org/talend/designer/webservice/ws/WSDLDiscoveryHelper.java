@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.webservice.ws.helper.conf.ServiceHelperConfiguration;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
@@ -130,8 +131,7 @@ public class WSDLDiscoveryHelper {
                 functionsAvailable.add(f);
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         return functionsAvailable;
