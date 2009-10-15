@@ -130,8 +130,8 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             database = databaseName;
         }
         // end
-        String sql = "SELECT * from DBC.TABLES WHERE databasename = '" + database //$NON-NLS-1$
-                + "' AND tablekind = 'T' or tablekind = 'V' Order by tablekind, tablename "; //$NON-NLS-1$
+        String sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+                + "') AND (tablekind = 'T' or tablekind = 'V') Order by tablekind, tablename "; //$NON-NLS-1$
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -194,7 +194,7 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
     public ResultSet getColumns(String catalog, String database, String tableNamePattern, String columnNamePattern)
             throws SQLException {
         // for real
-        String sql = "SELECT * from DBC.COLUMNS Where databasename ='" + database + "' and tablename = '" //$NON-NLS-1$ //$NON-NLS-2$
+        String sql = "SELECT * from DBC.COLUMNS Where UPPER(databasename) = UPPER('" + database + "') and tablename = '" //$NON-NLS-1$ //$NON-NLS-2$
                 + tableNamePattern + "' order by columnid"; //$NON-NLS-1$
         boolean needRetrieveFromDriver = false;
 
