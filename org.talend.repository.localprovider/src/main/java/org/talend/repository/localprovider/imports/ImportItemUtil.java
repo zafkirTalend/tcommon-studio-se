@@ -448,7 +448,11 @@ public class ImportItemUtil {
             }
         }
         for (Resource resource : itemRecord.getResourceSet().getResources()) {
-            resource.unload();
+            // Due to the system of lazy loading for db repository of ByteArray,
+            // it can't be unloaded just after create the item.
+            if (!(resource instanceof ByteArrayResource)) {
+                resource.unload();
+            }
         }
 
         itemRecord.setExistingItemWithSameId(null);
