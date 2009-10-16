@@ -20,76 +20,55 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getId <em>Id</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getBasicStatus <em>Basic Status</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getDetailedStatus <em>Detailed Status</em>}
- * </li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskLabel <em>Task Label</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskDescription <em>Task Description
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getProjectName <em>Project Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobName <em>Talend Job Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobId <em>Talend Job Id</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobVersion <em>Talend Job Version
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextName <em>Context Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextValues <em>Context Values</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getVirtualServerName <em>Virtual Server
- * Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerName <em>Execution Server
- * Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isApplyContextToChildren <em>Apply Context
- * To Children</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggeredBy <em>Triggered By</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerType <em>Trigger Type</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerName <em>Trigger Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerDescription <em>Trigger
- * Description</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskErrorStackTrace <em>Task Error Stack
- * Trace</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdQuartzTrigger <em>Id Quartz Trigger
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getLastJobGenerationDate <em>Last Job
- * Generation Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getJobArchiveFilename <em>Job Archive
- * Filename</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileMask <em>File Trigger
- * File Mask</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileName <em>File Trigger
- * File Name</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFolderPath <em>File Trigger
- * Folder Path</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerTriggeredFilePath <em>File
- * Trigger Triggered File Path</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExpectedTriggeringDate <em>Expected
- * Triggering Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskStartDate <em>Task Start Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskEndDate <em>Task End Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobStartDate <em>Admin Job Start
- * Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobEndDate <em>Admin Job End Date
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobStartDate <em>Server Job Start
- * Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobEndDate <em>Server Job End Date
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJobExecution <em>Id Remote Job
- * Execution</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getRequestId <em>Request Id</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isResumingMode <em>Resuming Mode</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getBasicStatus <em>Basic Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getDetailedStatus <em>Detailed Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskLabel <em>Task Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskDescription <em>Task Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getProjectName <em>Project Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobName <em>Talend Job Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobId <em>Talend Job Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobVersion <em>Talend Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextName <em>Context Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextValues <em>Context Values</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getVirtualServerName <em>Virtual Server Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerName <em>Execution Server Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggeredBy <em>Triggered By</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerType <em>Trigger Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerName <em>Trigger Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerDescription <em>Trigger Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskErrorStackTrace <em>Task Error Stack Trace</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdQuartzTrigger <em>Id Quartz Trigger</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getLastJobGenerationDate <em>Last Job Generation Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getJobArchiveFilename <em>Job Archive Filename</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileMask <em>File Trigger File Mask</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFileName <em>File Trigger File Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerFolderPath <em>File Trigger Folder Path</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getFileTriggerTriggeredFilePath <em>File Trigger Triggered File Path</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExpectedTriggeringDate <em>Expected Triggering Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskStartDate <em>Task Start Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTaskEndDate <em>Task End Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobStartDate <em>Admin Job Start Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getAdminJobEndDate <em>Admin Job End Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobStartDate <em>Server Job Start Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getServerJobEndDate <em>Server Job End Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getRequestId <em>Request Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isResumingMode <em>Resuming Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getErrorCode <em>Error Code</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecutionHistory {
 
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -97,8 +76,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final int ID_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -106,9 +85,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getBasicStatus() <em>Basic Status</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getBasicStatus() <em>Basic Status</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getBasicStatus()
      * @generated
      * @ordered
@@ -116,9 +95,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String BASIC_STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getBasicStatus() <em>Basic Status</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getBasicStatus() <em>Basic Status</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getBasicStatus()
      * @generated
      * @ordered
@@ -126,9 +105,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String basicStatus = BASIC_STATUS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDetailedStatus() <em>Detailed Status</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getDetailedStatus() <em>Detailed Status</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getDetailedStatus()
      * @generated
      * @ordered
@@ -136,9 +115,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String DETAILED_STATUS_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDetailedStatus() <em>Detailed Status</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getDetailedStatus() <em>Detailed Status</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getDetailedStatus()
      * @generated
      * @ordered
@@ -146,9 +125,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String detailedStatus = DETAILED_STATUS_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTaskLabel() <em>Task Label</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getTaskLabel() <em>Task Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getTaskLabel()
      * @generated
      * @ordered
@@ -156,9 +135,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TASK_LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTaskLabel() <em>Task Label</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getTaskLabel() <em>Task Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getTaskLabel()
      * @generated
      * @ordered
@@ -166,9 +145,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String taskLabel = TASK_LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTaskDescription() <em>Task Description</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getTaskDescription() <em>Task Description</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getTaskDescription()
      * @generated
      * @ordered
@@ -176,9 +155,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TASK_DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTaskDescription() <em>Task Description</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getTaskDescription() <em>Task Description</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getTaskDescription()
      * @generated
      * @ordered
@@ -186,9 +165,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String taskDescription = TASK_DESCRIPTION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getProjectName() <em>Project Name</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getProjectName() <em>Project Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getProjectName()
      * @generated
      * @ordered
@@ -196,9 +175,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String PROJECT_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getProjectName() <em>Project Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getProjectName() <em>Project Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getProjectName()
      * @generated
      * @ordered
@@ -206,9 +185,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String projectName = PROJECT_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTalendJobName() <em>Talend Job Name</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getTalendJobName() <em>Talend Job Name</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getTalendJobName()
      * @generated
      * @ordered
@@ -216,9 +195,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TALEND_JOB_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTalendJobName() <em>Talend Job Name</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTalendJobName() <em>Talend Job Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTalendJobName()
      * @generated
      * @ordered
@@ -226,9 +205,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String talendJobName = TALEND_JOB_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTalendJobId() <em>Talend Job Id</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getTalendJobId() <em>Talend Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTalendJobId()
      * @generated
      * @ordered
@@ -236,9 +215,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TALEND_JOB_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTalendJobId() <em>Talend Job Id</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTalendJobId() <em>Talend Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTalendJobId()
      * @generated
      * @ordered
@@ -266,9 +245,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String talendJobVersion = TALEND_JOB_VERSION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContextName() <em>Context Name</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getContextName() <em>Context Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getContextName()
      * @generated
      * @ordered
@@ -276,9 +255,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String CONTEXT_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextName() <em>Context Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getContextName() <em>Context Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getContextName()
      * @generated
      * @ordered
@@ -286,9 +265,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String contextName = CONTEXT_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getContextValues() <em>Context Values</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getContextValues() <em>Context Values</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getContextValues()
      * @generated
      * @ordered
@@ -296,9 +275,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String CONTEXT_VALUES_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getContextValues() <em>Context Values</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getContextValues() <em>Context Values</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getContextValues()
      * @generated
      * @ordered
@@ -366,9 +345,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected boolean applyContextToChildren = APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTriggeredBy() <em>Triggered By</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getTriggeredBy() <em>Triggered By</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTriggeredBy()
      * @generated
      * @ordered
@@ -376,9 +355,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TRIGGERED_BY_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTriggeredBy() <em>Triggered By</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getTriggeredBy() <em>Triggered By</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getTriggeredBy()
      * @generated
      * @ordered
@@ -386,9 +365,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String triggeredBy = TRIGGERED_BY_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTriggerType()
      * @generated
      * @ordered
@@ -396,9 +375,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TRIGGER_TYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getTriggerType() <em>Trigger Type</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getTriggerType()
      * @generated
      * @ordered
@@ -406,9 +385,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String triggerType = TRIGGER_TYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTriggerName() <em>Trigger Name</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getTriggerName() <em>Trigger Name</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTriggerName()
      * @generated
      * @ordered
@@ -416,9 +395,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String TRIGGER_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTriggerName() <em>Trigger Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getTriggerName() <em>Trigger Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getTriggerName()
      * @generated
      * @ordered
@@ -466,9 +445,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String taskErrorStackTrace = TASK_ERROR_STACK_TRACE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getIdQuartzJob()
      * @generated
      * @ordered
@@ -476,9 +455,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final int ID_QUARTZ_JOB_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getIdQuartzJob()
      * @generated
      * @ordered
@@ -496,9 +475,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final Integer ID_QUARTZ_TRIGGER_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getIdQuartzTrigger() <em>Id Quartz Trigger</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getIdQuartzTrigger()
      * @generated
      * @ordered
@@ -606,9 +585,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String fileTriggerFolderPath = FILE_TRIGGER_FOLDER_PATH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFileTriggerTriggeredFilePath() <em>File Trigger Triggered File Path</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The default value of the '{@link #getFileTriggerTriggeredFilePath() <em>File Trigger Triggered File Path</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFileTriggerTriggeredFilePath()
      * @generated
      * @ordered
@@ -616,9 +594,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getFileTriggerTriggeredFilePath() <em>File Trigger Triggered File Path</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getFileTriggerTriggeredFilePath() <em>File Trigger Triggered File Path</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFileTriggerTriggeredFilePath()
      * @generated
      * @ordered
@@ -646,9 +623,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected Date expectedTriggeringDate = EXPECTED_TRIGGERING_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTaskStartDate() <em>Task Start Date</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getTaskStartDate() <em>Task Start Date</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getTaskStartDate()
      * @generated
      * @ordered
@@ -656,9 +633,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final Date TASK_START_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTaskStartDate() <em>Task Start Date</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTaskStartDate() <em>Task Start Date</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTaskStartDate()
      * @generated
      * @ordered
@@ -666,9 +643,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected Date taskStartDate = TASK_START_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTaskEndDate() <em>Task End Date</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getTaskEndDate() <em>Task End Date</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTaskEndDate()
      * @generated
      * @ordered
@@ -676,9 +653,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final Date TASK_END_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTaskEndDate() <em>Task End Date</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getTaskEndDate() <em>Task End Date</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getTaskEndDate()
      * @generated
      * @ordered
@@ -766,9 +743,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected Date serverJobEndDate = SERVER_JOB_END_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getIdRemoteJob()
      * @generated
      * @ordered
@@ -776,9 +753,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String ID_REMOTE_JOB_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getIdRemoteJob()
      * @generated
      * @ordered
@@ -806,9 +783,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String idRemoteJobExecution = ID_REMOTE_JOB_EXECUTION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getRequestId() <em>Request Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getRequestId()
      * @generated
      * @ordered
@@ -816,9 +793,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String REQUEST_ID_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getRequestId() <em>Request Id</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getRequestId() <em>Request Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getRequestId()
      * @generated
      * @ordered
@@ -826,9 +803,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String requestId = REQUEST_ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isResumingMode() <em>Resuming Mode</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #isResumingMode() <em>Resuming Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #isResumingMode()
      * @generated
      * @ordered
@@ -836,9 +813,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final boolean RESUMING_MODE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isResumingMode() <em>Resuming Mode</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #isResumingMode() <em>Resuming Mode</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #isResumingMode()
      * @generated
      * @ordered
@@ -846,9 +823,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected boolean resumingMode = RESUMING_MODE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getErrorCode()
      * @generated
      * @ordered
@@ -856,9 +833,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final Integer ERROR_CODE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getErrorCode()
      * @generated
      * @ordered
@@ -871,7 +848,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected TaskExecutionHistoryImpl() {
@@ -880,335 +856,309 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
-            return new Integer(getId());
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
-            return getBasicStatus();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
-            return getDetailedStatus();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
-            return getTaskLabel();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
-            return getTaskDescription();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
-            return getProjectName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
-            return getTalendJobName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
-            return getTalendJobId();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
-            return getTalendJobVersion();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
-            return getContextName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-            return getContextValues();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
-            return getVirtualServerName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
-            return getExecutionServerName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
-            return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
-            return getTriggeredBy();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
-            return getTriggerType();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
-            return getTriggerName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
-            return getTriggerDescription();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
-            return getTaskErrorStackTrace();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
-            return new Integer(getIdQuartzJob());
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
-            return getIdQuartzTrigger();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
-            return getLastJobGenerationDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
-            return getJobArchiveFilename();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
-            return getFileTriggerFileMask();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
-            return getFileTriggerFileName();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
-            return getFileTriggerFolderPath();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
-            return getFileTriggerTriggeredFilePath();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
-            return getExpectedTriggeringDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
-            return getTaskStartDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
-            return getTaskEndDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-            return getAdminJobStartDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-            return getAdminJobEndDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
-            return getServerJobStartDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
-            return getServerJobEndDate();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
-            return getIdRemoteJob();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
-            return getIdRemoteJobExecution();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
-            return getRequestId();
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
-            return isResumingMode() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-            return getErrorCode();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
+                return new Integer(getId());
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                return getBasicStatus();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                return getDetailedStatus();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
+                return getTaskLabel();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
+                return getTaskDescription();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
+                return getProjectName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
+                return getTalendJobName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
+                return getTalendJobId();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
+                return getTalendJobVersion();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
+                return getContextName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                return getContextValues();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
+                return getVirtualServerName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
+                return getExecutionServerName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
+                return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
+                return getTriggeredBy();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
+                return getTriggerType();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
+                return getTriggerName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
+                return getTriggerDescription();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
+                return getTaskErrorStackTrace();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
+                return new Integer(getIdQuartzJob());
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
+                return getIdQuartzTrigger();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
+                return getLastJobGenerationDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
+                return getJobArchiveFilename();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
+                return getFileTriggerFileMask();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                return getFileTriggerFileName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
+                return getFileTriggerFolderPath();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
+                return getFileTriggerTriggeredFilePath();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                return getExpectedTriggeringDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
+                return getTaskStartDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
+                return getTaskEndDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
+                return getAdminJobStartDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
+                return getAdminJobEndDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
+                return getServerJobStartDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
+                return getServerJobEndDate();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
+                return getIdRemoteJob();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
+                return getIdRemoteJobExecution();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                return getRequestId();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                return isResumingMode() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                return getErrorCode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
-            return id != ID_EDEFAULT;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
-            return BASIC_STATUS_EDEFAULT == null ? basicStatus != null : !BASIC_STATUS_EDEFAULT.equals(basicStatus);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
-            return DETAILED_STATUS_EDEFAULT == null ? detailedStatus != null : !DETAILED_STATUS_EDEFAULT.equals(detailedStatus);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
-            return TASK_LABEL_EDEFAULT == null ? taskLabel != null : !TASK_LABEL_EDEFAULT.equals(taskLabel);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
-            return TASK_DESCRIPTION_EDEFAULT == null ? taskDescription != null : !TASK_DESCRIPTION_EDEFAULT
-                    .equals(taskDescription);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
-            return PROJECT_NAME_EDEFAULT == null ? projectName != null : !PROJECT_NAME_EDEFAULT.equals(projectName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
-            return TALEND_JOB_NAME_EDEFAULT == null ? talendJobName != null : !TALEND_JOB_NAME_EDEFAULT.equals(talendJobName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
-            return TALEND_JOB_ID_EDEFAULT == null ? talendJobId != null : !TALEND_JOB_ID_EDEFAULT.equals(talendJobId);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
-            return TALEND_JOB_VERSION_EDEFAULT == null ? talendJobVersion != null : !TALEND_JOB_VERSION_EDEFAULT
-                    .equals(talendJobVersion);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
-            return CONTEXT_NAME_EDEFAULT == null ? contextName != null : !CONTEXT_NAME_EDEFAULT.equals(contextName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-            return CONTEXT_VALUES_EDEFAULT == null ? contextValues != null : !CONTEXT_VALUES_EDEFAULT.equals(contextValues);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
-            return VIRTUAL_SERVER_NAME_EDEFAULT == null ? virtualServerName != null : !VIRTUAL_SERVER_NAME_EDEFAULT
-                    .equals(virtualServerName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
-            return EXECUTION_SERVER_NAME_EDEFAULT == null ? executionServerName != null : !EXECUTION_SERVER_NAME_EDEFAULT
-                    .equals(executionServerName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
-            return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
-            return TRIGGERED_BY_EDEFAULT == null ? triggeredBy != null : !TRIGGERED_BY_EDEFAULT.equals(triggeredBy);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
-            return TRIGGER_TYPE_EDEFAULT == null ? triggerType != null : !TRIGGER_TYPE_EDEFAULT.equals(triggerType);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
-            return TRIGGER_NAME_EDEFAULT == null ? triggerName != null : !TRIGGER_NAME_EDEFAULT.equals(triggerName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
-            return TRIGGER_DESCRIPTION_EDEFAULT == null ? triggerDescription != null : !TRIGGER_DESCRIPTION_EDEFAULT
-                    .equals(triggerDescription);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
-            return TASK_ERROR_STACK_TRACE_EDEFAULT == null ? taskErrorStackTrace != null : !TASK_ERROR_STACK_TRACE_EDEFAULT
-                    .equals(taskErrorStackTrace);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
-            return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
-            return ID_QUARTZ_TRIGGER_EDEFAULT == null ? idQuartzTrigger != null : !ID_QUARTZ_TRIGGER_EDEFAULT
-                    .equals(idQuartzTrigger);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
-            return LAST_JOB_GENERATION_DATE_EDEFAULT == null ? lastJobGenerationDate != null : !LAST_JOB_GENERATION_DATE_EDEFAULT
-                    .equals(lastJobGenerationDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
-            return JOB_ARCHIVE_FILENAME_EDEFAULT == null ? jobArchiveFilename != null : !JOB_ARCHIVE_FILENAME_EDEFAULT
-                    .equals(jobArchiveFilename);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
-            return FILE_TRIGGER_FILE_MASK_EDEFAULT == null ? fileTriggerFileMask != null : !FILE_TRIGGER_FILE_MASK_EDEFAULT
-                    .equals(fileTriggerFileMask);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
-            return FILE_TRIGGER_FILE_NAME_EDEFAULT == null ? fileTriggerFileName != null : !FILE_TRIGGER_FILE_NAME_EDEFAULT
-                    .equals(fileTriggerFileName);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
-            return FILE_TRIGGER_FOLDER_PATH_EDEFAULT == null ? fileTriggerFolderPath != null : !FILE_TRIGGER_FOLDER_PATH_EDEFAULT
-                    .equals(fileTriggerFolderPath);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
-            return FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT == null ? fileTriggerTriggeredFilePath != null
-                    : !FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT.equals(fileTriggerTriggeredFilePath);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
-            return EXPECTED_TRIGGERING_DATE_EDEFAULT == null ? expectedTriggeringDate != null
-                    : !EXPECTED_TRIGGERING_DATE_EDEFAULT.equals(expectedTriggeringDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
-            return TASK_START_DATE_EDEFAULT == null ? taskStartDate != null : !TASK_START_DATE_EDEFAULT.equals(taskStartDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
-            return TASK_END_DATE_EDEFAULT == null ? taskEndDate != null : !TASK_END_DATE_EDEFAULT.equals(taskEndDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-            return ADMIN_JOB_START_DATE_EDEFAULT == null ? adminJobStartDate != null : !ADMIN_JOB_START_DATE_EDEFAULT
-                    .equals(adminJobStartDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-            return ADMIN_JOB_END_DATE_EDEFAULT == null ? adminJobEndDate != null : !ADMIN_JOB_END_DATE_EDEFAULT
-                    .equals(adminJobEndDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
-            return SERVER_JOB_START_DATE_EDEFAULT == null ? serverJobStartDate != null : !SERVER_JOB_START_DATE_EDEFAULT
-                    .equals(serverJobStartDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
-            return SERVER_JOB_END_DATE_EDEFAULT == null ? serverJobEndDate != null : !SERVER_JOB_END_DATE_EDEFAULT
-                    .equals(serverJobEndDate);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
-            return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
-            return ID_REMOTE_JOB_EXECUTION_EDEFAULT == null ? idRemoteJobExecution != null : !ID_REMOTE_JOB_EXECUTION_EDEFAULT
-                    .equals(idRemoteJobExecution);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
-            return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
-            return resumingMode != RESUMING_MODE_EDEFAULT;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-            return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
+                return id != ID_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                return BASIC_STATUS_EDEFAULT == null ? basicStatus != null : !BASIC_STATUS_EDEFAULT.equals(basicStatus);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                return DETAILED_STATUS_EDEFAULT == null ? detailedStatus != null : !DETAILED_STATUS_EDEFAULT.equals(detailedStatus);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
+                return TASK_LABEL_EDEFAULT == null ? taskLabel != null : !TASK_LABEL_EDEFAULT.equals(taskLabel);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
+                return TASK_DESCRIPTION_EDEFAULT == null ? taskDescription != null : !TASK_DESCRIPTION_EDEFAULT.equals(taskDescription);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
+                return PROJECT_NAME_EDEFAULT == null ? projectName != null : !PROJECT_NAME_EDEFAULT.equals(projectName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
+                return TALEND_JOB_NAME_EDEFAULT == null ? talendJobName != null : !TALEND_JOB_NAME_EDEFAULT.equals(talendJobName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
+                return TALEND_JOB_ID_EDEFAULT == null ? talendJobId != null : !TALEND_JOB_ID_EDEFAULT.equals(talendJobId);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
+                return TALEND_JOB_VERSION_EDEFAULT == null ? talendJobVersion != null : !TALEND_JOB_VERSION_EDEFAULT.equals(talendJobVersion);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
+                return CONTEXT_NAME_EDEFAULT == null ? contextName != null : !CONTEXT_NAME_EDEFAULT.equals(contextName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                return CONTEXT_VALUES_EDEFAULT == null ? contextValues != null : !CONTEXT_VALUES_EDEFAULT.equals(contextValues);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
+                return VIRTUAL_SERVER_NAME_EDEFAULT == null ? virtualServerName != null : !VIRTUAL_SERVER_NAME_EDEFAULT.equals(virtualServerName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
+                return EXECUTION_SERVER_NAME_EDEFAULT == null ? executionServerName != null : !EXECUTION_SERVER_NAME_EDEFAULT.equals(executionServerName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
+                return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
+                return TRIGGERED_BY_EDEFAULT == null ? triggeredBy != null : !TRIGGERED_BY_EDEFAULT.equals(triggeredBy);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
+                return TRIGGER_TYPE_EDEFAULT == null ? triggerType != null : !TRIGGER_TYPE_EDEFAULT.equals(triggerType);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
+                return TRIGGER_NAME_EDEFAULT == null ? triggerName != null : !TRIGGER_NAME_EDEFAULT.equals(triggerName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
+                return TRIGGER_DESCRIPTION_EDEFAULT == null ? triggerDescription != null : !TRIGGER_DESCRIPTION_EDEFAULT.equals(triggerDescription);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
+                return TASK_ERROR_STACK_TRACE_EDEFAULT == null ? taskErrorStackTrace != null : !TASK_ERROR_STACK_TRACE_EDEFAULT.equals(taskErrorStackTrace);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
+                return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
+                return ID_QUARTZ_TRIGGER_EDEFAULT == null ? idQuartzTrigger != null : !ID_QUARTZ_TRIGGER_EDEFAULT.equals(idQuartzTrigger);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
+                return LAST_JOB_GENERATION_DATE_EDEFAULT == null ? lastJobGenerationDate != null : !LAST_JOB_GENERATION_DATE_EDEFAULT.equals(lastJobGenerationDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
+                return JOB_ARCHIVE_FILENAME_EDEFAULT == null ? jobArchiveFilename != null : !JOB_ARCHIVE_FILENAME_EDEFAULT.equals(jobArchiveFilename);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
+                return FILE_TRIGGER_FILE_MASK_EDEFAULT == null ? fileTriggerFileMask != null : !FILE_TRIGGER_FILE_MASK_EDEFAULT.equals(fileTriggerFileMask);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                return FILE_TRIGGER_FILE_NAME_EDEFAULT == null ? fileTriggerFileName != null : !FILE_TRIGGER_FILE_NAME_EDEFAULT.equals(fileTriggerFileName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
+                return FILE_TRIGGER_FOLDER_PATH_EDEFAULT == null ? fileTriggerFolderPath != null : !FILE_TRIGGER_FOLDER_PATH_EDEFAULT.equals(fileTriggerFolderPath);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
+                return FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT == null ? fileTriggerTriggeredFilePath != null : !FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT.equals(fileTriggerTriggeredFilePath);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                return EXPECTED_TRIGGERING_DATE_EDEFAULT == null ? expectedTriggeringDate != null : !EXPECTED_TRIGGERING_DATE_EDEFAULT.equals(expectedTriggeringDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
+                return TASK_START_DATE_EDEFAULT == null ? taskStartDate != null : !TASK_START_DATE_EDEFAULT.equals(taskStartDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
+                return TASK_END_DATE_EDEFAULT == null ? taskEndDate != null : !TASK_END_DATE_EDEFAULT.equals(taskEndDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
+                return ADMIN_JOB_START_DATE_EDEFAULT == null ? adminJobStartDate != null : !ADMIN_JOB_START_DATE_EDEFAULT.equals(adminJobStartDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
+                return ADMIN_JOB_END_DATE_EDEFAULT == null ? adminJobEndDate != null : !ADMIN_JOB_END_DATE_EDEFAULT.equals(adminJobEndDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
+                return SERVER_JOB_START_DATE_EDEFAULT == null ? serverJobStartDate != null : !SERVER_JOB_START_DATE_EDEFAULT.equals(serverJobStartDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
+                return SERVER_JOB_END_DATE_EDEFAULT == null ? serverJobEndDate != null : !SERVER_JOB_END_DATE_EDEFAULT.equals(serverJobEndDate);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
+                return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
+                return ID_REMOTE_JOB_EXECUTION_EDEFAULT == null ? idRemoteJobExecution != null : !ID_REMOTE_JOB_EXECUTION_EDEFAULT.equals(idRemoteJobExecution);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                return resumingMode != RESUMING_MODE_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
-            setId(((Integer) newValue).intValue());
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
-            setBasicStatus((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
-            setDetailedStatus((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
-            setTaskLabel((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
-            setTaskDescription((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
-            setProjectName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
-            setTalendJobName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
-            setTalendJobId((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
-            setTalendJobVersion((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
-            setContextName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-            setContextValues((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
-            setVirtualServerName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
-            setExecutionServerName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
-            setApplyContextToChildren(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
-            setTriggeredBy((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
-            setTriggerType((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
-            setTriggerName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
-            setTriggerDescription((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
-            setTaskErrorStackTrace((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
-            setIdQuartzJob(((Integer) newValue).intValue());
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
-            setIdQuartzTrigger((Integer) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
-            setLastJobGenerationDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
-            setJobArchiveFilename((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
-            setFileTriggerFileMask((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
-            setFileTriggerFileName((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
-            setFileTriggerFolderPath((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
-            setFileTriggerTriggeredFilePath((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
-            setExpectedTriggeringDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
-            setTaskStartDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
-            setTaskEndDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-            setAdminJobStartDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-            setAdminJobEndDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
-            setServerJobStartDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
-            setServerJobEndDate((Date) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
-            setIdRemoteJob((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
-            setIdRemoteJobExecution((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
-            setRequestId((String) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
-            setResumingMode(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-            setErrorCode((Integer) newValue);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
-            setJvmValues((String) newValue);
-            return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
+                setId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                setBasicStatus((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                setDetailedStatus((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
+                setTaskLabel((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
+                setTaskDescription((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
+                setProjectName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
+                setTalendJobName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
+                setTalendJobId((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
+                setTalendJobVersion((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
+                setContextName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                setContextValues((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
+                setVirtualServerName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
+                setExecutionServerName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
+                setApplyContextToChildren(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
+                setTriggeredBy((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
+                setTriggerType((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
+                setTriggerName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
+                setTriggerDescription((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
+                setTaskErrorStackTrace((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
+                setIdQuartzJob(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
+                setIdQuartzTrigger((Integer)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
+                setLastJobGenerationDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
+                setJobArchiveFilename((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
+                setFileTriggerFileMask((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                setFileTriggerFileName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
+                setFileTriggerFolderPath((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
+                setFileTriggerTriggeredFilePath((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                setExpectedTriggeringDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
+                setTaskStartDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
+                setTaskEndDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
+                setAdminJobStartDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
+                setAdminJobEndDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
+                setServerJobStartDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
+                setServerJobEndDate((Date)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
+                setIdRemoteJob((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
+                setIdRemoteJobExecution((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                setRequestId((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                setResumingMode(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                setErrorCode((Integer)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -1217,138 +1167,133 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
-            setId(ID_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
-            setBasicStatus(BASIC_STATUS_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
-            setDetailedStatus(DETAILED_STATUS_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
-            setTaskLabel(TASK_LABEL_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
-            setTaskDescription(TASK_DESCRIPTION_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
-            setProjectName(PROJECT_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
-            setTalendJobName(TALEND_JOB_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
-            setTalendJobId(TALEND_JOB_ID_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
-            setTalendJobVersion(TALEND_JOB_VERSION_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
-            setContextName(CONTEXT_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-            setContextValues(CONTEXT_VALUES_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
-            setVirtualServerName(VIRTUAL_SERVER_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
-            setExecutionServerName(EXECUTION_SERVER_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
-            setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
-            setTriggeredBy(TRIGGERED_BY_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
-            setTriggerType(TRIGGER_TYPE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
-            setTriggerName(TRIGGER_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
-            setTriggerDescription(TRIGGER_DESCRIPTION_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
-            setTaskErrorStackTrace(TASK_ERROR_STACK_TRACE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
-            setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
-            setIdQuartzTrigger(ID_QUARTZ_TRIGGER_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
-            setLastJobGenerationDate(LAST_JOB_GENERATION_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
-            setJobArchiveFilename(JOB_ARCHIVE_FILENAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
-            setFileTriggerFileMask(FILE_TRIGGER_FILE_MASK_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
-            setFileTriggerFileName(FILE_TRIGGER_FILE_NAME_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
-            setFileTriggerFolderPath(FILE_TRIGGER_FOLDER_PATH_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
-            setFileTriggerTriggeredFilePath(FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
-            setExpectedTriggeringDate(EXPECTED_TRIGGERING_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
-            setTaskStartDate(TASK_START_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
-            setTaskEndDate(TASK_END_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
-            setAdminJobStartDate(ADMIN_JOB_START_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
-            setAdminJobEndDate(ADMIN_JOB_END_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
-            setServerJobStartDate(SERVER_JOB_START_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
-            setServerJobEndDate(SERVER_JOB_END_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
-            setIdRemoteJob(ID_REMOTE_JOB_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
-            setIdRemoteJobExecution(ID_REMOTE_JOB_EXECUTION_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
-            setRequestId(REQUEST_ID_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
-            setResumingMode(RESUMING_MODE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-            setErrorCode(ERROR_CODE_EDEFAULT);
-            return;
-        case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
-            setJvmValues(JVM_VALUES_EDEFAULT);
-            return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID:
+                setId(ID_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS:
+                setBasicStatus(BASIC_STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS:
+                setDetailedStatus(DETAILED_STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL:
+                setTaskLabel(TASK_LABEL_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION:
+                setTaskDescription(TASK_DESCRIPTION_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME:
+                setProjectName(PROJECT_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME:
+                setTalendJobName(TALEND_JOB_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID:
+                setTalendJobId(TALEND_JOB_ID_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION:
+                setTalendJobVersion(TALEND_JOB_VERSION_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
+                setContextName(CONTEXT_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                setContextValues(CONTEXT_VALUES_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
+                setVirtualServerName(VIRTUAL_SERVER_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
+                setExecutionServerName(EXECUTION_SERVER_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
+                setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
+                setTriggeredBy(TRIGGERED_BY_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE:
+                setTriggerType(TRIGGER_TYPE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME:
+                setTriggerName(TRIGGER_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION:
+                setTriggerDescription(TRIGGER_DESCRIPTION_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE:
+                setTaskErrorStackTrace(TASK_ERROR_STACK_TRACE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB:
+                setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER:
+                setIdQuartzTrigger(ID_QUARTZ_TRIGGER_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE:
+                setLastJobGenerationDate(LAST_JOB_GENERATION_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME:
+                setJobArchiveFilename(JOB_ARCHIVE_FILENAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK:
+                setFileTriggerFileMask(FILE_TRIGGER_FILE_MASK_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME:
+                setFileTriggerFileName(FILE_TRIGGER_FILE_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH:
+                setFileTriggerFolderPath(FILE_TRIGGER_FOLDER_PATH_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH:
+                setFileTriggerTriggeredFilePath(FILE_TRIGGER_TRIGGERED_FILE_PATH_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE:
+                setExpectedTriggeringDate(EXPECTED_TRIGGERING_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE:
+                setTaskStartDate(TASK_START_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE:
+                setTaskEndDate(TASK_END_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE:
+                setAdminJobStartDate(ADMIN_JOB_START_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE:
+                setAdminJobEndDate(ADMIN_JOB_END_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE:
+                setServerJobStartDate(SERVER_JOB_START_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE:
+                setServerJobEndDate(SERVER_JOB_END_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB:
+                setIdRemoteJob(ID_REMOTE_JOB_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
+                setIdRemoteJobExecution(ID_REMOTE_JOB_EXECUTION_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                setRequestId(REQUEST_ID_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
+                setResumingMode(RESUMING_MODE_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
+                setErrorCode(ERROR_CODE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getAdminJobEndDate() {
@@ -1357,7 +1302,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getAdminJobStartDate() {
@@ -1366,7 +1310,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getBasicStatus() {
@@ -1375,7 +1318,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getContextName() {
@@ -1384,7 +1326,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getContextValues() {
@@ -1393,7 +1334,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDetailedStatus() {
@@ -1402,7 +1342,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Integer getErrorCode() {
@@ -1411,7 +1350,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getExecutionServerName() {
@@ -1420,7 +1358,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getExpectedTriggeringDate() {
@@ -1429,7 +1366,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFileTriggerFileMask() {
@@ -1438,7 +1374,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFileTriggerFileName() {
@@ -1447,7 +1382,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFileTriggerFolderPath() {
@@ -1456,7 +1390,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getFileTriggerTriggeredFilePath() {
@@ -1465,7 +1398,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public int getId() {
@@ -1474,7 +1406,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public int getIdQuartzJob() {
@@ -1483,7 +1414,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Integer getIdQuartzTrigger() {
@@ -1492,7 +1422,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getIdRemoteJob() {
@@ -1501,7 +1430,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getIdRemoteJobExecution() {
@@ -1510,7 +1438,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getJobArchiveFilename() {
@@ -1528,7 +1455,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getLastJobGenerationDate() {
@@ -1537,7 +1463,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getProjectName() {
@@ -1546,7 +1471,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getRequestId() {
@@ -1555,7 +1479,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getServerJobEndDate() {
@@ -1564,7 +1487,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getServerJobStartDate() {
@@ -1573,7 +1495,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTalendJobId() {
@@ -1582,7 +1503,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTalendJobName() {
@@ -1591,7 +1511,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTalendJobVersion() {
@@ -1600,7 +1519,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTaskDescription() {
@@ -1609,7 +1527,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getTaskEndDate() {
@@ -1618,7 +1535,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTaskErrorStackTrace() {
@@ -1627,7 +1543,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTaskLabel() {
@@ -1636,7 +1551,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getTaskStartDate() {
@@ -1645,7 +1559,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTriggerDescription() {
@@ -1654,7 +1567,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTriggeredBy() {
@@ -1663,7 +1575,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTriggerName() {
@@ -1672,7 +1583,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTriggerType() {
@@ -1681,7 +1591,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getVirtualServerName() {
@@ -1690,7 +1599,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isApplyContextToChildren() {
@@ -1699,7 +1607,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isResumingMode() {
@@ -1708,193 +1615,160 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setAdminJobEndDate(Date newAdminJobEndDate) {
         Date oldAdminJobEndDate = adminJobEndDate;
         adminJobEndDate = newAdminJobEndDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE,
-                    oldAdminJobEndDate, adminJobEndDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE, oldAdminJobEndDate, adminJobEndDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setAdminJobStartDate(Date newAdminJobStartDate) {
         Date oldAdminJobStartDate = adminJobStartDate;
         adminJobStartDate = newAdminJobStartDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE,
-                    oldAdminJobStartDate, adminJobStartDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE, oldAdminJobStartDate, adminJobStartDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setApplyContextToChildren(boolean newApplyContextToChildren) {
         boolean oldApplyContextToChildren = applyContextToChildren;
         applyContextToChildren = newApplyContextToChildren;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN, oldApplyContextToChildren,
-                    applyContextToChildren));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN, oldApplyContextToChildren, applyContextToChildren));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setBasicStatus(String newBasicStatus) {
         String oldBasicStatus = basicStatus;
         basicStatus = newBasicStatus;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS,
-                    oldBasicStatus, basicStatus));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__BASIC_STATUS, oldBasicStatus, basicStatus));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setContextName(String newContextName) {
         String oldContextName = contextName;
         contextName = newContextName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME,
-                    oldContextName, contextName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME, oldContextName, contextName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setContextValues(String newContextValues) {
         String oldContextValues = contextValues;
         contextValues = newContextValues;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES,
-                    oldContextValues, contextValues));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES, oldContextValues, contextValues));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDetailedStatus(String newDetailedStatus) {
         String oldDetailedStatus = detailedStatus;
         detailedStatus = newDetailedStatus;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS,
-                    oldDetailedStatus, detailedStatus));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__DETAILED_STATUS, oldDetailedStatus, detailedStatus));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setErrorCode(Integer newErrorCode) {
         Integer oldErrorCode = errorCode;
         errorCode = newErrorCode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE,
-                    oldErrorCode, errorCode));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE, oldErrorCode, errorCode));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setExecutionServerName(String newExecutionServerName) {
         String oldExecutionServerName = executionServerName;
         executionServerName = newExecutionServerName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME, oldExecutionServerName, executionServerName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME, oldExecutionServerName, executionServerName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setExpectedTriggeringDate(Date newExpectedTriggeringDate) {
         Date oldExpectedTriggeringDate = expectedTriggeringDate;
         expectedTriggeringDate = newExpectedTriggeringDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE, oldExpectedTriggeringDate,
-                    expectedTriggeringDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE, oldExpectedTriggeringDate, expectedTriggeringDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFileTriggerFileMask(String newFileTriggerFileMask) {
         String oldFileTriggerFileMask = fileTriggerFileMask;
         fileTriggerFileMask = newFileTriggerFileMask;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK, oldFileTriggerFileMask, fileTriggerFileMask));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK, oldFileTriggerFileMask, fileTriggerFileMask));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFileTriggerFileName(String newFileTriggerFileName) {
         String oldFileTriggerFileName = fileTriggerFileName;
         fileTriggerFileName = newFileTriggerFileName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME, oldFileTriggerFileName, fileTriggerFileName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME, oldFileTriggerFileName, fileTriggerFileName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFileTriggerFolderPath(String newFileTriggerFolderPath) {
         String oldFileTriggerFolderPath = fileTriggerFolderPath;
         fileTriggerFolderPath = newFileTriggerFolderPath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH, oldFileTriggerFolderPath,
-                    fileTriggerFolderPath));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH, oldFileTriggerFolderPath, fileTriggerFolderPath));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setFileTriggerTriggeredFilePath(String newFileTriggerTriggeredFilePath) {
         String oldFileTriggerTriggeredFilePath = fileTriggerTriggeredFilePath;
         fileTriggerTriggeredFilePath = newFileTriggerTriggeredFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH, oldFileTriggerTriggeredFilePath,
-                    fileTriggerTriggeredFilePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH, oldFileTriggerTriggeredFilePath, fileTriggerTriggeredFilePath));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setId(int newId) {
@@ -1906,68 +1780,57 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setIdQuartzJob(int newIdQuartzJob) {
         int oldIdQuartzJob = idQuartzJob;
         idQuartzJob = newIdQuartzJob;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB,
-                    oldIdQuartzJob, idQuartzJob));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB, oldIdQuartzJob, idQuartzJob));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setIdQuartzTrigger(Integer newIdQuartzTrigger) {
         Integer oldIdQuartzTrigger = idQuartzTrigger;
         idQuartzTrigger = newIdQuartzTrigger;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER,
-                    oldIdQuartzTrigger, idQuartzTrigger));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER, oldIdQuartzTrigger, idQuartzTrigger));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setIdRemoteJob(String newIdRemoteJob) {
         String oldIdRemoteJob = idRemoteJob;
         idRemoteJob = newIdRemoteJob;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB,
-                    oldIdRemoteJob, idRemoteJob));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB, oldIdRemoteJob, idRemoteJob));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setIdRemoteJobExecution(String newIdRemoteJobExecution) {
         String oldIdRemoteJobExecution = idRemoteJobExecution;
         idRemoteJobExecution = newIdRemoteJobExecution;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION, oldIdRemoteJobExecution,
-                    idRemoteJobExecution));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION, oldIdRemoteJobExecution, idRemoteJobExecution));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setJobArchiveFilename(String newJobArchiveFilename) {
         String oldJobArchiveFilename = jobArchiveFilename;
         jobArchiveFilename = newJobArchiveFilename;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME,
-                    oldJobArchiveFilename, jobArchiveFilename));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME, oldJobArchiveFilename, jobArchiveFilename));
     }
 
     /*
@@ -1985,260 +1848,219 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLastJobGenerationDate(Date newLastJobGenerationDate) {
         Date oldLastJobGenerationDate = lastJobGenerationDate;
         lastJobGenerationDate = newLastJobGenerationDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE, oldLastJobGenerationDate,
-                    lastJobGenerationDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE, oldLastJobGenerationDate, lastJobGenerationDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setProjectName(String newProjectName) {
         String oldProjectName = projectName;
         projectName = newProjectName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME,
-                    oldProjectName, projectName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__PROJECT_NAME, oldProjectName, projectName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setRequestId(String newRequestId) {
         String oldRequestId = requestId;
         requestId = newRequestId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID,
-                    oldRequestId, requestId));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID, oldRequestId, requestId));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setResumingMode(boolean newResumingMode) {
         boolean oldResumingMode = resumingMode;
         resumingMode = newResumingMode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE,
-                    oldResumingMode, resumingMode));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE, oldResumingMode, resumingMode));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setServerJobEndDate(Date newServerJobEndDate) {
         Date oldServerJobEndDate = serverJobEndDate;
         serverJobEndDate = newServerJobEndDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE,
-                    oldServerJobEndDate, serverJobEndDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE, oldServerJobEndDate, serverJobEndDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setServerJobStartDate(Date newServerJobStartDate) {
         Date oldServerJobStartDate = serverJobStartDate;
         serverJobStartDate = newServerJobStartDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE, oldServerJobStartDate, serverJobStartDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE, oldServerJobStartDate, serverJobStartDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTalendJobId(String newTalendJobId) {
         String oldTalendJobId = talendJobId;
         talendJobId = newTalendJobId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID,
-                    oldTalendJobId, talendJobId));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_ID, oldTalendJobId, talendJobId));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTalendJobName(String newTalendJobName) {
         String oldTalendJobName = talendJobName;
         talendJobName = newTalendJobName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME,
-                    oldTalendJobName, talendJobName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_NAME, oldTalendJobName, talendJobName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTalendJobVersion(String newTalendJobVersion) {
         String oldTalendJobVersion = talendJobVersion;
         talendJobVersion = newTalendJobVersion;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION,
-                    oldTalendJobVersion, talendJobVersion));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION, oldTalendJobVersion, talendJobVersion));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTaskDescription(String newTaskDescription) {
         String oldTaskDescription = taskDescription;
         taskDescription = newTaskDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION,
-                    oldTaskDescription, taskDescription));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_DESCRIPTION, oldTaskDescription, taskDescription));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTaskEndDate(Date newTaskEndDate) {
         Date oldTaskEndDate = taskEndDate;
         taskEndDate = newTaskEndDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE,
-                    oldTaskEndDate, taskEndDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_END_DATE, oldTaskEndDate, taskEndDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTaskErrorStackTrace(String newTaskErrorStackTrace) {
         String oldTaskErrorStackTrace = taskErrorStackTrace;
         taskErrorStackTrace = newTaskErrorStackTrace;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET,
-                    PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE, oldTaskErrorStackTrace, taskErrorStackTrace));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE, oldTaskErrorStackTrace, taskErrorStackTrace));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTaskLabel(String newTaskLabel) {
         String oldTaskLabel = taskLabel;
         taskLabel = newTaskLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL,
-                    oldTaskLabel, taskLabel));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_LABEL, oldTaskLabel, taskLabel));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTaskStartDate(Date newTaskStartDate) {
         Date oldTaskStartDate = taskStartDate;
         taskStartDate = newTaskStartDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE,
-                    oldTaskStartDate, taskStartDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TASK_START_DATE, oldTaskStartDate, taskStartDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTriggerDescription(String newTriggerDescription) {
         String oldTriggerDescription = triggerDescription;
         triggerDescription = newTriggerDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION,
-                    oldTriggerDescription, triggerDescription));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION, oldTriggerDescription, triggerDescription));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTriggeredBy(String newTriggeredBy) {
         String oldTriggeredBy = triggeredBy;
         triggeredBy = newTriggeredBy;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY,
-                    oldTriggeredBy, triggeredBy));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY, oldTriggeredBy, triggeredBy));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTriggerName(String newTriggerName) {
         String oldTriggerName = triggerName;
         triggerName = newTriggerName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME,
-                    oldTriggerName, triggerName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_NAME, oldTriggerName, triggerName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTriggerType(String newTriggerType) {
         String oldTriggerType = triggerType;
         triggerType = newTriggerType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE,
-                    oldTriggerType, triggerType));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGER_TYPE, oldTriggerType, triggerType));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setVirtualServerName(String newVirtualServerName) {
         String oldVirtualServerName = virtualServerName;
         virtualServerName = newVirtualServerName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME,
-                    oldVirtualServerName, virtualServerName));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME, oldVirtualServerName, virtualServerName));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");

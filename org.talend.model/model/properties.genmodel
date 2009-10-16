@@ -54,6 +54,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/statAndLogsSettings"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/implicitContextSettings"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/hidePassword"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/ItemsRelations"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ProjectComponentAuthorisation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProjectComponentAuthorisation/project"/>
@@ -491,6 +492,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/extension"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//LinkRulesItem/link"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ItemRelations">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ItemRelations/baseItem"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ItemRelations/relatedItems"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ItemRelation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemRelation/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemRelation/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemRelation/type"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
