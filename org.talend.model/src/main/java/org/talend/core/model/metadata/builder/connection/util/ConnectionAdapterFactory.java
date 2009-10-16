@@ -173,6 +173,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseSubscriberTable(SubscriberTable object) {
                 return createSubscriberTableAdapter();
             }
+            public Object caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
+                return createSAPTestInputParameterTableAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -584,6 +587,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSubscriberTableAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable <em>SAP Test Input Parameter Table</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable
+     * @generated
+     */
+    public Adapter createSAPTestInputParameterTableAdapter() {
         return null;
     }
 

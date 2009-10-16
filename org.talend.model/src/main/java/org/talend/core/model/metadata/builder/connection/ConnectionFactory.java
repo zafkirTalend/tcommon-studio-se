@@ -277,6 +277,15 @@ public interface ConnectionFactory extends EFactory {
     SubscriberTable createSubscriberTable();
 
     /**
+     * Returns a new object of class '<em>SAP Test Input Parameter Table</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAP Test Input Parameter Table</em>'.
+     * @generated
+     */
+    SAPTestInputParameterTable createSAPTestInputParameterTable();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

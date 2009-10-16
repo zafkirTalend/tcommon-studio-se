@@ -50,6 +50,7 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
@@ -261,6 +262,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass subscriberTableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass sapTestInputParameterTableEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1268,6 +1276,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EReference getSAPFunctionUnit_Tables() {
         return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPFunctionUnit_TestInputParameterTable() {
+        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -2321,6 +2338,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSAPTestInputParameterTable() {
+        return sapTestInputParameterTableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSAPTestInputParameterTable_FunctionUnit() {
+        return (EReference)sapTestInputParameterTableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2521,6 +2556,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__METADATA_TABLE);
         createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__CONNECTION);
         createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__TABLES);
+        createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE);
 
         sapFunctionParameterColumnEClass = createEClass(SAP_FUNCTION_PARAMETER_COLUMN);
         createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__NAME);
@@ -2664,6 +2700,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         subscriberTableEClass = createEClass(SUBSCRIBER_TABLE);
         createEAttribute(subscriberTableEClass, SUBSCRIBER_TABLE__SYSTEM);
 
+        sapTestInputParameterTableEClass = createEClass(SAP_TEST_INPUT_PARAMETER_TABLE);
+        createEReference(sapTestInputParameterTableEClass, SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -2724,6 +2763,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         salesforceSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         cdcTypeEClass.getESuperTypes().add(this.getAbstractMetadataObject());
         subscriberTableEClass.getESuperTypes().add(this.getMetadataTable());
+        sapTestInputParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2845,6 +2885,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getSAPFunctionUnit_MetadataTable(), this.getMetadataTable(), null, "MetadataTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSAPFunctionUnit_Connection(), this.getSAPConnection(), this.getSAPConnection_Funtions(), "connection", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSAPFunctionUnit_Tables(), this.getMetadataTable(), null, "tables", null, 0, -1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_TestInputParameterTable(), this.getSAPTestInputParameterTable(), this.getSAPTestInputParameterTable_FunctionUnit(), "TestInputParameterTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sapFunctionParameterColumnEClass, SAPFunctionParameterColumn.class, "SAPFunctionParameterColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSAPFunctionParameterColumn_Name(), ecorePackage.getEString(), "Name", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2987,6 +3028,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(subscriberTableEClass, SubscriberTable.class, "SubscriberTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSubscriberTable_System(), ecorePackage.getEBoolean(), "system", null, 0, 1, SubscriberTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapTestInputParameterTableEClass, SAPTestInputParameterTable.class, "SAPTestInputParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSAPTestInputParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_TestInputParameterTable(), "functionUnit", null, 0, 1, SAPTestInputParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

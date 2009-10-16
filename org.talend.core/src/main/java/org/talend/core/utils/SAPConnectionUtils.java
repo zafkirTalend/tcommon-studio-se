@@ -50,7 +50,7 @@ public final class SAPConnectionUtils {
 
         for (int i = 0; i < connection.getFuntions().size(); i++) {
             SAPFunctionUnit unit = (SAPFunctionUnit) connection.getFuntions().get(i);
-            if (unit.getName().equals(functionName)) {
+            if (unit.getLabel().equals(functionName)) {
                 return unit;
             }
         }

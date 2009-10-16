@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,6 +46,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getMetadataTable <em>Metadata Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl#getTestInputParameterTable <em>Test Input Parameter Table</em>}</li>
  * </ul>
  * </p>
  *
@@ -170,6 +172,16 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @ordered
      */
     protected EList tables;
+
+    /**
+     * The cached value of the '{@link #getTestInputParameterTable() <em>Test Input Parameter Table</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTestInputParameterTable()
+     * @generated
+     * @ordered
+     */
+    protected SAPTestInputParameterTable testInputParameterTable;
 
     /**
      * <!-- begin-user-doc -->
@@ -457,6 +469,49 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPTestInputParameterTable getTestInputParameterTable() {
+        return testInputParameterTable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetTestInputParameterTable(SAPTestInputParameterTable newTestInputParameterTable, NotificationChain msgs) {
+        SAPTestInputParameterTable oldTestInputParameterTable = testInputParameterTable;
+        testInputParameterTable = newTestInputParameterTable;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE, oldTestInputParameterTable, newTestInputParameterTable);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTestInputParameterTable(SAPTestInputParameterTable newTestInputParameterTable) {
+        if (newTestInputParameterTable != testInputParameterTable) {
+            NotificationChain msgs = null;
+            if (testInputParameterTable != null)
+                msgs = ((InternalEObject)testInputParameterTable).eInverseRemove(this, ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT, SAPTestInputParameterTable.class, msgs);
+            if (newTestInputParameterTable != null)
+                msgs = ((InternalEObject)newTestInputParameterTable).eInverseAdd(this, ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT, SAPTestInputParameterTable.class, msgs);
+            msgs = basicSetTestInputParameterTable(newTestInputParameterTable, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE, newTestInputParameterTable, newTestInputParameterTable));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -474,6 +529,10 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 if (eInternalContainer() != null)
                     msgs = eBasicRemoveFromContainer(msgs);
                 return basicSetConnection((SAPConnection)otherEnd, msgs);
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
+                if (testInputParameterTable != null)
+                    msgs = ((InternalEObject)testInputParameterTable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE, null, msgs);
+                return basicSetTestInputParameterTable((SAPTestInputParameterTable)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -495,6 +554,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return basicSetConnection(null, msgs);
             case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
                 return ((InternalEList)getTables()).basicRemove(otherEnd, msgs);
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
+                return basicSetTestInputParameterTable(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -537,6 +598,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return getConnection();
             case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
                 return getTables();
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
+                return getTestInputParameterTable();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -576,6 +639,9 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 getTables().clear();
                 getTables().addAll((Collection)newValue);
                 return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
+                setTestInputParameterTable((SAPTestInputParameterTable)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -614,6 +680,9 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
             case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
                 getTables().clear();
                 return;
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
+                setTestInputParameterTable((SAPTestInputParameterTable)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -643,6 +712,8 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
                 return getConnection() != null;
             case ConnectionPackage.SAP_FUNCTION_UNIT__TABLES:
                 return tables != null && !tables.isEmpty();
+            case ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE:
+                return testInputParameterTable != null;
         }
         return super.eIsSet(featureID);
     }

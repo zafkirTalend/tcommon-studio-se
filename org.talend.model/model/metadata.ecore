@@ -197,6 +197,8 @@
         eOpposite="#//SAPConnection/Funtions"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
         eType="#//MetadataTable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TestInputParameterTable"
+        eType="#//SAPTestInputParameterTable" containment="true" eOpposite="#//SAPTestInputParameterTable/functionUnit"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionParameterColumn" eSuperTypes="#//AbstractMetadataObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -366,5 +368,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubscriberTable" eSuperTypes="#//MetadataTable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="system" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPTestInputParameterTable" eSuperTypes="#//SAPFunctionParameterTable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="functionUnit" eType="#//SAPFunctionUnit"
+        eOpposite="#//SAPFunctionUnit/TestInputParameterTable"/>
   </eClassifiers>
 </ecore:EPackage>

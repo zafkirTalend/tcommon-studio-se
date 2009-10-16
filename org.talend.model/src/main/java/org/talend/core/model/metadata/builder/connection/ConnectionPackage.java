@@ -2551,13 +2551,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_UNIT__TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
 
     /**
+     * The feature id for the '<em><b>Test Input Parameter Table</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
+
+    /**
      * The number of structural features of the '<em>SAP Function Unit</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
+    int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 10;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
@@ -5571,13 +5580,113 @@ public interface ConnectionPackage extends EPackage {
     int SUBSCRIBER_TABLE_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl <em>SAP Test Input Parameter Table</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTestInputParameterTable()
+     * @generated
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE = 31;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__PROPERTIES = SAP_FUNCTION_PARAMETER_TABLE__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__ID = SAP_FUNCTION_PARAMETER_TABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__COMMENT = SAP_FUNCTION_PARAMETER_TABLE__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__LABEL = SAP_FUNCTION_PARAMETER_TABLE__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__READ_ONLY = SAP_FUNCTION_PARAMETER_TABLE__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__SYNCHRONISED = SAP_FUNCTION_PARAMETER_TABLE__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__DIVERGENCY = SAP_FUNCTION_PARAMETER_TABLE__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Columns</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__COLUMNS = SAP_FUNCTION_PARAMETER_TABLE__COLUMNS;
+
+    /**
+     * The feature id for the '<em><b>Function Unit</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT = SAP_FUNCTION_PARAMETER_TABLE_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>SAP Test Input Parameter Table</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TEST_INPUT_PARAMETER_TABLE_FEATURE_COUNT = SAP_FUNCTION_PARAMETER_TABLE_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 31;
+    int DATABASE_PROPERTIES = 32;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -5586,7 +5695,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 32;
+    int FILE_FORMAT = 33;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -5595,7 +5704,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 33;
+    int FIELD_SEPARATOR = 34;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -5604,7 +5713,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 34;
+    int ESCAPE = 35;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -5613,7 +5722,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 35;
+    int ROW_SEPARATOR = 36;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -5622,7 +5731,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 36;
+    int MAP = 37;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -5632,7 +5741,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 37;
+    int LIST = 38;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -6747,6 +6856,17 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getSAPFunctionUnit_Tables();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Test Input Parameter Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable()
+     * @see #getSAPFunctionUnit()
+     * @generated
+     */
+    EReference getSAPFunctionUnit_TestInputParameterTable();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn <em>SAP Function Parameter Column</em>}'.
@@ -8073,6 +8193,27 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSubscriberTable_System();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable <em>SAP Test Input Parameter Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAP Test Input Parameter Table</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable
+     * @generated
+     */
+    EClass getSAPTestInputParameterTable();
+
+    /**
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable#getFunctionUnit <em>Function Unit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Function Unit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable#getFunctionUnit()
+     * @see #getSAPTestInputParameterTable()
+     * @generated
+     */
+    EReference getSAPTestInputParameterTable_FunctionUnit();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -9038,6 +9179,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__TABLES = eINSTANCE.getSAPFunctionUnit_Tables();
+
+        /**
+         * The meta object literal for the '<em><b>Test Input Parameter Table</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = eINSTANCE.getSAPFunctionUnit_TestInputParameterTable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
@@ -10057,6 +10206,24 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SUBSCRIBER_TABLE__SYSTEM = eINSTANCE.getSubscriberTable_System();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl <em>SAP Test Input Parameter Table</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTestInputParameterTable()
+         * @generated
+         */
+        EClass SAP_TEST_INPUT_PARAMETER_TABLE = eINSTANCE.getSAPTestInputParameterTable();
+
+        /**
+         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT = eINSTANCE.getSAPTestInputParameterTable_FunctionUnit();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

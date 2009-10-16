@@ -113,6 +113,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.CDC_CONNECTION: return createCDCConnection();
             case ConnectionPackage.CDC_TYPE: return createCDCType();
             case ConnectionPackage.SUBSCRIBER_TABLE: return createSubscriberTable();
+            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE: return createSAPTestInputParameterTable();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -439,6 +440,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public SubscriberTable createSubscriberTable() {
         SubscriberTableImpl subscriberTable = new SubscriberTableImpl();
         return subscriberTable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPTestInputParameterTable createSAPTestInputParameterTable() {
+        SAPTestInputParameterTableImpl sapTestInputParameterTable = new SAPTestInputParameterTableImpl();
+        return sapTestInputParameterTable;
     }
 
     /**

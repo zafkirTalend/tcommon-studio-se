@@ -116,8 +116,9 @@ public class RepositoryToComponentProperty {
         }
         SAPFunctionUnit unit = null;
         for (int i = 0; i < conn.getFuntions().size(); i++) {
-            unit = (SAPFunctionUnit) conn.getFuntions().get(i);
-            if (unit.getName().equals(functionName)) {
+            SAPFunctionUnit tmp = (SAPFunctionUnit) conn.getFuntions().get(i);
+            if (tmp.getLabel().equals(functionName)) {
+                unit = tmp;
                 break;
             }
         }
@@ -125,7 +126,7 @@ public class RepositoryToComponentProperty {
             return;
         }
 
-        SAPFunctionParameterTable table = isInput ? unit.getInputParameterTable() : unit.getOutputParameterTable();
+        SAPFunctionParameterTable table = isInput ? unit.getTestInputParameterTable() : unit.getOutputParameterTable();
         if (table == null || table.getColumns() == null || table.getColumns().isEmpty()) {
             return;
         }

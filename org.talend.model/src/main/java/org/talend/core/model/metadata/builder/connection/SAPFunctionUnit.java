@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getMetadataTable <em>Metadata Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}</li>
  * </ul>
  * </p>
  *
@@ -263,5 +264,33 @@ public interface SAPFunctionUnit extends AbstractMetadataObject {
      * @generated
      */
     EList getTables();
+
+    /**
+     * Returns the value of the '<em><b>Test Input Parameter Table</b></em>' containment reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable#getFunctionUnit <em>Function Unit</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Test Input Parameter Table</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Test Input Parameter Table</em>' containment reference.
+     * @see #setTestInputParameterTable(SAPTestInputParameterTable)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionUnit_TestInputParameterTable()
+     * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable#getFunctionUnit
+     * @model opposite="functionUnit" containment="true"
+     * @generated
+     */
+    SAPTestInputParameterTable getTestInputParameterTable();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Test Input Parameter Table</em>' containment reference.
+     * @see #getTestInputParameterTable()
+     * @generated
+     */
+    void setTestInputParameterTable(SAPTestInputParameterTable value);
 
 } // SAPFunctionUnit
