@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -31,6 +33,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.talend.designer.webservice.i18n.Messages;
 import org.talend.designer.webservice.ui.ParameterInfoUtil;
 import org.talend.designer.webservice.ui.tree.WebServiceTreeContentProvider;
@@ -41,6 +45,10 @@ import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
  * DOC Administrator class global comment. Detailled comment
  */
 public class AddListDialog extends Dialog {
+
+    private static final String NAME = "NAME"; //$NON-NLS-1$
+
+    private static final String INDEX = "INDEX"; //$NON-NLS-1$
 
     private TreeViewer treeViewer = null;
 
@@ -53,6 +61,8 @@ public class AddListDialog extends Dialog {
     private Rectangle size;
 
     private String title;
+
+    private String inOrOut;
 
     private ParameterInfo selectedParaInfo;
 
@@ -81,9 +91,10 @@ public class AddListDialog extends Dialog {
      * 
      * @param parentShell
      */
-    public AddListDialog(Shell parentShell, ParameterInfo para) {
+    public AddListDialog(Shell parentShell, ParameterInfo para, String inOrOut) {
         super(parentShell);
         this.para = para;
+        this.inOrOut = inOrOut;
         this.parentShell = parentShell;
         selectAction = new SelectAction();
         // Composite baseCom = new Composite(parentShell, SWT.NONE);
@@ -101,13 +112,62 @@ public class AddListDialog extends Dialog {
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
         tree.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        // Paramater Name Column
+        TreeColumn column1 = new TreeColumn(tree, SWT.LEFT);
+        column1.setText("Parameter Name");
+        column1.setWidth(200);
+
+        // Array Index Column
+        TreeColumn column2 = new TreeColumn(tree, SWT.CENTER);
+        column2.setText("Array Index");
+        column2.setWidth(100);
+
+        treeViewer.setColumnProperties(new String[] { NAME, INDEX });
+        CellEditor editor = new TextCellEditor(treeViewer.getTree());
+        treeViewer.setCellEditors(new CellEditor[] { null, editor });
+        treeViewer.setCellModifier(new ICellModifier() {
+
+            public boolean canModify(Object element, String property) {
+                if (element instanceof ParameterInfo) {
+                    ParameterInfo para = (ParameterInfo) element;
+                    if (INDEX.equals(property) && para.getArraySize() != 0) { // if item is array it can edit.
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            public Object getValue(Object element, String property) {
+                if (element instanceof ParameterInfo) {
+                    ParameterInfo para = (ParameterInfo) element;
+                    if (INDEX.equals(property)) {
+                        return para.getIndex() == null ? "" : para.getIndex();
+                    } else if (NAME.equals(property)) {
+                        return para.getName();
+                    }
+                }
+                return null;
+            }
+
+            public void modify(Object element, String property, Object value) {
+                if (element instanceof TreeItem) {
+                    ParameterInfo para = (ParameterInfo) ((TreeItem) element).getData();
+                    if (INDEX.equals(property)) {
+                        para.setIndex(value.toString());
+                    }
+                }
+                treeViewer.refresh();
+
+            }
+
+        });
         // DrillDownAdapter adapter = new DrillDownAdapter(treeView);
         treeViewer.setContentProvider(new WebServiceTreeContentProvider());
 
         treeViewer.setLabelProvider(new WebServiceTreeLabelProvider());
 
         treeViewer.setInput(para);
-
         treeViewer.addSelectionChangedListener(selectAction);
 
         // tree.addSelectionListener(new SelectionAdapter() {
@@ -144,17 +204,17 @@ public class AddListDialog extends Dialog {
             } else if (selection.size() > 1) {
                 // Iterator iterator=selection.iterator();
                 paramList = selection.toList();
-                for (ParameterInfo para : paramList) {
-                    if (getAllArrayFromParents(para, null).size() != 0 || para.getArraySize() != 0) {
-                        paramList = null;
-                        Object obj = selection.getFirstElement();
-                        if (obj instanceof ParameterInfo) {
-                            selectedParaInfo = (ParameterInfo) obj;
-                        }
-                        break;
-                    }
+                // for (ParameterInfo para : paramList) {
+                // if (getAllArrayFromParents(para, null).size() != 0 || para.getArraySize() != 0) {
+                // paramList = null;
+                // Object obj = selection.getFirstElement();
+                // if (obj instanceof ParameterInfo) {
+                // selectedParaInfo = (ParameterInfo) obj;
+                // }
+                // break;
+                // }
 
-                }
+                // }
 
             }
 
@@ -193,73 +253,73 @@ public class AddListDialog extends Dialog {
         }
 
         // if select a array item.
-        if (selPara.getArraySize() == -1) {
-            AddArrayIndexDialog dlg = new AddArrayIndexDialog(parentShell, selPara);
-            int openCode = dlg.open();
-            if (openCode == AddArrayIndexDialog.OK) {
-                String indexValue = dlg.getIndexText();
-                currentindex = Integer.valueOf(indexValue);
-            } else {
-                return;
-            }
-            paraUtil.setCurrentindex(currentindex);
-            // super.okPressed();
-        }
+        // if (selPara.getArraySize() == -1) {
+        // AddArrayIndexDialog dlg = new AddArrayIndexDialog(parentShell, selPara);
+        // int openCode = dlg.open();
+        // if (openCode == AddArrayIndexDialog.OK) {
+        // String indexValue = dlg.getIndexText();
+        // currentindex = Integer.valueOf(indexValue);
+        // } else {
+        // return;
+        // }
+        // paraUtil.setCurrentindex(currentindex);
+        // // super.okPressed();
+        // }
 
         // if select item's parent is array.
-        if (arraySize == 0 && selPara.getParent() != null && !getAllArrayFromParents(selPara, null).isEmpty()) {
-            List<ParameterInfo> paraList = paraUtil.getAllParameterInfo(selPara);
-            goout: for (ParameterInfo para : paraList) {
-                if (para.getArraySize() != 0) {
-                    falg = true;
-                    usePara = para;
-                    arraySize = para.getArraySize();
-                    break goout;
-                }
-            }
-        }
-        if (falg) {
-            String title = "";
-            if (usePara != null && usePara.getName() != null) {
-                title = usePara.getName() + " index is :";
-            }
-            if (getAllArrayFromParents(selPara, null).size() == 1) {
-                InputDialog dlg = new InputDialog(parentShell, title, title, "", new InputIndexValidator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                int openCode = dlg.open();
-                if (openCode == InputDialog.OK) {
-                    String indexValue = dlg.getValue();
-                    currentindex = Integer.valueOf(indexValue);
-                } else if (openCode == InputDialog.CANCEL) {
-                    // super.cancelPressed();
-                    return;
-                }
-                if (arraySize != -1 && currentindex > arraySize) {
-                    currentindex = -1;
-                    MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
-                    box.setText(Messages.getString("AddListDialog.Error")); //$NON-NLS-1$
-                    box.setMessage(Messages.getString("AddListDialog.CHECKSIZE")); //$NON-NLS-1$
-                    box.open();
-                    return;
-                }
-                paraUtil.setCurrentindex(currentindex);
-                super.okPressed();
-            } else if (getAllArrayFromParents(selPara, null).size() > 1) {
-
-                AddArrayIndexForParentsDialog multiDialog = new AddArrayIndexForParentsDialog(parentShell, selPara);
-                int openCode = multiDialog.open();
-                if (openCode == AddArrayIndexForParentsDialog.OK) {
-                    List indexList = null;
-                    if (multiDialog.getArrayIndexList() != null) {
-                        indexList = multiDialog.getArrayIndexList();
-                    }
-                    paraUtil.setCurrenIndexList(indexList);
-                    super.okPressed();
-                } else {
-                    return;
-                }
-            }
-
-        }
+        // if (arraySize == 0 && selPara.getParent() != null && !getAllArrayFromParents(selPara, null).isEmpty()) {
+        // List<ParameterInfo> paraList = paraUtil.getAllParameterInfo(selPara);
+        // goout: for (ParameterInfo para : paraList) {
+        // if (para.getArraySize() != 0) {
+        // falg = true;
+        // usePara = para;
+        // arraySize = para.getArraySize();
+        // break goout;
+        // }
+        // }
+        // }
+        // if (falg) {
+        // String title = "";
+        // if (usePara != null && usePara.getName() != null) {
+        // title = usePara.getName() + " index is :";
+        // }
+        // if (getAllArrayFromParents(selPara, null).size() == 1 && "input".equals(inOrOut) && false) {
+        //                InputDialog dlg = new InputDialog(parentShell, title, title, "", new InputIndexValidator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        // int openCode = dlg.open();
+        // if (openCode == InputDialog.OK) {
+        // String indexValue = dlg.getValue();
+        // currentindex = Integer.valueOf(indexValue);
+        // } else if (openCode == InputDialog.CANCEL) {
+        // // super.cancelPressed();
+        // return;
+        // }
+        // if (arraySize != -1 && currentindex > arraySize) {
+        // currentindex = -1;
+        // MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK | SWT.CANCEL);
+        //                    box.setText(Messages.getString("AddListDialog.Error")); //$NON-NLS-1$
+        //                    box.setMessage(Messages.getString("AddListDialog.CHECKSIZE")); //$NON-NLS-1$
+        // box.open();
+        // return;
+        // }
+        // paraUtil.setCurrentindex(currentindex);
+        // super.okPressed();
+        // } else if (getAllArrayFromParents(selPara, null).size() >= 1) {
+        //
+        // AddArrayIndexForParentsDialog multiDialog = new AddArrayIndexForParentsDialog(parentShell, selPara);
+        // int openCode = multiDialog.open();
+        // if (openCode == AddArrayIndexForParentsDialog.OK) {
+        // List indexList = null;
+        // if (multiDialog.getArrayIndexList() != null) {
+        // indexList = multiDialog.getArrayIndexList();
+        // }
+        // paraUtil.setCurrenIndexList(indexList);
+        // super.okPressed();
+        // } else {
+        // return;
+        // }
+        // }
+        //
+        // }
 
         // paraUtil.setCurrentindex(currentindex);
         super.okPressed();

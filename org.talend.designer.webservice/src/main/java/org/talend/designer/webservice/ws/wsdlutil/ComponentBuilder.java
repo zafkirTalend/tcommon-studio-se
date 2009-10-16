@@ -449,9 +449,13 @@ public class ComponentBuilder {
                         ParameterInfo parameter1 = createSimpleParamInfor(containOperationInfo, elementDecl, manner);
 
                         if ((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1) {
-                            parameter1.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
+                            int arraySize = (elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs());
+                            Integer arraySizeString = new Integer(arraySize);
+                            parameter1.setArraySize(arraySize);
+                            parameter1.setIndex(arraySizeString.toString());
                         } else if (elementDecl.getMaxOccurs() == -1) {
                             parameter1.setArraySize(-1);
+                            parameter1.setIndex("*");
                         }
 
                         if (parentParameterInfo != null) {
@@ -487,9 +491,13 @@ public class ComponentBuilder {
         }
 
         if ((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()) > 1) {
-            parameter1.setArraySize((elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs()));
+            int arraySize = (elementDecl.getMaxOccurs()) - (elementDecl.getMinOccurs());
+            Integer arraySizeString = new Integer(arraySize);
+            parameter1.setArraySize(arraySize);
+            parameter1.setIndex(arraySizeString.toString());
         } else if (elementDecl.getMaxOccurs() == -1) {
             parameter1.setArraySize(-1);
+            parameter1.setIndex("*");
         }
         if (input == 1) {
             containOperationInfo.addInparameter(parameter1);

@@ -115,10 +115,9 @@ public class ParameterInfoUtil {
                     buffer.append("[" + getCurrentindex() + "]");
                 } else if (para.getArraySize() != 0 && para.getParameterInfos().size() == 0 && getCurrentindex() != -1) {
                     buffer.append("[" + getCurrentindex() + "]");
+                } else if (para.getArraySize() != 0 && para.getParameterInfos().size() == 0 && getCurrentindex() == -1) {
+                    buffer.append("[*]");
                 }
-                // else if (getCurrentindex() == -1) {
-                // buffer.append(getCurrentindex());
-                // }
             }
             if (i != 0) {
                 buffer.append(".");
@@ -154,5 +153,51 @@ public class ParameterInfoUtil {
         }
 
         return buffer.toString();
+    }
+
+    public String getArrayFullName(ParameterInfo paraElement) {
+        String arrayFullName = paraElement.getName();
+        if (paraElement.getIndex() != null) {
+            arrayFullName = paraElement.getName() + "[" + paraElement.getIndex() + "]";
+        } else if (paraElement.getIndex() == null) {
+            arrayFullName = paraElement.getName();
+        }
+        if (paraElement.getParent() != null) {
+            arrayFullName = getAllParentsName(paraElement.getParent(), arrayFullName);
+        }
+        return arrayFullName;
+
+    }
+
+    public String getAllParentsName(ParameterInfo para, String arrayFullName) {
+        if (para.getIndex() != null) {
+            arrayFullName = para.getName() + "[" + para.getIndex() + "]" + "." + arrayFullName;
+        } else if (para.getIndex() == null) {
+            arrayFullName = para.getName() + "." + arrayFullName;
+        }
+        if (para.getParent() != null) {
+            arrayFullName = getAllParentsName(para.getParent(), arrayFullName);
+        }
+
+        return arrayFullName;
+
+    }
+
+    public static List<ParameterInfo> getAllChildren(ParameterInfo para, String arrayFullName) {
+        List<ParameterInfo> list = new ArrayList<ParameterInfo>();
+        List<ParameterInfo> childList = para.getParameterInfos();
+        for (ParameterInfo paraC : childList) {
+            if (arrayFullName != null) {
+                arrayFullName = arrayFullName + "." + paraC.getName() + paraC.getIndex() == null ? ""
+                        : ("[" + paraC.getIndex() + "]");
+            }
+        }
+        list.addAll(childList);
+        for (ParameterInfo paraC : childList) {
+            if (paraC.getParameterInfos().size() > 0) {
+                list.addAll(getAllChildren(paraC, arrayFullName));
+            }
+        }
+        return list;
     }
 }

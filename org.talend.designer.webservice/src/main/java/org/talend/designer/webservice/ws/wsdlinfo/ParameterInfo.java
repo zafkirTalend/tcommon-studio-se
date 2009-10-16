@@ -15,6 +15,8 @@ public class ParameterInfo {
 
     private int id;
 
+    private String index;
+
     private String value;
 
     private String serviceid;// service id
@@ -103,6 +105,14 @@ public class ParameterInfo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getIndex() {
+        return this.index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 
     public String getKind() {

@@ -393,7 +393,7 @@ public class WebServiceUI {
                 // reArrayParaName = paraName.substring(0, lastArray);
                 // }
                 if (reArrayParaName.contains("[")) {
-                    reArrayParaName = paraName.replaceAll("\\[\\d+\\]", "");
+                    reArrayParaName = paraName.replaceAll("\\[\\S+\\]", "");
                 }
                 if (allfunList == null || allfunList.size() <= 0) {
                     return;
@@ -1345,6 +1345,9 @@ public class WebServiceUI {
                         && !isArrayName.endsWith("]")) {
                     isArray = true;
                 }
+                if (isArrayName.contains("*")) {
+                    isArray = true;
+                }
                 ParameterInfo infoPa = currentInputMappingData.getParameter().getParent();
 
                 if (infoList != null && infoList.size() > 0 || isArray) {
@@ -1368,13 +1371,13 @@ public class WebServiceUI {
                     if (column == null) {
                         return;
                     }
-                    if (column.getTalendType().equals("id_List") && !isArray) { //$NON-NLS-1$
+                    if (column.getTalendType().equals("id_List") && !isArray && !currentInputMappingData.getInputColumnValue().contains("denormalize")) { //$NON-NLS-1$
                         denorButForIn.setEnabled(true);
                     } else {
                         denorButForIn.setEnabled(false);
                     }
 
-                    if (!column.getTalendType().equals("id_List") && isArray) { //$NON-NLS-1$
+                    if (!column.getTalendType().equals("id_List") && isArray && !currentInputMappingData.getInputColumnValue().contains("normalize")) { //$NON-NLS-1$
                         normalizeButForIn.setEnabled(true);
                     } else {
                         normalizeButForIn.setEnabled(false);
@@ -1435,7 +1438,7 @@ public class WebServiceUI {
                 }
 
                 // if select is list.
-                dialogInputList = new AddListDialog(shell, ((InputMappingData) items[0].getData()).getParameter());
+                dialogInputList = new AddListDialog(shell, ((InputMappingData) items[0].getData()).getParameter(), "input");
                 dialogInputList.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
                 Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);//ExternalWebServiceUIProperties.getBoundsMapper
                 // ();
@@ -1460,7 +1463,7 @@ public class WebServiceUI {
                                 InputMappingData data = new InputMappingData();
                                 data.setParameter(paramet);
                                 if (paramet.getParent() != null) {
-                                    String name = dialogInputList.getParaUtil().getParentName(paramet);
+                                    String name = dialogInputList.getParaUtil().getArrayFullName(paramet);
                                     data.setParameterName(name);
                                 } else {
                                     data.setParameterName(paramet.getName());
@@ -1491,7 +1494,7 @@ public class WebServiceUI {
                                 //                                return " |-- " + name; //$NON-NLS-1$
                                 // }
                                 if (currentSelectedInChildren.getParent() != null) {
-                                    String name = dialogInputList.getParaUtil().getParentName(currentSelectedInChildren);
+                                    String name = dialogInputList.getParaUtil().getArrayFullName(currentSelectedInChildren);
                                     data.setParameterName(name);
                                 } else {
                                     data.setParameterName(currentSelectedInChildren.getName());
@@ -1919,6 +1922,11 @@ public class WebServiceUI {
                     if ((currentSelectedOutExpress.getParameterList().get(0).getArraySize() != 0) && !isArrayName.endsWith("]")) {
                         isArray = true;
                     }
+                    if (currentSelectedOutExpress.getParameterName().contains("*")
+                            && !currentSelectedOutExpress.getParameterName().contains("denormalize")) {
+                        isArray = true;
+
+                    }
                 }
                 if (isArray && !(column.getTalendType().equals("id_List"))) { //$NON-NLS-1$
                     denorButForOut.setEnabled(true);
@@ -1974,7 +1982,7 @@ public class WebServiceUI {
                 }
 
                 // if select is a list.
-                AddListDialog dialog = new AddListDialog(shell, ((OutPutMappingData) items[0].getData()).getParameter());
+                AddListDialog dialog = new AddListDialog(shell, ((OutPutMappingData) items[0].getData()).getParameter(), "output");
                 dialog.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
                 Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);//ExternalWebServiceUIProperties.getBoundsMapper
                 if (ExternalWebServiceUIProperties.isShellMaximized()) {
@@ -1998,7 +2006,7 @@ public class WebServiceUI {
                                 OutPutMappingData data = new OutPutMappingData();
                                 data.setParameter(paramet);
                                 if (paramet.getParent() != null) {
-                                    String name = dialog.getParaUtil().getParentName(paramet);
+                                    String name = dialog.getParaUtil().getArrayFullName(paramet);
                                     data.setParameterName(name);
                                 } else {
                                     data.setParameterName(paramet.getName());
@@ -2019,7 +2027,7 @@ public class WebServiceUI {
                                 OutPutMappingData data = new OutPutMappingData();
                                 data.setParameter(currentSelectedOutChildren);
                                 if (currentSelectedOutChildren.getParent() != null) {
-                                    String name = dialog.getParaUtil().getParentName(currentSelectedOutChildren);
+                                    String name = dialog.getParaUtil().getArrayFullName(currentSelectedOutChildren);
                                     data.setParameterName(name);
                                 } else {
                                     data.setParameterName(currentSelectedOutChildren.getName());
