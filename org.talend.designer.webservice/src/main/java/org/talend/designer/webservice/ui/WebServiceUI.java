@@ -1548,9 +1548,9 @@ public class WebServiceUI {
 
             public void widgetSelected(SelectionEvent e) {
                 String columnName = currentInputMappingData.getInputColumnValue();
-                if (!(columnName.contains("normalize(") && columnName.contains(",':')"))) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (!(columnName.contains("normalize(") && columnName.contains(",\":\")"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     ExtendedTableModel model = expressinPutTableView.getExtendedTableModel();
-                    currentInputMappingData.setInputColumnValue("normalize(" + columnName + ",':')"); //$NON-NLS-1$ //$NON-NLS-2$
+                    currentInputMappingData.setInputColumnValue("normalize(" + columnName + ",\":\")"); //$NON-NLS-1$ //$NON-NLS-2$
                     model.remove(currentElementIndexForIn);
                     model.add(currentInputMappingData, currentElementIndexForIn);
                 }
@@ -1563,9 +1563,9 @@ public class WebServiceUI {
 
             public void widgetSelected(SelectionEvent e) {
                 String columnName = currentInputMappingData.getInputColumnValue();
-                if (!(columnName.contains("denormalize(") && columnName.contains(",':')"))) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (!(columnName.contains("denormalize(") && columnName.contains(",\":\")"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     ExtendedTableModel model = expressinPutTableView.getExtendedTableModel();
-                    currentInputMappingData.setInputColumnValue("denormalize(" + columnName + ",':')"); //$NON-NLS-1$ //$NON-NLS-2$
+                    currentInputMappingData.setInputColumnValue("denormalize(" + columnName + ",\":\")"); //$NON-NLS-1$ //$NON-NLS-2$
                     model.remove(currentElementIndexForIn);
                     model.add(currentInputMappingData, currentElementIndexForIn);
                 }
@@ -2076,9 +2076,9 @@ public class WebServiceUI {
                 OutPutMappingData currentData = (OutPutMappingData) items[0].getData();
                 int currentIndex = expressTableForout.getSelectionIndex();
                 String parameterName = currentData.getParameterName();
-                if (!(parameterName.contains("normalize(") && parameterName.contains(",':')"))) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (!(parameterName.contains("normalize(") && parameterName.contains(",\":\")"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     ExtendedTableModel model = expressoutPutTableView.getExtendedTableModel();
-                    currentData.setParameterName("normalize(" + parameterName + ",':')"); //$NON-NLS-1$ //$NON-NLS-2$
+                    currentData.setParameterName("normalize(" + parameterName + ",\":\")"); //$NON-NLS-1$ //$NON-NLS-2$
                     model.remove(currentIndex);
                     model.add(currentData, currentIndex);
                 }
@@ -2092,9 +2092,9 @@ public class WebServiceUI {
                 OutPutMappingData currentData = (OutPutMappingData) items[0].getData();
                 int currentIndex = expressTableForout.getSelectionIndex();
                 String parameterName = ((OutPutMappingData) items[0].getData()).getParameterName();
-                if (!(parameterName.contains("denormalize(") && parameterName.contains(",':')"))) { //$NON-NLS-1$ //$NON-NLS-2$
+                if (!(parameterName.contains("denormalize(") && parameterName.contains(",\":\")"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     ExtendedTableModel model = expressoutPutTableView.getExtendedTableModel();
-                    currentData.setParameterName("denormalize(" + parameterName + ",':')"); //$NON-NLS-1$ //$NON-NLS-2$
+                    currentData.setParameterName("denormalize(" + parameterName + ",\":\")"); //$NON-NLS-1$ //$NON-NLS-2$
                     model.remove(currentIndex);
                     model.add(currentData, currentIndex);
                 }
@@ -2461,11 +2461,15 @@ public class WebServiceUI {
                         Set<String> set = webParser.parseOutTableEntryLocations(columnName);
                         if (columnName.indexOf("normalize") == 0) {
                             columnName = columnName.trim();
-                            columnName = columnName.substring(10, columnName.length() - 5);
+                            columnName = columnName.substring(10);
+                            int index = columnName.indexOf(",");
+                            columnName = columnName.substring(0, index);
                         }
                         if (columnName.indexOf("denormalize") == 0) {
                             columnName = columnName.trim();
-                            columnName = columnName.substring(12, columnName.length() - 5);
+                            columnName = columnName.substring(12);
+                            int index = columnName.indexOf(",");
+                            columnName = columnName.substring(0, index);
                         }
                         Set<String> set1 = webParser.parseOutTableEntryLocations(columnName);
                         // Set<String> set = webParser.parseOutTableEntryLocations(columnName);
