@@ -248,6 +248,9 @@
 				<dbType type="NCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
+				<dbType type="CHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
 				<dbType type="NCLOB">
 					<talendType type="id_Object" default="true" />
 				</dbType>
