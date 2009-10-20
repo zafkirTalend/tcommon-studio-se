@@ -404,7 +404,9 @@ public class ResumeUtil {
 
         private static final int ESCAPE_MODE_BACKSLASH = 2;
 
-        private static final int EscapeMode = ESCAPE_MODE_BACKSLASH;
+        private static final int ESCAPE_MODE_DOUBLED = 1;
+
+        private static final int EscapeMode = ESCAPE_MODE_DOUBLED;
 
         private static final char TextQualifier = '"';
 
@@ -439,10 +441,12 @@ public class ResumeUtil {
 
             writer.write(TextQualifier);
 
-            // only support backslash mode
+            // support backslash mode
             if (EscapeMode == ESCAPE_MODE_BACKSLASH) {
                 content = replace(content, "" + BACKSLASH, "" + BACKSLASH + BACKSLASH);
                 content = replace(content, "" + TextQualifier, "" + BACKSLASH + TextQualifier);
+            } else {// support double mode
+                content = replace(content, "" + TextQualifier, "" + TextQualifier + TextQualifier);
             }
 
             writer.write(content);
