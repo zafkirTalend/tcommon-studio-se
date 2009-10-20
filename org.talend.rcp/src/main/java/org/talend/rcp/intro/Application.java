@@ -153,8 +153,8 @@ public class Application implements IApplication {
         } catch (Throwable t) {
             // do nothing
         }
-        MessageDialog.openError(shell, Messages.getString("Application.WorkspaceUnavailable"), //$NON-NLS-1$
-                Messages.getString("Application.WorkspaceInUse")); //$NON-NLS-1$
+        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
+                Messages.getString("Application.workspaceInUse")); //$NON-NLS-1$
         return false;
     }
 
