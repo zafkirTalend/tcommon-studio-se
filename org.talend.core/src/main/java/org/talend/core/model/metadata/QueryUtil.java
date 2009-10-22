@@ -174,7 +174,8 @@ public class QueryUtil {
             end = replaceTheSchemaString(end);
 
             query = checkAndConcatString(query, columnsQuery) + end;
-        } else if (dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for bug0007563
+        } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for
+                                                                                                   // bug0007563
             String declareString = TalendTextUtils.getStringDeclare();
             String end = ""; //$NON-NLS-N$
             if (!isCheck) { // hywang add isCheck for informix
