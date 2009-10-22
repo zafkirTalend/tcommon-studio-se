@@ -420,6 +420,16 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             }
         }
 
+        // add for bug 6851
+        File tmpFolder2 = new File(HTMLDocUtils.getTmpFolder());
+        File[] listFiles = tmpFolder2.listFiles();
+        for (int i = 0; i < listFiles.length; i++) {
+            // Checks if current file is html file or xml file, otherwise ignore it.
+            if (!(listFiles[i].isDirectory()) && listFiles[i].getName().endsWith(IHTMLDocConstants.XML_FILE_SUFFIX)) {
+                list.add(listFiles[i].toURL());
+            }
+        }
+
         return list;
     }
 
