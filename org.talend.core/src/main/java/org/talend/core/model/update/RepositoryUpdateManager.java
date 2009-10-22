@@ -123,10 +123,21 @@ public abstract class RepositoryUpdateManager {
                 Messages.getString("RepositoryUpdateManager.Messages")); //$NON-NLS-1$
     }
 
-    private void openNoModificationDialog() {
-        MessageDialog.openInformation(Display.getCurrent().getActiveShell(), Messages
-                .getString("RepositoryUpdateManager.NoModificationTitle"), //$NON-NLS-1$
-                Messages.getString("RepositoryUpdateManager.NoModificationMessages")); //$NON-NLS-1$
+    /**
+     * 
+     * ggu Comment method "openNoModificationDialog".
+     * 
+     * @param onlyImpactAnalysis for 9543
+     * @return
+     */
+    private void openNoModificationDialog(boolean onlyImpactAnalysis) {
+        String title = Messages.getString("RepositoryUpdateManager.NoModificationTitle"); //$NON-NLS-1$
+        String messages = Messages.getString("RepositoryUpdateManager.NoModificationMessages"); ////$NON-NLS-1$
+        if (onlyImpactAnalysis) {
+            title = Messages.getString("RepositoryUpdateManager.NotFoundTitle"); //$NON-NLS-1$
+            messages = Messages.getString("RepositoryUpdateManager.NotFoundMessages"); //$NON-NLS-1$
+        }
+        MessageDialog.openInformation(Display.getCurrent().getActiveShell(), title, messages);
     }
 
     private boolean openRenameCheckedDialog() {
@@ -149,7 +160,7 @@ public abstract class RepositoryUpdateManager {
     }
 
     @SuppressWarnings("restriction")
-    public boolean doWork(boolean show, final boolean onlySimpleShow) {
+    public boolean doWork(boolean show, final boolean onlyImpactAnalysis) {
         // check the dialog.
         boolean checked = true;
         boolean showed = false;
@@ -177,7 +188,7 @@ public abstract class RepositoryUpdateManager {
             IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes(), onlySimpleShow);
+                    List<UpdateResult> returnResult = checkJobItemsForUpdate(monitor, getTypes(), onlyImpactAnalysis);
                     if (returnResult != null) {
                         results.addAll(returnResult);
                     }
@@ -207,11 +218,11 @@ public abstract class RepositoryUpdateManager {
             if (checkedResults != null && !checkedResults.isEmpty()) {
                 if (showed || parameter == null || unShowDialog(checkedResults) || openPropagationDialog()) {
                     IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-                    return designerCoreService.executeUpdatesManager(checkedResults, onlySimpleShow);
+                    return designerCoreService.executeUpdatesManager(checkedResults, onlyImpactAnalysis);
                 }
                 return false;
             }
-            openNoModificationDialog();
+            openNoModificationDialog(onlyImpactAnalysis);
         }
         return false;
     }
