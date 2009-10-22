@@ -17,11 +17,18 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
+import org.apache.oro.text.regex.Perl5Substitution;
+import org.apache.oro.text.regex.Util;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.UpdateContextVariablesHelper;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -92,7 +99,7 @@ public final class ContextParameterUtils {
         final String string = JAVA_STARTWITH + name + JAVA_ENDWITH;
         switch (language) {
         case PERL:
-            code = PERL_STARTWITH + name + PERL_ENDWITH; 
+            code = PERL_STARTWITH + name + PERL_ENDWITH;
             break;
         case JAVA:
             JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(type);
@@ -254,8 +261,8 @@ public final class ContextParameterUtils {
 
     private static boolean containContextPrefix(String code) {
         if (code == null) {
-			return false;
-		}
+            return false;
+        }
         return code.startsWith(JAVA_NEW_CONTEXT_PREFIX);
     }
 
@@ -268,10 +275,10 @@ public final class ContextParameterUtils {
      */
     public static String trimContextPrefix(String code) {
         if (containContextPrefix(code)) {
-			return code.substring(JAVA_NEW_CONTEXT_PREFIX.length());
-		} else {
-			return code;
-		}
+            return code.substring(JAVA_NEW_CONTEXT_PREFIX.length());
+        } else {
+            return code;
+        }
     }
 
     /**
@@ -409,15 +416,44 @@ public final class ContextParameterUtils {
     public static boolean isPasswordType(IContextParameter parameter) {
         if (parameter == null) {
             return false;
-        }        
+        }
         return isPasswordType(parameter.getType());
-	}
+    }
 
-	public static boolean isPasswordType(String type) {
-		String passwordType = JavaTypesManager.PASSWORD.getLabel(); // perl
-		if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-			passwordType = JavaTypesManager.PASSWORD.getId();
-		}
-		return passwordType.equals(type);    	
+    public static boolean isPasswordType(String type) {
+        String passwordType = JavaTypesManager.PASSWORD.getLabel(); // perl
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            passwordType = JavaTypesManager.PASSWORD.getId();
+        }
+        return passwordType.equals(type);
+    }
+
+    public static String updateValue(final String value, final String oldName, final String newName) {
+        if (value == null || oldName == null || newName == null) {
+            return value; // keep original value
+        }
+
+        PatternCompiler compiler = new Perl5Compiler();
+        Perl5Matcher matcher = new Perl5Matcher();
+        matcher.setMultiline(true);
+        Perl5Substitution substitution = new Perl5Substitution(newName + "$2", //$NON-NLS-1$
+                Perl5Substitution.INTERPOLATE_ALL);
+
+        org.apache.oro.text.regex.Pattern pattern;
+        try {
+            pattern = compiler.compile("\\b(" //$NON-NLS-1$
+                    + UpdateContextVariablesHelper.replaceSpecialChar(oldName) + ")(\\b|\\_)"); //$NON-NLS-1$
+        } catch (MalformedPatternException e) {
+            return value; // keep original value
+        }
+
+        if (matcher.contains(value, pattern)) {
+            // replace
+            String returnValue = Util.substitute(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
+            return returnValue;
+
+        }
+        return value; // keep original value
+
     }
 }

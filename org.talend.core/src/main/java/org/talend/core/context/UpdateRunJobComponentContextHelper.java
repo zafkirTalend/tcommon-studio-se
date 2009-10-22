@@ -21,6 +21,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
@@ -29,6 +31,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -50,6 +53,7 @@ public final class UpdateRunJobComponentContextHelper {
 
     private static final String TRUN_JOB = "tRunJob"; //$NON-NLS-1$
 
+    @SuppressWarnings("unchecked")
     public static synchronized void updateOpenedJobRunJobComponentReference(final List<IProcess> openedProcesses,
             final Map<String, String> nameMap, final String refJobId, final Set<String> varNameSet) {
         if (openedProcesses == null || refJobId == null) {
@@ -86,6 +90,16 @@ public final class UpdateRunJobComponentContextHelper {
                                     }
                                 }
                             }
+                            // bug 9424
+                            obj = valueMap.get(PARAM_VALUE_COLUMN);
+                            if (obj != null && obj instanceof String) {
+                                String oldValue = (String) obj;
+                                String newValue = checkAndUpdateValue(nameMap, oldValue);
+                                if (newValue != null) { // update
+                                    valueMap.put(PARAM_VALUE_COLUMN, newValue);
+                                    changed = true;
+                                }
+                            }
                         }
                         if (!removedMap.isEmpty()) {
                             for (Map valueMap : removedMap) {
@@ -105,6 +119,25 @@ public final class UpdateRunJobComponentContextHelper {
                 }
             }
         }
+    }
+
+    private static String checkAndUpdateValue(Map<String, String> nameMap, final String oldValue) {
+        final ECodeLanguage language = LanguageManager.getCurrentLanguage();
+        if (nameMap != null && !nameMap.isEmpty() && oldValue != null) {
+            String updateValue = oldValue;
+            for (String newName : nameMap.keySet()) {
+                String oldName = nameMap.get(newName);
+                if (oldName != null && !newName.equals(oldName)) {
+                    String oldCode = ContextParameterUtils.getNewScriptCode(oldName, language);
+                    String newCode = ContextParameterUtils.getNewScriptCode(newName, language);
+                    updateValue = ContextParameterUtils.updateValue(updateValue, oldCode, newCode);
+                }
+            }
+            if (!oldValue.equals(updateValue)) { // update
+                return updateValue;
+            }
+        }
+        return null;
     }
 
     private static List<INode> foundRunJobNode(IProcess process) {
@@ -229,6 +262,15 @@ public final class UpdateRunJobComponentContextHelper {
                                         modified = true;
                                     }
                                 }
+                            }
+                        }
+                        // bug 9424
+                        if (eleValueType.getElementRef().equals(PARAM_VALUE_COLUMN)) {
+                            String oldValue = eleValueType.getValue();
+                            String newValue = checkAndUpdateValue(nameMap, oldValue);
+                            if (newValue != null) { // update
+                                eleValueType.setValue(newValue);
+                                modified = true;
                             }
                         }
                     }
