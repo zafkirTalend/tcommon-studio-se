@@ -278,7 +278,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throws PersistenceException {
         IFolder folder = null;
         try {
-            folder = LocalResourceModelUtils.getFolder(project, type);
+            if (type.hasFolder()) {
+                folder = LocalResourceModelUtils.getFolder(project, type);
+            } else {
+                return Collections.emptyList();
+            }
         } catch (ResourceNotFoundException e) {
             return Collections.emptyList();
         }
@@ -508,8 +512,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // Folder creation :
         for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
             try {
-                String folderName = ERepositoryObjectType.getFolderName(type);
-                createFolder(prj, folderHelper, folderName);
+                if (type.hasFolder()) {
+                    String folderName = ERepositoryObjectType.getFolderName(type);
+                    createFolder(prj, folderHelper, folderName);
+                }
             } catch (IllegalArgumentException iae) {
                 // Some repository object type doesn't need a folder
             }
@@ -1595,12 +1601,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(project);
         try {
-            // MOD mzhao feature 9207
-            String folderName = ERepositoryObjectType.getFolderName(repositoryObjectType);
-            if (folderName.trim().equals("")) {
-                return null;
+            if (repositoryObjectType.hasFolder()) {
+                String folderName = ERepositoryObjectType.getFolderName(repositoryObjectType);
+                return ResourceUtils.getFolder(fsProject, folderName, true);
             }
-            return ResourceUtils.getFolder(fsProject, folderName, true);
         } catch (ResourceNotFoundException rex) {
             //
         }

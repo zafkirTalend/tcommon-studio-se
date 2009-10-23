@@ -155,6 +155,22 @@ public enum ERepositoryObjectType {
         return this.key;
     }
 
+    /**
+     * 
+     * ggu Comment method "hasFolder". bug 9789
+     */
+    public boolean hasFolder() {
+        try {
+            String folderName = getFolderName(this);
+            if (folderName != null && !"".equals(folderName)) { //$NON-NLS-1$
+                return true;
+            }
+        } catch (IllegalArgumentException e) { // not found
+            // nothing to do
+        }
+        return false;
+    }
+
     public static String getFolderName(ERepositoryObjectType type) {
         switch (type) {
         case BUSINESS_PROCESS:
@@ -207,7 +223,7 @@ public enum ERepositoryObjectType {
             return "metadata/rules"; //$NON-NLS-1$
         case METADATA_FILE_LINKRULES:
             return "metadata/rules";
-        // MOD mzhao feature 9207
+            // MOD mzhao feature 9207
         case TDQ_ELEMENT:
             return "";//$NON-NLS-1$
         default:
@@ -391,7 +407,6 @@ public enum ERepositoryObjectType {
                 // TODO Auto-generated method stub
                 return SVG_BUSINESS_PROCESS;
             }
-            
 
             // MOD mzhao feature 9207
             @Override
