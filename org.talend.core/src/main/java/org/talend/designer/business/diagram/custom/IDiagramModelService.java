@@ -29,6 +29,7 @@ import org.eclipse.ui.PartInitException;
 import org.talend.core.IService;
 import org.talend.core.model.business.BusinessAlignment;
 import org.talend.core.model.business.BusinessType;
+import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.repository.editor.RepositoryEditorInput;
 
 /**
@@ -73,4 +74,6 @@ public interface IDiagramModelService extends IService {
     public IFile getDiagramFile(IWorkbenchPage page);
 
     public void addDeleteAssignmentAction(IMenuManager mgr, ISelection selection);
+
+    public void updateProcessFromResource(BusinessProcessItem processItem);
 }
