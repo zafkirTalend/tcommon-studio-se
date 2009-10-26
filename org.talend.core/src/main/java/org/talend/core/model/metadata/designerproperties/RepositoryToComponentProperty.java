@@ -748,7 +748,10 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getDataFile())) {
                 return connection.getDataFile();
             } else {
-                Path p = new Path(connection.getDataFile());
+                Path p = new Path("");
+                if (connection.getDataFile() != null) {
+                    p = new Path(connection.getDataFile());
+                }
                 return TalendTextUtils.addQuotes(p.toPortableString());
             }
         }
