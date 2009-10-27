@@ -137,6 +137,10 @@ public class ExtractMetaDataFromDataBase {
     public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, IMetadataConnection iMetadataConnection,
             int... limit) {
         String schema = iMetadataConnection.getSchema();
+        if ((schema == null || "".equals(schema))
+                && EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())) {
+            schema = iMetadataConnection.getDatabase();
+        }
         if (dbMetaData.equals(oldMetadata) && schema.equals(oldSchema) && limit.equals(oldLimit)
                 && (oldUseAllSynonyms == ExtractMetaDataUtils.isUseAllSynonyms())) {
             return oldMetadataRetrieved;
@@ -1089,7 +1093,6 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         rsTableTypes.close();
-        // rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
         rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
         return rsTables;
     }

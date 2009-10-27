@@ -337,13 +337,13 @@ public class ExtractMetaDataUtils {
                         schema = null;
                     }
                 } else {
-                    schema = null;
-                    // PTODO Verify for each Database type the Schema necessity
-                    // if (dataBase.equals("")) {
-                    // schema = null;
-                    // } else {
-                    // schema = dataBase;
-                    // }
+                    boolean teradata = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
+                            EDatabaseTypeName.TERADATA.getProduct());
+                    if (teradata) {
+                        schema = dataBase;
+                    } else {
+                        schema = null;
+                    }
                 }
                 conList.add(conn);
                 if (wapperDriver != null) {
