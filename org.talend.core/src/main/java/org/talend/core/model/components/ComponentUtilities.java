@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.talend.commons.CommonsPlugin;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
 import org.talend.designer.core.IFilter;
@@ -375,4 +377,15 @@ public class ComponentUtilities {
         }
         return null;
     }
+
+    public static String getExtFolder(String folder) {
+        String path = folder;
+        // bug fix : several headless instance should not use the same folder
+        if (CommonsPlugin.isStoreLibsInWorkspace()) {
+            String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
+            path = folder + "-" + workspaceName; //$NON-NLS-1$
+        }
+        return path;
+    }
+
 }

@@ -17,13 +17,11 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
@@ -52,7 +50,7 @@ public abstract class AbstractComponentsProvider {
 
     public String getComponentsLocation() {
         return new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER).append(IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER)
-                .append(folderName).toString();
+                .append(ComponentUtilities.getExtFolder(folderName)).toString();
     }
 
     public void preComponentsLoad() throws IOException {
@@ -69,7 +67,10 @@ public abstract class AbstractComponentsProvider {
             if (externalComponentsLocation.exists()) {
                 try {
                     FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
-                    if (installationFolder.getPath().endsWith("components" + File.separator + "ext" + File.separator + "user")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    if (installationFolder.getPath().endsWith(
+                            IComponentsFactory.COMPONENTS_INNER_FOLDER + File.separator
+                                    + IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER + File.separator
+                                    + ComponentUtilities.getExtFolder("user"))) { //$NON-NLS-1$
                         CorePlugin.getDefault().getLibrariesService().syncLibraries();
                     }
                 } catch (IOException e) {
@@ -96,13 +97,7 @@ public abstract class AbstractComponentsProvider {
         IPath path = new Path(IComponentsFactory.COMPONENTS_INNER_FOLDER)
                 .append(IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER);
 
-        // bug fix : several headless instance should not use the same folder
-        if (CommonsPlugin.isStoreLibsInWorkspace()) {
-            String workspaceName = ResourcesPlugin.getWorkspace().getRoot().getLocation().lastSegment();
-            path = path.append(folderName + "-" + workspaceName); //$NON-NLS-1$
-        } else {
-            path = path.append(folderName);
-        }
+        path = path.append(ComponentUtilities.getExtFolder(folderName));
 
         installationFolder = new File(bundleFolder, path.toOSString());
 
