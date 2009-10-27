@@ -26,7 +26,9 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -55,6 +57,7 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
 import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.util.ApplicationDeletionUtil;
+import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
@@ -236,6 +239,17 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             if (dlg.getToggleState()) {
                 store.setValue(IDEInternalPreferences.EXIT_PROMPT_ON_CLOSE_LAST_WINDOW, false);
                 IDEWorkbenchPlugin.getDefault().savePluginPreferences();
+            }
+        }
+
+        // for bug 7071
+        IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (workbenchWindow.getActivePage() != null
+                && CorePlugin.getDefault().getDiagramModelService().isBusinessDiagramEditor(
+                        workbenchWindow.getActivePage().getActiveEditor())) {
+            IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
+            if (findViewReference != null) {
+                findViewReference.getView(false).setFocus();
             }
         }
 

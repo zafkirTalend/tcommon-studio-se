@@ -14,10 +14,14 @@ package org.talend.rcp.intro;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.CorePlugin;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.ui.login.LoginDialog;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * Displays the Login Dialog for choose a project to Open. <br/>
@@ -44,8 +48,19 @@ public class SwitchProjectAction extends Action {
      */
     @Override
     public void run() {
-    	ProxyRepositoryFactory.getInstance().logOffProject();    	
-    	
+        ProxyRepositoryFactory.getInstance().logOffProject();
+
+        // for bug 7071
+        IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (workbenchWindow.getActivePage() != null
+                && CorePlugin.getDefault().getDiagramModelService().isBusinessDiagramEditor(
+                        workbenchWindow.getActivePage().getActiveEditor())) {
+            IViewReference findViewReference = workbenchWindow.getActivePage().findViewReference(IRepositoryView.VIEW_ID);
+            if (findViewReference != null) {
+                findViewReference.getView(false).setFocus();
+            }
+        }
+
         // The prefered method Actually is a restart :
         PlatformUI.getWorkbench().restart();
 
