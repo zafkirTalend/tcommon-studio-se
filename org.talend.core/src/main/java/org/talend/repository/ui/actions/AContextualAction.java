@@ -21,7 +21,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
@@ -30,6 +30,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.ISaveablePart2;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
@@ -39,6 +40,7 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -195,7 +197,12 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
 
         if (activePart instanceof IJobSettingsView) {
-            return ((IJobSettingsView) activePart).getSelection();
+        //wzhang modified to fix 8097.
+            ISelection selection = ((IJobSettingsView) activePart).getSelection();
+            if (selection == null) {
+                selection = getRepositorySelection();
+            }
+            return selection;
         }
         if (activePart instanceof IRepositoryView) {
             return ((IRepositoryView) activePart).getViewer().getSelection();
@@ -273,14 +280,42 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @return
      */
     protected RepositoryNode getCurrentRepositoryNode() {
-        StructuredSelection selection = (StructuredSelection) getSelection();
+        ISelection selection = getRepositorySelection();
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
-        // RepositoryNode fileDelimitedNode = metadataNode.getChildren().get(1);
+        // RepositoryNode fileDelimitedNode = metadataNode.getChildren().get(1); getSelection()
         if (selection == null) {
             return null;
         }
+        Object obj = ((IStructuredSelection) selection).getFirstElement();
+        RepositoryNode node = (RepositoryNode) obj;
+        return node;
+    }
 
-        return (RepositoryNode) selection.getFirstElement();
+    /**
+     * DOC wzhang Comment method "getRepositorySelection".
+     * 
+     * @return
+     */
+    protected ISelection getRepositorySelection() {
+        IRepositoryView repositoryViewPart = null;
+        for (IViewReference viewRef : getActivePage().getViewReferences()) {
+            if (viewRef.getView(false) instanceof IRepositoryView) {
+                repositoryViewPart = (IRepositoryView) viewRef.getView(false);
+                break;
+            }
+        }
+
+        if (repositoryViewPart == null) {
+            try {
+                throw new SystemException("Repository view not found");
+            } catch (SystemException e) {
+                ExceptionHandler.process(e);
+            }
+            return null;
+        }
+
+        ISelection selection = repositoryViewPart.getViewer().getSelection();
+        return selection;
     }
 
     /**
