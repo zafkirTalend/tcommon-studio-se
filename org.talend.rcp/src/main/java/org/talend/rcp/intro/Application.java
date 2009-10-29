@@ -45,9 +45,6 @@ public class Application implements IApplication {
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
             // If we cannot get the workspace lock, pop up an error dialog and then exit the application.
-            if (!checkJVMVersion(shell)) {
-                return IApplication.EXIT_OK;
-            }
             if (!acquireWorkspaceLock(shell)) {
                 return IApplication.EXIT_OK;
             }
@@ -158,22 +155,6 @@ public class Application implements IApplication {
         MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
                 Messages.getString("Application.workspaceInUse")); //$NON-NLS-1$
         return false;
-    }
-
-    /**
-     * check the jvm version
-     */
-
-    private boolean checkJVMVersion(Shell shell) {
-        String jvmVersion = System.getProperty("java.version"); //$NON-NLS-1$
-        String[] versions = jvmVersion.split("\\.");//$NON-NLS-1$
-        int version = Integer.parseInt(versions[1]);
-        boolean result = version >= 5;
-        if (!result) {
-            MessageDialog.openError(shell,
-                    Messages.getString("Application.ERROR"), Messages.getString("Application.ERROR_MESSAGE")); //$NON-NLS-1$ //$NON-NLS-2$
-        }
-        return result;
     }
 
     /**
