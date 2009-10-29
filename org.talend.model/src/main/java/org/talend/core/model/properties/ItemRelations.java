@@ -28,26 +28,26 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ItemRelations extends EObject {
     /**
-     * Returns the value of the '<em><b>Base Item</b></em>' reference.
+     * Returns the value of the '<em><b>Base Item</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Base Item</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Base Item</em>' reference.
+     * @return the value of the '<em>Base Item</em>' containment reference.
      * @see #setBaseItem(ItemRelation)
      * @see org.talend.core.model.properties.PropertiesPackage#getItemRelations_BaseItem()
-     * @model
+     * @model containment="true"
      * @generated
      */
     ItemRelation getBaseItem();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ItemRelations#getBaseItem <em>Base Item</em>}' reference.
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemRelations#getBaseItem <em>Base Item</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Base Item</em>' reference.
+     * @param value the new value of the '<em>Base Item</em>' containment reference.
      * @see #getBaseItem()
      * @generated
      */

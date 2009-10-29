@@ -624,7 +624,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="link" eType="#//LinkType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ItemRelations">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="baseItem" eType="#//ItemRelation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseItem" eType="#//ItemRelation"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relatedItems" upperBound="-1"
         eType="#//ItemRelation" containment="true"/>
   </eClassifiers>

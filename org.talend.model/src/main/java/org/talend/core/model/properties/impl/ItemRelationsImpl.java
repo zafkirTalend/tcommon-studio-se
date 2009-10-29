@@ -40,7 +40,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  */
 public class ItemRelationsImpl extends EObjectImpl implements ItemRelations {
     /**
-     * The cached value of the '{@link #getBaseItem() <em>Base Item</em>}' reference.
+     * The cached value of the '{@link #getBaseItem() <em>Base Item</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getBaseItem()
@@ -83,14 +83,6 @@ public class ItemRelationsImpl extends EObjectImpl implements ItemRelations {
      * @generated
      */
     public ItemRelation getBaseItem() {
-        if (baseItem != null && baseItem.eIsProxy()) {
-            InternalEObject oldBaseItem = (InternalEObject)baseItem;
-            baseItem = (ItemRelation)eResolveProxy(oldBaseItem);
-            if (baseItem != oldBaseItem) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ITEM_RELATIONS__BASE_ITEM, oldBaseItem, baseItem));
-            }
-        }
         return baseItem;
     }
 
@@ -99,8 +91,14 @@ public class ItemRelationsImpl extends EObjectImpl implements ItemRelations {
      * <!-- end-user-doc -->
      * @generated
      */
-    public ItemRelation basicGetBaseItem() {
-        return baseItem;
+    public NotificationChain basicSetBaseItem(ItemRelation newBaseItem, NotificationChain msgs) {
+        ItemRelation oldBaseItem = baseItem;
+        baseItem = newBaseItem;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_RELATIONS__BASE_ITEM, oldBaseItem, newBaseItem);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -109,10 +107,17 @@ public class ItemRelationsImpl extends EObjectImpl implements ItemRelations {
      * @generated
      */
     public void setBaseItem(ItemRelation newBaseItem) {
-        ItemRelation oldBaseItem = baseItem;
-        baseItem = newBaseItem;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_RELATIONS__BASE_ITEM, oldBaseItem, baseItem));
+        if (newBaseItem != baseItem) {
+            NotificationChain msgs = null;
+            if (baseItem != null)
+                msgs = ((InternalEObject)baseItem).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropertiesPackage.ITEM_RELATIONS__BASE_ITEM, null, msgs);
+            if (newBaseItem != null)
+                msgs = ((InternalEObject)newBaseItem).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropertiesPackage.ITEM_RELATIONS__BASE_ITEM, null, msgs);
+            msgs = basicSetBaseItem(newBaseItem, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_RELATIONS__BASE_ITEM, newBaseItem, newBaseItem));
     }
 
     /**
@@ -134,6 +139,8 @@ public class ItemRelationsImpl extends EObjectImpl implements ItemRelations {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case PropertiesPackage.ITEM_RELATIONS__BASE_ITEM:
+                return basicSetBaseItem(null, msgs);
             case PropertiesPackage.ITEM_RELATIONS__RELATED_ITEMS:
                 return ((InternalEList)getRelatedItems()).basicRemove(otherEnd, msgs);
         }
@@ -148,8 +155,7 @@ public class ItemRelationsImpl extends EObjectImpl implements ItemRelations {
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.ITEM_RELATIONS__BASE_ITEM:
-                if (resolve) return getBaseItem();
-                return basicGetBaseItem();
+                return getBaseItem();
             case PropertiesPackage.ITEM_RELATIONS__RELATED_ITEMS:
                 return getRelatedItems();
         }

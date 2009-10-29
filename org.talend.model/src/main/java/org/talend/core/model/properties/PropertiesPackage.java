@@ -5747,7 +5747,7 @@ public interface PropertiesPackage extends EPackage {
     int ITEM_RELATIONS = 73;
 
     /**
-     * The feature id for the '<em><b>Base Item</b></em>' reference.
+     * The feature id for the '<em><b>Base Item</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -9731,10 +9731,10 @@ public interface PropertiesPackage extends EPackage {
     EClass getItemRelations();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ItemRelations#getBaseItem <em>Base Item</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.properties.ItemRelations#getBaseItem <em>Base Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Base Item</em>'.
+     * @return the meta object for the containment reference '<em>Base Item</em>'.
      * @see org.talend.core.model.properties.ItemRelations#getBaseItem()
      * @see #getItemRelations()
      * @generated
@@ -13409,7 +13409,7 @@ public interface PropertiesPackage extends EPackage {
         EClass ITEM_RELATIONS = eINSTANCE.getItemRelations();
 
         /**
-         * The meta object literal for the '<em><b>Base Item</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Base Item</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
