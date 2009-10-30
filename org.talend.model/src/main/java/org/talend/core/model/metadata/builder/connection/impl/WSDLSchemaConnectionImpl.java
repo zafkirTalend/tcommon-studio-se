@@ -38,6 +38,7 @@ import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getEndpointURI <em>Endpoint URI</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getTimeOut <em>Time Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -314,6 +315,26 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
      * @ordered
      */
     protected String encoding = ENCODING_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTimeOut()
+     * @generated
+     * @ordered
+     */
+    protected static final int TIME_OUT_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTimeOut()
+     * @generated
+     * @ordered
+     */
+    protected int timeOut = TIME_OUT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -594,6 +615,27 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTimeOut(int newTimeOut) {
+        int oldTimeOut = timeOut;
+        timeOut = newTimeOut;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT, oldTimeOut, timeOut));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -627,6 +669,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
                 return getEndpointURI();
             case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
                 return getEncoding();
+            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+                return new Integer(getTimeOut());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -680,6 +724,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
             case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
                 setEncoding((String)newValue);
                 return;
+            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+                setTimeOut(((Integer)newValue).intValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -732,6 +779,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
             case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
                 setEncoding(ENCODING_EDEFAULT);
                 return;
+            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+                setTimeOut(TIME_OUT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -770,6 +820,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
                 return ENDPOINT_URI_EDEFAULT == null ? endpointURI != null : !ENDPOINT_URI_EDEFAULT.equals(endpointURI);
             case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
                 return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
+            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+                return timeOut != TIME_OUT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -810,6 +862,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         result.append(endpointURI);
         result.append(", Encoding: ");
         result.append(encoding);
+        result.append(", timeOut: ");
+        result.append(timeOut);
         result.append(')');
         return result.toString();
     }

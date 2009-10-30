@@ -950,6 +950,12 @@ public class ComponentToRepositoryProperty {
                 connection.setMethodName(value);
             }
         }
+        if ("TIMEOUT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "TIMEOUT"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setTimeOut(Integer.valueOf(value));
+            }
+        }
         if ("WSDL_PARAMS".equals(repositoryValue)) { //$NON-NLS-1$
             Object value = getParameterObjectValue(node, "PARAMS"); //$NON-NLS-1$
             if (value != null && value instanceof ArrayList) {

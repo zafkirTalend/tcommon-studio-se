@@ -383,6 +383,9 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getMethodName());
             }
+        } else if ("TIMEOUT".equals(value)) { //$NON-NLS-1$
+            Integer timeOut = new Integer(connection.getTimeOut());
+            return timeOut.toString();
         } else if ("WSDLURL".equals(value)) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getEndpointURI())) {
                 return connection.getEndpointURI();

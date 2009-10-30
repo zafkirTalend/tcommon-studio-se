@@ -33,6 +33,7 @@ import java.util.List;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getTimeOut <em>Time Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -395,5 +396,31 @@ public interface WSDLSchemaConnection extends Connection {
      * @generated
      */
     void setEncoding(String value);
+
+    /**
+     * Returns the value of the '<em><b>Time Out</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Time Out</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Time Out</em>' attribute.
+     * @see #setTimeOut(int)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_TimeOut()
+     * @model
+     * @generated
+     */
+    int getTimeOut();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getTimeOut <em>Time Out</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Time Out</em>' attribute.
+     * @see #getTimeOut()
+     * @generated
+     */
+    void setTimeOut(int value);
 
 } // WSDLSchemaConnection

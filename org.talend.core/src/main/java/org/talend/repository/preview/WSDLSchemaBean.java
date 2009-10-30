@@ -43,6 +43,8 @@ public class WSDLSchemaBean {
 
     private String proxyPassword;
 
+    private int timeOut;
+
     /**
      * Getter for wslUrl.
      * 
@@ -230,6 +232,24 @@ public class WSDLSchemaBean {
      */
     public String getProxyPassword() {
         return this.proxyPassword;
+    }
+
+    /**
+     * DOC gcui Comment method "getTimeOut".
+     * 
+     * @return
+     */
+    public int getTimeOut() {
+        return this.timeOut;
+    }
+
+    /**
+     * DOC gcui Comment method "setTimeOut".
+     * 
+     * @param timeOut
+     */
+    public void setTimeOut(int timeOut) {
+        this.timeOut = timeOut;
     }
 
     /**

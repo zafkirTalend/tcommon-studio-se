@@ -2117,6 +2117,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getWSDLSchemaConnection_TimeOut() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSalesforceSchemaConnection() {
         return salesforceSchemaConnectionEClass;
     }
@@ -2670,6 +2679,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__VALUE);
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__ENDPOINT_URI);
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__ENCODING);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__TIME_OUT);
 
         salesforceSchemaConnectionEClass = createEClass(SALESFORCE_SCHEMA_CONNECTION);
         createEAttribute(salesforceSchemaConnectionEClass, SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL);
@@ -2999,6 +3009,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getWSDLSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getWSDLSchemaConnection_EndpointURI(), ecorePackage.getEString(), "EndpointURI", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getWSDLSchemaConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_TimeOut(), ecorePackage.getEInt(), "timeOut", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(salesforceSchemaConnectionEClass, SalesforceSchemaConnection.class, "SalesforceSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSalesforceSchemaConnection_WebServiceUrl(), ecorePackage.getEString(), "webServiceUrl", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -280,6 +280,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/EndpointURI"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Encoding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/timeOut"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SalesforceSchemaConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/webServiceUrl"/>
