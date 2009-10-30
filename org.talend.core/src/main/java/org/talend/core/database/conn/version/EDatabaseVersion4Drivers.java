@@ -52,8 +52,8 @@ public enum EDatabaseVersion4Drivers {
     VERTICA(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "vertica_3.0_jdk_5.jar")), //$NON-NLS-1$
     SAS(new DbVersion4Drivers(EDatabaseTypeName.SAS, new String[] { "sas.core.jar", //$NON-NLS-1$
             "sas.intrnet.javatools.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
-
-    ;
+    MYSQL(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "mysql-connector-java-5.1.0-bin.jar")), //$NON-NLS-N$ add for 9594
+    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")); //$NON-NLS-N$ add for 9594
 
     private DbVersion4Drivers dbVersionBean;
 

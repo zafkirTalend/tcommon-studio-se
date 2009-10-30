@@ -23,6 +23,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.utils.KeywordsValidator;
 
 /**
@@ -53,7 +54,13 @@ public final class ConvertionHelper {
         result.setDescription(connection.getComment());
         result.setDatabase(connection.getSID());
         result.setDataSourceName(connection.getDatasourceName());
-        result.setDbType(connection.getDatabaseType());
+
+        if (connection.getDatabaseType() == null || "".equals(connection.getDatabaseType())) { // 0009594
+            String trueDbType = ExtractMetaDataUtils.getDbTypeByClassName(connection.getDriverClass());
+            result.setDbType(trueDbType);
+        } else {
+            result.setDbType(connection.getDatabaseType());
+        }
         result.setDriverJarPath(connection.getDriverJarPath());
         result.setDbVersionString(connection.getDbVersionString());
         result.setDriverClass(connection.getDriverClass());
