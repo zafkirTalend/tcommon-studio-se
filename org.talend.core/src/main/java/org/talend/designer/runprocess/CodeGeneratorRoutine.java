@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -27,6 +28,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.impl.ProjectReferenceImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.ProjectManager;
@@ -51,7 +53,7 @@ public final class CodeGeneratorRoutine {
     public static void reset() {
         routinesName.clear();
     }
-    
+
     /**
      * Actually used in ProcessorUtilities.generateCode.
      * 
@@ -61,13 +63,32 @@ public final class CodeGeneratorRoutine {
         ProjectManager pManager = ProjectManager.getInstance();
 
         org.talend.core.model.properties.Project emfProject = pManager.getProject(processItem);
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        List<String> toReturn = initRoutineNamesFromProject(emfProject, repositoryFactory);
+        routinesName.put(emfProject, toReturn);
 
+        EList referencedProjects = emfProject.getReferencedProjects();
+        if (referencedProjects != null) {
+            for (Object object : referencedProjects) {
+                ProjectReferenceImpl projectRef = (ProjectReferenceImpl) object;
+                org.talend.core.model.properties.Project refEmfProject = projectRef.getReferencedProject();
+                toReturn = initRoutineNamesFromProject(refEmfProject, repositoryFactory);
+                routinesName.put(refEmfProject, toReturn);
+            }
+        }
+
+    }
+
+    private static List<String> initRoutineNamesFromProject(org.talend.core.model.properties.Project emfProject,
+            IProxyRepositoryFactory repositoryFactory) {
+        List<String> toReturn = new ArrayList<String>();
+
+        if (emfProject == null || repositoryFactory == null) {
+            return toReturn;
+        }
         Project currentProject = new Project(emfProject);
 
         ECodeLanguage currentLanguage = currentProject.getLanguage();
-        List<String> toReturn = new ArrayList<String>();
-
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
 
         String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -97,7 +118,8 @@ public final class CodeGeneratorRoutine {
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
-        routinesName.put(emfProject, toReturn);
+
+        return toReturn;
     }
 
     /**
@@ -119,13 +141,30 @@ public final class CodeGeneratorRoutine {
         ProjectManager pManager = ProjectManager.getInstance();
 
         org.talend.core.model.properties.Project emfProject = pManager.getProject(processItem);
-        List<String> routines = routinesName.get(emfProject);
-
+        List<String> routines = getRoutineName(emfProject);
         if (routines == null) {
             initializeRoutinesName(processItem);
-            routines = routinesName.get(emfProject);
+            routines = getRoutineName(emfProject);
         }
         return routines;
     }
 
+    private static List<String> getRoutineName(org.talend.core.model.properties.Project emfProject) {
+        List<String> routines = routinesName.get(emfProject);
+
+        EList refProjects = emfProject.getReferencedProjects();
+        if (refProjects != null) {
+            for (Object object : refProjects) {
+                ProjectReferenceImpl projectRef = (ProjectReferenceImpl) object;
+                List<String> refRoutines = routinesName.get(projectRef.getReferencedProject());
+                for (String routineName : refRoutines) {
+                    if (!routines.contains(routineName)) {
+                        routines.add(routineName);
+                    }
+                }
+            }
+        }
+
+        return routines;
+    }
 }
