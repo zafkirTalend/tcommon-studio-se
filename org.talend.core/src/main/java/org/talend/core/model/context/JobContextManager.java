@@ -80,6 +80,11 @@ public class JobContextManager implements IContextManager {
 
     private Map<ContextItem, Set<String>> newParametersMap = new HashMap<ContextItem, Set<String>>();
 
+    /*
+     * for context group
+     */
+    private List<IContext> addGroupContext = new ArrayList<IContext>();
+
     public JobContextManager() {
         listContext.add(defaultContext);
     }
@@ -100,6 +105,14 @@ public class JobContextManager implements IContextManager {
         for (IContextListener contextListener : contextListenerList) {
             contextListener.contextsChanged();
         }
+    }
+
+    public void setAddGroupContext(List<IContext> addGroupContext) {
+        this.addGroupContext = addGroupContext;
+    }
+
+    public List<IContext> getAddGroupContext() {
+        return addGroupContext;
     }
 
     /*
@@ -193,21 +206,19 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setName(contextParam.getName());
                     contextParamType.setPrompt(contextParam.getPrompt());
                     contextParamType.setType(contextParam.getType());
-                    if (PasswordEncryptUtil.isPasswordType(contextParamType
-							.getType())) {
-						// see 0000949: Encryption of DB passwords in XMI
-						// repository files
-						try {
-							String password = PasswordEncryptUtil
-									.encryptPassword(contextParam.getValue());
-							contextParamType.setValue(password);
-						} catch (Exception e) {
-							ExceptionHandler.process(e);
-						}
-						
-					} else {
-						contextParamType.setValue(contextParam.getValue());
-					}
+                    if (PasswordEncryptUtil.isPasswordType(contextParamType.getType())) {
+                        // see 0000949: Encryption of DB passwords in XMI
+                        // repository files
+                        try {
+                            String password = PasswordEncryptUtil.encryptPassword(contextParam.getValue());
+                            contextParamType.setValue(password);
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                        }
+
+                    } else {
+                        contextParamType.setValue(contextParam.getValue());
+                    }
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {

@@ -32,8 +32,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.JobContext;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.model.RepositoryConstants;
@@ -98,14 +100,13 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
 
             public void checkStateChanged(CheckStateChangedEvent event) {
                 Object obj = event.getElement();
+                IContext defaultContext = manager.getContextManager().getDefaultContext();
                 boolean checked = event.getChecked();
-                if (obj.equals(manager.getContextManager().getDefaultContext())) {
+                if (obj.equals(defaultContext)) {
                     // keep check status
-                    int index = getData().indexOf(obj);
-                    fTableViewer.getTable().getItem(index).setChecked(true);
+                    ((CheckboxTableViewer) fTableViewer).setChecked(obj, true);
                 } else {
-                    int index = getData().indexOf(manager.getContextManager().getDefaultContext());
-                    fTableViewer.getTable().getItem(index).setChecked(false);
+                    ((CheckboxTableViewer) fTableViewer).setChecked(defaultContext, false);
                     manager.onContextChangeDefault(manager.getContextManager(), (IContext) obj);
                     fTableViewer.refresh(true);
                 }
@@ -185,7 +186,8 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
     }
 
     private void createContext(final String name) {
-        IContext context = manager.getContextManager().getDefaultContext();
+        IContextManager contextManager = manager.getContextManager();
+        IContext context = contextManager.getDefaultContext();
 
         JobContext newContext = new JobContext(name);
 
@@ -196,6 +198,16 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
             param = (JobContextParameter) context.getContextParameterList().get(i).clone();
             param.setContext(newContext);
             newParamList.add(param);
+        }
+        // add for bug 9119
+        if (manager.isRepositoryContext()) {
+            if (contextManager instanceof JobContextManager) {
+                JobContextManager jobContextManager = (JobContextManager) contextManager;
+
+                List<IContext> addGroupContext = jobContextManager.getAddGroupContext();
+                addGroupContext.add(newContext);
+                jobContextManager.setModified(true);
+            }
         }
 
         getAllContexts().add(newContext);

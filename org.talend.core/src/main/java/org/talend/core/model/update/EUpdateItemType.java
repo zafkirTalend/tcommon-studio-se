@@ -25,6 +25,7 @@ public enum EUpdateItemType {
     JOB_PROPERTY_EXTRA(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     JOB_PROPERTY_STATS_LOGS(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     CONTEXT(Messages.getString("EUpdateItemType.Variable")), //$NON-NLS-1$
+    CONTEXT_GROUP(Messages.getString("EUpdateItemType.ContextGroup")), //$NON-NLS-1$
 
     RELOAD(Messages.getString("EUpdateItemType.Components")), //$NON-NLS-1$
     // for joblet

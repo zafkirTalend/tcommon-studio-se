@@ -45,6 +45,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -75,6 +76,11 @@ public abstract class RepositoryUpdateManager {
     private Map<String, String> schemaRenamedMap = new HashMap<String, String>();
 
     /**
+     * for context group
+     */
+    private List<IContext> repositoryAddGroupContext = new ArrayList<IContext>();
+
+    /**
      * used for filter result.
      */
     protected Object parameter;
@@ -101,6 +107,14 @@ public abstract class RepositoryUpdateManager {
 
     public void setContextRenamedMap(Map<ContextItem, Map<String, String>> repositoryRenamedMap) {
         this.repositoryRenamedMap = repositoryRenamedMap;
+    }
+
+    public List<IContext> getRepositoryAddGroupContext() {
+        return this.repositoryAddGroupContext;
+    }
+
+    public void setRepositoryAddGroupContext(List<IContext> repositoryAddGroupContext) {
+        this.repositoryAddGroupContext = repositoryAddGroupContext;
     }
 
     /*
@@ -259,6 +273,10 @@ public abstract class RepositoryUpdateManager {
             } else {
                 // for context
                 if (result.getUpdateType() == EUpdateItemType.CONTEXT && result.getResultType() == EUpdateResult.BUIL_IN) {
+                    checkedResults.add(result);
+                }
+                // for context group
+                if (result.getUpdateType() == EUpdateItemType.CONTEXT_GROUP && result.getResultType() == EUpdateResult.ADD) {
                     checkedResults.add(result);
                 } else if (result.getUpdateType() == EUpdateItemType.CONTEXT && result.getResultType() == EUpdateResult.ADD) {
                     ConnectionItem contextModeConnectionItem = result.getContextModeConnectionItem();
@@ -564,6 +582,7 @@ public abstract class RepositoryUpdateManager {
                 JobContextManager jobContextManager = (JobContextManager) contextManager;
                 jobContextManager.setRepositoryRenamedMap(getContextRenamedMap());
                 jobContextManager.setNewParametersMap(getNewParametersMap());
+                jobContextManager.setAddGroupContext(getRepositoryAddGroupContext());
             }
             // schema rename
             IUpdateManager updateManager = process2.getUpdateManager();
@@ -985,11 +1004,18 @@ public abstract class RepositoryUpdateManager {
             public Set<EUpdateItemType> getTypes() {
                 Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
                 types.add(EUpdateItemType.CONTEXT);
+                types.add(EUpdateItemType.CONTEXT_GROUP);
                 return types;
             }
 
         };
         if (repositoryContextManager != null) {
+            // add for bug 9119 context group
+            List<IContext> addGroupContext = repositoryContextManager.getAddGroupContext();
+            if (!addGroupContext.isEmpty()) {
+                repositoryUpdateManager.setRepositoryAddGroupContext(addGroupContext);
+            }
+
             Map<ContextItem, Map<String, String>> repositoryRenamedMap = new HashMap<ContextItem, Map<String, String>>();
             if (!repositoryContextManager.getNameMap().isEmpty()) {
                 repositoryRenamedMap.put(item, repositoryContextManager.getNameMap());
