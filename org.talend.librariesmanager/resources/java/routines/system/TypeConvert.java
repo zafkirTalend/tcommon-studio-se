@@ -1816,7 +1816,7 @@ public class TypeConvert {
      */
     public static char Double2char(Double o) {
         if (o == null)
-            return (char) o.doubleValue();
+            return ' ';
         return (char) o.doubleValue();
     }
 
@@ -1826,7 +1826,7 @@ public class TypeConvert {
      */
     public static Character Double2Character(Double o) {
         if (o == null)
-            return null;
+            return 0;
         return Character.valueOf((char) o.doubleValue());
     }
 
