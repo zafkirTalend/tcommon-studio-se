@@ -14,6 +14,7 @@ package org.talend.rcp.intro.contentProvider;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -84,7 +85,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                 input.setAttribute("checked", "checked");
             }
             input.setAttribute("onclick", url);
-            
+
             input.appendChild(dom.createTextNode("Do not display again\u00a0"));
             parent.appendChild(input);
         }
@@ -101,7 +102,15 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                 all.toArray(data);
                 for (int i = 0; i < data.length && i < count; i++) {
                     for (int j = data.length - 1; j > i; j--) {
-                        if (data[j].getModificationDate().after(data[j - 1].getModificationDate())) {
+                        Date modificationDate = data[j].getModificationDate();
+                        Date modificationDate2 = data[j - 1].getModificationDate();
+                        if (modificationDate == null) {
+                            modificationDate = data[j].getCreationDate();
+                        }
+                        if (modificationDate2 == null) {
+                            modificationDate2 = data[j - 1].getCreationDate();
+                        }
+                        if (modificationDate.after(modificationDate2)) {
                             IRepositoryObject temp = data[j - 1];
                             data[j - 1] = data[j];
                             data[j] = temp;
