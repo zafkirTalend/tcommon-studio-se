@@ -539,6 +539,24 @@ public class ProcessorUtilities {
         return result;
     }
 
+    public static boolean generateCode(ProcessItem process, IContext context, String contextName, String version,
+            boolean statistics, boolean trace, boolean applyContextToChildren, IProgressMonitor... monitors)
+            throws ProcessorException {
+        IProgressMonitor monitor = null;
+        if (monitors == null) {
+            monitor = new NullProgressMonitor();
+        } else {
+            monitor = monitors[0];
+        }
+        JobInfo jobInfo = new JobInfo(process, contextName, version);
+        jobInfo.setContext(context);
+        jobInfo.setApplyContextToChildren(applyContextToChildren);
+        jobList.clear();
+        boolean result = generateCode(jobInfo, contextName, statistics, trace, true, GENERATE_ALL_CHILDS, monitor);
+        jobList.clear();
+        return result;
+    }
+
     public static boolean generateCode(ProcessItem process, String contextName, boolean statistics, boolean trace)
             throws ProcessorException {
         return generateCode(process, contextName, statistics, trace, false);
