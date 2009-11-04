@@ -306,36 +306,38 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throws PersistenceException {
         List<IRepositoryObject> toReturn = new VersionList(allVersion);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        FolderItem currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
+        if (folder != null) {
+            FolderItem currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
 
-        for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
-            if (current instanceof IFile) {
-                if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                    Property property = null;
-                    try {
-                        property = xmiResourceManager.loadProperty(current);
-                    } catch (RuntimeException e) {
-                        // property will be null
-                        ExceptionHandler.process(e);
-                    }
-                    if (property != null) {
-                        if (id == null || property.getId().equals(id)) {
-                            if (withDeleted || !property.getItem().getState().isDeleted()) {
-                                toReturn.add(new RepositoryObject(property));
+            for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
+                if (current instanceof IFile) {
+                    if (xmiResourceManager.isPropertyFile((IFile) current)) {
+                        Property property = null;
+                        try {
+                            property = xmiResourceManager.loadProperty(current);
+                        } catch (RuntimeException e) {
+                            // property will be null
+                            ExceptionHandler.process(e);
+                        }
+                        if (property != null) {
+                            if (id == null || property.getId().equals(id)) {
+                                if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                    toReturn.add(new RepositoryObject(property));
+                                }
                             }
+                            if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
+                                    && !getRepositoryContext().getProject().equals(project)) {
+                                currentFolderItem.getChildren().add(property.getItem());
+                            }
+                        } else {
+                            log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                         }
-                        if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
-                                && !getRepositoryContext().getProject().equals(project)) {
-                            currentFolderItem.getChildren().add(property.getItem());
-                        }
-                    } else {
-                        log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                     }
-                }
-            } else if (current instanceof IFolder) { // &&
-                if (searchInChildren || (withDeleted && current.getName().equals("bin"))) {
-                    toReturn
-                            .addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true, withDeleted));
+                } else if (current instanceof IFolder) { // &&
+                    if (searchInChildren || (withDeleted && current.getName().equals("bin"))) {
+                        toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
+                                withDeleted));
+                    }
                 }
             }
         }
