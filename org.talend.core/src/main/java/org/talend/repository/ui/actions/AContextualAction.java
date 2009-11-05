@@ -307,9 +307,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         for (IViewReference viewRef : getActivePage().getViewReferences()) {
             if (viewRef.getView(false) instanceof IRepositoryView) {
                 repositoryViewPart = (IRepositoryView) viewRef.getView(false);
-                if (repositoryViewPart != null) {
-                    break;
-                }
+                break;
             }
         }
 
