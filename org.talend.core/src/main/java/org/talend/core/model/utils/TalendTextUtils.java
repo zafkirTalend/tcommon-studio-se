@@ -466,6 +466,9 @@ public class TalendTextUtils {
     }
 
     public static String removeQuotesForField(String text, String dbType) {
+        if (text == null) {
+            return null;
+        }
         String newText;
         isLeft = true;
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
@@ -521,6 +524,9 @@ public class TalendTextUtils {
     }
 
     public static String removeQuotes(String text) {
+        if (text == null) {
+            return null;
+        }
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
 
         switch (language) {
@@ -532,6 +538,9 @@ public class TalendTextUtils {
     }
 
     public static String removeQuotesIfExist(String text) {
+        if (text == null) {
+            return null;
+        }
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
 
         switch (language) {
@@ -556,6 +565,9 @@ public class TalendTextUtils {
      * @return
      */
     public static String removeQuotes(String text, String quotation) {
+        if (text == null) {
+            return null;
+        }
         if (text.length() > 1) {
             String substring = text.substring(0, 1);
             if (quotation.equals(substring)) {
@@ -589,6 +601,9 @@ public class TalendTextUtils {
     }
 
     public static String trimParameter(String value) {
+        if (value == null) {
+            return null;
+        }
         int length = value.length();
         String result = removeQuotes(value);
         if (length > 1 && ((value.startsWith("\"") && value.endsWith("\""))) || (value.startsWith("\'") && value.endsWith("\'"))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
