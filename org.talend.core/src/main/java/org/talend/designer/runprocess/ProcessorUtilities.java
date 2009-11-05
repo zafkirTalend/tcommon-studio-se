@@ -362,6 +362,7 @@ public class ProcessorUtilities {
             if ((currentProcess instanceof IProcess2) && exportConfig) {
                 // to force to regenerate the data nodes
                 ((IProcess2) currentProcess).setProcessModified(true);
+                resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
             }
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.generatingJob") + currentJobName); //$NON-NLS-1$
             IContext currentContext;
