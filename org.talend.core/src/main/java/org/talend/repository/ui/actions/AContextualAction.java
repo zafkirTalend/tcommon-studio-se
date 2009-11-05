@@ -197,7 +197,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
 
         if (activePart instanceof IJobSettingsView) {
-        //wzhang modified to fix 8097.
+            // wzhang modified to fix 8097.
             ISelection selection = ((IJobSettingsView) activePart).getSelection();
             if (selection == null) {
                 selection = getRepositorySelection();
@@ -280,7 +280,13 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @return
      */
     protected RepositoryNode getCurrentRepositoryNode() {
-        ISelection selection = getRepositorySelection();
+        ISelection selection;
+        IWorkbenchPage activePage = getActivePage();
+        if (activePage == null) {
+            selection = getSelection();
+        } else {
+            selection = getRepositorySelection();
+        }
         // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
         // RepositoryNode fileDelimitedNode = metadataNode.getChildren().get(1); getSelection()
         if (selection == null) {
@@ -301,7 +307,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         for (IViewReference viewRef : getActivePage().getViewReferences()) {
             if (viewRef.getView(false) instanceof IRepositoryView) {
                 repositoryViewPart = (IRepositoryView) viewRef.getView(false);
-                break;
+                if (repositoryViewPart != null) {
+                    break;
+                }
             }
         }
 
