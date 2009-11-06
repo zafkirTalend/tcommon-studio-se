@@ -20,36 +20,91 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.model.utils.TalendTextUtils;
 
 /**
  * cli class global comment. Detailled comment
  */
 public class DatabaseConnStrUtil {
 
-    private static String getStringReplace(final String init, final String before, final String after) {
+    private static final String CONN = TalendTextUtils.getStringConnect();
+
+    private static final String QUOTE = TalendTextUtils.getQuoteChar();
+
+    private static String getStringReplace(final String init, final String before, final String after,
+            final boolean supportContext) {
+        return getStringReplace(init, before, after, supportContext, false);
+    }
+
+    /**
+     * 
+     * cli Comment method "getStringReplace".
+     * 
+     * if support context, the "init" string have been quoted, and the "after" should be original(quoted or in context
+     * mode).
+     * 
+     */
+    private static String getStringReplace(final String init, final String before, final String after,
+            final boolean supportContext, final boolean password) {
         String s = init;
         if (after != null && init != null && before != null) {
-            s = init.replace(before, after);
+            if (supportContext) {
+                if (ContextParameterUtils.containContextVariables(after)) {
+                    s = init.replace(before, changeAndQuoteValue(after));
+                } else {
+                    if (password) {
+                        // if password, shouldn't remote the quotes. just keep original
+                        s = init.replace(before, after);
+                    } else {
+                        s = init.replace(before, TalendTextUtils.removeQuotes(after));
+                    }
+                }
+            } else {
+                s = init.replace(before, after);
+            }
+
         }
         return s;
     }
 
+    private static String changeAndQuoteValue(String original) {
+        return QUOTE + CONN + original + CONN + QUOTE;
+    }
+
     public static String getURLString(final String dbType, final String dbVersion, final String host, final String login,
             final String password, final String port, final String sid, final String filename, final String datasource) {
+        return getURLString(false, dbType, dbVersion, host, login, password, port, sid, filename, datasource);
+    }
+
+    /**
+     * 
+     * cli Comment method "getURLString".
+     * 
+     * if supportContext is true, the other parameters should be kept original value.
+     * 
+     * (for example, if quote the parameters, should be kept).
+     */
+    public static String getURLString(final boolean supportContext, final String dbType, final String dbVersion,
+            final String host, final String login, final String password, final String port, final String sid,
+            final String filename, final String datasource) {
         EDatabaseConnTemplate connStr = EDatabaseConnTemplate.indexOfTemplate(dbType);
         EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(dbVersion);
         if (connStr != null) {
             String s = connStr.getUrlTemplate(version);
             if (s != null) {
-                s = getStringReplace(s, EDatabaseConnVar.LOGIN.getVariable(), login);
-                s = getStringReplace(s, EDatabaseConnVar.PASSWORD.getVariable(), password);
-                s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), host);
-                s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), port);
-                s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), sid);
-                s = getStringReplace(s, EDatabaseConnVar.SERVICE_NAME.getVariable(), sid);
-                s = getStringReplace(s, EDatabaseConnVar.DATASOURCE.getVariable(), datasource);
+                if (supportContext) { // if context mode, should quote the original "connStr".
+                    s = TalendTextUtils.addQuotes(s);
+                }
+                s = getStringReplace(s, EDatabaseConnVar.LOGIN.getVariable(), login, supportContext);
+                s = getStringReplace(s, EDatabaseConnVar.PASSWORD.getVariable(), password, supportContext, true);
+                s = getStringReplace(s, EDatabaseConnVar.HOST.getVariable(), host, supportContext);
+                s = getStringReplace(s, EDatabaseConnVar.PORT.getVariable(), port, supportContext);
+                s = getStringReplace(s, EDatabaseConnVar.SID.getVariable(), sid, supportContext);
+                s = getStringReplace(s, EDatabaseConnVar.SERVICE_NAME.getVariable(), sid, supportContext);
+                s = getStringReplace(s, EDatabaseConnVar.DATASOURCE.getVariable(), datasource, supportContext);
                 // PTODO OCA : if needed, adapt the file separator to all OS (not only backslashes)
-                s = getStringReplace(s, EDatabaseConnVar.FILENAME.getVariable(), filename);
+                s = getStringReplace(s, EDatabaseConnVar.FILENAME.getVariable(), filename, supportContext);
                 return s;
             }
         }
@@ -59,15 +114,21 @@ public class DatabaseConnStrUtil {
     public static String getURLString(final String dbType, final String dbVersion, final String host, final String login,
             final String password, final String port, final String sid, final String filename, final String datasource,
             final String dbrootPath) {
-        String string = getURLString(dbType, dbVersion, host, login, password, port, sid, filename, datasource);
+        return getURLString(false, dbType, dbVersion, host, login, password, port, sid, filename, datasource, dbrootPath);
+    }
+
+    public static String getURLString(final boolean supportContext, final String dbType, final String dbVersion,
+            final String host, final String login, final String password, final String port, final String sid,
+            final String filename, final String datasource, final String dbrootPath) {
+        String string = getURLString(supportContext, dbType, dbVersion, host, login, password, port, sid, filename, datasource);
         if (string.equals(DatabaseConnConstants.EMPTY)) {
             return DatabaseConnConstants.EMPTY;
         }
         EDatabaseConnTemplate connStr = EDatabaseConnTemplate.indexOfTemplate(dbType);
         if (connStr == EDatabaseConnTemplate.HSQLDB_IN_PROGRESS) {
-            string = getStringReplace(string, EDatabaseConnVar.DBROOTPATH.getVariable(), dbrootPath);
+            string = getStringReplace(string, EDatabaseConnVar.DBROOTPATH.getVariable(), dbrootPath, supportContext);
         } else {
-            string = getStringReplace(string, EDatabaseConnVar.DBROOTPATH.getVariable(), sid);
+            string = getStringReplace(string, EDatabaseConnVar.DBROOTPATH.getVariable(), sid, supportContext);
         }
         return string;
     }
@@ -75,7 +136,16 @@ public class DatabaseConnStrUtil {
     public static String getURLString(final String dbType, final String dbVersion, final String host, final String login,
             final String password, final String port, final String sid, final String filename, final String datasource,
             final String dbrootPath, final String addParams, final String... otherParams) {
-        String string = getURLString(dbType, dbVersion, host, login, password, port, sid, filename, datasource, dbrootPath);
+        return getURLString(false, dbType, dbVersion, host, login, password, port, sid, filename, datasource, dbrootPath,
+                addParams, otherParams);
+    }
+
+    public static String getURLString(final boolean supportContext, final String dbType, final String dbVersion,
+            final String host, final String login, final String password, final String port, final String sid,
+            final String filename, final String datasource, final String dbrootPath, final String addParams,
+            final String... otherParams) {
+        String string = getURLString(supportContext, dbType, dbVersion, host, login, password, port, sid, filename, datasource,
+                dbrootPath);
         if (string.equals(DatabaseConnConstants.EMPTY)) {
             return DatabaseConnConstants.EMPTY;
         }
@@ -86,7 +156,7 @@ public class DatabaseConnStrUtil {
             case MSSQL:
             case INFORMIX:
             case AS400:
-                string = getStringReplace(string, EDatabaseConnVar.PROPERTY.getVariable(), addParams);
+                string = getStringReplace(string, EDatabaseConnVar.PROPERTY.getVariable(), addParams, supportContext);
             default:
             }
         }
@@ -94,6 +164,10 @@ public class DatabaseConnStrUtil {
     }
 
     public static String getURLString(DatabaseConnection conn) {
+        return getURLString(false, conn);
+    }
+
+    public static String getURLString(final boolean supportContext, final DatabaseConnection conn) {
         if (conn != null) {
             return getURLString(conn.getDatabaseType(), conn.getDbVersionString(), conn.getServerName(), conn.getUsername(), conn
                     .getPassword(), conn.getPort(), conn.getSID(), conn.getFileFieldName(), conn.getDatasourceName(), conn
