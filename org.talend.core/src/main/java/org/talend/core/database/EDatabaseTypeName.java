@@ -52,7 +52,7 @@ public enum EDatabaseTypeName {
     JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    VERTICA("Vertica", "Vertica", new Boolean(false), "VERTICA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    VERTICA("Vertica", "Vertica", new Boolean(true), "VERTICA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     MAXDB("MAXDB", "MaxDB", new Boolean(false), "MAXDB"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
