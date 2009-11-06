@@ -79,6 +79,7 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         this.manager = manager;
         setLabelProvider(getLabelProvider());
         List<IContext> list = new ArrayList<IContext>(manager.getContextManager().getListContext());
+        Collections.sort(list, new ContextCompare());
         setData(list);
         setShellStyle(getShellStyle() | SWT.RESIZE);
     }

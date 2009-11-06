@@ -402,6 +402,7 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
         if (cm != null) {
             contexts = cm.getListContext();
         }
+        Collections.sort(contexts, new ContextCompare());
         return contexts;
     }
 
@@ -505,6 +506,23 @@ public class ContextTableValuesComposite extends AbstractContextTabEditComposite
             tableColumn.dispose();
         }
         viewer.setInput(Collections.EMPTY_LIST);
+    }
+
+    /**
+     * DOC zli ContextCompare class global comment. Detailled comment
+     */
+    private class ContextCompare implements java.util.Comparator<IContext> {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
+        public int compare(IContext o1, IContext o2) {
+            String name1 = o1.getName().toUpperCase();
+            String name2 = o2.getName().toUpperCase();
+            return name1.compareTo(name2);
+        }
     }
 
 }
