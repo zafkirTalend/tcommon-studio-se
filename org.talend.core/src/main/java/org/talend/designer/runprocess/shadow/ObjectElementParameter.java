@@ -818,4 +818,22 @@ public class ObjectElementParameter implements IElementParameter {
         // TODO Auto-generated method stub
 
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isColumnsBasedOnSchema()
+     */
+    public boolean isColumnsBasedOnSchema() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setColumnsBasedOnSchema(boolean)
+     */
+    public void setColumnsBasedOnSchema(boolean columnsBasedOnSchema) {
+
+    }
 }

@@ -143,6 +143,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/bASEDONINPUTSCHEMAS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/bASEDONSCHEMA"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/bASEDONSUBJOBSTARTS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/cOLUMNSBASEDONSCHEMA"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMSType/dEFAULT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//ITEMType">

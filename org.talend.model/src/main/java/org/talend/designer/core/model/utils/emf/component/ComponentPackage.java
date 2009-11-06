@@ -1283,13 +1283,22 @@ public interface ComponentPackage extends EPackage {
     int ITEMS_TYPE__BASEDONSUBJOBSTARTS = 3;
 
     /**
+     * The feature id for the '<em><b>COLUMNSBASEDONSCHEMA</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEMS_TYPE__COLUMNSBASEDONSCHEMA = 4;
+
+    /**
      * The feature id for the '<em><b>DEFAULT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE__DEFAULT = 4;
+    int ITEMS_TYPE__DEFAULT = 5;
 
     /**
      * The number of structural features of the '<em>ITEMS Type</em>' class.
@@ -1298,7 +1307,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE_FEATURE_COUNT = 5;
+    int ITEMS_TYPE_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl <em>ITEM Type</em>}' class.
@@ -3428,6 +3437,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMSType_BASEDONSUBJOBSTARTS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isCOLUMNSBASEDONSCHEMA <em>COLUMNSBASEDONSCHEMA</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COLUMNSBASEDONSCHEMA</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMSType#isCOLUMNSBASEDONSCHEMA()
+     * @see #getITEMSType()
+     * @generated
+     */
+    EAttribute getITEMSType_COLUMNSBASEDONSCHEMA();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getDEFAULT <em>DEFAULT</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5276,6 +5296,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute ITEMS_TYPE__BASEDONSUBJOBSTARTS = eINSTANCE.getITEMSType_BASEDONSUBJOBSTARTS();
+
+        /**
+         * The meta object literal for the '<em><b>COLUMNSBASEDONSCHEMA</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEMS_TYPE__COLUMNSBASEDONSCHEMA = eINSTANCE.getITEMSType_COLUMNSBASEDONSCHEMA();
 
         /**
          * The meta object literal for the '<em><b>DEFAULT</b></em>' attribute feature.

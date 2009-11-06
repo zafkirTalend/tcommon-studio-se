@@ -275,6 +275,8 @@
 				use="optional" default="false" />
 			<xs:attribute name="BASED_ON_INPUT_SCHEMAS" type="xs:boolean"
 				use="optional" default="false"></xs:attribute>
+			<xs:attribute name="COLUMNS_BASED_ON_SCHEMA" type="xs:boolean"
+				use="optional" default="false"></xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PLUGINDEPENDENCIES">

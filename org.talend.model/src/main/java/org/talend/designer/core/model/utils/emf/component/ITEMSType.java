@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isCOLUMNSBASEDONSCHEMA <em>COLUMNSBASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -222,6 +223,61 @@ public interface ITEMSType extends EObject {
      * @generated
      */
     boolean isSetBASEDONSUBJOBSTARTS();
+
+    /**
+     * Returns the value of the '<em><b>COLUMNSBASEDONSCHEMA</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>COLUMNSBASEDONSCHEMA</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>COLUMNSBASEDONSCHEMA</em>' attribute.
+     * @see #isSetCOLUMNSBASEDONSCHEMA()
+     * @see #unsetCOLUMNSBASEDONSCHEMA()
+     * @see #setCOLUMNSBASEDONSCHEMA(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_COLUMNSBASEDONSCHEMA()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='COLUMNS_BASED_ON_SCHEMA' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isCOLUMNSBASEDONSCHEMA();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isCOLUMNSBASEDONSCHEMA <em>COLUMNSBASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>COLUMNSBASEDONSCHEMA</em>' attribute.
+     * @see #isSetCOLUMNSBASEDONSCHEMA()
+     * @see #unsetCOLUMNSBASEDONSCHEMA()
+     * @see #isCOLUMNSBASEDONSCHEMA()
+     * @generated
+     */
+    void setCOLUMNSBASEDONSCHEMA(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isCOLUMNSBASEDONSCHEMA <em>COLUMNSBASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetCOLUMNSBASEDONSCHEMA()
+     * @see #isCOLUMNSBASEDONSCHEMA()
+     * @see #setCOLUMNSBASEDONSCHEMA(boolean)
+     * @generated
+     */
+    void unsetCOLUMNSBASEDONSCHEMA();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isCOLUMNSBASEDONSCHEMA <em>COLUMNSBASEDONSCHEMA</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>COLUMNSBASEDONSCHEMA</em>' attribute is set.
+     * @see #unsetCOLUMNSBASEDONSCHEMA()
+     * @see #isCOLUMNSBASEDONSCHEMA()
+     * @see #setCOLUMNSBASEDONSCHEMA(boolean)
+     * @generated
+     */
+    boolean isSetCOLUMNSBASEDONSCHEMA();
 
     /**
      * Returns the value of the '<em><b>DEFAULT</b></em>' attribute.

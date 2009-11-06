@@ -32,6 +32,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONINPUTSCHEMAS <em>BASEDONINPUTSCHEMAS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSUBJOBSTARTS <em>BASEDONSUBJOBSTARTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isCOLUMNSBASEDONSCHEMA <em>COLUMNSBASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -135,6 +136,35 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @ordered
      */
     protected boolean bASEDONSUBJOBSTARTSESet;
+
+    /**
+     * The default value of the '{@link #isCOLUMNSBASEDONSCHEMA() <em>COLUMNSBASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCOLUMNSBASEDONSCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean COLUMNSBASEDONSCHEMA_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isCOLUMNSBASEDONSCHEMA() <em>COLUMNSBASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCOLUMNSBASEDONSCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected boolean cOLUMNSBASEDONSCHEMA = COLUMNSBASEDONSCHEMA_EDEFAULT;
+
+    /**
+     * This is true if the COLUMNSBASEDONSCHEMA attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean cOLUMNSBASEDONSCHEMAESet;
 
     /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
@@ -330,6 +360,52 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isCOLUMNSBASEDONSCHEMA() {
+        return cOLUMNSBASEDONSCHEMA;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOLUMNSBASEDONSCHEMA(boolean newCOLUMNSBASEDONSCHEMA) {
+        boolean oldCOLUMNSBASEDONSCHEMA = cOLUMNSBASEDONSCHEMA;
+        cOLUMNSBASEDONSCHEMA = newCOLUMNSBASEDONSCHEMA;
+        boolean oldCOLUMNSBASEDONSCHEMAESet = cOLUMNSBASEDONSCHEMAESet;
+        cOLUMNSBASEDONSCHEMAESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__COLUMNSBASEDONSCHEMA, oldCOLUMNSBASEDONSCHEMA, cOLUMNSBASEDONSCHEMA, !oldCOLUMNSBASEDONSCHEMAESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetCOLUMNSBASEDONSCHEMA() {
+        boolean oldCOLUMNSBASEDONSCHEMA = cOLUMNSBASEDONSCHEMA;
+        boolean oldCOLUMNSBASEDONSCHEMAESet = cOLUMNSBASEDONSCHEMAESet;
+        cOLUMNSBASEDONSCHEMA = COLUMNSBASEDONSCHEMA_EDEFAULT;
+        cOLUMNSBASEDONSCHEMAESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__COLUMNSBASEDONSCHEMA, oldCOLUMNSBASEDONSCHEMA, COLUMNSBASEDONSCHEMA_EDEFAULT, oldCOLUMNSBASEDONSCHEMAESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetCOLUMNSBASEDONSCHEMA() {
+        return cOLUMNSBASEDONSCHEMAESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getDEFAULT() {
         return dEFAULT;
     }
@@ -376,6 +452,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
                 return isBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
                 return isBASEDONSUBJOBSTARTS() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.ITEMS_TYPE__COLUMNSBASEDONSCHEMA:
+                return isCOLUMNSBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return getDEFAULT();
         }
@@ -404,6 +482,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
                 setBASEDONSUBJOBSTARTS(((Boolean)newValue).booleanValue());
                 return;
+            case ComponentPackage.ITEMS_TYPE__COLUMNSBASEDONSCHEMA:
+                setCOLUMNSBASEDONSCHEMA(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT((String)newValue);
                 return;
@@ -431,6 +512,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
                 unsetBASEDONSUBJOBSTARTS();
                 return;
+            case ComponentPackage.ITEMS_TYPE__COLUMNSBASEDONSCHEMA:
+                unsetCOLUMNSBASEDONSCHEMA();
+                return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT(DEFAULT_EDEFAULT);
                 return;
@@ -454,6 +538,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
                 return isSetBASEDONSCHEMA();
             case ComponentPackage.ITEMS_TYPE__BASEDONSUBJOBSTARTS:
                 return isSetBASEDONSUBJOBSTARTS();
+            case ComponentPackage.ITEMS_TYPE__COLUMNSBASEDONSCHEMA:
+                return isSetCOLUMNSBASEDONSCHEMA();
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
         }
@@ -476,6 +562,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
         result.append(", bASEDONSUBJOBSTARTS: ");
         if (bASEDONSUBJOBSTARTSESet) result.append(bASEDONSUBJOBSTARTS); else result.append("<unset>");
+        result.append(", cOLUMNSBASEDONSCHEMA: ");
+        if (cOLUMNSBASEDONSCHEMAESet) result.append(cOLUMNSBASEDONSCHEMA); else result.append("<unset>");
         result.append(", dEFAULT: ");
         result.append(dEFAULT);
         result.append(')');
