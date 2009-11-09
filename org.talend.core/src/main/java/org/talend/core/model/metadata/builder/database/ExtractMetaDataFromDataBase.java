@@ -955,24 +955,35 @@ public class ExtractMetaDataFromDataBase {
                     stmt.close();
                 }
             } else {
+                Set<String> nameFiters = tableInfoParameters.getNameFilters();
                 // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
                 if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver")
                         && ExtractMetaDataUtils.isUseAllSynonyms()) {
                     String sql = GET_ALL_SYNONYMS;
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                     ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-                    ResultSet rsTables = stmt.executeQuery(sql);
-                    itemTablesName = getTableNamesFromQuery(rsTables);
-                    rsTables.close();
-                    stmt.close();
-
+                    if (!nameFiters.isEmpty()) { // hywang add for bug 0009889
+                        for (String s : nameFiters) {
+                            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
+                                    tableInfoParameters, s, iMetadataConnection.getDbType()));
+                            for (String string : tableNamesFromTables) {
+                                if (!itemTablesName.contains(string)) {
+                                    itemTablesName.add(string);
+                                }
+                            }
+                        }
+                    } else {
+                        ResultSet rsTables = stmt.executeQuery(sql);
+                        itemTablesName = getTableNamesFromQuery(rsTables);
+                        rsTables.close();
+                        stmt.close();
+                    }
                     // tableTypeMap.clear();
                     for (String synonymName : itemTablesName) {
                         tableTypeMap.put(synonymName, ETableTypes.TABLETYPE_SYNONYM.getName());
                     }
 
                 } else {
-                    Set<String> nameFiters = tableInfoParameters.getNameFilters();
                     if (nameFiters.isEmpty()) {
                         itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters,
                                 "", iMetadataConnection.getDbType())); //$NON-NLS-1$
