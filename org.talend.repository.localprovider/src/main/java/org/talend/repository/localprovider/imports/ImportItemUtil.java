@@ -423,7 +423,13 @@ public class ImportItemUtil {
                 }
 
                 if (lastVersion == null) {
+                    boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
                     repFactory.create(tmpItem, path, true);
+                    if (originalDeleteState) {
+                        IRepositoryObject deleteObject = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                                tmpItem.getProperty().getId());
+                        repFactory.deleteObjectLogical(deleteObject);
+                    }
                     itemRecord.setImportPath(path.toPortableString());
                     itemRecord.setRepositoryType(itemType);
                     itemRecord.setItemId(itemRecord.getProperty().getId());
