@@ -15,9 +15,11 @@ package org.talend.core.model.update;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,6 +49,7 @@ import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
+import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
@@ -78,7 +81,7 @@ public abstract class RepositoryUpdateManager {
     /**
      * for context group
      */
-    private List<IContext> repositoryAddGroupContext = new ArrayList<IContext>();
+   private Map<ContextItem, List<IContext>> repositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
 
     /**
      * used for filter result.
@@ -109,12 +112,12 @@ public abstract class RepositoryUpdateManager {
         this.repositoryRenamedMap = repositoryRenamedMap;
     }
 
-    public List<IContext> getRepositoryAddGroupContext() {
-        return this.repositoryAddGroupContext;
+    public Map<ContextItem, List<IContext>> getRepositoryAddGroupContext() {
+        return this.repositoryContextGroupMap;
     }
 
-    public void setRepositoryAddGroupContext(List<IContext> repositoryAddGroupContext) {
-        this.repositoryAddGroupContext = repositoryAddGroupContext;
+    public void setRepositoryAddGroupContext(Map<ContextItem, List<IContext>> repositoryContextGroupMap) {
+        this.repositoryContextGroupMap = repositoryContextGroupMap;
     }
 
     /*
@@ -277,7 +280,28 @@ public abstract class RepositoryUpdateManager {
                 }
                 // for context group
                 if (result.getUpdateType() == EUpdateItemType.CONTEXT_GROUP && result.getResultType() == EUpdateResult.ADD) {
-                    checkedResults.add(result);
+                    Object job = result.getJob();
+                    if (parameter instanceof ContextItem && job instanceof IProcess2) {
+                        ContextItem contextItem = (ContextItem) parameter;
+                        String sourceLabel = contextItem.getProperty().getLabel();
+                        IProcess2 relatedJob = (IProcess2) job;
+                        if (relatedJob != null) {
+                            List<IContext> listContext = relatedJob.getContextManager().getListContext();
+                            List<String> existSource = new ArrayList<String>();
+                            for (IContext context : listContext) {
+                                for (IContextParameter param : context.getContextParameterList()) {
+                                    String source = param.getSource();
+                                    if (source != null && !existSource.contains(source)) {
+                                        existSource.add(source);
+                                    }
+                                }
+                            }
+                            if (existSource.contains(sourceLabel)) {
+                                checkedResults.add(result);
+                            }
+                        }
+
+                    }
                 } else if (result.getUpdateType() == EUpdateItemType.CONTEXT && result.getResultType() == EUpdateResult.ADD) {
                     ConnectionItem contextModeConnectionItem = result.getContextModeConnectionItem();
                     // for context mode
@@ -576,13 +600,22 @@ public abstract class RepositoryUpdateManager {
         List<UpdateResult> resultList = new ArrayList<UpdateResult>();
         if (process instanceof IProcess2) {
             IProcess2 process2 = (IProcess2) process;
-            // context rename
+            // context rename and  context group
             IContextManager contextManager = process2.getContextManager();
             if (contextManager instanceof JobContextManager) {
                 JobContextManager jobContextManager = (JobContextManager) contextManager;
                 jobContextManager.setRepositoryRenamedMap(getContextRenamedMap());
                 jobContextManager.setNewParametersMap(getNewParametersMap());
-                jobContextManager.setAddGroupContext(getRepositoryAddGroupContext());
+                Map<ContextItem, List<IContext>> repositoryAddGroupContext = getRepositoryAddGroupContext();
+                Collection<List<IContext>> values = repositoryAddGroupContext.values();
+                Iterator<List<IContext>> iterator = values.iterator();
+                List<IContext> listIContext = new ArrayList<IContext>();
+                if (iterator != null && iterator.hasNext()) {
+                    List<IContext> next = iterator.next();
+                    listIContext.addAll(next);
+                }
+                jobContextManager.setAddGroupContext(listIContext);
+                jobContextManager.setAddContextGroupMap(repositoryAddGroupContext);
             }
             // schema rename
             IUpdateManager updateManager = process2.getUpdateManager();
@@ -1011,10 +1044,12 @@ public abstract class RepositoryUpdateManager {
         };
         if (repositoryContextManager != null) {
             // add for bug 9119 context group
+            Map<ContextItem, List<IContext>> repositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
             List<IContext> addGroupContext = repositoryContextManager.getAddGroupContext();
             if (!addGroupContext.isEmpty()) {
-                repositoryUpdateManager.setRepositoryAddGroupContext(addGroupContext);
+                repositoryContextGroupMap.put(item, addGroupContext);
             }
+            repositoryUpdateManager.setRepositoryAddGroupContext(repositoryContextGroupMap);
 
             Map<ContextItem, Map<String, String>> repositoryRenamedMap = new HashMap<ContextItem, Map<String, String>>();
             if (!repositoryContextManager.getNameMap().isEmpty()) {

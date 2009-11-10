@@ -85,6 +85,17 @@ public class JobContextManager implements IContextManager {
      */
     private List<IContext> addGroupContext = new ArrayList<IContext>();
 
+    // add this for remark
+    private Map<ContextItem, List<IContext>> addContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+
+    public Map<ContextItem, List<IContext>> getAddContextGroupMap() {
+        return this.addContextGroupMap;
+    }
+
+    public void setAddContextGroupMap(Map<ContextItem, List<IContext>> addContextGroupMap) {
+        this.addContextGroupMap = addContextGroupMap;
+    }
+
     public JobContextManager() {
         listContext.add(defaultContext);
     }

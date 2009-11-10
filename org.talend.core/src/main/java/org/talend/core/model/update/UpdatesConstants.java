@@ -52,6 +52,8 @@ public final class UpdatesConstants {
 
     public static final String CONTEXT = Messages.getString("UpdatesConstants.Context"); //$NON-NLS-1$
 
+    public static final String CONTEXT_GROUP = Messages.getString("UpdatesConstants.ContextGroup"); //$NON-NLS-1$
+
     public static final String COMPONENT = Messages.getString("UpdatesConstants.Component"); //$NON-NLS-1$
 
     public static final String JOBLET = Messages.getString("UpdatesConstants.Joblet"); //$NON-NLS-1$
