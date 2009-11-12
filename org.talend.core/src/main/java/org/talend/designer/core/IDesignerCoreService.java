@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
@@ -99,6 +100,8 @@ public interface IDesignerCoreService extends IService {
     public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root);
 
     public PaletteRoot createPalette(IComponentsFactory compFac, PaletteRoot root, boolean isFavorite);
+
+    public PaletteDrawer createTalendPaletteDrawer(String family);
 
     public IAction getCreateProcessAction(boolean isToolbar);
 

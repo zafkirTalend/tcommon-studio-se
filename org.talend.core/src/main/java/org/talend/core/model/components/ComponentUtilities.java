@@ -13,18 +13,38 @@
 package org.talend.core.model.components;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
+import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.IFilter;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -35,6 +55,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.ComponentsFactoryProvider;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -59,6 +80,10 @@ public class ComponentUtilities {
     public static final String JOBLET_NAME_CHANGED = "joblet name changed"; //$NON-NLS-1$
 
     public static final String JOBLET_SCHEMA_CHANGED = "joblet schema changed"; //$NON-NLS-1$
+
+    private static final String FAMILY_HIER_SEPARATOR = "/"; //$NON-NLS-1$
+
+    private static final String FAMILY_SPEARATOR = "--FAMILY--"; //$NON-NLS-1$
 
     private static PaletteRoot paletteRoot;
 
@@ -386,6 +411,250 @@ public class ComponentUtilities {
             path = folder + "-" + workspaceName; //$NON-NLS-1$
         }
         return path;
+    }
+
+    public static PaletteRoot createPaletteRootWithAllComponents() {
+        Map<String, ImageDescriptor> allComponentsCanBeProvided = ComponentsFactoryProvider.getInstance()
+                .getAllComponentsCanBeProvided();
+        Set<String> components = allComponentsCanBeProvided.keySet();
+
+        List<String> families = new ArrayList<String>();
+        Hashtable<String, PaletteDrawer> ht = new Hashtable<String, PaletteDrawer>();
+        PaletteRoot palette = new PaletteRoot();
+
+        // for family folders
+        for (String nameAndFamily : components) {
+            String[] split = nameAndFamily.split(FAMILY_SPEARATOR);
+            if (split.length != 2) {
+                continue;
+            }
+            families.add(split[0]);
+        }
+        Collections.sort(families);
+        for (Iterator iter = families.iterator(); iter.hasNext();) {
+            String oraFam = (String) iter.next();
+            String family = getTranslatedFamilyName(oraFam);
+            PaletteDrawer componentsDrawer = ht.get(family);
+            if (componentsDrawer == null) {
+                componentsDrawer = createComponentDrawer(palette, ht, family);
+                componentsDrawer.setOriginalName(oraFam);
+            }
+
+        }
+
+        // for components
+        for (String nameAndFamily : components) {
+            String[] split = nameAndFamily.split(FAMILY_SPEARATOR);
+            if (split.length != 2) {
+                continue;
+            }
+            String family = getTranslatedFamilyName(split[0]);
+            String[] strings = family.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
+            for (int j = 0; j < strings.length; j++) {
+                ImageDescriptor imageDescriptor = allComponentsCanBeProvided.get(nameAndFamily);
+                CombinedTemplateCreationEntry component = new CombinedTemplateCreationEntry(split[1], split[1], null, null,
+                        imageDescriptor, imageDescriptor);
+                PaletteDrawer componentsDrawer = ht.get(strings[j]);
+                component.setParent(componentsDrawer);
+                componentsDrawer.add(component);
+            }
+        }
+
+        return palette;
+    }
+
+    private static String getTranslatedFamilyName(String originalName) {
+        String familyTranslation = ComponentsFactoryProvider.getInstance().getFamilyTranslation(null, originalName);
+        if (familyTranslation.startsWith("!!")) {
+            return originalName;
+        }
+
+        return familyTranslation;
+    }
+
+    private static PaletteDrawer createComponentDrawer(PaletteRoot palette, Hashtable<String, PaletteDrawer> ht,
+            String familyToCreate) {
+
+        int index = familyToCreate.lastIndexOf(FAMILY_HIER_SEPARATOR);
+        String family;
+        PaletteDrawer parentPaletteDrawer = null;
+
+        if (index > -1) {
+            family = familyToCreate.substring(index + 1);
+            String parentFamily = familyToCreate.substring(0, index);
+            parentPaletteDrawer = ht.get(parentFamily);
+            if (parentPaletteDrawer == null) {
+                parentPaletteDrawer = createComponentDrawer(palette, ht, parentFamily);
+            }
+        } else {
+            family = familyToCreate;
+        }
+
+        PaletteDrawer paletteDrawer = CorePlugin.getDefault().getDesignerCoreService().createTalendPaletteDrawer(family);
+        if (parentPaletteDrawer == null) {
+            palette.add(paletteDrawer);
+        } else {
+            parentPaletteDrawer.add(paletteDrawer);
+        }
+        ht.put(familyToCreate, paletteDrawer);
+
+        return paletteDrawer;
+    }
+
+    public static Set<String> getComponentsUsedInProjects(List<Project> projects, boolean fromProcessType) {
+        Set<String> components = new HashSet<String>();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
+
+        try {
+            for (Project project : projects) {
+                List<IRepositoryObject> allProcess = repositoryFactory.getAll(project, ERepositoryObjectType.PROCESS, true);
+                List<IRepositoryObject> allJoblet = repositoryFactory.getAll(project, ERepositoryObjectType.JOBLET, true);
+                addUsedComponents(components, allProcess, fromProcessType);
+                addUsedComponents(components, allJoblet, fromProcessType);
+
+            }
+
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return components;
+    }
+
+    private static void addUsedComponents(Set<String> components, List<IRepositoryObject> allProcess, boolean fromProcessType) {
+        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        for (IRepositoryObject object : allProcess) {
+            Item item = object.getProperty().getItem();
+            List parameters = null;
+            if (!fromProcessType) {
+                IProcess process = null;
+                if (item instanceof ProcessItem) {
+                    process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
+                } else if (item instanceof JobletProcessItem) {
+                    process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
+                }
+                // components used in process
+                List<? extends INode> nodes = process.getGraphicalNodes();
+                for (INode node : nodes) {
+                    IComponent component = node.getComponent();
+                    components.add(component.getOriginalFamilyName() + FAMILY_SPEARATOR + component.getName());
+                }
+                // used in stats&log and implicite
+                parameters = process.getElementParameters();
+            } else {
+                ProcessType process = null;
+                if (item instanceof ProcessItem) {
+                    process = ((ProcessItem) item).getProcess();
+                } else if (item instanceof JobletProcessItem) {
+                    process = ((JobletProcessItem) item).getJobletProcess();
+                }
+                EList nodes = process.getNode();
+                for (Object node : nodes) {
+                    NodeType nodeType = (NodeType) node;
+                    components.add(nodeType.getComponentName());
+                }
+                parameters = process.getParameters().getElementParameter();
+            }
+            Set<String> inStatsLogsAndImplicit = getComponentsInStatsLogsAndImplicit(parameters, fromProcessType);
+            if (inStatsLogsAndImplicit != null) {
+                components.addAll(inStatsLogsAndImplicit);
+            }
+
+        }
+    }
+
+    private static Set<String> getComponentsInStatsLogsAndImplicit(List parameters, boolean fromProcessType) {
+        Set<String> components = new HashSet<String>();
+        for (Object obj : parameters) {
+            String paramName = null;
+            Object value = null;
+            if (obj instanceof IElementParameter) {
+                IElementParameter param = (IElementParameter) obj;
+                paramName = param.getName();
+                value = param.getValue();
+            } else if (obj instanceof ElementParameterType) {
+                ElementParameterType param = (ElementParameterType) obj;
+                paramName = param.getName();
+                value = param.getValue();
+            }
+            if (value == null) {
+                continue;
+            }
+            if ("ON_STATCATCHER_FLAG".equals(paramName)) {
+                addComponent(components, "tStatCatcher", value, fromProcessType);
+            } else if ("ON_METERCATCHER_FLAG".equals(paramName)) {
+                addComponent(components, "tFlowMeterCatcher", value, fromProcessType);
+            } else if ("ON_LOGCATCHER_FLAG".equals(paramName)) {
+                addComponent(components, "tLogCatcher", value, fromProcessType);
+            } else if ("ON_CONSOLE_FLAG".equals(paramName)) {
+                addComponent(components, "tLogRow", value, fromProcessType);
+            } else if ("ON_FILES_FLAG".equals(paramName)) {
+                addComponent(components, "tFileOutputDelimited", value, fromProcessType);
+            } else if ("ON_DATABASE_FLAG".equals(paramName)) {
+                String usedDatabase = getUsedDatabase(parameters, "DB_TYPE");
+                if (usedDatabase != null) {
+                    addComponent(components, usedDatabase, value, fromProcessType);
+                }
+            } else if ("IMPLICIT_TCONTEXTLOAD".equals(paramName)) {
+                addComponent(components, "tContextLoad", value, fromProcessType);
+            } else if ("FROM_FILE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) {
+                addComponent(components, "tFileInputDelimited", value, fromProcessType);
+            } else if ("FROM_DATABASE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) {
+                String usedDatabase = getUsedDatabase(parameters, "DB_TYPE_IMPLICIT_CONTEXT");
+                if (usedDatabase != null) {
+                    addComponent(components, usedDatabase, value, fromProcessType);
+                }
+
+            }
+        }
+        return components;
+    }
+
+    private static void addComponent(Set<String> components, String name, Object value, boolean fromProcessType) {
+        if (Boolean.TRUE.equals(Boolean.valueOf(value.toString()))) {
+            if (fromProcessType) {
+                // when open a projcet
+                components.add(name);
+            } else if (getComponentFamily(name) != null) {
+                // for when set palette in project settings
+                components.add(getComponentFamily(name) + FAMILY_SPEARATOR + name);
+            }
+        }
+    }
+
+    private static String getComponentFamily(String componentName) {
+        List<IComponent> components = ComponentsFactoryProvider.getInstance().getComponents();
+        for (IComponent component : components) {
+            if (component.getName().equals(componentName)) {
+                return component.getOriginalFamilyName();
+            }
+        }
+        return null;
+
+    }
+
+    private static String getUsedDatabase(List parameters, String typeName) {
+        for (Object obj : parameters) {
+            String paramName = null;
+            Object value = null;
+            String field = null;
+            if (obj instanceof IElementParameter) {
+                IElementParameter param = (IElementParameter) obj;
+                paramName = param.getName();
+                value = param.getValue();
+                field = param.getField().getName();
+            } else if (obj instanceof ElementParameterType) {
+                ElementParameterType param = (ElementParameterType) obj;
+                paramName = param.getName();
+                value = param.getValue();
+                field = param.getField();
+            }
+            if (EParameterFieldType.CLOSED_LIST.getName().equals(field) && typeName.equals(paramName)) {
+                if (value != null) {
+                    return value.toString();
+                }
+            }
+        }
+        return null;
     }
 
 }

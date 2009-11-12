@@ -15,6 +15,9 @@ package org.talend.core.model.components;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
  * Defines methods to use components. Implementation from extension point is given by ComponentsFactoryProvider<br/>
@@ -47,4 +50,6 @@ public interface IComponentsFactory {
     public String getFamilyTranslation(IComponent component, String text);
 
     public void loadUserComponentsFromComponentsProviderExtension();
+
+    public Map<String, ImageDescriptor> getAllComponentsCanBeProvided();
 }
