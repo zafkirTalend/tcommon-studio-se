@@ -82,16 +82,14 @@ public class TimeMeasure {
             }
             return -1;
         } else {
-            TimeStack times = timers.get(idTimer);
+            TimeStack timeStack = timers.get(idTimer);
             timers.remove(idTimer);
-            if (times.hasManySteps()) {
-                long elapsedTimeSinceLastRequest = times.getElapsedTimeSinceLastRequest();
-                if (display && displaySteps) {
-                    System.out.println(indent(indent) + "End '" + idTimer + "', elapsed time since last request: " //$NON-NLS-1$  //$NON-NLS-2$
-                            + elapsedTimeSinceLastRequest + " ms "); //$NON-NLS-1$
-                }
+            long elapsedTimeSinceLastRequest = timeStack.getLastStepElapsedTime();
+            if (display && displaySteps) {
+                System.out.println(indent(indent) + "End '" + idTimer + "', elapsed time since last request: " //$NON-NLS-1$  //$NON-NLS-2$
+                        + elapsedTimeSinceLastRequest + " ms "); //$NON-NLS-1$
             }
-            long totalElapsedTime = times.getTotalElapsedTime();
+            long totalElapsedTime = timeStack.getTotalElapsedTime();
             if (display) {
                 System.out.println(indent(indent) + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
             }
@@ -144,9 +142,9 @@ public class TimeMeasure {
             }
             return -1;
         } else {
-            TimeStack times = timers.get(idTimer);
-            long time = times.getElapsedTimeSinceLastRequest();
-            times.addStep(false);
+            TimeStack timeStack = timers.get(idTimer);
+            timeStack.addStep();
+            long time = timeStack.getLastStepElapsedTime();
             if (display && displaySteps) {
                 System.out.println(indent(indent) + "-> '" + idTimer + "', step name '" + stepName //$NON-NLS-1$  //$NON-NLS-2$
                         + "', elapsed time since previous step: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$
@@ -166,9 +164,9 @@ public class TimeMeasure {
             }
             return;
         } else {
-            TimeStack times = timers.get(idTimer);
+            TimeStack time = timers.get(idTimer);
             // long time = times.getElapsedTimeSinceLastRequest();
-            times.addStep(true);
+            time.pause();
             if (display) {
             }
         }
@@ -186,8 +184,8 @@ public class TimeMeasure {
             return;
         } else {
             TimeStack times = timers.get(idTimer);
-            long time = times.getElapsedTimeSinceLastRequest();
-            times.addStep(false);
+            long time = times.getLastStepElapsedTime();
+            times.resume();
             if (display) {
             }
         }

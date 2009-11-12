@@ -12,76 +12,101 @@
 // ============================================================================
 package org.talend.commons.utils.time;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Manage a stack of time events. These events could be start, step or pause.
  */
 class TimeStack {
 
-    private List<TimeElement> steps;
+    long elapsedTime;
+
+    long previousTimeResume;
+
+    long previousElapsedTimeSinceLastStep;
+
+    long previousStepTime;
+
+    boolean isPaused = false;
+
+    // private long previousElpasedTimeSinceLastStep;
+
+    private boolean testMode = false;
+
+    private int testModeIndex;
+
+    private long currentElapsedTimeSinceLastStep;
 
     public TimeStack() {
-        steps = new ArrayList<TimeElement>();
-        steps.add(new TimeElement());
+        previousStepTime = previousTimeResume = getCurrentTime();
+
     }
 
-    public void addStep(boolean pause) {
-        steps.add(new TimeElement(pause));
-    }
-
-    public boolean hasManySteps() {
-        return steps.size() > 1;
+    public void setTestMode(boolean testMode) {
+        this.testMode = testMode;
     }
 
     public long getTotalElapsedTime() {
-        long currentTime = System.currentTimeMillis();
-        long toReturn = 0;
-        for (int i = steps.size() - 1; i >= 0; i--) {
-            TimeElement current = steps.get(i);
-            if (!current.pause) {
-                toReturn += currentTime - current.start;
-            }
-            currentTime = current.start;
+        if (isPaused) {
+            return elapsedTime;
+        } else {
+            return elapsedTime + getCurrentTime() - previousTimeResume;
         }
-        return toReturn;
     }
 
-    public long getElapsedTimeSinceLastRequest() {
-        long currentTime = System.currentTimeMillis();
-        for (int i = steps.size() - 1; i >= 0; i--) {
-            TimeElement current = steps.get(i);
-            if (!current.pause) {
-                return currentTime - current.start;
-            } else {
-                currentTime = current.start;
-            }
-        }
-        return -1;
+    public long getLastStepElapsedTime() {
+        // if (isPaused) {
+        // } else {
+        // return elpasedTimeSinceLastStep;
+        // }
+        // return previousElpasedTimeSinceLastStep;
+        return previousElapsedTimeSinceLastStep;
     }
 
-    /**
-     * Represents an element on the stack.
-     */
-    private static class TimeElement {
-
-        public long start; // date when this event occurs
-
-        public boolean pause; // indicates if this element is a pause (true) or a start or step (false)
-
-        public TimeElement(long start, boolean pause) {
-            this.start = start;
-            this.pause = pause;
+    public void pause() {
+        if (isPaused) {
+            new Exception("Pause can't be done").printStackTrace();
+        } else {
+            long currentTime = getCurrentTime();
+            elapsedTime += currentTime - previousTimeResume;
+            currentElapsedTimeSinceLastStep += currentTime - previousStepTime;
+            // previousTime = System.currentTimeMillis();
+            isPaused = true;
         }
+    }
 
-        public TimeElement() {
-            this(System.currentTimeMillis(), false);
+    private long getCurrentTime() {
+
+        int[] times = { 0, 20, 50, 120, 230, 370, 390 };
+
+        if (testMode) {
+            int time = times[testModeIndex++];
+            return time;
+        } else {
+            return System.currentTimeMillis();
         }
+    }
 
-        public TimeElement(boolean pause) {
-            this(System.currentTimeMillis(), pause);
+    public void resume() {
+        long currentTime = getCurrentTime();
+        if (!isPaused) {
+            new Exception("Resume can't be done").printStackTrace();
+        } else {
+            previousStepTime = previousTimeResume = currentTime;
+            isPaused = false;
         }
+    }
 
+    public void addStep() {
+        long currentTime = getCurrentTime();
+        long tempElapsedTime = currentTime - previousStepTime;
+        if (isPaused) {
+            // previousElpasedTimeSinceLastStep = elpasedTimeSinceLastStep;
+            // elpasedTimeSinceLastStep = 0;
+            previousElapsedTimeSinceLastStep = currentElapsedTimeSinceLastStep;
+        } else {
+            // previousElpasedTimeSinceLastStep = elpasedTimeSinceLastStep + tempElapsedTime;
+            previousElapsedTimeSinceLastStep = currentElapsedTimeSinceLastStep + tempElapsedTime;
+        }
+        currentElapsedTimeSinceLastStep = 0;
+        previousStepTime = currentTime;
     }
 }
