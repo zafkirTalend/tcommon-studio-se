@@ -464,12 +464,36 @@ public class ComponentUtilities {
     }
 
     private static String getTranslatedFamilyName(String originalName) {
-        String familyTranslation = ComponentsFactoryProvider.getInstance().getFamilyTranslation(null, originalName);
-        if (familyTranslation.startsWith("!!")) {
-            return originalName;
+        IComponentsFactory factory = ComponentsFactoryProvider.getInstance();
+        String families[] = originalName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
+        String translatedFamilyName = "";
+        int nbTotal = families.length;
+        int nb = 0;
+        for (Object objFam : families) {
+            String curFamily = (String) objFam;
+            String[] namesToTranslate = curFamily.split("/"); //$NON-NLS-1$
+            int nbSubTotal = namesToTranslate.length;
+            int nbSub = 0;
+            for (String toTranslate : namesToTranslate) {
+                String translated = factory.getFamilyTranslation(originalName, "FAMILY." + toTranslate.replace(" ", "_")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                if (translated.startsWith("!!")) { //$NON-NLS-1$
+                    // no key to translate, so use original
+                    translatedFamilyName += toTranslate;
+                } else {
+                    translatedFamilyName += translated;
+                }
+                nbSub++;
+                if (nbSubTotal != nbSub) {
+                    translatedFamilyName += "/"; //$NON-NLS-1$
+                }
+            }
+            nb++;
+            if (nbTotal != nb) {
+                translatedFamilyName += "|"; //$NON-NLS-1$
+            }
         }
 
-        return familyTranslation;
+        return translatedFamilyName;
     }
 
     private static PaletteDrawer createComponentDrawer(PaletteRoot palette, Hashtable<String, PaletteDrawer> ht,
@@ -536,9 +560,12 @@ public class ComponentUtilities {
                 List<? extends INode> nodes = process.getGraphicalNodes();
                 for (INode node : nodes) {
                     IComponent component = node.getComponent();
-                    components.add(component.getOriginalFamilyName() + FAMILY_SPEARATOR + component.getName());
+                    String originalFamilyName = component.getOriginalFamilyName();
+                    String original[] = originalFamilyName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
+                    for (int i = 0; i < original.length; i++) {
+                        components.add(original[i] + FAMILY_SPEARATOR + component.getName());
+                    }
                 }
-                // used in stats&log and implicite
                 parameters = process.getElementParameters();
             } else {
                 ProcessType process = null;
@@ -554,6 +581,7 @@ public class ComponentUtilities {
                 }
                 parameters = process.getParameters().getElementParameter();
             }
+            // used in stats&log and implicite
             Set<String> inStatsLogsAndImplicit = getComponentsInStatsLogsAndImplicit(parameters, fromProcessType);
             if (inStatsLogsAndImplicit != null) {
                 components.addAll(inStatsLogsAndImplicit);
