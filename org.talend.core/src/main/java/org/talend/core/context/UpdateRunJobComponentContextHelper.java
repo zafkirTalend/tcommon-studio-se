@@ -23,6 +23,8 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
@@ -44,6 +46,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 public final class UpdateRunJobComponentContextHelper {
 
     private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS"; //$NON-NLS-1$
+
+    private static final String PROCESS_TYPE_CONTEXT = "PROCESS_TYPE_CONTEXT"; //$NON-NLS-1$
 
     private static final String CONTEXTPARAMS = "CONTEXTPARAMS"; //$NON-NLS-1$
 
@@ -285,4 +289,63 @@ public final class UpdateRunJobComponentContextHelper {
         return modified;
     }
 
+    @SuppressWarnings("unchecked")
+    public static synchronized void updateRefJobRunJobComponentContext(final IProxyRepositoryFactory factory,
+            final List<ProcessItem> refProcesses, final IProcess refProcess) {
+        if (refProcesses == null || refProcess == null) {
+            return;
+        }
+        String id = refProcess.getId();
+        if (id == null) {
+            return;
+        }
+        boolean changed = false;
+        for (ProcessItem processItem : refProcesses) {
+            if (processItem.getProperty().getId().equals(id)) {
+                continue;
+            }
+
+            for (NodeType foundNode : foundRunJobNodeType(processItem)) {
+                // found tRunJob node
+                boolean found = false;
+
+                for (ElementParameterType paramType : (List<ElementParameterType>) foundNode.getElementParameter()) {
+                    String value = paramType.getValue();
+                    if (paramType.getName().endsWith(PROCESS_TYPE_PROCESS) && value.equals(id)) {
+                        found = true;
+                        continue;
+                    }
+                    if (found && paramType.getName().endsWith(PROCESS_TYPE_CONTEXT)) {
+                        IContextManager contextManager = refProcess.getContextManager();
+                        List<IContext> listContext = contextManager.getListContext();
+                        boolean exist = false;
+                        for (IContext con : listContext) {
+                            String name = con.getName();
+                            if (((String) value).equals(name)) {
+                                exist = true;
+                                break;
+                            }
+                        }
+
+                        if (!exist) {
+                            paramType.setValue(contextManager.getDefaultContext().getName());
+                            changed = true;
+                        } else {
+                            paramType.setValue(value);
+                        }
+                        // save related job if default context changed
+                        if (changed) {
+                            try {
+                                factory.save(processItem);
+                            } catch (PersistenceException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
 }

@@ -279,7 +279,7 @@ public abstract class ObjectSelectionDialog<B> extends SelectionDialog {
     /**
      * Removes the selected working sets from the workbench.
      */
-    private void removeSelectedContexts() {
+    protected void removeSelectedContexts() {
         ISelection selection = fTableViewer.getSelection();
         if (selection instanceof IStructuredSelection) {
             Iterator<B> iter = ((IStructuredSelection) selection).iterator();

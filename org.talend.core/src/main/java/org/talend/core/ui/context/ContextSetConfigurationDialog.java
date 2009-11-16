@@ -233,6 +233,14 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         }
     }
 
+    protected void removeSelectedContexts() {
+        super.removeSelectedContexts();
+        IContextManager contextManager = manager.getContextManager();
+        JobContextManager jobContextManager = (JobContextManager) contextManager;
+        jobContextManager.setModified(true);
+
+    }
+
     @Override
     protected void editSelectedElement() {
 
