@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mdm Plug-in
+Bundle-SymbolicName: org.talend.repository.mdm;singleton:=true
+Bundle-Version: 3.0.0.qualifier
+Bundle-Activator: org.talend.repository.mdm.MDMPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.talend.commons.ui,
+ org.talend.designer.core,
+ org.eclipse.xsd,
+ org.apache.log4j,
+ org.eclipse.datatools.enablement.oda.xml,
+ org.talend.repository,
+ org.talend.core
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: .Talend SA.
+Bundle-ClassPath: lib/mdm.jar,
+ .,
+ lib/axis.jar,
+ lib/commons-discovery-0.2.jar,
+ lib/commons-logging-1.0.4.jar,
+ lib/jaxrpc.jar,
+ lib/saaj.jar,
+ lib/wsdl4j-1.5.1.jar
