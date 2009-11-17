@@ -468,4 +468,5 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     }
 
     protected abstract void doRun();
+
 }
