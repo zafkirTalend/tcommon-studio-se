@@ -297,6 +297,7 @@ class ExportItemWizardPage extends WizardPage {
             case METADATA_SALESFORCE_SCHEMA:
             case METADATA_WSDL_SCHEMA:
             case METADATA_FILE_EBCDIC:
+            case METADATA_MDMCONNECTION:
             case METADATA_FILE_RULES:
             case METADATA_SAPCONNECTIONS:
             case METADATA_SAP_FUNCTION:

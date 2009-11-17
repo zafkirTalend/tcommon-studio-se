@@ -1860,13 +1860,212 @@ public interface ConnectionPackage extends EPackage {
     int EBCDIC_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnection()
+     * @generated
+     */
+    int MDM_CONNECTION = 9;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
+     * The feature id for the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__USERNAME = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__PASSWORD = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__PORT = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Server</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__SERVER = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Universe</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__UNIVERSE = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Datamodel</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__DATAMODEL = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Datacluster</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__DATACLUSTER = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Schemas</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION__SCHEMAS = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The number of structural features of the '<em>MDM Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseConnection()
      * @generated
      */
-    int DATABASE_CONNECTION = 9;
+    int DATABASE_CONNECTION = 10;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2205,7 +2404,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPConnection()
      * @generated
      */
-    int SAP_CONNECTION = 10;
+    int SAP_CONNECTION = 11;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2404,7 +2603,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionUnit()
      * @generated
      */
-    int SAP_FUNCTION_UNIT = 11;
+    int SAP_FUNCTION_UNIT = 12;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2576,7 +2775,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterColumn()
      * @generated
      */
-    int SAP_FUNCTION_PARAMETER_COLUMN = 12;
+    int SAP_FUNCTION_PARAMETER_COLUMN = 13;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2730,7 +2929,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterTable()
      * @generated
      */
-    int SAP_FUNCTION_PARAMETER_TABLE = 13;
+    int SAP_FUNCTION_PARAMETER_TABLE = 14;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2821,7 +3020,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInputSAPFunctionParameterTable()
      * @generated
      */
-    int INPUT_SAP_FUNCTION_PARAMETER_TABLE = 14;
+    int INPUT_SAP_FUNCTION_PARAMETER_TABLE = 15;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2921,7 +3120,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOutputSAPFunctionParameterTable()
      * @generated
      */
-    int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = 15;
+    int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = 16;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3020,7 +3219,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRegexpFileConnection()
      * @generated
      */
-    int REGEXP_FILE_CONNECTION = 16;
+    int REGEXP_FILE_CONNECTION = 17;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3322,7 +3521,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlFileConnection()
      * @generated
      */
-    int XML_FILE_CONNECTION = 17;
+    int XML_FILE_CONNECTION = 18;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3496,7 +3695,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
      * @generated
      */
-    int SCHEMA_TARGET = 18;
+    int SCHEMA_TARGET = 19;
 
     /**
      * The feature id for the '<em><b>Relative XPath Query</b></em>' attribute.
@@ -3541,7 +3740,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
      * @generated
      */
-    int QUERIES_CONNECTION = 19;
+    int QUERIES_CONNECTION = 20;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -3578,7 +3777,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
      * @generated
      */
-    int QUERY = 20;
+    int QUERY = 21;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3687,7 +3886,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
      * @generated
      */
-    int LDIF_FILE_CONNECTION = 21;
+    int LDIF_FILE_CONNECTION = 22;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3859,7 +4058,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
      * @generated
      */
-    int FILE_EXCEL_CONNECTION = 22;
+    int FILE_EXCEL_CONNECTION = 23;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4247,7 +4446,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
      * @generated
      */
-    int XML_XPATH_LOOP_DESCRIPTOR = 23;
+    int XML_XPATH_LOOP_DESCRIPTOR = 24;
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
@@ -4302,7 +4501,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
      * @generated
      */
-    int GENERIC_SCHEMA_CONNECTION = 24;
+    int GENERIC_SCHEMA_CONNECTION = 25;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4447,7 +4646,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
      * @generated
      */
-    int LDAP_SCHEMA_CONNECTION = 25;
+    int LDAP_SCHEMA_CONNECTION = 26;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4781,7 +4980,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION = 26;
+    int WSDL_SCHEMA_CONNECTION = 27;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5043,7 +5242,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
      * @generated
      */
-    int SALESFORCE_SCHEMA_CONNECTION = 27;
+    int SALESFORCE_SCHEMA_CONNECTION = 28;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5296,7 +5495,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
      * @generated
      */
-    int CDC_CONNECTION = 28;
+    int CDC_CONNECTION = 29;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -5333,7 +5532,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
      * @generated
      */
-    int CDC_TYPE = 29;
+    int CDC_TYPE = 30;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5451,7 +5650,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
      * @generated
      */
-    int SUBSCRIBER_TABLE = 30;
+    int SUBSCRIBER_TABLE = 31;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5596,7 +5795,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTestInputParameterTable()
      * @generated
      */
-    int SAP_TEST_INPUT_PARAMETER_TABLE = 31;
+    int SAP_TEST_INPUT_PARAMETER_TABLE = 32;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5689,13 +5888,222 @@ public interface ConnectionPackage extends EPackage {
     int SAP_TEST_INPUT_PARAMETER_TABLE_FEATURE_COUNT = SAP_FUNCTION_PARAMETER_TABLE_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl <em>Concept</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConceptImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConcept()
+     * @generated
+     */
+    int CONCEPT = 33;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__PROPERTIES = METADATA_TABLE__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__ID = METADATA_TABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__COMMENT = METADATA_TABLE__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__LABEL = METADATA_TABLE__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__READ_ONLY = METADATA_TABLE__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__SYNCHRONISED = METADATA_TABLE__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__DIVERGENCY = METADATA_TABLE__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Source Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__SOURCE_NAME = METADATA_TABLE__SOURCE_NAME;
+
+    /**
+     * The feature id for the '<em><b>Table Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__TABLE_TYPE = METADATA_TABLE__TABLE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__ATTACHED_CDC = METADATA_TABLE__ATTACHED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__ACTIVATED_CDC = METADATA_TABLE__ACTIVATED_CDC;
+
+    /**
+     * The feature id for the '<em><b>Columns</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__COLUMNS = METADATA_TABLE__COLUMNS;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__CONNECTION = METADATA_TABLE__CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Loop Expression</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__LOOP_EXPRESSION = METADATA_TABLE_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Loop Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__LOOP_LIMIT = METADATA_TABLE_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Concept Targets</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__CONCEPT_TARGETS = METADATA_TABLE_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Concept</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 3;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConceptTarget()
+     * @generated
+     */
+    int CONCEPT_TARGET = 34;
+
+    /**
+     * The feature id for the '<em><b>Schema</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT_TARGET__SCHEMA = 0;
+
+    /**
+     * The feature id for the '<em><b>Target Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT_TARGET__TARGET_NAME = 1;
+
+    /**
+     * The feature id for the '<em><b>Relative Loop Expression</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION = 2;
+
+    /**
+     * The number of structural features of the '<em>Concept Target</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT_TARGET_FEATURE_COUNT = 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 32;
+    int DATABASE_PROPERTIES = 35;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -5704,7 +6112,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 33;
+    int FILE_FORMAT = 36;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -5713,7 +6121,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 34;
+    int FIELD_SEPARATOR = 37;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -5722,7 +6130,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 35;
+    int ESCAPE = 38;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -5731,7 +6139,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 36;
+    int ROW_SEPARATOR = 39;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -5740,7 +6148,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 37;
+    int MAP = 40;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -5750,7 +6158,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 38;
+    int LIST = 41;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -6388,6 +6796,104 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getEbcdicConnection_DataFile();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MDMConnection <em>MDM Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>MDM Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection
+     * @generated
+     */
+    EClass getMDMConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getUsername <em>Username</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Username</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getUsername()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Username();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getPassword()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getPort()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Port();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getServer <em>Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getServer()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Server();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getUniverse <em>Universe</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Universe</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getUniverse()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Universe();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatamodel <em>Datamodel</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Datamodel</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getDatamodel()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Datamodel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatacluster <em>Datacluster</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Datacluster</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getDatacluster()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EAttribute getMDMConnection_Datacluster();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas <em>Schemas</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Schemas</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas()
+     * @see #getMDMConnection()
+     * @generated
+     */
+    EReference getMDMConnection_Schemas();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
@@ -8234,6 +8740,92 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPTestInputParameterTable_FunctionUnit();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Concept <em>Concept</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Concept</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept
+     * @generated
+     */
+    EClass getConcept();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#getLoopExpression <em>Loop Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Loop Expression</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getLoopExpression()
+     * @see #getConcept()
+     * @generated
+     */
+    EAttribute getConcept_LoopExpression();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#getLoopLimit <em>Loop Limit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Loop Limit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getLoopLimit()
+     * @see #getConcept()
+     * @generated
+     */
+    EAttribute getConcept_LoopLimit();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptTargets <em>Concept Targets</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Concept Targets</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getConceptTargets()
+     * @see #getConcept()
+     * @generated
+     */
+    EReference getConcept_ConceptTargets();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget <em>Concept Target</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Concept Target</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConceptTarget
+     * @generated
+     */
+    EClass getConceptTarget();
+
+    /**
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getSchema <em>Schema</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Schema</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getSchema()
+     * @see #getConceptTarget()
+     * @generated
+     */
+    EReference getConceptTarget_Schema();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getTargetName <em>Target Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Target Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getTargetName()
+     * @see #getConceptTarget()
+     * @generated
+     */
+    EAttribute getConceptTarget_TargetName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getRelativeLoopExpression <em>Relative Loop Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Relative Loop Expression</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getRelativeLoopExpression()
+     * @see #getConceptTarget()
+     * @generated
+     */
+    EAttribute getConceptTarget_RelativeLoopExpression();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -8834,6 +9426,80 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute EBCDIC_CONNECTION__DATA_FILE = eINSTANCE.getEbcdicConnection_DataFile();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnection()
+         * @generated
+         */
+        EClass MDM_CONNECTION = eINSTANCE.getMDMConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__USERNAME = eINSTANCE.getMDMConnection_Username();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__PASSWORD = eINSTANCE.getMDMConnection_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__PORT = eINSTANCE.getMDMConnection_Port();
+
+        /**
+         * The meta object literal for the '<em><b>Server</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__SERVER = eINSTANCE.getMDMConnection_Server();
+
+        /**
+         * The meta object literal for the '<em><b>Universe</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__UNIVERSE = eINSTANCE.getMDMConnection_Universe();
+
+        /**
+         * The meta object literal for the '<em><b>Datamodel</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__DATAMODEL = eINSTANCE.getMDMConnection_Datamodel();
+
+        /**
+         * The meta object literal for the '<em><b>Datacluster</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MDM_CONNECTION__DATACLUSTER = eINSTANCE.getMDMConnection_Datacluster();
+
+        /**
+         * The meta object literal for the '<em><b>Schemas</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference MDM_CONNECTION__SCHEMAS = eINSTANCE.getMDMConnection_Schemas();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
@@ -10252,6 +10918,74 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT = eINSTANCE.getSAPTestInputParameterTable_FunctionUnit();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl <em>Concept</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConceptImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConcept()
+         * @generated
+         */
+        EClass CONCEPT = eINSTANCE.getConcept();
+
+        /**
+         * The meta object literal for the '<em><b>Loop Expression</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT__LOOP_EXPRESSION = eINSTANCE.getConcept_LoopExpression();
+
+        /**
+         * The meta object literal for the '<em><b>Loop Limit</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT__LOOP_LIMIT = eINSTANCE.getConcept_LoopLimit();
+
+        /**
+         * The meta object literal for the '<em><b>Concept Targets</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONCEPT__CONCEPT_TARGETS = eINSTANCE.getConcept_ConceptTargets();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConceptTarget()
+         * @generated
+         */
+        EClass CONCEPT_TARGET = eINSTANCE.getConceptTarget();
+
+        /**
+         * The meta object literal for the '<em><b>Schema</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONCEPT_TARGET__SCHEMA = eINSTANCE.getConceptTarget_Schema();
+
+        /**
+         * The meta object literal for the '<em><b>Target Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT_TARGET__TARGET_NAME = eINSTANCE.getConceptTarget_TargetName();
+
+        /**
+         * The meta object literal for the '<em><b>Relative Loop Expression</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION = eINSTANCE.getConceptTarget_RelativeLoopExpression();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

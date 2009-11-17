@@ -57,6 +57,7 @@ import org.talend.core.model.properties.License;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.LinkType;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -298,6 +299,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass ebcdicConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass mdmConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1803,6 +1811,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EClass getEbcdicConnectionItem() {
         return ebcdicConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getMDMConnectionItem() {
+        return mdmConnectionItemEClass;
     }
 
     /**
@@ -4210,6 +4227,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         ebcdicConnectionItemEClass = createEClass(EBCDIC_CONNECTION_ITEM);
 
+        mdmConnectionItemEClass = createEClass(MDM_CONNECTION_ITEM);
+
         processItemEClass = createEClass(PROCESS_ITEM);
         createEReference(processItemEClass, PROCESS_ITEM__PROCESS);
 
@@ -4629,6 +4648,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         ldifFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         excelFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ebcdicConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        mdmConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
         contextItemEClass.getESuperTypes().add(this.getItem());
@@ -4779,6 +4799,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(excelFileConnectionItemEClass, ExcelFileConnectionItem.class, "ExcelFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(ebcdicConnectionItemEClass, EbcdicConnectionItem.class, "EbcdicConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(mdmConnectionItemEClass, MDMConnectionItem.class, "MDMConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(processItemEClass, ProcessItem.class, "ProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProcessItem_Process(), theTalendFilePackage.getProcessType(), null, "process", null, 0, 1, ProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

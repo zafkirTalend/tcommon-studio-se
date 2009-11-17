@@ -295,6 +295,15 @@ public interface BusinessFactory extends EFactory {
     Copybook createCopybook();
 
     /**
+     * Returns a new object of class '<em>MDM</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>MDM</em>'.
+     * @generated
+     */
+    MDM createMDM();
+
+    /**
      * Returns a new object of class '<em>Wsdl</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

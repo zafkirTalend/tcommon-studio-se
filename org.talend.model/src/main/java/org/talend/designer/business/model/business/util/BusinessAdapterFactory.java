@@ -41,6 +41,7 @@ import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
 import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
+import org.talend.designer.business.model.business.MDM;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
@@ -229,6 +230,9 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseCopybook(Copybook object) {
                 return createCopybookAdapter();
+            }
+            public Object caseMDM(MDM object) {
+                return createMDMAdapter();
             }
             public Object caseWsdl(Wsdl object) {
                 return createWsdlAdapter();
@@ -703,6 +707,20 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createCopybookAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.MDM <em>MDM</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.MDM
+     * @generated
+     */
+    public Adapter createMDMAdapter() {
         return null;
     }
 

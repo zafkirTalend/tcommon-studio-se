@@ -3183,6 +3183,88 @@ public interface BusinessPackage extends EPackage {
     int COPYBOOK_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.MDMImpl <em>MDM</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.MDMImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getMDM()
+     * @generated
+     */
+    int MDM = 40;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>MDM</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.WsdlImpl <em>Wsdl</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3190,7 +3272,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getWsdl()
      * @generated
      */
-    int WSDL = 40;
+    int WSDL = 41;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3272,7 +3354,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getLdap()
      * @generated
      */
-    int LDAP = 41;
+    int LDAP = 42;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3354,7 +3436,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getSAPFunction()
      * @generated
      */
-    int SAP_FUNCTION = 42;
+    int SAP_FUNCTION = 43;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3983,6 +4065,16 @@ public interface BusinessPackage extends EPackage {
     EClass getCopybook();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.MDM <em>MDM</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>MDM</em>'.
+     * @see org.talend.designer.business.model.business.MDM
+     * @generated
+     */
+    EClass getMDM();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Wsdl <em>Wsdl</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4586,6 +4678,16 @@ public interface BusinessPackage extends EPackage {
          * @generated
          */
         EClass COPYBOOK = eINSTANCE.getCopybook();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.MDMImpl <em>MDM</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.MDMImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getMDM()
+         * @generated
+         */
+        EClass MDM = eINSTANCE.getMDM();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.WsdlImpl <em>Wsdl</em>}' class.

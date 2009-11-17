@@ -278,6 +278,15 @@ public interface PropertiesFactory extends EFactory {
     EbcdicConnectionItem createEbcdicConnectionItem();
 
     /**
+     * Returns a new object of class '<em>MDM Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>MDM Connection Item</em>'.
+     * @generated
+     */
+    MDMConnectionItem createMDMConnectionItem();
+
+    /**
      * Returns a new object of class '<em>User Project Authorization</em>'.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->

@@ -41,6 +41,7 @@ import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
 import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
+import org.talend.designer.business.model.business.MDM;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
@@ -411,6 +412,13 @@ public class BusinessSwitch {
                 Copybook copybook = (Copybook)theEObject;
                 Object result = caseCopybook(copybook);
                 if (result == null) result = caseTalendItem(copybook);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.MDM: {
+                MDM mdm = (MDM)theEObject;
+                Object result = caseMDM(mdm);
+                if (result == null) result = caseTalendItem(mdm);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -937,6 +945,21 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseCopybook(Copybook object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>MDM</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>MDM</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMDM(MDM object) {
         return null;
     }
 

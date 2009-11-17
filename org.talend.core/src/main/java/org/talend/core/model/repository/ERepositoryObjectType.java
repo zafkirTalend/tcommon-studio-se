@@ -33,6 +33,7 @@ import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
@@ -50,8 +51,8 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
 /**
- * This enum represents all objects types that can be store in the repository.<br/> Exception is the recycle bin that
- * isn't really an object type (could think of moving it).
+ * This enum represents all objects types that can be store in the repository.<br/>
+ * Exception is the recycle bin that isn't really an object type (could think of moving it).
  * 
  * $Id$
  * 
@@ -71,6 +72,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
     METADATA_SAP_FUNCTION("repository.SAPFunction", true), //$NON-NLS-1$
+    MDM_CONCEPT("repository.concept", true), //$NON-NLS-1$
 
     // feature 0006484 add
     METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -80,6 +82,7 @@ public enum ERepositoryObjectType {
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_EBCDIC("repository.metadataFileEDCDIC", "repository.metadataFileEDCDIC.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_MDMCONNECTION("repository.metadataMDMConnections", "repository.metadataMDMConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -199,6 +202,8 @@ public enum ERepositoryObjectType {
             return "metadata/sapconnections"; //$NON-NLS-1$
         case METADATA_FILE_EBCDIC:
             return "metadata/fileEBCDIC"; //$NON-NLS-1$
+        case METADATA_MDMCONNECTION:
+            return "metadata/MDMconnections"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
             return "metadata/fileDelimited"; //$NON-NLS-1$
         case METADATA_FILE_POSITIONAL:
@@ -400,6 +405,10 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
                 return METADATA_FILE_EBCDIC;
+            }
+
+            public Object caseMDMConnectionItem(MDMConnectionItem object) {
+                return METADATA_MDMCONNECTION;
             }
 
             @Override

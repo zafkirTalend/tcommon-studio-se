@@ -114,6 +114,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.EXCEL_FILE_CONNECTION_ITEM: return createExcelFileConnectionItem();
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM: return createEbcdicConnectionItem();
+            case PropertiesPackage.MDM_CONNECTION_ITEM: return createMDMConnectionItem();
             case PropertiesPackage.PROCESS_ITEM: return createProcessItem();
             case PropertiesPackage.USER_ROLE: return createUserRole();
             case PropertiesPackage.USER: return createUser();
@@ -482,6 +483,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public EbcdicConnectionItem createEbcdicConnectionItem() {
         EbcdicConnectionItemImpl ebcdicConnectionItem = new EbcdicConnectionItemImpl();
         return ebcdicConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MDMConnectionItem createMDMConnectionItem() {
+        MDMConnectionItemImpl mdmConnectionItem = new MDMConnectionItemImpl();
+        return mdmConnectionItem;
     }
 
     /**

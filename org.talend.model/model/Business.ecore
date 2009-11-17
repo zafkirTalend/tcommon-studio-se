@@ -93,6 +93,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SQLPattern" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Salesforce" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Copybook" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MDM" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Wsdl" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Ldap" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="SAPFunction" eSuperTypes="#//TalendItem"/>

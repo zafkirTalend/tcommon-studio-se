@@ -16,27 +16,42 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.talend.core.model.metadata.builder.connection.*;
+import org.talend.core.model.metadata.builder.connection.CDCConnection;
+import org.talend.core.model.metadata.builder.connection.CDCType;
+import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseProperties;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
+import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
+import org.talend.core.model.metadata.builder.connection.SAPConnection;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
+import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
+import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
@@ -91,6 +106,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.DELIMITED_FILE_CONNECTION: return createDelimitedFileConnection();
             case ConnectionPackage.POSITIONAL_FILE_CONNECTION: return createPositionalFileConnection();
             case ConnectionPackage.EBCDIC_CONNECTION: return createEbcdicConnection();
+            case ConnectionPackage.MDM_CONNECTION: return createMDMConnection();
             case ConnectionPackage.DATABASE_CONNECTION: return createDatabaseConnection();
             case ConnectionPackage.SAP_CONNECTION: return createSAPConnection();
             case ConnectionPackage.SAP_FUNCTION_UNIT: return createSAPFunctionUnit();
@@ -114,6 +130,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.CDC_TYPE: return createCDCType();
             case ConnectionPackage.SUBSCRIBER_TABLE: return createSubscriberTable();
             case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE: return createSAPTestInputParameterTable();
+            case ConnectionPackage.CONCEPT: return createConcept();
+            case ConnectionPackage.CONCEPT_TARGET: return createConceptTarget();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -224,13 +242,21 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EbcdicConnection createEbcdicConnection() {
         EbcdicConnectionImpl ebcdicConnection = new EbcdicConnectionImpl();
         return ebcdicConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public MDMConnection createMDMConnection() {
+        MDMConnectionImpl mdmConnection = new MDMConnectionImpl();
+        return mdmConnection;
     }
 
     /**
@@ -243,8 +269,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SAPConnection createSAPConnection() {
@@ -253,8 +278,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SAPFunctionUnit createSAPFunctionUnit() {
@@ -263,8 +287,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SAPFunctionParameterColumn createSAPFunctionParameterColumn() {
@@ -273,8 +296,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SAPFunctionParameterTable createSAPFunctionParameterTable() {
@@ -283,8 +305,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public InputSAPFunctionParameterTable createInputSAPFunctionParameterTable() {
@@ -293,8 +314,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public OutputSAPFunctionParameterTable createOutputSAPFunctionParameterTable() {
@@ -357,8 +377,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public FileExcelConnection createFileExcelConnection() {
@@ -403,8 +422,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SalesforceSchemaConnection createSalesforceSchemaConnection() {
@@ -413,8 +431,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CDCConnection createCDCConnection() {
@@ -423,8 +440,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public CDCType createCDCType() {
@@ -433,8 +449,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SubscriberTable createSubscriberTable() {
@@ -443,13 +458,31 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SAPTestInputParameterTable createSAPTestInputParameterTable() {
         SAPTestInputParameterTableImpl sapTestInputParameterTable = new SAPTestInputParameterTableImpl();
         return sapTestInputParameterTable;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public Concept createConcept() {
+        ConceptImpl concept = new ConceptImpl();
+        return concept;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ConceptTarget createConceptTarget() {
+        ConceptTargetImpl conceptTarget = new ConceptTargetImpl();
+        return conceptTarget;
     }
 
     /**

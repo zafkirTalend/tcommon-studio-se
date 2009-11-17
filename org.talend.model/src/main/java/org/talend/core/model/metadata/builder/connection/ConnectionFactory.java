@@ -82,6 +82,15 @@ public interface ConnectionFactory extends EFactory {
     EbcdicConnection createEbcdicConnection();
 
     /**
+     * Returns a new object of class '<em>MDM Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>MDM Connection</em>'.
+     * @generated
+     */
+    MDMConnection createMDMConnection();
+
+    /**
      * Returns a new object of class '<em>Database Connection</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Database Connection</em>'.
@@ -284,6 +293,24 @@ public interface ConnectionFactory extends EFactory {
      * @generated
      */
     SAPTestInputParameterTable createSAPTestInputParameterTable();
+
+    /**
+     * Returns a new object of class '<em>Concept</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Concept</em>'.
+     * @generated
+     */
+    Concept createConcept();
+
+    /**
+     * Returns a new object of class '<em>Concept Target</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Concept Target</em>'.
+     * @generated
+     */
+    ConceptTarget createConceptTarget();
 
     /**
      * Returns the package supported by this factory.

@@ -219,6 +219,10 @@ public interface IProxyRepositoryFactory {
 
     public abstract RootContainer<String, IRepositoryObject> getMetadataEBCDIC() throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryObject> getMetadataMDM() throws PersistenceException;
+
+    public abstract RootContainer<String, IRepositoryObject> getMetadataMDM(Project project) throws PersistenceException;
+
     /**
      * @param project
      * @return

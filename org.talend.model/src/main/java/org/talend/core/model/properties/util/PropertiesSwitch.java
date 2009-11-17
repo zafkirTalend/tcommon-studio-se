@@ -342,6 +342,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.MDM_CONNECTION_ITEM: {
+                MDMConnectionItem mdmConnectionItem = (MDMConnectionItem)theEObject;
+                Object result = caseMDMConnectionItem(mdmConnectionItem);
+                if (result == null) result = caseConnectionItem(mdmConnectionItem);
+                if (result == null) result = caseItem(mdmConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.PROCESS_ITEM: {
                 ProcessItem processItem = (ProcessItem)theEObject;
                 Object result = caseProcessItem(processItem);
@@ -1028,6 +1036,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>MDM Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>MDM Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMDMConnectionItem(MDMConnectionItem object) {
         return null;
     }
 

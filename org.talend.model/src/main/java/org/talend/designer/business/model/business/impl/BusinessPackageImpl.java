@@ -294,6 +294,13 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass mdmEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass wsdlEClass = null;
 
     /**
@@ -887,6 +894,15 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getMDM() {
+        return mdmEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getWsdl() {
         return wsdlEClass;
     }
@@ -1081,6 +1097,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         copybookEClass = createEClass(COPYBOOK);
 
+        mdmEClass = createEClass(MDM);
+
         wsdlEClass = createEClass(WSDL);
 
         ldapEClass = createEClass(LDAP);
@@ -1146,6 +1164,7 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         sqlPatternEClass.getESuperTypes().add(this.getTalendItem());
         salesforceEClass.getESuperTypes().add(this.getTalendItem());
         copybookEClass.getESuperTypes().add(this.getTalendItem());
+        mdmEClass.getESuperTypes().add(this.getTalendItem());
         wsdlEClass.getESuperTypes().add(this.getTalendItem());
         ldapEClass.getESuperTypes().add(this.getTalendItem());
         sapFunctionEClass.getESuperTypes().add(this.getTalendItem());
@@ -1252,6 +1271,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(salesforceEClass, Salesforce.class, "Salesforce", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(copybookEClass, Copybook.class, "Copybook", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(mdmEClass, org.talend.designer.business.model.business.MDM.class, "MDM", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(wsdlEClass, Wsdl.class, "Wsdl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

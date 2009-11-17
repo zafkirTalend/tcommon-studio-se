@@ -36,6 +36,8 @@ public class PluginChecker {
 
     private static final String EBCDIC_PLUGIN_ID = "org.talend.repository.ebcdic"; //$NON-NLS-1$
 
+    private static final String MDM_PLUGIN_ID = "org.talend.repository.mdm"; //$NON-NLS-1$
+
     private static final String REF_PROJECT_PLUGIN_ID = "org.talend.repository.refproject"; //$NON-NLS-1$
 
     private static final String PERFORMANCE_PLUGIN_ID = "org.talend.designer.core.ui.preferences.PerformancePreferencePage"; //$NON-NLS-1$
@@ -127,6 +129,10 @@ public class PluginChecker {
 
     public static boolean isEBCDICPluginLoaded() {
         return isPluginLoaded(EBCDIC_PLUGIN_ID);
+    }
+
+    public static boolean isMDMPluginLoaded() {
+        return isPluginLoaded(MDM_PLUGIN_ID);
     }
 
     public static boolean isExchangeSystemLoaded() {

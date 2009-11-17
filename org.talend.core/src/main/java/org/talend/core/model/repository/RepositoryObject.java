@@ -45,6 +45,7 @@ import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -244,6 +245,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             @Override
             public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_EBCDIC;
+            }
+
+            public Object caseMDMConnectionItem(MDMConnectionItem object) {
+                return ERepositoryObjectType.METADATA_MDMCONNECTION;
             }
 
             /*

@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -141,6 +142,8 @@ public class ComponentToRepositoryProperty {
             setSAPValue((SAPConnection) connection, node, repositoryValue);
         } else if (connection instanceof SalesforceSchemaConnection) {
             setSalesforceSchema((SalesforceSchemaConnection) connection, node, repositoryValue);
+        } else if (connection instanceof MDMConnection) {
+            setMDMValue((MDMConnection) connection, node, repositoryValue);
         }
     }
 
@@ -991,6 +994,55 @@ public class ComponentToRepositoryProperty {
             String value = getParameterValue(node, "ENCODING"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEncoding(value);
+            }
+        }
+    }
+
+    private static void setMDMValue(MDMConnection connection, INode node, String repositoryValue) {
+        if ("USERNAME".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "USERNAME"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setUsername(value);
+            }
+        }
+
+        if ("PASSWORD".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "PASSWORD"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setPassword(value);
+            }
+        }
+
+        if ("MDMURL".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "MDMURL"); //$NON-NLS-1$
+            if (value != null) {
+                String[] values = value.split(":");
+                String server = values[1].substring(values[1].indexOf("//") + 2);
+                String port = values[2].substring(0, values[2].indexOf("/"));
+
+                connection.setServer(server);
+                connection.setPort(port);
+            }
+        }
+
+        if ("UNIVERSE".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "UNIVERSE"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setUniverse(value);
+            }
+        }
+
+        if ("DATAMODEL".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "DATAMODEL"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setDatamodel(value);
+            }
+        }
+
+        if ("DATACLUSTER".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "DATACLUSTER"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setDatacluster(value);
             }
         }
     }

@@ -82,6 +82,7 @@ public class StatusHelper {
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
+            case PropertiesPackage.MDM_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
             case PropertiesPackage.RULES_ITEM:

@@ -164,6 +164,14 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.MDM_CONNECTION: {
+                MDMConnection mdmConnection = (MDMConnection)theEObject;
+                Object result = caseMDMConnection(mdmConnection);
+                if (result == null) result = caseConnection(mdmConnection);
+                if (result == null) result = caseAbstractMetadataObject(mdmConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ConnectionPackage.DATABASE_CONNECTION: {
                 DatabaseConnection databaseConnection = (DatabaseConnection)theEObject;
                 Object result = caseDatabaseConnection(databaseConnection);
@@ -337,6 +345,20 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.CONCEPT: {
+                Concept concept = (Concept)theEObject;
+                Object result = caseConcept(concept);
+                if (result == null) result = caseMetadataTable(concept);
+                if (result == null) result = caseAbstractMetadataObject(concept);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.CONCEPT_TARGET: {
+                ConceptTarget conceptTarget = (ConceptTarget)theEObject;
+                Object result = caseConceptTarget(conceptTarget);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -464,6 +486,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseEbcdicConnection(EbcdicConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>MDM Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>MDM Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseMDMConnection(MDMConnection object) {
         return null;
     }
 
@@ -798,6 +835,36 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Concept</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Concept</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseConcept(Concept object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Concept Target</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Concept Target</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseConceptTarget(ConceptTarget object) {
         return null;
     }
 

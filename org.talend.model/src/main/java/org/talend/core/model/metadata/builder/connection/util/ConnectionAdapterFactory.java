@@ -107,6 +107,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseEbcdicConnection(EbcdicConnection object) {
                 return createEbcdicConnectionAdapter();
             }
+            public Object caseMDMConnection(MDMConnection object) {
+                return createMDMConnectionAdapter();
+            }
             public Object caseDatabaseConnection(DatabaseConnection object) {
                 return createDatabaseConnectionAdapter();
             }
@@ -175,6 +178,12 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
                 return createSAPTestInputParameterTableAdapter();
+            }
+            public Object caseConcept(Concept object) {
+                return createConceptAdapter();
+            }
+            public Object caseConceptTarget(ConceptTarget object) {
+                return createConceptTargetAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -299,6 +308,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createEbcdicConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MDMConnection <em>MDM Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnection
+     * @generated
+     */
+    public Adapter createMDMConnectionAdapter() {
         return null;
     }
 
@@ -601,6 +624,34 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSAPTestInputParameterTableAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Concept <em>Concept</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.Concept
+     * @generated
+     */
+    public Adapter createConceptAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget <em>Concept Target</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.ConceptTarget
+     * @generated
+     */
+    public Adapter createConceptTargetAdapter() {
         return null;
     }
 

@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -86,6 +87,10 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof FileExcelConnection) {
             return getExcelFileValue((FileExcelConnection) connection, value);
+        }
+
+        if (connection instanceof MDMConnection) {
+            return getMDMValue((MDMConnection) connection, value);
         }
 
         if (connection instanceof SAPConnection) {
@@ -407,6 +412,49 @@ public class RepositoryToComponentProperty {
         // else if ("PARAMS".equals(value)) {
         // return connection.getParameters();
         // }
+        return null;
+    }
+
+    /**
+     * DOC hwang Comment method "getMDMValue".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getMDMValue(MDMConnection connection, String value) {
+        if ("MDMURL".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getServer()) && isConetxtMode(connection, connection.getPort())) {
+                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-1$//$NON-NLS-1$
+            } else {
+                return TalendTextUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-1$
+                        + "/talend/TalendPort");//$NON-NLS-1$
+            }
+        } else if ("USERNAME".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getUsername())) {
+                return connection.getUsername();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getUsername());
+            }
+        } else if ("PASSWORD".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getPassword())) {
+                return connection.getPassword();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getPassword());
+            }
+        } else if ("UNIVERSE".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getUniverse())) {
+                return connection.getUniverse();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getUniverse());
+            }
+        } else if ("DATACLUSTER".equals(value)) { //$NON-NLS-1$
+            if (isConetxtMode(connection, connection.getDatacluster())) {
+                return connection.getDatacluster();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDatacluster());
+            }
+        }
         return null;
     }
 

@@ -389,6 +389,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (PluginChecker.isRulesPluginLoaded()) {
             needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_RULES);
         }
+        if (PluginChecker.isMDMPluginLoaded()) {
+            needsBinFolder.add(ERepositoryObjectType.METADATA_MDMCONNECTION);
+        }
 
     }
 
@@ -1237,6 +1240,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.SAP_CONNECTION_ITEM:
+            case PropertiesPackage.MDM_CONNECTION_ITEM:
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to
                 // another resource for edition
@@ -1388,6 +1392,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.SAP_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_SAPCONNECTIONS, path);
+                break;
+            case PropertiesPackage.MDM_CONNECTION_ITEM:
+                itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_MDMCONNECTION, path);
                 break;
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
                 itemResource = create(project2, (EbcdicConnectionItem) item, ERepositoryObjectType.METADATA_FILE_EBCDIC, path);

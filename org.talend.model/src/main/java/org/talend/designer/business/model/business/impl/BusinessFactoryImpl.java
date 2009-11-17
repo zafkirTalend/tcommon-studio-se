@@ -40,6 +40,7 @@ import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.Joblet;
 import org.talend.designer.business.model.business.Ldap;
 import org.talend.designer.business.model.business.ListBusinessItem;
+import org.talend.designer.business.model.business.MDM;
 import org.talend.designer.business.model.business.Query;
 import org.talend.designer.business.model.business.Repository;
 import org.talend.designer.business.model.business.Routine;
@@ -132,6 +133,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.SQL_PATTERN: return createSQLPattern();
             case BusinessPackage.SALESFORCE: return createSalesforce();
             case BusinessPackage.COPYBOOK: return createCopybook();
+            case BusinessPackage.MDM: return createMDM();
             case BusinessPackage.WSDL: return createWsdl();
             case BusinessPackage.LDAP: return createLdap();
             case BusinessPackage.SAP_FUNCTION: return createSAPFunction();
@@ -431,6 +433,16 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public Copybook createCopybook() {
         CopybookImpl copybook = new CopybookImpl();
         return copybook;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MDM createMDM() {
+        MDMImpl mdm = new MDMImpl();
+        return mdm;
     }
 
     /**

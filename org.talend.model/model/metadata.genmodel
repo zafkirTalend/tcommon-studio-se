@@ -119,6 +119,16 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/MidFile"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//EbcdicConnection/DataFile"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//MDMConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Server"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Universe"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Datamodel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Datacluster"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//MDMConnection/schemas"/>
+    </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DatabaseConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DatabaseType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DriverJarPath"/>
@@ -313,6 +323,16 @@
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPTestInputParameterTable">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPTestInputParameterTable/functionUnit"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//Concept">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Concept/LoopExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Concept/LoopLimit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Concept/conceptTargets"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//ConceptTarget">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//ConceptTarget/schema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConceptTarget/targetName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConceptTarget/RelativeLoopExpression"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

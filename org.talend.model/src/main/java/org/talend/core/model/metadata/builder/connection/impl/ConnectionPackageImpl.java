@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.CDCType;
+import org.talend.core.model.metadata.builder.connection.Concept;
+import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -37,6 +39,7 @@ import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -118,6 +121,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass ebcdicConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass mdmConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -269,6 +279,20 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass sapTestInputParameterTableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass conceptEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass conceptTargetEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -889,6 +913,87 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EAttribute getEbcdicConnection_DataFile() {
         return (EAttribute)ebcdicConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getMDMConnection() {
+        return mdmConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Username() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Password() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Port() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Server() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Universe() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Datamodel() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Datacluster() {
+        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getMDMConnection_Schemas() {
+        return (EReference)mdmConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -2365,6 +2470,78 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getConcept() {
+        return conceptEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConcept_LoopExpression() {
+        return (EAttribute)conceptEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConcept_LoopLimit() {
+        return (EAttribute)conceptEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConcept_ConceptTargets() {
+        return (EReference)conceptEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getConceptTarget() {
+        return conceptTargetEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConceptTarget_Schema() {
+        return (EReference)conceptTargetEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConceptTarget_TargetName() {
+        return (EAttribute)conceptTargetEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConceptTarget_RelativeLoopExpression() {
+        return (EAttribute)conceptTargetEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2517,6 +2694,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         ebcdicConnectionEClass = createEClass(EBCDIC_CONNECTION);
         createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__MID_FILE);
         createEAttribute(ebcdicConnectionEClass, EBCDIC_CONNECTION__DATA_FILE);
+
+        mdmConnectionEClass = createEClass(MDM_CONNECTION);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__USERNAME);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__PASSWORD);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__PORT);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__SERVER);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__UNIVERSE);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__DATAMODEL);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__DATACLUSTER);
+        createEReference(mdmConnectionEClass, MDM_CONNECTION__SCHEMAS);
 
         databaseConnectionEClass = createEClass(DATABASE_CONNECTION);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATABASE_TYPE);
@@ -2713,6 +2900,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         sapTestInputParameterTableEClass = createEClass(SAP_TEST_INPUT_PARAMETER_TABLE);
         createEReference(sapTestInputParameterTableEClass, SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT);
 
+        conceptEClass = createEClass(CONCEPT);
+        createEAttribute(conceptEClass, CONCEPT__LOOP_EXPRESSION);
+        createEAttribute(conceptEClass, CONCEPT__LOOP_LIMIT);
+        createEReference(conceptEClass, CONCEPT__CONCEPT_TARGETS);
+
+        conceptTargetEClass = createEClass(CONCEPT_TARGET);
+        createEReference(conceptTargetEClass, CONCEPT_TARGET__SCHEMA);
+        createEAttribute(conceptTargetEClass, CONCEPT_TARGET__TARGET_NAME);
+        createEAttribute(conceptTargetEClass, CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -2755,6 +2952,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         delimitedFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         positionalFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         ebcdicConnectionEClass.getESuperTypes().add(this.getFileConnection());
+        mdmConnectionEClass.getESuperTypes().add(this.getConnection());
         databaseConnectionEClass.getESuperTypes().add(this.getConnection());
         sapConnectionEClass.getESuperTypes().add(this.getConnection());
         sapFunctionUnitEClass.getESuperTypes().add(this.getAbstractMetadataObject());
@@ -2774,6 +2972,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         cdcTypeEClass.getESuperTypes().add(this.getAbstractMetadataObject());
         subscriberTableEClass.getESuperTypes().add(this.getMetadataTable());
         sapTestInputParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
+        conceptEClass.getESuperTypes().add(this.getMetadataTable());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2847,6 +3046,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(ebcdicConnectionEClass, EbcdicConnection.class, "EbcdicConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getEbcdicConnection_MidFile(), ecorePackage.getEString(), "MidFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getEbcdicConnection_DataFile(), ecorePackage.getEString(), "DataFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(mdmConnectionEClass, MDMConnection.class, "MDMConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMDMConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Server(), ecorePackage.getEString(), "Server", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Universe(), ecorePackage.getEString(), "Universe", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Datamodel(), ecorePackage.getEString(), "Datamodel", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Datacluster(), ecorePackage.getEString(), "Datacluster", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMDMConnection_Schemas(), this.getConcept(), null, "schemas", null, 0, -1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(databaseConnectionEClass, DatabaseConnection.class, "DatabaseConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDatabaseConnection_DatabaseType(), ecorePackage.getEString(), "DatabaseType", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3042,6 +3251,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(sapTestInputParameterTableEClass, SAPTestInputParameterTable.class, "SAPTestInputParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getSAPTestInputParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_TestInputParameterTable(), "functionUnit", null, 0, 1, SAPTestInputParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(conceptEClass, Concept.class, "Concept", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getConcept_LoopExpression(), ecorePackage.getEString(), "LoopExpression", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConcept_LoopLimit(), ecorePackage.getEIntegerObject(), "LoopLimit", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConcept_ConceptTargets(), this.getConceptTarget(), this.getConceptTarget_Schema(), "conceptTargets", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(conceptTargetEClass, ConceptTarget.class, "ConceptTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getConceptTarget_Schema(), this.getConcept(), this.getConcept_ConceptTargets(), "schema", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConceptTarget_TargetName(), ecorePackage.getEString(), "targetName", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConceptTarget_RelativeLoopExpression(), ecorePackage.getEString(), "RelativeLoopExpression", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");
