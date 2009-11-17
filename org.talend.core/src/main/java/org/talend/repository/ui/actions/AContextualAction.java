@@ -295,7 +295,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         Object obj = ((IStructuredSelection) selection).getFirstElement();
         if (obj == null) {
             selection = getSelection();
-            obj = ((IStructuredSelection) selection).getFirstElement();
+            if (selection != null) {
+                obj = ((IStructuredSelection) selection).getFirstElement();
+            }
         }
         RepositoryNode node = (RepositoryNode) obj;
         return node;
