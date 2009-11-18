@@ -436,8 +436,7 @@ public class ComponentUtilities {
             String family = getTranslatedFamilyName(oraFam);
             PaletteDrawer componentsDrawer = ht.get(family);
             if (componentsDrawer == null) {
-                componentsDrawer = createComponentDrawer(palette, ht, family);
-                componentsDrawer.setOriginalName(oraFam);
+                componentsDrawer = createComponentDrawer(palette, ht, family, oraFam);
             }
 
         }
@@ -497,21 +496,25 @@ public class ComponentUtilities {
     }
 
     private static PaletteDrawer createComponentDrawer(PaletteRoot palette, Hashtable<String, PaletteDrawer> ht,
-            String familyToCreate) {
+            String familyToCreate, String originalFamily) {
 
         int index = familyToCreate.lastIndexOf(FAMILY_HIER_SEPARATOR);
+        int orgIndex = originalFamily.lastIndexOf(FAMILY_HIER_SEPARATOR);
         String family;
+        String orgFamily;
         PaletteDrawer parentPaletteDrawer = null;
 
         if (index > -1) {
             family = familyToCreate.substring(index + 1);
+            orgFamily = originalFamily.substring(0, orgIndex);
             String parentFamily = familyToCreate.substring(0, index);
             parentPaletteDrawer = ht.get(parentFamily);
             if (parentPaletteDrawer == null) {
-                parentPaletteDrawer = createComponentDrawer(palette, ht, parentFamily);
+                parentPaletteDrawer = createComponentDrawer(palette, ht, parentFamily, orgFamily);
             }
         } else {
             family = familyToCreate;
+            orgFamily = originalFamily;
         }
 
         PaletteDrawer paletteDrawer = CorePlugin.getDefault().getDesignerCoreService().createTalendPaletteDrawer(family);
@@ -520,6 +523,7 @@ public class ComponentUtilities {
         } else {
             parentPaletteDrawer.add(paletteDrawer);
         }
+        paletteDrawer.setOriginalName(originalFamily);
         ht.put(familyToCreate, paletteDrawer);
 
         return paletteDrawer;
