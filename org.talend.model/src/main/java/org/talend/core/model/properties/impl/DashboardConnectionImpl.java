@@ -34,6 +34,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getLogTable <em>Log Table</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getStatTable <em>Stat Table</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getFlowMeterTable <em>Flow Meter Table</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getAdditionnalsParams <em>Additionnals Params</em>}</li>
  * </ul>
  * </p>
  *
@@ -259,6 +260,26 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      * @ordered
      */
     protected String flowMeterTable = FLOW_METER_TABLE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getAdditionnalsParams() <em>Additionnals Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionnalsParams()
+     * @generated
+     * @ordered
+     */
+    protected static final String ADDITIONNALS_PARAMS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getAdditionnalsParams() <em>Additionnals Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionnalsParams()
+     * @generated
+     * @ordered
+     */
+    protected String additionnalsParams = ADDITIONNALS_PARAMS_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -514,6 +535,27 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getAdditionnalsParams() {
+        return additionnalsParams;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAdditionnalsParams(String newAdditionnalsParams) {
+        String oldAdditionnalsParams = additionnalsParams;
+        additionnalsParams = newAdditionnalsParams;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS, oldAdditionnalsParams, additionnalsParams));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.DASHBOARD_CONNECTION__ID:
@@ -538,6 +580,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
                 return getStatTable();
             case PropertiesPackage.DASHBOARD_CONNECTION__FLOW_METER_TABLE:
                 return getFlowMeterTable();
+            case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
+                return getAdditionnalsParams();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -581,6 +625,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
                 return;
             case PropertiesPackage.DASHBOARD_CONNECTION__FLOW_METER_TABLE:
                 setFlowMeterTable((String)newValue);
+                return;
+            case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
+                setAdditionnalsParams((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -626,6 +673,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
             case PropertiesPackage.DASHBOARD_CONNECTION__FLOW_METER_TABLE:
                 setFlowMeterTable(FLOW_METER_TABLE_EDEFAULT);
                 return;
+            case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
+                setAdditionnalsParams(ADDITIONNALS_PARAMS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -659,6 +709,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
                 return STAT_TABLE_EDEFAULT == null ? statTable != null : !STAT_TABLE_EDEFAULT.equals(statTable);
             case PropertiesPackage.DASHBOARD_CONNECTION__FLOW_METER_TABLE:
                 return FLOW_METER_TABLE_EDEFAULT == null ? flowMeterTable != null : !FLOW_METER_TABLE_EDEFAULT.equals(flowMeterTable);
+            case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
+                return ADDITIONNALS_PARAMS_EDEFAULT == null ? additionnalsParams != null : !ADDITIONNALS_PARAMS_EDEFAULT.equals(additionnalsParams);
         }
         return super.eIsSet(featureID);
     }
@@ -694,6 +746,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
         result.append(statTable);
         result.append(", flowMeterTable: ");
         result.append(flowMeterTable);
+        result.append(", additionnalsParams: ");
+        result.append(additionnalsParams);
         result.append(')');
         return result.toString();
     }

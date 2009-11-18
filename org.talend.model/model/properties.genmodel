@@ -242,6 +242,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/logTable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/statTable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/flowMeterTable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/additionnalsParams"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionServer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/id"/>

@@ -2127,6 +2127,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_AdditionnalsParams() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4327,6 +4336,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__LOG_TABLE);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__STAT_TABLE);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__FLOW_METER_TABLE);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS);
 
         executionServerEClass = createEClass(EXECUTION_SERVER);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__ID);
@@ -4900,6 +4910,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getDashboardConnection_LogTable(), ecorePackage.getEString(), "logTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_StatTable(), ecorePackage.getEString(), "statTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_FlowMeterTable(), ecorePackage.getEString(), "flowMeterTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_AdditionnalsParams(), ecorePackage.getEString(), "additionnalsParams", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionServerEClass, ExecutionServer.class, "ExecutionServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionServer_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

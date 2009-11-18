@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.DashboardConnection#getLogTable <em>Log Table</em>}</li>
  *   <li>{@link org.talend.core.model.properties.DashboardConnection#getStatTable <em>Stat Table</em>}</li>
  *   <li>{@link org.talend.core.model.properties.DashboardConnection#getFlowMeterTable <em>Flow Meter Table</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.DashboardConnection#getAdditionnalsParams <em>Additionnals Params</em>}</li>
  * </ul>
  * </p>
  *
@@ -320,5 +321,31 @@ public interface DashboardConnection extends EObject {
      * @generated
      */
     void setFlowMeterTable(String value);
+
+    /**
+     * Returns the value of the '<em><b>Additionnals Params</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additionnals Params</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additionnals Params</em>' attribute.
+     * @see #setAdditionnalsParams(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getDashboardConnection_AdditionnalsParams()
+     * @model
+     * @generated
+     */
+    String getAdditionnalsParams();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.DashboardConnection#getAdditionnalsParams <em>Additionnals Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Additionnals Params</em>' attribute.
+     * @see #getAdditionnalsParams()
+     * @generated
+     */
+    void setAdditionnalsParams(String value);
 
 } // DashboardConnection
