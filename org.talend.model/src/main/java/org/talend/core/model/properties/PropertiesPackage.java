@@ -2690,13 +2690,22 @@ public interface PropertiesPackage extends EPackage {
     int DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS = 11;
 
     /**
+     * The feature id for the '<em><b>Datasource</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__DATASOURCE = 12;
+
+    /**
      * The number of structural features of the '<em>Dashboard Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION_FEATURE_COUNT = 12;
+    int DASHBOARD_CONNECTION_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionServerImpl <em>Execution Server</em>}' class.
@@ -7814,6 +7823,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getDashboardConnection_AdditionnalsParams();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getDatasource <em>Datasource</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Datasource</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getDatasource()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Datasource();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionServer <em>Execution Server</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -11967,6 +11987,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS = eINSTANCE.getDashboardConnection_AdditionnalsParams();
+
+        /**
+         * The meta object literal for the '<em><b>Datasource</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__DATASOURCE = eINSTANCE.getDashboardConnection_Datasource();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionServerImpl <em>Execution Server</em>}' class.

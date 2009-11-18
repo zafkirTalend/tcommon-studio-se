@@ -35,6 +35,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getStatTable <em>Stat Table</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getFlowMeterTable <em>Flow Meter Table</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getAdditionnalsParams <em>Additionnals Params</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getDatasource <em>Datasource</em>}</li>
  * </ul>
  * </p>
  *
@@ -280,6 +281,26 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      * @ordered
      */
     protected String additionnalsParams = ADDITIONNALS_PARAMS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDatasource() <em>Datasource</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDatasource()
+     * @generated
+     * @ordered
+     */
+    protected static final String DATASOURCE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDatasource() <em>Datasource</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDatasource()
+     * @generated
+     * @ordered
+     */
+    protected String datasource = DATASOURCE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -556,6 +577,27 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDatasource() {
+        return datasource;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDatasource(String newDatasource) {
+        String oldDatasource = datasource;
+        datasource = newDatasource;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.DASHBOARD_CONNECTION__DATASOURCE, oldDatasource, datasource));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.DASHBOARD_CONNECTION__ID:
@@ -582,6 +624,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
                 return getFlowMeterTable();
             case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
                 return getAdditionnalsParams();
+            case PropertiesPackage.DASHBOARD_CONNECTION__DATASOURCE:
+                return getDatasource();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -628,6 +672,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
                 return;
             case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
                 setAdditionnalsParams((String)newValue);
+                return;
+            case PropertiesPackage.DASHBOARD_CONNECTION__DATASOURCE:
+                setDatasource((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -676,6 +723,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
             case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
                 setAdditionnalsParams(ADDITIONNALS_PARAMS_EDEFAULT);
                 return;
+            case PropertiesPackage.DASHBOARD_CONNECTION__DATASOURCE:
+                setDatasource(DATASOURCE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -711,6 +761,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
                 return FLOW_METER_TABLE_EDEFAULT == null ? flowMeterTable != null : !FLOW_METER_TABLE_EDEFAULT.equals(flowMeterTable);
             case PropertiesPackage.DASHBOARD_CONNECTION__ADDITIONNALS_PARAMS:
                 return ADDITIONNALS_PARAMS_EDEFAULT == null ? additionnalsParams != null : !ADDITIONNALS_PARAMS_EDEFAULT.equals(additionnalsParams);
+            case PropertiesPackage.DASHBOARD_CONNECTION__DATASOURCE:
+                return DATASOURCE_EDEFAULT == null ? datasource != null : !DATASOURCE_EDEFAULT.equals(datasource);
         }
         return super.eIsSet(featureID);
     }
@@ -748,6 +800,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
         result.append(flowMeterTable);
         result.append(", additionnalsParams: ");
         result.append(additionnalsParams);
+        result.append(", datasource: ");
+        result.append(datasource);
         result.append(')');
         return result.toString();
     }
