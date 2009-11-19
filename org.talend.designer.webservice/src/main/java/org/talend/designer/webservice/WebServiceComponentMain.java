@@ -49,7 +49,7 @@ public class WebServiceComponentMain {
     public Dialog createDialog(Shell parentShell) {
         dialog = new WebServiceDialog(parentShell, this);
         IComponent component = connector.getComponent();
-        dialog.setTitle("Talend Open Studio - " + connector.getUniqueName());
+        dialog.setTitle("Talend Integration Suite - " + connector.getUniqueName());
 
         Rectangle boundsMapper = ExternalWebServiceUIProperties.getBoundsMapper();
         if (ExternalWebServiceUIProperties.isShellMaximized()) {
