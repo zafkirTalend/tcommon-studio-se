@@ -631,6 +631,27 @@ public class MetadataTool {
     }
 
     /**
+     * zli Comment method "validataValue".
+     */
+    public static String validateValueForDBType(String columnName) {
+        if (columnName == null) {
+            return null;
+        }
+        columnName = mapSpecialChar(columnName);
+        final String underLine = "_"; //$NON-NLS-1$
+        if (columnName.matches("^\\d.*")) { //$NON-NLS-1$
+            columnName = underLine + columnName;
+        }
+
+        String testColumnName = columnName.replaceAll("[^a-zA-Z 0-9_]", underLine); //$NON-NLS-1$
+
+        if (org.apache.commons.lang.StringUtils.countMatches(testColumnName, underLine) < (columnName.length() / 2)) {
+            return testColumnName;
+        }
+        return columnName;
+    }
+
+    /**
      * wzhang Comment method "checkSchema".
      */
     public static void checkSchema(Shell shell, KeyEvent event) {
