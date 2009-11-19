@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.webservice.ui;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -42,6 +46,8 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
@@ -79,10 +85,10 @@ import org.talend.designer.webservice.ui.dialog.WebServiceEventListener;
 import org.talend.designer.webservice.ui.dnd.DragAndDropForWebService;
 import org.talend.designer.webservice.ui.link.WebServiceTableLiner;
 import org.talend.designer.webservice.ws.WSDLDiscoveryHelper;
-import org.talend.designer.webservice.ws.helper.conf.ServiceHelperConfiguration;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.PortNames;
+import org.talend.ws.helper.conf.ServiceHelperConfiguration;
 
 /**
  * gcui class global comment. Detailled comment
@@ -244,6 +250,8 @@ public class WebServiceUI {
 
     private INode inputNode = null;
 
+    private Boolean isFirst = true;
+
     public WebServiceUI(Composite uiParent, WebServiceComponentMain webServiceMain) {
         super();
         this.uiParent = uiParent;
@@ -251,13 +259,79 @@ public class WebServiceUI {
         this.webServiceManager = webServiceMain.getWebServiceManager();
         this.connector = webServiceMain.getWebServiceComponent();
         URLValue = new String();
-        getInConnList();
-        getOutConnList();
-        getLastFunction();
-        getInputElementList();
-        getOutputElementList();
+        // getInConnList();
+        // getOutConnList();
+        // getLastFunction();
+        initWebserviceUI();
+        // getInputElementList();
+        // getOutputElementList();
         initInputMetaCopy();
         initOutputMetaCopy();
+    }
+
+    private void initWebserviceUI() {
+        IElementParameter METHODPara = connector.getElementParameter("METHOD"); //$NON-NLS-1$
+        Object obj = METHODPara.getValue();
+        if (obj == null) {
+            return;
+        }
+        if (obj != null && obj instanceof String && !"".equals(obj)) {
+            String currentURL = (String) connector.getElementParameter("PORT_NAME").getValue(); //$NON-NLS-1$
+
+            PortNames retrivePortName = new PortNames();
+            retrivePortName.setPortName(currentURL);
+            allPortNames.clear();
+            allPortNames.add(retrivePortName);
+            retrivePortName.setPortName(currentURL);
+
+            Function fun = new Function(obj.toString());
+            allfunList.clear();
+            allfunList.add(fun);
+            if (fun != null) {
+                currentFunction = fun;
+            }
+        }
+    }
+
+    public void initWebserviceData() {
+        ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell()
+                .getShell());
+        IRunnableWithProgress runnable = new IRunnableWithProgress() {
+
+            public void run(final IProgressMonitor monitor) {
+                monitor.beginTask("Retrieve WSDL parameter from net,please wait....", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        getInConnList();
+                        getOutConnList();
+                        getLastFunction();
+                        getInputElementList();
+                        getOutputElementList();
+                        expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                        expressoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                        rowoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                        initLinksForIn();
+                        initLinksForOut();
+                        expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                        isFirst = false;
+                    }
+                });
+
+                monitor.done();
+
+            }
+        };
+        try {
+            progressDialog.run(true, true, runnable);
+        } catch (InvocationTargetException e1) {
+            ExceptionHandler.process(e1);
+        } catch (InterruptedException e1) {
+            ExceptionHandler.process(e1);
+        } catch (WebServiceCancelException e1) {
+            return;
+        }
+
     }
 
     private void getInConnList() {
@@ -278,6 +352,7 @@ public class WebServiceUI {
         if (inComeName == null) {
             inComeName = ""; //$NON-NLS-1$
         }
+        columnInPutTableView.getTableViewerCreator().getTableViewer().refresh();
     }
 
     private void getOutConnList() {
@@ -303,6 +378,7 @@ public class WebServiceUI {
             outData.setMetadataColumn(col);
             outPutcolumnList.add(outData);
         }
+        expressoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
 
     }
 
@@ -328,13 +404,18 @@ public class WebServiceUI {
             if (isUseAuth) {
                 useAuth();
             }
+
+            boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString().equals(
+                    "true");
+            if (isUseAuth) {
+                useSSL();
+            }
             if (serverConfig != null) {
                 funList = ws.getFunctionsAvailable(wsdlUrl, serverConfig);
 
             } else {
                 funList = ws.getFunctionsAvailable(wsdlUrl);
             }
-
             PortNames retrivePortName = new PortNames();
             retrivePortName.setPortName(currentURL);
             allPortNames.clear();
@@ -645,6 +726,35 @@ public class WebServiceUI {
     }
 
     /**
+     * DOC gcui Comment method "useSSL".
+     * 
+     * @return
+     */
+    private void useSSL() {
+
+        String trustStoreFile = "";
+        String trustStorePassword = "";
+
+        IElementParameter trustserverFileParameter = webServiceManager.getWebServiceComponent().getElementParameter(
+                "SSL_TRUSTSERVER_TRUSTSTORE");
+        IElementParameter trustserverPasswordParameter = webServiceManager.getWebServiceComponent().getElementParameter(
+                "SSL_TRUSTSERVER_PASSWORD");
+        if (trustserverFileParameter.getValue() != null) {
+            trustStoreFile = trustserverFileParameter.getValue().toString();
+            trustStoreFile = TalendTextUtils.removeQuotes(trustStoreFile);
+        }
+        if (trustserverPasswordParameter.getValue() != null) {
+            trustStorePassword = trustserverPasswordParameter.getValue().toString();
+            trustStorePassword = TalendTextUtils.removeQuotes(trustStorePassword);
+        }
+
+        System.setProperty("java.protocol.handler.pkgs", "com.sun.net.ssl.internal.www.protocol");
+        System.setProperty("javax.net.ssl.trustStore", trustStoreFile);
+        System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
+
+    }
+
+    /**
      * Sets the listener.
      * 
      * @param listener the listener to set
@@ -729,6 +839,16 @@ public class WebServiceUI {
                     box.open();
                     return;
                 }
+                if (isFirst) {
+                    initWebserviceData();
+                } else {
+                    if (inPutcolumnList.isEmpty()) {
+                        getInConnList();
+                    }
+                    if (outPutcolumnList.isEmpty()) {
+                        getOutConnList();
+                    }
+                }
 
                 // set dialog back button and next button can use or not.
                 int crruenSelect = tabFolder.getSelectionIndex();
@@ -797,6 +917,7 @@ public class WebServiceUI {
                 if (result != null) {
                     getTextControl().setText(TalendTextUtils.addQuotes(PathUtils.getPortablePath(result)));
                     getDataFromNet();
+                    isFirst = false;
                 }
             }
 
@@ -928,9 +1049,34 @@ public class WebServiceUI {
         refreshbut.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                getDataFromNet();
+                ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(PlatformUI.getWorkbench().getDisplay()
+                        .getActiveShell().getShell());
+                IRunnableWithProgress runnable = new IRunnableWithProgress() {
+
+                    public void run(final IProgressMonitor monitor) {
+                        monitor.beginTask("Retrieve WSDL parameter from net.", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
+
+                        Display.getDefault().syncExec(new Runnable() {
+
+                            public void run() {
+                                getDataFromNet();
+                            }
+                        });
+                        monitor.done();
+                    }
+                };
+                try {
+                    progressDialog.run(true, true, runnable);
+                } catch (InvocationTargetException e1) {
+                    ExceptionHandler.process(e1);
+                } catch (InterruptedException e1) {
+                    ExceptionHandler.process(e1);
+                } catch (WebServiceCancelException e1) {
+                    return;
+                }
                 // listTable.setSelection(listTable.getItem(0));
                 // listTable.select(0);
+                isFirst = false;
             }
         });
         // TableItem firstItem = listTable.getItem(0);
@@ -944,11 +1090,12 @@ public class WebServiceUI {
                 TableItem[] item = listTable.getSelection();
                 currentFunction = (Function) item[0].getData();
 
-                IElementParameter METHODPara = connector.getElementParameter("METHOD"); //$NON-NLS-1$
-                Object obj = METHODPara.getValue();
-                if (currentFunction.getName().equals(obj.toString())) {
-                    return;
-                }
+                // if select the same as before ,don't change it
+                // IElementParameter METHODPara = connector.getElementParameter("METHOD"); //$NON-NLS-1$
+                // Object obj = METHODPara.getValue();
+                // if (currentFunction.getName().equals(obj.toString())) {
+                // return;
+                // }
                 List<ParameterInfo> listIn = currentFunction.getInputParameters();
                 List<ParameterInfo> listOut = currentFunction.getOutputParameters();
                 ExtendedTableModel<InputMappingData> columnModel = expressinPutTableView.getExtendedTableModel();
@@ -1034,7 +1181,7 @@ public class WebServiceUI {
         if (URLValue == null) {
             URLValue = ""; //$NON-NLS-1$
         }
-        WSDLDiscoveryHelper ws = new WSDLDiscoveryHelper();
+        final WSDLDiscoveryHelper ws = new WSDLDiscoveryHelper();
 
         WebServiceComponent webServiceComponent = webServiceManager.getWebServiceComponent();
         boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
@@ -1046,6 +1193,13 @@ public class WebServiceUI {
         if (isUseAuth) {
             useAuth();
         }
+
+        boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString()
+                .equals("true");
+        if (isUseAuth) {
+            useSSL();
+        }
+
         if (serverConfig != null) {
             funList = ws.getFunctionsAvailable(URLValue, serverConfig);
 
@@ -2352,7 +2506,7 @@ public class WebServiceUI {
         IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS"); //$NON-NLS-1$
         List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
         TableItem[] items = rowTableForin.getItems();
-        TableItem[] tarItems = expressTableForIn.getItems();
+        TableItem[] tarItems = expressinPutTableView.getTable().getItems();
 
         WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*(\\w+)\\s*\\.\\s*(\\w+)\\s*"); //$NON-NLS-1$
         for (Map<String, String> map : inputparaValue) {
@@ -2422,8 +2576,8 @@ public class WebServiceUI {
     private void initLinksForOut() {
         IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS"); //$NON-NLS-1$
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
-        TableItem[] items = rowTableForout.getItems();
-        TableItem[] tarItems = expressTableForout.getItems();
+        TableItem[] items = rowoutPutTableView.getTable().getItems();
+        TableItem[] tarItems = expressoutPutTableView.getTable().getItems();
         WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*\\w+(\\[\\d+?\\])?\\s*"); //$NON-NLS-1$
         for (Map<String, String> map : outputMap) {
             if (map.get("SOURCE") != null && map.get("SOURCE") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -2496,6 +2650,10 @@ public class WebServiceUI {
 
     public void saveProperties() {
         getWebServiceManager().savePropertiesToComponent();
+    }
+
+    public Boolean getIsFirst() {
+        return this.isFirst;
     }
 
     public void prepareClosing(int dialogResponse) {

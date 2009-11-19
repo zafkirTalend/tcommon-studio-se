@@ -16,12 +16,12 @@ import org.xml.sax.InputSource;
  */
 public class XMLSupport {
 
-    public static Schema convertElementToSchema(Element element) throws IOException {
+    public static Schema convertElementToSchema(Element element, String documentBase) throws IOException {
 
         String content = outputString(element);
         // System.out.println(content);
         if (content != null) {
-            return readSchema(new StringReader(content));
+            return readSchema(new StringReader(content), documentBase);
         }
 
         return null;
@@ -32,13 +32,15 @@ public class XMLSupport {
         return xmlWriter.outputString(elem);
     }
 
-    public static Schema readSchema(Reader reader) throws IOException {
+    public static Schema readSchema(Reader reader, String documentBase) throws IOException {
 
         InputSource inputSource = new InputSource(reader);
+        inputSource.setSystemId(documentBase);
 
         SchemaReader schemaReader = new SchemaReader(inputSource);
         schemaReader.setValidation(false);
-        Schema schema = schemaReader.read();
+        Schema schema = null;
+        schema = schemaReader.read();
 
         return schema;
     }

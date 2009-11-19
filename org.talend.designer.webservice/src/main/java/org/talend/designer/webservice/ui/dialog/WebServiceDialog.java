@@ -174,6 +174,9 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         if (function == null) {
             warningDialog("Please Select a Operation!");
         } else if (curreSelect < 2 && function != null) {
+            if (webServiceUI.getIsFirst()) {
+                webServiceUI.initWebserviceData();
+            }
             tabFolder.setSelection(curreSelect + 1);
             if (!backButton.getEnabled()) {
                 backButton.setEnabled(true);
@@ -186,10 +189,14 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
     }
 
     protected void okPressed() {
-        getWebServiceUI().saveProperties();
-        // getWebServiceUI().prepareClosing(SWT.OK);
-        saveValue();
-        getUIManager().setDialogResponse(SWT.OK);
+        if (getWebServiceUI().getIsFirst()) {
+            super.cancelPressed();
+        } else {
+            getWebServiceUI().saveProperties();
+            // getWebServiceUI().prepareClosing(SWT.OK);
+            saveValue();
+            getUIManager().setDialogResponse(SWT.OK);
+        }
     }
 
     private void saveValue() {

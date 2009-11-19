@@ -12,10 +12,10 @@ import javax.wsdl.WSDLException;
 
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
-import org.talend.designer.webservice.ws.helper.ServiceDiscoveryHelper;
-import org.talend.designer.webservice.ws.helper.ServiceInvokerHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
+import org.talend.ws.helper.ServiceDiscoveryHelper;
+import org.talend.ws.helper.ServiceInvokerHelper;
 
 /**
  * DOC gcui class global comment. Detailled comment

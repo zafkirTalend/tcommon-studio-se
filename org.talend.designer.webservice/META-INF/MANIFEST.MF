@@ -15,13 +15,12 @@ Require-Bundle: org.eclipse.ui,
  org.talend.designer.mapper;bundle-version="2.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- lib/castor-xml.jar,
  lib/cxf-2.2.2.jar,
+ lib/talend-ws-1.0.jar,
  lib/jaxrpc.jar,
  lib/wsdl4j-1.6.2.jar,
+ lib/castor-xml.jar,
  lib/jdom.jar,
- lib/talend-ws-1.0-BETA1.jar,
  lib/xerces-1.2.3.jar,
  lib/xercesImpl.jar,
- lib/XmlSchema-1.4.5.jar,
- lib/talend-ws-1.0-BETA1-sources.jar
+ lib/XmlSchema-1.4.5.jar

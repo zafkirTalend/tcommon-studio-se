@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.exolab.castor.xml.schema.SchemaException;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.designer.webservice.ws.helper.conf.ServiceHelperConfiguration;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.OperationInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.ServiceInfo;
 import org.talend.designer.webservice.ws.wsdlutil.ComponentBuilder;
+import org.talend.ws.helper.conf.ServiceHelperConfiguration;
 
 /**
  * 
@@ -19,11 +21,13 @@ import org.talend.designer.webservice.ws.wsdlutil.ComponentBuilder;
  */
 public class WSDLDiscoveryHelper {
 
-    public static List<Function> functionsAvailable;
+    public List<Function> functionsAvailable;
 
-    public static List<ParameterInfo> inputParameters;
+    public List<ParameterInfo> inputParameters;
 
-    public static List<ParameterInfo> outputParameters;
+    public List<ParameterInfo> outputParameters;
+
+    private String exceptionMessage;
 
     /**
      * DOC gcui Comment method "getFunctionsAvailable".
@@ -31,9 +35,10 @@ public class WSDLDiscoveryHelper {
      * @param wsdlURI
      * @return
      */
-    public static List<Function> getFunctionsAvailable(String wsdlURI, ServiceHelperConfiguration config) {
+    public List<Function> getFunctionsAvailable(String wsdlURI, ServiceHelperConfiguration config) {
         functionsAvailable = new ArrayList();
         wsdlURI = TalendTextUtils.removeQuotes(wsdlURI);
+
         try {
             ComponentBuilder builder = new ComponentBuilder();
 
@@ -42,6 +47,8 @@ public class WSDLDiscoveryHelper {
             serviceInfo.setAuthConfig(config);
             serviceInfo = builder.buildserviceinformation(serviceInfo);
 
+            exceptionMessage = builder.getExceptionMessage();
+            
             Iterator iter = serviceInfo.getOperations();
             while (iter.hasNext()) {
 
@@ -94,6 +101,12 @@ public class WSDLDiscoveryHelper {
                         } else if (element.getKind() == null) {
                             operationName = operationName + "noType" + ",";
                         }
+                        if (element.getKind() == null
+                                && (element.getParameterInfos() == null || element.getParameterInfos().isEmpty())
+                                && inps.size() == 1) {
+
+                            element.setName(element.getName());
+                        }
                     }
                     int operationNamelen = operationName.length();
                     operationName = operationName.substring(0, operationNamelen - 1) + "):";
@@ -130,10 +143,18 @@ public class WSDLDiscoveryHelper {
                 f.setName(operationName);
                 functionsAvailable.add(f);
             }
+        } catch (SchemaException e) {
+            exceptionMessage = exceptionMessage + e.getMessage();
+            ExceptionHandler.process(e);
         } catch (Exception e) {
+            exceptionMessage = exceptionMessage + e.getMessage();
             ExceptionHandler.process(e);
         }
 
+        if (!"".equals(exceptionMessage)) {
+            Exception e = new Exception(exceptionMessage);
+            MessageBoxExceptionHandler.process(e);
+        }
         return functionsAvailable;
     }
 
@@ -142,13 +163,13 @@ public class WSDLDiscoveryHelper {
      * 
      * @param element
      */
-    private static void getParaFullName(ParameterInfo paraElement) {
+    private void getParaFullName(ParameterInfo paraElement) {
         paraElement.setParaFullName(paraElement.getName());
         List<ParameterInfo> allChildList = getAllChildren(paraElement);
 
     }
 
-    public static List<ParameterInfo> getAllChildren(ParameterInfo para) {
+    public List<ParameterInfo> getAllChildren(ParameterInfo para) {
         List<ParameterInfo> list = new ArrayList<ParameterInfo>();
         List<ParameterInfo> childList = para.getParameterInfos();
         for (ParameterInfo paraC : childList) {
@@ -165,7 +186,7 @@ public class WSDLDiscoveryHelper {
         return list;
     }
 
-    public static List<Function> getFunctionsAvailable(String wsdlURI) {
+    public List<Function> getFunctionsAvailable(String wsdlURI) {
         ServiceHelperConfiguration config = null;
         return getFunctionsAvailable(wsdlURI, config);
 
@@ -173,7 +194,7 @@ public class WSDLDiscoveryHelper {
 
     public static void main(String[] args) {
         List<Function> test = new ArrayList<Function>();
-        test = getFunctionsAvailable("\"C:/Documents and Settings/Administrator/桌面/wsdl/Person.wsdl\"");
+        // test = getFunctionsAvailable("\"C:/Documents and Settings/Administrator/桌面/wsdl/Person.wsdl\"");
         // test =
         //getFunctionsAvailable("F:/strivecui_work_log/week_21(0622-0626)/TestAxis/src/org/soyatec/wsdl/testExample.wsdl"
         // );
