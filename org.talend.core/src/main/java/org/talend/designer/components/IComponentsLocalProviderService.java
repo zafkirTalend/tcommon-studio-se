@@ -41,6 +41,8 @@ public interface IComponentsLocalProviderService extends IService {
 
     public IPreferenceStore getPreferenceStore();
 
+    public void setPreferenceStoreValue(String key, Object value);
+
     public AbstractUIPlugin getPlugin();
 
     public boolean validateComponent(String componentFolder, ECodeLanguage language);
