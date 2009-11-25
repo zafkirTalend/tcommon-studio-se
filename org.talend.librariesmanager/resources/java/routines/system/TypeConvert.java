@@ -4111,7 +4111,7 @@ public class TypeConvert {
     }
 
     public static Date String2Date(String o, String pattern) {
-        if (o == null)
+        if (o == null || "".equals(o.trim()))
             return null;
         return TalendDate.parseDate(pattern, o);
     }
