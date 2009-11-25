@@ -6,8 +6,8 @@ Bundle-Version: 1.0.0.200610021
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.datatools.connectivity.oda;bundle-version="[3.0.1,4.0.0)",
- com.ibm.icu;bundle-version="[3.4.4,4.0.0)",
+Require-Bundle: org.eclipse.datatools.connectivity.oda;bundle-version="3.0.1",
+ com.ibm.icu;bundle-version="3.4.4",
  org.eclipse.swt,
  org.eclipse.jface,
  org.apache.xerces
