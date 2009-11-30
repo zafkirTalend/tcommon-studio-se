@@ -49,6 +49,7 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.utils.Timer;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
@@ -119,6 +120,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
 
     private static LocalRepositoryFactory singleton = null;
+
+    private static final boolean DEBUG = false;
 
     public LocalRepositoryFactory() {
         super();
@@ -289,6 +292,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return convert(getSerializableFromFolder(project, folder, null, type, allVersions, true, withDeleted));
     }
 
+    private long nbTries = 0;
+
     /**
      * 
      * Get all object in a folder recursively.
@@ -306,6 +311,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throws PersistenceException {
         List<IRepositoryObject> toReturn = new VersionList(allVersion);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
+        if (DEBUG) {
+            System.out.println("looking for id=" + id + "(" + type + ") in " + folder + " with options allVersion=" + allVersion
+                    + " searchInChildren=" + searchInChildren + " withDeleted=" + withDeleted);
+            new Exception().printStackTrace();
+        }
+
         if (folder != null) {
             FolderItem currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
 
@@ -314,7 +325,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (xmiResourceManager.isPropertyFile((IFile) current)) {
                         Property property = null;
                         try {
+                            if (DEBUG) {
+                                Timer.getTimer("loadProperty").start();
+                            }
                             property = xmiResourceManager.loadProperty(current);
+                            if (DEBUG) {
+                                Timer.getTimer("loadProperty").stop();
+                                nbTries++;
+                            }
+                            addToHistory(id, type, property.getItem().getState().getPath());
                         } catch (RuntimeException e) {
                             // property will be null
                             ExceptionHandler.process(e);
@@ -323,6 +342,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             if (id == null || property.getId().equals(id)) {
                                 if (withDeleted || !property.getItem().getState().isDeleted()) {
                                     toReturn.add(new RepositoryObject(property));
+                                    if (DEBUG) {
+                                        System.out.println("found after " + nbTries + " tries");
+                                        Timer.getTimer("loadProperty").print();
+                                        nbTries = 0;
+                                    }
                                 }
                             }
                             if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
@@ -334,7 +358,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         }
                     }
                 } else if (current instanceof IFolder) { // &&
-                    if (searchInChildren || (withDeleted && current.getName().equals("bin"))) {
+                    if (!current.getName().equals(".svn")
+                            && (searchInChildren || (withDeleted && current.getName().equals("bin")))) {
                         toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
                                 withDeleted));
                     }
