@@ -35,6 +35,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
@@ -46,7 +47,10 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.RepositoryManager;
+import org.talend.core.ui.ISVNProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.ReplaceNodesInProcessProvider;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -587,7 +591,14 @@ public class ProcessorUtilities {
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
             IProgressMonitor progressMonitor) throws ProcessorException {
-
+        // added by nma, to refresh routines when generating code in SVN mode. 10225.
+        ISVNProviderService service = null;
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(ISVNProviderService.class);
+        }
+        if (service != null && service.isProjectInSvnMode()) {
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+        }
         // achen modify to fix 0006107
         ProcessItem pItem = (ProcessItem) process.getProperty().getItem();
         JobInfo jobInfo;
@@ -609,6 +620,14 @@ public class ProcessorUtilities {
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
             int option) throws ProcessorException {
+        // added by nma, to refresh routines when generating code in SVN mode. 10225.
+        ISVNProviderService service = null;
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(ISVNProviderService.class);
+        }
+        if (service != null && service.isProjectInSvnMode()) {
+            RepositoryManager.syncRoutineAndJoblet(ERepositoryObjectType.ROUTINES);
+        }
         // achen modify to fix 0006107
         JobInfo jobInfo = new JobInfo(process, context);
         jobList.clear();
