@@ -136,8 +136,22 @@ public class MetterCatcherUtils {
         }
     }
 
-    java.util.List<MetterCatcherMessage> messages = java.util.Collections
-            .synchronizedList(new java.util.ArrayList<MetterCatcherMessage>());
+    ThreadLocal tl_messages = new ThreadLocal();
+
+    private java.util.List<MetterCatcherMessage> getTLMessages() {
+        Object value = tl_messages.get();
+        if (value == null) {
+            java.util.List<MetterCatcherMessage> messages =
+
+            java.util.Collections.synchronizedList(new
+
+            java.util.ArrayList<MetterCatcherMessage>());
+            tl_messages.set(messages);
+            return messages;
+        }
+
+        return (java.util.List<MetterCatcherMessage>) value;
+    }
 
     String jobId = ""; //$NON-NLS-1$
 
@@ -149,6 +163,7 @@ public class MetterCatcherUtils {
     }
 
     public void addMessage(String label, Integer count, String referense, String thresholds, String origin) {
+        java.util.List<MetterCatcherMessage> messages = getTLMessages();
 
         MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin, this.jobVersion,
                 this.jobId);
@@ -156,12 +171,14 @@ public class MetterCatcherUtils {
     }
 
     public java.util.List<MetterCatcherMessage> getMessages() {
+        java.util.List<MetterCatcherMessage> messages = getTLMessages();
+
         java.util.List<MetterCatcherMessage> messagesToSend = new java.util.ArrayList<MetterCatcherMessage>();
-	    synchronized(messages) {
-	    	for (MetterCatcherMessage scm : messages) {
-	              messagesToSend.add(scm);
-	    	}  
-	    }
+        synchronized (messages) {
+            for (MetterCatcherMessage scm : messages) {
+                messagesToSend.add(scm);
+            }
+        }
         messages.clear();
         return messagesToSend;
     }
