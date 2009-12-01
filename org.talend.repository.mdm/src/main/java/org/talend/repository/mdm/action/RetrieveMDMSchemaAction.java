@@ -174,7 +174,7 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
             final RepositoryNode node, final boolean creation) {
         boolean skipStep = !creation;
         CreateConceptWizard conceptWizard = new CreateConceptWizard(PlatformUI.getWorkbench(), creation, getExistingNames(),
-                node, item, readOnly);
+                node, item, metadataTable, readOnly);
         WizardDialog wizardDialog = new WizardDialog(PlatformUI.getWorkbench().getDisplay().getActiveShell(), conceptWizard);
         wizardDialog.setBlockOnOpen(true);
         wizardDialog.setPageSize(WIZARD_WIDTH, WIZARD_HEIGHT);

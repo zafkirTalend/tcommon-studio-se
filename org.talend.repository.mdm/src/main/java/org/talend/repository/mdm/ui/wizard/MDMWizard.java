@@ -181,7 +181,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
                     connectionProperty.setId(nextId);
                     factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
                 } else {
-                    RepositoryUpdateManager.updateFileConnection(connection);
+                    RepositoryUpdateManager.updateFileConnection(connectionItem);
                     factory.save(connectionItem);
                     closeLockStrategy();
                 }

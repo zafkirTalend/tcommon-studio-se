@@ -15,6 +15,7 @@ package org.talend.repository.mdm.ui.wizard;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -28,6 +29,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -36,6 +38,7 @@ import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.designer.core.DesignerPlugin;
 import org.talend.repository.RepositoryPlugin;
 import org.talend.repository.i18n.Messages;
@@ -77,6 +80,12 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     private boolean readonly;
 
+    private MetadataTable metadataTable;
+
+    private List<IMetadataTable> oldMetadataTable;
+
+    private Map<String, String> oldTableMap;
+
     /**
      * DOC Administrator CreateConceptWizard constructor comment.
      * 
@@ -84,13 +93,18 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
      * @param creation
      */
     public CreateConceptWizard(IWorkbench workbench, boolean creation, String[] existNames, RepositoryNode node,
-            ConnectionItem connectionItem, boolean readonly) {
+            ConnectionItem connectionItem, MetadataTable metadataTable, boolean readonly) {
         super(workbench, creation, readonly);
         this.connectionItem = connectionItem;
         this.node = node;
         this.readonly = readonly;
         this.repositoryObject = node.getObject();
         this.existNames = existNames;
+        this.metadataTable = metadataTable;
+        if (connectionItem != null) {
+            oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, false);
+            oldMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connectionItem.getConnection());
+        }
         switch (node.getType()) {
         case SIMPLE_FOLDER:
         case REPOSITORY_ELEMENT:
@@ -192,6 +206,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
             RepositoryPlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
             return true;
         } else if (!creation && tablePage.isPageComplete()) {
+            RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
             saveMetaData();
             closeLockStrategy();
 
