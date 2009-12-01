@@ -111,4 +111,7 @@ public interface IExternalNode extends INode {
 
     public IExternalData getTMapExternalData();
 
+    public INode getOriginalNode();
+
+    public void setOriginalNode(INode originalNode);
 }

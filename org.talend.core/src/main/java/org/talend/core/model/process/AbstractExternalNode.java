@@ -31,6 +31,8 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
 
     protected ImageDescriptor screenshot = null;
 
+    protected INode originalNode;
+
     /*
      * (non-Javadoc)
      * 
@@ -101,4 +103,13 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
     public void setScreenshot(ImageDescriptor screenshot) {
         this.screenshot = screenshot;
     }
+
+    public INode getOriginalNode() {
+        return this.originalNode;
+    }
+
+    public void setOriginalNode(INode originalNode) {
+        this.originalNode = originalNode;
+    }
+
 }
