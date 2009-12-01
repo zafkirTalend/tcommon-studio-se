@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
@@ -58,13 +59,16 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * ggu class global comment. Detailled comment
@@ -81,7 +85,7 @@ public abstract class RepositoryUpdateManager {
     /**
      * for context group
      */
-   private Map<ContextItem, List<IContext>> repositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
+    private Map<ContextItem, List<IContext>> repositoryContextGroupMap = new HashMap<ContextItem, List<IContext>>();
 
     /**
      * used for filter result.
@@ -92,9 +96,17 @@ public abstract class RepositoryUpdateManager {
 
     private boolean onlyOpeningJob = false;
 
+    private List<IRepositoryObject> updateObjList;
+
     public RepositoryUpdateManager(Object parameter) {
         super();
         this.parameter = parameter;
+    }
+
+    public RepositoryUpdateManager(Object parameter, List<IRepositoryObject> updateObjList) {
+        super();
+        this.parameter = parameter;
+        this.updateObjList = updateObjList;
     }
 
     public void setOnlyOpeningJob(boolean onlyOpeningJob) {
@@ -448,20 +460,28 @@ public abstract class RepositoryUpdateManager {
             //
             if (!onlyOpeningJob) {
                 IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                List<IRepositoryObject> processList = factory.getAll(ERepositoryObjectType.PROCESS, true);
-                if (processList == null) {
-                    processList = new ArrayList<IRepositoryObject>();
+                List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+                if (isItemIndexChecked() && parameter != null) {
+                    updateList.addAll(updateObjList);
+                } else {
+                    List<IRepositoryObject> processList = factory.getAll(ERepositoryObjectType.PROCESS, true);
+                    if (processList == null) {
+                        processList = new ArrayList<IRepositoryObject>();
+                    }
+                    updateList.addAll(processList);
+                    List<IRepositoryObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
+                    if (jobletList != null) {
+                        processList.addAll(jobletList);
+                    }
+                    updateList.addAll(processList);
                 }
-                List<IRepositoryObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
-                if (jobletList != null) {
-                    processList.addAll(jobletList);
-                }
+
                 // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
                 boolean checkOnlyLastVersion = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService()
                         .getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
                 // get all version
-                allVersionList = new ArrayList<IRepositoryObject>((int) (processList.size() * 1.1));
-                for (IRepositoryObject repositoryObj : processList) {
+                allVersionList = new ArrayList<IRepositoryObject>((int) (updateList.size() * 1.1));
+                for (IRepositoryObject repositoryObj : updateList) {
                     if (!checkOnlyLastVersion) {
                         List<IRepositoryObject> allVersion = factory.getAllVersion(repositoryObj.getId());
                         for (IRepositoryObject object : allVersion) {
@@ -488,7 +508,7 @@ public abstract class RepositoryUpdateManager {
             parentMonitor.setTaskName(Messages.getString("RepositoryUpdateManager.ItemsToUpdate")); //$NON-NLS-1$
             checkMonitorCanceled(parentMonitor);
 
-            if (!onlyOpeningJob) {
+            if (!onlyOpeningJob) {// && !isItemIndexChecked()
                 MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
 
                 for (IRepositoryObject repositoryObj : allVersionList) {
@@ -600,7 +620,7 @@ public abstract class RepositoryUpdateManager {
         List<UpdateResult> resultList = new ArrayList<UpdateResult>();
         if (process instanceof IProcess2) {
             IProcess2 process2 = (IProcess2) process;
-            // context rename and  context group
+            // context rename and context group
             IContextManager contextManager = process2.getContextManager();
             if (contextManager instanceof JobContextManager) {
                 JobContextManager jobContextManager = (JobContextManager) contextManager;
@@ -712,11 +732,11 @@ public abstract class RepositoryUpdateManager {
      * 
      * for repository wizard.
      */
-    public static boolean updateDBConnection(Connection connection) {
+    public static boolean updateDBConnection(ConnectionItem connection) {
         return updateDBConnection(connection, true, false);
     }
 
-    public static boolean updateDBConnection(Connection connection, boolean show) {
+    public static boolean updateDBConnection(ConnectionItem connection, boolean show) {
         return updateDBConnection(connection, show, false);
     }
 
@@ -726,8 +746,22 @@ public abstract class RepositoryUpdateManager {
      * 
      * if show is false, will work for context menu action.
      */
-    public static boolean updateDBConnection(Connection connection, boolean show, final boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connection) {
+    public static boolean updateDBConnection(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                connectionItem.getProperty().getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -739,7 +773,7 @@ public abstract class RepositoryUpdateManager {
             }
 
         };
-        return repositoryUpdateManager.doWork(show, onlySimpleShow);
+        return repositoryUpdateManager.doWork(true, false);
     }
 
     /**
@@ -748,7 +782,7 @@ public abstract class RepositoryUpdateManager {
      * 
      * for repository wizard.
      */
-    public static boolean updateFileConnection(Connection connection) {
+    public static boolean updateFileConnection(ConnectionItem connection) {
         return updateFileConnection(connection, true, false);
     }
 
@@ -758,8 +792,22 @@ public abstract class RepositoryUpdateManager {
      * 
      * if show is false, will work for context menu action.
      */
-    public static boolean updateFileConnection(Connection connection, boolean show, boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connection) {
+    public static boolean updateFileConnection(ConnectionItem connectionItem, boolean show, boolean onlySimpleShow) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                connectionItem.getProperty().getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -788,9 +836,33 @@ public abstract class RepositoryUpdateManager {
         return idAndNameMap;
     }
 
+    @SuppressWarnings("unchecked")
+    public static Map<String, String> getTableIdAndNameMap(SAPFunctionUnit functionUnit) {
+        if (functionUnit == null) {
+            return Collections.emptyMap();
+        }
+        Map<String, String> idAndNameMap = new HashMap<String, String>();
+        EList tables = functionUnit.getTables();
+        if (tables != null) {
+            for (MetadataTable table : (List<MetadataTable>) tables) {
+                idAndNameMap.put(table.getId(), table.getLabel());
+            }
+        }
+        return idAndNameMap;
+    }
+
     public static Map<String, String> getOldTableIdAndNameMap(ConnectionItem connItem, MetadataTable metadataTable,
             boolean creation) {
         Map<String, String> oldTableMap = getTableIdAndNameMap(connItem);
+        if (creation && metadataTable != null) {
+            oldTableMap.remove(metadataTable.getId());
+        }
+        return oldTableMap;
+    }
+
+    public static Map<String, String> getOldTableIdAndNameMap(SAPFunctionUnit functionUnit, MetadataTable metadataTable,
+            boolean creation) {
+        Map<String, String> oldTableMap = getTableIdAndNameMap(functionUnit);
         if (creation && metadataTable != null) {
             oldTableMap.remove(metadataTable.getId());
         }
@@ -807,6 +879,29 @@ public abstract class RepositoryUpdateManager {
 
         final String prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
         EList tables = connItem.getConnection().getTables();
+        if (tables != null) {
+            for (MetadataTable table : (List<MetadataTable>) tables) {
+                String oldName = oldTableMap.get(table.getId());
+                String newName = table.getLabel();
+                if (oldName != null && !oldName.equals(newName)) {
+                    schemaRenamedMap.put(prefix + oldName, prefix + newName);
+                }
+            }
+        }
+        return schemaRenamedMap;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Map<String, String> getSchemaRenamedMap(SAPFunctionUnit functionUnit, ConnectionItem connItem,
+            Map<String, String> oldTableMap) {
+        if (functionUnit == null || oldTableMap == null) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, String> schemaRenamedMap = new HashMap<String, String>();
+
+        final String prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
+        EList tables = functionUnit.getTables();
         if (tables != null) {
             for (MetadataTable table : (List<MetadataTable>) tables) {
                 String oldName = oldTableMap.get(table.getId());
@@ -869,6 +964,28 @@ public abstract class RepositoryUpdateManager {
 
     }
 
+    public static boolean updateMultiSchema(SAPFunctionUnit functionUnit, ConnectionItem connItem,
+            List<IMetadataTable> oldMetadataTable, Map<String, String> oldTableMap) {
+        if (functionUnit == null) {
+            return false;
+        }
+        Map<String, String> schemaRenamedMap = RepositoryUpdateManager.getSchemaRenamedMap(functionUnit, connItem, oldTableMap);
+        boolean update = !schemaRenamedMap.isEmpty();
+
+        if (!update) {
+            if (oldMetadataTable != null) {
+                List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(functionUnit);
+                update = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
+            }
+        }
+        // update
+        if (update) {
+            return updateSchema(functionUnit, connItem, schemaRenamedMap, true, false);
+        }
+        return false;
+
+    }
+
     private static boolean sameAsMetadatTable(List<IMetadataTable> newTables, List<IMetadataTable> oldTables,
             Map<String, String> oldTableMap) {
         if (newTables == null || oldTables == null) {
@@ -905,7 +1022,21 @@ public abstract class RepositoryUpdateManager {
      * @return
      */
     public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction, boolean show, boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapFunction) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                sapFunction.getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapFunction, updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -942,13 +1073,31 @@ public abstract class RepositoryUpdateManager {
         return updateSchema(metadataTable, null, null, show, false);
     }
 
-    public static boolean updateSchema(final MetadataTable metadataTable, boolean show, boolean onlySimpleShow) {
-        return updateSchema(metadataTable, null, null, show, onlySimpleShow);
+    public static boolean updateSchema(final MetadataTable metadataTable, RepositoryNode node, boolean show,
+            boolean onlySimpleShow) {
+        ConnectionItem connItem = (ConnectionItem) node.getObject().getProperty().getItem();
+        return updateSchema(metadataTable, connItem, null, show, onlySimpleShow);
     }
 
     private static boolean updateSchema(final Object table, ConnectionItem connItem, Map<String, String> schemaRenamedMap,
             boolean show, boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                ((ConnectionItem) connItem).getProperty().getId(), ItemCacheManager.LATEST_VERSION,
+                RelationshipItemBuilder.PROPERTY_RELATION);
+
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -971,9 +1120,13 @@ public abstract class RepositoryUpdateManager {
      * 
      * for repository wizard.
      */
-    public static boolean updateQuery(QueriesConnection queryConn) {
+    public static boolean updateQuery(Query query) {
 
-        return updateQueryObject(queryConn, true, false);
+        return updateQueryObject(query, true, false);
+    }
+
+    public static boolean updateQuery(Query query, RepositoryNode node) {
+        return updateQueryObject(query, true, false, node);
     }
 
     /**
@@ -986,12 +1139,66 @@ public abstract class RepositoryUpdateManager {
         return updateQueryObject(query, show, false);
     }
 
-    public static boolean updateQuery(Query query, boolean show, boolean onlySimpleShow) {
-        return updateQueryObject(query, show, onlySimpleShow);
+    public static boolean updateQuery(Query query, RepositoryNode node, boolean show, boolean onlySimpleShow) {
+        return updateQueryObject(query, show, onlySimpleShow, node);
     }
 
     private static boolean updateQueryObject(Object parameter, boolean show, boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = null;
+        if (parameter instanceof Query) {
+            relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(((Query) parameter).getId(),
+                    ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.QUERY_RELATION);
+        } else if (parameter instanceof QueriesConnection) {
+            relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                    ((QueriesConnection) parameter).getConnection().getId(), ItemCacheManager.LATEST_VERSION,
+                    RelationshipItemBuilder.QUERY_RELATION);
+        }
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, updateList) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_QUERY);
+                return types;
+            }
+
+        };
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
+    }
+
+    private static boolean updateQueryObject(Object parameter, boolean show, boolean onlySimpleShow, RepositoryNode node) {
+        Item item = node.getObject().getProperty().getItem();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = null;
+        if (parameter instanceof Query) {
+            String id = item.getProperty().getId() + " - " + ((Query) parameter).getLabel();
+            relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id, ItemCacheManager.LATEST_VERSION,
+                    RelationshipItemBuilder.QUERY_RELATION);
+        }
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1031,7 +1238,22 @@ public abstract class RepositoryUpdateManager {
 
     private static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item, boolean show,
             boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                item.getProperty().getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.CONTEXT_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1110,8 +1332,40 @@ public abstract class RepositoryUpdateManager {
         return tables;
     }
 
+    @SuppressWarnings("unchecked")
+    public static List<IMetadataTable> getConversionMetadataTables(SAPFunctionUnit functionUnit) {
+        if (functionUnit == null) {
+            return Collections.emptyList();
+        }
+        List<IMetadataTable> tables = new ArrayList<IMetadataTable>();
+
+        EList tables2 = functionUnit.getTables();
+        if (tables2 != null) {
+            for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (List<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
+                IMetadataTable conversionTable = ConvertionHelper.convert(originalTable);
+                tables.add(conversionTable);
+            }
+        }
+
+        return tables;
+    }
+
     public static boolean updateJoblet(JobletProcessItem item, boolean show, boolean onlySimpleShow) {
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                item.getProperty().getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.JOBLET_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, updateList) {
 
             @Override
             public Set<EUpdateItemType> getTypes() {
@@ -1124,5 +1378,11 @@ public abstract class RepositoryUpdateManager {
         repositoryUpdateManager.setOnlyOpeningJob(true);
 
         return repositoryUpdateManager.doWork(show, onlySimpleShow);
+    }
+
+    public boolean isItemIndexChecked() {
+        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
+        return preferenceStore.getBoolean(ITalendCorePrefConstants.ITEM_INDEX);
     }
 }

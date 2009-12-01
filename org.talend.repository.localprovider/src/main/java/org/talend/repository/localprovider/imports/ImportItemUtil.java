@@ -79,6 +79,7 @@ import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.business.model.business.BusinessPackage;
@@ -557,6 +558,7 @@ public class ImportItemUtil {
                 }
             }
         }
+        RelationshipItemBuilder.getInstance().saveRelations();
 
         try {
             if (item != null && item instanceof RoutineItem) {

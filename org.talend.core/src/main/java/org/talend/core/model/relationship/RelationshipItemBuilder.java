@@ -96,12 +96,15 @@ public class RelationshipItemBuilder {
     }
 
     public List<Relation> getItemsRelatedTo(String itemId, String version, String relationType) {
+        if (!loaded) {
+            loadRelations(ProjectManager.getInstance().getCurrentProject());
+        }
+
         Relation itemToTest = new Relation();
 
         itemToTest.setId(itemId);
         itemToTest.setType(relationType);
         itemToTest.setVersion(version);
-
         if (itemsRelations.containsKey(itemToTest)) {
             return itemsRelations.get(itemToTest);
         }
@@ -160,7 +163,10 @@ public class RelationshipItemBuilder {
         this.project = project;
     }
 
-    private void saveRelations() {
+    public void saveRelations() {
+        if (!loaded) {
+            return;
+        }
         project.getEmfProject().getItemsRelations().clear();
 
         for (Relation relation : itemsRelations.keySet()) {
