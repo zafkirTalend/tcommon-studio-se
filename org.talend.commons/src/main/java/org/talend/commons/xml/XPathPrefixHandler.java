@@ -677,7 +677,7 @@ public class XPathPrefixHandler {
          * @see javax.xml.namespace.NamespaceContext#getPrefix(java.lang.String)
          */
         public String getPrefix(String namespaceURI) {
-            if (namespaceURI == null) {
+            if (namespaceURI == null || "".equals(namespaceURI)) {
                 return ""; //$NON-NLS-1$
             }
             return (String) prefixToNamespace.getKey(namespaceURI);
