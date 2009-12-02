@@ -61,8 +61,7 @@ public final class SQLPatternUtils {
      * @return
      */
     public static SQLPatternItem getSQLPatternItem(IElement element, String sqlpatternName) {
-        String eltNodeName = (String) element.getElementParameter("SQLPATTERN_DB_NAME").getValue(); //$NON-NLS-1$
-
+        //        String eltNodeName = (String) element.getElementParameter("SQLPATTERN_DB_NAME").getValue(); //$NON-NLS-1$
         SQLPatternItem sqlpatternItem = null;
         try {
             List<IRepositoryObject> list = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(
@@ -70,7 +69,8 @@ public final class SQLPatternUtils {
 
             for (IRepositoryObject repositoryObject : list) {
                 SQLPatternItem item = (SQLPatternItem) repositoryObject.getProperty().getItem();
-                if (item.getEltName().equals(eltNodeName) && item.getProperty().getLabel().equals(sqlpatternName)) {
+                // modify for bug 10375
+                if (item.getProperty().getLabel().equals(sqlpatternName)) {
                     sqlpatternItem = item;
                     break;
                 }
