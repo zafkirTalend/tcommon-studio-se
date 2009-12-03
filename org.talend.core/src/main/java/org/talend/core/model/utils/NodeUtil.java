@@ -34,6 +34,10 @@ public class NodeUtil {
     /**
      * DOC sort the outgoingconnections to make sure the first connection is EConnectionType.FLOW_MAIN or
      * EConnectionType.FLOW_REF<br/>
+     * <p>
+     * bug:9363, if a component have 2 output links, one is EConnectionType.FLOW_MAIN, one is EConnectionType.FLOW_REF,
+     * make sure EConnectionType.FLOW_REF before EConnectionType.FLOW_MAIN(REJECT)
+     * </p>
      * 
      * @param node
      * @return List<? extends IConnection>
@@ -51,14 +55,32 @@ public class NodeUtil {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
                     EConnectionType lineStyle2 = connection2.getLineStyle();
+
+                    // 1. check EConnectionType.FLOW_REF
+                    if (lineStyle == EConnectionType.FLOW_REF) {
+                        return -1;
+                    }
+                    if (lineStyle2 == EConnectionType.FLOW_REF) {
+                        return 1;
+                    }
+
+                    // 2. check EConnectionType.FLOW_MAIN, EConnectionType.FLOW_MERGE
                     if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_MERGE) {
                         return -1;
                     }
                     if (lineStyle2 == EConnectionType.FLOW_MAIN || lineStyle2 == EConnectionType.FLOW_MERGE) {
                         return 1;
-                    } else {
-                        return 0;
                     }
+
+                    // 3. check others case
+                    if (!(lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_MERGE || lineStyle == EConnectionType.FLOW_REF)) {
+                        return -1;
+                    }
+                    if (!(lineStyle2 == EConnectionType.FLOW_MAIN || lineStyle2 == EConnectionType.FLOW_MERGE || lineStyle2 == EConnectionType.FLOW_REF)) {
+                        return 1;
+                    }
+
+                    return 0;
 
                 }
             });
