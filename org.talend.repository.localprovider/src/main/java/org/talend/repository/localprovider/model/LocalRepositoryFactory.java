@@ -314,7 +314,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (DEBUG) {
             System.out.println("looking for id=" + id + "(" + type + ") in " + folder + " with options allVersion=" + allVersion
                     + " searchInChildren=" + searchInChildren + " withDeleted=" + withDeleted);
-            new Exception().printStackTrace();
+            log.info(this, new Exception());
         }
 
         if (folder != null) {
