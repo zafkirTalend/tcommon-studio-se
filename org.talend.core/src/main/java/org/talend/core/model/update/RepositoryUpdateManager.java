@@ -471,6 +471,9 @@ public abstract class RepositoryUpdateManager {
                     updateList.addAll(processList);
                     List<IRepositoryObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
                     if (jobletList != null) {
+                        if (!processList.isEmpty()) {
+                            processList.clear();
+                        }
                         processList.addAll(jobletList);
                     }
                     updateList.addAll(processList);
@@ -510,8 +513,9 @@ public abstract class RepositoryUpdateManager {
 
             if (!onlyOpeningJob) {// && !isItemIndexChecked()
                 MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
-
+                int index = 0;
                 for (IRepositoryObject repositoryObj : allVersionList) {
+                    System.out.println(index + ":" + repositoryObj.getLabel());
                     checkMonitorCanceled(parentMonitor);
                     Item item = repositoryObj.getProperty().getItem();
                     // avoid the opened job
@@ -521,9 +525,11 @@ public abstract class RepositoryUpdateManager {
                     parentMonitor.subTask(getUpdateJobInfor(repositoryObj.getProperty()));
                     List<UpdateResult> updatesNeededFromItems = getUpdatesNeededFromItems(parentMonitor, item, types,
                             onlySimpleShow);
-                    if (updatesNeededFromItems != null) {
+                    if (updatesNeededFromItems != null && !updatesNeededFromItems.isEmpty()) {
                         resultList.addAll(updatesNeededFromItems);
+                        System.out.println(index);
                     }
+                    index++;
                     parentMonitor.worked(1);
                 }
             }
