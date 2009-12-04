@@ -515,7 +515,6 @@ public abstract class RepositoryUpdateManager {
                 MultiKeyMap openProcessMap = createOpenProcessMap(openedProcessList);
                 int index = 0;
                 for (IRepositoryObject repositoryObj : allVersionList) {
-                    System.out.println(index + ":" + repositoryObj.getLabel());
                     checkMonitorCanceled(parentMonitor);
                     Item item = repositoryObj.getProperty().getItem();
                     // avoid the opened job
@@ -527,7 +526,6 @@ public abstract class RepositoryUpdateManager {
                             onlySimpleShow);
                     if (updatesNeededFromItems != null && !updatesNeededFromItems.isEmpty()) {
                         resultList.addAll(updatesNeededFromItems);
-                        System.out.println(index);
                     }
                     index++;
                     parentMonitor.worked(1);
