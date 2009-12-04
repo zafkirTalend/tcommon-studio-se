@@ -59,16 +59,25 @@ public class NodeUtil {
                     // "FLOW" only for the default Main connection, if user define his connection like: "FILTER",
                     // "REJECT", "FLOW", he should use this API in JET directly: List<? extends IConnection> connsFilter
                     // = node.getOutgoingConnections("FILTER");
-                    if ("FLOW".equals(connection1.getConnectorName()) || lineStyle == EConnectionType.FLOW_MAIN
-                            || lineStyle == EConnectionType.FLOW_MERGE) {
+                    // 1. FLOW first
+                    if ("FLOW".equals(connection1.getConnectorName())) {
                         return -1;
                     }
-                    if ("FLOW".equals(connection2.getConnectorName()) || lineStyle2 == EConnectionType.FLOW_MAIN
-                            || lineStyle2 == EConnectionType.FLOW_MERGE) {
+
+                    if ("FLOW".equals(connection2.getConnectorName())) {
                         return 1;
-                    } else {
-                        return 0;
                     }
+
+                    // 2. FLOW_MAIN, FLOW_MERGE second
+                    if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_MERGE) {
+                        return -1;
+                    }
+                    if (lineStyle2 == EConnectionType.FLOW_MAIN || lineStyle2 == EConnectionType.FLOW_MERGE) {
+                        return 1;
+                    }
+
+                    // 3. others cases, the last
+                    return 0;
 
                 }
             });
