@@ -16,6 +16,10 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>
+   </requires>
+
    <plugin
          id="org.talend.libraries.apache"
          download-size="0"
@@ -40,4 +44,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.apache.log4j"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
