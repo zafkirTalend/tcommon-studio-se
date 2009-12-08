@@ -17,10 +17,13 @@ import java.util.List;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -66,7 +69,7 @@ public final class SQLPatternUtils {
         try {
             List<IRepositoryObject> list = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(
                     ERepositoryObjectType.SQLPATTERNS, false);
-
+            addSQLPatternObjectInRefProject(list);
             for (IRepositoryObject repositoryObject : list) {
                 SQLPatternItem item = (SQLPatternItem) repositoryObject.getProperty().getItem();
                 // modify for bug 10375
@@ -81,6 +84,27 @@ public final class SQLPatternUtils {
             ExceptionHandler.process(e);
         }
         return sqlpatternItem;
+    }
+
+    private static void addSQLPatternObjectInRefProject(List<IRepositoryObject> list) {
+        try {
+            List<Project> referencedProjects = ProjectManager.getInstance().getReferencedProjects();
+            for (Project project : referencedProjects) {
+                List<IRepositoryObject> refList;
+                refList = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAll(project,
+                        ERepositoryObjectType.SQLPATTERNS, false);
+                for (IRepositoryObject repositoryObject : refList) {
+                    Item item = repositoryObject.getProperty().getItem();
+                    if (item instanceof SQLPatternItem) {
+                        if (!((SQLPatternItem) item).isSystem()) {
+                            list.add(repositoryObject);
+                        }
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     /**
