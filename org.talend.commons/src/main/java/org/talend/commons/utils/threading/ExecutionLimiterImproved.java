@@ -39,7 +39,7 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
 
     private FinalExecution finalExecutionThreadWait;
 
-    private Executor executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
+    private static Executor executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
 
         public Thread newThread(Runnable r) {
             Thread newThread = Executors.defaultThreadFactory().newThread(r);
@@ -93,7 +93,7 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
     @SuppressWarnings("unchecked")
     public boolean startIfExecutable(final boolean executeAtEndOfTime, final Object data) {
 
-//        System.out.println("startIfExecutable: " + System.currentTimeMillis());
+        // System.out.println("startIfExecutable: " + System.currentTimeMillis());
 
         boolean locked = false;
         boolean executable = false;
@@ -156,16 +156,16 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                 });
                 return true;
             } else {
-//                System.out.println("#####################################");
-//                System.out.println("Execution rejected: not executable");
-//                System.out.println("#####################################");
+                // System.out.println("#####################################");
+                // System.out.println("Execution rejected: not executable");
+                // System.out.println("#####################################");
                 atLeastOneCallRefused = true;
                 return false;
             }
         } else {
-//            System.out.println("#####################################");
-//            System.out.println("Execution rejected: locked");
-//            System.out.println("#####################################");
+            // System.out.println("#####################################");
+            // System.out.println("Execution rejected: locked");
+            // System.out.println("#####################################");
             atLeastOneCallRefused = true;
             return false;
         }
@@ -218,12 +218,12 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                 returnValue = !inExecution;
             } else {
                 returnValue = !inExecution && System.currentTimeMillis() - startTime >= timeBeforeNewExecution;
-//                 System.out.println(System.currentTimeMillis() - startTime + " >= " + timeBeforeNewExecution + " " +
-//                 returnValue);
+                // System.out.println(System.currentTimeMillis() - startTime + " >= " + timeBeforeNewExecution + " " +
+                // returnValue);
             }
         }
 
-//        System.out.println("IS EXECUTABLE: " + returnValue);
+        // System.out.println("IS EXECUTABLE: " + returnValue);
         return returnValue;
     }
 
