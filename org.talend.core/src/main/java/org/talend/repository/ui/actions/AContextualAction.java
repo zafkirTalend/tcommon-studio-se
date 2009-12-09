@@ -471,4 +471,19 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     protected abstract void doRun();
 
+    protected boolean isLastVersion(RepositoryNode repositoryObject) {
+        try {
+            List<IRepositoryObject> allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                    .getAllVersion(repositoryObject.getId());
+            if (allVersion == null || allVersion.isEmpty()) {
+                return false;
+            }
+            // Collections.sort(allVersion, new IRepositoryObjectComparator());
+            IRepositoryObject lastVersion = allVersion.get(allVersion.size() - 1);
+            return lastVersion.getVersion().equals(repositoryObject.getObject().getVersion());
+        } catch (PersistenceException e) {
+            return false;
+        }
+    }
+
 }

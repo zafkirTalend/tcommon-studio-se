@@ -29,4 +29,6 @@ public interface IJobSettingsView {
 
     public void refreshCurrentViewTab();
 
+    public boolean isCleaned();
+
 }
