@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -97,6 +98,7 @@ import org.talend.repository.localprovider.imports.ItemRecord.State;
 import org.talend.repository.localprovider.imports.TreeBuilder.ProjectNode;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -311,23 +313,39 @@ public class ImportItemUtil {
     @SuppressWarnings("unchecked")
     public List<ItemRecord> importItemRecords(final ResourcesManager manager, final List<ItemRecord> itemRecords,
             final IProgressMonitor monitor, final boolean overwrite, final IPath destinationPath) {
-        monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() + 1); //$NON-NLS-1$
+        monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() * 2 + 1); //$NON-NLS-1$
 
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") { //$NON-NLS-1$
 
             @Override
             public void run() throws PersistenceException {
+                // bug 10520
+                final Set<String> overwriteDeletedItems = new HashSet<String>();
+                final Set<String> originalDeleteStateItems = new HashSet<String>();
+
                 for (ItemRecord itemRecord : itemRecords) {
                     if (!monitor.isCanceled()) {
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
-                            importItemRecord(manager, itemRecord, overwrite, destinationPath);
+                            importItemRecord(manager, itemRecord, overwrite, destinationPath, overwriteDeletedItems,
+                                    originalDeleteStateItems);
                             monitor.worked(1);
                         }
                     }
                 }
-                monitor.done();
+
+                // bug 10520
+                for (String deletedId : originalDeleteStateItems) {
+                    final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+                    IRepositoryObject deleteObject = factory.getLastVersion(deletedId);
+                    try {
+                        factory.deleteObjectLogical(deleteObject);
+                    } catch (BusinessException e) {
+                        logError(e);
+                    }
+                    monitor.worked(1);
+                }
                 // cannot cancel this part
                 monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
                 for (ItemRecord itemRecord : itemRecords) {
@@ -337,6 +355,7 @@ public class ImportItemUtil {
                     }
                     monitor.worked(1);
                 }
+                monitor.done();
             }
         };
 
@@ -373,7 +392,8 @@ public class ImportItemUtil {
         }
     }
 
-    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath) {
+    private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath,
+            final Set<String> overwriteDeletedItems, final Set<String> originalDeleteStateItems) {
         resolveItem(manager, itemRecord);
         ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         if (itemRecord.getItem() != null) {
@@ -401,7 +421,10 @@ public class ImportItemUtil {
                 IRepositoryObject lastVersion = itemRecord.getExistingItemWithSameId();
                 if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
                         && !deletedItems.contains(id)) {
-                    repFactory.forceDeleteObjectPhysical(lastVersion);
+                    if (!overwriteDeletedItems.contains(id)) { // have deleted the existed item, bug 10520.
+                        overwriteDeletedItems.add(id);
+                        repFactory.forceDeleteObjectPhysical(lastVersion);
+                    }
                     lastVersion = null;
 
                     // List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
@@ -427,9 +450,7 @@ public class ImportItemUtil {
                     boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
                     repFactory.create(tmpItem, path, true);
                     if (originalDeleteState) {
-                        IRepositoryObject deleteObject = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
-                                tmpItem.getProperty().getId());
-                        repFactory.deleteObjectLogical(deleteObject);
+                        originalDeleteStateItems.add(id); // should delete later.
                     }
                     itemRecord.setImportPath(path.toPortableString());
                     itemRecord.setRepositoryType(itemType);
