@@ -124,7 +124,14 @@ public class Application implements IApplication {
 
                 File file = new File(lastWorkSpacePath);
                 if (!file.exists()) {
-                    file.mkdirs();
+                    // for bug 10307
+                    boolean mkdirs = file.mkdirs();
+                    if (!mkdirs) {
+                        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
+                                Messages.getString("Application.workspaceNotExiste")); //$NON-NLS-1$
+                        perReader.saveConnections(null);
+                        return true;
+                    }
                 }
                 URL url = null;
                 try {
