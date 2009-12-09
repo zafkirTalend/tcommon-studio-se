@@ -135,6 +135,8 @@ public final class FilesUtils {
 
     }
 
+    // TODO check that this method is not a duplicate of org.talend.utils.files.FileUtils#replaceInFile(String path,
+    // String oldString, String newString)
     public static void replaceInFile(String regex, String fileName, String replacement) throws IOException {
         InputStream in = new FileInputStream(fileName);
         StringBuffer buffer = new StringBuffer();

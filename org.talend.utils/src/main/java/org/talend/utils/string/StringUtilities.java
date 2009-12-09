@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.talend.utils.sugars.ReturnCode;
+
 /**
  * @author scorreia. A String utility class.
  */
@@ -50,4 +52,34 @@ public final class StringUtilities {
         return stringArray;
     } // eom tokenize
 
+    /**
+     * Method "checkBalancedParenthesis".
+     * 
+     * @param input the string to check
+     * @param openingBlock can be a left parenthesis,...
+     * @param closingBlock can be a right parenthesis...
+     * @return true when the parenthesis are well balanced.
+     */
+    public static ReturnCode checkBalancedParenthesis(String input, char openingBlock, char closingBlock) {
+        int level = 0;
+        int i;
+        for (i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            if (currentChar == openingBlock) {
+                level++;
+            } else if (currentChar == closingBlock) {
+                level--;
+            }
+            if (level < 0) {
+                return new ReturnCode("too many " + closingBlock + " at position " + i, false);
+            }
+        }
+        if (level < 0) {
+            return new ReturnCode("too many " + closingBlock + " at position " + i, false);
+        }
+        if (level > 0) {
+            return new ReturnCode("too many " + openingBlock + " at position " + i, false);
+        }
+        return new ReturnCode();
+    }
 }

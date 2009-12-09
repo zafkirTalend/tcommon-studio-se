@@ -18,6 +18,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.talend.utils.string.StringUtilities;
+import org.talend.utils.sugars.ReturnCode;
 
 /**
  * DOC stephane class global comment. Detailled comment <br/>
@@ -51,6 +56,36 @@ public final class FileUtils {
 
         file.delete();
         tmpFile.renameTo(file);
+    }
+
+    /**
+     * Method "checkBracketsInFile" checks whether the parentheses are well balanced on each line of the given file.
+     * 
+     * @param path the path of the file to check
+     * @return true when all lines contain well balanced parentheses.
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public static synchronized List<ReturnCode> checkBracketsInFile(String path) throws IOException,
+            URISyntaxException {
+        List<ReturnCode> returncodes = new ArrayList<ReturnCode>();
+        File file = new File(path);
+        BufferedReader in = new BufferedReader(new FileReader(file));
+
+        String line;
+        int lineNb = 0;
+
+        while ((line = in.readLine()) != null) {
+            ReturnCode checkBlocks = StringUtilities.checkBalancedParenthesis(line, '(', ')');
+            lineNb++;
+            if (!checkBlocks.isOk()) {
+                String errorMsg = "Line " + lineNb + ": " + checkBlocks.getMessage();
+                returncodes.add(new ReturnCode(errorMsg, false));
+            }
+        }
+
+        in.close();
+        return returncodes;
     }
 
 }
