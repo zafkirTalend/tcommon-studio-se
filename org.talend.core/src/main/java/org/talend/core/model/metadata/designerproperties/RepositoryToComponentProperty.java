@@ -493,10 +493,10 @@ public class RepositoryToComponentProperty {
             if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
                 // see StatsAndLogConstants
                 // This connection is Oracle_SID
-                return "ORACLE_SID"; //$NON-NLS-1$
+                return "Oracle"; //$NON-NLS-1$
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
                 // This connection is Oracle_service_name
-                return "ORACLE_SERVICE_NAME"; //$NON-NLS-1$
+                return "Oracle with service name"; //$NON-NLS-1$
             } else {
                 return typeByProduct;
             }
