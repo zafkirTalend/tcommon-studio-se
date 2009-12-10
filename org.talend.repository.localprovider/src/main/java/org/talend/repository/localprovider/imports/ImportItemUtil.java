@@ -421,10 +421,14 @@ public class ImportItemUtil {
                 IRepositoryObject lastVersion = itemRecord.getExistingItemWithSameId();
                 if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
                         && !deletedItems.contains(id)) {
-                    if (!overwriteDeletedItems.contains(id)) { // have deleted the existed item, bug 10520.
+                    if (!overwriteDeletedItems.contains(id)) { // bug 10520.
+                        ERepositoryStatus status = repFactory.getStatus(lastVersion);
+                        if (status == ERepositoryStatus.DELETED) {
+                            repFactory.restoreObject(lastVersion, path); // restore first.
+                        }
                         overwriteDeletedItems.add(id);
-                        repFactory.forceDeleteObjectPhysical(lastVersion);
                     }
+                    repFactory.forceDeleteObjectPhysical(lastVersion, itemRecord.getProperty().getVersion());
                     lastVersion = null;
 
                     // List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);

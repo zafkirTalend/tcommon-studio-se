@@ -366,8 +366,13 @@ public interface IProxyRepositoryFactory {
 
     public abstract void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
 
+    public abstract void deleteObjectPhysical(IRepositoryObject objToDelete, String version) throws PersistenceException;
+
     public abstract void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException,
             BusinessException;
+
+    public abstract void deleteObjectPhysical(Project project, IRepositoryObject objToDelete, String version)
+            throws PersistenceException;
 
     public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException, BusinessException;
 
@@ -658,7 +663,7 @@ public interface IProxyRepositoryFactory {
     public void createParentFoldersRecursively(Project project, ERepositoryObjectType itemType, IPath path)
             throws PersistenceException;
 
-    public void forceDeleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
+    public void forceDeleteObjectPhysical(IRepositoryObject objToDelete, String version) throws PersistenceException;
 
     public Property getUptodateProperty(Project project, Property property) throws PersistenceException;
 

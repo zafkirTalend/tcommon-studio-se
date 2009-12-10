@@ -902,13 +902,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
+        deleteObjectPhysical(project, objToDelete, null);
+    }
 
+    public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete, String version) throws PersistenceException {
+        if ("".equals(version)) { //$NON-NLS-1$
+            version = null; // for all version
+        }
         // can only delete in the main project
         List<IRepositoryObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
-            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
-            for (Resource resource : affectedResources) {
-                xmiResourceManager.deleteResource(resource);
+            if (version == null || currentVersion.getVersion().equals(version)) {
+                List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
+                for (Resource resource : affectedResources) {
+                    xmiResourceManager.deleteResource(resource);
+                }
             }
         }
     }
