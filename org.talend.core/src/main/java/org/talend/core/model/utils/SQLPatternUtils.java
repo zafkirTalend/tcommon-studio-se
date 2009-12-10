@@ -14,12 +14,14 @@ package org.talend.core.model.utils;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -69,7 +71,7 @@ public final class SQLPatternUtils {
         try {
             List<IRepositoryObject> list = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(
                     ERepositoryObjectType.SQLPATTERNS, false);
-            addSQLPatternObjectInRefProject(list);
+            addReferencedSQLTemplate(list, ProjectManager.getInstance().getCurrentProject());
             for (IRepositoryObject repositoryObject : list) {
                 SQLPatternItem item = (SQLPatternItem) repositoryObject.getProperty().getItem();
                 // modify for bug 10375
@@ -86,12 +88,18 @@ public final class SQLPatternUtils {
         return sqlpatternItem;
     }
 
-    private static void addSQLPatternObjectInRefProject(List<IRepositoryObject> list) {
+    private static void addReferencedSQLTemplate(List<IRepositoryObject> list, Project project) {
         try {
-            List<Project> referencedProjects = ProjectManager.getInstance().getReferencedProjects();
-            for (Project project : referencedProjects) {
+            List<ProjectReference> referencedProjects = (List<ProjectReference>) project.getEmfProject().getReferencedProjects();
+            for (ProjectReference referenced : referencedProjects) {
+                org.talend.core.model.properties.Project referencedEmfProject = referenced.getReferencedProject();
+                EList refeInRef = referencedEmfProject.getReferencedProjects();
+                Project newProject = new Project(referencedEmfProject);
+                if (refeInRef != null && refeInRef.size() > 0) {
+                    addReferencedSQLTemplate(list, newProject);
+                }
                 List<IRepositoryObject> refList;
-                refList = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAll(project,
+                refList = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAll(newProject,
                         ERepositoryObjectType.SQLPATTERNS, false);
                 for (IRepositoryObject repositoryObject : refList) {
                     Item item = repositoryObject.getProperty().getItem();
