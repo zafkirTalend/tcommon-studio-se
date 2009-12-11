@@ -665,13 +665,15 @@ public abstract class PropertiesWizardPage extends WizardPage {
         dialog.setTitle(Messages.getString("PropertiesWizardPage.SelectfolderTitle")); //$NON-NLS-1$
         dialog.setMessage(Messages.getString("PropertiesWizardPage.SelectfolderMessage")); //$NON-NLS-1$
         if (dialog.open() == Window.OK) {
-            Folder folder = (Folder) dialog.getResult()[0];
-            String pathString = folder.getPath();
-            if (pathString == null) {
-                pathText.setText(""); //$NON-NLS-1$
-            } else {
-                pathText.setText(pathString);
-                this.path = pathString;
+            if (dialog.getResult().length > 0) {
+                Folder folder = (Folder) dialog.getResult()[0];
+                String pathString = folder.getPath();
+                if (pathString == null) {
+                    pathText.setText(""); //$NON-NLS-1$
+                } else {
+                    pathText.setText(pathString);
+                    this.path = pathString;
+                }
             }
         }
 
