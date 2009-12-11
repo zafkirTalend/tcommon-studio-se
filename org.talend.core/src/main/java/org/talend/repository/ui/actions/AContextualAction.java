@@ -40,7 +40,6 @@ import org.eclipse.ui.views.properties.PropertySheet;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -318,11 +317,12 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
 
         if (repositoryViewPart == null) {
-            try {
-                throw new SystemException("Repository view not found");
-            } catch (SystemException e) {
-                ExceptionHandler.process(e);
-            }
+            // comment by bug 10542
+            // try {
+            // throw new SystemException("Repository view not found");
+            // } catch (SystemException e) {
+            // ExceptionHandler.process(e);
+            // }
             return null;
         }
 
