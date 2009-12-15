@@ -24,6 +24,7 @@ public enum EParameterFieldType {
     MEMO_PERL,
     MEMO_JAVA,
     MEMO_IMPORT,
+    MEMO_MESSAGE,
     CLOSED_LIST,
     CHECK,
     RADIO,
