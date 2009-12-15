@@ -18,8 +18,7 @@ package org.talend.commons.utils.threading;
  * executable at this moment. If not the current process is aborted and the <code>execute</code> method is not called.
  * If yes the current process is executed by call the <code>execute</code> method. <br/>
  * 
- * $Id: ExecutionLimiter.java 7038 2007-11-15 14:05:48Z plegall $
- * 
+ * @deprecated use ExecutionLimiterImproved instead
  */
 public abstract class ExecutionLimiter {
 

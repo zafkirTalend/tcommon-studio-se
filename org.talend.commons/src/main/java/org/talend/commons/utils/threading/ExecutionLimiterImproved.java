@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.commons.utils.threading;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
@@ -20,9 +20,7 @@ import java.util.concurrent.ThreadFactory;
  * 
  * Limit the execution of threads by verifying at call of <code>startIfExecutable</code> if the process can be
  * executable at this moment. If not the current process is aborted and the <code>execute</code> method is not called.
- * If yes the current process is executed by call the <code>execute</code> method. <br/>
- * 
- * $Id: ExecutionLimiter.java 6924 2007-11-12 13:16:18Z plegall $
+ * If yes the current process is executed by calling the <code>execute</code> method. <br/>
  * 
  */
 public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
@@ -39,26 +37,20 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
 
     private FinalExecution finalExecutionThreadWait;
 
-    private static Executor executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
+    private ExecutorService executor;
 
-        public Thread newThread(Runnable r) {
-            Thread newThread = Executors.defaultThreadFactory().newThread(r);
-            newThread.setName(newThread.getName() + "_" + ExecutionLimiterImproved.class.getSimpleName()); //$NON-NLS-1$
-            return newThread;
-        }
-
-    });
+    private ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
     private Locker locker = new Locker();
 
     private boolean atLeastOneCallRefused;
 
     public ExecutionLimiterImproved() {
-        super();
+        this(0, false);
     }
 
     public ExecutionLimiterImproved(long timeBeforeNewExecute) {
-        this.timeBeforeNewExecution = timeBeforeNewExecute;
+        this(timeBeforeNewExecute, false);
     }
 
     /**
@@ -70,8 +62,23 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
      * call of startIfExecutable()
      */
     public ExecutionLimiterImproved(long timeBeforeNewExecute, boolean finalExecute) {
+        this(timeBeforeNewExecute, finalExecute, null);
+    }
+
+    public ExecutionLimiterImproved(long timeBeforeNewExecute, boolean finalExecute, final String callerInfo) {
         this.timeBeforeNewExecution = timeBeforeNewExecute;
         this.finalExecute = finalExecute;
+        executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
+
+            public Thread newThread(Runnable r) {
+                Thread newThread = threadFactory.newThread(r);
+                newThread.setName(ExecutionLimiterImproved.class.getSimpleName()
+                        + "_" + (callerInfo != null ? callerInfo + "_" : "") + newThread.getName()); //$NON-NLS-1$
+                return newThread;
+            }
+
+        });
+
     }
 
     public boolean startIfExecutable() {
@@ -245,4 +252,11 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
             finalExecutionThreadWait.interrupt();
         }
     }
+
+    public void shutdown() {
+        if (executor != null) {
+            executor.shutdown();
+        }
+    }
+
 }

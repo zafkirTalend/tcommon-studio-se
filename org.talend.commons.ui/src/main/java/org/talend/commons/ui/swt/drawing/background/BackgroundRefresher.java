@@ -30,9 +30,7 @@ import org.talend.commons.utils.performance.IPerformanceEvaluatorListener;
 import org.talend.commons.utils.performance.PerformanceEvaluator;
 import org.talend.commons.utils.performance.PerformanceEvaluatorEvent;
 import org.talend.commons.utils.threading.AsynchronousThreading;
-import org.talend.commons.utils.threading.ExecutionLimiter;
 import org.talend.commons.utils.threading.ExecutionLimiterImproved;
-import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -88,18 +86,17 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         init(minimalTimeBetweenEachRefresh);
     }
     
-    private ExecutionLimiter executionLimiter;
+    private ExecutionLimiterImproved executionLimiter;
 
     private void init(long refreshTimeMax) {
         
-        executionLimiter = new ExecutionLimiterImproved(refreshTimeMax, true) {
+        executionLimiter = new ExecutionLimiterImproved(refreshTimeMax, true, this.getClass().getSimpleName() + ".init(long)") {
 
             /*
              * (non-Javadoc)
              * 
              * @see org.talend.commons.utils.threading.ExecutionLimiter#execute(boolean)
              */
-            @Override
             protected void execute(final boolean isFinalExecution, Object data) {
                 drawableComposite.getBgDrawableComposite().getDisplay().syncExec(new Runnable() {
 
@@ -133,6 +130,9 @@ public class BackgroundRefresher implements IBackgroundRefresher {
 
             public void widgetDisposed(DisposeEvent e) {
                 releaseBgImages();
+                if (executionLimiter != null) {
+                    executionLimiter.shutdown();
+                }
             }
 
         });

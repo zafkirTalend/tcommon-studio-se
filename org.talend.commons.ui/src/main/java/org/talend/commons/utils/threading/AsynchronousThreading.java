@@ -14,6 +14,7 @@ package org.talend.commons.utils.threading;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import org.eclipse.swt.widgets.Display;
 
@@ -28,9 +29,6 @@ import org.eclipse.swt.widgets.Display;
  * new AsynchronousThread(50, new Runnable() { public void run() { // calls of methods except Widget methods }
  * }).start();
  * 
- * 
- * $Id: AsynchronousThreading.java 7188 2007-11-23 13:51:36Z smallet $
- * 
  */
 public class AsynchronousThreading {
 
@@ -44,7 +42,16 @@ public class AsynchronousThreading {
 
     private Thread thread;
 
-    private static ExecutorService executor = Executors.newCachedThreadPool();
+    private static ThreadFactory threadFactory = Executors.defaultThreadFactory();
+    private static ExecutorService executor = Executors.newCachedThreadPool(new ThreadFactory() {
+
+        public Thread newThread(Runnable r) {
+            Thread newThread = threadFactory.newThread(r);
+            newThread.setName(AsynchronousThreading.class.getSimpleName() + "_" + newThread.getName()); //$NON-NLS-1$
+            return newThread;
+        }
+
+    });
 
     /**
      * 
@@ -55,8 +62,7 @@ public class AsynchronousThreading {
      * @param display
      * @param target
      */
-    public AsynchronousThreading(long sleepingTime, boolean synchronousDisplayExecution, Display display,
-            Runnable target) {
+    public AsynchronousThreading(long sleepingTime, boolean synchronousDisplayExecution, Display display, Runnable target) {
         this.sleepingTime = sleepingTime;
         this.synchronousDisplayExecution = synchronousDisplayExecution;
         this.target = target;
