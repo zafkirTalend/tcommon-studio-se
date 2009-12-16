@@ -91,10 +91,40 @@ public class XmiResourceManager {
     }
 
     public Property loadProperty(IResource iResource) {
-        Resource resource = resourceSet.getResource(URIHelper.convert(iResource.getFullPath()), true);
-        Property property = (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
+        // force unload old version, or the UI won't be synchronized all the time to the current file.
+        // this is only if a user update itself a .item or .properties, or for SVN repository.
+        //
+        URI propertyUri = URIHelper.convert(iResource.getFullPath());
+        // URI itemResourceURI = getItemResourceURI(propertyUri);
+        // List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+        // for (Resource res : resources) {
+        // if (propertyUri.toString().equals(res.getURI().toString())) {
+        // res.unload();
+        // // resourceSet.getResources().remove(res);
+        // }
+        // // if (itemResourceURI.toString().equals(res.getURI().toString())) {
+        // // res.unload();
+        // // // resourceSet.getResources().remove(res);
+        // // }
+        // }
+        // try {
+        // iResource.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
+        // } catch (CoreException e) {
+        // // do nothing
+        // }
+        Resource propertyResource = resourceSet.getResource(propertyUri, true);
+        // resourceSet.getResources().add(propertyResource);
+        Property property = (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE
                 .getProperty());
+        // property.getItem().eResource()
         return property;
+    }
+
+    public Property forceReloadProperty(Property property) {
+        URI propertyURI = property.eResource().getURI();
+        property.eResource().unload();
+        Resource propertyResource = resourceSet.getResource(propertyURI, true);
+        return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
     }
 
     private IPath getFolderPath(IProject project, ERepositoryObjectType repositoryObjectType, IPath relativePath)

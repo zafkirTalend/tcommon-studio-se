@@ -307,8 +307,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @throws PersistenceException
      */
     protected List<IRepositoryObject> getSerializableFromFolder(Project project, Object folder, String id,
-            ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted)
-            throws PersistenceException {
+            ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted,
+            boolean... recursiveCall) throws PersistenceException {
         List<IRepositoryObject> toReturn = new VersionList(allVersion);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         if (DEBUG) {
@@ -361,7 +361,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (!current.getName().equals(".svn")
                             && (searchInChildren || (withDeleted && current.getName().equals("bin")))) {
                         toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
-                                withDeleted));
+                                withDeleted, true));
                     }
                 }
             }
@@ -487,9 +487,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // Purge old routines :
         // 1. old built-in:
-        IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
-                + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
-        ResourceUtils.deleteResource(f1);
+        // IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+        // + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
+        // ResourceUtils.deleteResource(f1);
 
         createSystemRoutines();
     }
@@ -502,9 +502,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // Purge old sqlpatterns :
         // 1. old built-in:
-        IFolder sqlpatternRoot = ResourceUtils.getFolder(prj, ERepositoryObjectType
-                .getFolderName(ERepositoryObjectType.SQLPATTERNS), false);
-        clearSystemSqlPatterns(sqlpatternRoot);
+        // IFolder sqlpatternRoot = ResourceUtils.getFolder(prj, ERepositoryObjectType
+        // .getFolderName(ERepositoryObjectType.SQLPATTERNS), false);
+        // clearSystemSqlPatterns(sqlpatternRoot);
         createSystemSQLPatterns();
     }
 
@@ -1721,6 +1721,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void unloadResources() {
         xmiResourceManager.unloadResources();
+    }
+
+    @Override
+    public Property getUptodateProperty(Project project, Property property) throws PersistenceException {
+        Property uptodateProperty = super.getUptodateProperty(project, property);
+        return xmiResourceManager.forceReloadProperty(uptodateProperty);
     }
 
 }

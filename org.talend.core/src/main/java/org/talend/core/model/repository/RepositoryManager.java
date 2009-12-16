@@ -49,19 +49,19 @@ public final class RepositoryManager {
     }
 
     public static boolean isRefreshManually() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.MANUALLY_REFRESH);
+        return true;// getPreferenceStore().getBoolean(IRepositoryPrefConstants.MANUALLY_REFRESH);
     }
 
     public static boolean isRefreshCreated() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.CREATING_REFRESH);
+        return false;// getPreferenceStore().getBoolean(IRepositoryPrefConstants.CREATING_REFRESH);
     }
 
     public static boolean isRefreshSaved() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.SAVING_REFRESH);
+        return false;// getPreferenceStore().getBoolean(IRepositoryPrefConstants.SAVING_REFRESH);
     }
 
     public static boolean isRefreshDeleted() {
-        return getPreferenceStore().getBoolean(IRepositoryPrefConstants.DELETING_REFRESH);
+        return false;// getPreferenceStore().getBoolean(IRepositoryPrefConstants.DELETING_REFRESH);
     }
 
     public static IRepositoryView getRepositoryView() {

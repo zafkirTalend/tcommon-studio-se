@@ -80,6 +80,7 @@ public class ComponentsFactoryProvider {
      * save the Component Visibility Status for pallete settings.
      */
     public static void saveComponentVisibilityStatus(boolean reset, boolean persist) {
+        boolean modified = false;
         IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
         List<IComponent> components = componentsFactory.getComponents();
 
@@ -90,6 +91,7 @@ public class ComponentsFactoryProvider {
             if (reset) {
                 // if need to reset, clear the list
                 list.clear();
+                modified = true;
             }
         }
 
@@ -113,11 +115,12 @@ public class ComponentsFactoryProvider {
                     setting.setName(component.getName());
                     setting.setHidden(!component.isVisibleInComponentDefinition());
                     list.add(setting);
+                    modified = true;
                 }
             }
         }
 
-        if (persist) {
+        if (persist && modified) {
             IProxyRepositoryFactory prf = CorePlugin.getDefault().getProxyRepositoryFactory();
 
             try {

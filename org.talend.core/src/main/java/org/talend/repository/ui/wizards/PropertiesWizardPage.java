@@ -19,9 +19,11 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -59,6 +61,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -130,13 +133,18 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
+    private List<IRepositoryObject> listExistingObjects;
+
+    private boolean retrieveNameFinished = false;
+
     private static final boolean NEED_CANCEL_BUTTON = true;
 
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
         this(pageName, property, destinationPath, false, true);
     }
 
-    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly, boolean editPath) {
+    protected PropertiesWizardPage(String pageName, final Property property, IPath destinationPath, boolean readOnly,
+            boolean editPath) {
         super(pageName);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
@@ -148,6 +156,24 @@ public abstract class PropertiesWizardPage extends WizardPage {
         nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
         commentStatus = createOkStatus();
+
+        Job job = new Job("") {
+
+            @Override
+            protected IStatus run(IProgressMonitor monitor) {
+                ERepositoryObjectType type = ERepositoryObjectType.getItemType(property.getItem());
+                try {
+                    listExistingObjects = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(type, true, false);
+                } catch (PersistenceException e) {
+                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "", 1, "", e);
+                }
+                retrieveNameFinished = true;
+                return Status.OK_STATUS;
+            }
+        };
+        job.setUser(false);
+        job.setPriority(Job.BUILD);
+        job.schedule(); // start as soon as possible
 
         this.property = property;
 
@@ -837,8 +863,16 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
         } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
-        } else if (!isValid(nameText.getText()) && nameModifiedByUser) {
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
+        } else if (nameModifiedByUser) {
+            if (retrieveNameFinished) {
+                if (!isValid(nameText.getText())) {
+                    nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
+                } else {
+                    nameStatus = createOkStatus();
+                }
+            } else {
+                nameStatus = createStatus(IStatus.WARNING, "Looking for current items name list"); //$NON-NLS-1$
+            }
         } else {
             nameStatus = createOkStatus();
         }
@@ -895,12 +929,13 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public boolean isValid(String itemName) {
 
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
         try {
-            return repositoryFactory.isNameAvailable(property.getItem(), itemName);
+            return repositoryFactory.isNameAvailable(property.getItem(), itemName, listExistingObjects);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
             return false;

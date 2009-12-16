@@ -74,9 +74,11 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.repository.model.IRepositoryFactory#isValid(org.talend.core .model.general.Project,
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
-    public abstract boolean isNameAvailable(Item item, String name) throws PersistenceException;
+    public abstract boolean isNameAvailable(Item item, String name, List<IRepositoryObject>... givenList)
+            throws PersistenceException;
 
-    public abstract boolean isNameAvailable(Project project, Item item, String name) throws PersistenceException;
+    public abstract boolean isNameAvailable(Project project, Item item, String name, List<IRepositoryObject>... givenList)
+            throws PersistenceException;
 
     public abstract boolean isPathValid(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
 

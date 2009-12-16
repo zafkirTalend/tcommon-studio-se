@@ -75,6 +75,9 @@ public class RepositoryEditorInput extends FileEditorInput {
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+        if (loadedProcess != null) {
+            loadedProcess.setReadOnly(readOnly);
+        }
     }
 
     @Override
