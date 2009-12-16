@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadFactory;
  * If yes the current process is executed by calling the <code>execute</code> method. <br/>
  * 
  */
-public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
+public abstract class ExecutionLimiterImproved {
 
     private boolean inExecution;
 
@@ -176,6 +176,39 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
             atLeastOneCallRefused = true;
             return false;
         }
+    }
+
+    /**
+     * 
+     * DOC amaumont ExecutionLimiter class global comment. Detailled comment <br/>
+     * 
+     */
+    class FinalExecution extends Thread {
+
+        private Object data;
+
+        public FinalExecution(Object data) {
+            this.data = data;
+        }
+
+        public void run() {
+            try {
+                synchronized (this) {
+                    // finalExecutionThreadWait = this;
+                    this.wait(timeBeforeNewExecution);
+                }
+                // Thread.sleep(timeBeforeNewExecution);
+            } catch (InterruptedException e) {
+                // System.out.println("FinalExecution Interrupted " + ExecutionLimiter.this.hashCode() + " " +
+                // this.hashCode());
+                return;
+            }
+            // System.out.println("FinalExecution Not Interrupted " + ExecutionLimiter.this.hashCode() + " " +
+            // this.hashCode());
+            // System.out.println("Final thread executed");
+            execute(true, data);
+        }
+
     }
 
     /**

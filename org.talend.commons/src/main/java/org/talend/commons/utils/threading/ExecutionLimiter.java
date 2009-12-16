@@ -154,8 +154,6 @@ public abstract class ExecutionLimiter {
      * 
      * DOC amaumont ExecutionLimiter class global comment. Detailled comment <br/>
      * 
-     * $Id: ExecutionLimiter.java 7038 2007-11-15 14:05:48Z plegall $
-     * 
      */
     class FinalExecution extends Thread {
 
