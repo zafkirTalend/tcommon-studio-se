@@ -9,6 +9,7 @@
 package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -45,13 +46,15 @@ public class SchemaPopulationUtil {
 
     /**
      * @param fileName
-     * @throws MalformedURLException
      * @throws URISyntaxException
+     * @throws IOException
      */
     public static ATreeNode getSchemaTree(String fileName, boolean includeAttribute, int numberOfElementsAccessiable)
-            throws OdaException, MalformedURLException, URISyntaxException {
+            throws OdaException, URISyntaxException, IOException {
         if (fileName.toUpperCase().endsWith(".XSD")) {
             return XSDFileSchemaTreePopulator.getSchemaTree(fileName, includeAttribute);
+        } else if (fileName.toUpperCase().endsWith(".DTD")) {
+            return new DTDFileSchemaTreePopulator().getSchemaTree(fileName, includeAttribute);
         } else {
             return new XMLFileSchemaTreePopulator(numberOfElementsAccessiable).getSchemaTree(fileName, includeAttribute);
         }
