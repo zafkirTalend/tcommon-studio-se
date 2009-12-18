@@ -38,9 +38,65 @@ public class FileDirCleaner {
 
     private long maxDurationBeforeCleaning;
 
-    private boolean cleanFilesOnly;
+    private boolean cleanDirectories;
+
+    private boolean cleanFiles;
 
     private boolean recursively;
+
+    private boolean doAction = false;
+
+    /**
+     * 
+     * DOC amaumont FileDirCleaner class global comment. Detailled comment
+     */
+    public enum STRATEGY {
+        CLEAN_FILES(false, true, false),
+        CLEAN_DIRECTORIES(true, false, false),
+        CLEAN_FILES_AND_DIRECTORIES(true, true, false),
+        CLEAN_FILES_RECURSIVELY(false, true, true),
+        CLEAN_DIRECTORIES_RECURSIVELY(true, false, true),
+        CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY(true, true, true);
+
+        private boolean cleanDirectories;
+
+        private boolean cleanFiles;
+
+        private boolean recursively;
+
+        private STRATEGY(boolean cleanDirectories, boolean cleanFiles, boolean recursively) {
+            this.cleanFiles = cleanFiles;
+            this.cleanDirectories = cleanDirectories;
+            this.recursively = recursively;
+        }
+
+        /**
+         * Getter for cleanDirectories.
+         * 
+         * @return the cleanDirectories
+         */
+        public boolean isCleanDirectories() {
+            return cleanDirectories;
+        }
+
+        /**
+         * Getter for cleanFilesOnly.
+         * 
+         * @return the cleanFilesOnly
+         */
+        public boolean isCleanFiles() {
+            return cleanFiles;
+        }
+
+        /**
+         * Getter for recursively.
+         * 
+         * @return the recursively
+         */
+        public boolean isRecursively() {
+            return recursively;
+        }
+    }
 
     /**
      * 
@@ -55,27 +111,39 @@ public class FileDirCleaner {
         int deletedEntries;
     }
 
-    public FileDirCleaner(int maxEntriesByDirectoryAndByType, long maxDurationBeforeCleaning) {
-        this(maxEntriesByDirectoryAndByType, maxDurationBeforeCleaning, true, false);
+    /**
+     * 
+     * DOC amaumont FileDirCleaner constructor comment.
+     * 
+     * @param doAction
+     * @param maxEntriesByDirectoryAndByType
+     * @param maxDurationBeforeCleaning
+     * 
+     * Default clean strategy is STRATEGY.CLEAN_FILES_ONLY
+     */
+    public FileDirCleaner(boolean doAction, int maxEntriesByDirectoryAndByType, long maxDurationBeforeCleaning) {
+        this(doAction, STRATEGY.CLEAN_FILES, maxEntriesByDirectoryAndByType, maxDurationBeforeCleaning);
     }
 
     /**
      * 
      * DOC amaumont FileDirCleaner constructor comment.
      * 
+     * @param doAction TODO
+     * @param strategy strategy to use
      * @param maxEntriesByDirectory max number of files to keep and max number of directories to keep (if
      * <code>cleanFilesOnly</code> is false), example: 5 will keep 5 files and 5 directories max
      * @param cleanAfterThisDuration in seconds, clean files and directories (if <code>cleanFilesOnly</code> is false)
      * according their last modified value
-     * @param cleanFilesOnly if true, clean files only
-     * @param recursively clean recursively
      */
-    public FileDirCleaner(int maxEntriesByDirectory, long cleanAfterThisDuration, boolean cleanFilesOnly, boolean recursively) {
+    public FileDirCleaner(boolean doAction, STRATEGY strategy, int maxEntriesByDirectory, long cleanAfterThisDuration) {
         super();
+        this.doAction = doAction;
         this.maxEntriesByDirectoryAndByType = maxEntriesByDirectory;
         this.maxDurationBeforeCleaning = cleanAfterThisDuration;
-        this.cleanFilesOnly = cleanFilesOnly;
-        this.recursively = recursively;
+        this.cleanDirectories = strategy.isCleanDirectories();
+        this.cleanFiles = strategy.isCleanFiles();
+        this.recursively = strategy.isRecursively();
     }
 
     final Comparator<File> datComparatorFiles = new Comparator<File>() {
@@ -125,7 +193,7 @@ public class FileDirCleaner {
     /**
      * DOC amaumont Comment method "removeFolder".
      * 
-     * @param cleanFilesOnly
+     * @param cleanFiles
      * @param recursively
      * 
      * @param current
@@ -155,44 +223,71 @@ public class FileDirCleaner {
                 boolean fileMatches = false;
                 boolean dirMatches = false;
                 boolean isDirectory = fileDirJob.isDirectory();
-                if (isDirectory) {
-                    dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
-                } else {
-                    fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
-                }
-                if (dirMatches || fileMatches) {
-                    boolean tooManyDirs = (isRootDirectory || !isRootDirectory && recursively) && isDirectory
-                            && maxEntriesByDirectoryAndByType != 0 && indexDir < countDirs - maxEntriesByDirectoryAndByType;
-                    boolean tooManyFiles = !isDirectory && maxEntriesByDirectoryAndByType != 0
-                            && indexFile < countFiles - maxEntriesByDirectoryAndByType;
-                    boolean timeExceeded = maxDurationBeforeCleaning != 0
-                            && currentTime - fileDirJob.lastModified() > maxDurationBeforeCleaning * 1000;
-                    try {
-                        if (timeExceeded || tooManyDirs || tooManyFiles) {
-                            if (isDirectory) {
-                                indexDir++;
-                                if (!cleanFilesOnly) {
+                boolean tooManyDirs = (isRootDirectory || !isRootDirectory && recursively) && isDirectory
+                        && maxEntriesByDirectoryAndByType != 0 && indexDir < countDirs - maxEntriesByDirectoryAndByType;
+                boolean tooManyFiles = !isDirectory && maxEntriesByDirectoryAndByType != 0
+                        && indexFile < countFiles - maxEntriesByDirectoryAndByType;
+                boolean timeExceeded = maxDurationBeforeCleaning != 0
+                        && currentTime - fileDirJob.lastModified() > maxDurationBeforeCleaning * 1000;
+                try {
+                    if (timeExceeded || tooManyDirs || tooManyFiles) {
+                        if (isDirectory) {
+                            dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
+                        } else {
+                            fileMatches = filesRegExpPattern == null || fileDirName.matches(filesRegExpPattern);
+                        }
+                        if (isDirectory) {
+                            indexDir++;
+                            if (cleanDirectories && dirMatches) {
+                                if (doAction) {
                                     org.apache.commons.io.FileUtils.deleteDirectory(fileDirJob);
-                                    cleanResult.deletedEntries++;
-                                } else if (recursively) {
-                                    cleanFilesDirRecursively(fileDirJob, false);
+                                } else {
+                                    StringBuilder reason = new StringBuilder();
+                                    String sep = "";
+                                    if (timeExceeded) {
+                                        reason.append("timeExceeded");
+                                        sep = ", ";
+                                    }
+                                    if (tooManyDirs) {
+                                        reason.append(sep + "tooManyDirs");
+                                    }
+                                    log.debug("'doAction' has to be true to remove recursively the directory ("
+                                            + reason.toString() + "): " + fileDirJob);
                                 }
-                            } else {
-                                indexFile++;
-                                org.apache.commons.io.FileUtils.forceDelete(fileDirJob);
+                                cleanResult.deletedEntries++;
+                            } else if (recursively) {
+                                cleanFilesDirRecursively(fileDirJob, false);
+                            }
+                        } else {
+                            indexFile++;
+                            if (cleanFiles && fileMatches) {
+                                if (doAction) {
+                                    org.apache.commons.io.FileUtils.forceDelete(fileDirJob);
+                                } else {
+                                    StringBuilder reason = new StringBuilder();
+                                    String sep = "";
+                                    if (timeExceeded) {
+                                        reason.append("timeExceeded");
+                                        sep = ", ";
+                                    }
+                                    if (tooManyFiles) {
+                                        reason.append(sep + "tooManyFiles");
+                                    }
+                                    log.debug("'doAction' has to be true to remove the file (" + reason.toString() + "): "
+                                            + fileDirJob);
+                                }
                                 cleanResult.deletedEntries++;
                             }
-                        } else if (recursively && isDirectory) {
-                            indexDir++;
-                            cleanFilesDirRecursively(fileDirJob, false);
                         }
-                    } catch (Throwable t) {
-                        cleanResult.countExceptions++;
-                        if (cleanResult.firstException == null) {
-                            cleanResult.firstException = t;
-                        }
+                    } else if (recursively && isDirectory) {
+                        indexDir++;
+                        cleanFilesDirRecursively(fileDirJob, false);
                     }
-
+                } catch (Throwable t) {
+                    cleanResult.countExceptions++;
+                    if (cleanResult.firstException == null) {
+                        cleanResult.firstException = t;
+                    }
                 }
             }
             if (cleanResult.firstException != null) {

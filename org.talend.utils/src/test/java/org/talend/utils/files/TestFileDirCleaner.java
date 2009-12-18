@@ -25,6 +25,7 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.talend.utils.files.FileDirCleaner.STRATEGY;
 
 /**
  * 
@@ -69,13 +70,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -84,14 +84,27 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, 3 directories only by directory max, no check on elapsed time, clean files AND
          * directories, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy, 2, null, null);
+    }
+
+    @Test
+    public void testLeaveAllFilesAtRootAndThreeSubdirectoriesOnRootDirectory() {
+
+        int maxEntriesByDirectoryAndByType = 3;
+        long maxDurationBeforeClean = 0;
+        STRATEGY strategy = STRATEGY.CLEAN_DIRECTORIES;
+
+        /*
+         * 3 files only by directory max, 3 directories only by directory max, no check on elapsed time, clean files AND
+         * directories, no recursive,
+         */
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy, 1, null, null);
     }
 
     @Test
@@ -99,13 +112,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -114,13 +126,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files AND directories, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -135,13 +146,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -150,13 +160,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files AND directories, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
     @Test
@@ -164,13 +173,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, strategy);
 
     }
 
@@ -179,14 +187,13 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files by directory max, 3 directories by directory max, clean files older than April 2008, clean files AND
          * directories, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -201,13 +208,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -216,13 +222,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
     @Test
@@ -230,13 +235,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, strategy);
 
     }
 
@@ -245,13 +249,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
     /**
@@ -259,22 +262,61 @@ public class TestFileDirCleaner extends TestCase {
      * Tests on max entries, with regexp on files
      * 
      */
-
     @Test
     public void testLeaveThreeFilesAndAllSubdirectoriesOnRootDirectoryWithRegexpOnFiles() {
 
         int maxEntriesByDirectoryAndByType = 1;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES;
         int expectedDeletedEntries = 1;
         String filesRegExpPattern = "(file_level_0_index_2|file_level_2_index_1|file_level_1_index_3)";
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean, expectedDeletedEntries,
-                filesRegExpPattern, null);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy, expectedDeletedEntries, filesRegExpPattern,
+                null);
+
+    }
+
+    /**
+     * 
+     * Tests on max entries, with regexp on directories to remove
+     * 
+     */
+    @Test
+    public void testLeaveThreeFilesAndAllSubdirectoriesOnRootDirectoryWithRegexpOnDirectoriesToRemove() {
+
+        int maxEntriesByDirectoryAndByType = 1;
+        long maxDurationBeforeClean = 0;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
+        int expectedDeletedEntries = 39;
+        String directoriesRegExpPattern = "dir_level_2_index_\\d";
+
+        /*
+         * 3 files only by directory max, no check on elapsed time, clean files only, no recursive,
+         */
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy, expectedDeletedEntries, null,
+                directoriesRegExpPattern);
+
+    }
+
+    /**
+     * 
+     * Tests on max entries, with regexp on directories to remove
+     * 
+     */
+    @Test
+    public void testLeaveAllFilesAndCleanSubdirectoriesAtLevel2WithRegexpOnDirectoriesToRemove() {
+
+        int maxEntriesByDirectoryAndByType = 1;
+        long maxDurationBeforeClean = 0;
+        STRATEGY strategy = STRATEGY.CLEAN_DIRECTORIES_RECURSIVELY;
+        int expectedDeletedEntries = 12;
+        String directoriesRegExpPattern = "dir_level_2_index_\\d";
+
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy, expectedDeletedEntries, null,
+                directoriesRegExpPattern);
 
     }
 
@@ -283,13 +325,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files AND directories, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
     @Test
@@ -297,13 +338,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files only, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -312,13 +352,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = 0;
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, no check on elapsed time, clean files AND directories, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -333,13 +372,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -348,13 +386,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files AND directories, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
     @Test
@@ -362,13 +399,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
 
         /*
          * 3 files only by directory max, clean files older than April 2008, clean files only, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, strategy);
 
     }
 
@@ -377,14 +413,13 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 3;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * 3 files by directory max, 3 directories by directory max, clean files older than April 2008, clean files AND
          * directories, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -399,13 +434,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
 
     }
 
@@ -414,13 +448,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = false;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, no recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
     @Test
@@ -428,13 +461,12 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long cleanAfterThisDuration = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = true;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files only, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, strategy);
 
     }
 
@@ -443,27 +475,25 @@ public class TestFileDirCleaner extends TestCase {
 
         int maxEntriesByDirectoryAndByType = 0;
         long maxDurationBeforeClean = getCleanDurationBeforeApril2008();
-        boolean cleanFilesOnly = false;
-        boolean recursiveClean = true;
+        STRATEGY strategy = STRATEGY.CLEAN_FILES_AND_DIRECTORIES_RECURSIVELY;
 
         /*
          * no clean about max entries, clean files older than April 2008, clean files AND directories, recursive,
          */
-        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, cleanFilesOnly, recursiveClean);
+        runTest(maxEntriesByDirectoryAndByType, maxDurationBeforeClean, strategy);
     }
 
-    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, boolean cleanFilesOnly,
-            boolean recursiveClean) {
-        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, cleanFilesOnly, recursiveClean, null, null, null);
+    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, STRATEGY strategy) {
+        runTest(maxEntriesByDirectoryAndByType, cleanAfterThisDuration, strategy, null, null, null);
     }
 
-    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, boolean cleanFilesOnly,
-            boolean recursiveClean, Integer expectedDeletedEntries, String filesRegExpPattern, String directoriesRegExpPattern) {
+    private void runTest(int maxEntriesByDirectoryAndByType, long cleanAfterThisDuration, STRATEGY strategy,
+            Integer expectedDeletedEntries, String filesRegExpPattern, String directoriesRegExpPattern) {
         try {
             generateFiles(LEVELS_COUNT);
 
-            FileDirCleaner fileDirCleaner = new FileDirCleaner(maxEntriesByDirectoryAndByType, cleanAfterThisDuration,
-                    cleanFilesOnly, recursiveClean);
+            FileDirCleaner fileDirCleaner = new FileDirCleaner(true, strategy, maxEntriesByDirectoryAndByType,
+                    cleanAfterThisDuration);
             int deletedEntries = fileDirCleaner.clean(rootPath, filesRegExpPattern, directoriesRegExpPattern);
 
             if (expectedDeletedEntries != null && !expectedDeletedEntries.equals(deletedEntries)) {
@@ -475,8 +505,9 @@ public class TestFileDirCleaner extends TestCase {
             checkerOperations.setFilesCount(COUNT_FILES_DIRECTORIES);
             checkerOperations.setMaxEntriesByDirectoryAndByType(maxEntriesByDirectoryAndByType);
             checkerOperations.setCleanAfterThisDuration(cleanAfterThisDuration);
-            checkerOperations.setCleanFilesOnly(cleanFilesOnly);
-            checkerOperations.setRecursively(recursiveClean);
+            checkerOperations.setCleanDirectories(strategy.isCleanDirectories());
+            checkerOperations.setCleanFiles(strategy.isCleanFiles());
+            checkerOperations.setRecursively(strategy.isRecursively());
             checkerOperations.setFilesRegExpPattern(filesRegExpPattern);
             checkerOperations.setDirectoriesRegExpPattern(directoriesRegExpPattern);
 
@@ -599,7 +630,9 @@ public class TestFileDirCleaner extends TestCase {
 
         private long cleanAfterThisDuration;
 
-        private boolean cleanFilesOnly;
+        private boolean cleanDirectories;
+
+        private boolean cleanFiles;
 
         private boolean recursively;
 
@@ -633,7 +666,7 @@ public class TestFileDirCleaner extends TestCase {
                 boolean exists = dir.exists();
                 boolean timeExceeded = cleanAfterThisDuration != 0
                         && currentTime - dir.lastModified() > cleanAfterThisDuration * 1000;
-                boolean countExceeded = !cleanFilesOnly && maxEntriesByDirectoryAndByType != 0
+                boolean countExceeded = cleanDirectories && maxEntriesByDirectoryAndByType != 0
                         && indexDir <= directoriesCount - maxEntriesByDirectoryAndByType;
 
                 String dirName = dir.getName();
@@ -641,7 +674,7 @@ public class TestFileDirCleaner extends TestCase {
 
                 if (currentLevel == 1 && !recursively || recursively) {
 
-                    if (exists && dirMatches && (timeExceeded || countExceeded) && !cleanFilesOnly) {
+                    if (exists && dirMatches && (timeExceeded || countExceeded) && cleanDirectories) {
                         fail("Directory '" + dir.getAbsolutePath() + "' SHOULD NOT exist when configuration is" + toString());
                     }
 
@@ -659,8 +692,8 @@ public class TestFileDirCleaner extends TestCase {
 
         public String toString() {
             return "FileDirCheckerForFSManager[maxEntriesByDirectoryAndByType=" + maxEntriesByDirectoryAndByType
-                    + ", maxDurationBeforeCleaning=" + cleanAfterThisDuration + ", cleanFilesOnly=" + cleanFilesOnly
-                    + ", recursively=" + recursively + "]";
+                    + ", maxDurationBeforeCleaning=" + cleanAfterThisDuration + ", cleanDirectories=" + cleanDirectories
+                    + ", cleanFiles=" + cleanFiles + ", recursively=" + recursively + "]";
         }
 
         /*
@@ -693,7 +726,7 @@ public class TestFileDirCleaner extends TestCase {
             if (currentLevel == 1 && !recursively || recursively) {
 
                 if (exists && (recursively || !recursively && currentLevel == 0) && fileMatches
-                        && (timeExceeded || countExceeded)) {
+                        && (timeExceeded || countExceeded) && cleanFiles) {
                     fail("File '" + file.getAbsolutePath() + "' SHOULD NOT exist when configuration is " + toString());
                 }
 
@@ -757,8 +790,8 @@ public class TestFileDirCleaner extends TestCase {
          * 
          * @return the cleanFilesOnly
          */
-        public boolean isCleanFilesOnly() {
-            return cleanFilesOnly;
+        public boolean isCleanFiles() {
+            return cleanFiles;
         }
 
         /**
@@ -766,8 +799,26 @@ public class TestFileDirCleaner extends TestCase {
          * 
          * @param cleanFilesOnly the cleanFilesOnly to set
          */
-        public void setCleanFilesOnly(boolean cleanFilesOnly) {
-            this.cleanFilesOnly = cleanFilesOnly;
+        public void setCleanFiles(boolean cleanFilesOnly) {
+            this.cleanFiles = cleanFilesOnly;
+        }
+
+        /**
+         * Getter for cleanDirectories.
+         * 
+         * @return the cleanDirectories
+         */
+        public boolean isCleanDirectories() {
+            return cleanDirectories;
+        }
+
+        /**
+         * Sets the cleanDirectories.
+         * 
+         * @param cleanDirectories the cleanDirectories to set
+         */
+        public void setCleanDirectories(boolean cleanDirectories) {
+            this.cleanDirectories = cleanDirectories;
         }
 
         /**
