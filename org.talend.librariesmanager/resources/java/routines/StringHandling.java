@@ -30,7 +30,7 @@ public class StringHandling {
             char[] val = input.toCharArray();
 
             for (int i = 0; i < val.length - 1; i++) {
-                if ((val[i] > val[i + 1]) || !Character.isLetter(val[i]) || !Character.isLetter(val[i + 1])) {
+                if (val[i] > val[i + 1]) {
                     return false;
                 }
             }
