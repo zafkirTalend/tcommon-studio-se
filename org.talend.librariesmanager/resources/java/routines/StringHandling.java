@@ -15,13 +15,13 @@ package routines;
 public class StringHandling {
 
     /**
-     * Determines whether the expression is an alphabetic or nonalphabetic string.
+     * Determines whether the expression is sorted alphabetically or not.
      * 
      * {talendTypes} boolean | Boolean
      * 
      * {Category} StringHandling
      * 
-     * {param} string("abcdefg") input: String need to be known whether is an alphabetic or nonalphabetic string.
+     * {param} string("abcdefg") input: String need to be known whether is sorted alphabetically or not.
      * 
      * {example} ALPHA("abcdefg") # true
      */
@@ -31,6 +31,32 @@ public class StringHandling {
 
             for (int i = 0; i < val.length - 1; i++) {
                 if (val[i] > val[i + 1]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Determines whether the expression is an alphabetic or nonalphabetic.
+     * 
+     * {talendTypes} boolean | Boolean
+     * 
+     * {Category} StringHandling
+     * 
+     * {param} string("abc") input: String need to be known whether is an alphabetic or not.
+     * 
+     * {example} ALPHA("abc") # true
+     */
+    public static boolean IS_ALPHA(String input) {
+        if (input != null) {
+            char[] val = input.toCharArray();
+
+            for (int i = 0; i < val.length - 1; i++) {
+                if (!Character.isLetter(val[i])) {
                     return false;
                 }
             }
