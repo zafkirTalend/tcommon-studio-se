@@ -47,6 +47,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.widgets.Display;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -55,6 +56,7 @@ import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
@@ -1114,6 +1116,11 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         projectElement.addAttribute("versionName", getProductVersionName()); //$NON-NLS-1$
         projectElement.addAttribute("version", getCurrentTOSVersion()); //$NON-NLS-1$
         projectElement.addAttribute("docType", getDocTypeAttribute()); //$NON-NLS-1$
+        String company = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.DOC_COMPANY_NAME);
+        if (company != null) {
+            projectElement.addAttribute("company", company);
+        }
+
         Element proDesc = projectElement.addElement("pro-description"); //$NON-NLS-1$
         proDesc.addCDATA(getProject().getDescription().replaceAll("\\r\\n", "<br/>")); //$NON-NLS-1$ //$NON-NLS-2$
         return projectElement;
@@ -1258,8 +1265,28 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     }
 
     protected void saveLogoImage(int type, File file) throws IOException {
-        // get image from cache
-        ByteArrayOutputStream result = logoImageCache.get(type);
+        boolean documentationPluginLoaded = PluginChecker.isDocumentationPluginLoaded();
+        ByteArrayOutputStream result = new ByteArrayOutputStream(3072);
+        if (documentationPluginLoaded) {
+            String userLogoPath = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.DOC_USER_LOGO);
+            if (userLogoPath != null) {
+                File userLogo = new File(userLogoPath);
+                if (userLogo.exists()) {
+
+                    Image image = new Image(Display.getCurrent(), userLogoPath);
+                    ImageLoader imageLoader = new ImageLoader();
+                    imageLoader.data = new ImageData[] { image.getImageData() };
+                    imageLoader.save(result, type);
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(result.toByteArray());
+                    fos.close();
+                    image.dispose();
+                    return;
+                }
+            }
+        }
+        // if no user documentation setting, get image from cache
+        result = logoImageCache.get(type);
         if (result == null) {
             result = new ByteArrayOutputStream(3072);
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(

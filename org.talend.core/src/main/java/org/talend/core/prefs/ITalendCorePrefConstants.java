@@ -87,4 +87,8 @@ public interface ITalendCorePrefConstants {
 
     String ITEM_INDEX = "itemIndex"; //$NON-NLS-1$
 
+    String DOC_USER_LOGO = "doc_user_logo";
+
+    String DOC_COMPANY_NAME = "company_name";
+
 }
