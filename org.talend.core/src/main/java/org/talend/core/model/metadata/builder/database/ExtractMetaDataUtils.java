@@ -339,7 +339,10 @@ public class ExtractMetaDataUtils {
                 } else {
                     boolean teradata = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
                             EDatabaseTypeName.TERADATA.getProduct());
-                    if (teradata) {
+                    // add for bug 10644
+                    boolean as400 = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
+                            EDatabaseTypeName.AS400.getProduct());
+                    if (teradata || as400) {
                         schema = dataBase;
                     } else {
                         schema = null;
