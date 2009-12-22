@@ -138,7 +138,7 @@ public class ExtractMetaDataFromDataBase {
     public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, IMetadataConnection iMetadataConnection,
             int... limit) {
         String schema = iMetadataConnection.getSchema();
-        if ((schema == null || "".equals(schema))
+        if ((schema == null || "".equals(schema)) //$NON-NLS-1$
                 && EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())) {
             schema = iMetadataConnection.getDatabase();
         }
@@ -243,7 +243,7 @@ public class ExtractMetaDataFromDataBase {
             }
             if (tableName == null) {
                 // in case it's in fact a synonym
-                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "SYNONYM_NAME", null);
+                tableName = ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "SYNONYM_NAME", null); //$NON-NLS-1$
                 isSynonym = true;
             }
             if (tableName == null || tablesToFilter.contains(tableName)) {
@@ -275,7 +275,7 @@ public class ExtractMetaDataFromDataBase {
             }
 
             if (isSynonym) {
-                tableType = "SYNONYM";
+                tableType = "SYNONYM"; //$NON-NLS-1$
             }
 
             try {
@@ -462,7 +462,7 @@ public class ExtractMetaDataFromDataBase {
             ResultSet columns;
 
             if (ExtractMetaDataUtils.isUseAllSynonyms()) {
-                String sql = "select * from all_tab_columns where table_name='" + tableName + "' ";
+                String sql = "select * from all_tab_columns where table_name='" + tableName + "' "; //$NON-NLS-1$ //$NON-NLS-2$
                 Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                 ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                 columns = stmt.executeQuery(sql);
@@ -479,9 +479,9 @@ public class ExtractMetaDataFromDataBase {
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                    String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null);
-                    String sub = "";
-                    String sub2 = "";
+                    String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
+                    String sub = ""; //$NON-NLS-1$
+                    String sub2 = ""; //$NON-NLS-1$
                     if (label != null && label.length() > 0) {
                         sub = label.substring(1);
                         if (sub != null && sub.length() > 0) {
@@ -490,7 +490,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                     if (KeywordsValidator.isKeyword(label) || KeywordsValidator.isKeyword(sub)
                             || KeywordsValidator.isKeyword(sub2)) {
-                        label = "_" + label;
+                        label = "_" + label; //$NON-NLS-1$
                         b = true;
                     }
                     metadataColumn.setLabel(label); //$NON-NLS-1$
@@ -498,7 +498,7 @@ public class ExtractMetaDataFromDataBase {
                     if (label2 != null && label2.length() > 0) {
                         String substring = label2.substring(1);
                         if (b
-                                && label2.startsWith("_")
+                                && label2.startsWith("_") //$NON-NLS-1$
                                 && (KeywordsValidator.isKeyword(substring) || KeywordsValidator.isKeyword(sub) || KeywordsValidator
                                         .isKeyword(sub2))) {
                             label2 = substring;
@@ -522,9 +522,9 @@ public class ExtractMetaDataFromDataBase {
                         metadataColumn.setKey(false);
                     }
 
-                    String typeName = "TYPE_NAME";
+                    String typeName = "TYPE_NAME"; //$NON-NLS-1$
                     if (ExtractMetaDataUtils.isUseAllSynonyms()) {
-                        typeName = "DATA_TYPE";
+                        typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
                     String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
                     dbType = handleDBtype(dbType);
@@ -855,7 +855,7 @@ public class ExtractMetaDataFromDataBase {
                 limit);
 
         ExtractMetaDataUtils.closeConnection();
-        if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && wapperDriver != null) { //$NON-NLS-1$
+        if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
@@ -908,7 +908,7 @@ public class ExtractMetaDataFromDataBase {
      * @return a string representing table type
      */
     public static String getTableTypeByTableName(String tableName) {
-        if (!"".equals(tableName) && tableName != null) {
+        if (!"".equals(tableName) && tableName != null) { //$NON-NLS-1$
             if (tableTypeMap.containsKey(tableName)) {
                 return tableTypeMap.get(tableName);
             }
@@ -957,7 +957,7 @@ public class ExtractMetaDataFromDataBase {
             } else {
                 Set<String> nameFiters = tableInfoParameters.getNameFilters();
                 // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
-                if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver")
+                if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver") //$NON-NLS-1$
                         && ExtractMetaDataUtils.isUseAllSynonyms()) {
                     String sql = GET_ALL_SYNONYMS;
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();

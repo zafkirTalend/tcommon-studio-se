@@ -155,7 +155,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
     // unused method : call remove for 2.3
     public void initializeUpdatePreference() {
-        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
+        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$ //$NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, false);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_SCHEDULE);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, false);

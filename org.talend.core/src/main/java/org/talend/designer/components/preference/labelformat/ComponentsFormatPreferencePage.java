@@ -427,7 +427,7 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
         Perl5Compiler compiler = new Perl5Compiler();
         Pattern pattern;
         try {
-            pattern = compiler.compile("^[A-Za-z_][A-Za-z0-9_]*$");
+            pattern = compiler.compile("^[A-Za-z_][A-Za-z0-9_]*$"); //$NON-NLS-1$
             if (!matcher.matches(content, pattern)) {
                 canRename = false;
             }

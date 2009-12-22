@@ -99,7 +99,7 @@ public class SchemaXPathQuerysDialog extends Dialog {
     private String[] getMappingValues() {
         String mappingValues = (String) mapping.get(MAPPING);
         if (mappingValues == null) {
-            String[] mapValue = { "" };
+            String[] mapValue = { "" }; //$NON-NLS-1$
             return mapValue;
         }
         return mappingValues.split(COMMA);

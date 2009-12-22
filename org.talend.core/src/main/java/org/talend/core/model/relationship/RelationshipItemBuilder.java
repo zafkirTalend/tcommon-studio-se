@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.Project;
@@ -260,7 +261,7 @@ public class RelationshipItemBuilder {
             for (ERepositoryObjectType curTyp : getTypes()) {
                 list.addAll(factory.getAll(curTyp, true, true));
             }
-            monitor.beginTask("Building index...", list.size());
+            monitor.beginTask(Messages.getString("RelationshipItemBuilder.buildingIndex"), list.size()); //$NON-NLS-1$
 
             if (list.isEmpty()) {
                 return;
@@ -268,7 +269,7 @@ public class RelationshipItemBuilder {
 
             for (IRepositoryObject object : list) {
                 Item item = object.getProperty().getItem();
-                monitor.subTask("for item " + item.getProperty().getLabel());
+                monitor.subTask(Messages.getString("RelationshipItemBuilder.forItem") + item.getProperty().getLabel()); //$NON-NLS-1$
                 addOrUpdateItem(item, true);
                 monitor.worked(1);
                 if (monitor.isCanceled()) {
@@ -402,10 +403,10 @@ public class RelationshipItemBuilder {
                             }
 
                             // only for SQL Patterns
-                            if (param.getName().equals("SQLPATTERN_VALUE")) {
+                            if (param.getName().equals("SQLPATTERN_VALUE")) { //$NON-NLS-1$
                                 for (Object o3 : param.getElementValue()) {
                                     if (o3 instanceof ElementValueType
-                                            && "SQLPATTERNLIST".equals(((ElementValueType) o3).getElementRef())) {
+                                            && "SQLPATTERNLIST".equals(((ElementValueType) o3).getElementRef())) { //$NON-NLS-1$
                                         addRelationShip(item, ((ElementValueType) o3).getValue(),
                                                 ItemCacheManager.LATEST_VERSION, SQLPATTERN_RELATION);
                                     }
@@ -419,7 +420,7 @@ public class RelationshipItemBuilder {
                         for (Object o2 : currentNode.getElementParameter()) {
                             if (o2 instanceof ElementParameterType) {
                                 ElementParameterType param = (ElementParameterType) o2;
-                                if (param.getName().equals("PROCESS_TYPE_VERSION")) {
+                                if (param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
                                     version = param.getValue();
                                 }
                             }
@@ -433,12 +434,12 @@ public class RelationshipItemBuilder {
                         for (Object o2 : currentNode.getElementParameter()) {
                             if (o2 instanceof ElementParameterType) {
                                 ElementParameterType param = (ElementParameterType) o2;
-                                if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS")
-                                        || param.getName().equals("PROCESS_TYPE_PROCESS")) {
+                                if (param.getName().equals("PROCESS:PROCESS_TYPE_PROCESS") //$NON-NLS-1$
+                                        || param.getName().equals("PROCESS_TYPE_PROCESS")) { //$NON-NLS-1$
                                     jobId = param.getValue();
                                 }
-                                if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION")
-                                        || param.getName().equals("PROCESS_TYPE_VERSION")) {
+                                if (param.getName().equals("PROCESS:PROCESS_TYPE_VERSION") //$NON-NLS-1$
+                                        || param.getName().equals("PROCESS_TYPE_VERSION")) { //$NON-NLS-1$
                                     jobVersion = param.getValue();
                                 }
                             }

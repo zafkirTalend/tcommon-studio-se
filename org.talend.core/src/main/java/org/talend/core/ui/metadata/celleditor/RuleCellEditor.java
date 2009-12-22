@@ -135,9 +135,9 @@ public class RuleCellEditor extends DialogCellEditor {
             String itemId;
             RulesItem rulesItem = null;
             RuleOperationChoiceDialog ruleChoiceDialog = null;
-            if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null //$NON-NLS-N$
-                    && node.getElementParameter("PROPERTY_TYPE").getValue().toString().equals("REPOSITORY")) { //$NON-NLS-N$
-                itemId = node.getElementParameter("REPOSITORY_PROPERTY_TYPE").getValue().toString();
+            if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
+                    && node.getElementParameter("PROPERTY_TYPE").getValue().toString().equals("REPOSITORY")) { //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
+                itemId = node.getElementParameter("REPOSITORY_PROPERTY_TYPE").getValue().toString(); //$NON-NLS-1$
                 IRepositoryObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
                 if (obj.getProperty().getItem() != null && obj.getProperty().getItem() instanceof RulesItem) {
                     rulesItem = (RulesItem) obj.getProperty().getItem();
@@ -153,15 +153,15 @@ public class RuleCellEditor extends DialogCellEditor {
                 } else if (!ruleChoiceDialog.isCancel()) {
                     if (!ruleChoiceDialog.isCheckViewRules()) {
                         // create a rule
-                        String selectedSchemaName = "";
+                        String selectedSchemaName = ""; //$NON-NLS-1$
                         int index = getTableViewer().getTable().getSelectionIndex();
-                        IElementParameter param = node.getElementParameter("SCHEMAS");
+                        IElementParameter param = node.getElementParameter("SCHEMAS"); //$NON-NLS-1$
                         if (param != null) {
                             if (param.getValue() instanceof List) {
                                 List list = (List) param.getValue();
                                 if (list.get(index) != null && list.get(index) instanceof Map) {
                                     Map map = (Map) list.get(index);
-                                    selectedSchemaName = (String) map.get("SCHEMA");
+                                    selectedSchemaName = (String) map.get("SCHEMA"); //$NON-NLS-1$
                                 }
                             }
                         }
@@ -169,10 +169,10 @@ public class RuleCellEditor extends DialogCellEditor {
                                 selectedSchemaName);
                         createDialog.create();
                         if (createDialog.open() == Window.OK) {
-                            if (createDialog.getName() != null && !createDialog.getName().equals("")) {
+                            if (createDialog.getName() != null && !createDialog.getName().equals("")) { //$NON-NLS-1$
                                 return TalendTextUtils.addQuotes(createDialog.getName());
                             } else {
-                                return "";
+                                return ""; //$NON-NLS-1$
                             }
                         } else {
                             this.setValue(oldValue);
@@ -241,6 +241,6 @@ public class RuleCellEditor extends DialogCellEditor {
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
 }

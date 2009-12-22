@@ -104,7 +104,7 @@ public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
             } else if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
                 String nextGeneratedColumnName = copy.getLabel();
-                String tempNewColumnName = "";
+                String tempNewColumnName = ""; //$NON-NLS-1$
                 boolean iMetaColumnUnique = false;
                 boolean metaColumnUnique = false;
                 while (iMetaColumnUnique == false || metaColumnUnique == false) {

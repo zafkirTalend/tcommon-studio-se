@@ -102,7 +102,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
                 MetadataTableEditor tableEditor = (MetadataTableEditor) extendedTable;
                 MetadataColumn metadataColumn = (MetadataColumn) current;
                 String nextGeneratedColumnName = metadataColumn.getLabel();
-                String tempNewColumnName = "";
+                String tempNewColumnName = ""; //$NON-NLS-1$
                 boolean iMetaColumnUnique = false;
                 boolean metaColumnUnique = false;
                 while (iMetaColumnUnique == false || metaColumnUnique == false) {

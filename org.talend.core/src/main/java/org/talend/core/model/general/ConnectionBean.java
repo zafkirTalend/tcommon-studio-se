@@ -150,7 +150,7 @@ public class ConnectionBean implements Cloneable {
      */
     public String getWorkSpace() {
         if (this.workSpace == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         return this.workSpace;
     }
@@ -191,7 +191,7 @@ public class ConnectionBean implements Cloneable {
     public String toString() {
         StringBuffer string = new StringBuffer("Repository:" + getRepositoryId() + ", Name:" + getName() //$NON-NLS-1$ //$NON-NLS-2$
                 + ", Desription:" + getDescription() + ", User:" + getUser() + ", Password:" + getPassword() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                + ", WorkSpace:" + getWorkSpace() + ", Complete:" + isComplete()); //$NON-NLS-1$//$NON-NLS-1$
+                + ", WorkSpace:" + getWorkSpace() + ", Complete:" + isComplete()); //$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
         string.append(", Dyn:").append(dynamicFields); //$NON-NLS-1$
         return string.toString();
     }

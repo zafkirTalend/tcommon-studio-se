@@ -60,11 +60,11 @@ public class NodeUtil {
                     // "REJECT", "FLOW", he should use this API in JET directly: List<? extends IConnection> connsFilter
                     // = node.getOutgoingConnections("FILTER");
                     // 1. FLOW first
-                    if ("FLOW".equals(connection1.getConnectorName())) {
+                    if ("FLOW".equals(connection1.getConnectorName())) { //$NON-NLS-1$
                         return -1;
                     }
 
-                    if ("FLOW".equals(connection2.getConnectorName())) {
+                    if ("FLOW".equals(connection2.getConnectorName())) { //$NON-NLS-1$
                         return 1;
                     }
 

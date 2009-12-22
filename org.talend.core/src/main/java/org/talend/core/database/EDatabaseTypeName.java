@@ -59,7 +59,7 @@ public enum EDatabaseTypeName {
     GREENPLUM("Greenplum", "Greenplum", new Boolean(true), "GREENPLUM", "GREENPLUM"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PARACCEL("ParAccel", "ParAccel", new Boolean(true), "PARACCEL", "PARACCEL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    SAS("SAS", "SAS", new Boolean(false), "SAS"),
+    SAS("SAS", "SAS", new Boolean(false), "SAS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // General JDBC not support schema defalut
     GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 

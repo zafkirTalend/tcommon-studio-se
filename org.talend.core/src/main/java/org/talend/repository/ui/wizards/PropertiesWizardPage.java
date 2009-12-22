@@ -157,7 +157,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         purposeStatus = createOkStatus();
         commentStatus = createOkStatus();
 
-        Job job = new Job("") {
+        Job job = new Job("") { //$NON-NLS-1$
 
             @Override
             protected IStatus run(IProgressMonitor monitor) {
@@ -165,7 +165,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 try {
                     listExistingObjects = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(type, true, false);
                 } catch (PersistenceException e) {
-                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "", 1, "", e);
+                    return new org.eclipse.core.runtime.Status(IStatus.ERROR, "", 1, "", e); //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 retrieveNameFinished = true;
                 return Status.OK_STATUS;

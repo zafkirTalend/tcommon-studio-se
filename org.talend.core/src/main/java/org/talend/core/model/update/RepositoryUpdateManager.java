@@ -1188,7 +1188,7 @@ public abstract class RepositoryUpdateManager {
         List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
         List<RelationshipItemBuilder.Relation> relations = null;
         if (parameter instanceof Query) {
-            String id = item.getProperty().getId() + " - " + ((Query) parameter).getLabel();
+            String id = item.getProperty().getId() + " - " + ((Query) parameter).getLabel(); //$NON-NLS-1$
             relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id, ItemCacheManager.LATEST_VERSION,
                     RelationshipItemBuilder.QUERY_RELATION);
         }

@@ -247,7 +247,7 @@ public class SchemaCellEditor extends DialogCellEditor {
                             finalInputTable = metaDialog.getInputMetaData().clone();
                             finalOutTable = metaDialog.getOutputMetaData().clone();
                             // 3.ChangeRuleMetadataCommand
-                            ChangeRuleMetadataCommand changeRuleMetadataCommand = new ChangeRuleMetadataCommand(node, "SCHEMAS",
+                            ChangeRuleMetadataCommand changeRuleMetadataCommand = new ChangeRuleMetadataCommand(node, "SCHEMAS", //$NON-NLS-1$
                                     newPropValue, finalOutTable, index);
                             executeCommand(changeRuleMetadataCommand);
                             if (getTableViewer() != null) {

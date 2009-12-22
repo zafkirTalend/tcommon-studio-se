@@ -39,6 +39,6 @@ public class DatabaseConnConstants {
     public static final String PATTERN_SCHEMA = PATTERN_SID;
 
     //
-    public static final String PATTERN_VAR = "<[a-zA-Z_]+>";
+    public static final String PATTERN_VAR = "<[a-zA-Z_]+>"; //$NON-NLS-1$
 
 }

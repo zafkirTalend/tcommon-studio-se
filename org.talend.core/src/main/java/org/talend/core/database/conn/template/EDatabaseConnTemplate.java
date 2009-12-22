@@ -70,11 +70,11 @@ public enum EDatabaseConnTemplate {
 
     SYBASEASE(new DbConnStr(EDatabaseTypeName.SYBASEASE, //
             "jdbc:sybase:Tds:<host>:<port>/<sid>", //$NON-NLS-1$
-            "5001")),
+            "5001")), //$NON-NLS-1$
 
     IBMDB2(new DbConnStr(EDatabaseTypeName.IBMDB2, //
             "jdbc:db2://<host>:<port>/<sid>", //$NON-NLS-1$
-            "50000")),
+            "50000")), //$NON-NLS-1$
 
     IBMDB2_ZOS(new DbConnStr(EDatabaseTypeName.IBMDB2ZOS, //
             "jdbc:db2://<host>:<port>/<sid>", //$NON-NLS-1$
@@ -85,7 +85,7 @@ public enum EDatabaseConnTemplate {
 
     INGRES(new DbConnStr(EDatabaseTypeName.INGRES, //
             "jdbc:ingres://<host>:<port>/<sid>", //$NON-NLS-1$
-            "II7")),
+            "II7")), //$NON-NLS-1$
 
     INTERBASE(new DbConnStr(EDatabaseTypeName.INTERBASE, //
             "jdbc:interbase://<host>/<sid>")), //$NON-NLS-1$

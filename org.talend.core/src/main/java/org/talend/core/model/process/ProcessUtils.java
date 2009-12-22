@@ -199,7 +199,7 @@ public class ProcessUtils {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
                 for (INode node : nodes) {
-                    IElementParameter processParam = node.getElementParameter("PROCESS");
+                    IElementParameter processParam = node.getElementParameter("PROCESS"); //$NON-NLS-1$
                     if (processParam != null) {
                         String repositoryMetadataId = (String) processParam.getChildParameters()
                                 .get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$

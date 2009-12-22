@@ -73,7 +73,7 @@ public class CreateRuleDialog extends SelectionDialog {
 
     protected Label createMessageArea(Composite composite) {
         Label label = new Label(composite, SWT.NONE);
-        label.setText(Messages.getString("CreateRuleDialog.messageLabel")); //$NON-NLS-N$ //$NON-NLS-1$
+        label.setText(Messages.getString("CreateRuleDialog.messageLabel")); //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
         label.setFont(composite.getFont());
         return label;
     }
@@ -154,7 +154,7 @@ public class CreateRuleDialog extends SelectionDialog {
         String[] ruleNames = null;
         if (content != null && !content.equals("")) { //$NON-NLS-1$
             try {
-                Pattern regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$ //$NON-NLS-1$
+                Pattern regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
                         Pattern.CANON_EQ);
                 Matcher regexMatcher = regex.matcher(content);
                 while (regexMatcher.find()) {
@@ -162,7 +162,7 @@ public class CreateRuleDialog extends SelectionDialog {
 
                 }
                 if (names.isEmpty()) {
-                    regex = Pattern.compile("\\s*rule\\x20(.*)", //$NON-NLS-N$ //$NON-NLS-1$
+                    regex = Pattern.compile("\\s*rule\\x20(.*)", //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
                             Pattern.CANON_EQ);
                     regexMatcher = regex.matcher(content);
                     while (regexMatcher.find()) {

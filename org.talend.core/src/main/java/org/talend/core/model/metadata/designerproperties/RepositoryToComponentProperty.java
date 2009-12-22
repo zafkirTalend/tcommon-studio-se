@@ -27,6 +27,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.EMetadataEncoding;
@@ -425,9 +426,9 @@ public class RepositoryToComponentProperty {
     private static Object getMDMValue(MDMConnection connection, String value) {
         if ("MDMURL".equals(value)) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getServer()) && isConetxtMode(connection, connection.getPort())) {
-                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-1$//$NON-NLS-1$
+                return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             } else {
-                return TalendTextUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-1$
+                return TalendTextUtils.addQuotes("http://" + connection.getServer() + ":" + connection.getPort()//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
                         + "/talend/TalendPort");//$NON-NLS-1$
             }
         } else if ("USERNAME".equals(value)) { //$NON-NLS-1$
@@ -795,11 +796,11 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(p.toPortableString());
             }
         }
-        if ("DATA_FILE".equals(value)) {
+        if ("DATA_FILE".equals(value)) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getDataFile())) {
                 return connection.getDataFile();
             } else {
-                Path p = new Path("");
+                Path p = new Path(""); //$NON-NLS-1$
                 if (connection.getDataFile() != null) {
                     p = new Path(connection.getDataFile());
                 }
@@ -950,10 +951,10 @@ public class RepositoryToComponentProperty {
                 return connection.getXmlFilePath();
             } else {
                 Path p = new Path(connection.getXmlFilePath());
-                if ((p.toPortableString()).endsWith("xsd")) {
+                if ((p.toPortableString()).endsWith("xsd")) { //$NON-NLS-1$
                     OpenXSDFileDialog openXSDFileDialog = new OpenXSDFileDialog(PlatformUI.getWorkbench()
                             .getActiveWorkbenchWindow().getShell());
-                    openXSDFileDialog.setTitle("Select a XML File to Validate");
+                    openXSDFileDialog.setTitle(Messages.getString("RepositoryToComponentProperty.xmlFileSelection")); //$NON-NLS-1$
                     openXSDFileDialog.setPath(p);
                     int dialogValue = openXSDFileDialog.open();
                     if (dialogValue == 0)
@@ -1132,7 +1133,7 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getHost())) {
                 return connection.getHost();
             } else {
-                return TalendTextUtils.addQuotes(connection.getHost()).replaceAll("\\\\", "\\\\\\\\");
+                return TalendTextUtils.addQuotes(connection.getHost()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
 
@@ -1144,7 +1145,7 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getSelectedDN())) {
                 return connection.getSelectedDN();
             } else {
-                return TalendTextUtils.addQuotes(connection.getSelectedDN()).replaceAll("\\\\", "\\\\\\\\");
+                return TalendTextUtils.addQuotes(connection.getSelectedDN()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         String protocol = connection.getProtocol();// Simple or Anonymous
@@ -1164,14 +1165,14 @@ public class RepositoryToComponentProperty {
             if (isConetxtMode(connection, connection.getBindPrincipal())) {
                 return connection.getBindPrincipal();
             } else {
-                return TalendTextUtils.addQuotes(connection.getBindPrincipal()).replaceAll("\\\\", "\\\\\\\\");
+                return TalendTextUtils.addQuotes(connection.getBindPrincipal()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         if (useAuthen && value.equals("PASSWD")) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getBindPassword())) {
                 return connection.getBindPassword();
             } else {
-                return TalendTextUtils.addQuotes(connection.getBindPassword()).replaceAll("\\\\", "\\\\\\\\");
+                return TalendTextUtils.addQuotes(connection.getBindPassword()).replaceAll("\\\\", "\\\\\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         if (value.equals("FILTER")) { //$NON-NLS-1$

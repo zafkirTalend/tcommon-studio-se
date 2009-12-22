@@ -277,7 +277,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
         FindReplaceDocumentAdapter frda = null;
         String documentText = originalDocument.get(); // hywang modified for bug 9180
-        if (documentText != null && !documentText.equals("") && documentText.length() > 0) {
+        if (documentText != null && !documentText.equals("") && documentText.length() > 0) { //$NON-NLS-1$
             frda = new FindReplaceDocumentAdapter(originalDocument);
         }
         try {

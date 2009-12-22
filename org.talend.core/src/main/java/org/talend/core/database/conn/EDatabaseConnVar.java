@@ -28,7 +28,7 @@ public enum EDatabaseConnVar {
 
     LOGIN("<login>"), //$NON-NLS-1$
     PASSWORD("<password>"), //$NON-NLS-1$
-    XXX("<xxx>", "xxxx"), //$NON-NLS-1$
+    XXX("<xxx>", "xxxx"), //$NON-NLS-1$ //$NON-NLS-2$
     //
     ;
 

@@ -465,7 +465,7 @@ public class ComponentUtilities {
     private static String getTranslatedFamilyName(String originalName) {
         IComponentsFactory factory = ComponentsFactoryProvider.getInstance();
         String families[] = originalName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
-        String translatedFamilyName = "";
+        String translatedFamilyName = ""; //$NON-NLS-1$
         int nbTotal = families.length;
         int nb = 0;
         for (Object objFam : families) {
@@ -611,27 +611,27 @@ public class ComponentUtilities {
             if (value == null) {
                 continue;
             }
-            if ("ON_STATCATCHER_FLAG".equals(paramName)) {
-                addComponent(components, "tStatCatcher", value, fromProcessType);
-            } else if ("ON_METERCATCHER_FLAG".equals(paramName)) {
-                addComponent(components, "tFlowMeterCatcher", value, fromProcessType);
-            } else if ("ON_LOGCATCHER_FLAG".equals(paramName)) {
-                addComponent(components, "tLogCatcher", value, fromProcessType);
-            } else if ("ON_CONSOLE_FLAG".equals(paramName)) {
-                addComponent(components, "tLogRow", value, fromProcessType);
-            } else if ("ON_FILES_FLAG".equals(paramName)) {
-                addComponent(components, "tFileOutputDelimited", value, fromProcessType);
-            } else if ("ON_DATABASE_FLAG".equals(paramName)) {
-                String usedDatabase = getUsedDatabase(parameters, "DB_TYPE");
+            if ("ON_STATCATCHER_FLAG".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tStatCatcher", value, fromProcessType); //$NON-NLS-1$
+            } else if ("ON_METERCATCHER_FLAG".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tFlowMeterCatcher", value, fromProcessType); //$NON-NLS-1$
+            } else if ("ON_LOGCATCHER_FLAG".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tLogCatcher", value, fromProcessType); //$NON-NLS-1$
+            } else if ("ON_CONSOLE_FLAG".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tLogRow", value, fromProcessType); //$NON-NLS-1$
+            } else if ("ON_FILES_FLAG".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tFileOutputDelimited", value, fromProcessType); //$NON-NLS-1$
+            } else if ("ON_DATABASE_FLAG".equals(paramName)) { //$NON-NLS-1$
+                String usedDatabase = getUsedDatabase(parameters, "DB_TYPE"); //$NON-NLS-1$
                 if (usedDatabase != null) {
                     addComponent(components, usedDatabase, value, fromProcessType);
                 }
-            } else if ("IMPLICIT_TCONTEXTLOAD".equals(paramName)) {
-                addComponent(components, "tContextLoad", value, fromProcessType);
-            } else if ("FROM_FILE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) {
-                addComponent(components, "tFileInputDelimited", value, fromProcessType);
-            } else if ("FROM_DATABASE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) {
-                String usedDatabase = getUsedDatabase(parameters, "DB_TYPE_IMPLICIT_CONTEXT");
+            } else if ("IMPLICIT_TCONTEXTLOAD".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tContextLoad", value, fromProcessType); //$NON-NLS-1$
+            } else if ("FROM_FILE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) { //$NON-NLS-1$
+                addComponent(components, "tFileInputDelimited", value, fromProcessType); //$NON-NLS-1$
+            } else if ("FROM_DATABASE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) { //$NON-NLS-1$
+                String usedDatabase = getUsedDatabase(parameters, "DB_TYPE_IMPLICIT_CONTEXT"); //$NON-NLS-1$
                 if (usedDatabase != null) {
                     addComponent(components, usedDatabase, value, fromProcessType);
                 }

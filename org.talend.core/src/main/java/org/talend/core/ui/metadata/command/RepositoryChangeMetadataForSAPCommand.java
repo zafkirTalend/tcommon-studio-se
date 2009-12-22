@@ -146,18 +146,18 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
         // if no value, set default field value
         Object fieldValue = valueMap.get(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE);
         if (fieldValue == null || "".equals(fieldValue)) { //$NON-NLS-1$
-            if (newOutputMetadata.getLabel().equals("OUTPUT_SINGLE")) {
-                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "output_single");
+            if (newOutputMetadata.getLabel().equals("OUTPUT_SINGLE")) { //$NON-NLS-1$
+                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "output_single"); //$NON-NLS-1$
             } else if (isStructure(newOutputMetadata.getLabel())) {
-                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "output_structure");
+                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "output_structure"); //$NON-NLS-1$
             } else {
-                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "table_output");
+                valueMap.put(ISAPConstant.FIELD_SAP_ITERATE_OUT_TYPE, "table_output"); //$NON-NLS-1$
             }
         }
         valueMap.put(ISAPConstant.FIELD_SCHEMA + ISAPConstant.REF_TYPE, ISAPConstant.REF_ATTR_REPOSITORY);
 
         Object tableNameValue = valueMap.get(ISAPConstant.FIELD_SAP_TABLE_NAME);
-        if (tableNameValue == null || "".equals(tableNameValue)) {
+        if (tableNameValue == null || "".equals(tableNameValue)) { //$NON-NLS-1$
             valueMap.put(ISAPConstant.FIELD_SAP_TABLE_NAME, TalendTextUtils.addQuotes(newOutputMetadata.getLabel()));
         }
         Object mapValue = valueMap.get(ISAPConstant.FIELD_MAPPING);
@@ -165,15 +165,15 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
         StringBuffer buff = new StringBuffer();
         for (int i = 0; i < columnList.size(); i++) {
             IMetadataColumn metadataColumn = columnList.get(i);
-            buff.append("\"");
+            buff.append("\""); //$NON-NLS-1$
             buff.append(metadataColumn.getLabel());
             if (i == columnList.size() - 1) {
-                buff.append("\"");
+                buff.append("\""); //$NON-NLS-1$
             } else {
-                buff.append("\",");
+                buff.append("\","); //$NON-NLS-1$
             }
         }
-        if (mapValue == null || "".equals(mapValue)) {
+        if (mapValue == null || "".equals(mapValue)) { //$NON-NLS-1$
             valueMap.put(ISAPConstant.FIELD_MAPPING, buff.toString());
         }
 
@@ -203,7 +203,7 @@ public class RepositoryChangeMetadataForSAPCommand extends Command {
                 }
                 if (column.getStructureOrTableName().equals(label)) {
                     String type = column.getParameterType();
-                    if (type.startsWith("output") && type.endsWith("structure")) {
+                    if (type.startsWith("output") && type.endsWith("structure")) { //$NON-NLS-1$ //$NON-NLS-2$
                         return true;
                     }
                 }

@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -77,13 +78,15 @@ public class MigrationToolService implements IMigrationToolService {
             }
         });
 
+        SubProgressMonitor subProgressMonitor = new SubProgressMonitor(monitorWrap, toExecute.size());
+
         for (IProjectMigrationTask task : toExecute) {
             if (monitorWrap.isCanceled()) {
                 throw new OperationCanceledException(Messages.getString("MigrationToolService.migrationCancel", task.getName())); //$NON-NLS-1$
             }
             if (!done.contains(task.getId())) {
                 monitorWrap.setTaskName(Messages.getString("MigrationToolService.taskInProgress", task.getName())); //$NON-NLS-1$
-                monitorWrap.worked(2);
+                subProgressMonitor.worked(1);
                 try {
                     switch (task.execute(project)) {
                     case SUCCESS_WITH_ALERT:

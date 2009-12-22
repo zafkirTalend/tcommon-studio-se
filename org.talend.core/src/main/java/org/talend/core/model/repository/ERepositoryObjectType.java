@@ -76,7 +76,7 @@ public enum ERepositoryObjectType {
 
     // feature 0006484 add
     METADATA_FILE_RULES("repository.metadataFileRules", "repository.metadataFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataLinkFileRules.alias"),
+    METADATA_FILE_LINKRULES("repository.metadataLinkFileRules", "repository.metadataLinkFileRules.alias"), //$NON-NLS-1$ //$NON-NLS-2$
 
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -179,7 +179,7 @@ public enum ERepositoryObjectType {
         case BUSINESS_PROCESS:
             return "businessProcess"; //$NON-NLS-1$
         case SVG_BUSINESS_PROCESS:
-            return "businessProcessSVG";
+            return "businessProcessSVG"; //$NON-NLS-1$
         case PROCESS:
             return "process"; //$NON-NLS-1$
         case JOBLET:
@@ -227,7 +227,7 @@ public enum ERepositoryObjectType {
         case METADATA_FILE_RULES:
             return "metadata/rules"; //$NON-NLS-1$
         case METADATA_FILE_LINKRULES:
-            return "metadata/rules";
+            return "metadata/rules"; //$NON-NLS-1$
             // MOD mzhao feature 9207
         case TDQ_ELEMENT:
             return "";//$NON-NLS-1$

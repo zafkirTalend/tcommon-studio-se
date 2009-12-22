@@ -214,7 +214,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     }
 
     private void createCreationComposite(Group group) {
-        createViewRules(group, "Edit Rules"); //$NON-NLS-N$
+        createViewRules(group, Messages.getString("RuleOperationChoiceDialog.editRules")); //$NON-NLS-N$ //$NON-NLS-1$
         createCreateRuleButton(group, "Create a rule with guide"); //$NON-NLS-1$
         createSelectFromRepositoryButton(group, "Select a rule from repository"); //$NON-NLS-1$
         createRuleCombo(group);
@@ -224,13 +224,13 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private void createBuiltInComposite(Group group) {
         //        createViewSchemaButton(group, Messages.getString("SchemaOperationChoiceDialog.EditSchemaMessage")); //$NON-NLS-1$
-        createSelectFromRepositoryButton(group, "Select a rule from file");
+        createSelectFromRepositoryButton(group, Messages.getString("RuleOperationChoiceDialog.selectRulesFile")); //$NON-NLS-1$
         createRuleCombo(group);
 
     }
 
     private void createRepositoryXLSComposite(Group group) {
-        createViewRules(group, "View Rules(Read-only)"); //$NON-NLS-N$
+        createViewRules(group, Messages.getString("RuleOperationChoiceDialog.viewRules")); //$NON-NLS-N$ //$NON-NLS-1$
         createSelectFromRepositoryButton(group, "Select a rule from repository"); //$NON-NLS-1$
         createRuleCombo(group);
     }
@@ -338,7 +338,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private void createRuleCombo(Composite composite) {
         ruleLabel = new Label(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-        ruleLabel.setText("Rule:"); //$NON-NLS-N$
+        ruleLabel.setText(Messages.getString("RuleOperationChoiceDialog.rule")); //$NON-NLS-N$ //$NON-NLS-1$
         ruleLabel.setVisible(true);
         ruleCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
         ruleCombo.setVisible(true);
@@ -435,7 +435,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
         if (ruleCombo.getSelectionIndex() >= 0) {
             convertName = this.ruleCombo.getItem(ruleCombo.getSelectionIndex());
         } else {
-            convertName = ""; //$NON-NLS-N$
+            convertName = ""; //$NON-NLS-N$ //$NON-NLS-1$
         }
         if (viewRulesBtn != null) {
             if (viewRulesBtn.getSelection()) {
@@ -484,9 +484,9 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
         String[] ruleNames = null;
         if (node.getElementParameter("PROPERTY_TYPE") != null && ("REPOSITORY").equals(node.getElementParameter("PROPERTY_TYPE").getValue())) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             for (IElementParameter ep : node.getElementParameters()) {
-                if (ep.getName().equals("PROPERTY")) { //$NON-NLS-N$
+                if (ep.getName().equals("PROPERTY")) { //$NON-NLS-N$ //$NON-NLS-1$
                     if (ep.getChildParameters() != null) {
-                        currentNodeRepositoryRuleId = ep.getChildParameters().get("REPOSITORY_PROPERTY_TYPE").getValue() //$NON-NLS-N$
+                        currentNodeRepositoryRuleId = ep.getChildParameters().get("REPOSITORY_PROPERTY_TYPE").getValue() //$NON-NLS-N$ //$NON-NLS-1$
                                 .toString();
                         break;
                     }
@@ -508,11 +508,11 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                 }
 
                 if (this.currentRepositoryItem != null) { //$NON-NLS-N$  for all RulesItems
-                    if (this.currentRepositoryItem.getExtension().equals(".drl")) { //$NON-NLS-N$
+                    if (this.currentRepositoryItem.getExtension().equals(".drl")) { //$NON-NLS-N$ //$NON-NLS-1$
                         // rulesItem drl
                         currentRulesContent = new String(this.currentRepositoryItem.getContent().getInnerContent());
                         ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
-                    } else if (this.currentRepositoryItem.getExtension().equals(".xls")) { //$NON-NLS-N$
+                    } else if (this.currentRepositoryItem.getExtension().equals(".xls")) { //$NON-NLS-N$ //$NON-NLS-1$
                         // rulesItem xls
                         IRulesProviderService rulesService = null;
                         if (PluginChecker.isRulesPluginLoaded()) {
@@ -520,7 +520,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                                     IRulesProviderService.class);
                             try {
                                 rulesService.syncRule(currentRepositoryItem);
-                                String path = rulesService.getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$
+                                String path = rulesService.getRuleFile(currentRepositoryItem, ".xls").getLocation().toOSString(); //$NON-NLS-N$ //$NON-NLS-1$
                                 ruleNames = readExc(path);
                             } catch (SystemException e) {
                             }
@@ -528,27 +528,27 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                     }
                 }
                 if (this.currentRepositoryLinkItem != null) { //$NON-NLS-N$  for all LinkItems
-                    if (this.currentRepositoryLinkItem.getExtension().equals(".drl")) { //$NON-NLS-N$  
+                    if (this.currentRepositoryLinkItem.getExtension().equals(".drl")) { //$NON-NLS-N$   //$NON-NLS-1$
                         // linkItem drl
                         currentRulesContent = readFileByLines(currentRepositoryLinkItem.getLink().getURI());
                         ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
-                    } else if (this.currentRepositoryLinkItem.getExtension().equals(".xls")) { //$NON-NLS-N$
+                    } else if (this.currentRepositoryLinkItem.getExtension().equals(".xls")) { //$NON-NLS-N$ //$NON-NLS-1$
                         // linkItem xls
                         ruleNames = readExc(currentRepositoryLinkItem.getLink().getURI());
                     }
                 }
             }
         }
-        if (node.getElementParameter("PROPERTY_TYPE") != null //$NON-NLS-N$
+        if (node.getElementParameter("PROPERTY_TYPE") != null //$NON-NLS-N$ //$NON-NLS-1$
                 && ("BUILT_IN").equals(node.getElementParameter("PROPERTY_TYPE").getValue()) //$NON-NLS-1$ //$NON-NLS-2$
-                && node.getElementParameter("SELECTED_FILE").getValue() != null) { //$NON-NLS-N$
+                && node.getElementParameter("SELECTED_FILE").getValue() != null) { //$NON-NLS-N$ //$NON-NLS-1$
             // get rules names from built-in drl or xls
-            String fileFullPath = node.getElementParameter("SELECTED_FILE").getValue().toString().replaceAll("\"", "");
-            if (fileFullPath.endsWith(".drl")) {
+            String fileFullPath = node.getElementParameter("SELECTED_FILE").getValue().toString().replaceAll("\"", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            if (fileFullPath.endsWith(".drl")) { //$NON-NLS-1$
                 currentRulesContent = readFileByLines(fileFullPath);
                 ruleNames = devideRules2SingleRuleFromRepositoryDrl(currentRulesContent);
             }
-            if (fileFullPath.endsWith(".xls")) {
+            if (fileFullPath.endsWith(".xls")) { //$NON-NLS-1$
                 ruleNames = readExc(fileFullPath);
             }
 
@@ -560,11 +560,11 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     private String[] devideRules2SingleRuleFromRepositoryDrl(String content) {
         List<String> names = new ArrayList<String>();
         String[] ruleNames = null;
-        Pattern regex = Pattern.compile("\\s*rule\\s+(.*)", //$NON-NLS-N$
+        Pattern regex = Pattern.compile("\\s*rule\\s+(.*)", //$NON-NLS-N$ //$NON-NLS-1$
                 Pattern.CANON_EQ);
         InputStreamReader isr = null;
         BufferedReader reader = null;
-        if (content != null && !content.equals("")) {
+        if (content != null && !content.equals("")) { //$NON-NLS-1$
             try {
                 isr = new InputStreamReader(new ByteArrayInputStream(content.getBytes()));
                 reader = new BufferedReader(isr);
@@ -572,13 +572,13 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                 int line = 1;
                 while ((tempString = reader.readLine()) != null) {
                     tempString = tempString.trim();
-                    if (!tempString.startsWith("#")) { //$NON-NLS-N$
+                    if (!tempString.startsWith("#")) { //$NON-NLS-N$ //$NON-NLS-1$
                         Matcher regexMatcher = regex.matcher(tempString);
                         while (regexMatcher.find()) {
                             names.add(regexMatcher.group(1));
                         }
                         if (names.isEmpty()) {
-                            regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$
+                            regex = Pattern.compile("\\s*rule\\s+\"(.*)\"", //$NON-NLS-N$ //$NON-NLS-1$
                                     Pattern.CANON_EQ);
                             regexMatcher = regex.matcher(tempString);
                             while (regexMatcher.find()) {
@@ -618,7 +618,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     }
 
     public static String readFileByLines(String fileName) {
-        String fileContent = "";
+        String fileContent = ""; //$NON-NLS-1$
         File file = new File(fileName);
         BufferedReader reader = null;
         StringBuffer sb = new StringBuffer();
@@ -628,7 +628,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
             int line = 1;
             while ((tempString = reader.readLine()) != null) {
                 sb.append(tempString);
-                sb.append("\n");
+                sb.append("\n"); //$NON-NLS-1$
                 line++;
             }
             fileContent = sb.toString();
@@ -655,7 +655,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
         int row = s.getRows();
         String[] ruleNames = null;
         List<String> names = new ArrayList<String>();
-        Pattern regex = Pattern.compile("(.+\\s)rules$", //$NON-NLS-N$
+        Pattern regex = Pattern.compile("(.+\\s)rules$", //$NON-NLS-N$ //$NON-NLS-1$
                 Pattern.CANON_EQ);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -665,7 +665,7 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                     try {
                         for (int k = j + 1; k < row; k++) {
                             if (s.getCell(i, k).getContents() != null
-                                    && !"".equals(s.getCell(i, k).getContents()) //$NON-NLS-N$
+                                    && !"".equals(s.getCell(i, k).getContents()) //$NON-NLS-N$ //$NON-NLS-1$
                                     && !regex.matcher(s.getCell(i, k).getContents()).find()
                                     && !names.contains(s.getCell(i, k).getContents())) {
                                 names.add(s.getCell(i, k).getContents());

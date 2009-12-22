@@ -18,7 +18,7 @@ package org.talend.designer.core.ui.views;
  */
 public interface IEcosystemView {
 
-    public static final String VIEW_ID = "org.talend.designer.components.ecosystem.ui.views.EcosystemView";
+    public static final String VIEW_ID = "org.talend.designer.components.ecosystem.ui.views.EcosystemView"; //$NON-NLS-1$
 
     public void refresh();
 

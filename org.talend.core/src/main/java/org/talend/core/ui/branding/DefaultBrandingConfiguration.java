@@ -41,7 +41,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     protected IActionBarConfigurer actionBarConfigurer;
 
-    private String title = "";
+    private String title = ""; //$NON-NLS-1$
 
     public IActionBarHelper getHelper() {
         return this.helper;
@@ -281,11 +281,11 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
     }
 
     public String getInitialWindowPerspectiveId() {
-        return "org.talend.rcp.perspective";
+        return "org.talend.rcp.perspective"; //$NON-NLS-1$
     }
 
     public String getTISProductNameForWelcome() {
-        return "Integration Suite Studio";
+        return "Integration Suite Studio"; //$NON-NLS-1$
     }
 
     public void generateWelcomeHeaderImage() {

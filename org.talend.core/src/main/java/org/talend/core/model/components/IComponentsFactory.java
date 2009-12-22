@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -52,4 +53,6 @@ public interface IComponentsFactory {
     public void loadUserComponentsFromComponentsProviderExtension();
 
     public Map<String, ImageDescriptor> getAllComponentsCanBeProvided();
+
+    public void initializeComponents(IProgressMonitor monitor);
 }

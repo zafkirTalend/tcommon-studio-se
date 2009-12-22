@@ -70,12 +70,12 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
     }
 
     public List<Problem> checkProblemsForErrorMark(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
-        String proKey = "";
+        String proKey = ""; //$NON-NLS-1$
         if (key != null) {
-            int indeMark = key.indexOf(":");
+            int indeMark = key.indexOf(":"); //$NON-NLS-1$
 
             if (indeMark > 0) {
-                proKey = key.substring(0, key.indexOf(":"));
+                proKey = key.substring(0, key.indexOf(":")); //$NON-NLS-1$
             } else {
                 proKey = key;
             }
@@ -93,8 +93,8 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
                 Problem problem = (Problem) iter.next();
 
                 if (problem.getKey() != null) {
-                    int inde = problem.getKey().indexOf(":");
-                    String problemKey = "";
+                    int inde = problem.getKey().indexOf(":"); //$NON-NLS-1$
+                    String problemKey = ""; //$NON-NLS-1$
                     if (inde > 0) {
                         problemKey = problem.getKey().substring(0, inde);
                     } else {

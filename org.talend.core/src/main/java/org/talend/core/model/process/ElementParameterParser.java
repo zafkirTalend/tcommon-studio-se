@@ -339,7 +339,7 @@ public final class ElementParameterParser {
                 }
                 return processItem.getProperty().getVersion();
             }
-            if (param.getName().equals("PROCESS_TYPE_CONTEXT")) {
+            if (param.getName().equals("PROCESS_TYPE_CONTEXT")) { //$NON-NLS-1$
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -361,9 +361,9 @@ public final class ElementParameterParser {
                 return (String) value;
             }
             // hywang add for 6484
-            if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-N$
-                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-N$
-                if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) {
+            if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-N$ //$NON-NLS-1$
+                IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-N$ //$NON-NLS-1$
+                if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) { //$NON-NLS-1$
                     try {
                         IRepositoryObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
                                 (String) propertyParam.getValue());
@@ -371,7 +371,7 @@ public final class ElementParameterParser {
                             Item item = object.getProperty().getItem();
                             String extension = null;
 
-                            String rule = "";
+                            String rule = ""; //$NON-NLS-1$
                             String processLabelAndVersion = null;
                             if (item instanceof RulesItem) {
                                 RulesItem rulesItem = (RulesItem) item;
@@ -384,7 +384,7 @@ public final class ElementParameterParser {
                                     processLabelAndVersion = JavaResourcesHelper.getJobFolderName(jobLabel, jobVersion);
                                 }
 
-                                rule = "rules/final/" + processLabelAndVersion + "/" + rulesItem.getProperty().getLabel()
+                                rule = "rules/final/" + processLabelAndVersion + "/" + rulesItem.getProperty().getLabel() //$NON-NLS-1$ //$NON-NLS-2$
                                         + rulesItem.getProperty().getVersion() + extension;
                             }
                             return TalendTextUtils.addQuotes(rule);

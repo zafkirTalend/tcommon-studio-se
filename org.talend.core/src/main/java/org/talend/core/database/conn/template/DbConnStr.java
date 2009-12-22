@@ -145,7 +145,7 @@ class DbConnStr {
     }
 
     private String checkAndProcess(String str) {
-        if (str != null && !"".equals(str.trim())) {
+        if (str != null && !"".equals(str.trim())) { //$NON-NLS-1$
             return Perl5Compiler.quotemeta(str);
         }
         return null;

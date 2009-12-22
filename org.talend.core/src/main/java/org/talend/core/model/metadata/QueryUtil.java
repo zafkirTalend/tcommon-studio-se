@@ -177,7 +177,7 @@ public class QueryUtil {
         } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for
                                                                                                    // bug0007563
             String declareString = TalendTextUtils.getStringDeclare();
-            String end = ""; //$NON-NLS-N$
+            String end = ""; //$NON-NLS-N$ //$NON-NLS-1$
             if (!isCheck) { // hywang add isCheck for informix
                 end = checkAndConcatString(TalendTextUtils.declareString(" FROM "), declareString + realTableName[0] //$NON-NLS-1$
                         + declareString);

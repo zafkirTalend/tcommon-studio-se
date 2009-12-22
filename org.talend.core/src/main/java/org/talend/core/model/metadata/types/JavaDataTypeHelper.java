@@ -318,15 +318,15 @@ public final class JavaDataTypeHelper {
      * DOC nrousseau GuessSchemaUtil class global comment. Detailled comment
      */
     private enum EJavaTypePriority {
-        STRING("id_String", 10, false),
-        BOOLEAN("id_Boolean", 9, false),
-        INTEGER("id_Integer", 1, true),
-        LONG("id_Long", 2, true),
-        CHARACTER("id_Character", 1, false),
-        DATE("id_Date", 9, false),
-        FLOAT("id_Float", 3, true),
-        DOUBLE("id_Double", 4, true),
-        BIGDECIMAL("id_BigDecimal", 5, true);
+        STRING("id_String", 10, false), //$NON-NLS-1$
+        BOOLEAN("id_Boolean", 9, false), //$NON-NLS-1$
+        INTEGER("id_Integer", 1, true), //$NON-NLS-1$
+        LONG("id_Long", 2, true), //$NON-NLS-1$
+        CHARACTER("id_Character", 1, false), //$NON-NLS-1$
+        DATE("id_Date", 9, false), //$NON-NLS-1$
+        FLOAT("id_Float", 3, true), //$NON-NLS-1$
+        DOUBLE("id_Double", 4, true), //$NON-NLS-1$
+        BIGDECIMAL("id_BigDecimal", 5, true); //$NON-NLS-1$
 
         private String idName;
 

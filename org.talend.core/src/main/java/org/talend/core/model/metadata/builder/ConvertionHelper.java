@@ -55,7 +55,7 @@ public final class ConvertionHelper {
         result.setDatabase(connection.getSID());
         result.setDataSourceName(connection.getDatasourceName());
 
-        if (connection.getDatabaseType() == null || "".equals(connection.getDatabaseType())) { // 0009594
+        if (connection.getDatabaseType() == null || "".equals(connection.getDatabaseType())) { // 0009594 //$NON-NLS-1$
             String trueDbType = ExtractMetaDataUtils.getDbTypeByClassName(connection.getDriverClass());
             result.setDbType(trueDbType);
         } else {
@@ -104,7 +104,7 @@ public final class ConvertionHelper {
             newColumn.setKey(column.isKey());
             String label2 = column.getLabel();
             if (KeywordsValidator.isKeyword(label2)) {
-                label2 = "_" + label2;
+                label2 = "_" + label2; //$NON-NLS-1$
             }
             newColumn.setLabel(label2);
             newColumn.setPattern(column.getPattern());
@@ -125,7 +125,7 @@ public final class ConvertionHelper {
                 String label = label2;
                 if (label != null && label.length() > 0) {
                     String substring = label.substring(1);
-                    if (label.startsWith("_") && KeywordsValidator.isKeyword(substring)) {
+                    if (label.startsWith("_") && KeywordsValidator.isKeyword(substring)) { //$NON-NLS-1$
                         label = substring;
                     }
                 }

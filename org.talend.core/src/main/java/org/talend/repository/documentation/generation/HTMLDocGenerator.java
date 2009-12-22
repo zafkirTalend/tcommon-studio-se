@@ -212,10 +212,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
                     byte[] screenshot = node.getScreenshot();
                     ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
-                    String uniqueName = "";
+                    String uniqueName = ""; //$NON-NLS-1$
                     for (Object o : node.getElementParameter()) {
                         if (o instanceof ElementParameterType) {
-                            if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) {
+                            if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) { //$NON-NLS-1$
                                 uniqueName = ((ElementParameterType) o).getValue();
                             }
                         }
@@ -327,10 +327,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
                 byte[] screenshot = node.getScreenshot();
                 ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
-                String uniqueName = "";
+                String uniqueName = ""; //$NON-NLS-1$
                 for (Object o : node.getElementParameter()) {
                     if (o instanceof ElementParameterType) {
-                        if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) {
+                        if ("UNIQUE_NAME".equals(((ElementParameterType) o).getName())) { //$NON-NLS-1$
                             uniqueName = ((ElementParameterType) o).getValue();
                         }
                     }

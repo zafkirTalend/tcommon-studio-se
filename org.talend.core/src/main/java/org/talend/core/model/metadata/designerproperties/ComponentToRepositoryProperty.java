@@ -97,9 +97,9 @@ public class ComponentToRepositoryProperty {
             String url = DatabaseConnStrUtil.getURLString(conn);
             conn.setURL(url);
             // see bug in feature 5998, set dbmsId.
-            String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue();
-            if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) {
-                String product = repositoryType.substring(repositoryType.indexOf(":") + 1);
+            String repositoryType = node.getElementParameter("PROPERTY_TYPE").getRepositoryValue(); //$NON-NLS-1$
+            if (repositoryType.startsWith("DATABASE") && repositoryType.contains(":")) { //$NON-NLS-1$ //$NON-NLS-2$
+                String product = repositoryType.substring(repositoryType.indexOf(":") + 1); //$NON-NLS-1$
                 String mapping = MetadataTalendType.getDefaultDbmsFromProduct(product).getId();
                 conn.setDbmsId(mapping);
             }
@@ -808,7 +808,7 @@ public class ComponentToRepositoryProperty {
      */
     private static void setLDAPSchemaValue(LDAPSchemaConnection connection, INode node, String repositoryValue) {
         if ("HOST".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "HOST").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
+            String value = getParameterValue(node, "HOST").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             if (value != null) {
                 connection.setHost(value);
             }
@@ -820,7 +820,7 @@ public class ComponentToRepositoryProperty {
             }
         }
         if ("BASEDN".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "BASEDN").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
+            String value = getParameterValue(node, "BASEDN").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             if (value != null) {
                 connection.setSelectedDN(value);
             }
@@ -843,13 +843,13 @@ public class ComponentToRepositoryProperty {
         }
 
         if ("USER".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "USER").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
+            String value = getParameterValue(node, "USER").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             if (value != null) {
                 connection.setBindPrincipal(value);
             }
         }
         if ("PASSWD".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "PASSWD").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$
+            String value = getParameterValue(node, "PASSWD").replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             if (value != null) {
                 connection.setBindPassword(value);
             }
@@ -1016,9 +1016,9 @@ public class ComponentToRepositoryProperty {
         if ("MDMURL".equals(repositoryValue)) {//$NON-NLS-1$
             String value = getParameterValue(node, "MDMURL"); //$NON-NLS-1$
             if (value != null) {
-                String[] values = value.split(":");
-                String server = values[1].substring(values[1].indexOf("//") + 2);
-                String port = values[2].substring(0, values[2].indexOf("/"));
+                String[] values = value.split(":"); //$NON-NLS-1$
+                String server = values[1].substring(values[1].indexOf("//") + 2); //$NON-NLS-1$
+                String port = values[2].substring(0, values[2].indexOf("/")); //$NON-NLS-1$
 
                 connection.setServer(server);
                 connection.setPort(port);
@@ -1434,11 +1434,11 @@ public class ComponentToRepositoryProperty {
 
         }
         if ("BATCH_SIZE".equals(repositoryValue)) { //$NON-NLS-1$
-            connection.setBatchSize(getParameterValue(node, "BATCH_SIZE"));
+            connection.setBatchSize(getParameterValue(node, "BATCH_SIZE")); //$NON-NLS-1$
             // add for feature 7507
         }
-        if ("UES_PROXY".equals(repositoryValue)) {
-            String parameterValue = getParameterValue(node, "UES_PROXY");
+        if ("UES_PROXY".equals(repositoryValue)) { //$NON-NLS-1$
+            String parameterValue = getParameterValue(node, "UES_PROXY"); //$NON-NLS-1$
             connection.setUseProxy(Boolean.valueOf(parameterValue));
         }
         if ("PROXY_HOST".equals(repositoryValue)) { //$NON-NLS-1$

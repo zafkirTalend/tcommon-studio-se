@@ -210,7 +210,7 @@ public class MetadataSchema {
         if (sourceType != null) {
             metadataColumn.setType(sourceType.getNodeValue());
         }
-        if (originalDbColumnName != null && !"".equals(originalDbColumnName.getNodeValue().toString())) { // hywang for
+        if (originalDbColumnName != null && !"".equals(originalDbColumnName.getNodeValue().toString())) { // hywang for //$NON-NLS-1$
                                                                                                           // 0007919
             metadataColumn.setOriginalDbColumnName(originalDbColumnName.getNodeValue());
         } else {

@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -43,11 +44,11 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
      */
     protected OpenXSDFileDialog(Shell parentShell) {
         super(parentShell);
-        this.setTitle("Select a XML File to Validate");
+        this.setTitle(Messages.getString("OpenXSDFileDialog.xmlFileSelection")); //$NON-NLS-1$
     }
 
     protected void createButtonsForButtonBar(Composite parent) {
-        Button confirmButton = createButton(parent, 9999, "Confirm", true);
+        Button confirmButton = createButton(parent, 9999, Messages.getString("OpenXSDFileDialog.confirm"), true); //$NON-NLS-1$
         confirmButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent arg0) {
@@ -60,7 +61,7 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
             }
         });
 
-        Button cancelButton = createButton(parent, 9998, "Cancel", true);
+        Button cancelButton = createButton(parent, 9998, Messages.getString("OpenXSDFileDialog.cancel"), true); //$NON-NLS-1$
         cancelButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent arg0) {
@@ -84,8 +85,8 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
 
     public void create() {
         super.create();
-        setTitle("Select a XML File to Validate");
-        setMessage("As you have selected a XSD metadata file, \n there should be a xml file to validate.");
+        setTitle(Messages.getString("OpenXSDFileDialog.xmlFileSelection")); //$NON-NLS-1$
+        setMessage(Messages.getString("OpenXSDFileDialog.xmlSelectedOrNot")); //$NON-NLS-1$
     }
 
     protected Control createDialogArea(Composite parent) {
@@ -98,7 +99,7 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
         text.setText(new Path(p.toPortableString()).toOSString());
         portableValue = new Path(p.toPortableString()).toOSString();
         Button findButton = new Button(container, SWT.NONE);
-        findButton.setImage(ImageProvider.getImage(CorePlugin.getImageDescriptor("icons/dots_button.gif")));
+        findButton.setImage(ImageProvider.getImage(CorePlugin.getImageDescriptor("icons/dots_button.gif"))); //$NON-NLS-1$
         findButton.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -106,12 +107,12 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
 
             public void widgetSelected(SelectionEvent e) {
                 FileDialog dial = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.NONE);
-                dial.setFilterExtensions(new String[] { "*.xml" });
-                dial.setText("Select a XML File to Validate");
+                dial.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
+                dial.setText(Messages.getString("OpenXSDFileDialog.xmlFileSelection")); //$NON-NLS-1$
                 dial.setFileName(new Path(p.toPortableString()).toOSString());
                 String file = dial.open();
                 if (file != null) {
-                    if (!file.equals("")) {
+                    if (!file.equals("")) { //$NON-NLS-1$
                         portableValue = Path.fromOSString(file).toPortableString();
                         text.setText(portableValue);
                     }
@@ -120,7 +121,7 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
 
         });
 
-        label.setText("File Name: ");
+        label.setText(Messages.getString("OpenXSDFileDialog.fileName")); //$NON-NLS-1$
         GridData data = new GridData(GridData.BEGINNING);
         data.horizontalSpan = 1;
         label.setLayoutData(data);
@@ -149,7 +150,7 @@ public class OpenXSDFileDialog extends TitleAreaDialog {
         this.p = p;
     }
 
-    public static String portableValue = "";
+    public static String portableValue = ""; //$NON-NLS-1$
 
     private Path p;
 }

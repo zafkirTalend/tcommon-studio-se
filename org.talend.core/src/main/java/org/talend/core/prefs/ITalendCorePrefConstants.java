@@ -55,7 +55,7 @@ public interface ITalendCorePrefConstants {
 
     String RUN_IN_MULTI_THREAD = "runInMultiThread"; //$NON-NLS-1$
 
-    String ALWAYS_WELCOME = "alwaysWelcome";
+    String ALWAYS_WELCOME = "alwaysWelcome"; //$NON-NLS-1$
 
     String CONTEXT_GROUP_BY_SOURCE = "groupBySource"; //$NON-NLS-1$
 

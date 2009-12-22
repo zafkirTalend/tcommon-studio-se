@@ -297,7 +297,7 @@ public class MetadataTool {
     private static MetadataTable getMetadataTableFromSAPFunction(SAPConnection connection, String name) {
         String functionName = null;
         String metadataName = null;
-        String[] names = name.split(" - ");
+        String[] names = name.split(" - "); //$NON-NLS-1$
         if (names.length == 2) {
             functionName = names[0];
             metadataName = names[1];

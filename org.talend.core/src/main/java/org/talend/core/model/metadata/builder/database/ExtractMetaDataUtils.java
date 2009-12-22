@@ -469,7 +469,7 @@ public class ExtractMetaDataUtils {
                 driverClassName = ExtractMetaDataUtils.getDriverClassByDbType(dbType);
             }
         } else {
-            if (driverJarPathArg.contains("\\")) {
+            if (driverJarPathArg.contains("\\")) { //$NON-NLS-1$
                 jarPathList.add(driverJarPathArg);
             } else {
                 jarPathList.add(getJavaLibPath() + driverJarPathArg);
@@ -534,7 +534,7 @@ public class ExtractMetaDataUtils {
 
         // throw a new exception.
         if (connection == null) {
-            throw new Exception("Impossible to initialize the connection !");
+            throw new Exception(Messages.getString("ExtractMetaDataUtils.1")); //$NON-NLS-1$
         }
         conList.add(connection);
         if (wapperDriver != null) {
@@ -561,10 +561,10 @@ public class ExtractMetaDataUtils {
             return functionlist;
         }
         try {
-            String[] systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$
-            String[] numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$
-            String[] stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$
-            String[] timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$
+            String[] systemFunctions = dbMetadata.getSystemFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            String[] numericFunctions = dbMetadata.getNumericFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            String[] stringFunctions = dbMetadata.getStringFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
+            String[] timeFunctions = dbMetadata.getTimeDateFunctions().split(",\\s*"); //$NON-NLS-N$ //$NON-NLS-1$
 
             convertFunctions2Array(functionlist, systemFunctions);
 
