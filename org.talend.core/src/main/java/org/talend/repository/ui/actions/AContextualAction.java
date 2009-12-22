@@ -41,9 +41,9 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
@@ -475,29 +475,26 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     protected boolean isLastVersion(RepositoryNode repositoryObject) {
         try {
-            if (repositoryObject.getObject() != null) {
-                Property property = repositoryObject.getObject().getProperty();
-
-                List<IRepositoryObject> allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                        .getAllVersion(property.getId());
-                if (allVersion == null || allVersion.isEmpty()) {
-                    return false;
-                }
-                String lastVersion = VersionUtils.DEFAULT_VERSION;
-
-                for (IRepositoryObject object : allVersion) {
-                    if (VersionUtils.compareTo(object.getVersion(), lastVersion) > 0) {
-                        lastVersion = object.getVersion();
-                    }
-                }
-                if (VersionUtils.compareTo(property.getVersion(), lastVersion) == 0) {
+            if (repositoryObject != null && repositoryObject.getObject() != null
+                    && repositoryObject.getObject().getProperty() != null) {
+                Item item = repositoryObject.getObject().getProperty().getItem();
+                if (item instanceof ConnectionItem) {
                     return true;
                 }
             }
+
+            List<IRepositoryObject> allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                    .getAllVersion(repositoryObject.getId());
+            if (allVersion == null || allVersion.isEmpty()) {
+                return false;
+            }
+            // Collections.sort(allVersion, new IRepositoryObjectComparator());
+            IRepositoryObject lastVersion = allVersion.get(allVersion.size() - 1);
+            return lastVersion.getVersion().equals(repositoryObject.getObject().getVersion());
         } catch (PersistenceException e) {
-            //
+            return false;
         }
-        return false;
+
     }
 
 }
