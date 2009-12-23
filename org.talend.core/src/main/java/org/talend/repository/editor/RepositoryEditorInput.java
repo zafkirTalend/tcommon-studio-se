@@ -159,7 +159,6 @@ public class RepositoryEditorInput extends FileEditorInput {
                 }
             }
 
-            refresh();
             if (monitor != null) {
                 monitor.worked(10);
             }

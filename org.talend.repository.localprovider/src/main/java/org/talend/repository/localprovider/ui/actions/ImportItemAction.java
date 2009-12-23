@@ -115,7 +115,7 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
     }
 
     public void run(IAction action) {
-        run();
+        doRun();
     }
 
     public void selectionChanged(IAction action, ISelection selection) {

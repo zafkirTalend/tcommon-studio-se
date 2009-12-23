@@ -1729,7 +1729,17 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (getStatus(property.getItem()) == ERepositoryStatus.LOCK_BY_USER) {
             return uptodateProperty;
         }
-        return xmiResourceManager.forceReloadProperty(uptodateProperty);
+        FolderItem folderItem = null;
+        if (property.getItem().eContainer() instanceof FolderItem) {
+            folderItem = (FolderItem) property.getItem().eContainer();
+            folderItem.getChildren().remove(property.getItem());
+        }
+        Property afterForceReload = xmiResourceManager.forceReloadProperty(uptodateProperty);
+        if (folderItem != null) {
+            folderItem.getChildren().add(afterForceReload.getItem());
+        }
+
+        return afterForceReload;
     }
 
 }
