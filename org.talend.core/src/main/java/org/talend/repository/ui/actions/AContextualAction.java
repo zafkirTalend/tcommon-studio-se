@@ -43,6 +43,9 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -478,8 +481,20 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             if (repositoryObject.getObject() != null) {
                 Property property = repositoryObject.getObject().getProperty();
 
-                List<IRepositoryObject> allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
-                        .getAllVersion(property.getId());
+                Item item = repositoryObject.getObject().getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    return true;
+                }
+
+                List<IRepositoryObject> allVersion = null;
+                ItemState state = property.getItem().getState();
+                if (state != null && state.getPath() != null) {
+                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
+                            property.getId(), state.getPath(), repositoryObject.getObject().getType());
+                } else {
+                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
+                            property.getId());
+                }
                 if (allVersion == null || allVersion.isEmpty()) {
                     return false;
                 }
@@ -499,5 +514,4 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
         return false;
     }
-
 }

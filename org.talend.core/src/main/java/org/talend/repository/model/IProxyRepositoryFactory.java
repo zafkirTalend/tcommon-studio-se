@@ -672,4 +672,7 @@ public interface IProxyRepositoryFactory {
     public Property getUptodateProperty(Property property) throws PersistenceException;
 
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit);
+
+    public List<IRepositoryObject> getAllVersion(String id, String folderPath, ERepositoryObjectType type)
+            throws PersistenceException;
 }
