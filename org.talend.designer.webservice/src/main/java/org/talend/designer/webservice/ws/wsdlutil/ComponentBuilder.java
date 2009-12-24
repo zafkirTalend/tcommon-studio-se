@@ -60,6 +60,8 @@ public class ComponentBuilder {
 
     private List parametersName = new ArrayList();
 
+    private List schemaNames = new ArrayList();
+
     private String documentBaseURI = null;
 
     private XmlSchemaCollection schemaCollection;
@@ -118,6 +120,9 @@ public class ComponentBuilder {
                     Schema schema = createschemafromtype(schemaElementt, wsdlDefinition, documentBase);
                     if (schema != null) {
                         schemas.add(schema);
+                        if (schema.getTargetNamespace() != null) {
+                            schemaNames.add(schema.getTargetNamespace());
+                        }
                     }
                     importElement = ((javax.wsdl.extensions.schema.Schema) schemaElement).getImports();
                     if (importElement != null && importElement.size() > 0) {
@@ -139,6 +144,9 @@ public class ComponentBuilder {
                     Schema schema = createschemafromtype(schemaElementt, wsdlDefinition, documentBase);
                     if (schema != null) {
                         schemas.add(schema);
+                        if (schema.getTargetNamespace() != null) {
+                            schemaNames.add(schema.getTargetNamespace());
+                        }
                     }
 
                     if (isHaveImport) {
@@ -201,6 +209,9 @@ public class ComponentBuilder {
             Schema schemaInclude = createschemafromtype(schemaElementt, wsdlDefinition, documentBase);
             if (schemaInclude != null) {
                 schemas.add(schemaInclude);
+                if (schemaInclude.getTargetNamespace() != null) {
+                    schemaNames.add(schemaInclude.getTargetNamespace());
+                }
             }
         }
     }
@@ -215,8 +226,10 @@ public class ComponentBuilder {
             Vector importEle = (Vector) importElement.get(key);
 
             for (int i = 0; i < importEle.size(); i++) {
+                Map importChildElement = null;
                 com.ibm.wsdl.extensions.schema.SchemaImportImpl importImpl = (com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle
                         .elementAt(i);
+                System.out.println(importImpl.getNamespaceURI());
                 if (importImpl.getReferencedSchema() != null) {
 
                     schemaElementt = importImpl.getReferencedSchema().getElement();
@@ -224,9 +237,9 @@ public class ComponentBuilder {
 
                     if ((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i) != null) {
                         if (((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i)).getReferencedSchema() != null) {
-                            importElement = ((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i))
+                            importChildElement = ((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i))
                                     .getReferencedSchema().getImports();
-                            if (importElement != null && importElement.size() > 0) {
+                            if (importChildElement != null && importChildElement.size() > 0) {
                                 isHaveImport = true;
                                 // validateImportUrlPath(importElement);
                             }
@@ -236,11 +249,14 @@ public class ComponentBuilder {
                     Schema schemaImport = createschemafromtype(schemaElementt, wsdlDefinition, documentBase);
                     if (schemaImport != null) {
                         schemas.add(schemaImport);
+                        if (schemaImport.getTargetNamespace() != null) {
+                            schemaNames.add(schemaImport.getTargetNamespace());
+                        }
                     }
                 }
 
                 if (isHaveImport) {
-                    findImportSchema(wsdlDefinition, schemas, importElement);
+                    findImportSchema(wsdlDefinition, schemas, importChildElement);
                 }
 
                 if ((com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle.elementAt(i) != null) {

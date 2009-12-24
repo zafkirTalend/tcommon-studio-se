@@ -402,17 +402,20 @@ public class WebServiceUI {
 
             WebServiceComponent webServiceComponent = webServiceManager.getWebServiceComponent();
             boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
+            boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
+            boolean isUseNTLM = webServiceComponent.getElementParameter("USE_NTLM").getValue().toString().equals("true");
+            boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString().equals(
+                    "true");
+
             if (isUseProxy) {
                 useProxy();
             }
-            boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
-            if (isUseAuth) {
+
+            if (isUseAuth && !isUseNTLM) {
                 useAuth();
             }
 
-            boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString().equals(
-                    "true");
-            if (isUseAuth) {
+            if (isUseSSL) {
                 useSSL();
             }
 
@@ -1201,12 +1204,14 @@ public class WebServiceUI {
 
         WebServiceComponent webServiceComponent = webServiceManager.getWebServiceComponent();
         boolean isUseProxy = webServiceComponent.getElementParameter("USE_PROXY").getValue().toString().equals("true");
+        boolean isUseNTLM = webServiceComponent.getElementParameter("USE_NTLM").getValue().toString().equals("true");
+        boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
+
         if (isUseProxy) {
             useProxy();
         }
 
-        boolean isUseAuth = webServiceComponent.getElementParameter("NEED_AUTH").getValue().toString().equals("true");
-        if (isUseAuth) {
+        if (isUseAuth && !isUseNTLM) {
             useAuth();
         }
 
@@ -1248,10 +1253,13 @@ public class WebServiceUI {
 
     private String parseContextParameter(String contextValue) {
         String url = "";
-        String currentDefaultName = "";
         Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
         IContextManager contextManager = connector.getProcess().getContextManager();
-        currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+        String currentDefaultName = contextManager.getDefaultContext().getName();
+        List contextList = contextManager.getListContext();
+        if (!contextList.isEmpty() && contextList.size() > 1) {
+            currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+        }
         // ContextSetsSelectionDialog cssd=new ContextSetsSelectionDialog(shell,,false);
         // ContextType contextType=ConnectionContextHelper.getContextTypeForContextMode(connector);
         IContext context = contextManager.getContext(currentDefaultName);
