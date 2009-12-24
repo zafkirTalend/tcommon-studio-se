@@ -36,8 +36,6 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INode;
-import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
@@ -529,64 +527,50 @@ public class ComponentUtilities {
         return paletteDrawer;
     }
 
-    public static Set<String> getComponentsUsedInProjects(List<Project> projects, boolean fromProcessType) {
+    public static Set<String> getComponentsUsedInProject(Project project) {
         Set<String> components = new HashSet<String>();
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
 
         try {
-            for (Project project : projects) {
-                List<IRepositoryObject> allProcess = repositoryFactory.getAll(project, ERepositoryObjectType.PROCESS, true);
-                List<IRepositoryObject> allJoblet = repositoryFactory.getAll(project, ERepositoryObjectType.JOBLET, true);
-                addUsedComponents(components, allProcess, fromProcessType);
-                addUsedComponents(components, allJoblet, fromProcessType);
-
-            }
-
+            List<IRepositoryObject> allProcess = repositoryFactory.getAll(project, ERepositoryObjectType.PROCESS, true);
+            List<IRepositoryObject> allJoblet = repositoryFactory.getAll(project, ERepositoryObjectType.JOBLET, true);
+            addUsedComponents(components, allProcess);
+            addUsedComponents(components, allJoblet);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
         return components;
     }
 
-    private static void addUsedComponents(Set<String> components, List<IRepositoryObject> allProcess, boolean fromProcessType) {
+    private static void addUsedComponents(Set<String> components, List<IRepositoryObject> allProcess) {
         IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
         for (IRepositoryObject object : allProcess) {
             Item item = object.getProperty().getItem();
+
             List parameters = null;
-            if (!fromProcessType) {
-                IProcess process = null;
-                if (item instanceof ProcessItem) {
-                    process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-                } else if (item instanceof JobletProcessItem) {
-                    process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-                }
-                // components used in process
-                List<? extends INode> nodes = process.getGraphicalNodes();
-                for (INode node : nodes) {
-                    IComponent component = node.getComponent();
-                    String originalFamilyName = component.getOriginalFamilyName();
-                    String original[] = originalFamilyName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
-                    for (int i = 0; i < original.length; i++) {
-                        components.add(original[i] + FAMILY_SPEARATOR + component.getName());
+            ProcessType processType = null;
+            if (item instanceof ProcessItem) {
+                processType = ((ProcessItem) item).getProcess();
+            } else if (item instanceof JobletProcessItem) {
+                processType = ((JobletProcessItem) item).getJobletProcess();
+            }
+            if (processType != null) {
+                for (Object oNode : processType.getNode()) {
+                    NodeType node = (NodeType) oNode;
+                    IComponent component = ComponentsFactoryProvider.getInstance().get(node.getComponentName());
+                    if (component != null) {
+                        String originalFamilyName = component.getOriginalFamilyName();
+                        String original[] = originalFamilyName.split(ComponentsFactoryProvider.FAMILY_SEPARATOR_REGEX);
+                        for (int i = 0; i < original.length; i++) {
+                            components.add(original[i] + FAMILY_SPEARATOR + component.getName());
+                        }
                     }
                 }
-                parameters = process.getElementParameters();
-            } else {
-                ProcessType process = null;
-                if (item instanceof ProcessItem) {
-                    process = ((ProcessItem) item).getProcess();
-                } else if (item instanceof JobletProcessItem) {
-                    process = ((JobletProcessItem) item).getJobletProcess();
-                }
-                EList nodes = process.getNode();
-                for (Object node : nodes) {
-                    NodeType nodeType = (NodeType) node;
-                    components.add(nodeType.getComponentName());
-                }
-                parameters = process.getParameters().getElementParameter();
+                parameters = processType.getParameters().getElementParameter();
             }
+
             // used in stats&log and implicite
-            Set<String> inStatsLogsAndImplicit = getComponentsInStatsLogsAndImplicit(parameters, fromProcessType);
+            Set<String> inStatsLogsAndImplicit = getComponentsInStatsLogsAndImplicit(parameters);
             if (inStatsLogsAndImplicit != null) {
                 components.addAll(inStatsLogsAndImplicit);
             }
@@ -594,16 +578,12 @@ public class ComponentUtilities {
         }
     }
 
-    private static Set<String> getComponentsInStatsLogsAndImplicit(List parameters, boolean fromProcessType) {
+    private static Set<String> getComponentsInStatsLogsAndImplicit(List parameters) {
         Set<String> components = new HashSet<String>();
         for (Object obj : parameters) {
             String paramName = null;
             Object value = null;
-            if (obj instanceof IElementParameter) {
-                IElementParameter param = (IElementParameter) obj;
-                paramName = param.getName();
-                value = param.getValue();
-            } else if (obj instanceof ElementParameterType) {
+            if (obj instanceof ElementParameterType) {
                 ElementParameterType param = (ElementParameterType) obj;
                 paramName = param.getName();
                 value = param.getValue();
@@ -612,28 +592,28 @@ public class ComponentUtilities {
                 continue;
             }
             if ("ON_STATCATCHER_FLAG".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tStatCatcher", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tStatCatcher", value); //$NON-NLS-1$
             } else if ("ON_METERCATCHER_FLAG".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tFlowMeterCatcher", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tFlowMeterCatcher", value); //$NON-NLS-1$
             } else if ("ON_LOGCATCHER_FLAG".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tLogCatcher", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tLogCatcher", value); //$NON-NLS-1$
             } else if ("ON_CONSOLE_FLAG".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tLogRow", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tLogRow", value); //$NON-NLS-1$
             } else if ("ON_FILES_FLAG".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tFileOutputDelimited", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tFileOutputDelimited", value); //$NON-NLS-1$
             } else if ("ON_DATABASE_FLAG".equals(paramName)) { //$NON-NLS-1$
                 String usedDatabase = getUsedDatabase(parameters, "DB_TYPE"); //$NON-NLS-1$
                 if (usedDatabase != null) {
-                    addComponent(components, usedDatabase, value, fromProcessType);
+                    addComponent(components, usedDatabase, value);
                 }
             } else if ("IMPLICIT_TCONTEXTLOAD".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tContextLoad", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tContextLoad", value); //$NON-NLS-1$
             } else if ("FROM_FILE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) { //$NON-NLS-1$
-                addComponent(components, "tFileInputDelimited", value, fromProcessType); //$NON-NLS-1$
+                addComponent(components, "tFileInputDelimited", value); //$NON-NLS-1$
             } else if ("FROM_DATABASE_FLAG_IMPLICIT_CONTEXT".equals(paramName)) { //$NON-NLS-1$
                 String usedDatabase = getUsedDatabase(parameters, "DB_TYPE_IMPLICIT_CONTEXT"); //$NON-NLS-1$
                 if (usedDatabase != null) {
-                    addComponent(components, usedDatabase, value, fromProcessType);
+                    addComponent(components, usedDatabase, value);
                 }
 
             }
@@ -641,15 +621,9 @@ public class ComponentUtilities {
         return components;
     }
 
-    private static void addComponent(Set<String> components, String name, Object value, boolean fromProcessType) {
+    private static void addComponent(Set<String> components, String name, Object value) {
         if (Boolean.TRUE.equals(Boolean.valueOf(value.toString()))) {
-            if (fromProcessType) {
-                // when open a projcet
-                components.add(name);
-            } else if (getComponentFamily(name) != null) {
-                // for when set palette in project settings
-                components.add(getComponentFamily(name) + FAMILY_SPEARATOR + name);
-            }
+            components.add(getComponentFamily(name) + FAMILY_SPEARATOR + name);
         }
     }
 
