@@ -65,11 +65,15 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.metadata.dialog.MetadataDialog;
+import org.talend.core.ui.proposal.TalendProposalUtils;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.WebServiceComponentMain;
 import org.talend.designer.webservice.data.ExternalWebServiceUIProperties;
@@ -88,6 +92,7 @@ import org.talend.designer.webservice.ws.WSDLDiscoveryHelper;
 import org.talend.designer.webservice.ws.wsdlinfo.Function;
 import org.talend.designer.webservice.ws.wsdlinfo.ParameterInfo;
 import org.talend.designer.webservice.ws.wsdlinfo.PortNames;
+import org.talend.repository.ui.utils.ConnectionContextHelper;
 import org.talend.ws.helper.conf.ServiceHelperConfiguration;
 
 /**
@@ -410,12 +415,21 @@ public class WebServiceUI {
             if (isUseAuth) {
                 useSSL();
             }
-            if (serverConfig != null) {
-                funList = ws.getFunctionsAvailable(wsdlUrl, serverConfig);
 
+            if (serverConfig != null) {
+                if (wsdlUrl != null && !wsdlUrl.contains("\"")) {
+                    funList = ws.getFunctionsAvailable(parseContextParameter(wsdlUrl), serverConfig);
+                } else {
+                    funList = ws.getFunctionsAvailable(wsdlUrl, serverConfig);
+                }
             } else {
-                funList = ws.getFunctionsAvailable(wsdlUrl);
+                if (wsdlUrl != null && !wsdlUrl.contains("\"")) {
+                    funList = ws.getFunctionsAvailable(parseContextParameter(wsdlUrl));
+                } else {
+                    funList = ws.getFunctionsAvailable(wsdlUrl);
+                }
             }
+
             PortNames retrivePortName = new PortNames();
             retrivePortName.setPortName(currentURL);
             allPortNames.clear();
@@ -922,6 +936,8 @@ public class WebServiceUI {
             }
 
         };
+        // add a listener for ctrl+space.
+        TalendProposalUtils.installOn(wsdlField.getTextControl(), connector.getProcess(), connector);
         String wsdlUrl = (String) connector.getElementParameter("ENDPOINT").getValue(); //$NON-NLS-1$
         if (wsdlUrl != null) {
             wsdlField.setText(wsdlUrl);
@@ -1196,15 +1212,23 @@ public class WebServiceUI {
 
         boolean isUseSSL = webServiceComponent.getElementParameter("NEED_SSL_TO_TRUSTSERVER").getValue().toString()
                 .equals("true");
-        if (isUseAuth) {
+        if (isUseSSL) {
             useSSL();
         }
 
         if (serverConfig != null) {
-            funList = ws.getFunctionsAvailable(URLValue, serverConfig);
+            if (URLValue != null && !URLValue.contains("\"")) {
+                funList = ws.getFunctionsAvailable(parseContextParameter(URLValue), serverConfig);
+            } else {
+                funList = ws.getFunctionsAvailable(URLValue, serverConfig);
+            }
 
         } else {
-            funList = ws.getFunctionsAvailable(URLValue);
+            if (URLValue != null && !URLValue.contains("\"")) {
+                funList = ws.getFunctionsAvailable(parseContextParameter(URLValue));
+            } else {
+                funList = ws.getFunctionsAvailable(URLValue);
+            }
         }
 
         if (!funList.isEmpty()) {
@@ -1220,6 +1244,20 @@ public class WebServiceUI {
         listModel.addAll(funList);
         portListModel.removeAll();
         portListModel.addAll(portNameList);
+    }
+
+    private String parseContextParameter(String contextValue) {
+        String url = "";
+        String currentDefaultName = "";
+        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+        IContextManager contextManager = connector.getProcess().getContextManager();
+        currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+        // ContextSetsSelectionDialog cssd=new ContextSetsSelectionDialog(shell,,false);
+        // ContextType contextType=ConnectionContextHelper.getContextTypeForContextMode(connector);
+        IContext context = contextManager.getContext(currentDefaultName);
+        url = ContextParameterUtils.parseScriptContextCode(contextValue, context);
+
+        return url;
     }
 
     private Composite createInputMappingStatus() {
@@ -1594,7 +1632,7 @@ public class WebServiceUI {
                 // if select is list.
                 dialogInputList = new AddListDialog(shell, ((InputMappingData) items[0].getData()).getParameter(), "input");
                 dialogInputList.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
-                Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);//ExternalWebServiceUIProperties.getBoundsMapper
+                Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);// ExternalWebServiceUIProperties.getBoundsMapper
                 // ();
                 if (ExternalWebServiceUIProperties.isShellMaximized()) {
                     dialogInputList.setMaximized(ExternalWebServiceUIProperties.isShellMaximized());
@@ -2138,7 +2176,7 @@ public class WebServiceUI {
                 // if select is a list.
                 AddListDialog dialog = new AddListDialog(shell, ((OutPutMappingData) items[0].getData()).getParameter(), "output");
                 dialog.setTitle(Messages.getString("WebServiceUI.ParameterTree")); //$NON-NLS-1$
-                Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);//ExternalWebServiceUIProperties.getBoundsMapper
+                Rectangle boundsMapper = new Rectangle(50, 50, 100, 50);// ExternalWebServiceUIProperties.getBoundsMapper
                 if (ExternalWebServiceUIProperties.isShellMaximized()) {
                     dialog.setMaximized(ExternalWebServiceUIProperties.isShellMaximized());
                 } else {
