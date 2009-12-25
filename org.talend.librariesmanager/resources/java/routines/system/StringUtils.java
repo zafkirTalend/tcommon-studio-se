@@ -129,6 +129,60 @@ public class StringUtils {
     }
 
     /**
+     * ignore regex
+     * 
+     */
+    public static String replaceAllStrictly(String src, String search, String replacement, boolean wholeWord,
+            boolean caseSensitive) {
+        // case 1:
+        if (search == null) {
+            if (src == null) {
+                return replacement; // regex == null && src == null
+            } else {
+                return src; // regex == null && src != null
+            }
+        } else {
+            // case 2:
+            if (src == null) {
+                return null; // regex != null && src == null
+            } else {
+                // case 3:
+                if (replacement == null) {
+                    if (src.equals(search)) {
+                        // regex != null && src != null && replacement != null, and match the whole src
+                        return replacement;
+                    } else {
+                        return src; // can't match the whole src
+                    }
+
+                } else {
+                    // regex != null && src != null && replacement != null
+                    String base = null;
+                    if (wholeWord) {
+                        search = " " + search + " ";
+                        replacement = " " + replacement + " ";
+                        src = " " + src + " ";
+                    }
+                    if (caseSensitive) {
+                        base = src.toUpperCase();
+                        search = search.toUpperCase();
+                        while (base.contains(search)) {
+                            int index = base.indexOf(search);
+                            src = src.substring(0, index) + replacement + src.substring(index + search.length());
+                            base = base.replace(search, replacement);
+                        }
+                    } else {
+                        while (src.contains(search)) {
+                            src = src.replace(search, replacement);
+                        }
+                    }
+                    return wholeWord ? src.substring(1, src.length() - 1) : src;
+                }
+            }
+        }
+    }
+
+    /**
      * make \n to \\n. It will process these chars: \n, \r, \t, \f, \\, \", \', \b
      * 
      */
