@@ -92,5 +92,4 @@ public interface IProcess2 extends IProcess {
 
     public void setScreenshot(ImageDescriptor imagedes);
 
-    public void addDuplicatedConnectionName(String uniqueConnectionName);
 }
