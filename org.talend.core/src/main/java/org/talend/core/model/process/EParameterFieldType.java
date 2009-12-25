@@ -62,7 +62,8 @@ public enum EParameterFieldType {
     WSDL2JAVA,
     ICON_SELECTION,
     RULE_TYPE, // hywang add for feature 6484
-    TNS_EDITOR;
+    TNS_EDITOR,
+    BROWSE_REPORTS; // bzhou add for feature 9745
 
     public String getName() {
         return toString();
