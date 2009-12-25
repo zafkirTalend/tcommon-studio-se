@@ -229,7 +229,6 @@ public class ComponentBuilder {
                 Map importChildElement = null;
                 com.ibm.wsdl.extensions.schema.SchemaImportImpl importImpl = (com.ibm.wsdl.extensions.schema.SchemaImportImpl) importEle
                         .elementAt(i);
-                System.out.println(importImpl.getNamespaceURI());
                 if (importImpl.getReferencedSchema() != null) {
 
                     schemaElementt = importImpl.getReferencedSchema().getElement();
