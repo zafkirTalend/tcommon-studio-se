@@ -12,14 +12,10 @@ Require-Bundle: org.eclipse.ui,
  org.apache.log4j,
  org.eclipse.datatools.enablement.oda.xml,
  org.talend.repository,
- org.talend.core
+ org.talend.core,
+ org.apache.axis,
+ javax.xml.rpc
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/mdm.jar,
- .,
- lib/axis.jar,
- lib/commons-discovery-0.2.jar,
- lib/commons-logging-1.0.4.jar,
- lib/jaxrpc.jar,
- lib/saaj.jar,
- lib/wsdl4j-1.5.1.jar
+ .
