@@ -12,6 +12,9 @@
 // ============================================================================
 package routines.system;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringUtils {
 
     public static String[] split(String str, String separator) {
@@ -157,24 +160,17 @@ public class StringUtils {
 
                 } else {
                     // regex != null && src != null && replacement != null
-                    String base = null;
                     if (wholeWord) {
+                        src = " " + src + " ";
                         search = " " + search + " ";
                         replacement = " " + replacement + " ";
-                        src = " " + src + " ";
                     }
                     if (caseSensitive) {
-                        base = src.toUpperCase();
-                        search = search.toUpperCase();
-                        while (base.contains(search)) {
-                            int index = base.indexOf(search);
-                            src = src.substring(0, index) + replacement + src.substring(index + search.length());
-                            base = base.replace(search, replacement);
-                        }
+                        src = Pattern.compile(search.toString(), Pattern.LITERAL | Pattern.CASE_INSENSITIVE).matcher(src)
+                                .replaceAll(Matcher.quoteReplacement(replacement.toString()));
                     } else {
-                        while (src.contains(search)) {
-                            src = src.replace(search, replacement);
-                        }
+                        src = Pattern.compile(search.toString(), Pattern.LITERAL).matcher(src).replaceAll(
+                                Matcher.quoteReplacement(replacement.toString()));
                     }
                     return wholeWord ? src.substring(1, src.length() - 1) : src;
                 }
