@@ -135,7 +135,7 @@ public class StringUtils {
      * ignore regex
      * 
      */
-    public static String replaceAllStrictly(String src, String search, String replacement, boolean wholeWord,
+    public static String replaceAllStrictly(String src, String search, String replacement, boolean entirelyMatch,
             boolean caseSensitive) {
         // case 1:
         if (search == null) {
@@ -160,19 +160,14 @@ public class StringUtils {
 
                 } else {
                     // regex != null && src != null && replacement != null
-                    if (wholeWord) {
-                        src = " " + src + " ";
-                        search = " " + search + " ";
-                        replacement = " " + replacement + " ";
-                    }
-                    if (!caseSensitive) {
-                        src = Pattern.compile(search.toString(), Pattern.LITERAL | Pattern.CASE_INSENSITIVE).matcher(src)
-                                .replaceAll(Matcher.quoteReplacement(replacement.toString()));
+                    if (entirelyMatch) {
+                        String upperSrc = caseSensitive ? src : src.toUpperCase();
+                        String upperSearch = caseSensitive ? search : search.toUpperCase();
+                        return upperSrc.equals(upperSearch) ? replacement : search;
                     } else {
-                        src = Pattern.compile(search.toString(), Pattern.LITERAL).matcher(src).replaceAll(
-                                Matcher.quoteReplacement(replacement.toString()));
+                        int flag = caseSensitive ? Pattern.LITERAL : Pattern.LITERAL | Pattern.CASE_INSENSITIVE;
+                        return Pattern.compile(search, flag).matcher(src).replaceAll(Matcher.quoteReplacement(replacement));
                     }
-                    return wholeWord ? src.substring(1, src.length() - 1) : src;
                 }
             }
         }
