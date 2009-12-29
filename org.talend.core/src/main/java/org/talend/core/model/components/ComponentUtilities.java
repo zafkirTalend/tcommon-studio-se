@@ -42,7 +42,6 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.IFilter;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -543,7 +542,6 @@ public class ComponentUtilities {
     }
 
     private static void addUsedComponents(Set<String> components, List<IRepositoryObject> allProcess) {
-        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
         for (IRepositoryObject object : allProcess) {
             Item item = object.getProperty().getItem();
 
@@ -566,15 +564,18 @@ public class ComponentUtilities {
                         }
                     }
                 }
-                parameters = processType.getParameters().getElementParameter();
+                if (processType.getParameters() != null) { // occurs actually only in joblets
+                    parameters = processType.getParameters().getElementParameter();
+                }
             }
 
-            // used in stats&log and implicite
-            Set<String> inStatsLogsAndImplicit = getComponentsInStatsLogsAndImplicit(parameters);
-            if (inStatsLogsAndImplicit != null) {
-                components.addAll(inStatsLogsAndImplicit);
+            if (parameters != null) {
+                // used in stats&log and implicite
+                Set<String> inStatsLogsAndImplicit = getComponentsInStatsLogsAndImplicit(parameters);
+                if (inStatsLogsAndImplicit != null) {
+                    components.addAll(inStatsLogsAndImplicit);
+                }
             }
-
         }
     }
 
