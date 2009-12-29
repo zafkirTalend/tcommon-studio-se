@@ -165,7 +165,7 @@ public class StringUtils {
                         search = " " + search + " ";
                         replacement = " " + replacement + " ";
                     }
-                    if (caseSensitive) {
+                    if (!caseSensitive) {
                         src = Pattern.compile(search.toString(), Pattern.LITERAL | Pattern.CASE_INSENSITIVE).matcher(src)
                                 .replaceAll(Matcher.quoteReplacement(replacement.toString()));
                     } else {
