@@ -10,15 +10,13 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.commons.utils.network;
+package org.talend.utils.network;
 
 import java.io.IOException;
-import java.net.BindException;
 import java.net.ServerSocket;
-import java.net.SocketException;
 import java.util.Random;
 
-import org.talend.commons.i18n.internal.Messages;
+import org.apache.log4j.Logger;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -26,7 +24,13 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public class FreePortFinder {
 
+    private static Logger log = Logger.getLogger(FreePortFinder.class);
+
     private ServerSocket serverSocket;
+
+    private KnownBusyPorts knownBusyPorts;
+
+    private boolean forceCheck;
 
     /**
      * DOC amaumont FreePortFinder constructor comment.
@@ -38,6 +42,16 @@ public class FreePortFinder {
     }
 
     /**
+     * DOC amaumont FreePortFinder constructor comment.
+     * 
+     * @throws IOException
+     */
+    public FreePortFinder(KnownBusyPorts knownBusyPorts) {
+        super();
+        this.knownBusyPorts = knownBusyPorts;
+    }
+
+    /**
      * 
      * Return true if the specified port is free.
      * 
@@ -45,30 +59,46 @@ public class FreePortFinder {
      * @return Return true if the specified port is free
      */
     public boolean isPortFree(int port) {
+
+        if (!forceCheck && knownBusyPorts != null && knownBusyPorts.isBusy(port)) {
+            return false;
+        }
+
         try {
             serverSocket = new ServerSocket(port);
-        } catch (BindException e) {
-            // bug 7447 statistics and traces generated the same port,the error information always wrote in log.
-            // e.printStackTrace();
-            return false;
-        } catch (SocketException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } catch (SecurityException e) {
-            e.printStackTrace();
+        } catch (Throwable e) {
+            log.debug(e.getMessage());
             return false;
         } finally {
             try {
                 serverSocket.close();
-            } catch (IOException e) {
+            } catch (Throwable e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                log.debug(e.getMessage());
             }
         }
         return true;
+    }
+
+    /**
+     * 
+     * Return true if the specified port is free.
+     * 
+     * @param port
+     * @return Return true if the specified port is free
+     */
+    public ServerSocket openServerSocket(int port) {
+
+        if (!forceCheck && knownBusyPorts != null && knownBusyPorts.isBusy(port)) {
+            return null;
+        }
+
+        try {
+            serverSocket = new ServerSocket(port);
+        } catch (Throwable e) {
+            log.debug(e.getMessage());
+        }
+        return serverSocket;
     }
 
     /**
@@ -101,21 +131,31 @@ public class FreePortFinder {
         int increment = 0;
         if (randomize) {
             Random random = new Random();
-            increment = random.nextInt(portBoundMax - portBoundMin);
+            int maxRandomBound = (int) ((double) portBoundMax - (double) portBoundMin) * 3 / 4;
+            increment = random.nextInt(maxRandomBound);
         }
 
         int portStart = portBoundMin + increment;
 
         boolean isFirstLoop = true;
+        boolean isFirstPass = true;
         for (int port = portStart; true; port++) {
             if (port > portBoundMax) {
                 port = portBoundMin;
             }
             if (!isFirstLoop && port == portStart) {
-                break;
+                if (isFirstPass) {
+                    isFirstPass = false;
+                } else if (!forceCheck) {
+                    forceCheck = true;
+                } else {
+                    break;
+                }
             }
             if (isPortFree(port)) {
                 return port;
+            } else {
+                knownBusyPorts.addBusyPort(port);
             }
             // System.out.println(port);
             isFirstLoop = false;
@@ -127,8 +167,7 @@ public class FreePortFinder {
 
     public static void main(String[] args) {
         FreePortFinder freePortFinder = new FreePortFinder();
-        System.out.println(Messages.getString("FreePortFinder.treePort") + freePortFinder.searchFreePort(10, 20)); //$NON-NLS-1$
-        ;
+        System.out.println(freePortFinder.searchFreePort(10, 20));
     }
 
 }

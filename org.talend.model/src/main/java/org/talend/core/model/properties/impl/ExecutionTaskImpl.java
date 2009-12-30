@@ -10,25 +10,19 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskCmdPrm;
 import org.talend.core.model.properties.ExecutionTaskJobPrm;
-import org.talend.core.model.properties.ExecutionTaskJvmPrm;
 import org.talend.core.model.properties.ExecutionVirtualServer;
-import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.TalendTrigger;
@@ -1839,6 +1833,11 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(lastTriggeringDate);
         result.append(')');
         return result.toString();
+    }
+
+    @Override
+    public boolean isExecStatisticsEnabled() {
+        return true;
     }
 
 } //ExecutionTaskImpl

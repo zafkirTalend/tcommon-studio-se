@@ -836,4 +836,6 @@ public interface ExecutionTask extends EObject {
      */
     void setLastTriggeringDate(Date value);
 
+    boolean isExecStatisticsEnabled();
+
 } // ExecutionTask
