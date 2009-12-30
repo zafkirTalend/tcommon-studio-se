@@ -498,6 +498,8 @@ public class RepositoryToComponentProperty {
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
                 // This connection is Oracle_service_name
                 return "Oracle with service name"; //$NON-NLS-1$
+            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+                return "MSSQL";
             } else {
                 return typeByProduct;
             }
