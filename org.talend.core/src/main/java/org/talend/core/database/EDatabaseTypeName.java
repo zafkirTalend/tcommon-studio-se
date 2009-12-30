@@ -61,7 +61,8 @@ public enum EDatabaseTypeName {
     NETEZZA("Netezza", "Netezza", new Boolean(false), "NETEZZA"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     SAS("SAS", "SAS", new Boolean(false), "SAS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // General JDBC not support schema defalut
-    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    GENERAL_JDBC("General JDBC", "General JDBC", new Boolean(false), "JDBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    EXASOL("Exasol", "Exasol", new Boolean(true), "Exasol");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     // displayName is used in Java code.
     private String displayName;

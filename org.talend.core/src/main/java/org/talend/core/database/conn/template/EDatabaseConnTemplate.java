@@ -97,7 +97,10 @@ public enum EDatabaseConnTemplate {
             "jdbc:informix-sqli://<host>:<port>/<sid>:informixserver=<datasource>;<property>")), //$NON-NLS-1$
 
     TERADATA(new DbConnStr(EDatabaseTypeName.TERADATA, //
-            "jdbc:teradata://<host>/<sid>")), //$NON-NLS-1$
+            "jdbc:exa://<host>/<sid>")), //$NON-NLS-1$
+
+    EXASOL(new DbConnStr(EDatabaseTypeName.EXASOL, //
+            "jdbc:exa:<host>:<port>:schema=<sid>", "8563")), //$NON-NLS-1$
 
     AS400(new DbConnStr(EDatabaseTypeName.AS400, //
             "jdbc:as400://<host>/<sid>;libraries=<sid>;<property>", //$NON-NLS-1$
@@ -149,11 +152,6 @@ public enum EDatabaseConnTemplate {
     GENERAL_JDBC(new DbConnStrForGeneralJDBC(EDatabaseTypeName.GENERAL_JDBC, //
             "jdbc:xxx://<xxx>:<xxx>", //$NON-NLS-1$
             "xxxx")), //$NON-NLS-1$
-    // PTODO
-    // EXASOL(new DatabaseConnStr(null, //
-    //            "jdbc:exa:<host>:<port>:schema=<sid>", //$NON-NLS-1$
-    //            "8563")), //$NON-NLS-1$
-    //
     ;
 
     private DbConnStr connStr;

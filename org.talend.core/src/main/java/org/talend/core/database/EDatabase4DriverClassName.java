@@ -63,6 +63,7 @@ public enum EDatabase4DriverClassName {
     SYBASEASE(EDatabaseTypeName.SYBASEASE, "com.sybase.jdbc3.jdbc.SybDriver"), //$NON-NLS-1$
     SYBASEIQ(EDatabaseTypeName.SYBASEIQ, "com.sybase.jdbc3.jdbc.SybDriver"), //$NON-NLS-1$
 
+    EXASOLUTION(EDatabaseTypeName.EXASOL, "com.exasol.jdbc.EXADriver"), //$NON-NLS-1$
     TERADATA(EDatabaseTypeName.TERADATA, "com.ncr.teradata.TeraDriver"), //$NON-NLS-1$
 
     VERTICA(EDatabaseTypeName.VERTICA, "com.vertica.Driver"), //$NON-NLS-1$

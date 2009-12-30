@@ -259,6 +259,11 @@ public class ComponentToRepositoryProperty {
             connection.setDatabaseType(EDatabaseTypeName.MSSQL.getDisplayName());
             connection.setProductId(EDatabaseTypeName.MSSQL.getProduct());
         }
+        // Exasolution
+        else if (EDatabaseTypeName.EXASOL.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
+            connection.setDatabaseType(EDatabaseTypeName.EXASOL.getDisplayName());
+            connection.setProductId(EDatabaseTypeName.EXASOL.getProduct());
+        }
         // Psql
         else if (EDatabaseTypeName.PSQL.getProduct().equalsIgnoreCase((String) parameter.getValue())) {
             connection.setDatabaseType(EDatabaseTypeName.PSQL.getDisplayName());
@@ -479,6 +484,9 @@ public class ComponentToRepositoryProperty {
         if (connection.getDatabaseType().equals(EDatabaseTypeName.MYSQL.getDisplayName())) {
             setDatabaseValueForMysql(connection, node, repositoryValue);
         }
+        if (connection.getDatabaseType().equals(EDatabaseTypeName.EXASOL.getDisplayName())) {
+            setDatabaseValueForEXASolution(connection, node, repositoryValue);
+        }
         if (connection.getDatabaseType().equals(EDatabaseTypeName.SYBASEASE.getDisplayName())
                 || connection.getDatabaseType().equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
             setDatabaseValueForSysbase(connection, node, repositoryValue);
@@ -596,6 +604,15 @@ public class ComponentToRepositoryProperty {
     }
 
     private static void setDatabaseValueForMysql(DatabaseConnection connection, INode node, String repositoryValue) {
+        if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setAdditionalParams(value);
+            }
+        }
+    }
+
+    private static void setDatabaseValueForEXASolution(DatabaseConnection connection, INode node, String repositoryValue) {
         if ("PROPERTIES_STRING".equals(repositoryValue)) { //$NON-NLS-1$
             String value = getParameterValue(node, "PROPERTIES"); //$NON-NLS-1$
             if (value != null) {
