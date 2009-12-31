@@ -97,7 +97,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:informix-sqli://<host>:<port>/<sid>:informixserver=<datasource>;<property>")), //$NON-NLS-1$
 
     TERADATA(new DbConnStr(EDatabaseTypeName.TERADATA, //
-            "jdbc:exa://<host>/<sid>")), //$NON-NLS-1$
+            "jdbc:teradata://<host>/<sid>")), //$NON-NLS-1$
 
     EXASOL(new DbConnStr(EDatabaseTypeName.EXASOL, //
             "jdbc:exa:<host>:<port>:schema=<sid>", "8563")), //$NON-NLS-1$
