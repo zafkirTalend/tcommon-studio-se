@@ -62,6 +62,8 @@ public class ItemRecord {
 
     private String itemVersion;
 
+    private String itemProjectVersion;
+
     public ItemRecord(IPath path) {
         this.path = path;
     }
@@ -230,4 +232,13 @@ public class ItemRecord {
     public void setItemVersion(String itemVersion) {
         this.itemVersion = itemVersion;
     }
+
+    public String getItemProjectVersion() {
+        return this.itemProjectVersion;
+    }
+
+    public void setItemProjectVersion(String itemProjectVersion) {
+        this.itemProjectVersion = itemProjectVersion;
+    }
+
 }

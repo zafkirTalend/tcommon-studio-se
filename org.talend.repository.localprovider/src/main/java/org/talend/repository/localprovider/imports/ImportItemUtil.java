@@ -78,11 +78,13 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SnippetItem;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.tis.ITDQImportExportService;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -130,6 +132,8 @@ public class ImportItemUtil {
     private Map<IPath, Project> projects = new HashMap<IPath, Project>();
 
     public static boolean isRoutineItem = false;
+
+    private boolean initTDQRepository = false;
 
     public void clear() {
         deletedItems.clear();
@@ -328,6 +332,7 @@ public class ImportItemUtil {
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
+
                             importItemRecord(manager, itemRecord, overwrite, destinationPath, overwriteDeletedItems,
                                     originalDeleteStateItems);
                             monitor.worked(1);
@@ -395,11 +400,12 @@ public class ImportItemUtil {
     private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath,
             final Set<String> overwriteDeletedItems, final Set<String> originalDeleteStateItems) {
         resolveItem(manager, itemRecord);
-        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
-        if (itemRecord.getItem() != null) {
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
+        final Item item = itemRecord.getItem();
+        if (item != null) {
+            ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
 
-            IPath path = new Path(itemRecord.getItem().getState().getPath());
+            IPath path = new Path(item.getState().getPath());
             if (destinationPath != null) {
                 path = destinationPath.append(path);
             }
@@ -410,74 +416,109 @@ public class ImportItemUtil {
                 logError(e);
                 path = new Path(""); //$NON-NLS-1$
             }
-
-            try {
-                Item tmpItem = itemRecord.getItem();
-
-                // delete existing items before importing, this should be done
-                // once for a different id
-                String id = itemRecord.getProperty().getId();
-
-                IRepositoryObject lastVersion = itemRecord.getExistingItemWithSameId();
-                if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
-                        && !deletedItems.contains(id)) {
-                    if (!overwriteDeletedItems.contains(id)) { // bug 10520.
-                        ERepositoryStatus status = repFactory.getStatus(lastVersion);
-                        if (status == ERepositoryStatus.DELETED) {
-                            repFactory.restoreObject(lastVersion, path); // restore first.
+            if (item instanceof TDQItem) { // for tdq item
+                //
+                ITDQImportExportService service = null;
+                try {
+                    service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(
+                            ITDQImportExportService.class);
+                } catch (RuntimeException e) {
+                    // nothing to do
+                }
+                if (service != null) {
+                    Project emfProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
+                    if (!initTDQRepository) {
+                        initTDQRepository = service.initRepository(emfProject);
+                    }
+                    if (initTDQRepository) {
+                        boolean imported = service.importElement(emfProject, itemRecord.getProperty(), itemRecord
+                                .getItemProjectVersion());
+                        if (imported) {
+                            itemRecord.setImportPath(path.toPortableString());
+                            itemRecord.setRepositoryType(itemType);
+                            itemRecord.setItemId(itemRecord.getProperty().getId());
+                            itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
+                            itemRecord.setImported(true);
+                        } else {
+                            PersistenceException e = new PersistenceException(Messages.getString("ImportItemUtil.tdqErrorInfor", //$NON-NLS-1$
+                                    ((TDQItem) item).getFilename()));
+                            itemRecord.addError(e.getMessage());
+                            logError(e);
                         }
-                        overwriteDeletedItems.add(id);
-                    }
-                    repFactory.forceDeleteObjectPhysical(lastVersion, itemRecord.getProperty().getVersion());
-                    lastVersion = null;
-
-                    // List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
-                    // if (!list.isEmpty()) {
-                    // // this code will delete all version of item with same
-                    // // id
-                    // repFactory.forceDeleteObjectPhysical(list.get(0));
-                    // deletedItems.add(id);
-                    // }
-                }
-
-                User author = itemRecord.getProperty().getAuthor();
-                if (author != null) {
-                    if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
-                        tmpItem.getProperty().setAuthor(null); // author will be
-                        // the logged
-                        // user in
-                        // create method
                     }
                 }
 
-                if (lastVersion == null) {
-                    boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
-                    repFactory.create(tmpItem, path, true);
-                    if (originalDeleteState) {
-                        originalDeleteStateItems.add(id); // should delete later.
+            } else {
+                try {
+                    Item tmpItem = item;
+
+                    // delete existing items before importing, this should be done
+                    // once for a different id
+                    String id = itemRecord.getProperty().getId();
+
+                    IRepositoryObject lastVersion = itemRecord.getExistingItemWithSameId();
+                    if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
+                            && !deletedItems.contains(id)) {
+                        if (!overwriteDeletedItems.contains(id)) { // bug 10520.
+                            ERepositoryStatus status = repFactory.getStatus(lastVersion);
+                            if (status == ERepositoryStatus.DELETED) {
+                                repFactory.restoreObject(lastVersion, path); // restore first.
+                            }
+                            overwriteDeletedItems.add(id);
+                        }
+                        repFactory.forceDeleteObjectPhysical(lastVersion, itemRecord.getProperty().getVersion());
+                        lastVersion = null;
+
+                        // List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
+                        // if (!list.isEmpty()) {
+                        // // this code will delete all version of item with same
+                        // // id
+                        // repFactory.forceDeleteObjectPhysical(list.get(0));
+                        // deletedItems.add(id);
+                        // }
                     }
-                    itemRecord.setImportPath(path.toPortableString());
-                    itemRecord.setRepositoryType(itemType);
-                    itemRecord.setItemId(itemRecord.getProperty().getId());
-                    itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
-                    itemRecord.setImported(true);
-                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
-                    repFactory.forceCreate(tmpItem, path);
-                    itemRecord.setImportPath(path.toPortableString());
-                    itemRecord.setItemId(itemRecord.getProperty().getId());
-                    itemRecord.setRepositoryType(itemType);
-                    itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
-                    itemRecord.setImported(true);
-                } else {
-                    PersistenceException e = new PersistenceException(Messages.getString(
-                            "ImportItemUtil.persistenceException", tmpItem.getProperty())); //$NON-NLS-1$
+
+                    User author = itemRecord.getProperty().getAuthor();
+                    if (author != null) {
+                        if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
+                            tmpItem.getProperty().setAuthor(null); // author will be
+                            // the logged
+                            // user in
+                            // create method
+                        }
+                    }
+
+                    if (lastVersion == null) {
+                        boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
+                        repFactory.create(tmpItem, path, true);
+                        if (originalDeleteState) {
+                            originalDeleteStateItems.add(id); // should delete later.
+                        }
+                        itemRecord.setImportPath(path.toPortableString());
+                        itemRecord.setRepositoryType(itemType);
+                        itemRecord.setItemId(itemRecord.getProperty().getId());
+                        itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
+                        itemRecord.setImported(true);
+                    } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
+                        repFactory.forceCreate(tmpItem, path);
+                        itemRecord.setImportPath(path.toPortableString());
+                        itemRecord.setItemId(itemRecord.getProperty().getId());
+                        itemRecord.setRepositoryType(itemType);
+                        itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
+                        itemRecord.setImported(true);
+                    } else {
+                        PersistenceException e = new PersistenceException(Messages.getString(
+                                "ImportItemUtil.persistenceException", tmpItem.getProperty())); //$NON-NLS-1$
+                        itemRecord.addError(e.getMessage());
+                        logError(e);
+                    }
+                } catch (Exception e) {
                     itemRecord.addError(e.getMessage());
                     logError(e);
                 }
-            } catch (Exception e) {
-                itemRecord.addError(e.getMessage());
-                logError(e);
             }
+            itemRecord.setProperty(null);
+            itemRecord.setExistingItemWithSameId(null);
         }
         for (Resource resource : itemRecord.getResourceSet().getResources()) {
             // Due to the system of lazy loading for db repository of ByteArray,
@@ -487,8 +528,6 @@ public class ImportItemUtil {
             }
         }
 
-        itemRecord.setExistingItemWithSameId(null);
-        itemRecord.setProperty(null);
     }
 
     public void changeRoutinesPackage(Item item) {
@@ -543,59 +582,78 @@ public class ImportItemUtil {
         RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
         ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
 
-        Item item = null;
-        try {
-            List<IRepositoryObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
-                    ProjectManager.getInstance().getCurrentProject(), itemRecord.getItemId(), itemRecord.getImportPath(),
-                    itemRecord.getRepositoryType());
-            for (IRepositoryObject repositoryObject : allVersion) {
-                if (repositoryObject.getProperty().getVersion().equals(itemRecord.getItemVersion())) {
-                    item = repositoryObject.getProperty().getItem();
+        ERepositoryObjectType repositoryType = itemRecord.getRepositoryType();
+        if (repositoryType == ERepositoryObjectType.TDQ_ELEMENT) {
+            ITDQImportExportService service = null;
+            try {
+                service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(ITDQImportExportService.class);
+            } catch (RuntimeException e) {
+                // nothing to do
+            }
+            if (service != null) {
+                Project emfProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
+                boolean migrated = service.migrateElement(emfProject, itemRecord.getProperty(), itemRecord
+                        .getItemProjectVersion());
+                if (!migrated) {
+                    log.warn(Messages.getString("ImportItemUtil.itemLogWarn", itemRecord.getItemName())); //$NON-NLS-1$
                 }
             }
-        } catch (Exception e) {
-            logError(e);
-        }
-
-        if (item == null) {
-            return;
-        }
-
-        for (String taskId : itemRecord.getMigrationTasksToApply()) {
-            IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
-            if (task == null) {
-                log.warn(Messages.getString("ImportItemUtil.taskLogWarn", taskId)); //$NON-NLS-1$
-            } else {
-                monitor.subTask(Messages.getString("ImportItemUtil.taskMonitor", task.getName(), itemRecord.getItemName())); //$NON-NLS-1$
-
-                try {
-                    if (item != null) {
-                        ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
-                        if (executionResult == ExecutionResult.FAILURE) {
-                            log.warn(Messages.getString("ImportItemUtil.itemLogWarn", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
-                            // TODO smallet add a warning/error to the job using
-                            // model
-                        }
+        } else {
+            Item item = null;
+            try {
+                List<IRepositoryObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
+                        ProjectManager.getInstance().getCurrentProject(), itemRecord.getItemId(), itemRecord.getImportPath(),
+                        repositoryType);
+                for (IRepositoryObject repositoryObject : allVersion) {
+                    if (repositoryObject.getProperty().getVersion().equals(itemRecord.getItemVersion())) {
+                        item = repositoryObject.getProperty().getItem();
                     }
-                } catch (Exception e) {
-                    log.warn(Messages.getString("ImportItemUtil.itemLogException", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
+                }
+            } catch (Exception e) {
+                logError(e);
+            }
 
+            if (item == null) {
+                return;
+            }
+
+            for (String taskId : itemRecord.getMigrationTasksToApply()) {
+                IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
+                if (task == null) {
+                    log.warn(Messages.getString("ImportItemUtil.taskLogWarn", taskId)); //$NON-NLS-1$
+                } else {
+                    monitor.subTask(Messages.getString("ImportItemUtil.taskMonitor", task.getName(), itemRecord.getItemName())); //$NON-NLS-1$
+
+                    try {
+                        if (item != null) {
+                            ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
+                            if (executionResult == ExecutionResult.FAILURE) {
+                                log.warn(Messages.getString(
+                                        "ImportItemUtil.itemLogWarn", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
+                                // TODO smallet add a warning/error to the job using
+                                // model
+                            }
+                        }
+                    } catch (Exception e) {
+                        log.warn(Messages.getString("ImportItemUtil.itemLogException", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
+
+                    }
                 }
             }
-        }
-        RelationshipItemBuilder.getInstance().saveRelations();
+            RelationshipItemBuilder.getInstance().saveRelations();
 
-        try {
-            if (item != null && item instanceof RoutineItem) {
-                changeRoutinesPackage(item);
-                RoutineItem routineItem = (RoutineItem) item;
-                routineSynchronizer.forceSyncRoutine(routineItem);
-                routineSynchronizer.syncRoutine(routineItem, true);
-                routineSynchronizer.getFile(routineItem);
+            try {
+                if (item != null && item instanceof RoutineItem) {
+                    changeRoutinesPackage(item);
+                    RoutineItem routineItem = (RoutineItem) item;
+                    routineSynchronizer.forceSyncRoutine(routineItem);
+                    routineSynchronizer.syncRoutine(routineItem, true);
+                    routineSynchronizer.getFile(routineItem);
+                }
+                ProxyRepositoryFactory.getInstance().unloadResources(item.getProperty());
+            } catch (Exception e) {
+                logError(e);
             }
-            ProxyRepositoryFactory.getInstance().unloadResources(item.getProperty());
-        } catch (Exception e) {
-            logError(e);
         }
     }
 
@@ -641,13 +699,25 @@ public class ImportItemUtil {
         treeBuilder.clear();
         cache.clear();
         projects.clear();
+        initTDQRepository = false;
         List<ItemRecord> items = new ArrayList<ItemRecord>();
+
+        ITDQImportExportService service = null;
+        try {
+            service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(ITDQImportExportService.class);
+        } catch (RuntimeException e) {
+            // nothing to do
+        }
+        String tdqVersion = null;
 
         int nbItems = 0;
 
         for (IPath path : collector.getPaths()) {
             if (isPropertyPath(path)) {
                 nbItems++;
+            }
+            if (service != null && tdqVersion != null) {
+                tdqVersion = service.retrieveVersionInfor(path);
             }
         }
 
@@ -657,35 +727,37 @@ public class ImportItemUtil {
 
         for (IPath path : collector.getPaths()) {
             if (isPropertyPath(path)) {
-                IPath itemPath = getItemPath(path);
-                if (collector.getPaths().contains(itemPath)) {
-                    ItemRecord itemRecord = computeItemRecord(collector, path);
-                    if (itemRecord.getProperty() != null) {
-                        items.add(itemRecord);
+                // IPath itemPath = getItemPath(path);
+                // if (collector.getPaths().contains(itemPath)) { //commet by tdq import
+                ItemRecord itemRecord = computeItemRecord(collector, path);
+                if (itemRecord.getProperty() != null) {
+                    items.add(itemRecord);
+                    if (itemRecord.getItem() instanceof TDQItem) {
+                        itemRecord.setItemProjectVersion(tdqVersion);
+                    }
+                    if (checkItem(itemRecord, overwrite, itemsFromRepository)) {
+                        InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
+                        URI uri = null;
+                        if (author != null) {
+                            uri = author.eProxyURI();
+                        }
 
-                        if (checkItem(itemRecord, overwrite, itemsFromRepository)) {
-                            InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
-                            URI uri = null;
-                            if (author != null) {
-                                uri = author.eProxyURI();
+                        IPath projectFilePath = getValidProjectFilePath(collector, path, uri);
+                        if (projectFilePath != null) {
+                            Project project = computeProject(collector, itemRecord, projectFilePath);
+                            if (checkProject(project, itemRecord)) {
+                                treeBuilder.addItem(project, itemRecord);
+                                // we can try to import item
+                                // and we will try to resolve user
+                                User user = (User) project.eResource().getEObject(uri.fragment());
+                                itemRecord.getProperty().setAuthor(user);
                             }
-
-                            IPath projectFilePath = getValidProjectFilePath(collector, path, uri);
-                            if (projectFilePath != null) {
-                                Project project = computeProject(collector, itemRecord, projectFilePath);
-                                if (checkProject(project, itemRecord)) {
-                                    treeBuilder.addItem(project, itemRecord);
-                                    // we can try to import item
-                                    // and we will try to resolve user
-                                    User user = (User) project.eResource().getEObject(uri.fragment());
-                                    itemRecord.getProperty().setAuthor(user);
-                                }
-                            } else {
-                                itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
-                            }
+                        } else {
+                            itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
                         }
                     }
                 }
+                // }
                 progressMonitor.worked(1);
             }
         }
@@ -844,8 +916,12 @@ public class ImportItemUtil {
         InputStream stream = null;
 
         try {
-            boolean byteArray = (itemRecord.getItem() instanceof FileItem);
+            final Item item = itemRecord.getItem();
+            boolean byteArray = (item instanceof FileItem);
             IPath itemPath = getItemPath(itemRecord.getPath());
+            if (item instanceof TDQItem) {
+                itemPath = getTDQItemPath(itemRecord.getPath(), (TDQItem) item);
+            }
             stream = manager.getStream(itemPath);
             Resource resource = createResource(itemRecord.getResourceSet(), itemPath, byteArray);
             resource.load(stream, null);
@@ -993,6 +1069,10 @@ public class ImportItemUtil {
         return path.removeFileExtension().addFileExtension(FileConstants.ITEM_EXTENSION);
     }
 
+    private IPath getTDQItemPath(IPath path, TDQItem item) {
+        return path.removeLastSegments(1).append(item.getFilename());
+    }
+
     /**
      * 
      * DOC hcw ImportItemUtil class global comment. Detailled comment
@@ -1056,7 +1136,7 @@ public class ImportItemUtil {
 
         for (Iterator iterator = set.iterator(); iterator.hasNext();) {
             String value = iterator.next().toString();
-            if (value.endsWith("jar")) {
+            if (value.endsWith("jar")) { //$NON-NLS-1$
                 file = new File(value);
                 try {
                     CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
@@ -1077,13 +1157,13 @@ public class ImportItemUtil {
         File file = null;
         Set set = this.needJarPath;
         ZipToFileUtil zipToFile = new ZipToFileUtil(8);
-        desPath = desPath.replace("\\", "/");
+        desPath = desPath.replace("\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
         zipToFile.unZip(desPath);
-        desPath = desPath.substring(0, desPath.lastIndexOf("/"));
+        desPath = desPath.substring(0, desPath.lastIndexOf("/")); //$NON-NLS-1$
         for (Iterator iterator = set.iterator(); iterator.hasNext();) {
             String value = iterator.next().toString();
-            if (value.endsWith("jar")) {
-                value = desPath + "/" + value;
+            if (value.endsWith("jar")) { //$NON-NLS-1$
+                value = desPath + "/" + value; //$NON-NLS-1$
                 file = new File(value);
                 try {
 

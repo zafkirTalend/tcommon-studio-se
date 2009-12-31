@@ -12,22 +12,58 @@
 // ============================================================================
 package org.talend.core.tis;
 
+import java.util.List;
+
+import org.eclipse.core.runtime.IPath;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.TDQItem;
 
 /**
- * DOC bZhou class global comment. Detailled comment
+ * bZhou class global comment. Detailled comment
  */
 public interface ITDQImportExportService extends IService {
 
     /**
-     * DOC bZhou Comment method "importElement".
      * 
-     * @param project
-     * @param property
-     * @param version
-     * @return
+     * cli Comment method "initRepository".
+     * 
+     * init the tdq repository dirs.
+     * 
      */
-    public boolean importElement(Project project, Property property, String version);
+    public boolean initRepository(Project project);
+
+    /**
+     * 
+     * cli Comment method "importElement".
+     * 
+     * the version is tdq version for migration task.
+     */
+    public boolean importElement(Project curProject, Property property, String version);
+
+    /**
+     * 
+     * cli Comment method "retrieveVersionInfor".
+     * 
+     * got the version from tdq system.
+     */
+    public String retrieveVersionInfor(IPath path);
+
+    /**
+     * 
+     * cli Comment method "migrateElement".
+     * 
+     * do migration task for tdq element
+     */
+    public boolean migrateElement(Project curProject, Property property, String version);
+
+    /**
+     * 
+     * cli Comment method "getAllVersion".
+     * 
+     * get all tdq item from current project
+     */
+    public List<TDQItem> getAllVersion(Project curProject);
+
 }
