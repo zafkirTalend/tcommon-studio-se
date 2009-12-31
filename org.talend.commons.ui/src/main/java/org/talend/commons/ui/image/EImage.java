@@ -61,6 +61,12 @@ public enum EImage implements IImage {
     INFORMATION_SMALL("/icons/info_ovr.gif"), //$NON-NLS-1$
     Error_Mark("/icons/error_mark.gif"), //$NON-NLS-1$
     OK("/icons/ok.png"), //$NON-NLS-1$
+    UNKNOWN_ICON("/icons/unknown.gif"), //$NON-NLS-1$
+
+    TRUNK_ICON("/icons/trunk.gif"), //$NON-NLS-1$
+    BRANCHES_ICON("/icons/branches.gif"), //$NON-NLS-1$
+    TAGS_ICON("/icons/tags.gif"), //$NON-NLS-1$
+    BRANCH_FOLDER_ICON("/icons/newfolder.gif"), //$NON-NLS-1$
 
     PARALLEL_EXECUTION("/icons/parallelize.png"), //$NON-NLS-1$
 

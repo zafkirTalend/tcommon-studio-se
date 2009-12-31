@@ -61,6 +61,9 @@ public final class ImportItemAction extends AContextualAction implements IWorkbe
                 if (repositoryNode.getContentType() == ERepositoryObjectType.REFERENCED_PROJECTS) {
                     canWork = false;
                 }
+                if (repositoryNode.getContentType() == ERepositoryObjectType.SVN_ROOT) {
+                    canWork = false;
+                }
             }
         }
         setEnabled(canWork);

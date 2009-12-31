@@ -78,7 +78,8 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
                         && contentType != ERepositoryObjectType.JOBLETS && contentType != ERepositoryObjectType.SQLPATTERNS
                         && nodProperty != ERepositoryObjectType.METADATA_CON_CDC
                         && nodProperty != ERepositoryObjectType.METADATA_CON_TABLE
-                        && nodProperty != ERepositoryObjectType.METADATA_CON_QUERY) {
+                        && nodProperty != ERepositoryObjectType.METADATA_CON_QUERY
+                        && nodProperty != ERepositoryObjectType.SVN_ROOT) {
                     visible = true;
                 }
                 // for cdc

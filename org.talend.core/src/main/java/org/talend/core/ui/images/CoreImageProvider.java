@@ -40,6 +40,8 @@ public class CoreImageProvider {
 
     public static IImage getIcon(ERepositoryObjectType type) {
         switch (type) {
+        case SVN_ROOT:
+            return ECoreImage.SVN_ROOT_ICON;
         case BUSINESS_PROCESS:
             return ECoreImage.BUSINESS_PROCESS_ICON;
         case PROCESS:

@@ -300,6 +300,9 @@ public class RepositoryNode {
         case SIMPLE_FOLDER:
             return getObjectType().toString();
         default:
+            if (getContentType().toString().equals("SVN")) {
+                return getProperties(EProperties.LABEL).toString();
+            }
             return getContentType().toString();
         }
     }

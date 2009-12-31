@@ -58,6 +58,7 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
  * 
  */
 public enum ERepositoryObjectType {
+    SVN_ROOT("repository.svnroot"), //$NON-NLS-1$
     BUSINESS_PROCESS("repository.businessProcess"), //$NON-NLS-1$
     SVG_BUSINESS_PROCESS("repository.svgBusinessProcess"), //$NON-NLS-1$
     PROCESS("repository.process"), //$NON-NLS-1$
