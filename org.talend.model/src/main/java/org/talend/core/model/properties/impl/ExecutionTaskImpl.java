@@ -1886,7 +1886,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         return result.toString();
     }
 
-    @Override
     public boolean isExecStatisticsEnabled() {
         return execStatisticsEnabled;
     }
