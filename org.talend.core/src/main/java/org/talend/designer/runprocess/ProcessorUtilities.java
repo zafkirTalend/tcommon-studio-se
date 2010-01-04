@@ -260,8 +260,6 @@ public class ProcessorUtilities {
     private static boolean generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean properties, int option, IProgressMonitor progressMonitor) throws ProcessorException {
 
-        statistics = true;
-
         if (progressMonitor == null) {
             progressMonitor = new NullProgressMonitor();
         }
