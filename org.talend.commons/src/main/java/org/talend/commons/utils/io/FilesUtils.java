@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -44,6 +45,34 @@ import org.talend.commons.i18n.internal.Messages;
  * 
  */
 public class FilesUtils {
+
+    public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
+
+    public static boolean isSVNFolder(String name) {
+        if (name != null) {
+            name = name.toLowerCase();
+            for (int i = 0; i < SVN_FOLDER_NAMES.length; i++) {
+                if (SVN_FOLDER_NAMES[i].equals(name) || name.endsWith(SVN_FOLDER_NAMES[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isSVNFolder(File file) {
+        if (file != null) {
+            return isSVNFolder(file.getName());
+        }
+        return false;
+    }
+
+    public static boolean isSVNFolder(IResource resource) {
+        if (resource != null) {
+            return isSVNFolder(resource.getName());
+        }
+        return false;
+    }
 
     public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
             final FileFilter sourceFileFilter, boolean copyFolder, IProgressMonitor... monitorWrap) throws IOException {
@@ -223,7 +252,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return !pathname.toString().endsWith(".svn") && !pathname.toString().endsWith(".dummy"); //$NON-NLS-1$ //$NON-NLS-2$
+                return !isSVNFolder(pathname) && !pathname.toString().endsWith(".dummy"); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
         };

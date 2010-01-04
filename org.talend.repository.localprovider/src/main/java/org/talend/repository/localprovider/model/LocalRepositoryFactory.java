@@ -54,6 +54,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.image.ImageUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
@@ -358,7 +359,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         }
                     }
                 } else if (current instanceof IFolder) { // &&
-                    if (!current.getName().equals(".svn")
+                    if (!FilesUtils.isSVNFolder(current)
                             && (searchInChildren || (withDeleted && current.getName().equals("bin")))) {
                         toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
                                 withDeleted, true));

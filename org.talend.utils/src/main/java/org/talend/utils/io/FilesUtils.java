@@ -45,6 +45,27 @@ import org.talend.utils.sugars.ReturnCode;
  */
 public final class FilesUtils {
 
+    public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
+
+    public static boolean isSVNFolder(String name) {
+        if (name != null) {
+            name = name.toLowerCase();
+            for (int i = 0; i < SVN_FOLDER_NAMES.length; i++) {
+                if (SVN_FOLDER_NAMES[i].equals(name) || name.endsWith(SVN_FOLDER_NAMES[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isSVNFolder(File file) {
+        if (file != null) {
+            return isSVNFolder(file.getName());
+        }
+        return false;
+    }
+
     private FilesUtils() {
         super();
     }
@@ -160,7 +181,7 @@ public final class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return !pathname.toString().endsWith(".svn");
+                return !isSVNFolder(pathname);
             }
 
         };
