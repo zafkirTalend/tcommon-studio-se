@@ -125,6 +125,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
     private static Map<Integer, ByteArrayOutputStream> logoImageCache = new HashMap<Integer, ByteArrayOutputStream>();
 
+    private static String userDocImageOldPath = "";
+
     private Project project;
 
     public HTMLDocGenerator(Project project, ERepositoryObjectType repositoryObjectType) {
@@ -1266,27 +1268,30 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
     protected void saveLogoImage(int type, File file) throws IOException {
         boolean documentationPluginLoaded = PluginChecker.isDocumentationPluginLoaded();
-        ByteArrayOutputStream result = new ByteArrayOutputStream(3072);
+        // get image from cache
+        ByteArrayOutputStream result = logoImageCache.get(type);
         if (documentationPluginLoaded) {
             String userLogoPath = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.DOC_USER_LOGO);
-            if (userLogoPath != null) {
-                File userLogo = new File(userLogoPath);
-                if (userLogo.exists()) {
-
-                    Image image = new Image(Display.getCurrent(), userLogoPath);
-                    ImageLoader imageLoader = new ImageLoader();
-                    imageLoader.data = new ImageData[] { image.getImageData() };
-                    imageLoader.save(result, type);
-                    FileOutputStream fos = new FileOutputStream(file);
-                    fos.write(result.toByteArray());
-                    fos.close();
-                    image.dispose();
-                    return;
+            if (userLogoPath != null && !"".equals(userLogoPath)) {
+                if (result == null || !userLogoPath.equals(userDocImageOldPath)) {
+                    userDocImageOldPath = userLogoPath;
+                    result = new ByteArrayOutputStream(3072);
+                    File userLogo = new File(userLogoPath);
+                    if (userLogo.exists()) {
+                        Image image = new Image(Display.getCurrent(), userLogoPath);
+                        ImageLoader imageLoader = new ImageLoader();
+                        imageLoader.data = new ImageData[] { image.getImageData() };
+                        imageLoader.save(result, type);
+                        logoImageCache.put(type, result);
+                        image.dispose();
+                    }
                 }
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(result.toByteArray());
+                fos.close();
+                return;
             }
         }
-        // if no user documentation setting, get image from cache
-        result = logoImageCache.get(type);
         if (result == null) {
             result = new ByteArrayOutputStream(3072);
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
