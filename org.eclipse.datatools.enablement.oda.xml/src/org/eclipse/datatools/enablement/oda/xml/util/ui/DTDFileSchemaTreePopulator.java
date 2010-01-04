@@ -12,6 +12,8 @@
 // ============================================================================
 package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +42,10 @@ public class DTDFileSchemaTreePopulator {
     public ATreeNode getSchemaTree(String filePath, boolean incAttr) throws OdaException, IOException {
         ATreeNode root = new ATreeNode();
         root.setValue("ROOT");
+        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(filePath));
         XMLDTDLoader loader = new XMLDTDLoader();
-        XMLInputSource is = new XMLInputSource("", filePath, "");
-        // try {
+        XMLInputSource is = new XMLInputSource("", filePath, "", bin, "utf-8");
         grammar = (DTDGrammar) loader.loadGrammar(is);
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
         if (grammar != null) {
             parseAllElements();
         }
@@ -55,11 +54,7 @@ public class DTDFileSchemaTreePopulator {
         ATreeNode node = new ATreeNode();
         node.setValue(dtd.elementName);
         node.setType(ATreeNode.ELEMENT_TYPE);
-        // try {
         node.setDataType(dtd.elementName);
-        // } catch (OdaException e) {
-        // e.printStackTrace();
-        // }
         initTreeNode(dtd, node);
         root.addChild(node);
         return root;
@@ -72,11 +67,7 @@ public class DTDFileSchemaTreePopulator {
             ATreeNode childNode = new ATreeNode();
             childNode.setValue(childEle.elementName);
             childNode.setType(ATreeNode.ELEMENT_TYPE);
-            // try {
             childNode.setDataType(childEle.elementName);
-            // } catch (OdaException e) {
-            // e.printStackTrace();
-            // }
             node.addChild(childNode);
             if (getChildren(childEle) != null && getChildren(childEle).size() > 0) {
                 initTreeNode(childEle, childNode);
