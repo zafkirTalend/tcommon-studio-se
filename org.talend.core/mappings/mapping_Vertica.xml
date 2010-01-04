@@ -13,6 +13,8 @@
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>			
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
+			<dbType type="BINARY" ignorePre="true"/>
+			<dbType type="VARBINARY" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">
@@ -29,6 +31,8 @@
 					<dbType type="INTEGER" default="true" />					
 				</talendType>
 				<talendType type="id_byte[]">
+					<dbType type="BINARY" default="true"/>
+					<dbType type="VARBINARY"/>
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true"/>
@@ -96,6 +100,12 @@
 				</dbType>
 				<dbType type="TIMESTAMP">
 					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="BINARY">
+					<talendType type="id_byte[]" default="true" />
+				</dbType>
+				<dbType type="VARBINARY">
+					<talendType type="id_byte[]" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
