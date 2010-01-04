@@ -54,7 +54,9 @@ public enum EDatabaseVersion4Drivers {
     SAS(new DbVersion4Drivers(EDatabaseTypeName.SAS, new String[] { "sas.core.jar", //$NON-NLS-1$
             "sas.intrnet.javatools.jar", "sas.svc.connection.jar" })), //$NON-NLS-1$ //$NON-NLS-2$
     MYSQL(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "mysql-connector-java-5.1.0-bin.jar")), //$NON-NLS-N$ add for 9594 //$NON-NLS-1$ //$NON-NLS-1$
-    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")); //$NON-NLS-N$ add for 9594 //$NON-NLS-1$ //$NON-NLS-1$
+    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")), //$NON-NLS-N$ add for 9594 //$NON-NLS-1$ //$NON-NLS-1$
+
+    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")); //$NON-NLS-N$
 
     private DbVersion4Drivers dbVersionBean;
 
