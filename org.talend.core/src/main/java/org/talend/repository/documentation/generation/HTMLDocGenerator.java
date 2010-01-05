@@ -322,7 +322,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         if (innerContent != null) {
             ImageDescriptor imagedesc = ImageUtils.createImageFromData(innerContent);
             String picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
-            ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+            Image image = imagedesc.createImage();
+            ImageUtils.save(image, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+            image.dispose();
 
         }
         for (NodeType node : (List<NodeType>) processType.getNode()) {
@@ -338,8 +340,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     }
                 }
                 String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
-                ImageUtils.save(imagedesc.createImage(), picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
-
+                Image createImage = imagedesc.createImage();
+                ImageUtils.save(createImage, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
+                createImage.dispose();
             }
         }
 
