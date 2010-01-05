@@ -24,6 +24,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.images.ECoreImage;
@@ -202,7 +203,7 @@ public class CreateMDMConnectionAction extends AbstractCreateAction {
 
     @Override
     public Class getClassForDoubleClick() {
-        return CreateMDMConnectionAction.class;
+        return MDMConnectionItem.class;
     }
 
 }

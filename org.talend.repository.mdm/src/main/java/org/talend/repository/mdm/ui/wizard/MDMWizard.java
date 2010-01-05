@@ -173,33 +173,33 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
      */
     @Override
     public boolean performFinish() {
-        if (universePage.isPageComplete()) {
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-            try {
-                if (creation) {
-                    String nextId = factory.getNextId();
-                    connectionProperty.setId(nextId);
-                    factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
-                } else {
-                    RepositoryUpdateManager.updateFileConnection(connectionItem);
-                    factory.save(connectionItem);
-                    closeLockStrategy();
-                }
-            } catch (PersistenceException e) {
-                String detailError = e.toString();
-                new ErrorDialogWidthDetailArea(getShell(), PID, "", //$NON-NLS-1$
-                        detailError);
-                //                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
-                return false;
+        // if (mdmWizardPage.isPageComplete()) {
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        try {
+            if (creation) {
+                String nextId = factory.getNextId();
+                connectionProperty.setId(nextId);
+                factory.create(connectionItem, propertiesWizardPage.getDestinationPath());
+            } else {
+                RepositoryUpdateManager.updateFileConnection(connectionItem);
+                factory.save(connectionItem);
+                closeLockStrategy();
             }
-            List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
-            list.add(repositoryObject);
-            // RepositoryPlugin.getDefault().getRepositoryService()
-            // .notifySQLBuilder(list);
-            return true;
-        } else {
+        } catch (PersistenceException e) {
+            String detailError = e.toString();
+            new ErrorDialogWidthDetailArea(getShell(), PID, "", //$NON-NLS-1$
+                    detailError);
+            //                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             return false;
         }
+        List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
+        list.add(repositoryObject);
+        // RepositoryPlugin.getDefault().getRepositoryService()
+        // .notifySQLBuilder(list);
+        return true;
+        // } else {
+        // return false;
+        // }
     }
 
     @Override

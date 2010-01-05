@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -424,6 +425,11 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getMDMValue(MDMConnection connection, String value) {
+        EList list = connection.getSchemas();
+        Concept concept = null;
+        if (list.size() > 0) {
+            concept = (Concept) list.get(0);
+        }
         if ("MDMURL".equals(value)) { //$NON-NLS-1$
             if (isConetxtMode(connection, connection.getServer()) && isConetxtMode(connection, connection.getPort())) {
                 return "http://" + connection.getServer() + ":" + connection.getPort() + "/talend/TalendPort";//$NON-NLS-1$//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -454,6 +460,16 @@ public class RepositoryToComponentProperty {
                 return connection.getDatacluster();
             } else {
                 return TalendTextUtils.addQuotes(connection.getDatacluster());
+            }
+        } else if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
+            if (concept == null) {
+                return "";
+            } else {
+                if (isConetxtMode(connection, concept.getLoopExpression())) {
+                    return concept.getLoopExpression();
+                } else {
+                    return TalendTextUtils.addQuotes(concept.getLoopExpression());
+                }
             }
         }
         return null;
