@@ -103,7 +103,7 @@ public enum ERepositoryObjectType {
     JOBLETS("repository.joblets"), //$NON-NLS-1$
     JOBLET_DOC("repository.jobletdoc"), //$NON-NLS-1$
     // MOD mzhao feature 9207
-    TDQ_ELEMENT("tdq.element"); //$NON-NLS-1$
+    TDQ_ELEMENT("repository.tdqelement"); //$NON-NLS-1$
 
     private String key;
 

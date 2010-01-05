@@ -12,9 +12,12 @@
 // ============================================================================
 package org.talend.core.tis;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
@@ -65,5 +68,21 @@ public interface ITDQImportExportService extends IService {
      * get all tdq item from current project
      */
     public List<TDQItem> getAllVersion(Project curProject);
+
+    public IPath getTDQItemPath(IPath basePath, TDQItem item);
+
+    public IPath getItemTypePath(TDQItem item);
+
+    public String getFileNameWithVersion(TDQItem item);
+
+    /*
+     * 
+     * resource copy
+     */
+    public Collection<EObject> needCopyObjects(TDQItem item);
+
+    public void moveObjectsToPropertyResource(Resource resource, Collection<EObject> objects);
+
+    public void moveObjectsToItemResource(Resource resource, TDQItem item);
 
 }

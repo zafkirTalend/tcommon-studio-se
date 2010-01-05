@@ -919,8 +919,18 @@ public class ImportItemUtil {
             final Item item = itemRecord.getItem();
             boolean byteArray = (item instanceof FileItem);
             IPath itemPath = getItemPath(itemRecord.getPath());
+
             if (item instanceof TDQItem) {
-                itemPath = getTDQItemPath(itemRecord.getPath(), (TDQItem) item);
+                ITDQImportExportService service = null;
+                try {
+                    service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(
+                            ITDQImportExportService.class);
+                } catch (RuntimeException e) {
+                    // nothing to do
+                }
+                if (service != null) {
+                    itemPath = service.getTDQItemPath(itemRecord.getPath(), (TDQItem) item);
+                }
             }
             stream = manager.getStream(itemPath);
             Resource resource = createResource(itemRecord.getResourceSet(), itemPath, byteArray);
@@ -1067,10 +1077,6 @@ public class ImportItemUtil {
 
     private IPath getItemPath(IPath path) {
         return path.removeFileExtension().addFileExtension(FileConstants.ITEM_EXTENSION);
-    }
-
-    private IPath getTDQItemPath(IPath path, TDQItem item) {
-        return path.removeLastSegments(1).append(item.getFilename());
     }
 
     /**
