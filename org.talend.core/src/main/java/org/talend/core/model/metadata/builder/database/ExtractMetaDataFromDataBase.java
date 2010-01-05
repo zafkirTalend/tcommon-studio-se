@@ -138,9 +138,11 @@ public class ExtractMetaDataFromDataBase {
     public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, IMetadataConnection iMetadataConnection,
             int... limit) {
         String schema = iMetadataConnection.getSchema();
-        if ((schema == null || "".equals(schema)) //$NON-NLS-1$
-                && EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())) {
-            schema = iMetadataConnection.getDatabase();
+        if (schema == null || "".equals(schema)) {
+            if (EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())
+                    || EDatabaseTypeName.AS400.getProduct().equals(iMetadataConnection.getProduct())) {
+                schema = iMetadataConnection.getDatabase();
+            }
         }
         if (dbMetaData.equals(oldMetadata) && schema.equals(oldSchema) && limit.equals(oldLimit)
                 && (oldUseAllSynonyms == ExtractMetaDataUtils.isUseAllSynonyms())) {
@@ -509,7 +511,7 @@ public class ExtractMetaDataFromDataBase {
                     // Validate the column if it contains space or illegal
                     // characters.
                     if (repositoryService != null) {
-                        //metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
+                        // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),
                         // columnIndex));
                         metadataColumn.setLabel(repositoryService.validateColumnName(label, columnIndex));
                     }
