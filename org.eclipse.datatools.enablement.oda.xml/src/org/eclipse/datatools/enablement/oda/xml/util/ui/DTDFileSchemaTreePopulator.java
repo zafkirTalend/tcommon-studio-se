@@ -50,12 +50,14 @@ public class DTDFileSchemaTreePopulator {
             parseAllElements();
         }
         List<DTDElement> strList = getAllElements();
-        DTDElement dtd = strList.get(0);
         ATreeNode node = new ATreeNode();
-        node.setValue(dtd.elementName);
-        node.setType(ATreeNode.ELEMENT_TYPE);
-        node.setDataType(dtd.elementName);
-        initTreeNode(dtd, node);
+        if (strList.size() > 0) {
+            DTDElement dtd = strList.get(0);
+            node.setValue(dtd.elementName);
+            node.setType(ATreeNode.ELEMENT_TYPE);
+            node.setDataType(dtd.elementName);
+            initTreeNode(dtd, node);
+        }
         root.addChild(node);
         return root;
     }
