@@ -69,6 +69,7 @@ import org.talend.core.model.genhtml.XMLHandler;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
@@ -255,7 +256,6 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * .documentation.ExportFileResource, java.lang.String, java.lang.String[])
      */
     public void generateDocumentation(ExportFileResource resource, String targetPath, String... jobVersion) throws Exception {
-
         // Store all pictures' path.
         List<URL> picList = new ArrayList<URL>(5);
 
@@ -320,17 +320,12 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         }
 
         if (innerContent != null) {
-            ImageDescriptor imagedesc = ImageUtils.createImageFromData(innerContent);
             String picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX; //$NON-NLS-1$
-            Image image = imagedesc.createImage();
-            ImageUtils.save(image, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
-            image.dispose();
-
+            ImageUtils.save(innerContent, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
         }
         for (NodeType node : (List<NodeType>) processType.getNode()) {
             if (node.getScreenshot() != null && node.getScreenshot().length != 0) {
                 byte[] screenshot = node.getScreenshot();
-                ImageDescriptor imagedesc = ImageUtils.createImageFromData(screenshot);
                 String uniqueName = ""; //$NON-NLS-1$
                 for (Object o : node.getElementParameter()) {
                     if (o instanceof ElementParameterType) {
@@ -340,9 +335,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     }
                 }
                 String picName = uniqueName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
-                Image createImage = imagedesc.createImage();
-                ImageUtils.save(createImage, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
-                createImage.dispose();
+                ImageUtils.save(screenshot, picFolderPath + File.separatorChar + picName, SWT.IMAGE_PNG);
             }
         }
 
@@ -1018,7 +1011,9 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         componentsList.add(allNodeComponentList);
         componentsList.add(internalNodeComponentList);
         componentsList.add(externalNodeComponentList);
-
+        if (process instanceof IProcess2) {
+            ((IProcess2) process).dispose();
+        }
         return componentsList;
     }
 

@@ -71,6 +71,15 @@ public class ImageUtils {
         loader.save(filePath, format);
     }
 
+    public static void save(byte[] imageData, String filePath, int format) {
+        ImageLoader loader = new ImageLoader();
+        ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
+        Image img = new Image(null, bais);
+        loader.data = new ImageData[] { img.getImageData() };
+        loader.save(filePath, format);
+        img.dispose();
+    }
+
     /**
      * Scale image with provided percent value.
      */
