@@ -22,6 +22,7 @@ public enum EDatabaseTypeName {
     PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    ORACLE_OCI("Oracle OCI", "Oracle_OCI", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "ODBC"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     IBMDB2("IBM DB2", "IBM DB2", new Boolean(true), "IBM_DB2", "DB2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$

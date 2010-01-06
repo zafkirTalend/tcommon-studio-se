@@ -174,8 +174,8 @@ public class QueryUtil {
             end = replaceTheSchemaString(end);
 
             query = checkAndConcatString(query, columnsQuery) + end;
-        } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for
-                                                                                                   // bug0007563
+        } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) {  // hywang add for
+                                                                                                 // bug0007563
             String declareString = TalendTextUtils.getStringDeclare();
             String end = ""; //$NON-NLS-N$ //$NON-NLS-1$
             if (!isCheck) { // hywang add isCheck for informix
@@ -281,7 +281,7 @@ public class QueryUtil {
         EDatabaseTypeName typeFromDbType = EDatabaseTypeName.getTypeFromDbType(dbType);
         if (typeFromDbType.isNeedSchema()) {
             // wzhang modified to fix bug 7879. value of oracle schema can't attach quotation marks.
-            boolean isOracle = (typeFromDbType == EDatabaseTypeName.ORACLEFORSID || EDatabaseTypeName.ORACLESN == typeFromDbType);
+            boolean isOracle = (typeFromDbType == EDatabaseTypeName.ORACLEFORSID || EDatabaseTypeName.ORACLESN == typeFromDbType || EDatabaseTypeName.ORACLE_OCI == typeFromDbType);
             if (isContext(schema)) {
                 String schemaStr = quoteVariableRefrence(schema, dbType);
                 if (isOracle) {

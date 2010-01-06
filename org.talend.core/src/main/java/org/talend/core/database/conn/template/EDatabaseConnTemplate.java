@@ -54,6 +54,8 @@ public enum EDatabaseConnTemplate {
                      "jdbc:oracle:thin:@(description=(address=(protocol=tcp)(host=<host>)(port=<port>))(connect_data=(service_name=<service_name>)))", //$NON-NLS-1$
                      "1521")), //$NON-NLS-1$
 
+    ORACLE_OCI(new DbConnStr(EDatabaseTypeName.ORACLE_OCI, //
+            "jdbc:oracle:oci8:@<service_name>")), //$NON-NLS-1$                 
     MSSQL(new DbConnStr(EDatabaseTypeName.MSSQL, //
             "jdbc:jtds:sqlserver://<host>:<port>/<sid>;<property>", //$NON-NLS-1$
             "1433")), //$NON-NLS-1$
