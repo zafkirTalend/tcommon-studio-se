@@ -13,6 +13,7 @@
 package org.talend.repository.editor;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
@@ -27,6 +28,8 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -143,6 +146,7 @@ public class RepositoryEditorInput extends FileEditorInput {
             if (path != null) {
                 // factory.createProcess(project, loadedProcess, path);
             } else {
+                resetItem();
                 if (getProcessItem() instanceof JobletProcessItem) {
                     ((JobletProcessItem) getProcessItem()).setJobletProcess((JobletProcess) processType);
                 } else {
@@ -186,6 +190,26 @@ public class RepositoryEditorInput extends FileEditorInput {
             if (monitor != null) {
                 monitor.done();
             }
+        }
+    }
+
+    private void resetItem() {
+        if (getProcessItem().eResource() == null) { // for bug 10925
+            final ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(getProcessItem());
+            IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
+            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+            try {
+                final List<IRepositoryObject> allVersions = factory.getAllVersion(getProcessItem().getProperty().getId(),
+                        ERepositoryObjectType.getFolderName(itemType), itemType);
+                for (IRepositoryObject obj : allVersions) {
+                    if (obj.getProperty().getVersion().equals(getProcessItem().getProperty().getVersion())) {
+                        setItem(obj.getProperty().getItem());
+                    }
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+
         }
     }
 
