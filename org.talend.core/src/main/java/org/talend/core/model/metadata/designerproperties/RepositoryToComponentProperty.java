@@ -510,12 +510,12 @@ public class RepositoryToComponentProperty {
             if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
                 // see StatsAndLogConstants
                 // This connection is Oracle_SID
-                return "Oracle"; //$NON-NLS-1$
+                return EDatabaseTypeName.ORACLEFORSID.getXmlName();
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
                 // This connection is Oracle_service_name
-                return "Oracle with service name"; //$NON-NLS-1$
+                return EDatabaseTypeName.ORACLESN.getXmlName();
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-                return "MSSQL";
+                return EDatabaseTypeName.MSSQL.getXMLType(); // for component
             } else {
                 return typeByProduct;
             }

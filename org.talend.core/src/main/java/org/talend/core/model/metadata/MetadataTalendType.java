@@ -40,6 +40,7 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -379,7 +380,9 @@ public final class MetadataTalendType {
         if (temp.startsWith("ORACLE")) { //$NON-NLS-1$
             return "ORACLE"; //$NON-NLS-1$
         }
-
+        if (temp.equals(EDatabaseTypeName.MSSQL.getXMLType())) {
+            return EDatabaseTypeName.MSSQL.getProduct();
+        }
         // Other db just return the product name
         return temp;
     }
