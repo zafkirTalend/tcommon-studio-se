@@ -182,8 +182,8 @@ class ExportItemWizardPage extends WizardPage {
         exportItemsTreeViewer.refresh();
         // force loading all nodes
         viewer = exportItemsTreeViewer.getViewer();
-        // viewer.expandAll();
-        // viewer.collapseAll();
+        viewer.expandAll();
+        viewer.collapseAll();
         // expand to level of metadata connection
         // viewer.expandToLevel(4);
 
@@ -191,7 +191,24 @@ class ExportItemWizardPage extends WizardPage {
 
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
-            repositoryNodes.addAll(selection.toList());
+            // for bug 10969
+            Set<RepositoryNode> newSelection = new HashSet<RepositoryNode>();
+            for (RepositoryNode currentNode : (List<RepositoryNode>) selection.toList()) {
+                List<IRepositoryObject> objects = null;
+                try {
+                    objects = exportItemsTreeViewer.getAll(currentNode.getObjectType());
+                } catch (IllegalArgumentException e) {
+                    // do nothing
+                    objects = new ArrayList<IRepositoryObject>();
+                }
+                for (IRepositoryObject nodeToSelect : objects) {
+                    if (currentNode.getId().equals(nodeToSelect.getRepositoryNode().getId())) {
+                        newSelection.add(nodeToSelect.getRepositoryNode());
+                    }
+                }
+            }
+
+            repositoryNodes.addAll(newSelection);
             repositoryNodes.addAll(checkedNodes);
             Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
 
