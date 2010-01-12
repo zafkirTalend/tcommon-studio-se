@@ -12,37 +12,46 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Execution Task</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getId <em>Id</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename
- * </em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getTriggers <em>Triggers</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionTask#getJobName <em>Job Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getTriggers <em>Triggers</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getCmdPrms <em>Cmd Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobPrms <em>Job Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer <em>Virtual Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution <em>Concurrent Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName <em>Generated Project Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName <em>Generated Job Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStackTrace <em>Error Stack Trace</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask()
  * @model
  * @generated
@@ -50,12 +59,12 @@ import org.eclipse.emf.ecore.EObject;
 public interface ExecutionTask extends EObject {
 
     /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Id()
@@ -75,13 +84,13 @@ public interface ExecutionTask extends EObject {
     void setId(int value);
 
     /**
-     * Returns the value of the '<em><b>Label</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Label</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Label()
@@ -93,7 +102,6 @@ public interface ExecutionTask extends EObject {
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @param value the new value of the '<em>Label</em>' attribute.
      * @see #getLabel()
      * @generated
@@ -101,13 +109,13 @@ public interface ExecutionTask extends EObject {
     void setLabel(String value);
 
     /**
-     * Returns the value of the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Description</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Description</em>' attribute.
      * @see #setDescription(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Description()
@@ -117,9 +125,8 @@ public interface ExecutionTask extends EObject {
     String getDescription();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}
-     * ' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Description</em>' attribute.
      * @see #getDescription()
      * @generated
@@ -127,13 +134,13 @@ public interface ExecutionTask extends EObject {
     void setDescription(String value);
 
     /**
-     * Returns the value of the '<em><b>Execution Server</b></em>' reference. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Execution Server</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Execution Server</em>' reference isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Execution Server</em>' reference.
      * @see #setExecutionServer(ExecutionServer)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ExecutionServer()
@@ -143,9 +150,8 @@ public interface ExecutionTask extends EObject {
     ExecutionServer getExecutionServer();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer
-     * <em>Execution Server</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Execution Server</em>' reference.
      * @see #getExecutionServer()
      * @generated
@@ -153,13 +159,13 @@ public interface ExecutionTask extends EObject {
     void setExecutionServer(ExecutionServer value);
 
     /**
-     * Returns the value of the '<em><b>Project</b></em>' reference. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Project</em>' reference isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Project</em>' reference.
      * @see #setProject(Project)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Project()
@@ -169,9 +175,8 @@ public interface ExecutionTask extends EObject {
     Project getProject();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}'
-     * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Project</em>' reference.
      * @see #getProject()
      * @generated
@@ -179,13 +184,13 @@ public interface ExecutionTask extends EObject {
     void setProject(Project value);
 
     /**
-     * Returns the value of the '<em><b>Context</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Context</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Context</em>' attribute.
      * @see #setContext(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Context()
@@ -195,9 +200,8 @@ public interface ExecutionTask extends EObject {
     String getContext();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Context</em>' attribute.
      * @see #getContext()
      * @generated
@@ -205,13 +209,13 @@ public interface ExecutionTask extends EObject {
     void setContext(String value);
 
     /**
-     * Returns the value of the '<em><b>Job Version</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Job Version</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Job Version</em>' attribute.
      * @see #setJobVersion(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobVersion()
@@ -221,9 +225,8 @@ public interface ExecutionTask extends EObject {
     String getJobVersion();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Job Version</em>' attribute.
      * @see #getJobVersion()
      * @generated
@@ -231,13 +234,13 @@ public interface ExecutionTask extends EObject {
     void setJobVersion(String value);
 
     /**
-     * Returns the value of the '<em><b>Active</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Active</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Active</em>' attribute.
      * @see #setActive(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Active()
@@ -247,9 +250,8 @@ public interface ExecutionTask extends EObject {
     boolean isActive();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Active</em>' attribute.
      * @see #isActive()
      * @generated
@@ -257,13 +259,13 @@ public interface ExecutionTask extends EObject {
     void setActive(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Id Quartz Job</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id Quartz Job</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Id Quartz Job</em>' attribute.
      * @see #setIdQuartzJob(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdQuartzJob()
@@ -273,9 +275,8 @@ public interface ExecutionTask extends EObject {
     int getIdQuartzJob();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob
-     * <em>Id Quartz Job</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Id Quartz Job</em>' attribute.
      * @see #getIdQuartzJob()
      * @generated
@@ -283,13 +284,13 @@ public interface ExecutionTask extends EObject {
     void setIdQuartzJob(int value);
 
     /**
-     * Returns the value of the '<em><b>Last Script Generation Date</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Last Script Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Last Script Generation Date</em>' attribute isn't clear, there really should be more
      * of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Last Script Generation Date</em>' attribute.
      * @see #setLastScriptGenerationDate(Date)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastScriptGenerationDate()
@@ -299,9 +300,8 @@ public interface ExecutionTask extends EObject {
     Date getLastScriptGenerationDate();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate
-     * <em>Last Script Generation Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Last Script Generation Date</em>' attribute.
      * @see #getLastScriptGenerationDate()
      * @generated
@@ -309,13 +309,13 @@ public interface ExecutionTask extends EObject {
     void setLastScriptGenerationDate(Date value);
 
     /**
-     * Returns the value of the '<em><b>Id Remote Job</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id Remote Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id Remote Job</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Id Remote Job</em>' attribute.
      * @see #setIdRemoteJob(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdRemoteJob()
@@ -325,9 +325,8 @@ public interface ExecutionTask extends EObject {
     String getIdRemoteJob();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob
-     * <em>Id Remote Job</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Id Remote Job</em>' attribute.
      * @see #getIdRemoteJob()
      * @generated
@@ -335,13 +334,13 @@ public interface ExecutionTask extends EObject {
     void setIdRemoteJob(String value);
 
     /**
-     * Returns the value of the '<em><b>Id Remote Job Execution</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id Remote Job Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id Remote Job Execution</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Id Remote Job Execution</em>' attribute.
      * @see #setIdRemoteJobExecution(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdRemoteJobExecution()
@@ -351,9 +350,8 @@ public interface ExecutionTask extends EObject {
     String getIdRemoteJobExecution();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution
-     * <em>Id Remote Job Execution</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Id Remote Job Execution</em>' attribute.
      * @see #getIdRemoteJobExecution()
      * @generated
@@ -361,13 +359,13 @@ public interface ExecutionTask extends EObject {
     void setIdRemoteJobExecution(String value);
 
     /**
-     * Returns the value of the '<em><b>Checksum Archive</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Checksum Archive</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Checksum Archive</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Checksum Archive</em>' attribute.
      * @see #setChecksumArchive(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ChecksumArchive()
@@ -377,9 +375,8 @@ public interface ExecutionTask extends EObject {
     String getChecksumArchive();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive
-     * <em>Checksum Archive</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Checksum Archive</em>' attribute.
      * @see #getChecksumArchive()
      * @generated
@@ -387,13 +384,13 @@ public interface ExecutionTask extends EObject {
     void setChecksumArchive(String value);
 
     /**
-     * Returns the value of the '<em><b>Job Script Archive Filename</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Job Script Archive Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Job Script Archive Filename</em>' attribute isn't clear, there really should be more
      * of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Job Script Archive Filename</em>' attribute.
      * @see #setJobScriptArchiveFilename(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobScriptArchiveFilename()
@@ -403,9 +400,8 @@ public interface ExecutionTask extends EObject {
     String getJobScriptArchiveFilename();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename
-     * <em>Job Script Archive Filename</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Job Script Archive Filename</em>' attribute.
      * @see #getJobScriptArchiveFilename()
      * @generated
@@ -413,13 +409,13 @@ public interface ExecutionTask extends EObject {
     void setJobScriptArchiveFilename(String value);
 
     /**
-     * Returns the value of the '<em><b>Status</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Status</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Status</em>' attribute.
      * @see #setStatus(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Status()
@@ -429,9 +425,8 @@ public interface ExecutionTask extends EObject {
     String getStatus();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Status</em>' attribute.
      * @see #getStatus()
      * @generated
@@ -439,13 +434,13 @@ public interface ExecutionTask extends EObject {
     void setStatus(String value);
 
     /**
-     * Returns the value of the '<em><b>Processing State</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Processing State</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Processing State</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Processing State</em>' attribute.
      * @see #setProcessingState(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ProcessingState()
@@ -455,9 +450,8 @@ public interface ExecutionTask extends EObject {
     boolean isProcessingState();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isProcessingState
-     * <em>Processing State</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Processing State</em>' attribute.
      * @see #isProcessingState()
      * @generated
@@ -465,13 +459,13 @@ public interface ExecutionTask extends EObject {
     void setProcessingState(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Error Status</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Error Status</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Error Status</em>' attribute.
      * @see #setErrorStatus(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ErrorStatus()
@@ -481,9 +475,8 @@ public interface ExecutionTask extends EObject {
     String getErrorStatus();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus
-     * <em>Error Status</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Error Status</em>' attribute.
      * @see #getErrorStatus()
      * @generated
@@ -491,13 +484,13 @@ public interface ExecutionTask extends EObject {
     void setErrorStatus(String value);
 
     /**
-     * Returns the value of the '<em><b>Last Run Date</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Last Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Last Run Date</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Last Run Date</em>' attribute.
      * @see #setLastRunDate(Date)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastRunDate()
@@ -507,9 +500,8 @@ public interface ExecutionTask extends EObject {
     Date getLastRunDate();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate
-     * <em>Last Run Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Last Run Date</em>' attribute.
      * @see #getLastRunDate()
      * @generated
@@ -517,13 +509,13 @@ public interface ExecutionTask extends EObject {
     void setLastRunDate(Date value);
 
     /**
-     * Returns the value of the '<em><b>Last Deployment Date</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Last Deployment Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Last Deployment Date</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Last Deployment Date</em>' attribute.
      * @see #setLastDeploymentDate(Date)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastDeploymentDate()
@@ -533,9 +525,8 @@ public interface ExecutionTask extends EObject {
     Date getLastDeploymentDate();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate
-     * <em>Last Deployment Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Last Deployment Date</em>' attribute.
      * @see #getLastDeploymentDate()
      * @generated
@@ -543,13 +534,13 @@ public interface ExecutionTask extends EObject {
     void setLastDeploymentDate(Date value);
 
     /**
-     * Returns the value of the '<em><b>Last Ended Run Date</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Last Ended Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Last Ended Run Date</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Last Ended Run Date</em>' attribute.
      * @see #setLastEndedRunDate(Date)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastEndedRunDate()
@@ -559,9 +550,8 @@ public interface ExecutionTask extends EObject {
     Date getLastEndedRunDate();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate
-     * <em>Last Ended Run Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Last Ended Run Date</em>' attribute.
      * @see #getLastEndedRunDate()
      * @generated
@@ -629,13 +619,13 @@ public interface ExecutionTask extends EObject {
     EList getJobPrms();
 
     /**
-     * Returns the value of the '<em><b>Job Id</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Job Name</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Job Id</em>' attribute.
      * @see #setJobId(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobId()
@@ -645,9 +635,8 @@ public interface ExecutionTask extends EObject {
     String getJobId();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Job Id</em>' attribute.
      * @see #getJobId()
      * @generated
@@ -655,13 +644,13 @@ public interface ExecutionTask extends EObject {
     void setJobId(String value);
 
     /**
-     * Returns the value of the '<em><b>Virtual Server</b></em>' reference. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Virtual Server</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Virtual Server</em>' reference isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Virtual Server</em>' reference.
      * @see #setVirtualServer(ExecutionVirtualServer)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_VirtualServer()
@@ -671,9 +660,8 @@ public interface ExecutionTask extends EObject {
     ExecutionVirtualServer getVirtualServer();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer
-     * <em>Virtual Server</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer <em>Virtual Server</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Virtual Server</em>' reference.
      * @see #getVirtualServer()
      * @generated
@@ -681,13 +669,13 @@ public interface ExecutionTask extends EObject {
     void setVirtualServer(ExecutionVirtualServer value);
 
     /**
-     * Returns the value of the '<em><b>Concurrent Execution</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Concurrent Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Concurrent Execution</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Concurrent Execution</em>' attribute.
      * @see #setConcurrentExecution(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ConcurrentExecution()
@@ -697,9 +685,8 @@ public interface ExecutionTask extends EObject {
     boolean isConcurrentExecution();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution
-     * <em>Concurrent Execution</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution <em>Concurrent Execution</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Concurrent Execution</em>' attribute.
      * @see #isConcurrentExecution()
      * @generated
@@ -707,13 +694,13 @@ public interface ExecutionTask extends EObject {
     void setConcurrentExecution(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Max Concurrent Executions</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Max Concurrent Executions</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Max Concurrent Executions</em>' attribute isn't clear, there really should be more of
      * a description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Max Concurrent Executions</em>' attribute.
      * @see #setMaxConcurrentExecutions(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_MaxConcurrentExecutions()
@@ -723,9 +710,8 @@ public interface ExecutionTask extends EObject {
     int getMaxConcurrentExecutions();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions
-     * <em>Max Concurrent Executions</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Max Concurrent Executions</em>' attribute.
      * @see #getMaxConcurrentExecutions()
      * @generated
@@ -733,13 +719,13 @@ public interface ExecutionTask extends EObject {
     void setMaxConcurrentExecutions(int value);
 
     /**
-     * Returns the value of the '<em><b>Generated Project Name</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Generated Project Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Generated Project Name</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Generated Project Name</em>' attribute.
      * @see #setGeneratedProjectName(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_GeneratedProjectName()
@@ -749,9 +735,8 @@ public interface ExecutionTask extends EObject {
     String getGeneratedProjectName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName
-     * <em>Generated Project Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName <em>Generated Project Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Generated Project Name</em>' attribute.
      * @see #getGeneratedProjectName()
      * @generated
@@ -759,13 +744,13 @@ public interface ExecutionTask extends EObject {
     void setGeneratedProjectName(String value);
 
     /**
-     * Returns the value of the '<em><b>Generated Job Name</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Generated Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Generated Job Name</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Generated Job Name</em>' attribute.
      * @see #setGeneratedJobName(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_GeneratedJobName()
@@ -775,9 +760,8 @@ public interface ExecutionTask extends EObject {
     String getGeneratedJobName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName
-     * <em>Generated Job Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName <em>Generated Job Name</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Generated Job Name</em>' attribute.
      * @see #getGeneratedJobName()
      * @generated
@@ -785,13 +769,13 @@ public interface ExecutionTask extends EObject {
     void setGeneratedJobName(String value);
 
     /**
-     * Returns the value of the '<em><b>Apply Context To Children</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Apply Context To Children</em>' attribute isn't clear, there really should be more of
      * a description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Apply Context To Children</em>' attribute.
      * @see #setApplyContextToChildren(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ApplyContextToChildren()
@@ -801,9 +785,8 @@ public interface ExecutionTask extends EObject {
     boolean isApplyContextToChildren();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren
-     * <em>Apply Context To Children</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren <em>Apply Context To Children</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Apply Context To Children</em>' attribute.
      * @see #isApplyContextToChildren()
      * @generated
@@ -811,13 +794,13 @@ public interface ExecutionTask extends EObject {
     void setApplyContextToChildren(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Error Stack Trace</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Error Stack Trace</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Error Stack Trace</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Error Stack Trace</em>' attribute.
      * @see #setErrorStackTrace(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ErrorStackTrace()
@@ -827,9 +810,8 @@ public interface ExecutionTask extends EObject {
     String getErrorStackTrace();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getErrorStackTrace
-     * <em>Error Stack Trace</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getErrorStackTrace <em>Error Stack Trace</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Error Stack Trace</em>' attribute.
      * @see #getErrorStackTrace()
      * @generated
@@ -837,13 +819,13 @@ public interface ExecutionTask extends EObject {
     void setErrorStackTrace(String value);
 
     /**
-     * Returns the value of the '<em><b>Last Triggering Date</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Last Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Last Triggering Date</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Last Triggering Date</em>' attribute.
      * @see #setLastTriggeringDate(Date)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastTriggeringDate()
@@ -853,16 +835,38 @@ public interface ExecutionTask extends EObject {
     Date getLastTriggeringDate();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate
-     * <em>Last Triggering Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Last Triggering Date</em>' attribute.
      * @see #getLastTriggeringDate()
      * @generated
      */
     void setLastTriggeringDate(Date value);
 
+    /**
+     * Returns the value of the '<em><b>Exec Statistics Enabled</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Exec Statistics Enabled</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Exec Statistics Enabled</em>' attribute.
+     * @see #setExecStatisticsEnabled(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ExecStatisticsEnabled()
+     * @model
+     * @generated
+     */
     boolean isExecStatisticsEnabled();
 
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Exec Statistics Enabled</em>' attribute.
+     * @see #isExecStatisticsEnabled()
+     * @generated
+     */
     void setExecStatisticsEnabled(boolean value);
+
 } // ExecutionTask
