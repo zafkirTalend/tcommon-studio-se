@@ -834,10 +834,11 @@ public class ExtractMetaDataFromDataBase {
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
         // bug 9162
-        List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
-                iMetadataConnection.getSchema(), iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(),
-                iMetadataConnection.getDbVersionString());
+        String url = iMetadataConnection.getUrl();
+        List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), url, iMetadataConnection.getUsername(),
+                iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection.getSchema(),
+                iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
+                        .getDbVersionString());
         Connection conn = null;
         DriverShim wapperDriver = null;
 
@@ -858,7 +859,7 @@ public class ExtractMetaDataFromDataBase {
                 limit);
 
         ExtractMetaDataUtils.closeConnection();
-        if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$
+        if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
