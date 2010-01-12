@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStackTrace <em>Error Stack Trace</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -868,5 +869,31 @@ public interface ExecutionTask extends EObject {
      * @generated
      */
     void setExecStatisticsEnabled(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Add Statistics Code Enabled</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Add Statistics Code Enabled</em>' attribute.
+     * @see #setAddStatisticsCodeEnabled(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_AddStatisticsCodeEnabled()
+     * @model
+     * @generated
+     */
+    boolean isAddStatisticsCodeEnabled();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Add Statistics Code Enabled</em>' attribute.
+     * @see #isAddStatisticsCodeEnabled()
+     * @generated
+     */
+    void setAddStatisticsCodeEnabled(boolean value);
 
 } // ExecutionTask

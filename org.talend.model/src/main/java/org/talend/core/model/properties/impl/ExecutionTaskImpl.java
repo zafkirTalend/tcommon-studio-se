@@ -64,6 +64,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStackTrace <em>Error Stack Trace</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -646,6 +647,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected static final boolean EXEC_STATISTICS_ENABLED_EDEFAULT = false;
 
     protected boolean execStatisticsEnabled = EXEC_STATISTICS_ENABLED_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isAddStatisticsCodeEnabled() <em>Add Statistics Code Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isAddStatisticsCodeEnabled()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ADD_STATISTICS_CODE_ENABLED_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isAddStatisticsCodeEnabled() <em>Add Statistics Code Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isAddStatisticsCodeEnabled()
+     * @generated
+     * @ordered
+     */
+    protected boolean addStatisticsCodeEnabled = ADD_STATISTICS_CODE_ENABLED_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1317,6 +1338,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isAddStatisticsCodeEnabled() {
+        return addStatisticsCodeEnabled;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAddStatisticsCodeEnabled(boolean newAddStatisticsCodeEnabled) {
+        boolean oldAddStatisticsCodeEnabled = addStatisticsCodeEnabled;
+        addStatisticsCodeEnabled = newAddStatisticsCodeEnabled;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED, oldAddStatisticsCodeEnabled, addStatisticsCodeEnabled));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1423,6 +1465,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getLastTriggeringDate();
             case PropertiesPackage.EXECUTION_TASK__EXEC_STATISTICS_ENABLED:
                 return isExecStatisticsEnabled() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
+                return isAddStatisticsCodeEnabled() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1535,6 +1579,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__EXEC_STATISTICS_ENABLED:
                 setExecStatisticsEnabled(((Boolean)newValue).booleanValue());
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
+                setAddStatisticsCodeEnabled(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1644,6 +1691,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__EXEC_STATISTICS_ENABLED:
                 setExecStatisticsEnabled(EXEC_STATISTICS_ENABLED_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
+                setAddStatisticsCodeEnabled(ADD_STATISTICS_CODE_ENABLED_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1720,6 +1770,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return LAST_TRIGGERING_DATE_EDEFAULT == null ? lastTriggeringDate != null : !LAST_TRIGGERING_DATE_EDEFAULT.equals(lastTriggeringDate);
             case PropertiesPackage.EXECUTION_TASK__EXEC_STATISTICS_ENABLED:
                 return execStatisticsEnabled != EXEC_STATISTICS_ENABLED_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
+                return addStatisticsCodeEnabled != ADD_STATISTICS_CODE_ENABLED_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1786,6 +1838,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(lastTriggeringDate);
         result.append(", execStatisticsEnabled: ");
         result.append(execStatisticsEnabled);
+        result.append(", addStatisticsCodeEnabled: ");
+        result.append(addStatisticsCodeEnabled);
         result.append(')');
         return result.toString();
     }

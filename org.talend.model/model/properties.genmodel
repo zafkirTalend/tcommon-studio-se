@@ -289,6 +289,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/errorStackTrace"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastTriggeringDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/execStatisticsEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/addStatisticsCodeEnabled"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionTaskCmdPrm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskCmdPrm/id"/>

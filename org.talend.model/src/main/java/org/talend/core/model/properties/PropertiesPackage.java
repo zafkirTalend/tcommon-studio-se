@@ -2958,13 +2958,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = 32;
 
     /**
+     * The feature id for the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = 33;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 33;
+    int EXECUTION_TASK_FEATURE_COUNT = 34;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
@@ -7907,6 +7916,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_ExecStatisticsEnabled();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Add Statistics Code Enabled</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_AddStatisticsCodeEnabled();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm <em>Execution Task Cmd Prm</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Execution Task Cmd Prm</em>'.
@@ -11856,6 +11876,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__EXEC_STATISTICS_ENABLED = eINSTANCE.getExecutionTask_ExecStatisticsEnabled();
+
+        /**
+         * The meta object literal for the '<em><b>Add Statistics Code Enabled</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = eINSTANCE.getExecutionTask_AddStatisticsCodeEnabled();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
