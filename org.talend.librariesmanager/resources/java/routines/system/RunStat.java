@@ -161,7 +161,7 @@ public class RunStat implements Runnable {
         }
     }
 
-    public void sendMessages() {
+    private void sendMessages() {
         if (!openSocket) {
             return;
         }
@@ -186,7 +186,21 @@ public class RunStat implements Runnable {
 
     }
 
-    public synchronized void updateStatOnConnection(String connectionId, int mode, int nbLine) {
+    public void updateStatOnConnection(String connectionId, int mode, int nbLine) {
+        if (!openSocket) {
+            return;
+        }
+        updateStatOnConnectionInner(connectionId, mode, nbLine);
+    }
+
+    public void updateStatOnConnection(String connectionId, int mode, String exec) {
+        if (!openSocket) {
+            return;
+        }
+        updateStatOnConnectionInner(connectionId, mode, exec);
+    }
+
+    private synchronized void updateStatOnConnectionInner(String connectionId, int mode, int nbLine) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
@@ -205,7 +219,7 @@ public class RunStat implements Runnable {
         }
     }
 
-    public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
+    private synchronized void updateStatOnConnectionInner(String connectionId, int mode, String exec) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
