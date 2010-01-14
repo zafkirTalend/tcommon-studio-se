@@ -179,6 +179,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/adminConnexionNumber"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/studioConnexionNumber"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/authenticationInfo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/ldapId"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//FolderItem">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//FolderItem/children"/>

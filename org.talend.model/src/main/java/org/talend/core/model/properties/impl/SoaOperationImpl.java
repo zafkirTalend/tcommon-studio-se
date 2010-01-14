@@ -896,7 +896,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @generated
      */
     public SoaService getService() {
-        if (eContainerFeatureID() != PropertiesPackage.SOA_OPERATION__SERVICE) return null;
+        if (eContainerFeatureID != PropertiesPackage.SOA_OPERATION__SERVICE) return null;
         return (SoaService)eContainer();
     }
 
@@ -914,7 +914,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @generated
      */
     public void setService(SoaService newService) {
-        if (newService != eInternalContainer() || (eContainerFeatureID() != PropertiesPackage.SOA_OPERATION__SERVICE && newService != null)) {
+        if (newService != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.SOA_OPERATION__SERVICE && newService != null)) {
             if (EcoreUtil.isAncestor(this, newService))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -981,7 +981,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID()) {
+        switch (eContainerFeatureID) {
             case PropertiesPackage.SOA_OPERATION__SERVICE:
                 return eInternalContainer().eInverseRemove(this, PropertiesPackage.SOA_SERVICE__OPERATIONS, SoaService.class, msgs);
         }

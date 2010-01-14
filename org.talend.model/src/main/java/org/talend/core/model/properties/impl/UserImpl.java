@@ -54,6 +54,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAuthenticationInfo <em>Authentication Info</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapId <em>Ldap Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -439,6 +440,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String authenticationInfo = AUTHENTICATION_INFO_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLdapId() <em>Ldap Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLdapId()
+     * @generated
+     * @ordered
+     */
+    protected static final String LDAP_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLdapId() <em>Ldap Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLdapId()
+     * @generated
+     * @ordered
+     */
+    protected String ldapId = LDAP_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -920,6 +941,27 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getLdapId() {
+        return ldapId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLdapId(String newLdapId) {
+        String oldLdapId = ldapId;
+        ldapId = newLdapId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LDAP_ID, oldLdapId, ldapId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -996,6 +1038,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return new Integer(getStudioConnexionNumber());
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 return getAuthenticationInfo();
+            case PropertiesPackage.USER__LDAP_ID:
+                return getLdapId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1072,6 +1116,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 setAuthenticationInfo((String)newValue);
                 return;
+            case PropertiesPackage.USER__LDAP_ID:
+                setLdapId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1146,6 +1193,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 setAuthenticationInfo(AUTHENTICATION_INFO_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__LDAP_ID:
+                setLdapId(LDAP_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1199,6 +1249,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
             case PropertiesPackage.USER__AUTHENTICATION_INFO:
                 return AUTHENTICATION_INFO_EDEFAULT == null ? authenticationInfo != null : !AUTHENTICATION_INFO_EDEFAULT.equals(authenticationInfo);
+            case PropertiesPackage.USER__LDAP_ID:
+                return LDAP_ID_EDEFAULT == null ? ldapId != null : !LDAP_ID_EDEFAULT.equals(ldapId);
         }
         return super.eIsSet(featureID);
     }
