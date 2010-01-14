@@ -14,10 +14,6 @@ package routines.system;
 
 public class RunStat implements Runnable {
 
-    // to decide whether this socket port can be opened and whether this statistics client can start to work.
-    // 1. if it is a childJob, the socket doesn't open again, and doesn't work for the childjob, just ignore the input
-    // datas.
-    // 2. if the port is invalid, it also set openSocket=false, it is only a dummy, doesn't work on this port.
     private boolean openSocket = true;
 
     public void openSocket(boolean openSocket) {
@@ -116,15 +112,6 @@ public class RunStat implements Runnable {
         if (!openSocket) {
             return;
         }
-
-        // portStats = -1; //for testing
-        if (portStats < 0 || portStats > 65535) {
-            // issue:10869, the portStats is invalid, so this client socket can't open
-            System.err.println("The statistics socket port " + portStats + " is invalid.");
-            openSocket = false;
-            return;
-        }
-
         System.out.println("[statistics] connecting to socket on port " + portStats); //$NON-NLS-1$
         s = new java.net.Socket(clientHost, portStats);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
@@ -161,7 +148,7 @@ public class RunStat implements Runnable {
         }
     }
 
-    private void sendMessages() {
+    public void sendMessages() {
         if (!openSocket) {
             return;
         }
@@ -186,21 +173,7 @@ public class RunStat implements Runnable {
 
     }
 
-    public void updateStatOnConnection(String connectionId, int mode, int nbLine) {
-        if (!openSocket) {
-            return;
-        }
-        updateStatOnConnectionInner(connectionId, mode, nbLine);
-    }
-
-    public void updateStatOnConnection(String connectionId, int mode, String exec) {
-        if (!openSocket) {
-            return;
-        }
-        updateStatOnConnectionInner(connectionId, mode, exec);
-    }
-
-    private synchronized void updateStatOnConnectionInner(String connectionId, int mode, int nbLine) {
+    public synchronized void updateStatOnConnection(String connectionId, int mode, int nbLine) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
@@ -219,7 +192,7 @@ public class RunStat implements Runnable {
         }
     }
 
-    private synchronized void updateStatOnConnectionInner(String connectionId, int mode, String exec) {
+    public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
         StatBean bean;
         if (processStats.containsKey(connectionId)) {
             bean = processStats.get(connectionId);
