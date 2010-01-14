@@ -48,9 +48,9 @@ public class OperationInfo {
     /** The encoding type "document" vs. "rpc" */
     private String style = "document";
 
-    private List inparameters = new ArrayList();
+    private List<ParameterInfo> inparameters = new ArrayList<ParameterInfo>();
 
-    private List outparameters = new ArrayList();
+    private List<ParameterInfo> outparameters = new ArrayList<ParameterInfo>();
 
     private Message inmessage;
 
@@ -105,7 +105,7 @@ public class OperationInfo {
         this.inparameters.add(parameter);
     }
 
-    public List getInparameters() {
+    public List<ParameterInfo> getInparameters() {
         return inparameters;
     }
 
@@ -113,7 +113,7 @@ public class OperationInfo {
         this.outparameters.add(parameter);
     }
 
-    public List getOutparameters() {
+    public List<ParameterInfo> getOutparameters() {
         return this.outparameters;
     }
 

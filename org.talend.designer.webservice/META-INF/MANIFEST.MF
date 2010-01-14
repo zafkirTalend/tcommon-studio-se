@@ -5,14 +5,13 @@ Bundle-SymbolicName: org.talend.designer.webservice;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.designer.webservice.WebServiceComponentPlugin
 Require-Bundle: org.eclipse.ui,
+ org.talend.core,
+ org.talend.designer.core,
  org.eclipse.core.runtime,
- org.talend.commons.ui;bundle-version="2.2.0",
- org.talend.core;bundle-version="2.2.0",
- org.apache.log4j;bundle-version="1.2.13",
- org.talend.repository;bundle-version="2.2.0",
- org.talend.designer.core;bundle-version="2.2.0",
- org.talend.designer.codegen;bundle-version="2.2.0",
- org.talend.designer.mapper;bundle-version="2.2.0"
+ org.talend.repository,
+ org.talend.commons.ui,
+ org.apache.log4j,
+ org.talend.designer.codegen
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/cxf-2.2.2.jar,

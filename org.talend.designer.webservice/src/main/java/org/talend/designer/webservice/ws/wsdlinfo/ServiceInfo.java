@@ -32,7 +32,7 @@ public class ServiceInfo {
     private ServiceHelperConfiguration authConfig;
 
     /** The list of operations that this service defines. */
-    List operations = new ArrayList();
+    List<OperationInfo> operations = new ArrayList<OperationInfo>();
 
     public Schema getWsdlType() {
         return wsdlType;
@@ -42,11 +42,11 @@ public class ServiceInfo {
         this.wsdlType = wsdlType;
     }
 
-    public List getOperation() {
+    public List<OperationInfo> getOperation() {
         return operations;
     }
 
-    public Iterator getOperations() {
+    public Iterator<OperationInfo> getOperations() {
         return operations.iterator();
     }
 

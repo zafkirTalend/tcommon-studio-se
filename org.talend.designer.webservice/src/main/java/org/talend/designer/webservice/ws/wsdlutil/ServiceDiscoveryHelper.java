@@ -4,7 +4,6 @@
 package org.talend.designer.webservice.ws.wsdlutil;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +56,11 @@ public class ServiceDiscoveryHelper {
      */
     private void init() throws WSDLException, IOException {
         wsdlFactory = WSDLFactory.newInstance();
+        // wsdlFactory.
         WSDLReader newWSDLReader = wsdlFactory.newWSDLReader();
+
+        newWSDLReader.setExtensionRegistry(wsdlFactory.newPopulatedExtensionRegistry());
+        // newWSDLReader.getExtensionRegistry()
 
         newWSDLReader.setFeature(com.ibm.wsdl.Constants.FEATURE_VERBOSE, false);
         if (configuration == null) {
@@ -76,17 +79,17 @@ public class ServiceDiscoveryHelper {
                 if (el instanceof Schema) {
                     Schema schema = (Schema) el;
 
-                    validateSchemaTargetNamespace(schema);
-                    validateImportSchemaLocation(schema);
+                    // validateSchemaTargetNamespace(schema);
+                    // validateImportSchemaLocation(schema);
 
-                    schemaCollection.read(schema.getElement());
+                    // schemaCollection.read(schema.getElement());
                 }
             }
         }
-        localWsdl = File.createTempFile("service-", ".wsdl");
-        localWsdl.deleteOnExit();
-
-        wsdlFactory.newWSDLWriter().writeWSDL(definition, new FileOutputStream(localWsdl));
+        // localWsdl = File.createTempFile("service-", ".wsdl");
+        // localWsdl.deleteOnExit();
+        //
+        // wsdlFactory.newWSDLWriter().writeWSDL(definition, new FileOutputStream(localWsdl));
     }
 
     // bchen for bug 8674

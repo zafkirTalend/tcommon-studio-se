@@ -1128,15 +1128,16 @@ public class WebServiceUI {
 
                         columnModel.add(inData);
                     }
-                    ParameterInfo onlyOneInPara = isOnlyOnePara(listIn);
-                    if (onlyOneInPara != null) {
-                        if (onlyOneInPara.getParent() != null) {
-                            InputMappingData inData = new InputMappingData();
-                            inData.setParameterName(onlyOneInPara.getParaFullName());
-                            inData.setParameter(onlyOneInPara);
-                            columnModel.add(inData);
-                        }
-                    }
+                    // if input parameter only one add it auto
+                    // ParameterInfo onlyOneInPara = isOnlyOnePara(listIn);
+                    // if (onlyOneInPara != null) {
+                    // if (onlyOneInPara.getParent() != null) {
+                    // InputMappingData inData = new InputMappingData();
+                    // inData.setParameterName(onlyOneInPara.getParaFullName());
+                    // inData.setParameter(onlyOneInPara);
+                    // columnModel.add(inData);
+                    // }
+                    // }
                 }
                 expressTableForIn.setSelection(0);
 
@@ -1149,15 +1150,16 @@ public class WebServiceUI {
                         outData.setParameter(pa);
                         rowForOutput.add(outData);
                     }
-                    ParameterInfo onlyOneOutPara = isOnlyOnePara(listOut);
-                    if (onlyOneOutPara != null) {
-                        if (onlyOneOutPara.getParent() != null) {
-                            OutPutMappingData outData = new OutPutMappingData();
-                            outData.setParameterName(onlyOneOutPara.getParaFullName());
-                            outData.setParameter(onlyOneOutPara);
-                            rowForOutput.add(outData);
-                        }
-                    }
+                    // if output parameter only one add it auto
+                    // ParameterInfo onlyOneOutPara = isOnlyOnePara(listOut);
+                    // if (onlyOneOutPara != null) {
+                    // if (onlyOneOutPara.getParent() != null) {
+                    // OutPutMappingData outData = new OutPutMappingData();
+                    // outData.setParameterName(onlyOneOutPara.getParaFullName());
+                    // outData.setParameter(onlyOneOutPara);
+                    // rowForOutput.add(outData);
+                    // }
+                    // }
                 }
                 ExtendedTableModel<OutPutMappingData> exforoutput = expressoutPutTableView.getExtendedTableModel();
                 exforoutput.removeAll();

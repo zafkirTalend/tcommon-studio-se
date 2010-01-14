@@ -48,7 +48,7 @@ public class WSDLDiscoveryHelper {
             serviceInfo = builder.buildserviceinformation(serviceInfo);
 
             exceptionMessage = builder.getExceptionMessage();
-            
+
             Iterator iter = serviceInfo.getOperations();
             while (iter.hasNext()) {
 
@@ -94,14 +94,14 @@ public class WSDLDiscoveryHelper {
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         inputParameters.add(element);
-                        if (element.getKind() != null) {
-                            operationName = operationName + element.getKind() + ",";
-                        } else if (element.getKind() == null && element.getName() != null) {
+                        if (element.getType() != null) {
+                            operationName = operationName + element.getType() + ",";
+                        } else if (element.getType() == null && element.getName() != null) {
                             operationName = operationName + element.getName() + ",";
-                        } else if (element.getKind() == null) {
+                        } else if (element.getType() == null) {
                             operationName = operationName + "noType" + ",";
                         }
-                        if (element.getKind() == null
+                        if (element.getType() == null
                                 && (element.getParameterInfos() == null || element.getParameterInfos().isEmpty())
                                 && inps.size() == 1) {
 
@@ -123,13 +123,13 @@ public class WSDLDiscoveryHelper {
                         // ParameterInfo p = new ParameterInfo();
                         // p.setType(element.getKind());
                         outputParameters.add(element);
-                        if (element.getKind() != null) {
-                            operationName = operationName + element.getKind() + ",";
+                        if (element.getType() != null) {
+                            operationName = operationName + element.getType() + ",";
                         } else if (element.getParameterInfos() != null && !element.getParameterInfos().isEmpty()) {
                             for (Iterator iterator3 = element.getParameterInfos().iterator(); iterator3.hasNext();) {
                                 ParameterInfo elementBranch = (ParameterInfo) iterator3.next();
-                                if (elementBranch.getKind() != null) {
-                                    operationName = operationName + elementBranch.getKind() + ",";
+                                if (elementBranch.getType() != null) {
+                                    operationName = operationName + elementBranch.getType() + ",";
                                 } else {
                                     operationName = operationName + "noType" + ",";
                                 }
@@ -196,7 +196,7 @@ public class WSDLDiscoveryHelper {
         List<Function> test = new ArrayList<Function>();
         // test = getFunctionsAvailable("\"C:/Documents and Settings/Administrator/桌面/wsdl/Person.wsdl\"");
         // test =
-        //getFunctionsAvailable("F:/strivecui_work_log/week_21(0622-0626)/TestAxis/src/org/soyatec/wsdl/testExample.wsdl"
+        // getFunctionsAvailable("F:/strivecui_work_log/week_21(0622-0626)/TestAxis/src/org/soyatec/wsdl/testExample.wsdl"
         // );
         // test = getFunctionsAvailable("C:/Documents and Settings/Administrator/桌面/wsdl/mathservice.asmx.wsdl");
         // test = getFunctionsAvailable("http://www.deeptraining.com/webservices/mathservice.asmx?WSDL");

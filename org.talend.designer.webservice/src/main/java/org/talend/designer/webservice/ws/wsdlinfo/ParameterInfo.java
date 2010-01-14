@@ -11,8 +11,6 @@ public class ParameterInfo {
 
     private String name;
 
-    private String kind;
-
     private int id;
 
     private String index;
@@ -113,14 +111,6 @@ public class ParameterInfo {
 
     public void setIndex(String index) {
         this.index = index;
-    }
-
-    public String getKind() {
-        return kind;
-    }
-
-    public void setKind(String name2) {
-        this.kind = name2;
     }
 
     public String getName() {

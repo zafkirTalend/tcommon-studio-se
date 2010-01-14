@@ -236,7 +236,7 @@ public class AddListDialog extends Dialog {
         ParameterInfo usePara = null;
         paraUtil = new ParameterInfoUtil();
         int currentindex = -1;
-        int arraySize = selPara.getArraySize();
+        // int arraySize = selPara.getArraySize();
 
         // if select multi simple type items.
         if (paramList != null && !paramList.isEmpty()) {
@@ -244,6 +244,9 @@ public class AddListDialog extends Dialog {
         }
 
         // if selected have branch.
+        if (selPara == null) {
+            return;
+        }
         if (!selPara.getParameterInfos().isEmpty()) {
             MessageBox box = new MessageBox(parentShell, SWT.ICON_ERROR | SWT.OK);
             box.setText(Messages.getString("AddListDialog.Error")); //$NON-NLS-1$
