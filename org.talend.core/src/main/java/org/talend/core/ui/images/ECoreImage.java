@@ -151,7 +151,8 @@ public enum ECoreImage implements IImage {
     PROGRESSGREEBAR("/icons/greeBar.gif"), //$NON-NLS-1$
     PROGRESSGRAYBAR("/icons/gray.gif"), //$NON-NLS-1$
     PROGRESSGRAYGEBAR("/icons/graygeBar.gif"), //$NON-NLS-1$
-    TRIANGLE("/icons/triangle.gif");// triangle.gif //$NON-NLS-1$
+    TRIANGLE("/icons/triangle.gif"), // triangle.gif //$NON-NLS-1$
+    COMPARE("/icons/compare.gif"); //$NON-NLS-N$
 
     private String path;
 
