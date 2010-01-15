@@ -77,6 +77,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     private ISelectionProvider specialSelectionProvider = null;
 
+    private String groupId;
+
     public boolean isEditAction() {
         return editAction;
     }
@@ -514,4 +516,12 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
         return false;
     }
+    public String getGroupId() {
+        return this.groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
 }

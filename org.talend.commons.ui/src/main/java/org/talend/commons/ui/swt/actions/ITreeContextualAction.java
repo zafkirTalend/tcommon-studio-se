@@ -72,4 +72,8 @@ public interface ITreeContextualAction extends IAction {
     public void setPropertiesAction(boolean propertiesAction);
 
     public void setSpecialSelection(ISelectionProvider selectionProvider);
+
+    public void setGroupId(String groupId);
+
+    public String getGroupId();
 }
