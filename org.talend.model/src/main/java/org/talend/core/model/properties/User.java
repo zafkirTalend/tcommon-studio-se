@@ -590,7 +590,7 @@ public interface User extends EObject {
      * @return the value of the '<em>Ldap Id</em>' attribute.
      * @see #setLdapId(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_LdapId()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getLdapId();
