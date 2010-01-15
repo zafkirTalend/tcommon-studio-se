@@ -98,7 +98,7 @@ public enum EImage implements IImage {
 
     LOCK_ICON("/icons/lock.gif"), //$NON-NLS-1$
     UNLOCK_ICON("/icons/unlock.gif"), //$NON-NLS-1$
-
+    FIND_ICON("/icons/find.gif"), //$NON-NLS-1$  
     MERGE_ICON("/icons/merge.png");
 
     private String path;
