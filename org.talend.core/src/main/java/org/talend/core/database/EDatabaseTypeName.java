@@ -43,7 +43,7 @@ public enum EDatabaseTypeName {
     INTERBASE("Interbase", "Interbase", new Boolean(false), "INTERBASE"), // "INTERBASE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    INFORMIX("Informix", "Informix", new Boolean(false), "INFORMIX"), // "INFORMIX"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     TERADATA("Teradata", "Teradata", new Boolean(true), "TERADATA"), // "TERADATA"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
