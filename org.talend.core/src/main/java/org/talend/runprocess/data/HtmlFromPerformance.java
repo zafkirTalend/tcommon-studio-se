@@ -12,41 +12,23 @@
 // ============================================================================
 package org.talend.runprocess.data;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-
-import org.talend.designer.runprocess.IPerformanceData;
+import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.IConnectionCategory;
 
 /**
  * DOC zwei class global comment. Detailled comment
  */
 public class HtmlFromPerformance {
 
-    public static String get(IPerformanceData perf) {
-        StringBuffer html = new StringBuffer();
-
-        if (IPerformanceData.ACTION_PERF.equals(perf.getAction())) {
-            final String perfPattern = "<font color=''#4477BB''>" + "{0, number,#} rows - {1,number,#.##}s<br>" //$NON-NLS-1$ //$NON-NLS-2$
-                    + "<b>{2,number,#.##} rows/s</b>" + "</font>"; //$NON-NLS-1$ //$NON-NLS-2$
-            long lineCount = perf.getLineCount();
-            long processingTime = perf.getProcessingTime();
-            double avg = processingTime > 0 ? lineCount * 1000d / processingTime : 0d;
-            MessageFormat mf = new MessageFormat(perfPattern, Locale.US);
-            html.append(mf.format(new Object[] { new Long(lineCount), new Double(processingTime / 1000d), new Double(avg) }));
-        } else if (IPerformanceData.ACTION_START.equals(perf.getAction())) {
-            final String perfPattern = "<font color='#AA3322'>" + "<i>Starting</i>" + "</font>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            html.append(perfPattern);
-        } else if (IPerformanceData.ACTION_STOP.equals(perf.getAction())) {
-            final String perfPattern = "<font color=''#229922''>" + "{0, number,#} rows in {1,number,#.##}s<br>" //$NON-NLS-1$ //$NON-NLS-2$
-                    + "<i>{2,number,#.##} rows/s</i>" + "</font>"; //$NON-NLS-1$ //$NON-NLS-2$
-            long lineCount = perf.getLineCount();
-            long processingTime = perf.getProcessingTime();
-            double avg = processingTime > 0 ? lineCount * 1000d / processingTime : 0d;
-            MessageFormat mf = new MessageFormat(perfPattern);
-            html.append(mf.format(new Object[] { new Long(lineCount), new Double(processingTime / 1000d), new Double(avg) }));
+    public static String getLabel(EConnectionType lineStyle, String msg) {
+        if (lineStyle.equals(EConnectionType.ITERATE)) {
+            return new IteratePerformance().getLabel(msg);
+        } else if (lineStyle.hasConnectionCategory(IConnectionCategory.DEPENDENCY)) {
+            // "OnComponentOK/OnComponentError/OnSubJobOK/OnSubJobError/If"
+            return new LiteralPerformance().getLabel(msg);
+        } else {
+            // if no parallel execution existed, just delegate to super class.
+            return new ParallelPerformance().getLabel(lineStyle, msg);
         }
-
-        return html.toString();
     }
-
 }
