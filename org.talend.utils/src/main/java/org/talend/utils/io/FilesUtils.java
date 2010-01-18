@@ -210,6 +210,32 @@ public final class FilesUtils {
         return filter;
     }
 
+    public static boolean createFolder(String path) {
+        File folderPath = new File(path);
+        return createFolder(folderPath);
+    }
+
+    public static boolean createFolder(File path) {
+        if (!path.exists()) {
+            return path.mkdir();
+        }
+        if (!path.isDirectory()) {
+            return path.mkdir();
+        }
+        return true;
+    }
+
+    public static int getLastSeparatorLocation(String pathName) {
+        int lastseparator = -1;
+        if (pathName.contains("\\")) {
+            lastseparator = pathName.lastIndexOf("\\");
+        }
+        if (pathName.contains("/")) {
+            lastseparator = pathName.lastIndexOf("/");
+        }
+        return lastseparator;
+    }
+
     /**
      * Load in a list all lines of the given file.
      * 
@@ -456,6 +482,7 @@ public final class FilesUtils {
 
             out.flush();
             in.close();
+            return;
         }
 
         out.close();
