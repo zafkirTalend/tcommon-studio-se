@@ -1005,5 +1005,9 @@ class ExportItemWizardPage extends WizardPage {
         protected void hookDoubleClickAction() {
         }
 
+        @Override
+        public void addFilters() {
+        }
+
     }
 }

@@ -145,4 +145,11 @@ public interface IProjectRepositoryNode {
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 
     public RepositoryNode getRecBinNode();
+
+    public RepositoryNode getBusinessProcessNode();
+
+    public RepositoryNode getRoutineNode();
+
+    public RepositoryNode getSQLPatternNode();
+
 }

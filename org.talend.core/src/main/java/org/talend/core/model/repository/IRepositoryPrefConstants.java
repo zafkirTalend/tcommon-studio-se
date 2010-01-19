@@ -27,4 +27,14 @@ public interface IRepositoryPrefConstants {
 
     public static final String MERGE_REFERENCE_PROJECT = "Merge_Reference_Project"; //$NON-NLS-1$
 
+    public static final String FILTER_BY_NODE = "filter_by_node";//$NON-NLS-1$
+
+    public static final String FILTER_BY_USER = "filter_by_user";//$NON-NLS-1$
+
+    public static final String FILTER_BY_STATUS = "filter_by_status";//$NON-NLS-1$
+
+    public static final String FILTER_BY_NAME = "filter_by_name";//$NON-NLS-1$
+
+    public static final String TAG_USER_DEFINED_PATTERNS_ENABLED = "user_Defined_Patterns_Enabled"; //$NON-NLS-1$
+
 }
