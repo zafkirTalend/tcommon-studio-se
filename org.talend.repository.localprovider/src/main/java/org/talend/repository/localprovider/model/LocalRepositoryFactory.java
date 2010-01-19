@@ -319,9 +319,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         if (folder != null) {
-            FolderItem currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
+            IFolder folder2 = (IFolder) folder;
+             if (folder2.exists()) {
+            FolderItem currentFolderItem = folderHelper.getFolder(folder2.getProjectRelativePath());
 
-            for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
+            for (IResource current : ResourceUtils.getMembers(folder2)) {
                 if (current instanceof IFile) {
                     if (xmiResourceManager.isPropertyFile((IFile) current)) {
                         Property property = null;
@@ -367,6 +369,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             }
         }
+         }
         return toReturn;
     }
 
