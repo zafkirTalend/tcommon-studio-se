@@ -303,12 +303,21 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__ITEMS_RELATIONS = 26;
 
     /**
+     * The feature id for the '<em><b>Reference</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__REFERENCE = 27;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 27;
+    int PROJECT_FEATURE_COUNT = 28;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -5860,6 +5869,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_ItemsRelations();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#isReference <em>Reference</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Reference</em>'.
+     * @see org.talend.core.model.properties.Project#isReference()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_Reference();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -10238,6 +10258,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__ITEMS_RELATIONS = eINSTANCE.getProject_ItemsRelations();
+
+        /**
+         * The meta object literal for the '<em><b>Reference</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__REFERENCE = eINSTANCE.getProject_Reference();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.

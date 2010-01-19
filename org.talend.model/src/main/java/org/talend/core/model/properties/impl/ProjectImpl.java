@@ -67,6 +67,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isHidePassword <em>Hide Password</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelations <em>Items Relations</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isReference <em>Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -470,6 +471,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected EList itemsRelations;
+
+    /**
+     * The default value of the '{@link #isReference() <em>Reference</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isReference()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean REFERENCE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isReference() <em>Reference</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isReference()
+     * @generated
+     * @ordered
+     */
+    protected boolean reference = REFERENCE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -879,6 +900,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isReference() {
+        return reference;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setReference(boolean newReference) {
+        boolean oldReference = reference;
+        reference = newReference;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__REFERENCE, oldReference, reference));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1097,6 +1139,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return isHidePassword() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
                 return getItemsRelations();
+            case PropertiesPackage.PROJECT__REFERENCE:
+                return isReference() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1199,6 +1243,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getItemsRelations().clear();
                 getItemsRelations().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__REFERENCE:
+                setReference(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1290,6 +1337,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
                 getItemsRelations().clear();
                 return;
+            case PropertiesPackage.PROJECT__REFERENCE:
+                setReference(REFERENCE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1354,6 +1404,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return hidePassword != HIDE_PASSWORD_EDEFAULT;
             case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
                 return itemsRelations != null && !itemsRelations.isEmpty();
+            case PropertiesPackage.PROJECT__REFERENCE:
+                return reference != REFERENCE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1394,6 +1446,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(url);
         result.append(", hidePassword: ");
         result.append(hidePassword);
+        result.append(", reference: ");
+        result.append(reference);
         result.append(')');
         return result.toString();
     }

@@ -46,6 +46,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getImplicitContextSettings <em>Implicit Context Settings</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#isHidePassword <em>Hide Password</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getItemsRelations <em>Items Relations</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#isReference <em>Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -505,6 +506,32 @@ public interface Project extends EObject {
      * @generated
      */
     EList getItemsRelations();
+
+    /**
+     * Returns the value of the '<em><b>Reference</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Reference</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Reference</em>' attribute.
+     * @see #setReference(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_Reference()
+     * @model unique="false" required="true"
+     * @generated
+     */
+    boolean isReference();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#isReference <em>Reference</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Reference</em>' attribute.
+     * @see #isReference()
+     * @generated
+     */
+    void setReference(boolean value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.
