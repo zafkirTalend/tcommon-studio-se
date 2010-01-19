@@ -70,6 +70,17 @@ public final class FilesUtils {
         super();
     }
 
+    public static boolean isEmptyFolder(String path) {
+        File file = new File(path);
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files.length <= 0)
+                return true;
+        }
+
+        return false;
+    }
+
     public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
             final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
         if (!target.exists()) {
@@ -471,6 +482,33 @@ public final class FilesUtils {
             base = base == null ? "" : base + "/";
             for (int i = 0; i < fc.length; i++) {
                 zip(out, fc[i], base + fc[i].getName());
+            }
+        } else {
+            out.putNextEntry(new ZipEntry(f.getName()));
+            FileInputStream in = new FileInputStream(f);
+            int b;
+            while ((b = in.read()) != -1) {
+                out.write(b);
+            }
+
+            out.flush();
+            in.close();
+        }
+
+        out.close();
+    }
+
+    public static void zipFiles(String source, String target) throws Exception {
+        File sourceFile = new File(source);
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(target));
+        zipFiles(sourceFile, out);
+    }
+
+    private static void zipFiles(File f, ZipOutputStream out) throws Exception {
+        if (f.isDirectory()) {
+            File[] fc = f.listFiles();
+            for (int i = 0; i < fc.length; i++) {
+                zipFiles(fc[i], out);
             }
         } else {
             out.putNextEntry(new ZipEntry(f.getName()));
