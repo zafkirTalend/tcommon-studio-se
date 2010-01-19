@@ -49,6 +49,8 @@ public final class ProjectManager {
 
     private List<Project> referencedprojects = new ArrayList<Project>();
 
+    private List<Project> allReferencedprojects = new ArrayList<Project>();
+
     private ProjectManager() {
         initCurrentProject();
     }
@@ -80,6 +82,16 @@ public final class ProjectManager {
         if (p != null) {
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
                 resolveRefProject(pr.getReferencedProject()); // only to resolve all
+            }
+        }
+    }
+
+    private void resolveSubRefProject(org.talend.core.model.properties.Project p) {
+        if (p != null) {
+            for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
+                Project project = new Project(pr.getReferencedProject());
+                allReferencedprojects.add(project);
+                resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
             }
         }
     }
@@ -121,6 +133,28 @@ public final class ProjectManager {
             retrieveReferencedProjects();
         }
         return this.referencedprojects;
+    }
+
+    /**
+     * 
+     * return all the referenced projects of current project.
+     */
+    public List<Project> getAllReferencedProjects() {
+        if (this.allReferencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
+            allReferencedprojects.clear();
+            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+            if (factory != null) {
+                List<org.talend.core.model.properties.Project> rProjects = factory.getReferencedProjects();
+                if (rProjects != null) {
+                    for (org.talend.core.model.properties.Project p : rProjects) {
+                        Project project = new Project(p);
+                        allReferencedprojects.add(project);
+                        resolveSubRefProject(p);
+                    }
+                }
+            }
+        }
+        return this.allReferencedprojects;
     }
 
     /**
