@@ -24,7 +24,8 @@ public interface ITDQPatternService extends IService {
      * 
      * for the return result, it's a three dimensionality string array. the first is represented for all patterns. the
      * second is represented for expressions for each pattern. the third is one array included three parts:
-     * String[][][0] = pattern name String[][][1] = expression body String[][][2] = expression language
+     * String[][][0] = pattern name String[][][1] = expression body String[][][2] = expression language String[][][3] =
+     * pattern path
      * 
      * @return patterns defined in TDQ as String arrays.
      */
