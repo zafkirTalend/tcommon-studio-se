@@ -97,19 +97,24 @@ public class ComponentsFactoryProvider {
 
         for (IComponent component : components) {
             String[] families = component.getOriginalFamilyName().split(FAMILY_SEPARATOR_REGEX);
-
+            String componentName = component.getName();
             for (String family : families) {
                 boolean existingFamily = false;
+                boolean existSettings = false;
                 for (Object curSetting : list) {
                     if (curSetting instanceof ComponentSetting) {
                         String curFamily = ((ComponentSetting) curSetting).getFamily();
                         if (curFamily != null && curFamily.equals(family)) {
                             existingFamily = true;
-                            break;
+                            if (componentName != null && componentName.equals(((ComponentSetting) curSetting).getName())) {
+                                existSettings = true;
+                                break;
+                            }
                         }
                     }
                 }
-                if (!existingFamily) {
+                boolean addTechnical = "Technical".equals(family) && !component.isTechnical() && !existSettings;
+                if (addTechnical || !existingFamily) {
                     ComponentSetting setting = PropertiesFactory.eINSTANCE.createComponentSetting();
                     setting.setFamily(family);
                     setting.setName(component.getName());
