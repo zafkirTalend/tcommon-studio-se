@@ -12,9 +12,14 @@
 // ============================================================================
 package routines.system;
 
+import java.io.OutputStream;
+import java.net.Socket;
+
 public class RunStat implements Runnable {
 
     private boolean openSocket = true;
+
+    private static boolean debug = false;
 
     public void openSocket(boolean openSocket) {
         this.openSocket = openSocket;
@@ -110,26 +115,58 @@ public class RunStat implements Runnable {
 
     public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
         if (!openSocket) {
+            // if go here, it means it is a childJob, it should share the socket opened in parentJob.
+            Socket s = null;
+            Object object = GlobalResource.resourceMap.get(portStats);
+            if (object == null || !(object instanceof Socket)) {
+                // Here throw an Exception directly, because the ServerSocket only support one client to connect it.
+                String lastCallerJobName = new Exception().getStackTrace()[1].getClassName();
+                throw new RuntimeException(
+                        "The socket for statistics function is unavailable in job "
+                                + lastCallerJobName
+                                + "."
+                                + "\nUsually, please check the tRunJob, it should uncheck the option \"Use an independent process to run child job\".");
+                // todo: if here open another new Socket in childJob, need to close it in the API: stopThreadStat()
+                // s = new Socket(clientHost, portStats);
+            } else {
+                s = (Socket) object;
+            }
+
+            OutputStream output = s.getOutputStream();
+            if (debug) {
+                output = System.out;
+            }
+            pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(output)), true);
+            Thread t = new Thread(this);
+            t.start();
+
             return;
         }
+
         System.out.println("[statistics] connecting to socket on port " + portStats); //$NON-NLS-1$
-        s = new java.net.Socket(clientHost, portStats);
-        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
+        s = new Socket(clientHost, portStats);
+        GlobalResource.resourceMap.put(portStats, s);
+        OutputStream output = s.getOutputStream();
+        if (debug) {
+            output = System.out;
+        }
+        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(output)), true);
         System.out.println("[statistics] connected"); //$NON-NLS-1$
         Thread t = new Thread(this);
         t.start();
-
     }
 
     public void run() {
-        synchronized (this) {
-            try {
-                while (!jobIsFinished) {
-                    sendMessages();
-                    wait(1000);
+        if (!debug) {
+            synchronized (this) {
+                try {
+                    while (!jobIsFinished) {
+                        sendMessages();
+                        wait(1000);
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("[statistics] interrupted"); //$NON-NLS-1$
                 }
-            } catch (InterruptedException e) {
-                System.out.println("[statistics] interrupted"); //$NON-NLS-1$
             }
         }
     }
@@ -149,11 +186,12 @@ public class RunStat implements Runnable {
     }
 
     public void sendMessages() {
-        if (!openSocket) {
-            return;
-        }
+        // if (!openSocket) {
+        // return;
+        // }
         for (StatBean sb : processStats.values()) {
-            str = sb.getConnectionId();
+            str = rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
+            // str = sb.getConnectionId();
             if (sb.getState() == RunStat.CLEAR) {
                 str += "|" + "clear"; //$NON-NLS-1$ //$NON-NLS-2$
             } else {
@@ -190,6 +228,10 @@ public class RunStat implements Runnable {
             bean.setNbLine(0);
             sendMessages();
         }
+
+        if (debug) {
+            sendMessages();
+        }
     }
 
     public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
@@ -204,5 +246,19 @@ public class RunStat implements Runnable {
         processStats.put(connectionId, bean);
 
         sendMessages();
+    }
+
+    // for feature:10589
+    private String rootPid = null;
+
+    private String fatherPid = null;
+
+    private String pid = "0";
+
+    // Notice: this API should be invoked after startThreadStat() closely.
+    public void setAllPID(String rootPid, String fatherPid, String pid) {
+        this.rootPid = rootPid;
+        this.fatherPid = fatherPid;
+        this.pid = pid;
     }
 }
