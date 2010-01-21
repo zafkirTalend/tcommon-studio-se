@@ -97,6 +97,7 @@ public class QueryUtil {
             if (standardSyntax) {
                 declareString = TalendTextUtils.declareString("."); //$NON-NLS-1$
             }
+
             columnStr = checkAndConcatString(declareString, columnStr);
             columnStr = checkAndConcatString(tableName, columnStr);
 
@@ -174,8 +175,8 @@ public class QueryUtil {
             end = replaceTheSchemaString(end);
 
             query = checkAndConcatString(query, columnsQuery) + end;
-        } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) {  // hywang add for
-                                                                                                 // bug0007563
+        } else if (dbType != null && dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) { // hywang add for
+            // bug0007563
             String declareString = TalendTextUtils.getStringDeclare();
             String end = ""; //$NON-NLS-N$ //$NON-NLS-1$
             if (!isCheck) { // hywang add isCheck for informix
@@ -219,6 +220,7 @@ public class QueryUtil {
         String currentTableName = null;
         boolean flag = false;
         String dbTableName = getDbTableName(node);
+        String dbName = getDbName(node);
         if (dbTableName != null) {
             switch (LanguageManager.getCurrentLanguage()) {
             case JAVA:
@@ -226,6 +228,13 @@ public class QueryUtil {
                     if (dbTableName.startsWith(TalendTextUtils.QUOTATION_MARK)
                             && dbTableName.endsWith(TalendTextUtils.QUOTATION_MARK) && dbTableName.length() > 2) {
                         currentTableName = dbTableName.substring(1, dbTableName.length() - 1);
+                        if (dbType != null && (dbType.equals("NETEZZA") || dbType.equals("Netezza"))) {
+                            if (dbName != null && schema != null) {
+                                currentTableName = dbName + "." + schema + "." + currentTableName;
+                            } else if (dbName != null && schema == null) {
+                                currentTableName = dbName + ".." + currentTableName;
+                            }
+                        }
                         flag = true;
                     } else {
                         currentTableName = null;
@@ -331,6 +340,17 @@ public class QueryUtil {
             }
         }
         return null;
+    }
+
+    private static String getDbName(Element node) {
+        String dbName = null;
+        if (node != null) { // for job settings extra.(feature 2710)
+            IElementParameter param = node.getElementParameter("DBNAME");
+            if (param != null && param.isShow(node.getElementParameters())) {
+                dbName = TalendTextUtils.removeQuotes((String) param.getValue());
+            }
+        }
+        return dbName;
     }
 
     private static String checkAndConcatString(String str1, String str2) {
