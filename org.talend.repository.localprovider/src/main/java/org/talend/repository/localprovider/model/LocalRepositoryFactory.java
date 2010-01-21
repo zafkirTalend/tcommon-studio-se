@@ -320,56 +320,56 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         if (folder != null) {
             IFolder folder2 = (IFolder) folder;
-             if (folder2.exists()) {
-            FolderItem currentFolderItem = folderHelper.getFolder(folder2.getProjectRelativePath());
+            if (folder2.exists()) {
+                FolderItem currentFolderItem = folderHelper.getFolder(folder2.getProjectRelativePath());
 
-            for (IResource current : ResourceUtils.getMembers(folder2)) {
-                if (current instanceof IFile) {
-                    if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                        Property property = null;
-                        try {
-                            if (DEBUG) {
-                                Timer.getTimer("loadProperty").start();
+                for (IResource current : ResourceUtils.getMembers(folder2)) {
+                    if (current instanceof IFile) {
+                        if (xmiResourceManager.isPropertyFile((IFile) current)) {
+                            Property property = null;
+                            try {
+                                if (DEBUG) {
+                                    Timer.getTimer("loadProperty").start();
+                                }
+                                property = xmiResourceManager.loadProperty(current);
+                                if (DEBUG) {
+                                    Timer.getTimer("loadProperty").stop();
+                                    nbTries++;
+                                }
+                                addToHistory(id, type, property.getItem().getState().getPath());
+                            } catch (RuntimeException e) {
+                                // property will be null
+                                ExceptionHandler.process(e);
                             }
-                            property = xmiResourceManager.loadProperty(current);
-                            if (DEBUG) {
-                                Timer.getTimer("loadProperty").stop();
-                                nbTries++;
-                            }
-                            addToHistory(id, type, property.getItem().getState().getPath());
-                        } catch (RuntimeException e) {
-                            // property will be null
-                            ExceptionHandler.process(e);
-                        }
-                        if (property != null) {
-                            if (id == null || property.getId().equals(id)) {
-                                if (withDeleted || !property.getItem().getState().isDeleted()) {
-                                    toReturn.add(new RepositoryObject(property));
-                                    if (DEBUG) {
-                                        System.out.println("found after " + nbTries + " tries");
-                                        Timer.getTimer("loadProperty").print();
-                                        nbTries = 0;
+                            if (property != null) {
+                                if (id == null || property.getId().equals(id)) {
+                                    if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                        toReturn.add(new RepositoryObject(property));
+                                        if (DEBUG) {
+                                            System.out.println("found after " + nbTries + " tries");
+                                            Timer.getTimer("loadProperty").print();
+                                            nbTries = 0;
+                                        }
                                     }
                                 }
+                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
+                                        && !getRepositoryContext().getProject().equals(project)) {
+                                    currentFolderItem.getChildren().add(property.getItem());
+                                }
+                            } else {
+                                log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                             }
-                            if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
-                                    && !getRepositoryContext().getProject().equals(project)) {
-                                currentFolderItem.getChildren().add(property.getItem());
-                            }
-                        } else {
-                            log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                         }
-                    }
-                } else if (current instanceof IFolder) { // &&
-                    if (!FilesUtils.isSVNFolder(current)
-                            && (searchInChildren || (withDeleted && current.getName().equals("bin")))) {
-                        toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
-                                withDeleted, true));
+                    } else if (current instanceof IFolder) { // &&
+                        if (!FilesUtils.isSVNFolder(current)
+                                && (searchInChildren || (withDeleted && current.getName().equals("bin")))) {
+                            toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
+                                    withDeleted, true));
+                        }
                     }
                 }
             }
         }
-         }
         return toReturn;
     }
 
@@ -427,7 +427,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public Project createProject(String label, String description, ECodeLanguage language, User author)
             throws PersistenceException {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-
+        // for bug 11214
+        while (label.endsWith(" ")) {//$NON-NLS-1$
+            label = label.substring(0, label.length() - 1);
+        }
         String technicalLabel = Project.createTechnicalName(label);
         IProject prj = root.getProject(technicalLabel);
 
