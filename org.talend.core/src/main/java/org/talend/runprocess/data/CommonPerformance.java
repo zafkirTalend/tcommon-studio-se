@@ -15,6 +15,7 @@ package org.talend.runprocess.data;
 import java.text.MessageFormat;
 import java.util.Locale;
 
+import org.talend.core.model.process.EConnectionType;
 import org.talend.designer.runprocess.IPerformanceData;
 
 /**
@@ -22,7 +23,13 @@ import org.talend.designer.runprocess.IPerformanceData;
  */
 public class CommonPerformance {
 
-    public String getBaseLabel(String data) {
+    protected EConnectionType eConnectionType;
+
+    public CommonPerformance(EConnectionType eConnectionType) {
+        this.eConnectionType = eConnectionType;
+    }
+
+    public String getLabel(String data) {
         PerformanceData perf = new PerformanceData(data);
         StringBuffer html = new StringBuffer();
 

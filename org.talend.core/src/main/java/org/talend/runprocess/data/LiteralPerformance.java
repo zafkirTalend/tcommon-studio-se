@@ -13,11 +13,16 @@
 package org.talend.runprocess.data;
 
 import org.apache.commons.lang.StringUtils;
+import org.talend.core.model.process.EConnectionType;
 
 /**
  * DOC zwei class global comment. Detailled comment
  */
-public class LiteralPerformance {
+public class LiteralPerformance extends CommonPerformance {
+
+    public LiteralPerformance(EConnectionType eConnectionType) {
+        super(eConnectionType);
+    }
 
     private static final String COLOR_OK = "#229922"; //$NON-NLS-1$
 
@@ -29,11 +34,11 @@ public class LiteralPerformance {
 
     private String label;
 
+    @Override
     public String getLabel(String msg) {
         if (StringUtils.isEmpty(msg)) {
             // handle by super class
-            // super.setLabel(msg);
-            return new CommonPerformance().getBaseLabel(msg);
+            return super.getLabel(msg);
         }
 
         String[] part = msg.split("\\|"); //$NON-NLS-1$

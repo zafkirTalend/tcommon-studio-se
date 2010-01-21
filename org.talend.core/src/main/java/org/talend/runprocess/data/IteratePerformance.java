@@ -16,12 +16,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.talend.core.model.process.EConnectionType;
 import org.talend.designer.runprocess.IPerformanceData;
 
 /**
  * DOC zwei class global comment. Detailled comment
  */
-public class IteratePerformance {
+public class IteratePerformance extends CommonPerformance {
+
+    public IteratePerformance(EConnectionType eConnectionType) {
+        super(eConnectionType);
+    }
 
     private static final String COLOR_FINISHED = "#229922"; //$NON-NLS-1$
 
@@ -37,11 +42,11 @@ public class IteratePerformance {
      */
     private Set<String> runningExecutionId = new HashSet<String>();
 
+    @Override
     public String getLabel(String msg) {
         if (StringUtils.isEmpty(msg)) {
             // handle by super class
-            // super.setLabel(msg);
-            return new CommonPerformance().getBaseLabel(msg);
+            return super.getLabel(msg);
         }
         String[] part = msg.split("\\|"); //$NON-NLS-1$
         if (part != null && part.length == 3) {

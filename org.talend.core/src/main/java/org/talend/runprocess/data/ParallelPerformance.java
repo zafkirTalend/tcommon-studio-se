@@ -27,7 +27,11 @@ import org.talend.designer.runprocess.IPerformanceData;
 /**
  * DOC zwei class global comment. Detailled comment
  */
-public class ParallelPerformance {
+public class ParallelPerformance extends CommonPerformance {
+
+    public ParallelPerformance(EConnectionType eConnectionType) {
+        super(eConnectionType);
+    }
 
     /**
      * only display 4 line of execution.
@@ -67,13 +71,14 @@ public class ParallelPerformance {
         runningExecutionId.clear();
     }
 
-    public String getLabel(EConnectionType lineStyle, String msg) {
+    @Override
+    public String getLabel(String msg) {
         IPerformanceData data = new PerformanceData(msg);
 
-        if (StringUtils.isEmpty(msg) || !lineStyle.equals(EConnectionType.FLOW_MAIN) || data.getConnectionId().indexOf('.') < 0) {
+        if (StringUtils.isEmpty(msg) || !eConnectionType.equals(EConnectionType.FLOW_MAIN)
+                || data.getConnectionId().indexOf('.') < 0) {
             // if message has format as row1, handle by super class
-            // super.setLabel(msg);
-            return new CommonPerformance().getBaseLabel(msg);
+            return super.getLabel(msg);
         } else {
             // has format as row1.72, means have parallel execution
             String connectionId = data.getConnectionId();
