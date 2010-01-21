@@ -13,6 +13,7 @@ Export-Package:
  org.talend.utils.files,
  org.talend.utils.format,
  org.talend.utils.io,
+ org.talend.utils.jobconductor,
  org.talend.utils.network,
  org.talend.utils.properties,
  org.talend.utils.security,
