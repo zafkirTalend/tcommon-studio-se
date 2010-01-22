@@ -77,7 +77,6 @@ public final class FilesUtils {
             if (files.length <= 0)
                 return true;
         }
-
         return false;
     }
 
@@ -524,6 +523,70 @@ public final class FilesUtils {
         }
 
         out.close();
+    }
+
+    public static void zipFolderRecursion(String sourceFileName, String zippedFileName) throws Exception {
+        File sourceFile = new File(sourceFileName);
+
+        if (!sourceFile.exists()) {
+            System.out.println(sourceFileName + " not exitst!");
+            return;
+        }
+
+        if (sourceFile.isFile()) {
+            System.out.println("source can't be file!");
+            return;
+        }
+
+        if (sourceFile.isDirectory()) {
+            if (sourceFile.listFiles().length > 0) {
+                zipFolderRecursion(sourceFile, zippedFileName);
+            } else {
+                System.out.println(sourceFileName + " have nothing!");
+                return;
+            }
+        }
+    }
+
+    private static void zipFolderRecursion(File sourceFile, String zippedFileName) throws Exception {
+        ZipOutputStream out = null;
+        try {
+            out = new ZipOutputStream(new FileOutputStream(zippedFileName));
+            zipFolderRecursion(out, sourceFile, null);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (out != null)
+                out.close();
+        }
+    }
+
+    private static void zipFolderRecursion(ZipOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
+            File[] fc = f.listFiles();
+            if (base != null && base != "")
+                out.putNextEntry(new ZipEntry(base + "/"));
+            base = base == null ? "" : base + "/";
+            for (int i = 0; i < fc.length; i++) {
+                zipFolderRecursion(out, fc[i], base + fc[i].getName());
+            }
+        } else {
+            FileInputStream in = null;
+            try {
+                // System.out.println(base);
+                out.putNextEntry(new ZipEntry(base));
+                in = new FileInputStream(f);
+                int b;
+                while ((b = in.read()) != -1) {
+                    out.write(b);
+                }
+                out.flush();
+                return;
+            } finally {
+                if (in != null)
+                    in.close();
+            }
+        }
     }
 
     /**
