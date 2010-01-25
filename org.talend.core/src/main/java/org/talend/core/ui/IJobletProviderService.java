@@ -21,6 +21,8 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.model.properties.Property;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
  * cli class global comment. Detailled comment
@@ -60,4 +62,6 @@ public interface IJobletProviderService extends IService {
     public IComponent setPropertyForJobletComponent(String id, String version);
 
     public void updateParametersFromJoblet(INode node, IComponent newComponent);
+
+    public ProcessType getJobletProcess(NodeType node);
 }
