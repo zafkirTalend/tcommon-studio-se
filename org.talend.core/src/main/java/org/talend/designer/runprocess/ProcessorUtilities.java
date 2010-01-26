@@ -348,10 +348,11 @@ public class ProcessorUtilities {
                         processItems.add(processItem);
                         // children won't have stats / traces
                         if (option == GENERATE_WITH_FIRST_CHILD) {
-                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_MAIN_ONLY,
+                            toReturn = generateCode(subJobInfo, selectedContextName, statistics, false, true, GENERATE_MAIN_ONLY,
                                     progressMonitor);
                         } else {
-                            toReturn = generateCode(subJobInfo, selectedContextName, false, false, true, GENERATE_ALL_CHILDS,
+                            toReturn = generateCode(subJobInfo, selectedContextName, statistics, false, true,
+                                    GENERATE_ALL_CHILDS,
                                     progressMonitor);
                         }
                     }
