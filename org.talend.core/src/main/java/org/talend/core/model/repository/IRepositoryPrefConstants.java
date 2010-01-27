@@ -37,4 +37,6 @@ public interface IRepositoryPrefConstants {
 
     public static final String TAG_USER_DEFINED_PATTERNS_ENABLED = "user_Defined_Patterns_Enabled"; //$NON-NLS-1$
 
+    public static final String USER_FILTER_TABLE_ENABLED = "user_Filter_Table_Enabled"; //$NON-NLS-1$
+
 }
