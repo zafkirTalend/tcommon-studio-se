@@ -115,6 +115,24 @@ public final class RepositoryManager {
         }
     }
 
+    /**
+     * 
+     *for editorProperties
+     */
+    public static void refreshEditorPropertiesNode(ERepositoryObjectType type) {
+        if (isRefreshManually() || !isRefreshCreated()) {
+            refresh(type);
+        } else {
+            IRepositoryView repositoryView = getRepositoryView();
+            if (repositoryView != null) {
+                repositoryView.refresh();
+            }
+        }
+        if (type != null) {
+            syncRoutineAndJoblet(type);
+        }
+    }
+
     public static void refreshCreatedNode(IProjectRepositoryNode projectNode, ERepositoryObjectType type) {
         IRepositoryView repositoryView = getRepositoryView();
         if (repositoryView != null) {
