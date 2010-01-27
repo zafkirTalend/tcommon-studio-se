@@ -161,6 +161,9 @@ public class ExtractMetaDataFromDataBase {
             } catch (SQLException e) {
                 ExceptionHandler.process(e);
             }
+        } else {
+            // for bug 11052
+            ExtractMetaDataUtils.setUseAllSynonyms(false);
         }
 
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
