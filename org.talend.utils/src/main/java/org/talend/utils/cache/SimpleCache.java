@@ -91,7 +91,7 @@ public class SimpleCache<K, V> {
         private SimpleCache getOuterType() {
             return SimpleCache.this;
         }
-        
+
         /**
          * Getter for value.
          * 
@@ -100,7 +100,7 @@ public class SimpleCache<K, V> {
         public V getValue() {
             return value;
         }
-        
+
         /**
          * Getter for key.
          * 
@@ -110,7 +110,6 @@ public class SimpleCache<K, V> {
             return key;
         }
 
-        
         /**
          * Getter for addTime.
          * 
@@ -139,7 +138,11 @@ public class SimpleCache<K, V> {
     public V get(K key) {
         HashKeyValue<K, V> internalKey = new HashKeyValue<K, V>(key);
         HashKeyValue<K, V> keyValue = cache.get(internalKey);
-        return keyValue.getValue();
+        if (keyValue != null) {
+            return keyValue.getValue();
+        } else {
+            return null;
+        }
     }
 
     public Long getAddTime(K key) {
