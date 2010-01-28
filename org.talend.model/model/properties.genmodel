@@ -509,5 +509,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemRelation/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemRelation/type"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//Notification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/props"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

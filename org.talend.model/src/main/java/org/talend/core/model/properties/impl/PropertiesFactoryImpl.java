@@ -163,6 +163,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.LINK_RULES_ITEM: return createLinkRulesItem();
             case PropertiesPackage.ITEM_RELATIONS: return createItemRelations();
             case PropertiesPackage.ITEM_RELATION: return createItemRelation();
+            case PropertiesPackage.NOTIFICATION: return createNotification();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -895,6 +896,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ItemRelation createItemRelation() {
         ItemRelationImpl itemRelation = new ItemRelationImpl();
         return itemRelation;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Notification createNotification() {
+        NotificationImpl notification = new NotificationImpl();
+        return notification;
     }
 
     /**

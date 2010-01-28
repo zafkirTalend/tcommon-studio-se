@@ -5563,6 +5563,52 @@ public interface PropertiesPackage extends EPackage {
     int ITEM_RELATION_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.NotificationImpl <em>Notification</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.NotificationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotification()
+     * @generated
+     */
+    int NOTIFICATION = 76;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTIFICATION__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTIFICATION__TYPE = 1;
+
+    /**
+     * The feature id for the '<em><b>Props</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTIFICATION__PROPS = 2;
+
+    /**
+     * The number of structural features of the '<em>Notification</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTIFICATION_FEATURE_COUNT = 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -5570,7 +5616,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 76;
+    int FOLDER_TYPE = 77;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5579,7 +5625,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 77;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 78;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -5588,7 +5634,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 78;
+    int USER_MODULE_AUTHORIZATION_TYPE = 79;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -5597,7 +5643,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 79;
+    int INFORMATION_LEVEL = 80;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -9496,6 +9542,49 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getItemRelation_Type();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.Notification <em>Notification</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Notification</em>'.
+     * @see org.talend.core.model.properties.Notification
+     * @generated
+     */
+    EClass getNotification();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Notification#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.Notification#getId()
+     * @see #getNotification()
+     * @generated
+     */
+    EAttribute getNotification_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Notification#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.Notification#getType()
+     * @see #getNotification()
+     * @generated
+     */
+    EAttribute getNotification_Type();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Notification#getProps <em>Props</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Props</em>'.
+     * @see org.talend.core.model.properties.Notification#getProps()
+     * @see #getNotification()
+     * @generated
+     */
+    EAttribute getNotification_Props();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Extension</em>'.
@@ -13154,6 +13243,40 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_RELATION__TYPE = eINSTANCE.getItemRelation_Type();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.NotificationImpl <em>Notification</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.NotificationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotification()
+         * @generated
+         */
+        EClass NOTIFICATION = eINSTANCE.getNotification();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTIFICATION__ID = eINSTANCE.getNotification_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTIFICATION__TYPE = eINSTANCE.getNotification_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Props</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTIFICATION__PROPS = eINSTANCE.getNotification_Props();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.

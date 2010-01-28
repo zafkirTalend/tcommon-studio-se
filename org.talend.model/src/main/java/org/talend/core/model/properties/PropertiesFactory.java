@@ -652,6 +652,15 @@ public interface PropertiesFactory extends EFactory {
     ItemRelation createItemRelation();
 
     /**
+     * Returns a new object of class '<em>Notification</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Notification</em>'.
+     * @generated
+     */
+    Notification createNotification();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
