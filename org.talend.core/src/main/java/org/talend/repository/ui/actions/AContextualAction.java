@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.io.File;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -490,7 +491,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
                 List<IRepositoryObject> allVersion = null;
                 ItemState state = property.getItem().getState();
-                if (state != null && state.getPath() != null) {
+                File file = new File(state.getPath());
+                if (state != null && state.getPath() != null && file.exists()) {
                     allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
                             property.getId(), state.getPath(), repositoryObject.getObject().getType());
                 } else {
@@ -516,6 +518,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         }
         return false;
     }
+
     public String getGroupId() {
         return this.groupId;
     }
