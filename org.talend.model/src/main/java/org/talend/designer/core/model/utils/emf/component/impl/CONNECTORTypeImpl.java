@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
@@ -14,9 +13,7 @@ import org.talend.designer.core.model.utils.emf.component.CONNECTORType;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>CONNECTOR Type</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>CONNECTOR Type</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -34,16 +31,19 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMINOUTPUT <em>MINOUTPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isMULTISCHEMA <em>MULTISCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getNAME <em>NAME</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
+
     /**
      * The default value of the '{@link #getBASESCHEMA() <em>BASESCHEMA</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getBASESCHEMA()
      * @generated
      * @ordered
@@ -52,8 +52,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getBASESCHEMA() <em>BASESCHEMA</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getBASESCHEMA()
      * @generated
      * @ordered
@@ -62,8 +62,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #isBUILTIN() <em>BUILTIN</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isBUILTIN()
      * @generated
      * @ordered
@@ -72,8 +72,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #isBUILTIN() <em>BUILTIN</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isBUILTIN()
      * @generated
      * @ordered
@@ -82,8 +82,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the BUILTIN attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -91,8 +90,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCOLOR()
      * @generated
      * @ordered
@@ -100,9 +99,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected static final String COLOR_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getCOLOR()
      * @generated
      * @ordered
@@ -111,8 +110,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCOMPONENT()
      * @generated
      * @ordered
@@ -121,8 +120,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCOMPONENT()
      * @generated
      * @ordered
@@ -131,8 +130,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getCTYPE()
      * @generated
      * @ordered
@@ -140,9 +139,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected static final String CTYPE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getCTYPE()
      * @generated
      * @ordered
@@ -150,9 +149,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected String cTYPE = CTYPE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isINPUTLINKSELECTION() <em>INPUTLINKSELECTION</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isINPUTLINKSELECTION() <em>INPUTLINKSELECTION</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isINPUTLINKSELECTION()
      * @generated
      * @ordered
@@ -160,9 +159,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected static final boolean INPUTLINKSELECTION_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isINPUTLINKSELECTION() <em>INPUTLINKSELECTION</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isINPUTLINKSELECTION() <em>INPUTLINKSELECTION</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #isINPUTLINKSELECTION()
      * @generated
      * @ordered
@@ -171,8 +170,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the INPUTLINKSELECTION attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -180,8 +178,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getLINESTYLE() <em>LINESTYLE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLINESTYLE()
      * @generated
      * @ordered
@@ -190,8 +188,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getLINESTYLE() <em>LINESTYLE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLINESTYLE()
      * @generated
      * @ordered
@@ -200,8 +198,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the LINESTYLE attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -209,8 +206,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getMAXINPUT() <em>MAXINPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMAXINPUT()
      * @generated
      * @ordered
@@ -219,8 +216,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getMAXINPUT() <em>MAXINPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMAXINPUT()
      * @generated
      * @ordered
@@ -229,8 +226,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the MAXINPUT attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -238,8 +234,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getMAXOUTPUT() <em>MAXOUTPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMAXOUTPUT()
      * @generated
      * @ordered
@@ -248,8 +244,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getMAXOUTPUT() <em>MAXOUTPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMAXOUTPUT()
      * @generated
      * @ordered
@@ -258,8 +254,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the MAXOUTPUT attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -267,8 +262,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #isMERGEALLOWDIFFERENTSCHEMA() <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isMERGEALLOWDIFFERENTSCHEMA()
      * @generated
      * @ordered
@@ -277,8 +271,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #isMERGEALLOWDIFFERENTSCHEMA() <em>MERGEALLOWDIFFERENTSCHEMA</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isMERGEALLOWDIFFERENTSCHEMA()
      * @generated
      * @ordered
@@ -286,9 +279,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected boolean mERGEALLOWDIFFERENTSCHEMA = MERGEALLOWDIFFERENTSCHEMA_EDEFAULT;
 
     /**
-     * This is true if the MERGEALLOWDIFFERENTSCHEMA attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * This is true if the MERGEALLOWDIFFERENTSCHEMA attribute has been set. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -296,8 +289,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getMININPUT() <em>MININPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMININPUT()
      * @generated
      * @ordered
@@ -306,8 +299,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getMININPUT() <em>MININPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMININPUT()
      * @generated
      * @ordered
@@ -316,8 +309,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the MININPUT attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -325,8 +317,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #getMINOUTPUT() <em>MINOUTPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMINOUTPUT()
      * @generated
      * @ordered
@@ -335,8 +327,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #getMINOUTPUT() <em>MINOUTPUT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getMINOUTPUT()
      * @generated
      * @ordered
@@ -345,8 +337,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the MINOUTPUT attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -354,8 +345,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The default value of the '{@link #isMULTISCHEMA() <em>MULTISCHEMA</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isMULTISCHEMA()
      * @generated
      * @ordered
@@ -364,8 +355,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * The cached value of the '{@link #isMULTISCHEMA() <em>MULTISCHEMA</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isMULTISCHEMA()
      * @generated
      * @ordered
@@ -374,17 +365,16 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
 
     /**
      * This is true if the MULTISCHEMA attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     protected boolean mULTISCHEMAESet;
 
     /**
-     * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getNAME()
      * @generated
      * @ordered
@@ -392,9 +382,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected static final String NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getNAME()
      * @generated
      * @ordered
@@ -402,8 +392,47 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected String nAME = NAME_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getNOTSHOWIF() <em>NOTSHOWIF</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @see #getNOTSHOWIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String NOTSHOWIF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getNOTSHOWIF() <em>NOTSHOWIF</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @see #getNOTSHOWIF()
+     * @generated
+     * @ordered
+     */
+    protected String nOTSHOWIF = NOTSHOWIF_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSHOWIF() <em>SHOWIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see #getSHOWIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String SHOWIF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSHOWIF() <em>SHOWIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSHOWIF()
+     * @generated
+     * @ordered
+     */
+    protected String sHOWIF = SHOWIF_EDEFAULT;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected CONNECTORTypeImpl() {
@@ -411,8 +440,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -421,8 +449,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getBASESCHEMA() {
@@ -430,8 +457,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBASESCHEMA(String newBASESCHEMA) {
@@ -442,8 +468,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isBUILTIN() {
@@ -451,8 +476,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setBUILTIN(boolean newBUILTIN) {
@@ -465,8 +489,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetBUILTIN() {
@@ -479,8 +502,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetBUILTIN() {
@@ -488,8 +510,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCOLOR() {
@@ -497,8 +518,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCOLOR(String newCOLOR) {
@@ -509,8 +529,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCOMPONENT() {
@@ -518,8 +537,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCOMPONENT(String newCOMPONENT) {
@@ -530,8 +548,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getCTYPE() {
@@ -539,8 +556,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCTYPE(String newCTYPE) {
@@ -551,8 +567,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isINPUTLINKSELECTION() {
@@ -560,8 +575,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setINPUTLINKSELECTION(boolean newINPUTLINKSELECTION) {
@@ -574,8 +588,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetINPUTLINKSELECTION() {
@@ -588,8 +601,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetINPUTLINKSELECTION() {
@@ -597,8 +609,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getLINESTYLE() {
@@ -606,8 +617,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLINESTYLE(int newLINESTYLE) {
@@ -620,8 +630,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetLINESTYLE() {
@@ -634,8 +643,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetLINESTYLE() {
@@ -643,8 +651,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMAXINPUT() {
@@ -652,8 +659,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMAXINPUT(int newMAXINPUT) {
@@ -666,8 +672,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetMAXINPUT() {
@@ -680,8 +685,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetMAXINPUT() {
@@ -689,8 +693,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMAXOUTPUT() {
@@ -698,8 +701,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMAXOUTPUT(int newMAXOUTPUT) {
@@ -712,8 +714,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetMAXOUTPUT() {
@@ -726,8 +727,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetMAXOUTPUT() {
@@ -735,8 +735,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isMERGEALLOWDIFFERENTSCHEMA() {
@@ -744,8 +743,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMERGEALLOWDIFFERENTSCHEMA(boolean newMERGEALLOWDIFFERENTSCHEMA) {
@@ -758,8 +756,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetMERGEALLOWDIFFERENTSCHEMA() {
@@ -772,8 +769,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetMERGEALLOWDIFFERENTSCHEMA() {
@@ -781,8 +777,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMININPUT() {
@@ -790,8 +785,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMININPUT(int newMININPUT) {
@@ -804,8 +798,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetMININPUT() {
@@ -818,8 +811,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetMININPUT() {
@@ -827,8 +819,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMINOUTPUT() {
@@ -836,8 +827,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMINOUTPUT(int newMINOUTPUT) {
@@ -850,8 +840,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetMINOUTPUT() {
@@ -864,8 +853,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetMINOUTPUT() {
@@ -873,8 +861,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isMULTISCHEMA() {
@@ -882,8 +869,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMULTISCHEMA(boolean newMULTISCHEMA) {
@@ -896,8 +882,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void unsetMULTISCHEMA() {
@@ -910,8 +895,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isSetMULTISCHEMA() {
@@ -919,8 +903,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getNAME() {
@@ -928,8 +911,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setNAME(String newNAME) {
@@ -940,8 +922,47 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     }
 
     /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public String getNOTSHOWIF() {
+        return nOTSHOWIF;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOTSHOWIF(String newNOTSHOWIF) {
+        String oldNOTSHOWIF = nOTSHOWIF;
+        nOTSHOWIF = newNOTSHOWIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__NOTSHOWIF, oldNOTSHOWIF, nOTSHOWIF));
+    }
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getSHOWIF() {
+        return sHOWIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSHOWIF(String newSHOWIF) {
+        String oldSHOWIF = sHOWIF;
+        sHOWIF = newSHOWIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__SHOWIF, oldSHOWIF, sHOWIF));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -975,13 +996,16 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return isMULTISCHEMA() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.CONNECTOR_TYPE__NAME:
                 return getNAME();
+            case ComponentPackage.CONNECTOR_TYPE__NOTSHOWIF:
+                return getNOTSHOWIF();
+            case ComponentPackage.CONNECTOR_TYPE__SHOWIF:
+                return getSHOWIF();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -1029,13 +1053,18 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__NAME:
                 setNAME((String)newValue);
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__NOTSHOWIF:
+                setNOTSHOWIF((String)newValue);
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__SHOWIF:
+                setSHOWIF((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -1083,13 +1112,18 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__NOTSHOWIF:
+                setNOTSHOWIF(NOTSHOWIF_EDEFAULT);
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__SHOWIF:
+                setSHOWIF(SHOWIF_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -1123,13 +1157,16 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return isSetMULTISCHEMA();
             case ComponentPackage.CONNECTOR_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
+            case ComponentPackage.CONNECTOR_TYPE__NOTSHOWIF:
+                return NOTSHOWIF_EDEFAULT == null ? nOTSHOWIF != null : !NOTSHOWIF_EDEFAULT.equals(nOTSHOWIF);
+            case ComponentPackage.CONNECTOR_TYPE__SHOWIF:
+                return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -1165,8 +1202,12 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         if (mULTISCHEMAESet) result.append(mULTISCHEMA); else result.append("<unset>");
         result.append(", nAME: ");
         result.append(nAME);
+        result.append(", nOTSHOWIF: ");
+        result.append(nOTSHOWIF);
+        result.append(", sHOWIF: ");
+        result.append(sHOWIF);
         result.append(')');
         return result.toString();
     }
 
-} //CONNECTORTypeImpl
+} // CONNECTORTypeImpl

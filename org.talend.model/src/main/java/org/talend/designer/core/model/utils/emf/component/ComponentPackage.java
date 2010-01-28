@@ -517,13 +517,31 @@ public interface ComponentPackage extends EPackage {
     int CONNECTOR_TYPE__NAME = 13;
 
     /**
+     * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__NOTSHOWIF = 14;
+
+    /**
+     * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__SHOWIF = 15;
+
+    /**
      * The number of structural features of the '<em>CONNECTOR Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE_FEATURE_COUNT = 14;
+    int CONNECTOR_TYPE_FEATURE_COUNT = 16;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.
@@ -2633,6 +2651,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getCONNECTORType_NAME();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNOTSHOWIF <em>NOTSHOWIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOTSHOWIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNOTSHOWIF()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_NOTSHOWIF();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getSHOWIF <em>SHOWIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SHOWIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getSHOWIF()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_SHOWIF();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.DEFAULTType <em>DEFAULT Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4684,6 +4724,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute CONNECTOR_TYPE__NAME = eINSTANCE.getCONNECTORType_NAME();
+
+        /**
+         * The meta object literal for the '<em><b>NOTSHOWIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__NOTSHOWIF = eINSTANCE.getCONNECTORType_NOTSHOWIF();
+
+        /**
+         * The meta object literal for the '<em><b>SHOWIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__SHOWIF = eINSTANCE.getCONNECTORType_SHOWIF();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.

@@ -89,6 +89,18 @@ public interface INodeConnector {
 
     public String getBaseSchema();
 
+    public void setNotShowIf(String notShowIf);
+
+    public String getNotShowIf();
+
+    public boolean isShow();
+
+    public void setShow(boolean show);
+
+    public String getShowIf();
+
+    public void setShowIf(String showIf);
+
     public void setBaseSchema(String baseSchema);
 
     /**

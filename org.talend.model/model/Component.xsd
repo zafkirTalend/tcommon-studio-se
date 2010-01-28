@@ -115,6 +115,8 @@
 						<xs:attribute name="MERGE_ALLOW_DIFFERENT_SCHEMA"
 							type="xs:boolean">
 						</xs:attribute>
+						<xs:attribute name="SHOW_IF" type="xs:string" use="optional" />
+						<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional" />
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

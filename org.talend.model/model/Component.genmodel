@@ -59,6 +59,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mINOUTPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mULTISCHEMA"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/nAME"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/nOTSHOWIF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/sHOWIF"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//DEFAULTType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//DEFAULTType/value"/>

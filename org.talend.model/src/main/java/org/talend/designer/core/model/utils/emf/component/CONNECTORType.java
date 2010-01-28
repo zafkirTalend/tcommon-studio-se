@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMINOUTPUT <em>MINOUTPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isMULTISCHEMA <em>MULTISCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNAME <em>NAME</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getSHOWIF <em>SHOWIF</em>}</li>
  * </ul>
  * </p>
  *
@@ -659,5 +661,59 @@ public interface CONNECTORType extends EObject {
      * @generated
      */
     void setNAME(String value);
+
+    /**
+     * Returns the value of the '<em><b>NOTSHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NOTSHOWIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NOTSHOWIF</em>' attribute.
+     * @see #setNOTSHOWIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_NOTSHOWIF()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='NOT_SHOW_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getNOTSHOWIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNOTSHOWIF <em>NOTSHOWIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NOTSHOWIF</em>' attribute.
+     * @see #getNOTSHOWIF()
+     * @generated
+     */
+    void setNOTSHOWIF(String value);
+
+    /**
+     * Returns the value of the '<em><b>SHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SHOWIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SHOWIF</em>' attribute.
+     * @see #setSHOWIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_SHOWIF()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SHOW_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSHOWIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getSHOWIF <em>SHOWIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SHOWIF</em>' attribute.
+     * @see #getSHOWIF()
+     * @generated
+     */
+    void setSHOWIF(String value);
 
 } // CONNECTORType
