@@ -233,6 +233,7 @@ public class MDMForm extends AbstractForm {
             verified = true;
         } catch (Exception e) {
             verified = false;
+            stub = null;
             ExceptionHandler.process(e);
         }
 
@@ -241,6 +242,12 @@ public class MDMForm extends AbstractForm {
             MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK | SWT.CANCEL);
             box.setText(Messages.getString("MDMForm.Success")); //$NON-NLS-1$
             box.setMessage(Messages.getString("MDMForm.successfully")); //$NON-NLS-1$
+            box.open();
+        } else {
+            page.setPageComplete(false);
+            MessageBox box = new MessageBox(Display.getCurrent().getActiveShell(), SWT.ICON_WORKING | SWT.OK | SWT.CANCEL);
+            box.setText(Messages.getString("MDMForm.Unsuccessful")); //$NON-NLS-1$
+            box.setMessage(Messages.getString("MDMForm.Unsiccess_Mess")); //$NON-NLS-1$
             box.open();
         }
         initUniverse();
