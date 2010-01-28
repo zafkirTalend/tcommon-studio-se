@@ -241,7 +241,10 @@ public final class FilesUtils {
             lastseparator = pathName.lastIndexOf("\\");
         }
         if (pathName.contains("/")) {
-            lastseparator = pathName.lastIndexOf("/");
+            int temp = pathName.lastIndexOf("/");
+            if (temp > lastseparator) {
+                lastseparator = temp;
+            }
         }
         return lastseparator;
     }
