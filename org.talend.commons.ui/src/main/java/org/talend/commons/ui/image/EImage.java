@@ -102,7 +102,9 @@ public enum EImage implements IImage {
     JOB_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     JOBLET_ICON("/icons/joblet_icon.png"), //$NON-NLS-1$
 
-    MERGE_ICON("/icons/merge.png");//$NON-NLS-1$
+    MERGE_ICON("/icons/merge.png"), //$NON-NLS-1$
+
+    COMPONENT_MISSING("/icons/component_missing.gif");//$NON-NLS-1$
 
     private String path;
 
