@@ -22,8 +22,12 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
+import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
+import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 
 /**
  * cli class global comment. Detailled comment
@@ -117,6 +121,32 @@ public final class ParameterValueUtil {
                         }
                     }
                 }
+            }
+        }
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static boolean isUseData(final ElementParameterType param, final String name) {
+        if (param == null || name == null) {
+            return false;
+        }
+        if (param.getField().equals(EParameterFieldType.TABLE.getName())) { // for TABLE
+            EList elementValue = param.getElementValue();
+            if (elementValue != null) {
+                for (ElementValueType valueType : (List<ElementValueType>) elementValue) {
+                    if (valueType.getValue() != null) { // cell is text so
+                        // test data
+                        if (ParameterValueUtil.valueContains((String) valueType.getValue(), name)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else {
+            String value = param.getValue();
+            if (value != null && ParameterValueUtil.valueContains(value, name)) {
+                return true;
             }
         }
         return false;
