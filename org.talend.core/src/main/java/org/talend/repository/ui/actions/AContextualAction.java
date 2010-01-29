@@ -491,8 +491,17 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
                 List<IRepositoryObject> allVersion = null;
                 ItemState state = property.getItem().getState();
-                File file = new File(state.getPath());
-                if (state != null && state.getPath() != null && file.exists()) {
+                boolean pathExist = false;
+                if (state != null) {
+                    String path = state.getPath();
+                    if (path != null) {
+                        File f = new File(path);
+                        if (f.exists()) {
+                            pathExist = true;
+                        }
+                    }
+                }
+                if (pathExist) {
                     allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
                             property.getId(), state.getPath(), repositoryObject.getObject().getType());
                 } else {
