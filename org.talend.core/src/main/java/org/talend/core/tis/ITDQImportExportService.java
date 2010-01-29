@@ -14,6 +14,7 @@ package org.talend.core.tis;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
@@ -140,4 +141,15 @@ public interface ITDQImportExportService extends IService {
      * @return
      */
     public List<Item> retrieveDependencies(TDQItem item);
+
+    /**
+     * 
+     * cli Comment method "retrieveAllItems".
+     * 
+     * @param curProject
+     * @return key is the different type for items.
+     * 
+     * @see getItemTypePath(), the key
+     */
+    public Map<String, List<TDQItem>> retrieveAllItems(Project curProject);
 }
