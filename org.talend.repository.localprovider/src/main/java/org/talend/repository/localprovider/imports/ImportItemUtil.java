@@ -716,7 +716,7 @@ public class ImportItemUtil {
             if (isPropertyPath(path)) {
                 nbItems++;
             }
-            if (service != null && tdqVersion != null) {
+            if (service != null && tdqVersion == null) {
                 tdqVersion = service.retrieveVersionInfor(path);
             }
         }
