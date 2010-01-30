@@ -803,12 +803,14 @@ public class ProcessorUtilities {
                 }
             } else {
                 // for joblet node
-                IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
-                        IJobletProviderService.class);
-                if (service != null) {
-                    ProcessType jobletProcess = service.getJobletProcess(node);
-                    if (jobletProcess != null) {
-                        getAllJobInfo(jobletProcess, jobInfos);
+                if (PluginChecker.isJobLetPluginLoaded()) {
+                    IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
+                            IJobletProviderService.class);
+                    if (service != null) {
+                        ProcessType jobletProcess = service.getJobletProcess(node);
+                        if (jobletProcess != null) {
+                            getAllJobInfo(jobletProcess, jobInfos);
+                        }
                     }
                 }
             }
