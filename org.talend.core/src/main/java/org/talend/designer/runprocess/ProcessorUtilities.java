@@ -352,8 +352,7 @@ public class ProcessorUtilities {
                                     progressMonitor);
                         } else {
                             toReturn = generateCode(subJobInfo, selectedContextName, statistics, false, true,
-                                    GENERATE_ALL_CHILDS,
-                                    progressMonitor);
+                                    GENERATE_ALL_CHILDS, progressMonitor);
                         }
                     }
                 }
@@ -806,9 +805,11 @@ public class ProcessorUtilities {
                 // for joblet node
                 IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
                         IJobletProviderService.class);
-                ProcessType jobletProcess = service.getJobletProcess(node);
-                if (jobletProcess != null) {
-                    getAllJobInfo(jobletProcess, jobInfos);
+                if (service != null) {
+                    ProcessType jobletProcess = service.getJobletProcess(node);
+                    if (jobletProcess != null) {
+                        getAllJobInfo(jobletProcess, jobInfos);
+                    }
                 }
             }
         }
