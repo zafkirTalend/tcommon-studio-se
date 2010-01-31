@@ -14,12 +14,14 @@ package org.talend.core.ui;
 
 import java.util.List;
 
+import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -64,4 +66,6 @@ public interface IJobletProviderService extends IService {
     public void updateParametersFromJoblet(INode node, IComponent newComponent);
 
     public ProcessType getJobletProcess(NodeType node);
+
+    public IEditorPart openJobletItem(JobletProcessItem item);
 }

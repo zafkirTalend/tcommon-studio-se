@@ -46,6 +46,9 @@ public enum EImage implements IImage {
     IMPORT_ICON("/icons/import.gif"), //$NON-NLS-1$
     EXPORT_ICON("/icons/export.gif"), //$NON-NLS-1$
 
+    TREE_EXPAND("/icons/tree_expand.gif"), //$NON-NLS-1$
+    TREE_COLLAPSE("/icons/tree_collapse.gif"), //$NON-NLS-1$
+
     CHECKED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     UNCHECKED_ICON("/icons/unchecked.gif"), //$NON-NLS-1$
 
