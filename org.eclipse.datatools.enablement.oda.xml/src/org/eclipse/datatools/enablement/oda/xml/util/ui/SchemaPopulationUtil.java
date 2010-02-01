@@ -9,6 +9,8 @@
 package org.eclipse.datatools.enablement.oda.xml.util.ui;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -28,8 +30,11 @@ import org.apache.xerces.impl.xs.XSComplexTypeDecl;
 import org.apache.xerces.impl.xs.XSElementDecl;
 import org.apache.xerces.impl.xs.XSModelGroupImpl;
 import org.apache.xerces.impl.xs.XSParticleDecl;
+import org.apache.xerces.xni.XNIException;
+import org.apache.xerces.xni.grammars.Grammar;
+import org.apache.xerces.xni.grammars.XSGrammar;
+import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xs.XSConstants;
-import org.apache.xerces.xs.XSLoader;
 import org.apache.xerces.xs.XSModel;
 import org.apache.xerces.xs.XSNamedMap;
 import org.apache.xerces.xs.XSObjectList;
@@ -329,8 +334,23 @@ final class XSDFileSchemaTreePopulator {
             uri = new URI(fileName);
         }
 
-        XSLoader xsLoader = new XMLSchemaLoader();
+        // fixed a bug when parse one file contians Franch ,maybe need modification
+        XMLSchemaLoader xsLoader = new XMLSchemaLoader();
         XSModel xsModel = xsLoader.loadURI(uri.toString());
+        if (xsModel == null) {
+            try {
+                Grammar loadGrammar = xsLoader.loadGrammar(new XMLInputSource(null, uri.toString(), null, new FileInputStream(f),
+                        "ISO-8859-1"));
+                xsModel = ((XSGrammar) loadGrammar).toXSModel();
+            } catch (XNIException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         ATreeNode complexTypesRoot = populateComplexTypeTree(xsModel);
 
         XSNamedMap map = xsModel.getComponents(XSConstants.ELEMENT_DECLARATION);

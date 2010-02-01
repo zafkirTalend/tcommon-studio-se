@@ -44,6 +44,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -158,27 +159,42 @@ public class XmlNodeRetriever {
     private synchronized void initSource(String filePath) {
         // Parse document containing schemas and validation roots
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
+        DocumentBuilder db = null;
+        File file = new File(filePath);
+        InputSource inputSource = new InputSource(file.toURI().toASCIIString());
         try {
             dbf.setNamespaceAware(true);
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            document = db.parse(new File(filePath));
-            prefixToNamespace.clear();
-            initLastNodes(document.getDocumentElement());
-            prefixToNamespace.put(XMLConstants.XML_NS_PREFIX, XMLConstants.XML_NS_URI);
-            prefixHandler = new XPathPrefixHandler(document.getDocumentElement());
+            db = dbf.newDocumentBuilder();
+            document = db.parse(inputSource);
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            inputSource.setEncoding("ISO-8859-1");
+            if (db != null) {
+                try {
+                    document = db.parse(inputSource);
+                } catch (SAXException e1) {
+                    throw new RuntimeException(e);
+                } catch (IOException e1) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        } finally {
+            if (document != null) {
+                prefixToNamespace.clear();
+                initLastNodes(document.getDocumentElement());
+                prefixToNamespace.put(XMLConstants.XML_NS_PREFIX, XMLConstants.XML_NS_URI);
+                prefixHandler = new XPathPrefixHandler(document.getDocumentElement());
+                // Create XPath factory for selecting schema and validation roots
+                XPathFactory xpf = XPathFactory.newInstance();
+                xpath = xpf.newXPath();
+                // xpath.setNamespaceContext(namespaceContext);
+                xpath.setNamespaceContext(prefixHandler.getNamespaceContext());
+            }
         }
-        // Create XPath factory for selecting schema and validation roots
-        XPathFactory xpf = XPathFactory.newInstance();
-        xpath = xpf.newXPath();
-        // xpath.setNamespaceContext(namespaceContext);
-        xpath.setNamespaceContext(prefixHandler.getNamespaceContext());
     }
 
     /**
