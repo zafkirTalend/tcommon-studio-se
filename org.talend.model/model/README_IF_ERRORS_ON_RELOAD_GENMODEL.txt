@@ -1,3 +1,11 @@
+author nrousseau@talend.com
+- If you really need to have no error, follow the tutorial bellow, but in all case, you will always be able to see your model if click on the Generator Tab.
+- For compatibility with db repository, 2 errors MUST remain.
+Those errors are because EMF want Project > (list)FolderItem, and FolderItem>(list)Item to be Unique. BUT, these ones are not compatible with db repository.
+No matter if reload all the model, those property MUST be set back to Unique = FALSE. (So there will always be 2 errors)  
+@author nrousseau@talend.com
+
+
 @author amaumont@talend.com
 
 I encountered the following problems and I found a solution with help of nrousseau, if anyone has a simpler solution, please send and email to:

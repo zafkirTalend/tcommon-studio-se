@@ -19,8 +19,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="local" unique="false" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="folders" upperBound="-1"
-        eType="#//FolderItem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="folders" unique="false"
+        upperBound="-1" eType="#//FolderItem" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleteDate" unique="false"
@@ -219,8 +219,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ldapId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-        eType="#//Item" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
+        upperBound="-1" eType="#//Item" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" lowerBound="1"
         eType="#//FolderType"/>
   </eClassifiers>
