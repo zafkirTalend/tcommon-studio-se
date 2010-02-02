@@ -15,7 +15,7 @@ my $svnversioncommandoutput = `$svnversioncommand`;
 my $svnmergeaddparams = "";
 if ( $svnversioncommandoutput =~ m/version 1.4/ ) {
     #nothing to do
-} elsif ( $svnversioncommandoutput =~ m/version 1.5/ ) {
+} elsif ( $svnversioncommandoutput =~ m/version 1.[56]/ ) {
     $svnmergeaddparams = "--depth infinity";
 } else {
     die "this script only support 1.4 and 1.5 versions of svn ";
