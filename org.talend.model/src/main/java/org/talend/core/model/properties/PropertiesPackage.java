@@ -4430,13 +4430,40 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER_MASK__CHECK_FILE_SERVER = 8;
 
     /**
+     * The feature id for the '<em><b>Exist</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__EXIST = 9;
+
+    /**
+     * The feature id for the '<em><b>Created</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__CREATED = 10;
+
+    /**
+     * The feature id for the '<em><b>Modified</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__MODIFIED = 11;
+
+    /**
      * The number of structural features of the '<em>File Trigger Mask</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_TRIGGER_MASK_FEATURE_COUNT = 9;
+    int FILE_TRIGGER_MASK_FEATURE_COUNT = 12;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -8671,6 +8698,39 @@ public interface PropertiesPackage extends EPackage {
     EReference getFileTriggerMask_CheckFileServer();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#isExist <em>Exist</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Exist</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#isExist()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Exist();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#isCreated <em>Created</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Created</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#isCreated()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Created();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#isModified <em>Modified</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Modified</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#isModified()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Modified();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.JobletProcessItem <em>Joblet Process Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Joblet Process Item</em>'.
@@ -12550,6 +12610,30 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference FILE_TRIGGER_MASK__CHECK_FILE_SERVER = eINSTANCE.getFileTriggerMask_CheckFileServer();
+
+        /**
+         * The meta object literal for the '<em><b>Exist</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__EXIST = eINSTANCE.getFileTriggerMask_Exist();
+
+        /**
+         * The meta object literal for the '<em><b>Created</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__CREATED = eINSTANCE.getFileTriggerMask_Created();
+
+        /**
+         * The meta object literal for the '<em><b>Modified</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__MODIFIED = eINSTANCE.getFileTriggerMask_Modified();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.

@@ -35,6 +35,9 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getFileMask <em>File Mask</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getContextParameterBaseName <em>Context Parameter Base Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getCheckFileServer <em>Check File Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#isExist <em>Exist</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#isCreated <em>Created</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#isModified <em>Modified</em>}</li>
  * </ul>
  * </p>
  *
@@ -200,6 +203,66 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * @ordered
      */
     protected ExecutionServer checkFileServer;
+
+    /**
+     * The default value of the '{@link #isExist() <em>Exist</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isExist()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean EXIST_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isExist() <em>Exist</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isExist()
+     * @generated
+     * @ordered
+     */
+    protected boolean exist = EXIST_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isCreated() <em>Created</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCreated()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CREATED_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isCreated() <em>Created</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCreated()
+     * @generated
+     * @ordered
+     */
+    protected boolean created = CREATED_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isModified() <em>Modified</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isModified()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean MODIFIED_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isModified() <em>Modified</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isModified()
+     * @generated
+     * @ordered
+     */
+    protected boolean modified = MODIFIED_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -447,6 +510,69 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isExist() {
+        return exist;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExist(boolean newExist) {
+        boolean oldExist = exist;
+        exist = newExist;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__EXIST, oldExist, exist));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isCreated() {
+        return created;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCreated(boolean newCreated) {
+        boolean oldCreated = created;
+        created = newCreated;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__CREATED, oldCreated, created));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isModified() {
+        return modified;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setModified(boolean newModified) {
+        boolean oldModified = modified;
+        modified = newModified;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__MODIFIED, oldModified, modified));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.FILE_TRIGGER_MASK__ID:
@@ -469,6 +595,12 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
             case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
                 if (resolve) return getCheckFileServer();
                 return basicGetCheckFileServer();
+            case PropertiesPackage.FILE_TRIGGER_MASK__EXIST:
+                return isExist() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.FILE_TRIGGER_MASK__CREATED:
+                return isCreated() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.FILE_TRIGGER_MASK__MODIFIED:
+                return isModified() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -506,6 +638,15 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
                 return;
             case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
                 setCheckFileServer((ExecutionServer)newValue);
+                return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__EXIST:
+                setExist(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__CREATED:
+                setCreated(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__MODIFIED:
+                setModified(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -545,6 +686,15 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
             case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
                 setCheckFileServer((ExecutionServer)null);
                 return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__EXIST:
+                setExist(EXIST_EDEFAULT);
+                return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__CREATED:
+                setCreated(CREATED_EDEFAULT);
+                return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__MODIFIED:
+                setModified(MODIFIED_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -574,6 +724,12 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
                 return CONTEXT_PARAMETER_BASE_NAME_EDEFAULT == null ? contextParameterBaseName != null : !CONTEXT_PARAMETER_BASE_NAME_EDEFAULT.equals(contextParameterBaseName);
             case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
                 return checkFileServer != null;
+            case PropertiesPackage.FILE_TRIGGER_MASK__EXIST:
+                return exist != EXIST_EDEFAULT;
+            case PropertiesPackage.FILE_TRIGGER_MASK__CREATED:
+                return created != CREATED_EDEFAULT;
+            case PropertiesPackage.FILE_TRIGGER_MASK__MODIFIED:
+                return modified != MODIFIED_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -601,6 +757,12 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
         result.append(fileMask);
         result.append(", contextParameterBaseName: ");
         result.append(contextParameterBaseName);
+        result.append(", exist: ");
+        result.append(exist);
+        result.append(", created: ");
+        result.append(created);
+        result.append(", modified: ");
+        result.append(modified);
         result.append(')');
         return result.toString();
     }

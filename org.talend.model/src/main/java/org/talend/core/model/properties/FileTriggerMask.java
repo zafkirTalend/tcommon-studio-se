@@ -25,6 +25,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getFileMask <em>File Mask</em>}</li>
  *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getContextParameterBaseName <em>Context Parameter Base Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getCheckFileServer <em>Check File Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.FileTriggerMask#isExist <em>Exist</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.FileTriggerMask#isCreated <em>Created</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.FileTriggerMask#isModified <em>Modified</em>}</li>
  * </ul>
  * </p>
  *
@@ -266,5 +269,83 @@ public interface FileTriggerMask extends EObject {
      * @generated
      */
     void setCheckFileServer(ExecutionServer value);
+
+    /**
+     * Returns the value of the '<em><b>Exist</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Exist</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Exist</em>' attribute.
+     * @see #setExist(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getFileTriggerMask_Exist()
+     * @model
+     * @generated
+     */
+    boolean isExist();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.FileTriggerMask#isExist <em>Exist</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Exist</em>' attribute.
+     * @see #isExist()
+     * @generated
+     */
+    void setExist(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Created</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Created</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Created</em>' attribute.
+     * @see #setCreated(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getFileTriggerMask_Created()
+     * @model
+     * @generated
+     */
+    boolean isCreated();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.FileTriggerMask#isCreated <em>Created</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Created</em>' attribute.
+     * @see #isCreated()
+     * @generated
+     */
+    void setCreated(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Modified</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Modified</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Modified</em>' attribute.
+     * @see #setModified(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getFileTriggerMask_Modified()
+     * @model
+     * @generated
+     */
+    boolean isModified();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.FileTriggerMask#isModified <em>Modified</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Modified</em>' attribute.
+     * @see #isModified()
+     * @generated
+     */
+    void setModified(boolean value);
 
 } // FileTriggerMask

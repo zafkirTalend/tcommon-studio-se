@@ -2975,6 +2975,33 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Exist() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Created() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Modified() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4584,6 +4611,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__FILE_MASK);
         createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME);
         createEReference(fileTriggerMaskEClass, FILE_TRIGGER_MASK__CHECK_FILE_SERVER);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__EXIST);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__CREATED);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__MODIFIED);
 
         jobletProcessItemEClass = createEClass(JOBLET_PROCESS_ITEM);
         createEReference(jobletProcessItemEClass, JOBLET_PROCESS_ITEM__JOBLET_PROCESS);
@@ -5169,6 +5199,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getFileTriggerMask_FileMask(), theEcorePackage.getEString(), "fileMask", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFileTriggerMask_ContextParameterBaseName(), theEcorePackage.getEString(), "contextParameterBaseName", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFileTriggerMask_CheckFileServer(), this.getExecutionServer(), null, "checkFileServer", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_Exist(), theEcorePackage.getEBoolean(), "exist", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_Created(), theEcorePackage.getEBoolean(), "created", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_Modified(), theEcorePackage.getEBoolean(), "modified", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(jobletProcessItemEClass, JobletProcessItem.class, "JobletProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getJobletProcessItem_JobletProcess(), theJobletPackage.getJobletProcess(), null, "jobletProcess", null, 0, 1, JobletProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
