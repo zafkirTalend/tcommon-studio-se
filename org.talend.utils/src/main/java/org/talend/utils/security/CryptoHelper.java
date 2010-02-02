@@ -39,17 +39,6 @@ public class CryptoHelper {
 
     private Cipher dcipher;
     
-    private static CryptoHelper cryptoHelper = new CryptoHelper("");
-
-    /**
-     * TODO hcheng remove this method
-     * 
-     * @deprecated use constructor instead.
-     */
-    public static CryptoHelper getCryptoHelper() {
-        return cryptoHelper;
-    }
-
     // 8-byte Salt
     private byte[] salt = { (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x35, (byte) 0xE3,
             (byte) 0x03 };
