@@ -33,6 +33,13 @@ public class RunStat implements Runnable {
 
     public static int CLEAR = 3;
 
+    // it is a dummy default value for jobStat field
+    public static int JOBDEFAULT = -1;
+
+    public static int JOBSTART = 0;
+
+    public static int JOBEND = 1;
+
     private class StatBean {
 
         private String connectionId;
@@ -46,6 +53,14 @@ public class RunStat implements Runnable {
         private long endTime = 0;
 
         private String exec = null;
+
+        // feature:11356---1="Start Job" and 2="End job", default is -1
+        private int jobStat = JOBDEFAULT;
+
+        public StatBean(int jobStat) {
+            this.jobStat = jobStat;
+            this.startTime = System.currentTimeMillis();
+        }
 
         public StatBean(String connectionId) {
             this.connectionId = connectionId;
@@ -99,6 +114,15 @@ public class RunStat implements Runnable {
         public void setExec(String exec) {
             this.exec = exec;
         }
+
+        public int getJobStat() {
+            return jobStat;
+        }
+
+        public void setJobStat(int jobStat) {
+            this.jobStat = jobStat;
+        }
+
     }
 
     private java.util.concurrent.ConcurrentHashMap<String, StatBean> processStats = new java.util.concurrent.ConcurrentHashMap<String, StatBean>();
@@ -190,22 +214,39 @@ public class RunStat implements Runnable {
         // return;
         // }
         for (StatBean sb : processStats.values()) {
-            str = rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
-            // str = sb.getConnectionId();
-            if (sb.getState() == RunStat.CLEAR) {
-                str += "|" + "clear"; //$NON-NLS-1$ //$NON-NLS-2$
-            } else {
-
-                if (sb.getExec() == null) {
-                    str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime()); //$NON-NLS-1$ //$NON-NLS-2$
+            // it is connection
+            if (sb.getJobStat() == JOBDEFAULT) {
+                str = rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
+                // str = sb.getConnectionId();
+                if (sb.getState() == RunStat.CLEAR) {
+                    str += "|" + "clear"; //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    str += "|" + sb.getExec(); //$NON-NLS-1$
+
+                    if (sb.getExec() == null) {
+                        str += "|" + sb.getNbLine() + "|" + (sb.getEndTime() - sb.getStartTime()); //$NON-NLS-1$ //$NON-NLS-2$
+                    } else {
+                        str += "|" + sb.getExec(); //$NON-NLS-1$
+                    }
+                    if (sb.getState() != RunStat.RUNNING) {
+                        str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        processStats.remove(sb.getConnectionId());
+                    }
                 }
-                if (sb.getState() != RunStat.RUNNING) {
-                    str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                    processStats.remove(sb.getConnectionId());
+            } else {
+                // it is job, for feature:11356
+                int jobStat = sb.getJobStat();
+                String jobStatStr = "";
+                if (jobStat == JOBSTART) {
+                    jobStatStr = "Start Job";
+                } else if (jobStat == JOBEND) {
+                    jobStatStr = "End job";
                 }
+                String key = jobStat + "";
+                processStats.remove(key);
+
+                str = rootPid + "|" + fatherPid + "|" + pid + "|" + jobStatStr;
             }
+
             pred.println(str); // envoi d'un message
         }
 
@@ -245,6 +286,13 @@ public class RunStat implements Runnable {
         bean.setExec(exec);
         processStats.put(connectionId, bean);
 
+        sendMessages();
+    }
+
+    public synchronized void updateStatOnJob(int jobStat) {
+        StatBean bean = new StatBean(jobStat);
+        String key = jobStat + "";
+        processStats.put(key, bean);
         sendMessages();
     }
 
