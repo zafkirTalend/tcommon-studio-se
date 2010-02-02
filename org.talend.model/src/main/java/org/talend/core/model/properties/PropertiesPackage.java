@@ -3701,13 +3701,22 @@ public interface PropertiesPackage extends EPackage {
     int TALEND_TRIGGER__RESUME_PAUSE_UPDATED = 11;
 
     /**
+     * The feature id for the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__PREVIOUSLY_PAUSED = 12;
+
+    /**
      * The number of structural features of the '<em>Talend Trigger</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int TALEND_TRIGGER_FEATURE_COUNT = 12;
+    int TALEND_TRIGGER_FEATURE_COUNT = 13;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3808,6 +3817,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CRON_TALEND_TRIGGER__RESUME_PAUSE_UPDATED = TALEND_TRIGGER__RESUME_PAUSE_UPDATED;
+
+    /**
+     * The feature id for the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__PREVIOUSLY_PAUSED = TALEND_TRIGGER__PREVIOUSLY_PAUSED;
 
     /**
      * The feature id for the '<em><b>Cron Expression</b></em>' attribute.
@@ -3925,6 +3943,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CRON_UI_TALEND_TRIGGER__RESUME_PAUSE_UPDATED = TALEND_TRIGGER__RESUME_PAUSE_UPDATED;
+
+    /**
+     * The feature id for the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__PREVIOUSLY_PAUSED = TALEND_TRIGGER__PREVIOUSLY_PAUSED;
 
     /**
      * The feature id for the '<em><b>List Days Of Week</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -4084,6 +4111,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SIMPLE_TALEND_TRIGGER__RESUME_PAUSE_UPDATED = TALEND_TRIGGER__RESUME_PAUSE_UPDATED;
+
+    /**
+     * The feature id for the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__PREVIOUSLY_PAUSED = TALEND_TRIGGER__PREVIOUSLY_PAUSED;
 
     /**
      * The feature id for the '<em><b>Repeat Count</b></em>' attribute.
@@ -4267,6 +4303,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int FILE_TRIGGER__RESUME_PAUSE_UPDATED = SIMPLE_TALEND_TRIGGER__RESUME_PAUSE_UPDATED;
+
+    /**
+     * The feature id for the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__PREVIOUSLY_PAUSED = SIMPLE_TALEND_TRIGGER__PREVIOUSLY_PAUSED;
 
     /**
      * The feature id for the '<em><b>Repeat Count</b></em>' attribute.
@@ -8281,6 +8326,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTalendTrigger_ResumePauseUpdated();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#isPreviouslyPaused <em>Previously Paused</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Previously Paused</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#isPreviouslyPaused()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_PreviouslyPaused();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.CronTalendTrigger <em>Cron Talend Trigger</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Cron Talend Trigger</em>'.
@@ -12232,6 +12288,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TALEND_TRIGGER__RESUME_PAUSE_UPDATED = eINSTANCE.getTalendTrigger_ResumePauseUpdated();
+
+        /**
+         * The meta object literal for the '<em><b>Previously Paused</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__PREVIOUSLY_PAUSED = eINSTANCE.getTalendTrigger_PreviouslyPaused();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.

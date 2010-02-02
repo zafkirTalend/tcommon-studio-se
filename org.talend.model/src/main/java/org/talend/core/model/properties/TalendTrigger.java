@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getFinalFireTime <em>Final Fire Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getIdQuartzTrigger <em>Id Quartz Trigger</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TalendTrigger#getResumePauseUpdated <em>Resume Pause Updated</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#isPreviouslyPaused <em>Previously Paused</em>}</li>
  * </ul>
  * </p>
  *
@@ -351,5 +352,31 @@ public interface TalendTrigger extends EObject {
      * @generated
      */
     void setResumePauseUpdated(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Previously Paused</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Previously Paused</em>' attribute.
+     * @see #setPreviouslyPaused(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_PreviouslyPaused()
+     * @model
+     * @generated
+     */
+    boolean isPreviouslyPaused();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#isPreviouslyPaused <em>Previously Paused</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Previously Paused</em>' attribute.
+     * @see #isPreviouslyPaused()
+     * @generated
+     */
+    void setPreviouslyPaused(boolean value);
 
 } // TalendTrigger
