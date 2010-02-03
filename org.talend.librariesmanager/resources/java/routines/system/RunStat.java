@@ -237,9 +237,9 @@ public class RunStat implements Runnable {
                 int jobStat = sb.getJobStat();
                 String jobStatStr = "";
                 if (jobStat == JOBSTART) {
-                    jobStatStr = "Start Job";
+                    jobStatStr = jobName + "|" + "start job";
                 } else if (jobStat == JOBEND) {
-                    jobStatStr = "End job";
+                    jobStatStr = jobName + "|" + "end job";
                 }
                 String key = jobStat + "";
                 processStats.remove(key);
@@ -303,10 +303,13 @@ public class RunStat implements Runnable {
 
     private String pid = "0";
 
+    private String jobName = null;
+
     // Notice: this API should be invoked after startThreadStat() closely.
-    public void setAllPID(String rootPid, String fatherPid, String pid) {
+    public void setAllPID(String rootPid, String fatherPid, String pid, String jobName) {
         this.rootPid = rootPid;
         this.fatherPid = fatherPid;
         this.pid = pid;
+        this.jobName = jobName;
     }
 }
