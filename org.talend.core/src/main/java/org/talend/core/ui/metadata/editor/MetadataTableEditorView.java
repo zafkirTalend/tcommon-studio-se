@@ -206,15 +206,17 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 
                 switch (LanguageManager.getCurrentLanguage()) {
                 case JAVA:
-                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) { //$NON-NLS-1$ //$NON-NLS-2$
-                        if (returnValue == null || returnValue.length() == 0) {
-                            returnValue = null;
-                        } else if (returnValue.equalsIgnoreCase("null")) { //$NON-NLS-1$
-                            returnValue = "null"; //$NON-NLS-1$
-                        }/*
-                          * else { returnValue = returnValue.replaceAll("\"", ""); returnValue =
-                          * returnValue.replaceAll("\'", ""); returnValue = "\"" + returnValue + "\""; }
-                          */
+                    if (bean.getTalendType() != null) {
+                        if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) { //$NON-NLS-1$ //$NON-NLS-2$
+                            if (returnValue == null || returnValue.length() == 0) {
+                                returnValue = null;
+                            } else if (returnValue.equalsIgnoreCase("null")) { //$NON-NLS-1$
+                                returnValue = "null"; //$NON-NLS-1$
+                            }/*
+                              * else { returnValue = returnValue.replaceAll("\"", ""); returnValue =
+                              * returnValue.replaceAll("\'", ""); returnValue = "\"" + returnValue + "\""; }
+                              */
+                        }
                     }
                 default:
                     // if (bean.getTalendType() != null && bean.getTalendType().equals("string")
