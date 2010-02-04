@@ -966,25 +966,32 @@ public class ExtractMetaDataFromDataBase {
                 // if want to get all tables and synonyms,need to get the value of the public_synonym_checken botton
                 if (ExtractMetaDataUtils.conn != null && ExtractMetaDataUtils.conn.toString().contains("oracle.jdbc.driver") //$NON-NLS-1$
                         && ExtractMetaDataUtils.isUseAllSynonyms()) {
-                    String sql = GET_ALL_SYNONYMS;
+
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                     ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
-                    if (!nameFiters.isEmpty()) { // hywang add for bug 0009889
+
+                    StringBuffer filters = new StringBuffer();
+                    if (!nameFiters.isEmpty()) {
+                        filters.append(" and ("); //$NON-NLS-1$
+                        final String tStr = " all_synonyms.synonym_name like '"; //$NON-NLS-1$
+                        int i = 0;
                         for (String s : nameFiters) {
-                            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
-                                    tableInfoParameters, s, iMetadataConnection.getDbType()));
-                            for (String string : tableNamesFromTables) {
-                                if (!itemTablesName.contains(string)) {
-                                    itemTablesName.add(string);
-                                }
+                            if (i != 0) {
+                                filters.append(" or "); //$NON-NLS-1$
                             }
+                            filters.append(tStr);
+                            filters.append(s);
+                            filters.append('\'');
+                            i++;
+
                         }
-                    } else {
-                        ResultSet rsTables = stmt.executeQuery(sql);
-                        itemTablesName = getTableNamesFromQuery(rsTables);
-                        rsTables.close();
-                        stmt.close();
+                        filters.append(')');
                     }
+                    ResultSet rsTables = stmt.executeQuery(GET_ALL_SYNONYMS + filters.toString());
+                    itemTablesName = getTableNamesFromQuery(rsTables);
+                    rsTables.close();
+                    stmt.close();
+
                     // tableTypeMap.clear();
                     for (String synonymName : itemTablesName) {
                         tableTypeMap.put(synonymName, ETableTypes.TABLETYPE_SYNONYM.getName());
