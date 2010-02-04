@@ -40,6 +40,11 @@ public class RunStat implements Runnable {
 
     public static int JOBEND = 1;
 
+    // this is as an additinal info to test the command type
+    public static String TYPE0_JOB = "0";
+
+    public static String TYPE1_CONNECTION = "1";
+
     private class StatBean {
 
         private String connectionId;
@@ -216,7 +221,7 @@ public class RunStat implements Runnable {
         for (StatBean sb : processStats.values()) {
             // it is connection
             if (sb.getJobStat() == JOBDEFAULT) {
-                str = rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
+                str = TYPE1_CONNECTION + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
                 // str = sb.getConnectionId();
                 if (sb.getState() == RunStat.CLEAR) {
                     str += "|" + "clear"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -244,7 +249,7 @@ public class RunStat implements Runnable {
                 String key = jobStat + "";
                 processStats.remove(key);
 
-                str = rootPid + "|" + fatherPid + "|" + pid + "|" + jobStatStr;
+                str = TYPE0_JOB + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + jobStatStr;
             }
 
             pred.println(str); // envoi d'un message
