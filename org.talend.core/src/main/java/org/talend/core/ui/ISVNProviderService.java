@@ -32,4 +32,6 @@ public interface ISVNProviderService extends IService {
     public boolean isSVNHistoryComposite(IDynamicProperty dp);
 
     public ISelection getSVNHistorySelection(IDynamicProperty dp);
+
+    public String getLastSVNRevision(Object process);
 }
