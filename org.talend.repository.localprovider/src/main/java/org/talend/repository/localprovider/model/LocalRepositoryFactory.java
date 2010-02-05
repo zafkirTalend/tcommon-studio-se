@@ -1733,14 +1733,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public Property getUptodateProperty(Project project, Property property) throws PersistenceException {
         Property uptodateProperty = super.getUptodateProperty(project, property);
-        if (getStatus(property.getItem()) == ERepositoryStatus.LOCK_BY_USER) {
-            return uptodateProperty;
-        }
         FolderItem folderItem = null;
         if (property.getItem().eContainer() instanceof FolderItem) {
             folderItem = (FolderItem) property.getItem().eContainer();
             folderItem.getChildren().remove(property.getItem());
         }
+        // property.eResource()
+        // property.getItem().eResource()
+
+        // afterForceReload.eResource()
+
         Property afterForceReload = xmiResourceManager.forceReloadProperty(uptodateProperty);
         if (folderItem != null) {
             folderItem.getChildren().add(afterForceReload.getItem());
