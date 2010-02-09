@@ -17,7 +17,7 @@ package org.talend.core.database;
  * 
  */
 public enum EDatabaseTypeName {
-    MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL", "MYSQL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL", "POSTGRE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     PLUSPSQL("PostgresPlus", "PostgresPlus", new Boolean(true), "POSTGRESPLUS", "POSTGREPLUS"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE", "DBORACLE"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
