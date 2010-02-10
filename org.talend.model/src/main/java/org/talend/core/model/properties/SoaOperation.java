@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getRequestInQueueTTL <em>Request In Queue TTL</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getService <em>Service</em>}</li>
  *   <li>{@link org.talend.core.model.properties.SoaOperation#getReturnStyle <em>Return Style</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.SoaOperation#getBranch <em>Branch</em>}</li>
  * </ul>
  * </p>
  *
@@ -615,5 +616,31 @@ public interface SoaOperation extends EObject {
      * @generated
      */
     void setReturnStyle(String value);
+
+    /**
+     * Returns the value of the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Branch</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Branch</em>' attribute.
+     * @see #setBranch(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getSoaOperation_Branch()
+     * @model
+     * @generated
+     */
+    String getBranch();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.SoaOperation#getBranch <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Branch</em>' attribute.
+     * @see #getBranch()
+     * @generated
+     */
+    void setBranch(String value);
 
 } // SoaOperation

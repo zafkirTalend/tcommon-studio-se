@@ -626,10 +626,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private static boolean isInited = false;
 
     /**
-     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-     * 
-     * <p>This method is used to initialize {@link PropertiesPackage#eINSTANCE} when that field is accessed.
-     * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
+     * Creates, registers, and initializes the <b>Package</b> for this
+     * model, and for any others upon which it depends.  Simple
+     * dependencies are satisfied by calling this method on all
+     * dependent packages before doing anything else.  This method drives
+     * initialization for interdependent packages directly, in parallel
+     * with this package, itself.
+     * <p>Of this package and its interdependencies, all packages which
+     * have not yet been registered by their URI values are first created
+     * and registered.  The packages are then initialized in two steps:
+     * meta-model objects for all of the packages are created before any
+     * are initialized, since one package's meta-model objects may refer to
+     * those of another.
+     * <p>Invocation of this method will not affect any packages that have
+     * already been initialized.
      * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
      * @see #eNS_URI
@@ -641,7 +651,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         if (isInited) return (PropertiesPackage)EPackage.Registry.INSTANCE.getEPackage(PropertiesPackage.eNS_URI);
 
         // Obtain or create and register package
-        PropertiesPackageImpl thePropertiesPackage = (PropertiesPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof PropertiesPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new PropertiesPackageImpl());
+        PropertiesPackageImpl thePropertiesPackage = (PropertiesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof PropertiesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new PropertiesPackageImpl());
 
         isInited = true;
 
@@ -662,9 +672,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         // Mark meta-data to indicate it can't be changed
         thePropertiesPackage.freeze();
 
-  
-        // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(PropertiesPackage.eNS_URI, thePropertiesPackage);
         return thePropertiesPackage;
     }
 
@@ -3378,6 +3385,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSoaOperation_Branch() {
+        return (EAttribute)soaOperationEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4672,6 +4688,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(soaOperationEClass, SOA_OPERATION__REQUEST_IN_QUEUE_TTL);
         createEReference(soaOperationEClass, SOA_OPERATION__SERVICE);
         createEAttribute(soaOperationEClass, SOA_OPERATION__RETURN_STYLE);
+        createEAttribute(soaOperationEClass, SOA_OPERATION__BRANCH);
 
         soaInputParameterEClass = createEClass(SOA_INPUT_PARAMETER);
         createEAttribute(soaInputParameterEClass, SOA_INPUT_PARAMETER__ID);
@@ -5260,6 +5277,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getSoaOperation_RequestInQueueTTL(), theEcorePackage.getEInt(), "requestInQueueTTL", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSoaOperation_Service(), this.getSoaService(), this.getSoaService_Operations(), "service", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSoaOperation_ReturnStyle(), ecorePackage.getEString(), "returnStyle", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSoaOperation_Branch(), ecorePackage.getEString(), "branch", null, 0, 1, SoaOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(soaInputParameterEClass, SoaInputParameter.class, "SoaInputParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSoaInputParameter_Id(), ecorePackage.getEInt(), "id", null, 1, 1, SoaInputParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

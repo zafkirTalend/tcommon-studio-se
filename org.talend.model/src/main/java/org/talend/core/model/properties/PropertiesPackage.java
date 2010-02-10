@@ -5042,13 +5042,22 @@ public interface PropertiesPackage extends EPackage {
     int SOA_OPERATION__RETURN_STYLE = 22;
 
     /**
+     * The feature id for the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SOA_OPERATION__BRANCH = 23;
+
+    /**
      * The number of structural features of the '<em>Soa Operation</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int SOA_OPERATION_FEATURE_COUNT = 23;
+    int SOA_OPERATION_FEATURE_COUNT = 24;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.
@@ -9205,6 +9214,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSoaOperation_ReturnStyle();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SoaOperation#getBranch <em>Branch</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Branch</em>'.
+     * @see org.talend.core.model.properties.SoaOperation#getBranch()
+     * @see #getSoaOperation()
+     * @generated
+     */
+    EAttribute getSoaOperation_Branch();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.SoaInputParameter <em>Soa Input Parameter</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Soa Input Parameter</em>'.
@@ -13021,6 +13041,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SOA_OPERATION__RETURN_STYLE = eINSTANCE.getSoaOperation_ReturnStyle();
+
+        /**
+         * The meta object literal for the '<em><b>Branch</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SOA_OPERATION__BRANCH = eINSTANCE.getSoaOperation_Branch();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.

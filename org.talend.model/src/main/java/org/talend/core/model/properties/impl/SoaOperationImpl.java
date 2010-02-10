@@ -52,6 +52,7 @@ import org.talend.core.model.properties.SoaService;
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getRequestInQueueTTL <em>Request In Queue TTL</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getService <em>Service</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getReturnStyle <em>Return Style</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.SoaOperationImpl#getBranch <em>Branch</em>}</li>
  * </ul>
  * </p>
  *
@@ -467,6 +468,26 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @ordered
      */
     protected String returnStyle = RETURN_STYLE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getBranch() <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBranch()
+     * @generated
+     * @ordered
+     */
+    protected static final String BRANCH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBranch() <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBranch()
+     * @generated
+     * @ordered
+     */
+    protected String branch = BRANCH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -896,7 +917,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @generated
      */
     public SoaService getService() {
-        if (eContainerFeatureID() != PropertiesPackage.SOA_OPERATION__SERVICE) return null;
+        if (eContainerFeatureID != PropertiesPackage.SOA_OPERATION__SERVICE) return null;
         return (SoaService)eContainer();
     }
 
@@ -914,7 +935,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @generated
      */
     public void setService(SoaService newService) {
-        if (newService != eInternalContainer() || (eContainerFeatureID() != PropertiesPackage.SOA_OPERATION__SERVICE && newService != null)) {
+        if (newService != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.SOA_OPERATION__SERVICE && newService != null)) {
             if (EcoreUtil.isAncestor(this, newService))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -946,6 +967,27 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         returnStyle = newReturnStyle;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__RETURN_STYLE, oldReturnStyle, returnStyle));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getBranch() {
+        return branch;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBranch(String newBranch) {
+        String oldBranch = branch;
+        branch = newBranch;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.SOA_OPERATION__BRANCH, oldBranch, branch));
     }
 
     /**
@@ -981,7 +1023,7 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID()) {
+        switch (eContainerFeatureID) {
             case PropertiesPackage.SOA_OPERATION__SERVICE:
                 return eInternalContainer().eInverseRemove(this, PropertiesPackage.SOA_SERVICE__OPERATIONS, SoaService.class, msgs);
         }
@@ -1041,6 +1083,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return getService();
             case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
                 return getReturnStyle();
+            case PropertiesPackage.SOA_OPERATION__BRANCH:
+                return getBranch();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1121,6 +1165,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
                 setReturnStyle((String)newValue);
                 return;
+            case PropertiesPackage.SOA_OPERATION__BRANCH:
+                setBranch((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1200,6 +1247,9 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
             case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
                 setReturnStyle(RETURN_STYLE_EDEFAULT);
                 return;
+            case PropertiesPackage.SOA_OPERATION__BRANCH:
+                setBranch(BRANCH_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1256,6 +1306,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
                 return getService() != null;
             case PropertiesPackage.SOA_OPERATION__RETURN_STYLE:
                 return RETURN_STYLE_EDEFAULT == null ? returnStyle != null : !RETURN_STYLE_EDEFAULT.equals(returnStyle);
+            case PropertiesPackage.SOA_OPERATION__BRANCH:
+                return BRANCH_EDEFAULT == null ? branch != null : !BRANCH_EDEFAULT.equals(branch);
         }
         return super.eIsSet(featureID);
     }
@@ -1308,6 +1360,8 @@ public class SoaOperationImpl extends EObjectImpl implements SoaOperation {
         result.append(requestInQueueTTL);
         result.append(", returnStyle: ");
         result.append(returnStyle);
+        result.append(", branch: ");
+        result.append(branch);
         result.append(')');
         return result.toString();
     }
