@@ -14,7 +14,9 @@ package org.talend.repository;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -50,6 +52,8 @@ public final class ProjectManager {
     private List<Project> referencedprojects = new ArrayList<Project>();
 
     private List<Project> allReferencedprojects = new ArrayList<Project>();
+
+    private Map<String, String> mapProjectUrlToBranchUrl = new HashMap<String, String>();
 
     private ProjectManager() {
         initCurrentProject();
@@ -302,5 +306,17 @@ public final class ProjectManager {
             }
         }
         return null;
+    }
+
+    public String getCurrentBranchURL(Project project) {
+        return mapProjectUrlToBranchUrl.get(project.getEmfProject().getUrl());
+    }
+
+    public String getCurrentBranchURL(String projectUrl) {
+        return mapProjectUrlToBranchUrl.get(projectUrl);
+    }
+
+    public void setCurrentBranchURL(Project project, String currentBranch) {
+        mapProjectUrlToBranchUrl.put(project.getEmfProject().getUrl(), currentBranch);
     }
 }
