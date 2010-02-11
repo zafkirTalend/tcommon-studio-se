@@ -46,6 +46,8 @@ public class RepositoryConstants {
 
     public static final String CODE_ITEM_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
+    public static final String ROUTINES_ITEM_PATTERN = "^[a-zA-Z\\_]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
+
     public static final String SCHEMA_NAME_PATTERN = "^[a-zA-Z0-9\\_]*$";; //$NON-NLS-1$
 
     public static final String SCHEMA_NAME_VALIDATED = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
@@ -71,9 +73,11 @@ public class RepositoryConstants {
         case FOLDER:
             return FOLDER_PATTERN;
         case PROCESS:
-        case ROUTINES:
         case JOBLET:
             return CODE_ITEM_PATTERN;
+        case ROUTINES:
+            // for bug 10356
+            return ROUTINES_ITEM_PATTERN;
         default:
             return REPOSITORY_ITEM_PATTERN;
         }
