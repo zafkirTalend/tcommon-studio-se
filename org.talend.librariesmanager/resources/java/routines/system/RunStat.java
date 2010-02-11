@@ -66,14 +66,14 @@ public class RunStat implements Runnable {
         // feature:11356---1="Start Job" and 2="End job", default is -1
         private int jobStat = JOBDEFAULT;
 
-        public StatBean(int jobStat) {
-            this.jobStat = jobStat;
-            this.startTime = System.currentTimeMillis();
-        }
-
         public StatBean(int jobStat, String itemId) {
             this.jobStat = jobStat;
             this.itemId = itemId;
+            if (jobStat == JOBSTART) {
+                this.startTime = System.currentTimeMillis();
+            } else if (jobStat == JOBEND) {
+                this.endTime = System.currentTimeMillis();
+            }
         }
 
         public StatBean(String connectionId) {
@@ -231,6 +231,10 @@ public class RunStat implements Runnable {
         // if (!openSocket) {
         // return;
         // }
+
+        // SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss.SZ");
+        // System.out.println("############ Sending packets " + sdf.format(new Date()) + " ... #################");
+
         for (StatBean sb : processStats.values()) {
             // it is connection
             int jobStat = sb.getJobStat();
@@ -254,7 +258,7 @@ public class RunStat implements Runnable {
 
             } else {
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyddMMhhmmssSZ");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss.SSSZ");
 
                 // it is job, for feature:11356
                 String jobStatStr = "";
@@ -273,6 +277,8 @@ public class RunStat implements Runnable {
 
                 str = TYPE0_JOB + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + jobStatStr;
             }
+
+            // System.out.println("Packet " + sdf.format(new Date()) + " => " + str);
 
             pred.println(str); // envoi d'un message
         }
