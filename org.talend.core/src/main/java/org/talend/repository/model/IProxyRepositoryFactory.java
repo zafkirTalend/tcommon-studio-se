@@ -48,6 +48,8 @@ import org.talend.repository.RepositoryWorkUnit;
  */
 public interface IProxyRepositoryFactory {
 
+    public static final String BRANCH_SELECTION = "branchSelection";
+
     public abstract RepositoryContext getRepositoryContext();
 
     public void refreshJobPictureFolder(String picFolder);
