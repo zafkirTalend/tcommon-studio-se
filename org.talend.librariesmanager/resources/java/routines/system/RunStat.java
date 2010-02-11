@@ -14,6 +14,8 @@ package routines.system;
 
 import java.io.OutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RunStat implements Runnable {
 
@@ -47,6 +49,8 @@ public class RunStat implements Runnable {
 
     private class StatBean {
 
+        private String itemId;
+
         private String connectionId;
 
         private int nbLine;
@@ -65,6 +69,11 @@ public class RunStat implements Runnable {
         public StatBean(int jobStat) {
             this.jobStat = jobStat;
             this.startTime = System.currentTimeMillis();
+        }
+
+        public StatBean(int jobStat, String itemId) {
+            this.jobStat = jobStat;
+            this.itemId = itemId;
         }
 
         public StatBean(String connectionId) {
@@ -126,6 +135,10 @@ public class RunStat implements Runnable {
 
         public void setJobStat(int jobStat) {
             this.jobStat = jobStat;
+        }
+
+        public String getItemId() {
+            return itemId;
         }
 
     }
@@ -220,7 +233,8 @@ public class RunStat implements Runnable {
         // }
         for (StatBean sb : processStats.values()) {
             // it is connection
-            if (sb.getJobStat() == JOBDEFAULT) {
+            int jobStat = sb.getJobStat();
+            if (jobStat == JOBDEFAULT) {
                 str = TYPE1_CONNECTION + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + sb.getConnectionId();
                 // str = sb.getConnectionId();
                 if (sb.getState() == RunStat.CLEAR) {
@@ -237,14 +251,22 @@ public class RunStat implements Runnable {
                         processStats.remove(sb.getConnectionId());
                     }
                 }
+
             } else {
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyddMMhhmmssSZ");
+
                 // it is job, for feature:11356
-                int jobStat = sb.getJobStat();
                 String jobStatStr = "";
+                long time = 0;
+                String itemId = sb.getItemId();
+                itemId = itemId == null ? "" : itemId;
                 if (jobStat == JOBSTART) {
-                    jobStatStr = jobName + "|" + "start job";
+                    jobStatStr = jobName + "|" + "start job" + "|" + itemId + "|"
+                            + simpleDateFormat.format(new Date(sb.getStartTime()));
                 } else if (jobStat == JOBEND) {
-                    jobStatStr = jobName + "|" + "end job";
+                    jobStatStr = jobName + "|" + "end job" + "|" + itemId + "|"
+                            + simpleDateFormat.format(new Date(sb.getEndTime()));
                 }
                 String key = jobStat + "";
                 processStats.remove(key);
@@ -294,8 +316,8 @@ public class RunStat implements Runnable {
         sendMessages();
     }
 
-    public synchronized void updateStatOnJob(int jobStat) {
-        StatBean bean = new StatBean(jobStat);
+    public synchronized void updateStatOnJob(int jobStat, String parentNodeName) {
+        StatBean bean = new StatBean(jobStat, parentNodeName);
         String key = jobStat + "";
         processStats.put(key, bean);
         sendMessages();
