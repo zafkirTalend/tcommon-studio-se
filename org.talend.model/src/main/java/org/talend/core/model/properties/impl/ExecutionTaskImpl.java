@@ -36,6 +36,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getExecutionServer <em>Execution Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getProject <em>Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getBranch <em>Branch</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobVersion <em>Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isActive <em>Active</em>}</li>
@@ -149,6 +150,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected Project project;
+
+    /**
+     * The default value of the '{@link #getBranch() <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBranch()
+     * @generated
+     * @ordered
+     */
+    protected static final String BRANCH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBranch() <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBranch()
+     * @generated
+     * @ordered
+     */
+    protected String branch = BRANCH_EDEFAULT;
 
     /**
      * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
@@ -812,6 +833,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getBranch() {
+        return branch;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBranch(String newBranch) {
+        String oldBranch = branch;
+        branch = newBranch;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__BRANCH, oldBranch, branch));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1408,6 +1450,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 if (resolve) return getProject();
                 return basicGetProject();
+            case PropertiesPackage.EXECUTION_TASK__BRANCH:
+                return getBranch();
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 return getContext();
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
@@ -1491,6 +1535,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 setProject((Project)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__BRANCH:
+                setBranch((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 setContext((String)newValue);
@@ -1607,6 +1654,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 setProject((Project)null);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__BRANCH:
+                setBranch(BRANCH_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 setContext(CONTEXT_EDEFAULT);
                 return;
@@ -1714,6 +1764,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return executionServer != null;
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 return project != null;
+            case PropertiesPackage.EXECUTION_TASK__BRANCH:
+                return BRANCH_EDEFAULT == null ? branch != null : !BRANCH_EDEFAULT.equals(branch);
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
@@ -1790,6 +1842,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(label);
         result.append(", description: ");
         result.append(description);
+        result.append(", branch: ");
+        result.append(branch);
         result.append(", context: ");
         result.append(context);
         result.append(", jobVersion: ");

@@ -2734,12 +2734,21 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__PROJECT = 4;
 
     /**
+     * The feature id for the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__BRANCH = 5;
+
+    /**
      * The feature id for the '<em><b>Context</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CONTEXT = 5;
+    int EXECUTION_TASK__CONTEXT = 6;
 
     /**
      * The feature id for the '<em><b>Job Version</b></em>' attribute.
@@ -2747,7 +2756,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_VERSION = 6;
+    int EXECUTION_TASK__JOB_VERSION = 7;
 
     /**
      * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -2755,7 +2764,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ACTIVE = 7;
+    int EXECUTION_TASK__ACTIVE = 8;
 
     /**
      * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
@@ -2763,7 +2772,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_QUARTZ_JOB = 8;
+    int EXECUTION_TASK__ID_QUARTZ_JOB = 9;
 
     /**
      * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
@@ -2772,7 +2781,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = 9;
+    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = 10;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -2780,7 +2789,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB = 10;
+    int EXECUTION_TASK__ID_REMOTE_JOB = 11;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -2789,7 +2798,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = 11;
+    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = 12;
 
     /**
      * The feature id for the '<em><b>Checksum Archive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2798,7 +2807,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CHECKSUM_ARCHIVE = 12;
+    int EXECUTION_TASK__CHECKSUM_ARCHIVE = 13;
 
     /**
      * The feature id for the '<em><b>Job Script Archive Filename</b></em>' attribute.
@@ -2807,7 +2816,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = 13;
+    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = 14;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -2815,7 +2824,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__STATUS = 14;
+    int EXECUTION_TASK__STATUS = 15;
 
     /**
      * The feature id for the '<em><b>Processing State</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2824,7 +2833,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__PROCESSING_STATE = 15;
+    int EXECUTION_TASK__PROCESSING_STATE = 16;
 
     /**
      * The feature id for the '<em><b>Error Status</b></em>' attribute.
@@ -2832,7 +2841,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STATUS = 16;
+    int EXECUTION_TASK__ERROR_STATUS = 17;
 
     /**
      * The feature id for the '<em><b>Last Run Date</b></em>' attribute.
@@ -2840,7 +2849,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_RUN_DATE = 17;
+    int EXECUTION_TASK__LAST_RUN_DATE = 18;
 
     /**
      * The feature id for the '<em><b>Last Deployment Date</b></em>' attribute.
@@ -2849,7 +2858,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = 18;
+    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = 19;
 
     /**
      * The feature id for the '<em><b>Last Ended Run Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2858,7 +2867,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = 19;
+    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = 20;
 
     /**
      * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
@@ -2867,7 +2876,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__TRIGGERS = 20;
+    int EXECUTION_TASK__TRIGGERS = 21;
 
     /**
      * The feature id for the '<em><b>Cmd Prms</b></em>' containment reference list.
@@ -2876,7 +2885,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CMD_PRMS = 21;
+    int EXECUTION_TASK__CMD_PRMS = 22;
 
     /**
      * The feature id for the '<em><b>Job Prms</b></em>' containment reference list.
@@ -2885,7 +2894,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_PRMS = 22;
+    int EXECUTION_TASK__JOB_PRMS = 23;
 
     /**
      * The feature id for the '<em><b>Job Id</b></em>' attribute.
@@ -2893,7 +2902,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_ID = 23;
+    int EXECUTION_TASK__JOB_ID = 24;
 
     /**
      * The feature id for the '<em><b>Virtual Server</b></em>' reference.
@@ -2901,7 +2910,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__VIRTUAL_SERVER = 24;
+    int EXECUTION_TASK__VIRTUAL_SERVER = 25;
 
     /**
      * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
@@ -2910,7 +2919,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CONCURRENT_EXECUTION = 25;
+    int EXECUTION_TASK__CONCURRENT_EXECUTION = 26;
 
     /**
      * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
@@ -2919,7 +2928,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = 26;
+    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = 27;
 
     /**
      * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
@@ -2928,7 +2937,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_PROJECT_NAME = 27;
+    int EXECUTION_TASK__GENERATED_PROJECT_NAME = 28;
 
     /**
      * The feature id for the '<em><b>Generated Job Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2937,7 +2946,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_JOB_NAME = 28;
+    int EXECUTION_TASK__GENERATED_JOB_NAME = 29;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -2946,7 +2955,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = 29;
+    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = 30;
 
     /**
      * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2955,7 +2964,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STACK_TRACE = 30;
+    int EXECUTION_TASK__ERROR_STACK_TRACE = 31;
 
     /**
      * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
@@ -2964,7 +2973,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_TRIGGERING_DATE = 31;
+    int EXECUTION_TASK__LAST_TRIGGERING_DATE = 32;
 
     /**
      * The feature id for the '<em><b>Exec Statistics Enabled</b></em>' attribute.
@@ -2973,7 +2982,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = 32;
+    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = 33;
 
     /**
      * The feature id for the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
@@ -2982,7 +2991,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = 33;
+    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = 34;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -2991,7 +3000,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 34;
+    int EXECUTION_TASK_FEATURE_COUNT = 35;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
@@ -7781,6 +7790,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionTask_Project();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getBranch <em>Branch</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Branch</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getBranch()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Branch();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Context</em>'.
@@ -11933,6 +11953,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_TASK__PROJECT = eINSTANCE.getExecutionTask_Project();
+
+        /**
+         * The meta object literal for the '<em><b>Branch</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__BRANCH = eINSTANCE.getExecutionTask_Branch();
 
         /**
          * The meta object literal for the '<em><b>Context</b></em>' attribute feature.

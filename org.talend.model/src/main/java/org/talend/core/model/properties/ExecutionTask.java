@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getBranch <em>Branch</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
@@ -183,6 +184,32 @@ public interface ExecutionTask extends EObject {
      * @generated
      */
     void setProject(Project value);
+
+    /**
+     * Returns the value of the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Branch</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Branch</em>' attribute.
+     * @see #setBranch(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Branch()
+     * @model
+     * @generated
+     */
+    String getBranch();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getBranch <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Branch</em>' attribute.
+     * @see #getBranch()
+     * @generated
+     */
+    void setBranch(String value);
 
     /**
      * Returns the value of the '<em><b>Context</b></em>' attribute.

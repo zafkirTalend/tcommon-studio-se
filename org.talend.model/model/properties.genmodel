@@ -263,6 +263,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/executionServer"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/project"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/branch"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/context"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobVersion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/active"/>
