@@ -4,7 +4,7 @@
 		default="true">
 		<dbTypes>
 			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
-			<dbType type="CHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="1" ignoreLen="false" ignorePre="true" />
 			<dbType type="COUNTER"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
