@@ -22,8 +22,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
 
 /**
- * Meta Data Table. Contains all the columns. <br/> $Id: MetadataTable.java,v 1.24.4.1 2006/09/05 13:38:25 mhelleboid
- * Exp $
+ * Meta Data Table. Contains all the columns. <br/>
+ * $Id$
  */
 public class MetadataTable extends RepositoryObject implements IMetadataTable, Cloneable {
 
@@ -107,6 +107,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                 clonedMetaColumns.add(listColumns.get(i).clone(withCustoms));
             }
             clonedMetadata.setTableName(this.getTableName());
+            clonedMetadata.setLabel(this.getLabel());
         } catch (CloneNotSupportedException e) {
             // nothing
         } catch (Exception e) {

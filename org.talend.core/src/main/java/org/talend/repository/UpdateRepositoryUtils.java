@@ -387,7 +387,8 @@ public final class UpdateRepositoryUtils {
                 aliasName = repositoryObjectType.getAlias();
                 Connection connection = ((ConnectionItem) item).getConnection();
                 if (connection instanceof DatabaseConnection) {
-                    String currentDbType = (String) RepositoryToComponentProperty.getValue(connection, UpdatesConstants.TYPE);
+                    String currentDbType = (String) RepositoryToComponentProperty.getValue(connection, UpdatesConstants.TYPE,
+                            null);
                     aliasName += " (" + currentDbType + ")"; //$NON-NLS-1$ //$NON-NLS-2$
                 }
             } else if (item instanceof ContextItem) {

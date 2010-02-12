@@ -80,6 +80,7 @@ public class SetNameForm extends AbstractForm {
 
         nameText = new LabelledText(mdmParameterGroup, Messages.getString("SetNameForm.NAME"), true); //$NON-NLS-1$
         checkFieldsValue();
+        nameText.forceFocus();
     }
 
     /*

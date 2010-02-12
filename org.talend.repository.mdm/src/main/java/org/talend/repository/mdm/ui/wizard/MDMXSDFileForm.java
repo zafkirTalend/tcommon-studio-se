@@ -942,6 +942,8 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         metadataTable.setLabel(conceptName);
         metadataTable.setId(factory.getNextId());
 
+        concept.setLabel(conceptName);
+
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         List<ConceptTarget> targetList = concept.getConceptTargets();
 

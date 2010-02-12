@@ -191,6 +191,7 @@ public class MetadataTool {
         }
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
+        target.setLabel(source.getLabel());
     }
 
     /**
