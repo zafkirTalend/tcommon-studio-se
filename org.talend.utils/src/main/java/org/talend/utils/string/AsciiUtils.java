@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.utils.string;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * @author scorreia
  * 
@@ -78,9 +80,78 @@ public final class AsciiUtils {
         return sb.toString();
     }
 
+    /**
+     * Removes diacritical mark from a character.
+     * 
+     * @param ch a character
+     * @return the same input character without the diacritical mark if any.
+     */
+    public static char removeDiacriticalMark(char c) {
+
+        if (c < 192)
+            return c;
+        if (c >= 192 && c <= 197)
+            return (char) 'A';
+        if (c == 199)
+            return (char) 'C';
+        if (c >= 200 && c <= 203)
+            return (char) 'E';
+        if (c >= 204 && c <= 207)
+            return (char) 'I';
+        if (c == 208)
+            return (char) 'D';
+        if (c == 209)
+            return (char) 'N';
+        if ((c >= 210 && c <= 214) || c == 216)
+            return (char) 'O';
+        if (c >= 217 && c <= 220)
+            return (char) 'U';
+        if (c == 221)
+            return (char) 'Y';
+        if (c >= 224 && c <= 229)
+            return (char) 'a';
+        if (c == 231)
+            return (char) 'c';
+        if (c >= 232 && c <= 235)
+            return (char) 'e';
+        if (c >= 236 && c <= 239)
+            return (char) 'i';
+        if (c == 240)
+            return (char) 'd';
+        if (c == 241)
+            return (char) 'n';
+        if ((c >= 242 && c <= 246) || c == 248)
+            return (char) 'o';
+        if (c >= 249 && c <= 252)
+            return (char) 'u';
+        if (c == 253 || c == 255)
+            return (char) 'y';
+
+        return c;
+    }
+
+    /**
+     * Removes diacritical marks from a string.
+     * 
+     * @param st a string
+     * @return a new string without the diacritical mark if any.
+     */
+    public static String removeDiacriticalMarks(String st) {
+
+        int len = st.length();
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < len; i++) {
+            sb.append(removeDiacriticalMark(st.charAt(i)));
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
-        System.out.println(UNICODE);
-        System.out.println(AsciiUtils.unaccent(UNICODE));
+        String toReplace = (args != null && args.length > 0) ? args[0] : UNICODE;
+
+        System.out.println(toReplace);
+        System.out.println(AsciiUtils.unaccent(toReplace));
 
         String remove = "&@:;%^~£$€'\"\\/ ";
         String replacement = "EACSPHTLDEQDBS_";
@@ -88,5 +159,12 @@ public final class AsciiUtils {
         System.out.println("'" + remove + "'");
         System.out.println("'" + AsciiUtils.replaceCharacters(remove, remove, replacement) + "'");
 
+        try {
+            System.out.println(new String(toReplace.getBytes(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
     }
+
 }
