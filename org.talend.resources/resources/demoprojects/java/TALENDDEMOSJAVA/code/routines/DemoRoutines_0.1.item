@@ -3,7 +3,7 @@ package routines;
 
 public class DemoRoutines {
 
-  /** 
+  /***** 
      * helloExemple: Print the hello message on the console
      * {Category} DemoRoutine
      * {talendTypes} String
