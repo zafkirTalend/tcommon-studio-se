@@ -13,18 +13,24 @@
 package org.talend.core.model.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.relationship.RelationshipItemBuilder.Relation;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * cli class global comment. Detailled comment
@@ -56,6 +62,55 @@ public final class RetrieveItemsUtil {
 
     /**
      * 
+     * cli Comment method "retrieveObjectByIndexWithType".
+     * 
+     * ? Did the index function support for Ref project or not?
+     * 
+     */
+    public static List<IRepositoryObject> retrieveObjectByIndexWithType(String relatedId, final boolean withLastVersion,
+            final boolean withDeleted, final boolean withLocked, final boolean withRefProject, String indexType)
+            throws PersistenceException {
+        if (relatedId == null || "".equals(relatedId.trim()) || RepositoryNode.NO_ID.equals(relatedId.trim())) { //$NON-NLS-1$
+            return Collections.emptyList();
+        }
+        if (indexType == null) {
+            return Collections.emptyList();
+        }
+
+        RelationshipItemBuilder relationsBuilder = RelationshipItemBuilder.getInstance();
+        final List<Relation> itemsRelated = relationsBuilder.getItemsRelatedTo(relatedId, ItemCacheManager.LATEST_VERSION, indexType);
+        final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        final Project curProject = ProjectManager.getInstance().getCurrentProject();
+
+        List<IRepositoryObject> tmpObjects = new ArrayList<IRepositoryObject>();
+
+        for (Relation r : itemsRelated) {
+            IRepositoryObject lastVersion = factory.getLastVersion(curProject, r.getId());
+            ERepositoryStatus status = factory.getStatus(lastVersion);
+
+            if ((withDeleted || status != ERepositoryStatus.DELETED)
+                    && (withLocked || status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER)) {
+
+                if (withLastVersion) {
+                    tmpObjects.add(lastVersion);
+
+                } else {
+                    Item item = lastVersion.getProperty().getItem();
+                    ERepositoryObjectType objectType = ERepositoryObjectType.getItemType(item);
+                    List<IRepositoryObject> allVersion = factory.getAllVersion(lastVersion.getId(), item.getState().getPath(),
+                            objectType);
+
+                    tmpObjects.addAll(allVersion);
+                }
+            }
+        }
+
+        return tmpObjects;
+
+    }
+
+    /**
+     * 
      * cli Comment method "retrieveItems".
      * 
      * arguments set by preference
@@ -68,6 +123,15 @@ public final class RetrieveItemsUtil {
 
         return retrieveItems(types, withLastVersion, withDeleted, withLocked, withRefProject);
 
+    }
+
+    public static List<IRepositoryObject> retrieveObjectByIndexWithType(String id, String indexType) throws PersistenceException {
+        final boolean withLastVersion = checkLastVersion();
+        final boolean withDeleted = checkDeleted();
+        final boolean withLocked = checkLocked();
+        final boolean withRefProject = checkRefProject();
+
+        return retrieveObjectByIndexWithType(id, withLastVersion, withDeleted, withLocked, withRefProject, indexType);
     }
 
     private static boolean checkLastVersion() {

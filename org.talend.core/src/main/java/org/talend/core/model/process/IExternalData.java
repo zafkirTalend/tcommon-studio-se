@@ -13,6 +13,11 @@
 package org.talend.core.model.process;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import org.talend.core.model.process.node.IExternalMapEntry;
+import org.talend.core.model.process.node.IExternalMapTable;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -22,5 +27,25 @@ import java.io.Serializable;
  */
 public interface IExternalData extends Serializable, Cloneable {
 
+    /**
+     * 
+     * cli ExternalDataType class global comment. Detailled comment
+     */
+    public enum ExternalDataType {
+        OUTPUT,
+        INPUT,
+        VAR,
+        //
+        ;
+    }
+
     public IExternalData clone() throws CloneNotSupportedException;
+
+    /**
+     * 
+     * cli Comment method "getExpressionColumns".
+     * 
+     * find the column name which include this expression.
+     */
+    public Map<IExternalMapTable, List<IExternalMapEntry>> getExpressionColumns(String expression, ExternalDataType... types);
 }
