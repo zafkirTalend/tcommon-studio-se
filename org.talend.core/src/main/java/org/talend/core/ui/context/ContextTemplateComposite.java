@@ -687,6 +687,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
             }
         }
         selectionEnable = selectionEnable && !modelManager.isReadOnly();
+        removeEnable = removeEnable && !modelManager.isReadOnly();
         boolean moveState = orderEnable && selectionEnable;
         if (this.moveUpButton != null) {
             this.moveUpButton.setEnabled(moveState);
