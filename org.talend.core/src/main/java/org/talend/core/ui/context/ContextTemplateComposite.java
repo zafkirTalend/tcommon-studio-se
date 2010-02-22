@@ -250,7 +250,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComposite);
             buttonList.add(selectContextVariablesButton);
-            createDefaultContext(buttonsComposite);
         }
         orderButton = createOrderCheckButton(buttonsComposite);
         buttonList.add(orderButton);
@@ -584,22 +583,6 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         });
         selectContextVariablesPushButton.setImage(image);
         return selectContextVariablesPushButton;
-    }
-
-    private void createDefaultContext(final Composite parent) {
-        Composite defaultComposite = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 2;
-
-        GridData gridData = new GridData();
-        gridData.verticalAlignment = GridData.CENTER;
-        defaultComposite.setLayout(layout);
-        defaultComposite.setLayoutData(gridData);
-        if (getContextModelManager() instanceof ContextComposite) {
-            ContextComposite cComposite = (ContextComposite) getContextModelManager();
-            cComposite.addChoiceComponents(defaultComposite);
-        }
-
     }
 
     private Button createMoveUpPushButton(final Composite parent) {

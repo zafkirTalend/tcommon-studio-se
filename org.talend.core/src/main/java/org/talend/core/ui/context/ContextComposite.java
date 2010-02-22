@@ -14,16 +14,12 @@ package org.talend.core.ui.context;
 
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.talend.core.i18n.Messages;
@@ -45,8 +41,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
     private ContextTableValuesComposite tableValues;
 
     private CTabFolder tab;
-
-    private CCombo contextCombo;
 
     private boolean isRepositoryContext;
 
@@ -82,7 +76,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
         template.setEnabled(enable);
         tableValues.setEnabled(enable);
         treeValues.setEnabled(enable);
-        contextCombo.setEnabled(enable);
 
     }
 
@@ -93,7 +86,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     public void refreshTemplateTab() {
-        refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
             template.clear();
@@ -112,7 +104,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
         if (getContextManager() != null && tableValues != null) {
             tableValues.refresh();
         }
-        refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
             tableValues.clear();
@@ -128,7 +119,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     public void refreshTreeTab() {
-        refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
             treeValues.clear();
@@ -169,9 +159,6 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * bqian Comment method "initializeUI".
      */
     protected void initializeUI() {
-        if (isRepositoryContext) {
-            addChoiceComposite();
-        }
 
         tab = new CTabFolder(this, SWT.FLAT | SWT.BORDER);
         tab.addSelectionListener(new SelectionAdapter() {
@@ -206,57 +193,13 @@ public abstract class ContextComposite extends Composite implements IContextMode
         tab.setSelection(templateItem);
     }
 
-    protected void addChoiceComposite() {
-        Composite dataComp = new Composite(this, SWT.BORDER);
-        dataComp.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        dataComp.setBackground(this.getBackground());
-        dataComp.setLayout(new RowLayout());
-        addChoiceComponents(dataComp);
+    public CTabFolder getTableFolder() {
+        return this.tab;
     }
 
     protected void layoutButtonBar() {
         this.layout();
     }
-
-    protected void addChoiceComponents(Composite composite) {
-        // it is hidden by feature 0004334: set default context in context management popup
-        composite.setVisible(false);
-        CLabel label = new CLabel(composite, SWT.NONE);
-        label.setBackground(this.getBackground());
-        label.setText(Messages.getString("ContextProcessSection.49")); //$NON-NLS-1$
-        label.setAlignment(SWT.RIGHT);
-
-        contextCombo = new CCombo(composite, SWT.BORDER);
-        contextCombo.setEditable(false);
-        contextCombo.addSelectionListener(listenerSelection);
-    }
-
-    protected void refreshChoiceComposite() {
-        String[] stringList = null;
-        if (getContextManager() == null) {
-            stringList = new String[0];
-            contextCombo.setItems(stringList);
-            return;
-        }
-        stringList = new String[getContextManager().getListContext().size()];
-        for (int i = 0; i < getContextManager().getListContext().size(); i++) {
-            stringList[i] = getContextManager().getListContext().get(i).getName();
-        }
-        contextCombo.setItems(stringList);
-        contextCombo.setText(getContextManager().getDefaultContext().getName());
-    }
-
-    private SelectionListener listenerSelection = new SelectionAdapter() {
-
-        @Override
-        public void widgetSelected(final SelectionEvent e) {
-            for (int i = 0; i < getContextManager().getListContext().size(); i++) {
-                if (getContextManager().getListContext().get(i).getName().equals(contextCombo.getText())) {
-                    onContextChangeDefault(getContextManager(), getContextManager().getListContext().get(i));
-                }
-            }
-        }
-    };
 
     private void creatTemplate(CTabFolder tab, CTabItem templateItem) {
         template = new ContextTemplateComposite(tab, this);
