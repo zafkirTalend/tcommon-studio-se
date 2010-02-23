@@ -109,7 +109,7 @@ public class ResumeUtil {
 
     // step3: add log item one by one
     public void addLog(String type, String partName, String parentPart, String threadId, String logPriority, String errorCode,
-            String message, String stackTrace) {
+            String message, String stackTrace, String dynamicData) {
 
         if (csvWriter == null) {
             return;
@@ -118,7 +118,7 @@ public class ResumeUtil {
         String eventDate = FormatterUtils.format_Date(new Date(), "yyyy-MM-dd HH:mm:ss.S");
 
         JobLogItem item = new JobLogItem(eventDate, type, partName, parentPart, threadId, logPriority, errorCode, message,
-                stackTrace);
+                stackTrace, dynamicData);
         try {
             csvWriter.write(item.eventDate);// eventDate--------------->???
             csvWriter.write(commonInfo.pid);// pid
@@ -138,6 +138,7 @@ public class ResumeUtil {
             csvWriter.write(item.errorCode);// errorCode
             csvWriter.write(item.message);// message
             csvWriter.write(item.stackTrace);// stackTrace
+            csvWriter.write(item.dynamicData);// dynamicData--->it is the 17th field. @see:feature:11296
             csvWriter.endRecord();
             csvWriter.flush();
 
@@ -312,6 +313,25 @@ public class ResumeUtil {
         return str;
     }
 
+    // Util: convert the context variable to json style text.
+    // feature:11296
+    public static String convertToJsonText(Object context) {
+        String jsonText = "";
+        try {
+            // first node
+            JSONObject firstNode = new JSONObject();
+            // second node
+            JSONObject secondNode = new JSONObject(context);
+            firstNode.putOpt("context_parameters", secondNode);
+            // System.out.println(firstNode.toString(8));
+            jsonText = firstNode.toString(8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return jsonText;
+    }
+
     // 7 fields
     public class ResumeCommonInfo {
 
@@ -332,11 +352,11 @@ public class ResumeUtil {
         public String jobVersion = null;// 11
     }
 
-    // 10 fields
+    // 10 fields + 1
     public class JobLogItem {
 
         public JobLogItem(String eventDate, String type, String partName, String parentPart, String threadId, String logPriority,
-                String errorCode, String message, String stackTrace) {
+                String errorCode, String message, String stackTrace, String dynamicData) {
             this.eventDate = eventDate;
             this.type = type;
             this.partName = partName;
@@ -346,6 +366,7 @@ public class ResumeUtil {
             this.errorCode = errorCode;
             this.message = message;
             this.stackTrace = stackTrace;
+            this.dynamicData = dynamicData;
         }
 
         // there are 10 fields for every different message
@@ -366,6 +387,8 @@ public class ResumeUtil {
         public String message = null;// 15
 
         public String stackTrace = null;// 16
+
+        public String dynamicData = null;// 17, it is only for 2 cases: JOB_STARTED/tContextLoad
     }
 
     public enum LogPriority {
