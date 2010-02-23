@@ -800,9 +800,11 @@ public class JSONObject {
                         } else {
                             key = name.substring(3);
                         }
-                    } else if (name.startsWith("is")) {
-                        key = name.substring(2);
                     }
+                    // modified by wyang: remove the "isEmpty" case in HashMap
+                    // else if (name.startsWith("is")) {
+                    // key = name.substring(2);
+                    // }
                     if (key.length() > 0 && Character.isUpperCase(key.charAt(0)) && method.getParameterTypes().length == 0) {
                         if (key.length() == 1) {
                             key = key.toLowerCase();
