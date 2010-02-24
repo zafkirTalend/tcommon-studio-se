@@ -210,4 +210,5 @@ public interface IElementParameter extends Cloneable {
 
     public void setDynamicSettings(boolean dynamicSettings);
 
+    public IElementParameter clone() throws CloneNotSupportedException;
 }

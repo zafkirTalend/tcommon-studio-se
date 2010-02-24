@@ -491,57 +491,46 @@ public class ObjectElementParameter implements IElementParameter {
     }
 
     public boolean isBasedOnSchema() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     public void setBasedOnSchema(boolean basedOnSchema) {
-        // TODO Auto-generated method stub
 
     }
 
     public String getFilter() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public void setFilter(String filter) {
-        // TODO Auto-generated method stub
 
     }
 
     public boolean isNoCheck() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     public void setNoCheck(boolean noCheck) {
-        // TODO Auto-generated method stub
 
     }
 
     public String getContext() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public void setContext(String context) {
-        // TODO Auto-generated method stub
 
     }
 
     public Map<String, IElementParameter> getChildParameters() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public IElementParameter getParentParameter() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public void setParentParameter(IElementParameter parentParameter) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -551,7 +540,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getGroup()
      */
     public String getGroup() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -561,7 +549,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setGroup(java.lang.String )
      */
     public void setGroup(String groupName) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -571,7 +558,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getGroupDisplayName()
      */
     public String getGroupDisplayName() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -581,7 +567,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setGroupDisplayName(java .lang.String)
      */
     public void setGroupDisplayName(String groupDisplayName) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -591,7 +576,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getLinkedRepositoryItem()
      */
     public Item getLinkedRepositoryItem() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -602,7 +586,6 @@ public class ObjectElementParameter implements IElementParameter {
      * (org.talend.core.model.properties.Item)
      */
     public void setLinkedRepositoryItem(Item item) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -630,7 +613,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getLabelFromRepository()
      */
     public String getLabelFromRepository() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -640,7 +622,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setLabelFromRepository (java.lang.String)
      */
     public void setLabelFromRepository(String label) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -703,7 +684,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#isDynamicSettings()
      */
     public boolean isDynamicSettings() {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -713,7 +693,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setDynamicSettings(boolean )
      */
     public void setDynamicSettings(boolean dynamicSettings) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -723,7 +702,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getListItemsNotReadOnlyIf()
      */
     public String[] getListItemsNotReadOnlyIf() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -733,7 +711,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getListItemsReadOnlyIf()
      */
     public String[] getListItemsReadOnlyIf() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -743,7 +720,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getNotReadOnlyIf()
      */
     public String getNotReadOnlyIf() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -753,7 +729,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#getReadOnlyIf()
      */
     public String getReadOnlyIf() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -763,7 +738,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#isReadOnly(java.util.List)
      */
     public boolean isReadOnly(List<? extends IElementParameter> listParam) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -775,7 +749,6 @@ public class ObjectElementParameter implements IElementParameter {
      */
     public boolean isReadOnly(String conditionReadOnlyIf, String conditionNotReadOnlyIf,
             List<? extends IElementParameter> listParams) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -785,7 +758,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setListItemsNotReadOnlyIf(java.lang.String[])
      */
     public void setListItemsNotReadOnlyIf(String[] list) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -795,7 +767,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setListItemsReadOnlyIf(java.lang.String[])
      */
     public void setListItemsReadOnlyIf(String[] list) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -805,7 +776,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setNotReadOnlyIf(java.lang.String)
      */
     public void setNotReadOnlyIf(String notShowIf) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -815,7 +785,6 @@ public class ObjectElementParameter implements IElementParameter {
      * @see org.talend.core.model.process.IElementParameter#setReadOnlyIf(java.lang.String)
      */
     public void setReadOnlyIf(String showIf) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -835,5 +804,17 @@ public class ObjectElementParameter implements IElementParameter {
      */
     public void setColumnsBasedOnSchema(boolean columnsBasedOnSchema) {
 
+    }
+
+    public IElementParameter clone() throws CloneNotSupportedException {
+        final IElementParameter clone = (IElementParameter) super.clone();
+
+        clone.setCategory(this.getCategory());
+        clone.setName(this.getName());
+        clone.setField(this.getField());
+        clone.setDisplayName(this.getDisplayName());
+        clone.setValue(this.getValue());
+
+        return clone;
     }
 }
