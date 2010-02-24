@@ -19,6 +19,7 @@ import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
@@ -117,7 +118,12 @@ public class CoreImageProvider {
         if (component != null && iconSize != null) {
 
             String name = component.getName();
-            Image image = (Image) componentCachedImages.get(name, iconSize);
+            Image image = null;
+            if (iconSize == ICON_SIZE.ICON_32 && CorePlugin.getDefault().getDesignerCoreService().isDummyComponent(component)) {
+                image = component.getIcon32().createImage();
+            } else {
+                image = (Image) componentCachedImages.get(name, iconSize);
+            }
             // PTODO check joblet component
 
             if (image == null || image.isDisposed()) {
@@ -142,5 +148,4 @@ public class CoreImageProvider {
         }
         return null;
     }
-
 }

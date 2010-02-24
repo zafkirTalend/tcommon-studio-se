@@ -28,6 +28,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -44,7 +45,8 @@ import org.talend.core.utils.CsvArray;
 import org.talend.designer.runprocess.ProcessorException;
 
 /**
- * Provides Designer core services for other components <br/>.
+ * Provides Designer core services for other components <br/>
+ * .
  * 
  * $Id: IDesignerCore.java 1 2006-12-19 上午10:16:43 bqian
  * 
@@ -158,5 +160,7 @@ public interface IDesignerCoreService extends IService {
     public void removeJobLaunch(IRepositoryObject objToDelete);
 
     public void renameJobLaunch(IRepositoryObject obj, String originalName);
+
+    public boolean isDummyComponent(IComponent component);
 
 }
