@@ -64,6 +64,8 @@ public class ParallelPerformance extends CommonPerformance {
 
     private String label;
 
+    private boolean isOnTop;
+
     public void resetStatus() {
         displayedExecutionId.clear();
         stoppeddExecutionId.clear();
@@ -77,6 +79,7 @@ public class ParallelPerformance extends CommonPerformance {
 
         if (StringUtils.isEmpty(msg) || !eConnectionType.equals(EConnectionType.FLOW_MAIN)
                 || data.getConnectionId().indexOf('.') < 0) {
+            isOnTop = true;
             // if message has format as row1, handle by super class
             return super.getLabel(msg);
         } else {
@@ -136,6 +139,9 @@ public class ParallelPerformance extends CommonPerformance {
      * @return
      */
     public Point computeLabelOffset() {
+        if (isOnTop) {
+            return new Point(0, -30);
+        }
         int size = performanceDataMap.keySet().size();
         if (size > DISPLAY_LIMIT) {
             size = DISPLAY_LIMIT;
