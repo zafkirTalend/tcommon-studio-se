@@ -681,6 +681,7 @@ public abstract class RepositoryUpdateManager {
             List<UpdateResult> resultFromProcess = getResultFromProcess(process2, types, onlySimpleShow);
             // set
             addItemForResult(process2, resultFromProcess);
+            process2.dispose();
             return resultFromProcess;
 
         }
