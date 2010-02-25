@@ -59,7 +59,11 @@ public abstract class ProgressDialog {
     }
 
     public void executeProcess() throws InvocationTargetException, InterruptedException {
-        final Display display = parentShell.getDisplay();
+        Display display2 = null;
+        if (parentShell != null) {
+            display2 = parentShell.getDisplay();
+        }
+        final Display display = display2;
         final InvocationTargetException[] iteHolder = new InvocationTargetException[1];
         try {
             final IRunnableWithProgress op = new IRunnableWithProgress() {
@@ -96,8 +100,8 @@ public abstract class ProgressDialog {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
                     if (timeBeforeShowDialog > 0) {
                         progressMonitorDialog.setOpenOnRun(false);
-                        AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog,
-                                true, display, new Runnable() {
+                        AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true,
+                                display, new Runnable() {
 
                                     public void run() {
                                         progressMonitorDialog.open();
