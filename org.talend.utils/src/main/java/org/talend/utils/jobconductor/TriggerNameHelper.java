@@ -23,7 +23,9 @@ public final class TriggerNameHelper {
 
     private static final String P_TASK = "_task";
 
-    public static final String PREFIX_RECOVER_TRIGGER = "RecoverTrigger" + P_TASK;
+    public static final String PREFIX_TALEND_RECOVER_TRIGGER = "RecoverTrigger" + P_TASK;
+
+    public static final String PREFIX_QUARTZ_RECOVER_TRIGGER = "recover_";
 
     public static final String PREFIX_INSTANT_RUN_TRIGGER = "InstantRunTrigger";
 
@@ -57,10 +59,10 @@ public final class TriggerNameHelper {
         String[] split = triggerName.split("\\.");
         triggerName = split[split.length - 1];
 
-        if (isRecoverTriggerName(triggerName)) {
+        if (isTalendRecoverTriggerName(triggerName)) {
             // throw new IllegalArgumentException("InstantRunTrigger " + triggerName
             // + " does not contain a talend trigger id!");
-            String idStr = triggerName.substring(PREFIX_RECOVER_TRIGGER.length());
+            String idStr = triggerName.substring(PREFIX_TALEND_RECOVER_TRIGGER.length());
             return Integer.parseInt(idStr);
         } else if (isInstantRunTriggerName(triggerName)) {
             // throw new IllegalArgumentException("InstantRunTrigger " + triggerName
@@ -99,7 +101,7 @@ public final class TriggerNameHelper {
     }
 
     public String buildRecoverTriggerName(int idTask) {
-        return PREFIX_RECOVER_TRIGGER + idTask;
+        return PREFIX_TALEND_RECOVER_TRIGGER + idTask;
     }
 
     public String buildInstantRunTriggerName(int idTask) {
@@ -116,8 +118,16 @@ public final class TriggerNameHelper {
         return quartzTriggerName;
     }
 
+    public boolean isTalendRecoverTriggerName(String triggerName) {
+        return triggerName.matches(".*" + PREFIX_TALEND_RECOVER_TRIGGER + ".+");
+    }
+
+    public boolean isQuartzRecoverTriggerName(String triggerName) {
+        return triggerName.matches(PREFIX_QUARTZ_RECOVER_TRIGGER + ".+");
+    }
+
     public boolean isRecoverTriggerName(String triggerName) {
-        return triggerName.matches(".*" + PREFIX_RECOVER_TRIGGER + ".+");
+        return isTalendRecoverTriggerName(triggerName) || isQuartzRecoverTriggerName(triggerName);
     }
 
     public boolean isFileTriggerName(String triggerName) {
