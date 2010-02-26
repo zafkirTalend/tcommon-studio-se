@@ -45,7 +45,7 @@ public interface ITDQImportExportService extends IService {
      * 
      * the version is tdq version for migration task.
      */
-    public boolean importElement(Project curProject, Property property, String version);
+    public boolean importElement(Project curProject, Project oldProject, Property property, String version);
 
     /**
      * 
