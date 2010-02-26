@@ -94,4 +94,7 @@ public interface IProcess2 extends IProcess {
 
     public void dispose();
 
+    // for tmap to add a "Error Reject"
+    public void addUniqueConnectionName(String uniqueConnectionName, boolean needValidate);
+
 }
