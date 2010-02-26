@@ -431,8 +431,8 @@ public class ImportItemUtil {
                         initTDQRepository = service.initRepository(emfProject);
                     }
                     if (initTDQRepository) {
-                        boolean imported = service.importElement(emfProject, itemRecord.getProperty(), itemRecord
-                                .getItemProjectVersion());
+                        boolean imported = service.importElement(emfProject, itemRecord.getItemProject(), itemRecord
+                                .getProperty(), itemRecord.getItemProjectVersion());
                         if (imported) {
                             itemRecord.setImportPath(path.toPortableString());
                             itemRecord.setRepositoryType(itemType);
@@ -747,6 +747,9 @@ public class ImportItemUtil {
                             Project project = computeProject(collector, itemRecord, projectFilePath);
                             if (checkProject(project, itemRecord)) {
                                 treeBuilder.addItem(project, itemRecord);
+
+                                // set item project into record.
+                                itemRecord.setItemProject(project);
                                 // we can try to import item
                                 // and we will try to resolve user
                                 User user = (User) project.eResource().getEObject(uri.fragment());

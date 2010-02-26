@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -61,6 +62,8 @@ public class ItemRecord {
     private String importPath;
 
     private String itemVersion;
+
+    private Project itemProject;
 
     private String itemProjectVersion;
 
@@ -239,6 +242,14 @@ public class ItemRecord {
 
     public void setItemProjectVersion(String itemProjectVersion) {
         this.itemProjectVersion = itemProjectVersion;
+    }
+
+    public void setItemProject(Project itemProject) {
+        this.itemProject = itemProject;
+    }
+
+    public Project getItemProject() {
+        return itemProject;
     }
 
 }
