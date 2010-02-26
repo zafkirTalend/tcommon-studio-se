@@ -515,6 +515,8 @@ public class RepositoryToComponentProperty {
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
                 // This connection is Oracle_service_name
                 return EDatabaseTypeName.ORACLESN.getXmlName();
+            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
+                return EDatabaseTypeName.ORACLE_OCI.getXmlName();
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                 return EDatabaseTypeName.MSSQL.getXMLType(); // for component
             } else {
