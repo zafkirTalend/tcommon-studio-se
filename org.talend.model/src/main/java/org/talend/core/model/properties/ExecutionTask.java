@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -922,5 +923,31 @@ public interface ExecutionTask extends EObject {
      * @generated
      */
     void setAddStatisticsCodeEnabled(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Owner Scheduler Instance Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Owner Scheduler Instance Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Owner Scheduler Instance Id</em>' attribute.
+     * @see #setOwnerSchedulerInstanceId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_OwnerSchedulerInstanceId()
+     * @model
+     * @generated
+     */
+    String getOwnerSchedulerInstanceId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Owner Scheduler Instance Id</em>' attribute.
+     * @see #getOwnerSchedulerInstanceId()
+     * @generated
+     */
+    void setOwnerSchedulerInstanceId(String value);
 
 } // ExecutionTask

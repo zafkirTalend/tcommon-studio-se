@@ -29,6 +29,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName <em>Virtual Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerName <em>Execution Server Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerHost <em>Execution Server Host</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerCmdPort <em>Execution Server Cmd Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerFilePort <em>Execution Server File Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerMonitoringPort <em>Execution Server Monitoring Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTriggeredBy <em>Triggered By</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTriggerType <em>Trigger Type</em>}</li>
@@ -387,6 +391,110 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setExecutionServerName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Execution Server Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Execution Server Host</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Execution Server Host</em>' attribute.
+     * @see #setExecutionServerHost(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ExecutionServerHost()
+     * @model
+     * @generated
+     */
+    String getExecutionServerHost();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerHost <em>Execution Server Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Execution Server Host</em>' attribute.
+     * @see #getExecutionServerHost()
+     * @generated
+     */
+    void setExecutionServerHost(String value);
+
+    /**
+     * Returns the value of the '<em><b>Execution Server Cmd Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Execution Server Cmd Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Execution Server Cmd Port</em>' attribute.
+     * @see #setExecutionServerCmdPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ExecutionServerCmdPort()
+     * @model
+     * @generated
+     */
+    int getExecutionServerCmdPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerCmdPort <em>Execution Server Cmd Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Execution Server Cmd Port</em>' attribute.
+     * @see #getExecutionServerCmdPort()
+     * @generated
+     */
+    void setExecutionServerCmdPort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Execution Server File Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Execution Server File Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Execution Server File Port</em>' attribute.
+     * @see #setExecutionServerFilePort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ExecutionServerFilePort()
+     * @model
+     * @generated
+     */
+    int getExecutionServerFilePort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerFilePort <em>Execution Server File Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Execution Server File Port</em>' attribute.
+     * @see #getExecutionServerFilePort()
+     * @generated
+     */
+    void setExecutionServerFilePort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Execution Server Monitoring Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Execution Server Monitoring Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Execution Server Monitoring Port</em>' attribute.
+     * @see #setExecutionServerMonitoringPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ExecutionServerMonitoringPort()
+     * @model
+     * @generated
+     */
+    int getExecutionServerMonitoringPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerMonitoringPort <em>Execution Server Monitoring Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Execution Server Monitoring Port</em>' attribute.
+     * @see #getExecutionServerMonitoringPort()
+     * @generated
+     */
+    void setExecutionServerMonitoringPort(int value);
 
     /**
      * Returns the value of the '<em><b>Apply Context To Children</b></em>' attribute.

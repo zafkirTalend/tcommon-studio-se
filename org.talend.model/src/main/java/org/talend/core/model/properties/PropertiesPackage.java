@@ -2994,13 +2994,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = 34;
 
     /**
+     * The feature id for the '<em><b>Owner Scheduler Instance Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = 35;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 35;
+    int EXECUTION_TASK_FEATURE_COUNT = 36;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
@@ -3375,13 +3384,49 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = 12;
 
     /**
+     * The feature id for the '<em><b>Execution Server Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST = 13;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Cmd Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT = 14;
+
+    /**
+     * The feature id for the '<em><b>Execution Server File Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT = 15;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Monitoring Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT = 16;
+
+    /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = 13;
+    int TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = 17;
 
     /**
      * The feature id for the '<em><b>Triggered By</b></em>' attribute.
@@ -3389,7 +3434,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGERED_BY = 14;
+    int TASK_EXECUTION_HISTORY__TRIGGERED_BY = 18;
 
     /**
      * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
@@ -3397,7 +3442,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGER_TYPE = 15;
+    int TASK_EXECUTION_HISTORY__TRIGGER_TYPE = 19;
 
     /**
      * The feature id for the '<em><b>Trigger Name</b></em>' attribute.
@@ -3405,7 +3450,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGER_NAME = 16;
+    int TASK_EXECUTION_HISTORY__TRIGGER_NAME = 20;
 
     /**
      * The feature id for the '<em><b>Trigger Description</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3414,7 +3459,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = 17;
+    int TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = 21;
 
     /**
      * The feature id for the '<em><b>Task Error Stack Trace</b></em>' attribute.
@@ -3423,7 +3468,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = 18;
+    int TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = 22;
 
     /**
      * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
@@ -3431,7 +3476,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB = 19;
+    int TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB = 23;
 
     /**
      * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3440,7 +3485,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = 20;
+    int TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = 24;
 
     /**
      * The feature id for the '<em><b>Last Job Generation Date</b></em>' attribute.
@@ -3449,7 +3494,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = 21;
+    int TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = 25;
 
     /**
      * The feature id for the '<em><b>Job Archive Filename</b></em>' attribute.
@@ -3458,7 +3503,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = 22;
+    int TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = 26;
 
     /**
      * The feature id for the '<em><b>File Trigger File Mask</b></em>' attribute.
@@ -3467,7 +3512,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = 23;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = 27;
 
     /**
      * The feature id for the '<em><b>File Trigger File Name</b></em>' attribute.
@@ -3476,7 +3521,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME = 24;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME = 28;
 
     /**
      * The feature id for the '<em><b>File Trigger Folder Path</b></em>' attribute.
@@ -3485,7 +3530,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = 25;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = 29;
 
     /**
      * The feature id for the '<em><b>File Trigger Triggered File Path</b></em>' attribute.
@@ -3494,7 +3539,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = 26;
+    int TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = 30;
 
     /**
      * The feature id for the '<em><b>Expected Triggering Date</b></em>' attribute.
@@ -3503,7 +3548,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = 27;
+    int TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = 31;
 
     /**
      * The feature id for the '<em><b>Task Start Date</b></em>' attribute.
@@ -3511,7 +3556,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 28;
+    int TASK_EXECUTION_HISTORY__TASK_START_DATE = 32;
 
     /**
      * The feature id for the '<em><b>Task End Date</b></em>' attribute.
@@ -3519,7 +3564,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 29;
+    int TASK_EXECUTION_HISTORY__TASK_END_DATE = 33;
 
     /**
      * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
@@ -3528,7 +3573,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 30;
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = 34;
 
     /**
      * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3537,7 +3582,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 31;
+    int TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = 35;
 
     /**
      * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
@@ -3546,7 +3591,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 32;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE = 36;
 
     /**
      * The feature id for the '<em><b>Server Job End Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3555,7 +3600,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 33;
+    int TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE = 37;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -3563,7 +3608,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 34;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB = 38;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -3572,7 +3617,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 35;
+    int TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = 39;
 
     /**
      * The feature id for the '<em><b>Request Id</b></em>' attribute.
@@ -3580,7 +3625,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__REQUEST_ID = 36;
+    int TASK_EXECUTION_HISTORY__REQUEST_ID = 40;
 
     /**
      * The feature id for the '<em><b>Resuming Mode</b></em>' attribute.
@@ -3588,7 +3633,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__RESUMING_MODE = 37;
+    int TASK_EXECUTION_HISTORY__RESUMING_MODE = 41;
 
     /**
      * The feature id for the '<em><b>Error Code</b></em>' attribute.
@@ -3596,7 +3641,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY__ERROR_CODE = 38;
+    int TASK_EXECUTION_HISTORY__ERROR_CODE = 42;
 
     /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
@@ -3605,7 +3650,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 39;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 43;
 
     int TASK_EXECUTION_HISTORY__JVM_VALUES = 40;
 
@@ -8114,6 +8159,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_AddStatisticsCodeEnabled();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Owner Scheduler Instance Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_OwnerSchedulerInstanceId();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm <em>Execution Task Cmd Prm</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Execution Task Cmd Prm</em>'.
@@ -9906,6 +9962,50 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getTaskExecutionHistory_ExecutionServerName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerHost <em>Execution Server Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Execution Server Host</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerHost()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ExecutionServerHost();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerCmdPort <em>Execution Server Cmd Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Execution Server Cmd Port</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerCmdPort()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ExecutionServerCmdPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerFilePort <em>Execution Server File Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Execution Server File Port</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerFilePort()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ExecutionServerFilePort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerMonitoringPort <em>Execution Server Monitoring Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Execution Server Monitoring Port</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerMonitoringPort()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ExecutionServerMonitoringPort();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#isApplyContextToChildren <em>Apply Context To Children</em>}'.
@@ -12195,6 +12295,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = eINSTANCE.getExecutionTask_AddStatisticsCodeEnabled();
 
         /**
+         * The meta object literal for the '<em><b>Owner Scheduler Instance Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = eINSTANCE.getExecutionTask_OwnerSchedulerInstanceId();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl
@@ -13602,6 +13710,38 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = eINSTANCE.getTaskExecutionHistory_ExecutionServerName();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Server Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST = eINSTANCE.getTaskExecutionHistory_ExecutionServerHost();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Server Cmd Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT = eINSTANCE.getTaskExecutionHistory_ExecutionServerCmdPort();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Server File Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT = eINSTANCE.getTaskExecutionHistory_ExecutionServerFilePort();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Server Monitoring Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT = eINSTANCE.getTaskExecutionHistory_ExecutionServerMonitoringPort();
 
         /**
          * The meta object literal for the '<em><b>Apply Context To Children</b></em>' attribute feature. <!--

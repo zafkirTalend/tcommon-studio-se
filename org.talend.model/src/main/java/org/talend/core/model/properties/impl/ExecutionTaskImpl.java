@@ -66,6 +66,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -688,6 +689,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected boolean addStatisticsCodeEnabled = ADD_STATISTICS_CODE_ENABLED_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getOwnerSchedulerInstanceId() <em>Owner Scheduler Instance Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOwnerSchedulerInstanceId()
+     * @generated
+     * @ordered
+     */
+    protected static final String OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOwnerSchedulerInstanceId() <em>Owner Scheduler Instance Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOwnerSchedulerInstanceId()
+     * @generated
+     * @ordered
+     */
+    protected String ownerSchedulerInstanceId = OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1401,6 +1422,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getOwnerSchedulerInstanceId() {
+        return ownerSchedulerInstanceId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOwnerSchedulerInstanceId(String newOwnerSchedulerInstanceId) {
+        String oldOwnerSchedulerInstanceId = ownerSchedulerInstanceId;
+        ownerSchedulerInstanceId = newOwnerSchedulerInstanceId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID, oldOwnerSchedulerInstanceId, ownerSchedulerInstanceId));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1511,6 +1553,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isExecStatisticsEnabled() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
                 return isAddStatisticsCodeEnabled() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
+                return getOwnerSchedulerInstanceId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1629,6 +1673,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
                 setAddStatisticsCodeEnabled(((Boolean)newValue).booleanValue());
                 return;
+            case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
+                setOwnerSchedulerInstanceId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1744,6 +1791,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
                 setAddStatisticsCodeEnabled(ADD_STATISTICS_CODE_ENABLED_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
+                setOwnerSchedulerInstanceId(OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1824,6 +1874,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return execStatisticsEnabled != EXEC_STATISTICS_ENABLED_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
                 return addStatisticsCodeEnabled != ADD_STATISTICS_CODE_ENABLED_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
+                return OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT == null ? ownerSchedulerInstanceId != null : !OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT.equals(ownerSchedulerInstanceId);
         }
         return super.eIsSet(featureID);
     }
@@ -1894,6 +1946,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(execStatisticsEnabled);
         result.append(", addStatisticsCodeEnabled: ");
         result.append(addStatisticsCodeEnabled);
+        result.append(", ownerSchedulerInstanceId: ");
+        result.append(ownerSchedulerInstanceId);
         result.append(')');
         return result.toString();
     }

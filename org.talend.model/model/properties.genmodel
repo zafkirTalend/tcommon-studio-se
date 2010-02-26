@@ -293,6 +293,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastTriggeringDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/execStatisticsEnabled"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/addStatisticsCodeEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/ownerSchedulerInstanceId"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionTaskCmdPrm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskCmdPrm/id"/>
@@ -322,6 +323,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/contextValues"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/virtualServerName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/executionServerName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/executionServerHost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/executionServerCmdPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/executionServerFilePort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/executionServerMonitoringPort"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/applyContextToChildren"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/triggeredBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/triggerType"/>

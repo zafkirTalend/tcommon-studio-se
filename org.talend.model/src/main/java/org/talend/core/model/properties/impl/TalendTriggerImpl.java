@@ -417,7 +417,7 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * @generated
      */
     public ExecutionTask getExecutionTask() {
-        if (eContainerFeatureID != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK) return null;
+        if (eContainerFeatureID() != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK) return null;
         return (ExecutionTask)eContainer();
     }
 
@@ -437,7 +437,7 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * @generated
      */
     public void setExecutionTask(ExecutionTask newExecutionTask) {
-        if (newExecutionTask != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK && newExecutionTask != null)) {
+        if (newExecutionTask != eInternalContainer() || (eContainerFeatureID() != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK && newExecutionTask != null)) {
             if (EcoreUtil.isAncestor(this, newExecutionTask))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -633,7 +633,7 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
                 return eInternalContainer().eInverseRemove(this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, ExecutionTask.class, msgs);
         }

@@ -33,6 +33,10 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getVirtualServerName <em>Virtual Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerName <em>Execution Server Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerHost <em>Execution Server Host</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerCmdPort <em>Execution Server Cmd Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerFilePort <em>Execution Server File Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerMonitoringPort <em>Execution Server Monitoring Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggeredBy <em>Triggered By</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTriggerType <em>Trigger Type</em>}</li>
@@ -323,6 +327,86 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * @ordered
      */
     protected String executionServerName = EXECUTION_SERVER_NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getExecutionServerHost() <em>Execution Server Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerHost()
+     * @generated
+     * @ordered
+     */
+    protected static final String EXECUTION_SERVER_HOST_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getExecutionServerHost() <em>Execution Server Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerHost()
+     * @generated
+     * @ordered
+     */
+    protected String executionServerHost = EXECUTION_SERVER_HOST_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getExecutionServerCmdPort() <em>Execution Server Cmd Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerCmdPort()
+     * @generated
+     * @ordered
+     */
+    protected static final int EXECUTION_SERVER_CMD_PORT_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getExecutionServerCmdPort() <em>Execution Server Cmd Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerCmdPort()
+     * @generated
+     * @ordered
+     */
+    protected int executionServerCmdPort = EXECUTION_SERVER_CMD_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getExecutionServerFilePort() <em>Execution Server File Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerFilePort()
+     * @generated
+     * @ordered
+     */
+    protected static final int EXECUTION_SERVER_FILE_PORT_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getExecutionServerFilePort() <em>Execution Server File Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerFilePort()
+     * @generated
+     * @ordered
+     */
+    protected int executionServerFilePort = EXECUTION_SERVER_FILE_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getExecutionServerMonitoringPort() <em>Execution Server Monitoring Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerMonitoringPort()
+     * @generated
+     * @ordered
+     */
+    protected static final int EXECUTION_SERVER_MONITORING_PORT_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getExecutionServerMonitoringPort() <em>Execution Server Monitoring Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecutionServerMonitoringPort()
+     * @generated
+     * @ordered
+     */
+    protected int executionServerMonitoringPort = EXECUTION_SERVER_MONITORING_PORT_EDEFAULT;
 
     /**
      * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute. <!--
@@ -886,6 +970,14 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getVirtualServerName();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
                 return getExecutionServerName();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST:
+                return getExecutionServerHost();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT:
+                return new Integer(getExecutionServerCmdPort());
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT:
+                return new Integer(getExecutionServerFilePort());
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT:
+                return new Integer(getExecutionServerMonitoringPort());
             case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
                 return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
@@ -974,6 +1066,14 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return VIRTUAL_SERVER_NAME_EDEFAULT == null ? virtualServerName != null : !VIRTUAL_SERVER_NAME_EDEFAULT.equals(virtualServerName);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
                 return EXECUTION_SERVER_NAME_EDEFAULT == null ? executionServerName != null : !EXECUTION_SERVER_NAME_EDEFAULT.equals(executionServerName);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST:
+                return EXECUTION_SERVER_HOST_EDEFAULT == null ? executionServerHost != null : !EXECUTION_SERVER_HOST_EDEFAULT.equals(executionServerHost);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT:
+                return executionServerCmdPort != EXECUTION_SERVER_CMD_PORT_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT:
+                return executionServerFilePort != EXECUTION_SERVER_FILE_PORT_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT:
+                return executionServerMonitoringPort != EXECUTION_SERVER_MONITORING_PORT_EDEFAULT;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
                 return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__TRIGGERED_BY:
@@ -1074,6 +1174,18 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
                 setExecutionServerName((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST:
+                setExecutionServerHost((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT:
+                setExecutionServerCmdPort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT:
+                setExecutionServerFilePort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT:
+                setExecutionServerMonitoringPort(((Integer)newValue).intValue());
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
                 setApplyContextToChildren(((Boolean)newValue).booleanValue());
@@ -1209,6 +1321,18 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
                 setExecutionServerName(EXECUTION_SERVER_NAME_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST:
+                setExecutionServerHost(EXECUTION_SERVER_HOST_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT:
+                setExecutionServerCmdPort(EXECUTION_SERVER_CMD_PORT_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT:
+                setExecutionServerFilePort(EXECUTION_SERVER_FILE_PORT_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT:
+                setExecutionServerMonitoringPort(EXECUTION_SERVER_MONITORING_PORT_EDEFAULT);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN:
                 setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
@@ -1713,6 +1837,90 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getExecutionServerHost() {
+        return executionServerHost;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExecutionServerHost(String newExecutionServerHost) {
+        String oldExecutionServerHost = executionServerHost;
+        executionServerHost = newExecutionServerHost;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST, oldExecutionServerHost, executionServerHost));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getExecutionServerCmdPort() {
+        return executionServerCmdPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExecutionServerCmdPort(int newExecutionServerCmdPort) {
+        int oldExecutionServerCmdPort = executionServerCmdPort;
+        executionServerCmdPort = newExecutionServerCmdPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT, oldExecutionServerCmdPort, executionServerCmdPort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getExecutionServerFilePort() {
+        return executionServerFilePort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExecutionServerFilePort(int newExecutionServerFilePort) {
+        int oldExecutionServerFilePort = executionServerFilePort;
+        executionServerFilePort = newExecutionServerFilePort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT, oldExecutionServerFilePort, executionServerFilePort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getExecutionServerMonitoringPort() {
+        return executionServerMonitoringPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExecutionServerMonitoringPort(int newExecutionServerMonitoringPort) {
+        int oldExecutionServerMonitoringPort = executionServerMonitoringPort;
+        executionServerMonitoringPort = newExecutionServerMonitoringPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT, oldExecutionServerMonitoringPort, executionServerMonitoringPort));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2089,6 +2297,14 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(virtualServerName);
         result.append(", executionServerName: ");
         result.append(executionServerName);
+        result.append(", executionServerHost: ");
+        result.append(executionServerHost);
+        result.append(", executionServerCmdPort: ");
+        result.append(executionServerCmdPort);
+        result.append(", executionServerFilePort: ");
+        result.append(executionServerFilePort);
+        result.append(", executionServerMonitoringPort: ");
+        result.append(executionServerMonitoringPort);
         result.append(", applyContextToChildren: ");
         result.append(applyContextToChildren);
         result.append(", triggeredBy: ");
