@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
@@ -41,6 +42,7 @@ import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.routines.IRoutinesProvider;
+import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
@@ -125,7 +127,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void checkInstalledLibraries() {
-        // Display whole TOS project libraries status.  No relitionship with dynamic project classpath
+        // Display whole TOS project libraries status. No relitionship with dynamic project classpath
         List<IClasspathEntry> classpath = new ArrayList<IClasspathEntry>();
         File externalLibDirectory = new File(CorePlugin.getDefault().getLibrariesService().getLibrariesPath());
 
@@ -181,7 +183,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            
+
             FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false, monitorWrap);
 
@@ -190,7 +192,22 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             File resourceLibraries = new File(resourceService.getJavaLibraryPath());
             FilesUtils.copyFolder(resourceLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false, monitorWrap);
-            
+
+            // 4. system routien libraries
+            String basePath = System.getProperty("user.dir") + File.separator + "plugins";
+            Map<String, List<String>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+            for (String key : routineAndJars.keySet()) {
+                List<String> jarList = routineAndJars.get(key);
+                if (jarList != null) {
+                    for (String jarName : jarList) {
+                        File source = new File(basePath + File.separator + jarName);
+                        if (source.exists()) {
+                            FilesUtils.copyFile(source, new File(getLibrariesPath() + File.separator + jarName));
+                        }
+                    }
+                }
+            }
+
             checkInstalledLibraries();
 
             log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
