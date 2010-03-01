@@ -517,9 +517,11 @@ public class RepositoryToComponentProperty {
                 return EDatabaseTypeName.ORACLESN.getXmlName();
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                 return EDatabaseTypeName.ORACLE_OCI.getXmlName();
-            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-                return EDatabaseTypeName.MSSQL.getXMLType(); // for component
-            } else {
+            }
+            // else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+            // return EDatabaseTypeName.MSSQL.getXmlName();
+            // }
+            else {
                 return typeByProduct;
             }
         }
