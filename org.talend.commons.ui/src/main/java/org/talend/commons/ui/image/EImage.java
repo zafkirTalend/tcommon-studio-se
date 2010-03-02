@@ -35,6 +35,7 @@ public enum EImage implements IImage {
     ADD_ICON("/icons/add.gif"), //$NON-NLS-1$
     ADD_ALL_ICON("/icons/addall.gif"), //$NON-NLS-1$
     MINUS_ICON("/icons/delete.gif"), //$NON-NLS-1$
+    REFRESH_WITH_BGCOLOR_ICON("/icons/refresh_with_bgcolor.gif"), //$NON-NLS-1$
     REFRESH_ICON("/icons/refresh.gif"), //$NON-NLS-1$
     EDIT_ICON("/icons/write_obj.gif"), //$NON-NLS-1$
     READ_ICON("/icons/read_obj.gif"), //$NON-NLS-1$
@@ -109,7 +110,9 @@ public enum EImage implements IImage {
 
     COMPONENT_MISSING("/icons/component_missing.gif"), //$NON-NLS-1$
 
-    FILTER_ICON("/icons/filter.gif");//$NON-NLS-1$
+    FILTER_ICON("/icons/filter.gif"), //$NON-NLS-1$
+
+    FILTER_USED_ICON("/icons/filter_used.gif");//$NON-NLS-1$
 
     private String path;
 
