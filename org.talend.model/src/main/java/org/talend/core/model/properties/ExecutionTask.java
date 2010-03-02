@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedSvnRevision <em>Generated Svn Revision</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}</li>
@@ -336,6 +337,32 @@ public interface ExecutionTask extends EObject {
      * @generated
      */
     void setLastScriptGenerationDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Generated Svn Revision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Generated Svn Revision</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Generated Svn Revision</em>' attribute.
+     * @see #setGeneratedSvnRevision(Long)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_GeneratedSvnRevision()
+     * @model
+     * @generated
+     */
+    Long getGeneratedSvnRevision();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedSvnRevision <em>Generated Svn Revision</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Generated Svn Revision</em>' attribute.
+     * @see #getGeneratedSvnRevision()
+     * @generated
+     */
+    void setGeneratedSvnRevision(Long value);
 
     /**
      * Returns the value of the '<em><b>Id Remote Job</b></em>' attribute.

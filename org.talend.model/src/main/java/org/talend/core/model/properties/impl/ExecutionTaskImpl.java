@@ -42,6 +42,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedSvnRevision <em>Generated Svn Revision</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getChecksumArchive <em>Checksum Archive</em>}</li>
@@ -269,6 +270,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected Date lastScriptGenerationDate = LAST_SCRIPT_GENERATION_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getGeneratedSvnRevision() <em>Generated Svn Revision</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedSvnRevision()
+     * @generated
+     * @ordered
+     */
+    protected static final Long GENERATED_SVN_REVISION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getGeneratedSvnRevision() <em>Generated Svn Revision</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedSvnRevision()
+     * @generated
+     * @ordered
+     */
+    protected Long generatedSvnRevision = GENERATED_SVN_REVISION_EDEFAULT;
 
     /**
      * The default value of the '{@link #getIdRemoteJob() <em>Id Remote Job</em>}' attribute.
@@ -970,6 +991,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Long getGeneratedSvnRevision() {
+        return generatedSvnRevision;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setGeneratedSvnRevision(Long newGeneratedSvnRevision) {
+        Long oldGeneratedSvnRevision = generatedSvnRevision;
+        generatedSvnRevision = newGeneratedSvnRevision;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION, oldGeneratedSvnRevision, generatedSvnRevision));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1504,6 +1546,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return new Integer(getIdQuartzJob());
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 return getLastScriptGenerationDate();
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
+                return getGeneratedSvnRevision();
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
                 return getIdRemoteJob();
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
@@ -1597,6 +1641,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 setLastScriptGenerationDate((Date)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
+                setGeneratedSvnRevision((Long)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
                 setIdRemoteJob((String)newValue);
@@ -1719,6 +1766,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 setLastScriptGenerationDate(LAST_SCRIPT_GENERATION_DATE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
+                setGeneratedSvnRevision(GENERATED_SVN_REVISION_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
                 setIdRemoteJob(ID_REMOTE_JOB_EDEFAULT);
                 return;
@@ -1826,6 +1876,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 return LAST_SCRIPT_GENERATION_DATE_EDEFAULT == null ? lastScriptGenerationDate != null : !LAST_SCRIPT_GENERATION_DATE_EDEFAULT.equals(lastScriptGenerationDate);
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
+                return GENERATED_SVN_REVISION_EDEFAULT == null ? generatedSvnRevision != null : !GENERATED_SVN_REVISION_EDEFAULT.equals(generatedSvnRevision);
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
                 return ID_REMOTE_JOB_EDEFAULT == null ? idRemoteJob != null : !ID_REMOTE_JOB_EDEFAULT.equals(idRemoteJob);
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
@@ -1906,6 +1958,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(idQuartzJob);
         result.append(", lastScriptGenerationDate: ");
         result.append(lastScriptGenerationDate);
+        result.append(", generatedSvnRevision: ");
+        result.append(generatedSvnRevision);
         result.append(", idRemoteJob: ");
         result.append(idRemoteJob);
         result.append(", idRemoteJobExecution: ");
