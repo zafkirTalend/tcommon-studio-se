@@ -131,25 +131,32 @@ public class ImageUtils {
         return imageDes;
     }
 
-    private static Map<byte[], Image> imageFromDataCachedImages = new HashMap<byte[], Image>();
+    private static Map<byte[], ImageData> imageFromDataCachedImages = new HashMap<byte[], ImageData>();
 
-    public static ImageDescriptor createImageFromData(byte[] data) {
+    /**
+     * By default, keep in memory the .
+     * 
+     * @param data
+     * @param keepInMemory
+     * @return
+     */
+    public static ImageDescriptor createImageFromData(byte[] data, boolean... keepInMemory) {
         if (data != null) {
-            Image img = imageFromDataCachedImages.get(data);
-            if (img == null || img.isDisposed()) {
+            ImageData img = imageFromDataCachedImages.get(data);
+            if (img == null) {
                 ByteArrayInputStream bais = new ByteArrayInputStream(data);
-                img = new Image(null, bais);
+                img = new ImageData(bais);
                 imageFromDataCachedImages.put(data, img);
             }
-            return ImageDescriptor.createFromImage(img);
+            return ImageDescriptor.createFromImageData(img);
         }
         return null;
     }
 
     public static void disposeImages(byte[] data) {
         if (data != null) {
-            if (imageFromDataCachedImages.get(data) != null && !imageFromDataCachedImages.get(data).isDisposed()) {
-                imageFromDataCachedImages.get(data).dispose();
+            if (imageFromDataCachedImages.get(data) != null) {
+                imageFromDataCachedImages.remove(data);
             }
         }
     }

@@ -119,7 +119,7 @@ public class RepositoryEditorInput extends FileEditorInput {
     }
 
     protected void loadProcess() throws PersistenceException {
-        loadedProcess.loadXmlFile();
+        loadedProcess.loadXmlFile(true);
         // loadedProcess.checkLoadNodes();
     }
 

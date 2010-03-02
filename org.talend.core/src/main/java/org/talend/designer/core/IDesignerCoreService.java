@@ -55,7 +55,7 @@ public interface IDesignerCoreService extends IService {
 
     // ¨Process will be loaded from XML File with this method, so it can be slow
     // This won't load the graphics of the job, only the datas
-    public IProcess getProcessFromProcessItem(ProcessItem processItem);
+    public IProcess getProcessFromProcessItem(ProcessItem processItem, boolean... loadScreenshots);
 
     // item will be ProcessItem of JobletProcessItem
     public IProcess getProcessFromItem(Item item);

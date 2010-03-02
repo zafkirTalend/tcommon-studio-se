@@ -40,7 +40,7 @@ public interface IProcess2 extends IProcess {
      * 
      * @param process
      */
-    void loadXmlFile();
+    void loadXmlFile(boolean... loadScreenshots);
 
     /**
      * DOC qzhang Comment method "checkLoadNodes".

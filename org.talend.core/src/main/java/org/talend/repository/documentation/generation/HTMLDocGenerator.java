@@ -972,7 +972,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         boolean isJobletProcessItem = item instanceof JobletProcessItem;
         boolean isProcessItem = item instanceof ProcessItem;
         if (isProcessItem) {
-            process = CorePlugin.getDefault().getDesignerCoreService().getProcessFromProcessItem((ProcessItem) item);
+            process = CorePlugin.getDefault().getDesignerCoreService().getProcessFromProcessItem((ProcessItem) item, true);
         }
         // if (isJobletProcessItem) {
         // AbstractProcessProvider processProvider =
