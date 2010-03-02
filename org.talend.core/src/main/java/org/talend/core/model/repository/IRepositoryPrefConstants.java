@@ -39,4 +39,6 @@ public interface IRepositoryPrefConstants {
 
     public static final String USER_FILTER_TABLE_ENABLED = "user_Filter_Table_Enabled"; //$NON-NLS-1$
 
+    public static final String USE_FILTER = "use_filter";
+
 }

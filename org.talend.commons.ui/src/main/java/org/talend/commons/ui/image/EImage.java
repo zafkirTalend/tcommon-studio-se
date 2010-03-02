@@ -107,7 +107,9 @@ public enum EImage implements IImage {
 
     MERGE_ICON("/icons/merge.png"), //$NON-NLS-1$
 
-    COMPONENT_MISSING("/icons/component_missing.gif");//$NON-NLS-1$
+    COMPONENT_MISSING("/icons/component_missing.gif"), //$NON-NLS-1$
+
+    FILTER_ICON("/icons/filter.gif");//$NON-NLS-1$
 
     private String path;
 
