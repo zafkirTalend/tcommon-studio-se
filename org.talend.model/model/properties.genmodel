@@ -269,6 +269,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/active"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idQuartzJob"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastScriptGenerationDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/generatedSvnRevision"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idRemoteJob"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idRemoteJobExecution"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/checksumArchive"/>
