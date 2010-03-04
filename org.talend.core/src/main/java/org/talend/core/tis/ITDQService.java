@@ -19,5 +19,12 @@ import org.talend.core.IService;
  */
 public interface ITDQService extends IService {
 
-    public void executeReport(String reportFiles) throws Exception;
+    /**
+     * This method is to excute report.
+     * 
+     * @param names Report name, more names delimited by comma.
+     * @param pathes Report relative current project path, more pathes delimited by comma.
+     * @throws Exception
+     */
+    public void executeReport(String names, String pathes) throws Exception;
 }
