@@ -1632,6 +1632,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getUser_Language() {
+        return (EAttribute)userEClass.getEStructuralFeatures().get(22);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4489,6 +4498,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(userEClass, USER__STUDIO_CONNEXION_NUMBER);
         createEAttribute(userEClass, USER__AUTHENTICATION_INFO);
         createEAttribute(userEClass, USER__LDAP_ID);
+        createEAttribute(userEClass, USER__LANGUAGE);
 
         folderItemEClass = createEClass(FOLDER_ITEM);
         createEReference(folderItemEClass, FOLDER_ITEM__CHILDREN);
@@ -5075,7 +5085,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_AllowedToModifyComponents(), ecorePackage.getEBoolean(), "allowedToModifyComponents", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_Comment(), ecorePackage.getEString(), "Comment", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getUser_Role(), this.getUserRole(), null, "role", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getUser_Role(), this.getUserRole(), null, "role", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getUser_ProjectAuthorization(), this.getUserProjectAuthorization(), this.getUserProjectAuthorization_User(), "projectAuthorization", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getUser_ModuleAuthorization(), this.getUserModuleAuthorization(), this.getUserModuleAuthorization_User(), "moduleAuthorization", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getUser_PreferredDashboardConnection(), this.getDashboardConnection(), null, "preferredDashboardConnection", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5087,6 +5097,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_StudioConnexionNumber(), theEcorePackage.getEInt(), "studioConnexionNumber", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_AuthenticationInfo(), theEcorePackage.getEString(), "authenticationInfo", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_LdapId(), ecorePackage.getEString(), "ldapId", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUser_Language(), ecorePackage.getEString(), "language", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(folderItemEClass, FolderItem.class, "FolderItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

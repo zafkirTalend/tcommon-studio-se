@@ -55,6 +55,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAuthenticationInfo <em>Authentication Info</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapId <em>Ldap Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLanguage <em>Language</em>}</li>
  * </ul>
  * </p>
  *
@@ -460,6 +461,26 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String ldapId = LDAP_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLanguage()
+     * @generated
+     * @ordered
+     */
+    protected static final String LANGUAGE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLanguage()
+     * @generated
+     * @ordered
+     */
+    protected String language = LANGUAGE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -962,6 +983,27 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getLanguage() {
+        return language;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLanguage(String newLanguage) {
+        String oldLanguage = language;
+        language = newLanguage;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LANGUAGE, oldLanguage, language));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -1040,6 +1082,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return getAuthenticationInfo();
             case PropertiesPackage.USER__LDAP_ID:
                 return getLdapId();
+            case PropertiesPackage.USER__LANGUAGE:
+                return getLanguage();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1119,6 +1163,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__LDAP_ID:
                 setLdapId((String)newValue);
                 return;
+            case PropertiesPackage.USER__LANGUAGE:
+                setLanguage((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1196,6 +1243,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__LDAP_ID:
                 setLdapId(LDAP_ID_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__LANGUAGE:
+                setLanguage(LANGUAGE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1251,6 +1301,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return AUTHENTICATION_INFO_EDEFAULT == null ? authenticationInfo != null : !AUTHENTICATION_INFO_EDEFAULT.equals(authenticationInfo);
             case PropertiesPackage.USER__LDAP_ID:
                 return LDAP_ID_EDEFAULT == null ? ldapId != null : !LDAP_ID_EDEFAULT.equals(ldapId);
+            case PropertiesPackage.USER__LANGUAGE:
+                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
         }
         return super.eIsSet(featureID);
     }
