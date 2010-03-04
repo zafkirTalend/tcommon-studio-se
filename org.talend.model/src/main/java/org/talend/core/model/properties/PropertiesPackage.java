@@ -562,13 +562,31 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT_REFERENCE__PROJECT = 0;
 
     /**
+     * The feature id for the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_REFERENCE__BRANCH = 1;
+
+    /**
      * The feature id for the '<em><b>Referenced Project</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_REFERENCE__REFERENCED_PROJECT = 1;
+    int PROJECT_REFERENCE__REFERENCED_PROJECT = 2;
+
+    /**
+     * The feature id for the '<em><b>Referenced Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_REFERENCE__REFERENCED_BRANCH = 3;
 
     /**
      * The number of structural features of the '<em>Project Reference</em>' class.
@@ -577,7 +595,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT_REFERENCE_FEATURE_COUNT = 2;
+    int PROJECT_REFERENCE_FEATURE_COUNT = 4;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -7227,6 +7245,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProjectReference_Project();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ProjectReference#getBranch <em>Branch</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Branch</em>'.
+     * @see org.talend.core.model.properties.ProjectReference#getBranch()
+     * @see #getProjectReference()
+     * @generated
+     */
+    EAttribute getProjectReference_Branch();
+
+    /**
      * Returns the meta object for the reference '
      * {@link org.talend.core.model.properties.ProjectReference#getReferencedProject <em>Referenced Project</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
@@ -7237,6 +7266,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getProjectReference_ReferencedProject();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ProjectReference#getReferencedBranch <em>Referenced Branch</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Referenced Branch</em>'.
+     * @see org.talend.core.model.properties.ProjectReference#getReferencedBranch()
+     * @see #getProjectReference()
+     * @generated
+     */
+    EAttribute getProjectReference_ReferencedBranch();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.LdifFileConnectionItem <em>Ldif File Connection Item</em>}'.
@@ -11580,12 +11620,28 @@ public interface PropertiesPackage extends EPackage {
         EReference PROJECT_REFERENCE__PROJECT = eINSTANCE.getProjectReference_Project();
 
         /**
+         * The meta object literal for the '<em><b>Branch</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT_REFERENCE__BRANCH = eINSTANCE.getProjectReference_Branch();
+
+        /**
          * The meta object literal for the '<em><b>Referenced Project</b></em>' reference feature.
          * <!-- begin-user-doc
          * --> <!-- end-user-doc -->
          * @generated
          */
         EReference PROJECT_REFERENCE__REFERENCED_PROJECT = eINSTANCE.getProjectReference_ReferencedProject();
+
+        /**
+         * The meta object literal for the '<em><b>Referenced Branch</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT_REFERENCE__REFERENCED_BRANCH = eINSTANCE.getProjectReference_ReferencedBranch();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.LdifFileConnectionItemImpl <em>Ldif File Connection Item</em>}' class.

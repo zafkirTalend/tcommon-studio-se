@@ -17,7 +17,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ProjectReference#getProject <em>Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ProjectReference#getBranch <em>Branch</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ProjectReference#getReferencedProject <em>Referenced Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ProjectReference#getReferencedBranch <em>Referenced Branch</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,6 +57,32 @@ public interface ProjectReference extends EObject {
     void setProject(Project value);
 
     /**
+     * Returns the value of the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Branch</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Branch</em>' attribute.
+     * @see #setBranch(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProjectReference_Branch()
+     * @model
+     * @generated
+     */
+    String getBranch();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ProjectReference#getBranch <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Branch</em>' attribute.
+     * @see #getBranch()
+     * @generated
+     */
+    void setBranch(String value);
+
+    /**
      * Returns the value of the '<em><b>Referenced Project</b></em>' reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}'.
      * <!-- begin-user-doc -->
@@ -81,5 +109,31 @@ public interface ProjectReference extends EObject {
      * @generated
      */
     void setReferencedProject(Project value);
+
+    /**
+     * Returns the value of the '<em><b>Referenced Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Referenced Branch</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Referenced Branch</em>' attribute.
+     * @see #setReferencedBranch(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProjectReference_ReferencedBranch()
+     * @model
+     * @generated
+     */
+    String getReferencedBranch();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ProjectReference#getReferencedBranch <em>Referenced Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Referenced Branch</em>' attribute.
+     * @see #getReferencedBranch()
+     * @generated
+     */
+    void setReferencedBranch(String value);
 
 } // ProjectReference

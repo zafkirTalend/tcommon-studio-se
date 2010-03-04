@@ -27,7 +27,9 @@ import org.talend.core.model.properties.PropertiesPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectReferenceImpl#getProject <em>Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectReferenceImpl#getBranch <em>Branch</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectReferenceImpl#getReferencedProject <em>Referenced Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectReferenceImpl#getReferencedBranch <em>Referenced Branch</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +47,26 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
     protected Project project;
 
     /**
+     * The default value of the '{@link #getBranch() <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBranch()
+     * @generated
+     * @ordered
+     */
+    protected static final String BRANCH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBranch() <em>Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBranch()
+     * @generated
+     * @ordered
+     */
+    protected String branch = BRANCH_EDEFAULT;
+
+    /**
      * The cached value of the '{@link #getReferencedProject() <em>Referenced Project</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -53,6 +75,26 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
      * @ordered
      */
     protected Project referencedProject;
+
+    /**
+     * The default value of the '{@link #getReferencedBranch() <em>Referenced Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReferencedBranch()
+     * @generated
+     * @ordered
+     */
+    protected static final String REFERENCED_BRANCH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getReferencedBranch() <em>Referenced Branch</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReferencedBranch()
+     * @generated
+     * @ordered
+     */
+    protected String referencedBranch = REFERENCED_BRANCH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -137,6 +179,27 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getBranch() {
+        return branch;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBranch(String newBranch) {
+        String oldBranch = branch;
+        branch = newBranch;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT_REFERENCE__BRANCH, oldBranch, branch));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Project getReferencedProject() {
         if (referencedProject != null && referencedProject.eIsProxy()) {
             InternalEObject oldReferencedProject = (InternalEObject)referencedProject;
@@ -197,6 +260,27 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getReferencedBranch() {
+        return referencedBranch;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setReferencedBranch(String newReferencedBranch) {
+        String oldReferencedBranch = referencedBranch;
+        referencedBranch = newReferencedBranch;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT_REFERENCE__REFERENCED_BRANCH, oldReferencedBranch, referencedBranch));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.PROJECT_REFERENCE__PROJECT:
@@ -236,9 +320,13 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
             case PropertiesPackage.PROJECT_REFERENCE__PROJECT:
                 if (resolve) return getProject();
                 return basicGetProject();
+            case PropertiesPackage.PROJECT_REFERENCE__BRANCH:
+                return getBranch();
             case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT:
                 if (resolve) return getReferencedProject();
                 return basicGetReferencedProject();
+            case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_BRANCH:
+                return getReferencedBranch();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -253,8 +341,14 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
             case PropertiesPackage.PROJECT_REFERENCE__PROJECT:
                 setProject((Project)newValue);
                 return;
+            case PropertiesPackage.PROJECT_REFERENCE__BRANCH:
+                setBranch((String)newValue);
+                return;
             case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT:
                 setReferencedProject((Project)newValue);
+                return;
+            case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_BRANCH:
+                setReferencedBranch((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -270,8 +364,14 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
             case PropertiesPackage.PROJECT_REFERENCE__PROJECT:
                 setProject((Project)null);
                 return;
+            case PropertiesPackage.PROJECT_REFERENCE__BRANCH:
+                setBranch(BRANCH_EDEFAULT);
+                return;
             case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT:
                 setReferencedProject((Project)null);
+                return;
+            case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_BRANCH:
+                setReferencedBranch(REFERENCED_BRANCH_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -286,10 +386,31 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
         switch (featureID) {
             case PropertiesPackage.PROJECT_REFERENCE__PROJECT:
                 return project != null;
+            case PropertiesPackage.PROJECT_REFERENCE__BRANCH:
+                return BRANCH_EDEFAULT == null ? branch != null : !BRANCH_EDEFAULT.equals(branch);
             case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT:
                 return referencedProject != null;
+            case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_BRANCH:
+                return REFERENCED_BRANCH_EDEFAULT == null ? referencedBranch != null : !REFERENCED_BRANCH_EDEFAULT.equals(referencedBranch);
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (branch: ");
+        result.append(branch);
+        result.append(", referencedBranch: ");
+        result.append(referencedBranch);
+        result.append(')');
+        return result.toString();
     }
 
 } //ProjectReferenceImpl

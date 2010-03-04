@@ -65,8 +65,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ProjectReference">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
         eType="#//Project" eOpposite="#//Project/referencedProjects"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="branch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedProject" lowerBound="1"
         eType="#//Project" eOpposite="#//Project/availableRefProject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referencedBranch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Status">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
