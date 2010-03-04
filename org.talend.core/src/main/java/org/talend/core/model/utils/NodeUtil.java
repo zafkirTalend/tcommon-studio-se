@@ -15,8 +15,10 @@ package org.talend.core.model.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.talend.core.model.metadata.IMetadataTable;
@@ -376,5 +378,28 @@ public class NodeUtil {
         }
 
         return false;
+    }
+
+    public static Map<INode, Integer> getLinkedMergeInfo(final INode node) {
+        Map<INode, Integer> map = new HashMap<INode, Integer>();
+
+        getLinkedMergeInfo(node, map);
+
+        return map;
+    }
+
+    private static void getLinkedMergeInfo(final INode node, final Map<INode, Integer> map) {
+        List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
+        for (int i = 0; (i < outgoingConnections.size()); i++) {
+            IConnection connec = outgoingConnections.get(i);
+            if (connec.isActivate()) {
+                if (connec.getLineStyle().hasConnectionCategory(EConnectionType.MERGE)) {
+                    map.put(connec.getTarget(), connec.getInputId());
+                    getLinkedMergeInfo(connec.getTarget(), map);
+                } else if (connec.getLineStyle().hasConnectionCategory(EConnectionType.MAIN) && connec.getTarget() != null) {
+                    getLinkedMergeInfo(connec.getTarget(), map);
+                }
+            }
+        }
     }
 }

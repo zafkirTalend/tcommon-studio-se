@@ -21,6 +21,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IMultipleComponentManager;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.utils.NodeUtil;
 import org.talend.core.model.utils.ParameterValueUtil;
 
 /**
@@ -205,6 +206,21 @@ public abstract class AbstractNode implements INode {
         this.readOnly = readOnly;
     }
 
+    public boolean isOnMainMergeBranch() {
+        // return true even if got no branch.
+        Map<INode, Integer> mapMerge = NodeUtil.getLinkedMergeInfo(this);
+        if (mapMerge == null) {
+            return true;
+        } else {
+            for (Integer i : mapMerge.values()) {
+                if (i != 1) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
     /**
      * Will return the first item of the subprocess. If "withCondition" is true, if there is links from type RunIf /
      * RunAfter / RunBefore, it will return the first element found. If "withCondition" is false, it will return the
@@ -217,11 +233,22 @@ public abstract class AbstractNode implements INode {
      */
     public INode getSubProcessStartNode(boolean withConditions) {
         if (!withConditions) {
-            if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)
-            // && (getCurrentActiveLinksNbInput(EConnectionType.FLOW_REF) == 0)
-            // && (getCurrentActiveLinksNbInput(EConnectionType.ITERATE) == 0)
-            ) {
-                return this;
+            Map<INode, Integer> mapMerge = NodeUtil.getLinkedMergeInfo(this);
+            if (mapMerge == null) { // no merge after, so must be sub process start.
+                if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)) {
+                    return this;
+                }
+            } else {
+                for (Integer i : mapMerge.values()) {
+                    if (i != 1) {
+                        // not first merge, so will take the last merge from the tree, and retrieve the main sub
+                        // process start.
+                        return mapMerge.keySet().iterator().next().getSubProcessStartNode(withConditions);
+                    }
+                }
+                if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)) {
+                    return this; // main branch here, so we got the correct sub process start.
+                }
             }
         } else {
             int nb = 0;
@@ -238,8 +265,10 @@ public abstract class AbstractNode implements INode {
 
         for (int j = 0; j < getIncomingConnections().size(); j++) {
             connec = getIncomingConnections().get(j);
-            if (!connec.getLineStyle().equals(EConnectionType.FLOW_REF)) {
-                return connec.getSource().getSubProcessStartNode(withConditions);
+            if (((AbstractNode) connec.getSource()).isOnMainMergeBranch()) {
+                if (!connec.getLineStyle().equals(EConnectionType.FLOW_REF)) {
+                    return connec.getSource().getSubProcessStartNode(withConditions);
+                }
             }
         }
         return null;
