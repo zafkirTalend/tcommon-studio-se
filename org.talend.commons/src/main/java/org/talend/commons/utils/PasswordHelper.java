@@ -18,15 +18,18 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.codec.binary.Base64;
 
 /**
+ * This class helps in encrypting and decrypting passwords.
  */
-public class PasswordHelper {
+public final class PasswordHelper {
 
     private static final String ALGORITHM = "MD5"; //$NON-NLS-1$
 
+    private PasswordHelper() {
+    }
+
     public static synchronized boolean verifyPassword(byte[] encryptedPassword, byte[] encryptedPassword2)
             throws NoSuchAlgorithmException {
-        MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
-        return messageDigest.isEqual(encryptedPassword, encryptedPassword2);
+        return MessageDigest.isEqual(encryptedPassword, encryptedPassword2);
     }
 
     public static synchronized byte[] encryptPasswd(String password) throws NoSuchAlgorithmException {
