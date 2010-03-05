@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006 Talend – www.talend.com
+// Copyright (C) 2006-2010 Talend Inc. - www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -46,7 +46,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 /**
  * DOC bqian class global comment. Detailled comment <br/>
  * 
- * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ææäº, 29 ä¹æ 2006) nrousseau $
+ * $Id: talend.epf 1 2006-09-29 17:06:40 +0000) nrousseau $
  * 
  */
 public class ArchiveDirectoryChooser {
