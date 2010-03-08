@@ -48,4 +48,6 @@ public interface IExternalData extends Serializable, Cloneable {
      * find the column name which include this expression.
      */
     public Map<IExternalMapTable, List<IExternalMapEntry>> getExpressionColumns(String expression, ExternalDataType... types);
+
+    public List<String> getJoinedTableNames(String mainTable);
 }

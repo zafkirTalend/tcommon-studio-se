@@ -216,4 +216,6 @@ public interface INode extends IElement {
 
     public boolean isELTComponent();
 
+    public boolean isUseLoopOnConditionalOutput(String outputName);
+
 }
