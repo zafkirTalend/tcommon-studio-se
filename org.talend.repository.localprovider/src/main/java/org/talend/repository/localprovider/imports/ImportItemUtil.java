@@ -329,6 +329,7 @@ public class ImportItemUtil {
 
                 for (ItemRecord itemRecord : itemRecords) {
                     if (!monitor.isCanceled()) {
+                        log.warn("***** Importing... " + itemRecord.getItemName()); //$NON-NLS-1$
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
@@ -623,6 +624,7 @@ public class ImportItemUtil {
                     log.warn(Messages.getString("ImportItemUtil.taskLogWarn", taskId)); //$NON-NLS-1$
                 } else {
                     monitor.subTask(Messages.getString("ImportItemUtil.taskMonitor", task.getName(), itemRecord.getItemName())); //$NON-NLS-1$
+                    log.warn("***** Apply migration task " + task.getName() + " to " + itemRecord.getItemName()); //$NON-NLS-1$
 
                     try {
                         if (item != null) {
