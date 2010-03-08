@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.math.BigDecimal;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -24,6 +25,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.NotificationImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.NotificationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.NotificationImpl#getProps <em>Props</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.NotificationImpl#isEnabled <em>Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,6 +91,26 @@ public class NotificationImpl extends EObjectImpl implements Notification {
      * @ordered
      */
     protected String props = PROPS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isEnabled()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ENABLED_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isEnabled()
+     * @generated
+     * @ordered
+     */
+    protected boolean enabled = ENABLED_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -176,6 +198,27 @@ public class NotificationImpl extends EObjectImpl implements Notification {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEnabled(boolean newEnabled) {
+        boolean oldEnabled = enabled;
+        enabled = newEnabled;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, org.eclipse.emf.common.notify.Notification.SET, PropertiesPackage.NOTIFICATION__ENABLED, oldEnabled, enabled));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.NOTIFICATION__ID:
@@ -184,6 +227,8 @@ public class NotificationImpl extends EObjectImpl implements Notification {
                 return getType();
             case PropertiesPackage.NOTIFICATION__PROPS:
                 return getProps();
+            case PropertiesPackage.NOTIFICATION__ENABLED:
+                return isEnabled() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -203,6 +248,9 @@ public class NotificationImpl extends EObjectImpl implements Notification {
                 return;
             case PropertiesPackage.NOTIFICATION__PROPS:
                 setProps((String)newValue);
+                return;
+            case PropertiesPackage.NOTIFICATION__ENABLED:
+                setEnabled(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -224,6 +272,9 @@ public class NotificationImpl extends EObjectImpl implements Notification {
             case PropertiesPackage.NOTIFICATION__PROPS:
                 setProps(PROPS_EDEFAULT);
                 return;
+            case PropertiesPackage.NOTIFICATION__ENABLED:
+                setEnabled(ENABLED_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -241,6 +292,8 @@ public class NotificationImpl extends EObjectImpl implements Notification {
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
             case PropertiesPackage.NOTIFICATION__PROPS:
                 return PROPS_EDEFAULT == null ? props != null : !PROPS_EDEFAULT.equals(props);
+            case PropertiesPackage.NOTIFICATION__ENABLED:
+                return enabled != ENABLED_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -260,6 +313,8 @@ public class NotificationImpl extends EObjectImpl implements Notification {
         result.append(type);
         result.append(", props: ");
         result.append(props);
+        result.append(", enabled: ");
+        result.append(enabled);
         result.append(')');
         return result.toString();
     }

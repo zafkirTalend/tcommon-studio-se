@@ -5771,13 +5771,22 @@ public interface PropertiesPackage extends EPackage {
     int NOTIFICATION__PROPS = 2;
 
     /**
+     * The feature id for the '<em><b>Enabled</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTIFICATION__ENABLED = 3;
+
+    /**
      * The number of structural features of the '<em>Notification</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NOTIFICATION_FEATURE_COUNT = 3;
+    int NOTIFICATION_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
@@ -9877,6 +9886,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getNotification_Props();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Notification#isEnabled <em>Enabled</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Enabled</em>'.
+     * @see org.talend.core.model.properties.Notification#isEnabled()
+     * @see #getNotification()
+     * @generated
+     */
+    EAttribute getNotification_Enabled();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Extension</em>'.
@@ -13701,6 +13721,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute NOTIFICATION__PROPS = eINSTANCE.getNotification_Props();
+
+        /**
+         * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTIFICATION__ENABLED = eINSTANCE.getNotification_Enabled();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.
