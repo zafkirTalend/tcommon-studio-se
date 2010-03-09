@@ -39,6 +39,7 @@ public class BabiliUpdateUtil {
      * @param version
      * @return
      * @throws Exception
+     * @deprecated
      */
     public static List<BabiliInfo> getBabiliList(String language, boolean validated, String version, IProgressMonitor monitor)
             throws Exception {
@@ -58,6 +59,7 @@ public class BabiliUpdateUtil {
      * @param url
      * @return
      * @throws Exception
+     * @deprecated
      */
     public static String sendGetRequest(String url) throws Exception {
         HttpClient httpclient = new HttpClient();
@@ -76,6 +78,7 @@ public class BabiliUpdateUtil {
      * @param clazz
      * @return
      * @throws Exception
+     * @deprecated
      */
     public static List parseJsonObject(String jsonContent, Class clazz, IProgressMonitor monitor) throws Exception {
         // need factory for creating parser to use
@@ -98,6 +101,7 @@ public class BabiliUpdateUtil {
      * 
      * @param monitor
      * @throws ImportBabiliCancelException
+     * @deprecated
      */
     public static void checkProcessCancel(IProgressMonitor monitor) throws ImportBabiliCancelException {
         if (monitor != null && monitor.isCanceled()) {

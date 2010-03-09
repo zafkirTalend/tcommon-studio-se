@@ -32,8 +32,8 @@ import org.apache.log4j.Logger;
  * <li>Using many file per plug-in</li>
  * </ul>
  * 
- * Using plug-in can create their implementation by copy the DefaultMessagesImpl in the same package.<br/> * $Id:
- * MessagesCore.java,v 1.8 2006/07/26 16:02:00 amaumont Exp $
+ * Using plug-in can create their implementation by copy the DefaultMessagesImpl in the same package.<br/>
+ * * $Id$
  * 
  */
 public abstract class MessagesCore {
@@ -57,13 +57,6 @@ public abstract class MessagesCore {
         }
         log.trace("Getting key " + key + "in" + resourceBundle.toString()); //$NON-NLS-1$ //$NON-NLS-2$
         try {
-            // modified by wzhang. when pluginId is not null
-            if (pluginId != null) {
-                String babiliTranslation = BabiliTool.getBabiliTranslation(key, pluginId);
-                if (babiliTranslation != null) {
-                    return babiliTranslation;
-                }
-            }
             return resourceBundle.getString(key);
 
         } catch (MissingResourceException e) {
