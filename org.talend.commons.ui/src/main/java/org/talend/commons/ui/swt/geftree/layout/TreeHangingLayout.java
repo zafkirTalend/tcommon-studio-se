@@ -104,8 +104,10 @@ public class TreeHangingLayout extends TreeBranchLayout {
             result.width += getBranch().getTitleImage().getPreferredSize().width;
         }
         IFigure pane = getBranch().getContentsPane();
-        if (!pane.isVisible() || pane.getChildren().isEmpty())
+        if (!pane.isVisible() || pane.getChildren().isEmpty()) {
+            result.width += 14;
             return transposer.t(result);
+        }
         Dimension d = transposer.t(getBranch().getContentsPane().getPreferredSize());
         result.width = Math.max(result.width, d.width + getGap() * 2);
         result.height += d.height;
