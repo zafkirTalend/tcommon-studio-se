@@ -1009,5 +1009,9 @@ class ExportItemWizardPage extends WizardPage {
         public void addFilters() {
         }
 
+        @Override
+        public void createActionComposite(Composite parent) {
+        }
+
     }
 }
