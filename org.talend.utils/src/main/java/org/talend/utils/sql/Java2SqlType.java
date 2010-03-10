@@ -22,6 +22,14 @@ import java.sql.Types;
  */
 public final class Java2SqlType {
 
+    // ADD by zshen bug 11875.to added additional type.
+    public static final int NCHAR = -15;
+
+    public static final int NTEXT = -16;
+
+    public static final int NVARCHAR = -9;
+
+    // ~11875
     private Java2SqlType() {
     }
 
@@ -32,7 +40,11 @@ public final class Java2SqlType {
         case Types.VARCHAR:
         case Types.LONGVARCHAR:
         case Types.CLOB:
-
+            // ADD by zshen bug 11875.to added additional type.
+        case Java2SqlType.NCHAR:
+        case Java2SqlType.NTEXT:
+        case Java2SqlType.NVARCHAR:
+            // ~11875
             return true;
         default:
             return false;
