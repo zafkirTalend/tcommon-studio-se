@@ -28,6 +28,8 @@ public interface IBrandingService extends IService {
 
     public String getShortProductName();
 
+    public String getAcronym();
+
     public String getCorporationName();
 
     public ImageDescriptor getLoginVImage();

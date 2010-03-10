@@ -62,7 +62,36 @@ public interface IRegisterUserPortType extends java.rmi.Remote {
      */
     public boolean registerUserWithAllUserInformations(java.lang.String email, java.lang.String country,
             java.lang.String designerversion, java.lang.String productname, java.lang.String projectLanguage,
-            java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion,
-            java.lang.String totalMemory, java.lang.String memRAM, java.lang.String nbProc)
-            throws java.rmi.RemoteException;
+            java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion, java.lang.String totalMemory,
+            java.lang.String memRAM, java.lang.String nbProc) throws java.rmi.RemoteException;
+
+    /**
+     * DOC nrousseau Comment method "registerUserWithAllUserInformationsAndReturnId".
+     * 
+     * @param email
+     * @param country
+     * @param designerversion
+     * @param productname
+     * @param projectLanguage
+     * @param osName
+     * @param osVersion
+     * @param javaVersion
+     * @param totalMemory
+     * @param memRAM
+     * @param nbProc
+     * @return
+     * @throws java.rmi.RemoteException
+     */
+    public java.math.BigInteger registerUserWithAllUserInformationsAndReturnId(java.lang.String email, java.lang.String country,
+            java.lang.String designerversion, java.lang.String productname, java.lang.String projectLanguage,
+            java.lang.String osName, java.lang.String osVersion, java.lang.String javaVersion, java.lang.String totalMemory,
+            java.lang.String memRAM, java.lang.String nbProc) throws java.rmi.RemoteException;
+
+    /**
+     * DOC nrousseau Comment method "listUsers".
+     * 
+     * @return
+     * @throws java.rmi.RemoteException
+     */
+    public UserRegistration[] listUsers() throws java.rmi.RemoteException;
 }
