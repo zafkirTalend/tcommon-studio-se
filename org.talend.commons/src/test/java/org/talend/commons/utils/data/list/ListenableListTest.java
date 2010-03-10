@@ -87,7 +87,7 @@ public class ListenableListTest {
         initListener();
         assertFalse(added);
         listenedList.add("B"); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 1);
+        assertEquals(currentEvent.index, (Integer) 1);
         assertTrue(currentEvent.addedObjects.contains("B")); //$NON-NLS-1$
         assertEquals("B", listenedList.get(1)); //$NON-NLS-1$
         assertTrue(added);
@@ -304,7 +304,7 @@ public class ListenableListTest {
         assertEquals(listIterator.previousIndex(), 2);
         assertEquals(listIterator.nextIndex(), A_3);
         assertTrue(currentEvent.addedObjects.contains("D")); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 2);
+        assertEquals(currentEvent.index, (Integer) 2);
         assertTrue(added);
 
         assertFalse(listIterator.hasNext());
@@ -314,7 +314,7 @@ public class ListenableListTest {
         assertFalse(removed);
         listIterator.remove();
         assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 2);
+        assertEquals(currentEvent.index, (Integer) 2);
         assertTrue(removed);
 
         assertFalse(listIterator.hasNext());
@@ -325,7 +325,7 @@ public class ListenableListTest {
         listIterator.set("E"); //$NON-NLS-1$
         assertTrue(currentEvent.removedObjects.contains("C")); //$NON-NLS-1$
         assertTrue(currentEvent.addedObjects.contains("E")); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 1);
+        assertEquals(currentEvent.index, (Integer) 1);
         assertTrue(replaced);
     }
 
@@ -363,7 +363,7 @@ public class ListenableListTest {
         assertTrue(removed);
 
         assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 2);
+        assertEquals(currentEvent.index, (Integer) 2);
 
     }
 
@@ -388,7 +388,7 @@ public class ListenableListTest {
         assertTrue(removed);
 
         assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 2);
+        assertEquals(currentEvent.index, (Integer) 2);
 
     }
 
@@ -476,7 +476,7 @@ public class ListenableListTest {
         assertTrue(replaced);
         assertTrue(currentEvent.removedObjects.contains("D")); //$NON-NLS-1$
         assertTrue(currentEvent.addedObjects.contains("E")); //$NON-NLS-1$
-        assertEquals(currentEvent.index, 1);
+        assertEquals(currentEvent.index, (Integer) 1);
 
     }
 
@@ -583,7 +583,8 @@ public class ListenableListTest {
 
     /**
      * Test method for
-     * {@link org.talend.commons.utils.data.list.ListenableList#addListener(org.talend.commons.utils.data.list.IListenableListListener)}.
+     * {@link org.talend.commons.utils.data.list.ListenableList#addListener(org.talend.commons.utils.data.list.IListenableListListener)}
+     * .
      */
     @Test
     public void testAddListener() {
@@ -657,7 +658,8 @@ public class ListenableListTest {
 
     /**
      * Test method for
-     * {@link org.talend.commons.utils.data.list.ListenableList#removeListener(org.talend.commons.utils.data.list.IListenableListListener)}.
+     * {@link org.talend.commons.utils.data.list.ListenableList#removeListener(org.talend.commons.utils.data.list.IListenableListListener)}
+     * .
      */
     @Test
     public void testRemoveListener() {

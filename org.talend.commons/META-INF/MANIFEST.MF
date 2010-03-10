@@ -4,10 +4,13 @@ Bundle-Name: Common Plug-in
 Bundle-SymbolicName: org.talend.commons;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Localization: plugin
-Require-Bundle: org.apache.log4j;bundle-version="1.2.13",
+Require-Bundle: org.apache.log4j,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
- org.talend.libraries;visibility:=reexport
+ org.talend.libraries;visibility:=reexport,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf,
+ org.eclipse.emf.ecore.xmi
 Export-Package: org.talend.commons,
  org.talend.commons.bridge,
  org.talend.commons.emf,
