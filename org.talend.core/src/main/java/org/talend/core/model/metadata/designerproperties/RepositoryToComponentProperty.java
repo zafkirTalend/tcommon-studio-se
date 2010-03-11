@@ -42,9 +42,11 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
+import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
@@ -70,6 +72,10 @@ import org.talend.core.model.utils.TalendTextUtils;
 public class RepositoryToComponentProperty {
 
     public static Object getValue(Connection connection, String value, IMetadataTable table) {
+        if (connection instanceof HL7Connection) {
+            return getHL7Value((HL7Connection) connection, value);
+        }
+
         if (connection instanceof FileConnection) {
             return getFileValue((FileConnection) connection, value);
         }
@@ -253,6 +259,36 @@ public class RepositoryToComponentProperty {
             }
         }
 
+        return null;
+    }
+
+    /**
+     * DOC gcui Comment method "getHL7Value".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getHL7Value(HL7Connection connection, String value) {
+        if ("FILE_PATH".equals(value)) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getFilePath())) {
+                return connection.getFilePath();
+            } else {
+                return connection.getFilePath();
+            }
+        } else if ("START_MSG".equals(value)) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getStartChar())) {
+                return connection.getStartChar();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getStartChar());
+            }
+        } else if ("END_MSG".equals(value)) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getEndChar())) {
+                return connection.getEndChar();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getEndChar());
+            }
+        }
         return null;
     }
 
@@ -517,11 +553,9 @@ public class RepositoryToComponentProperty {
                 return EDatabaseTypeName.ORACLESN.getXmlName();
             } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                 return EDatabaseTypeName.ORACLE_OCI.getXmlName();
-            }
-            // else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
-            // return EDatabaseTypeName.MSSQL.getXmlName();
-            // }
-            else {
+            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+                return EDatabaseTypeName.MSSQL.getXMLType(); // for component
+            } else {
                 return typeByProduct;
             }
         }
@@ -1344,6 +1378,31 @@ public class RepositoryToComponentProperty {
                             }
                             maps.add(map);
                         }
+                        return maps;
+                    }
+                }
+            }
+        }
+        if (connection instanceof HL7Connection) {
+            HL7Connection hl7Connection = (HL7Connection) connection;
+            EList objectList = hl7Connection.getTables();
+            if (metadataTable != null) {
+                for (MetadataTable table : (List<MetadataTable>) objectList) {
+                    // test if sourcename is null, this is only for compatibility with first mdm repository released.
+                    if (table != null && (table.getLabel() == null || table.getLabel().equals(metadataTable.getLabel()))) {
+                        List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        // map.put("MAPPING", null); //$NON-NLS-1$
+
+                        String xpathValue = "";
+                        for (IMetadataColumn col : metadataTable.getListColumns()) {
+                            xpathValue += col.getOriginalDbColumnName();
+                            if (metadataTable.getListColumns().indexOf(col) != metadataTable.getListColumns().size()) {
+                                xpathValue += ",";
+                            }
+                        }
+                        map.put("MAPPING", xpathValue);
+                        maps.add(map);
                         return maps;
                     }
                 }
