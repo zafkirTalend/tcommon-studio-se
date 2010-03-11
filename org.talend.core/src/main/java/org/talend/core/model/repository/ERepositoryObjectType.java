@@ -25,6 +25,7 @@ import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
@@ -83,6 +84,7 @@ public enum ERepositoryObjectType {
     METADATA_SAPCONNECTIONS("repository.metadataSAPConnections", "repository.metadataSAPConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_EBCDIC("repository.metadataFileEDCDIC", "repository.metadataFileEDCDIC.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_HL7("repository.metadataFileHL7", "repository.metadataFileHL7.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_MDMCONNECTION("repository.metadataMDMConnections", "repository.metadataMDMConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -203,6 +205,8 @@ public enum ERepositoryObjectType {
             return "metadata/sapconnections"; //$NON-NLS-1$
         case METADATA_FILE_EBCDIC:
             return "metadata/fileEBCDIC"; //$NON-NLS-1$
+        case METADATA_FILE_HL7:
+            return "metadata/fileHL7"; //$NON-NLS-1$
         case METADATA_MDMCONNECTION:
             return "metadata/MDMconnections"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
@@ -406,6 +410,10 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
                 return METADATA_FILE_EBCDIC;
+            }
+
+            public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
+                return METADATA_FILE_HL7;
             }
 
             public Object caseMDMConnectionItem(MDMConnectionItem object) {

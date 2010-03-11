@@ -164,6 +164,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.ITEM_RELATIONS: return createItemRelations();
             case PropertiesPackage.ITEM_RELATION: return createItemRelation();
             case PropertiesPackage.NOTIFICATION: return createNotification();
+            case PropertiesPackage.HL7_CONNECTION_ITEM: return createHL7ConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -906,6 +907,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public Notification createNotification() {
         NotificationImpl notification = new NotificationImpl();
         return notification;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public HL7ConnectionItem createHL7ConnectionItem() {
+        HL7ConnectionItemImpl hl7ConnectionItem = new HL7ConnectionItemImpl();
+        return hl7ConnectionItem;
     }
 
     /**

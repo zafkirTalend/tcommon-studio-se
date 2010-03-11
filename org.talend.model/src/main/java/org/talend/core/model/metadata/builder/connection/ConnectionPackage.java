@@ -6097,13 +6097,338 @@ public interface ConnectionPackage extends EPackage {
     int CONCEPT_TARGET_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl <em>HL7 Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7Connection()
+     * @generated
+     */
+    int HL7_CONNECTION = 35;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__PROPERTIES = FILE_CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ID = FILE_CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__COMMENT = FILE_CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__LABEL = FILE_CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__READ_ONLY = FILE_CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__SYNCHRONISED = FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__DIVERGENCY = FILE_CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__CONTEXT_MODE = FILE_CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__CONTEXT_ID = FILE_CONNECTION__CONTEXT_ID;
+
+    /**
+     * The feature id for the '<em><b>Server</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__SERVER = FILE_CONNECTION__SERVER;
+
+    /**
+     * The feature id for the '<em><b>File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__FILE_PATH = FILE_CONNECTION__FILE_PATH;
+
+    /**
+     * The feature id for the '<em><b>Format</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__FORMAT = FILE_CONNECTION__FORMAT;
+
+    /**
+     * The feature id for the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ENCODING = FILE_CONNECTION__ENCODING;
+
+    /**
+     * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ROW_SEPARATOR_VALUE = FILE_CONNECTION__ROW_SEPARATOR_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__TEXT_IDENTIFIER = FILE_CONNECTION__TEXT_IDENTIFIER;
+
+    /**
+     * The feature id for the '<em><b>Use Header</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__USE_HEADER = FILE_CONNECTION__USE_HEADER;
+
+    /**
+     * The feature id for the '<em><b>Header Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__HEADER_VALUE = FILE_CONNECTION__HEADER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Use Footer</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__USE_FOOTER = FILE_CONNECTION__USE_FOOTER;
+
+    /**
+     * The feature id for the '<em><b>Footer Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__FOOTER_VALUE = FILE_CONNECTION__FOOTER_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Use Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__USE_LIMIT = FILE_CONNECTION__USE_LIMIT;
+
+    /**
+     * The feature id for the '<em><b>Limit Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
+
+    /**
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
+
+    /**
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__REMOVE_EMPTY_ROW = FILE_CONNECTION__REMOVE_EMPTY_ROW;
+
+    /**
+     * The feature id for the '<em><b>Escape Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ESCAPE_TYPE = FILE_CONNECTION__ESCAPE_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Escape Char</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ESCAPE_CHAR = FILE_CONNECTION__ESCAPE_CHAR;
+
+    /**
+     * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__TEXT_ENCLOSURE = FILE_CONNECTION__TEXT_ENCLOSURE;
+
+    /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
+
+    /**
+     * The feature id for the '<em><b>Start Char</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__START_CHAR = FILE_CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>End Char</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__END_CHAR = FILE_CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>HL7 Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 35;
+    int DATABASE_PROPERTIES = 36;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -6112,7 +6437,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 36;
+    int FILE_FORMAT = 37;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -6121,7 +6446,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 37;
+    int FIELD_SEPARATOR = 38;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -6130,7 +6455,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 38;
+    int ESCAPE = 39;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -6139,7 +6464,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 39;
+    int ROW_SEPARATOR = 40;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -6148,7 +6473,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 40;
+    int MAP = 41;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -6158,7 +6483,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 41;
+    int LIST = 42;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -8826,6 +9151,38 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getConceptTarget_RelativeLoopExpression();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HL7Connection <em>HL7 Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>HL7 Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7Connection
+     * @generated
+     */
+    EClass getHL7Connection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getStartChar <em>Start Char</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Start Char</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getStartChar()
+     * @see #getHL7Connection()
+     * @generated
+     */
+    EAttribute getHL7Connection_StartChar();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getEndChar <em>End Char</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>End Char</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getEndChar()
+     * @see #getHL7Connection()
+     * @generated
+     */
+    EAttribute getHL7Connection_EndChar();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -10986,6 +11343,32 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION = eINSTANCE.getConceptTarget_RelativeLoopExpression();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl <em>HL7 Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7Connection()
+         * @generated
+         */
+        EClass HL7_CONNECTION = eINSTANCE.getHL7Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Start Char</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_CONNECTION__START_CHAR = eINSTANCE.getHL7Connection_StartChar();
+
+        /**
+         * The meta object literal for the '<em><b>End Char</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_CONNECTION__END_CHAR = eINSTANCE.getHL7Connection_EndChar();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

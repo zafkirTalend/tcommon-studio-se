@@ -111,7 +111,7 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * @generated
      */
     public QueriesConnection getQueries() {
-        if (eContainerFeatureID != ConnectionPackage.QUERY__QUERIES) return null;
+        if (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES) return null;
         return (QueriesConnection)eContainer();
     }
 
@@ -129,7 +129,7 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * @generated
      */
     public void setQueries(QueriesConnection newQueries) {
-        if (newQueries != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.QUERY__QUERIES && newQueries != null)) {
+        if (newQueries != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES && newQueries != null)) {
             if (EcoreUtil.isAncestor(this, newQueries))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -194,7 +194,7 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.QUERY__QUERIES:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.QUERIES_CONNECTION__QUERY, QueriesConnection.class, msgs);
         }

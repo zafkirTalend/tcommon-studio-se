@@ -5789,6 +5789,52 @@ public interface PropertiesPackage extends EPackage {
     int NOTIFICATION_FEATURE_COUNT = 4;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.HL7ConnectionItemImpl <em>HL7 Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.HL7ConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHL7ConnectionItem()
+     * @generated
+     */
+    int HL7_CONNECTION_ITEM = 77;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>HL7 Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -5796,7 +5842,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 77;
+    int FOLDER_TYPE = 78;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5805,7 +5851,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 78;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 79;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -5814,7 +5860,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 79;
+    int USER_MODULE_AUTHORIZATION_TYPE = 80;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -5823,7 +5869,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 80;
+    int INFORMATION_LEVEL = 81;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -9897,6 +9943,16 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getNotification_Enabled();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.HL7ConnectionItem <em>HL7 Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>HL7 Connection Item</em>'.
+     * @see org.talend.core.model.properties.HL7ConnectionItem
+     * @generated
+     */
+    EClass getHL7ConnectionItem();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Extension</em>'.
@@ -13729,6 +13785,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute NOTIFICATION__ENABLED = eINSTANCE.getNotification_Enabled();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.HL7ConnectionItemImpl <em>HL7 Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.HL7ConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHL7ConnectionItem()
+         * @generated
+         */
+        EClass HL7_CONNECTION_ITEM = eINSTANCE.getHL7ConnectionItem();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.

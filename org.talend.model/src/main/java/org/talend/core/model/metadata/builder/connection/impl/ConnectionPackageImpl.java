@@ -36,6 +36,7 @@ import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
@@ -295,6 +296,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass conceptTargetEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass hl7ConnectionEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -361,20 +369,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private static boolean isInited = false;
 
     /**
-     * Creates, registers, and initializes the <b>Package</b> for this
-     * model, and for any others upon which it depends.  Simple
-     * dependencies are satisfied by calling this method on all
-     * dependent packages before doing anything else.  This method drives
-     * initialization for interdependent packages directly, in parallel
-     * with this package, itself.
-     * <p>Of this package and its interdependencies, all packages which
-     * have not yet been registered by their URI values are first created
-     * and registered.  The packages are then initialized in two steps:
-     * meta-model objects for all of the packages are created before any
-     * are initialized, since one package's meta-model objects may refer to
-     * those of another.
-     * <p>Invocation of this method will not affect any packages that have
-     * already been initialized.
+     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+     * 
+     * <p>This method is used to initialize {@link ConnectionPackage#eINSTANCE} when that field is accessed.
+     * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
      * @see #eNS_URI
@@ -386,7 +384,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         if (isInited) return (ConnectionPackage)EPackage.Registry.INSTANCE.getEPackage(ConnectionPackage.eNS_URI);
 
         // Obtain or create and register package
-        ConnectionPackageImpl theConnectionPackage = (ConnectionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ConnectionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ConnectionPackageImpl());
+        ConnectionPackageImpl theConnectionPackage = (ConnectionPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ConnectionPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ConnectionPackageImpl());
 
         isInited = true;
 
@@ -399,6 +397,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         // Mark meta-data to indicate it can't be changed
         theConnectionPackage.freeze();
 
+  
+        // Update the registry and return the package
+        EPackage.Registry.INSTANCE.put(ConnectionPackage.eNS_URI, theConnectionPackage);
         return theConnectionPackage;
     }
 
@@ -2542,6 +2543,33 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getHL7Connection() {
+        return hl7ConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7Connection_StartChar() {
+        return (EAttribute)hl7ConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7Connection_EndChar() {
+        return (EAttribute)hl7ConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2910,6 +2938,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(conceptTargetEClass, CONCEPT_TARGET__TARGET_NAME);
         createEAttribute(conceptTargetEClass, CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION);
 
+        hl7ConnectionEClass = createEClass(HL7_CONNECTION);
+        createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__START_CHAR);
+        createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__END_CHAR);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -2973,6 +3005,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         subscriberTableEClass.getESuperTypes().add(this.getMetadataTable());
         sapTestInputParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
         conceptEClass.getESuperTypes().add(this.getMetadataTable());
+        hl7ConnectionEClass.getESuperTypes().add(this.getFileConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3261,6 +3294,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getConceptTarget_Schema(), this.getConcept(), this.getConcept_ConceptTargets(), "schema", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConceptTarget_TargetName(), ecorePackage.getEString(), "targetName", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConceptTarget_RelativeLoopExpression(), ecorePackage.getEString(), "RelativeLoopExpression", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(hl7ConnectionEClass, HL7Connection.class, "HL7Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getHL7Connection_StartChar(), ecorePackage.getEString(), "StartChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7Connection_EndChar(), ecorePackage.getEString(), "EndChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

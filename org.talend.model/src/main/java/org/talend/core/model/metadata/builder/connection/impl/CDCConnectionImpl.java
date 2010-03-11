@@ -77,7 +77,7 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      */
     public DatabaseConnection getConnection() {
-        if (eContainerFeatureID != ConnectionPackage.CDC_CONNECTION__CONNECTION) return null;
+        if (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION) return null;
         return (DatabaseConnection)eContainer();
     }
 
@@ -97,7 +97,7 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      */
     public void setConnection(DatabaseConnection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.CDC_CONNECTION__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -160,7 +160,7 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.CDC_CONNECTION__CONNECTION:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, DatabaseConnection.class, msgs);
         }

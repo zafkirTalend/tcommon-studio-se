@@ -334,5 +334,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConceptTarget/targetName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//ConceptTarget/RelativeLoopExpression"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//HL7Connection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/StartChar"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/EndChar"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

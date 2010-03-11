@@ -661,6 +661,15 @@ public interface PropertiesFactory extends EFactory {
     Notification createNotification();
 
     /**
+     * Returns a new object of class '<em>HL7 Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>HL7 Connection Item</em>'.
+     * @generated
+     */
+    HL7ConnectionItem createHL7ConnectionItem();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

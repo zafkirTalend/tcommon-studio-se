@@ -398,4 +398,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="RelativeLoopExpression"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HL7Connection" eSuperTypes="#//FileConnection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="StartChar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="EndChar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -221,7 +221,11 @@ public interface IProxyRepositoryFactory {
     // feature 0006484
     public abstract RootContainer<String, IRepositoryObject> getMetadataRules(Project project) throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryObject> getMetadataHL7(Project project) throws PersistenceException;
+
     public abstract RootContainer<String, IRepositoryObject> getMetadataEBCDIC() throws PersistenceException;
+
+    public abstract RootContainer<String, IRepositoryObject> getMetadataHL7() throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryObject> getMetadataMDM() throws PersistenceException;
 

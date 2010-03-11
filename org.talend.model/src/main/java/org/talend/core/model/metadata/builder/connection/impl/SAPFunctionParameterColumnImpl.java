@@ -323,7 +323,7 @@ public class SAPFunctionParameterColumnImpl extends AbstractMetadataObjectImpl
      * @generated
      */
 	public SAPFunctionParameterTable getParameterTable() {
-        if (eContainerFeatureID != ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE) return null;
+        if (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE) return null;
         return (SAPFunctionParameterTable)eContainer();
     }
 
@@ -342,7 +342,7 @@ public class SAPFunctionParameterColumnImpl extends AbstractMetadataObjectImpl
      * @generated
      */
 	public void setParameterTable(SAPFunctionParameterTable newParameterTable) {
-        if (newParameterTable != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE && newParameterTable != null)) {
+        if (newParameterTable != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE && newParameterTable != null)) {
             if (EcoreUtil.isAncestor(this, newParameterTable))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -391,7 +391,7 @@ public class SAPFunctionParameterColumnImpl extends AbstractMetadataObjectImpl
      */
 	public NotificationChain eBasicRemoveFromContainerFeature(
 			NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS, SAPFunctionParameterTable.class, msgs);
         }

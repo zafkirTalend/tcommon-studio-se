@@ -420,7 +420,7 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @generated
      */
 	public SAPConnection getConnection() {
-        if (eContainerFeatureID != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION) return null;
+        if (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION) return null;
         return (SAPConnection)eContainer();
     }
 
@@ -440,7 +440,7 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @generated
      */
 	public void setConnection(SAPConnection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -566,7 +566,7 @@ public class SAPFunctionUnitImpl extends AbstractMetadataObjectImpl implements S
      * @generated
      */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.SAP_FUNCTION_UNIT__CONNECTION:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_CONNECTION__FUNTIONS, SAPConnection.class, msgs);
         }

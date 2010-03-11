@@ -313,6 +313,15 @@ public interface ConnectionFactory extends EFactory {
     ConceptTarget createConceptTarget();
 
     /**
+     * Returns a new object of class '<em>HL7 Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>HL7 Connection</em>'.
+     * @generated
+     */
+    HL7Connection createHL7Connection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

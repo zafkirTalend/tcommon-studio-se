@@ -29,6 +29,7 @@ public enum ERepositoryCategoryType {
     DATABASE,
     SAP,
     EBCDIC,
+    HL7,
     MDM,
     RULE,
     CDC(DATABASE),

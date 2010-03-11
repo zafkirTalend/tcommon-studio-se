@@ -101,7 +101,7 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * @generated
      */
     public Concept getSchema() {
-        if (eContainerFeatureID != ConnectionPackage.CONCEPT_TARGET__SCHEMA) return null;
+        if (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA) return null;
         return (Concept)eContainer();
     }
 
@@ -121,7 +121,7 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * @generated
      */
     public void setSchema(Concept newSchema) {
-        if (newSchema != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.CONCEPT_TARGET__SCHEMA && newSchema != null)) {
+        if (newSchema != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA && newSchema != null)) {
             if (EcoreUtil.isAncestor(this, newSchema))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -212,7 +212,7 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONCEPT__CONCEPT_TARGETS, Concept.class, msgs);
         }

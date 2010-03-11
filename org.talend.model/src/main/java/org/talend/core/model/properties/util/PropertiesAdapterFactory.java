@@ -301,6 +301,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseNotification(Notification object) {
                 return createNotificationAdapter();
             }
+            public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
+                return createHL7ConnectionItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1380,6 +1383,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createNotificationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.HL7ConnectionItem <em>HL7 Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.HL7ConnectionItem
+     * @generated
+     */
+    public Adapter createHL7ConnectionItemAdapter() {
         return null;
     }
 

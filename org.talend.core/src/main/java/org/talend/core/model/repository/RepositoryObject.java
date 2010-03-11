@@ -36,6 +36,7 @@ import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
@@ -240,6 +241,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseSAPConnectionItem(SAPConnectionItem object) {
                 return ERepositoryObjectType.METADATA_SAPCONNECTIONS;
+            }
+
+            public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_HL7;
             }
 
             @Override

@@ -142,7 +142,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * @generated
      */
     public XmlXPathLoopDescriptor getSchema() {
-        if (eContainerFeatureID != ConnectionPackage.SCHEMA_TARGET__SCHEMA) return null;
+        if (eContainerFeatureID() != ConnectionPackage.SCHEMA_TARGET__SCHEMA) return null;
         return (XmlXPathLoopDescriptor)eContainer();
     }
 
@@ -162,7 +162,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * @generated
      */
     public void setSchema(XmlXPathLoopDescriptor newSchema) {
-        if (newSchema != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.SCHEMA_TARGET__SCHEMA && newSchema != null)) {
+        if (newSchema != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.SCHEMA_TARGET__SCHEMA && newSchema != null)) {
             if (EcoreUtil.isAncestor(this, newSchema))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -211,7 +211,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS, XmlXPathLoopDescriptor.class, msgs);
         }

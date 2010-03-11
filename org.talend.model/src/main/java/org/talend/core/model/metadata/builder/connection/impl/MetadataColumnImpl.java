@@ -417,7 +417,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      */
     public MetadataTable getTable() {
-        if (eContainerFeatureID != ConnectionPackage.METADATA_COLUMN__TABLE) return null;
+        if (eContainerFeatureID() != ConnectionPackage.METADATA_COLUMN__TABLE) return null;
         return (MetadataTable)eContainer();
     }
 
@@ -437,7 +437,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      */
     public void setTable(MetadataTable newTable) {
-        if (newTable != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.METADATA_COLUMN__TABLE && newTable != null)) {
+        if (newTable != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.METADATA_COLUMN__TABLE && newTable != null)) {
             if (EcoreUtil.isAncestor(this, newTable))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -549,7 +549,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.METADATA_COLUMN__TABLE:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.METADATA_TABLE__COLUMNS, MetadataTable.class, msgs);
         }

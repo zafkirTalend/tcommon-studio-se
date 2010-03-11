@@ -161,7 +161,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      */
     public XmlFileConnection getConnection() {
-        if (eContainerFeatureID != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION) return null;
+        if (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION) return null;
         return (XmlFileConnection)eContainer();
     }
 
@@ -181,7 +181,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      */
     public void setConnection(XmlFileConnection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -246,7 +246,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, XmlFileConnection.class, msgs);
         }

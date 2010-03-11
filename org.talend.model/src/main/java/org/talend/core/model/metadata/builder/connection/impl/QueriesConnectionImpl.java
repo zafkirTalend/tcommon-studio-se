@@ -73,7 +73,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      * @generated
      */
     public Connection getConnection() {
-        if (eContainerFeatureID != ConnectionPackage.QUERIES_CONNECTION__CONNECTION) return null;
+        if (eContainerFeatureID() != ConnectionPackage.QUERIES_CONNECTION__CONNECTION) return null;
         return (Connection)eContainer();
     }
 
@@ -93,7 +93,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      * @generated
      */
     public void setConnection(Connection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.QUERIES_CONNECTION__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.QUERIES_CONNECTION__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -158,7 +158,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      * @generated
      */
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONNECTION__QUERIES, Connection.class, msgs);
         }

@@ -53,7 +53,7 @@ public class OutputSAPFunctionParameterTableImpl extends
      * @generated
      */
 	public SAPFunctionUnit getFunctionUnit() {
-        if (eContainerFeatureID != ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT) return null;
+        if (eContainerFeatureID() != ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT) return null;
         return (SAPFunctionUnit)eContainer();
     }
 
@@ -72,7 +72,7 @@ public class OutputSAPFunctionParameterTableImpl extends
      * @generated
      */
 	public void setFunctionUnit(SAPFunctionUnit newFunctionUnit) {
-        if (newFunctionUnit != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT && newFunctionUnit != null)) {
+        if (newFunctionUnit != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT && newFunctionUnit != null)) {
             if (EcoreUtil.isAncestor(this, newFunctionUnit))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
@@ -121,7 +121,7 @@ public class OutputSAPFunctionParameterTableImpl extends
      */
 	public NotificationChain eBasicRemoveFromContainerFeature(
 			NotificationChain msgs) {
-        switch (eContainerFeatureID) {
+        switch (eContainerFeatureID()) {
             case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT:
                 return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE, SAPFunctionUnit.class, msgs);
         }

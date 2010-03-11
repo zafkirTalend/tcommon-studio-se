@@ -528,6 +528,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/props"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/enabled"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//HL7ConnectionItem"/>
   </genPackages>
 </genmodel:GenModel>

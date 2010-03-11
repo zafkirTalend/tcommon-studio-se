@@ -359,6 +359,15 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.HL7_CONNECTION: {
+                HL7Connection hl7Connection = (HL7Connection)theEObject;
+                Object result = caseHL7Connection(hl7Connection);
+                if (result == null) result = caseFileConnection(hl7Connection);
+                if (result == null) result = caseConnection(hl7Connection);
+                if (result == null) result = caseAbstractMetadataObject(hl7Connection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -865,6 +874,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseConceptTarget(ConceptTarget object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>HL7 Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>HL7 Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseHL7Connection(HL7Connection object) {
         return null;
     }
 

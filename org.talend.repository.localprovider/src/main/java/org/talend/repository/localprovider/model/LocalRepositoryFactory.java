@@ -68,6 +68,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
@@ -414,6 +415,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         if (PluginChecker.isEBCDICPluginLoaded()) {
             needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
+        }
+        if (PluginChecker.isHL7PluginLoaded()) {
+            needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_HL7);
         }
         if (PluginChecker.isRulesPluginLoaded()) {
             needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_RULES);
@@ -1281,6 +1285,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.SAP_CONNECTION_ITEM:
             case PropertiesPackage.MDM_CONNECTION_ITEM:
+            case PropertiesPackage.HL7_CONNECTION_ITEM:
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to
                 // another resource for edition
@@ -1438,6 +1443,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
                 itemResource = create(project2, (EbcdicConnectionItem) item, ERepositoryObjectType.METADATA_FILE_EBCDIC, path);
+                break;
+            case PropertiesPackage.HL7_CONNECTION_ITEM:
+                itemResource = create(project2, (HL7ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_HL7, path);
                 break;
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_DELIMITED, path);
