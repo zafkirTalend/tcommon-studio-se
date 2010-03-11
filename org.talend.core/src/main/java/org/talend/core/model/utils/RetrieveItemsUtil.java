@@ -78,7 +78,8 @@ public final class RetrieveItemsUtil {
         }
 
         RelationshipItemBuilder relationsBuilder = RelationshipItemBuilder.getInstance();
-        final List<Relation> itemsRelated = relationsBuilder.getItemsRelatedTo(relatedId, ItemCacheManager.LATEST_VERSION, indexType);
+        final List<Relation> itemsRelated = relationsBuilder.getItemsRelatedTo(relatedId, ItemCacheManager.LATEST_VERSION,
+                indexType);
         final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         final Project curProject = ProjectManager.getInstance().getCurrentProject();
 
@@ -195,7 +196,7 @@ public final class RetrieveItemsUtil {
         if (withRefProject) {
             EList refProjects = project.getEmfProject().getReferencedProjects();
             for (ProjectReference pRef : (List<ProjectReference>) refProjects) {
-                Project refP = new Project(pRef.getProject());
+                Project refP = new Project(pRef.getReferencedProject());
                 retrieveItems(factory, refP, type, withLastVersion, withDeleted, withLocked, withRefProject, results);
             }
         }
