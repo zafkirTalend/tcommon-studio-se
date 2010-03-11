@@ -116,6 +116,24 @@ public final class StringFormatUtil {
     }
 
     /**
+     * DOC Zshen Comment method "formatDouble".
+     * 
+     * @param input the object that was formated.
+     * @return the Double form of this valid input object and to retain four decimal places
+     */
+    public static Double formatFourDecimalDouble(Object input) {
+
+        if (checkInput(input)) {
+            Double db = new Double(input.toString());
+            DecimalFormat format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
+            format.applyPattern("0.0000");
+            return Double.valueOf(format.format(db));
+        }
+
+        return null;
+    }
+
+    /**
      * DOC Zqin Comment method "parseDouble".
      * 
      * @param input the object that was parsed.
