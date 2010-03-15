@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.commons.exception;
 
+
 /**
  * Defines business exception - Use or extends this class when a erros related to business occurs. Such problems should
  * appears in spec.<br/>
@@ -21,23 +22,63 @@ package org.talend.commons.exception;
  */
 public class BusinessException extends Exception {
 
-    @SuppressWarnings("unused")//$NON-NLS-1$
     private static final long serialVersionUID = 1L;
+
+    private String key;
+
+    private Object[] args;
+
+    private String additonalMessage;
 
     public BusinessException() {
         super();
     }
 
-    public BusinessException(String message, Throwable cause) {
-        super(message, cause);
+    public BusinessException(String key, Object... args) {
+        this(null, key, args);
+    }
+
+    public BusinessException(String key) {
+        this(key, new Object[0]);
     }
 
     public BusinessException(Throwable cause) {
-        super(cause);
+        super(cause.getMessage(), cause);
     }
 
-    public BusinessException(String message) {
-        super(message);
+    public BusinessException(String key, Throwable cause) {
+        this(cause, key, new Object[0]);
+    }
+
+    public BusinessException(Throwable cause, String key, Object... args) {
+        this.key = key;
+        this.args = args;
+    }
+
+    /**
+     * getArgs.
+     * 
+     * @return the arguments
+     */
+    public Object[] getArgs() {
+        return args;
+    }
+
+    /**
+     * getKey.
+     * 
+     * @return the keys
+     */
+    public String getKey() {
+        return key;
+    }
+
+    public void setAdditonalMessage(String additonalMessage) {
+        this.additonalMessage = additonalMessage;
+    }
+
+    public String getAdditonalMessage() {
+        return additonalMessage;
     }
 
 }
