@@ -35,6 +35,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.Problem;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
@@ -162,5 +163,7 @@ public interface IDesignerCoreService extends IService {
     public void renameJobLaunch(IRepositoryObject obj, String originalName);
 
     public boolean isDummyComponent(IComponent component);
+
+    public void addProblems(Problem problem);
 
 }
