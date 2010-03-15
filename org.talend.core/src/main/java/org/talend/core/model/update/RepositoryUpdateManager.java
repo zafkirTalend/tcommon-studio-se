@@ -969,6 +969,35 @@ public abstract class RepositoryUpdateManager {
 
     }
 
+    public static boolean updateWSDLConnection(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
+        List<IRepositoryObject> updateList = new ArrayList<IRepositoryObject>();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                connectionItem.getProperty().getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem.getConnection(), updateList) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_PROPERTY);
+                types.add(EUpdateItemType.NODE_SCHEMA);
+                return types;
+            }
+
+        };
+        return repositoryUpdateManager.doWork(true, false);
+    }
+
     public static boolean updateMultiSchema(SAPFunctionUnit functionUnit, ConnectionItem connItem,
             List<IMetadataTable> oldMetadataTable, Map<String, String> oldTableMap) {
         if (functionUnit == null) {
