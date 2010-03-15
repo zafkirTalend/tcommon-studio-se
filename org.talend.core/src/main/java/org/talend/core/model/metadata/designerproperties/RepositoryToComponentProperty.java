@@ -666,7 +666,7 @@ public class RepositoryToComponentProperty {
             String dbVersionString = connection.getDbVersionString();
             if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(connection.getDatabaseType())) {
                 // see bug 7262
-                return dbVersionString;
+                return dbVersionString.toUpperCase();
             } else {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(connection.getDatabaseType(), dbVersionString);
                 if (isContextMode(connection, dbVersionString)) {
