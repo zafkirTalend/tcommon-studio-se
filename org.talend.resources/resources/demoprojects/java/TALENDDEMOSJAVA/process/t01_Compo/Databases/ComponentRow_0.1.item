@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
-    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="D:\TOS-All-r17341-V3.0.0M3\workspace" contextMode="false"/>
-    <elementParameter field="CHECK" name="displaySubjobs" value="true" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0RC1/Install/TOS-All-r38438-V4.0.0RC1/workspace" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="/home/nfrancisco/Talend/Logiciels/TOS/4.0.0RC1/Install/TOS-All-r38438-V4.0.0RC1/workspace/TALENDDEMOSJAVA" contextMode="false"/>
+    <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M" contextMode="false"/>
+    <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="AUTHOR" value="training@talend.com" contextMode="false"/>
     <elementParameter field="TEXT" name="STATUS" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="NAME" value="ComponentRow" contextMode="false"/>
@@ -13,19 +15,20 @@
     <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" contextMode="false"/>
     <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="0" contextMode="false"/>
     <elementParameter field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
+    <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
     <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
     <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/TOS-All-r8623-V2.3.0/workspace/in.csv&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE_IMPLICIT_CONTEXT" value="" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE_IMPLICIT_CONTEXT:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="tDBInput" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="ojdbc14-10g.jar" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
@@ -39,7 +42,6 @@
     <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
@@ -50,13 +52,13 @@
     <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY_TYPE" value="" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:PROPERTY_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="PROPERTY_TYPE:REPOSITORY_PROPERTY_TYPE" value="" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tDBOutput" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="USER" value="&quot;&quot;" contextMode="false"/>
@@ -69,38 +71,22 @@
     <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="ISO-8859-15" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
   </parameters>
   <node componentName="tMysqlRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="352">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlRow_1" contextMode="false"/>
-    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tMysqlRow" contextMode="false"/>
-    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tMysqlRow" contextMode="false"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter field="TEXT" name="FAMILY" value="Databases/MySQL" contextMode="false"/>
-    <elementParameter field="CHECK" name="START" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tMysqlRow" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;test&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="TYPE" value="MySQL" contextMode="false"/>
     <elementParameter field="TEXT" name="USER" value="&quot;root&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;" contextMode="false"/>
-    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="QUERYSTORE_TYPE" name="QUERYSTORE" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="QUERYSTORE:REPOSITORY_QUERYSTORE_TYPE" value="" contextMode="false"/>
@@ -110,12 +96,15 @@
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="PROPAGATE_RECORD_SET" value="false" contextMode="false"/>
     <elementParameter field="COLUMN_LIST" name="RECORD_SET_COLUMN" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="USE_PREPAREDSTATEMENT" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="SET_PREPAREDSTATEMENT_PARAMETERS" contextMode="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
     <elementParameter field="TEXT" name="COMMIT_EVERY" value="100" contextMode="false"/>
     <elementParameter field="TEXT" name="LABEL" value="         __UNIQUE_NAME__            " contextMode="false"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tMysqlRow_1"/>
     <metadata connector="REJECT" name="REJECT">
@@ -125,33 +114,17 @@
   </node>
   <node componentName="tMysqlRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="608">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlRow_2" contextMode="false"/>
-    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tMysqlRow" contextMode="false"/>
-    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tMysqlRow" contextMode="false"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter field="TEXT" name="FAMILY" value="Databases/MySQL" contextMode="false"/>
-    <elementParameter field="CHECK" name="START" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tMysqlRow" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;test&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="TYPE" value="MySQL" contextMode="false"/>
     <elementParameter field="TEXT" name="USER" value="&quot;root&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;" contextMode="false"/>
-    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg - " contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="REPOSITORY" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg - " contextMode="false"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;demotable&quot;" contextMode="false"/>
@@ -163,12 +136,15 @@
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="CHECK" name="PROPAGATE_RECORD_SET" value="false" contextMode="false"/>
     <elementParameter field="COLUMN_LIST" name="RECORD_SET_COLUMN" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="USE_PREPAREDSTATEMENT" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="SET_PREPAREDSTATEMENT_PARAMETERS" contextMode="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
     <elementParameter field="TEXT" name="COMMIT_EVERY" value="100" contextMode="false"/>
     <elementParameter field="TEXT" name="LABEL" value="      __UNIQUE_NAME__        " contextMode="false"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tMysqlRow_2"/>
     <metadata connector="REJECT" name="REJECT">
@@ -178,22 +154,6 @@
   </node>
   <node componentName="tRowGenerator" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="480">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1" contextMode="false"/>
-    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tRowGenerator" contextMode="false"/>
-    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tRowGenerator" contextMode="false"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter field="TEXT" name="FAMILY" value="Misc" contextMode="false"/>
-    <elementParameter field="CHECK" name="START" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tRowGenerator" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="NB_ROWS" value="10" contextMode="false"/>
     <elementParameter field="TABLE" name="VALUES" contextMode="false">
       <elementValue elementRef="SCHEMA_COLUMN" value="number"/>
@@ -209,6 +169,7 @@
     <elementParameter field="TEXT" name="LABEL" value="     __UNIQUE_NAME__      " contextMode="false"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata comment="" connector="FLOW" name="tRowGenerator_1">
       <column comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
@@ -219,37 +180,20 @@
   </node>
   <node componentName="tMysqlOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="480">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlOutput_1" contextMode="false"/>
-    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tMysqlOutput" contextMode="false"/>
-    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tMysqlOutput" contextMode="false"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter field="TEXT" name="FAMILY" value="Databases/MySQL" contextMode="false"/>
-    <elementParameter field="CHECK" name="STARTABLE" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tMysqlOutput" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="mysql-connector-java-5.1.0-bin.jar" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_EXISTING_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="TYPE" value="" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PORT" value="&quot;3306&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;test&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="USER" value="&quot;root&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;" contextMode="false"/>
     <elementParameter field="DBTABLE" name="TABLE" value="&quot;demotable&quot;" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="TABLE_ACTION" value="NONE" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="DATA_ACTION" value="INSERT" contextMode="false"/>
-    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_FLOW:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="" contextMode="false"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" contextMode="false"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" contextMode="false"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
@@ -261,11 +205,37 @@
     <elementParameter field="TEXT" name="COMMIT_EVERY" value="10000" contextMode="false"/>
     <elementParameter field="TABLE" name="ADD_COLS" contextMode="false"/>
     <elementParameter field="CHECK" name="USE_FIELD_OPTIONS" value="false" contextMode="false"/>
-    <elementParameter field="TABLE" name="FIELD_OPTIONS" contextMode="false"/>
+    <elementParameter field="TABLE" name="FIELD_OPTIONS" contextMode="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="number"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="txt"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="date"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="flag"/>
+      <elementValue elementRef="UPDATE_KEY" value="false"/>
+      <elementValue elementRef="DELETE_KEY" value="false"/>
+      <elementValue elementRef="UPDATABLE" value="true"/>
+      <elementValue elementRef="INSERTABLE" value="true"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="USE_HINT_OPTIONS" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="HINT_OPTIONS" contextMode="false"/>
     <elementParameter field="CHECK" name="ENABLE_DEBUG_MODE" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_DUPLICATE_KEY_UPDATE" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="DUPLICATED_KEYS" contextMode="false"/>
+    <elementParameter field="CHECK" name="SUPPORT_NULL_WHERE" value="false" contextMode="false"/>
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tMysqlOutput_1">
       <column comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
@@ -284,27 +254,15 @@
   </node>
   <node componentName="tCreateTable" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="192">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tCreateTable_1" contextMode="false"/>
-    <elementParameter field="TEXT" name="COMPONENT_NAME" value="tCreateTable" contextMode="false"/>
-    <elementParameter field="TEXT" name="TRANSLATED_COMPONENT_NAME" value="tCreateTable" contextMode="false"/>
-    <elementParameter field="TEXT" name="VERSION" value="0.102 (ALPHA)" contextMode="false"/>
-    <elementParameter field="TEXT" name="FAMILY" value="Databases" contextMode="false"/>
     <elementParameter field="CHECK" name="START" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="STARTABLE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="DUMMY" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="TSTATCATCHER_STATS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="HELP" value="org.talend.help.tCreateTable" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="TEXT" name="CURRENT_OS" value="Windows XP" contextMode="false"/>
-    <elementParameter field="DIRECTORY" name="IREPORT_PATH" value="" contextMode="false"/>
-    <elementParameter field="PROPERTY_TYPE" name="PROPERTY" value="" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:PROPERTY_TYPE" value="REPOSITORY" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="_agCZsMvyEdu0-pmJiEk0sg" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="DBTYPE" value="MYSQL" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="TABLEACTION" value="DROP_IF_EXIST_CREATE" contextMode="false"/>
     <elementParameter field="CHECK" name="TEMPTABLE" value="false" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_AS400_VERSION" value="jt400_V5R3.jar" contextMode="false"/>
     <elementParameter field="TEXT" name="HOST" value="&quot;localhost&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="DBNAME" value="&quot;test&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;demoproject&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="USER" value="&quot;root&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="PASS" value="&quot;toor&quot;" contextMode="false"/>
     <elementParameter field="FILE" name="DBFILE_ACCESS" value="&quot;D:/TOS-All-r17341-V3.0.0M3/workspace/in.mdb&quot;" contextMode="false"/>
@@ -326,22 +284,20 @@
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_MYSQL" value="" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_ORACLE" value="" contextMode="false"/>
     <elementParameter field="CLOSED_LIST" name="CONNECTION_TYPE" value="ORACLE_SID" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc5-11g.jar" contextMode="false"/>
     <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_POSTGRE" value="" contextMode="false"/>
     <elementParameter field="COMPONENT_LIST" name="CONNECTION_POSTGREPLUS" value="" contextMode="false"/>
     <elementParameter field="FILE" name="DBFILE_SQLITE" value="&quot;D:/TOS-All-r17341-V3.0.0M3/workspace/talend.db&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="ODBCNAME" value="&quot;&quot;" contextMode="false"/>
     <elementParameter field="TEXT" name="TABLE" value="&quot;demotable&quot;" contextMode="false"/>
-    <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="BUILT_IN" contextMode="false"/>
-    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_AUk98OHhEduI2shpta7Upw - " contextMode="false"/>
     <elementParameter field="MAPPING_TYPE" name="MAPPING" value="mysql_id" contextMode="false"/>
     <elementParameter field="TEXT" name="PROPERTIES" value="&quot;prompt=false&quot;" contextMode="false"/>
     <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" contextMode="false"/>
     <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__ __TABLE__" contextMode="false"/>
-    <elementParameter field="TEXT" name="HINT" value="&lt;b>__UNIQUE_NAME__&lt;/b>&lt;br>__COMMENT__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
     <metadata connector="FLOW" name="tCreateTable_1">
       <column comment="" key="true" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
@@ -352,9 +308,24 @@
   </node>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tMysqlRow_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_1" target="tRowGenerator_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk5" contextMode="false"/>
   </connection>
   <connection connectorName="FLOW" label="tRowGenerator_1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMysqlOutput_1">
+    <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true" contextMode="false"/>
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" contextMode="false">
+      <elementValue elementRef="TRACE_COLUMN" value="number"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="txt"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="date"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="flag"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
@@ -362,15 +333,15 @@
     <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1" contextMode="false"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMysqlRow_2">
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk6" contextMode="false"/>
   </connection>
   <connection connectorName="SUBJOB_OK" label="OnSubjobOk" lineStyle="1" metaname="tCreateTable_1" offsetLabelX="0" offsetLabelY="0" source="tCreateTable_1" target="tMysqlRow_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnSubjobOk7" contextMode="false"/>
   </connection>
   <note opaque="true" posX="32" posY="32" sizeHeight="97" sizeWidth="641" text="tMysqlRow is the specific component for this database query.&#xD;&#xA;It executes the SQL query stated onto the specified database.&#xD;&#xA;The row suffix means the component implements a flow in the job design although it doesn't provide output.">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>
@@ -388,43 +359,31 @@
     <elementParameter field="COLOR" name="NOTE_LINECOLOR" value="237;201;122" contextMode="false"/>
   </note>
   <subjob>
-    <elementParameter field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlRow_1" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Drop the primary key" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="128;128;255" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
   </subjob>
   <subjob>
-    <elementParameter field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMysqlRow_2" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Set the primary key" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="128;128;255" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
   </subjob>
   <subjob>
-    <elementParameter field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRowGenerator_1" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Insert the data" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="128;128;255" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
   </subjob>
   <subjob>
-    <elementParameter field="CHECK" name="COLLAPSED" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="SHOW_SUBJOB_TITLE" value="true" contextMode="false"/>
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tCreateTable_1" contextMode="false"/>
     <elementParameter field="TEXT" name="SUBJOB_TITLE" value="Create table" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="128;128;255" contextMode="false"/>
     <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
-    <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
-    <elementParameter field="CHECK" name="SUBJOB_DISPLAYED" value="true" contextMode="false"/>
   </subjob>
 </talendfile:ProcessType>

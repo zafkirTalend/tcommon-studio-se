@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo" screenshot="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IVIREVPe+EtU2VVfffVt+/YdZsx49eBBvygDuav/Er7TXraxj//qq3uG/7LohQuXyoy+2W239Xn88Zx//7vM56spL694++13b7jhZpmvqDjSo8cVb765UNvsjTcWXH75lRUV38Wz5mmcApEKYClEKiJiaht90TQ6nqL/SPIuNze/Xbv2WVlZ/ftnHzoU0Oazsx8YP35K+L5y9957BxiurN01fACyl9RtVtZZv//9w273scbu/s47f77uul76ltdcc928ee/pG5xxxhkOR5Xhs/Gvf23r2PHCjRu3ixdeeNGmTaVxrkmkAiQbRCoiYsqrvJIanWKjR4+/9dbepaX7JE8HDHjosccGafMdOnQsLd0fvq/clewzP1D0fN++t5eVObVfLj18+MjG7u731/7sZ5etWrVO7q5cuUbGMqNvduONt9xzz32rV3+uXSWNcM6c+ZdffqWo/17AeNYkUgGSDSIVETHlVX4mNTrFunbttnHjdm28a5dD2lQbt27d2uutDl9N7mZmZsY6UKx5/RMCmzfv6NSpS2N3l9uZM1+7/fY7q0Jv7r/44uvhm+3f783Nze/e/fIzzzyzS5eLc3KG7tvnCV/hqqt+1bPnfzVqTSIVINkgUhERU97TuJIq3Rkesq1atdLm27fv0CxXUn2+Gm18eo0rt273sQsvvOjNNxfKrfaBgejzCgTq/vWvbQ899Ngtt9ymT86a9dZ//ucvxTlz5se/JpEKkGwQqYiIKe9pRGrnzl0jYlTznnvui/5Manb2A9pYcrOi4og23rPHHc+VVBl06tS5sbtrg3HjJsku48dPjnVemrLmGWecoY03bPj6oos6bd26a8uWnTKQhI1zTSIVINkgUhERU97zzjtff+++Kr5ILSyc0KdPPyk5r7d6/fot/ftna/OyTrt27fVv98+c+Zrc1b9+dNVVvyooGCdRKIH7u9/dra8W/QD69bujvLxC/M1vfjts2NON3d3wNPX5G264+e233921y+Hz1WzfvveJJwb36nVTVahWu3e/fOHCpdpm8+e/H/7tfvM1iVSAZINIRURMeceOfb5t27NNeiv6j/z+2qKiiV27dmvTpk2PHleEf8do/fqvevfue9ZZbcXbbuvzxReb9T9at27jf/zH1ZmZmbLjn/70ir5a9APQv93/wAN/cLmONnZ3w9PU51es+Nudd/6/88//cevWrTt16vLgg49IsMq8HGvw4NzwXQYNGjJgwEPxrJkRhckTHv+WsSRSAZQQqYiI2Mw25RJjmkikAighUhERsZklUpUSqQBKiFRERGxmW0akRn8AoBnPi0gFUEKkIiIi2i2RCqAk+P+Flh4gr3C2pX/Ps7MfZX3WZ33WZ33WT631JVKtfv1lfdZP9fW5koqIiGi3XEkFUEKkIiIi2i2RCqCESEVERLRbIhVACZGKiIhot0QqgBIiFRER0W6JVAAlRCoiIqLdEqkASohUREREuyVSAZQQqYiIiHZLpAIoIVIRERHtlkgFUEKkIiIi2i2RCqCESEVERLRbIhVACZGKiIhot0QqgBIiFRER0W6JVAAlRCoiIqLdEqkASohUREREuyVSAZQQqYiIiHZLpAIoIVIRERHtlkgFUEKkIiIi2i2RCqCESEVERLRbIhVACZGKiIhot0QqgBIiFRER0W6JVAAlRCoiIqLdEqkASohUREREuyVSAZQQqYiIiHZLpAIoIVIRERHtlkgFUEKkIiIi2i2RCqDE8kjdWk6kIiIiNlBeHK1+/QVIdSyP1O17qz2+uoT/c4CIiJgkysuivDha/foLkOpYHqmOytrygzUJ/xcBERExSSw7UFPhrbP69Rcg1bE8Uuvqfvh2f/XO/VxPRUTEdFdeCuUFceeB6u+/t/rlFyDlsTxShbrvg9dTt++t3lp+YksZIiJiOiovgvJSKC+IdRQqQBxkCFYfgPVZn/VZn/VZn/VZn/VZv1Hr23ElFQAAAACgURCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdBCpAAAAAJB0EKkAAAAAkHQQqQAAAACQdGQIVh+A9Vmf9Vmf9Vmf9Vmf9Vm/UetzJRUAAAAAkg4iFQAAAACSDiIVAAAAAJIOIhUAAAAAkg4iFQAAAACSDiIVAAAAAJIOIhUAAAAAko7/A5y+oeZSqgeCAAAAAElFTkSuQmCC">
+  <context confirmationNeeded="false" name="demo">
+    <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="/home/nfrancisco/Talend/Projets/TalendDemoJava/"/>
+  </context>
+  <parameters>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_FILE_DIR" value="/home/nfrancisco/Talend/Logiciels/TDQ/4.0.0M3/Install/TDQ_EE_MPX-All-r37011-V4.0.0M3/workspace" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="COMP_DEFAULT_PROJECT_DIR" value="/home/nfrancisco/Talend/Logiciels/TDQ/4.0.0M3/Install/TDQ_EE_MPX-All-r37011-V4.0.0M3/workspace/Projet_Demo_Java" contextMode="false"/>
+    <elementParameter field="TEXT" name="JOB_RUN_VM_ARGUMENTS" value=" -Xms256M -Xmx1024M" contextMode="false"/>
+    <elementParameter field="CHECK" name="JOB_RUN_VM_ARGUMENTS_OPTION" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="AUTHOR" value="nfrancisco@talend.com" contextMode="false"/>
+    <elementParameter field="TEXT" name="STATUS" value="DEV" contextMode="false"/>
+    <elementParameter field="TEXT" name="NAME" value="tFileOutputMSXML" contextMode="false"/>
+    <elementParameter field="TEXT" name="VERSION" value="0.1" contextMode="false"/>
+    <elementParameter field="TEXT" name="PURPOSE" value="tFileOutputMSXML" contextMode="false"/>
+    <elementParameter field="TEXT" name="DESCRIPTION" value="tFileOutputMSXML" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_X" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCREEN_OFFSET_Y" value="32" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_OPTIONS" value="none" contextMode="false"/>
+    <elementParameter field="CHECK" name="IMPLICITCONTEXT_USE_PROJECT_SETTINGS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="STATANDLOG_USE_PROJECT_SETTINGS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="MULTI_THREAD_EXECATION" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="PARALLELIZE_UNIT_SIZE" value="25000" contextMode="false"/>
+    <elementParameter field="CHECK" name="IMPLICIT_TCONTEXTLOAD" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="FROM_FILE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter field="RADIO" name="FROM_DATABASE_FLAG_IMPLICIT_CONTEXT" value="false" contextMode="false"/>
+    <elementParameter field="FILE" name="IMPLICIT_TCONTEXTLOAD_FILE" value="&quot;D:/ALL_PRODUCTS/tdq_313_ee/TDQ_EE-All-r26090-V3.1.3/TDQ_EE-All-r26090-V3.1.3/workspace/in.csv&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE_IMPLICIT_CONTEXT" value="" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION_IMPLICIT_CONTEXT" value="ojdbc14-10g.jar" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="USER_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASS_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="FILE" name="DBFILE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="DBTABLE_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="QUERY_CONDITION_IMPLICIT_CONTEXT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="LOAD_NEW_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="NOT_LOAD_OLD_VARIABLE" value="Warning" contextMode="false"/>
+    <elementParameter field="CHECK" name="PRINT_OPERATIONS" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_WARNINGS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="DISABLE_INFO" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_STATCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_LOGCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_METERCATCHER_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_CONSOLE_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_FILES_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="DIRECTORY" name="FILE_PATH" value="&quot;D:/ALL_PRODUCTS/tdq_313_ee/TDQ_EE-All-r26090-V3.1.3/TDQ_EE-All-r26090-V3.1.3/workspace/.metadata&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_STATS" value="&quot;stats_file.txt&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_LOGS" value="&quot;logs_file.txt&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FILENAME_METTER" value="&quot;meter_file.txt&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="ON_DATABASE_FLAG" value="false" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_TYPE" value="tDBOutput" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="DB_VERSION" value="ojdbc14-10g.jar" contextMode="false"/>
+    <elementParameter field="TEXT" name="HOST" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PORT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DATASOURCE" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DBNAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="LOCAL_SERVICE_NAME" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PROPERTIES" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="SCHEMA_DB" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="USER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="PASS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="FILE" name="DBFILE" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_STATS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_LOGS" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="DBTABLE" name="TABLE_METER" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_RUNTIME_ERRORS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_ERRORS" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_USER_WARNING" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CATCH_REALTIME_STATS" value="false" contextMode="false"/>
+  </parameters>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="32">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2" contextMode="false"/>
+    <elementParameter field="CHECK" name="START" value="true" contextMode="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/in/FileInput/command_header.csv&quot;)" contextMode="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="1" contextMode="false"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="LIMIT" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="REPOSITORY" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_M6Lw4HFcEd6PU-Ym-rDTXQ - metadata" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="REPOSITORY" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="_M6Lw4HFcEd6PU-Ym-rDTXQ - metadata" contextMode="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10" contextMode="false"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT" contextMode="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client_livre"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client_facture"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Type_cmd"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Transaction"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_etat"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="N_Odre"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Ref_client"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Date_cmd"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Resp_vente"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Garantie_opt"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Livraison_partiel"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Origine_vente"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Mode_rglt"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Cond_rglt"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Nbr_jour"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Date_echeance"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Action_comm"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Form_juridique"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Nom"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Prenom"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="N_voie"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Bis_ter"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Type_voie"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Nom_voie"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Adresse"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Adresse_suite"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_postal"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Ville"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Pays"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Telephone"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_transporteur"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_expedition"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_frais_1"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_frais_2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_frais_3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_frais_4"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_frais_5"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant_frais_1"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant_frais_2"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant_frais_3"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant_frais_4"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Montant_frais_5"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false" contextMode="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;US-ASCII&quot;" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM" contextMode="false"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="entete" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata connector="FLOW" label="row6" name="tFileInputDelimited_2">
+      <column comment="" key="false" length="8" name="Client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="8" name="Client_livre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="8" name="Client_facture" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Type_cmd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Transaction" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Code_etat" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="6" name="N_Odre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="25" name="Ref_client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="10" name="Date_cmd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Resp_vente" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="1" name="Garantie_opt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="1" name="Livraison_partiel" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Origine_vente" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="2" name="Mode_rglt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Cond_rglt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="2" name="Nbr_jour" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="10" name="Date_echeance" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="6" name="Action_comm" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="Form_juridique" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="31" name="Nom" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="Prenom" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="2" name="N_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="Bis_ter" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Type_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="30" name="Nom_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="32" name="Adresse" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="24" name="Adresse_suite" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="5" name="Code_postal" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="22" name="Ville" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Pays" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="10" name="Telephone" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Code_transporteur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="2" name="Code_expedition" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Code_frais_1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="Code_frais_2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Code_frais_3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="Code_frais_4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="Code_frais_5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="4" name="Montant_frais_1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" key="false" length="3" name="Montant_frais_2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" key="false" length="4" name="Montant_frais_3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="3" type="id_String"/>
+      <column comment="" key="false" length="3" name="Montant_frais_4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" key="false" length="3" name="Montant_frais_5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="false" length="8" name="Client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Client_livre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Client_facture" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Type_cmd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Transaction" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_etat" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="N_Odre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="25" name="Ref_client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Date_cmd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Resp_vente" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="1" name="Garantie_opt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="1" name="Livraison_partiel" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Origine_vente" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Mode_rglt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Cond_rglt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Nbr_jour" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Date_echeance" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="Action_comm" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Form_juridique" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="31" name="Nom" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Prenom" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="N_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Bis_ter" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Type_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="30" name="Nom_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="32" name="Adresse" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="24" name="Adresse_suite" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Code_postal" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="22" name="Ville" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Pays" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Telephone" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_transporteur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Code_expedition" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_frais_1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Code_frais_2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_frais_3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Code_frais_4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Code_frais_5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="4" name="Montant_frais_1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Montant_frais_2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="4" name="Montant_frais_3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="3" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Montant_frais_4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Montant_frais_5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <node componentName="tFileOutputMSXML" componentVersion="0.102" offsetLabelX="-2" offsetLabelY="15" posX="544" posY="32" sizeX="32" sizeY="128">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileOutputMSXML_1" contextMode="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/out/command_MS.xml&quot;)    " contextMode="false"/>
+    <elementParameter field="TABLE" name="ROOT" contextMode="false">
+      <elementValue elementRef="PATH" value="/racine"/>
+      <elementValue elementRef="COLUMN" value="row6"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="main"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine"/>
+      <elementValue elementRef="COLUMN" value="row2"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="main"/>
+      <elementValue elementRef="ORDER" value=""/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="GROUP" contextMode="false">
+      <elementValue elementRef="PATH" value="/racine/entete"/>
+      <elementValue elementRef="COLUMN" value="row2"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="main"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/N_Odre"/>
+      <elementValue elementRef="COLUMN" value="row2:N_Odre"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Client"/>
+      <elementValue elementRef="COLUMN" value="row2:Client"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Client_livre"/>
+      <elementValue elementRef="COLUMN" value="row2:Client_livre"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_transporteur"/>
+      <elementValue elementRef="COLUMN" value="row2:Code_transporteur"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_expedition"/>
+      <elementValue elementRef="COLUMN" value="row2:Code_expedition"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+    </elementParameter>
+    <elementParameter field="TABLE" name="LOOP" contextMode="false">
+      <elementValue elementRef="PATH" value="/racine/entete"/>
+      <elementValue elementRef="COLUMN" value="row6"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="main"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Client"/>
+      <elementValue elementRef="COLUMN" value="row6:Client"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Client_livre"/>
+      <elementValue elementRef="COLUMN" value="row6:Client_livre"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Client_facture"/>
+      <elementValue elementRef="COLUMN" value="row6:Client_facture"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Type_cmd"/>
+      <elementValue elementRef="COLUMN" value="row6:Type_cmd"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Transaction"/>
+      <elementValue elementRef="COLUMN" value="row6:Transaction"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_etat"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_etat"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/N_Odre"/>
+      <elementValue elementRef="COLUMN" value="row6:N_Odre"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Ref_client"/>
+      <elementValue elementRef="COLUMN" value="row6:Ref_client"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Date_cmd"/>
+      <elementValue elementRef="COLUMN" value="row6:Date_cmd"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Resp_vente"/>
+      <elementValue elementRef="COLUMN" value="row6:Resp_vente"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Garantie_opt"/>
+      <elementValue elementRef="COLUMN" value="row6:Garantie_opt"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Livraison_partiel"/>
+      <elementValue elementRef="COLUMN" value="row6:Livraison_partiel"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Origine_vente"/>
+      <elementValue elementRef="COLUMN" value="row6:Origine_vente"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Mode_rglt"/>
+      <elementValue elementRef="COLUMN" value="row6:Mode_rglt"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Cond_rglt"/>
+      <elementValue elementRef="COLUMN" value="row6:Cond_rglt"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Nbr_jour"/>
+      <elementValue elementRef="COLUMN" value="row6:Nbr_jour"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Date_echeance"/>
+      <elementValue elementRef="COLUMN" value="row6:Date_echeance"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Action_comm"/>
+      <elementValue elementRef="COLUMN" value="row6:Action_comm"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Form_juridique"/>
+      <elementValue elementRef="COLUMN" value="row6:Form_juridique"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Nom"/>
+      <elementValue elementRef="COLUMN" value="row6:Nom"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Prenom"/>
+      <elementValue elementRef="COLUMN" value="row6:Prenom"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/N_voie"/>
+      <elementValue elementRef="COLUMN" value="row6:N_voie"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Bis_ter"/>
+      <elementValue elementRef="COLUMN" value="row6:Bis_ter"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Type_voie"/>
+      <elementValue elementRef="COLUMN" value="row6:Type_voie"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Nom_voie"/>
+      <elementValue elementRef="COLUMN" value="row6:Nom_voie"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Adresse"/>
+      <elementValue elementRef="COLUMN" value="row6:Adresse"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Adresse_suite"/>
+      <elementValue elementRef="COLUMN" value="row6:Adresse_suite"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_postal"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_postal"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Ville"/>
+      <elementValue elementRef="COLUMN" value="row6:Ville"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Pays"/>
+      <elementValue elementRef="COLUMN" value="row6:Pays"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Telephone"/>
+      <elementValue elementRef="COLUMN" value="row6:Telephone"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_transporteur"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_transporteur"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_expedition"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_expedition"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_frais_1"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_frais_1"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_frais_2"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_frais_2"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_frais_3"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_frais_3"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_frais_4"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_frais_4"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Code_frais_5"/>
+      <elementValue elementRef="COLUMN" value="row6:Code_frais_5"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Montant_frais_1"/>
+      <elementValue elementRef="COLUMN" value="row6:Montant_frais_1"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Montant_frais_2"/>
+      <elementValue elementRef="COLUMN" value="row6:Montant_frais_2"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Montant_frais_3"/>
+      <elementValue elementRef="COLUMN" value="row6:Montant_frais_3"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Montant_frais_4"/>
+      <elementValue elementRef="COLUMN" value="row6:Montant_frais_4"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/Montant_frais_5"/>
+      <elementValue elementRef="COLUMN" value="row6:Montant_frais_5"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne"/>
+      <elementValue elementRef="COLUMN" value="row2"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="main"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/N_ligne"/>
+      <elementValue elementRef="COLUMN" value="row2:N_ligne"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Code_produit"/>
+      <elementValue elementRef="COLUMN" value="row2:Code_produit"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Appellation_interne"/>
+      <elementValue elementRef="COLUMN" value="row2:Appellation_interne"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Code_catalogue"/>
+      <elementValue elementRef="COLUMN" value="row2:Code_catalogue"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Designation"/>
+      <elementValue elementRef="COLUMN" value="row2:Designation"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Designation_compl"/>
+      <elementValue elementRef="COLUMN" value="row2:Designation_compl"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Quantite"/>
+      <elementValue elementRef="COLUMN" value="row2:Quantite"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Prix_special"/>
+      <elementValue elementRef="COLUMN" value="row2:Prix_special"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Code_exp_prix"/>
+      <elementValue elementRef="COLUMN" value="row2:Code_exp_prix"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Remise"/>
+      <elementValue elementRef="COLUMN" value="row2:Remise"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Prix_HT_Article"/>
+      <elementValue elementRef="COLUMN" value="row2:Prix_HT_Article"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Action_comm_lig"/>
+      <elementValue elementRef="COLUMN" value="row2:Action_comm_lig"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Date_expedition_dem"/>
+      <elementValue elementRef="COLUMN" value="row2:Date_expedition_dem"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/N_AR_fournisseur"/>
+      <elementValue elementRef="COLUMN" value="row2:N_AR_fournisseur"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+      <elementValue elementRef="PATH" value="/racine/entete/ligne/Date_AR_Fourn"/>
+      <elementValue elementRef="COLUMN" value="row2:Date_AR_Fourn"/>
+      <elementValue elementRef="VALUE" value=""/>
+      <elementValue elementRef="ATTRIBUTE" value="branch"/>
+      <elementValue elementRef="ORDER" value=""/>
+    </elementParameter>
+    <elementParameter field="EXTERNAL" name="MAP" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="CREATE" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="CREATE_EMPTY_ELEMENT" value="true" contextMode="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;ISO-8859-15&quot;" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="ISO-8859-15" contextMode="false"/>
+    <elementParameter field="CHECK" name="DELETE_EMPTYFILE" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata connector="FLOW" name="tFileOutputMSXML_1">
+      <column comment="" defaultValue="" key="false" length="8" name="Client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Client_livre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Client_facture" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Type_cmd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Transaction" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_etat" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="N_Odre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="25" name="Ref_client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Date_cmd" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Resp_vente" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="1" name="Garantie_opt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="1" name="Livraison_partiel" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Origine_vente" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Mode_rglt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Cond_rglt" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Nbr_jour" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Date_echeance" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="Action_comm" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Form_juridique" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="31" name="Nom" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Prenom" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="N_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Bis_ter" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Type_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="30" name="Nom_voie" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="32" name="Adresse" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="24" name="Adresse_suite" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="5" name="Code_postal" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="22" name="Ville" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Pays" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Telephone" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_transporteur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Code_expedition" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_frais_1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Code_frais_2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_frais_3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Code_frais_4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="Code_frais_5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="4" name="Montant_frais_1" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Montant_frais_2" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="4" name="Montant_frais_3" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="3" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Montant_frais_4" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Montant_frais_5" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="2" type="id_String"/>
+    </metadata>
+  </node>
+  <node componentName="tFileInputDelimited" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="96" posY="128">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_3" contextMode="false"/>
+    <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/in/FileInput/command_details.csv&quot;)" contextMode="false"/>
+    <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="FIELDSEPARATOR" value="&quot;;&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="CSV_OPTION" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="ESCAPE_CHAR" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="TEXT_ENCLOSURE" value="&quot;&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="1" contextMode="false"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="LIMIT" value="" contextMode="false"/>
+    <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:SCHEMA_TYPE" value="REPOSITORY" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA:REPOSITORY_SCHEMA_TYPE" value="_Qwy2EHFcEd6PU-Ym-rDTXQ - metadata" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:SCHEMA_TYPE" value="REPOSITORY" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="SCHEMA_REJECT:REPOSITORY_SCHEMA_TYPE" value="_Qwy2EHFcEd6PU-Ym-rDTXQ - metadata" contextMode="false"/>
+    <elementParameter field="CHECK" name="ADVANCED_SEPARATOR" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="THOUSANDS_SEPARATOR" value="&quot;,&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="DECIMAL_SEPARATOR" value="&quot;.&quot;" contextMode="false"/>
+    <elementParameter field="CHECK" name="RANDOM" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="NB_RANDOM" value="10" contextMode="false"/>
+    <elementParameter field="CHECK" name="TRIMALL" value="false" contextMode="false"/>
+    <elementParameter field="TABLE" name="TRIMSELECT" contextMode="false">
+      <elementValue elementRef="SCHEMA_COLUMN" value="N_ligne"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_produit"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Appellation_interne"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_catalogue"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Designation"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Designation_compl"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Quantite"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Prix_special"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_exp_prix"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Remise"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Prix_HT_Article"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Action_comm_lig"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Date_expedition_dem"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="N_AR_fournisseur"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Date_AR_Fourn"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Client_livre"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="N_Odre"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_transporteur"/>
+      <elementValue elementRef="TRIM" value="false"/>
+      <elementValue elementRef="SCHEMA_COLUMN" value="Code_expedition"/>
+      <elementValue elementRef="TRIM" value="false"/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="CHECK_FIELDS_NUM" value="false" contextMode="false"/>
+    <elementParameter field="ENCODING_TYPE" name="ENCODING" value="&quot;US-ASCII&quot;" contextMode="false"/>
+    <elementParameter field="TECHNICAL" name="ENCODING:ENCODING_TYPE" value="CUSTOM" contextMode="false"/>
+    <elementParameter field="CHECK" name="SPLITRECORD" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="LABEL" value="details" contextMode="false"/>
+    <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
+    <elementParameter field="CHECK" name="INFORMATION" value="false" contextMode="false"/>
+    <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
+    <metadata connector="FLOW" label="row2" name="tFileInputDelimited_3">
+      <column comment="" key="false" length="3" name="N_ligne" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="10" name="Code_produit" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="12" name="Appellation_interne" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="4" name="Code_catalogue" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="32" name="Designation" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="15" name="Designation_compl" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="6" name="Quantite" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_String"/>
+      <column comment="" key="false" length="6" name="Prix_special" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_String"/>
+      <column comment="" key="false" length="3" name="Code_exp_prix" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="4" name="Remise" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="3" type="id_String"/>
+      <column comment="" key="false" length="6" name="Prix_HT_Article" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_String"/>
+      <column comment="" key="false" length="6" name="Action_comm_lig" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="10" name="Date_expedition_dem" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="0" name="N_AR_fournisseur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="1" name="Date_AR_Fourn" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="8" name="Client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="8" name="Client_livre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="6" name="N_Odre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="3" name="Code_transporteur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" key="false" length="2" name="Code_expedition" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+    </metadata>
+    <metadata connector="REJECT" name="REJECT">
+      <column comment="" defaultValue="" key="false" length="3" name="N_ligne" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Code_produit" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="12" name="Appellation_interne" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="4" name="Code_catalogue" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="32" name="Designation" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="15" name="Designation_compl" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="Quantite" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="Prix_special" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_exp_prix" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="4" name="Remise" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="3" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="Prix_HT_Article" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="5" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="Action_comm_lig" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="10" name="Date_expedition_dem" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="0" name="N_AR_fournisseur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="1" name="Date_AR_Fourn" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Client" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="8" name="Client_livre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="6" name="N_Odre" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="3" name="Code_transporteur" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column comment="" defaultValue="" key="false" length="2" name="Code_expedition" nullable="true" pattern="&quot;dd-MM-yyyy&quot;" precision="0" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorCode" nullable="true" precision="0" sourceType="" type="id_String"/>
+      <column defaultValue="" key="false" length="255" name="errorMessage" nullable="true" precision="0" sourceType="" type="id_String"/>
+    </metadata>
+  </node>
+  <connection connectorName="FLOW" label="row6" lineStyle="10" mergeOrder="1" metaname="tFileInputDelimited_2" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_2" target="tFileOutputMSXML_1">
+    <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true" contextMode="false"/>
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" contextMode="false">
+      <elementValue elementRef="TRACE_COLUMN" value="Client"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Client_livre"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Client_facture"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Type_cmd"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Transaction"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_etat"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="N_Odre"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Ref_client"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Date_cmd"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Resp_vente"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Garantie_opt"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Livraison_partiel"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Origine_vente"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Mode_rglt"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Cond_rglt"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Nbr_jour"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Date_echeance"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Action_comm"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Form_juridique"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Nom"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Prenom"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="N_voie"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Bis_ter"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Type_voie"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Nom_voie"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Adresse"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Adresse_suite"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_postal"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Ville"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Pays"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Telephone"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_transporteur"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_expedition"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_frais_1"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_frais_2"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_frais_3"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_frais_4"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_frais_5"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Montant_frais_1"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Montant_frais_2"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Montant_frais_3"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Montant_frais_4"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Montant_frais_5"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
+    <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row6" contextMode="false"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value="" contextMode="false"/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value="" contextMode="false"/>
+  </connection>
+  <connection connectorName="FLOW" label="row2" lineStyle="10" mergeOrder="2" metaname="tFileInputDelimited_3" offsetLabelX="0" offsetLabelY="0" source="tFileInputDelimited_3" target="tFileOutputMSXML_1">
+    <elementParameter field="CHECK" name="TRACES_CONNECTION_ENABLE" value="true" contextMode="false"/>
+    <elementParameter field="TABLE" name="TRACES_CONNECTION_FILTER" contextMode="false">
+      <elementValue elementRef="TRACE_COLUMN" value="N_Odre"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="N_ligne"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_produit"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Appellation_interne"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_catalogue"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Designation"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Designation_compl"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Quantite"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Prix_special"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Code_exp_prix"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Remise"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Prix_HT_Article"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Action_comm_lig"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Date_expedition_dem"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="N_AR_fournisseur"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+      <elementValue elementRef="TRACE_COLUMN" value="Date_AR_Fourn"/>
+      <elementValue elementRef="TRACE_COLUMN_CHECKED" value="true"/>
+      <elementValue elementRef="TRACE_COLUMN_CONDITION" value=""/>
+    </elementParameter>
+    <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
+    <elementParameter field="CHECK" name="USEROWLABEL" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="METTERLABEL" value="&quot;MyLabel&quot;" contextMode="false"/>
+    <elementParameter field="CLOSED_LIST" name="ABSOLUTE" value="Absolute" contextMode="false"/>
+    <elementParameter field="CONNECTION_LIST" name="CONNECTIONS" value="" contextMode="false"/>
+    <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
+    <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" contextMode="false"/>
+    <elementParameter field="CHECK" name="RESUMING_CHECKPOINT" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="RESUMLABEL" value="" contextMode="false"/>
+    <elementParameter field="MEMO" name="FAILURE_INSTRUCTIONS" value="" contextMode="false"/>
+  </connection>
+  <subjob>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tFileInputDelimited_2" contextMode="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_TITLE_COLOR" value="160;190;240" contextMode="false"/>
+    <elementParameter field="COLOR" name="SUBJOB_COLOR" value="220;220;250" contextMode="false"/>
+  </subjob>
+</talendfile:ProcessType>

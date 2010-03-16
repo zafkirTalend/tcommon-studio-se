@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo">
   <context confirmationNeeded="false" name="demo">
     <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C://"/>
@@ -125,6 +125,7 @@
   <connection connectorName="COMPONENT_OK" label="OnComponentOk" lineStyle="3" metaname="tFileUnarchive_1" offsetLabelX="0" offsetLabelY="0" source="tFileUnarchive_1" target="tFileTouch_1">
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="OnComponentOk1" contextMode="false"/>
   </connection>
   <note opaque="true" posX="96" posY="32" sizeHeight="97" sizeWidth="449" text="This job provide several example files used by the DemoProject.&#xD;&#xA;&#xD;&#xA;Before run this job, open the node Contexts (in the Repository)&#xD;&#xA;and check the settings of the variables root of the globalContext.">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>

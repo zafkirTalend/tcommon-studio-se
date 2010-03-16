@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo">
   <context confirmationNeeded="false" name="demo">
     <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C://"/>
@@ -299,6 +299,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
   </connection>
   <connection connectorName="FLOW" label="SchemaOk" lineStyle="0" metaname="tSchemaComplianceCheck_1" offsetLabelX="0" offsetLabelY="0" outputId="1" source="tSchemaComplianceCheck_1" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
@@ -309,6 +310,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="SchemaOk" contextMode="false"/>
   </connection>
   <connection connectorName="REJECT" label="Rejects" lineStyle="0" metaname="REJECT" offsetLabelX="0" offsetLabelY="0" outputId="2" source="tSchemaComplianceCheck_1" target="tLogRow_2">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
@@ -319,6 +321,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="Rejects" contextMode="false"/>
   </connection>
   <note opaque="true" posX="96" posY="32" sizeHeight="161" sizeWidth="577" text="Validates all input rows against a reference schema or checks type, nullability,&#xD;&#xA; length of rows against reference values. The validation can be carried out in full or partly&#xD;&#xA;&#xD;&#xA;For this demo, the example file include some errors:&#xD;&#xA;&#xD;&#xA;id=7         => number:exceed max length&#xD;&#xA;id=8         => value:exceed max length">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>

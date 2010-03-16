@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
@@ -186,6 +186,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
   </connection>
   <connection connectorName="FLOW" label="out1" lineStyle="0" metaname="out1" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
@@ -196,6 +197,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="out1" contextMode="false"/>
   </connection>
   <note opaque="true" posX="64" posY="32" sizeHeight="193" sizeWidth="545" text="After the tMap, the output field label is fill by:&#xD;&#xA;                              DemoRoutines.getLabel(row1.value)&#xD;&#xA;&#xD;&#xA;A filter DemoRoutines.getFilter(row1.value ,row1.value2) return a booleen&#xD;&#xA;        to define if the row must be skip, or must be send to the tLogRow&#xD;&#xA;&#xD;&#xA;        DemoRoutines.getFilter(i,i2) return true if i &lt; i2 and false else.&#xD;&#xA;&#xD;&#xA;This 2 methods are defined on the DemoRoutines (Repository/Code/Routines)">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <parameters>
@@ -168,6 +168,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
   </connection>
   <note opaque="true" posX="32" posY="32" sizeHeight="161" sizeWidth="545" text="This &quot;input component&quot; reads a database and extracts fields based on a query.&#xD;&#xA;&#xD;&#xA;Before running this job, double-click on the left component and check:&#xD;&#xA;  - the settings of the database connections,&#xD;&#xA;  - the existence of the table &quot;demotable&quot; (number, txt, date, flag).&#xD;&#xA;&#xD;&#xA;If the table &quot;demotable&quot; doesn't exist, please launch the job tXXXXOutput to create it!">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>

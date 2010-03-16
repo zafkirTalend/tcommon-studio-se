@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" name="Default">
+  <contextParameter comment="" name="Name" prompt="Name?" type="id_String" value="Roosevel"/>
+  <contextParameter comment="" name="Ville" prompt="Ville?" type="id_String" value="Sacrament"/>
+</talendfile:ContextType>

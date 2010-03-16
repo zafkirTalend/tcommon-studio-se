@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo">
   <context confirmationNeeded="false" name="demo">
     <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C://"/>
@@ -93,9 +93,9 @@
     <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/in/Processing/ExtractRegexFields.txt&quot;)" contextMode="false"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
     <elementParameter field="MEMO" name="REGEX" value="&quot;^([a-zA-Z]{4}[0-9]{1})\\s([a-zA-Z]{4}[0-9]{1})\\s{2}([a-zA-Z]{4}[0-9]{1})\\s{3}([a-zA-Z]{4}[0-9]{1})\\s{4}([a-zA-Z]{4}[0-9]{1})$&quot;&#xD;&#xA;&#x9;  " contextMode="false"/>
-    <elementParameter field="TEXT" name="HEADER" value="&quot;0&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="FOOTER" value="&quot;0&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="LIMIT" value="&quot;-1&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="FOOTER" value="0" contextMode="false"/>
+    <elementParameter field="TEXT" name="LIMIT" value="-1" contextMode="false"/>
     <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="false" contextMode="false"/>
     <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
@@ -216,6 +216,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
   </connection>
   <connection connectorName="FLOW" label="row2" lineStyle="0" metaname="tExtractRegexFields_1" offsetLabelX="0" offsetLabelY="0" source="tExtractRegexFields_1" target="tLogRow_1">
     <elementParameter field="CHECK" name="MONITOR_CONNECTION" value="false" contextMode="false"/>
@@ -226,6 +227,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" contextMode="false"/>
   </connection>
   <note opaque="true" posX="64" posY="32" sizeHeight="64" sizeWidth="545" text="Generate multiple columns from one colum">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>

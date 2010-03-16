@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default">
     <contextParameter comment="" name="root" prompt="Set the path of the dir to store the example files folder:" promptNeeded="false" repositoryContextId="_dn7XwGT9Edyrh8knyihGHw" type="id_String" value="C://test/"/>
@@ -188,6 +188,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row2" contextMode="false"/>
   </connection>
   <note opaque="true" posX="32" posY="32" sizeHeight="161" sizeWidth="577" text="tSocketOutput component writes data to a listening port. &#xD;&#xA;tSocketInput component opens the socket port and listens for the incoming data.&#xD;&#xA;&#xD;&#xA;Execute this job (SocketInput) first, in order to open the listening port and prepare it&#xD;&#xA;to receive the passed data.&#xD;&#xA;&#xD;&#xA;Before the timeout, launch the other job (SocketOutput) to pass on the data.">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>

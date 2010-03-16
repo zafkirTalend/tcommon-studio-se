@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="demo">
   <context confirmationNeeded="false" name="demo">
     <contextParameter comment="This var is just used on t04_Context/repositoryContext" name="sampleInt" prompt="please define an sample int:" promptNeeded="false" type="id_Integer" value="100"/>
@@ -94,9 +94,9 @@
     <elementParameter field="FILE" name="FILENAME" value="context.root.concat(&quot;talend_files_0.1/in/FileInput/demo_regex.txt&quot;)" contextMode="false"/>
     <elementParameter field="TEXT" name="ROWSEPARATOR" value="&quot;\n&quot;" contextMode="false"/>
     <elementParameter field="MEMO" name="REGEX" value="&quot;^&quot;+&#xA;&quot;([a-zA-Z]{3}\\s[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2})&quot;+&#xA;&quot;\\s+&quot;+&#xA;&quot;([a-zA-Z0-9]+\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+)&quot;+&#xA;&quot;\\s+logger:\\s&quot;+&#xA;&quot;([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})&quot;+&#xA;&quot;.*&quot;&#xA;&#x9;  " contextMode="false"/>
-    <elementParameter field="TEXT" name="HEADER" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="FOOTER" value="&quot;&quot;" contextMode="false"/>
-    <elementParameter field="TEXT" name="LIMIT" value="&quot;&quot;" contextMode="false"/>
+    <elementParameter field="TEXT" name="HEADER" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="FOOTER" value="" contextMode="false"/>
+    <elementParameter field="TEXT" name="LIMIT" value="" contextMode="false"/>
     <elementParameter field="CHECK" name="REMOVE_EMPTY_ROW" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="DIE_ON_ERROR" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="REPOSITORY_ALLOW_AUTO_SWITCH" value="false" contextMode="false"/>
@@ -168,6 +168,7 @@
     <elementParameter field="TABLE" name="THRESHLODS" contextMode="false"/>
     <elementParameter field="CHECK" name="ACTIVATE" value="true" contextMode="false"/>
     <elementParameter field="CHECK" name="UPDATE_COMPONENTS" value="false" contextMode="false"/>
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="row1" contextMode="false"/>
   </connection>
   <note opaque="true" posX="64" posY="32" sizeHeight="97" sizeWidth="513" text="Powerful feature which can replace number of other components of the File family.&#xD;&#xA;&#xD;&#xA;Requires some advanced knowledge on regular expression syntax ">
     <elementParameter field="COLOR" name="NOTE_COLOR" value="255;255;203" contextMode="false"/>
