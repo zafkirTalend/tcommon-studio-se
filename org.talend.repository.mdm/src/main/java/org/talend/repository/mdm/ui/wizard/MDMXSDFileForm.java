@@ -201,22 +201,24 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         checkFieldsValue();
 
         if (concept == null) {
-            if (getConnection().getSchemas() != null && !getConnection().getSchemas().isEmpty()) {
-                concept = (Concept) getConnection().getSchemas().get(0);
-                // xmlFilePath = getConnection().getXmlFilePath();
-                if (isContextMode()) {
-                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
-                            connectionItem.getConnection(), true);
-                    xsdFilePath = TalendTextUtils
-                            .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xsdFilePath));
-                }
-            } else {
-                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-                concept = ConnectionFactory.eINSTANCE.createConcept();
-                // concept.setLabel(conceptName);
-                // concept.setId(factory.getNextId());
-                getConnection().getSchemas().add(concept);
-            }
+            // not possible to edit concepts actually, so always create a new one.
+
+            // if (getConnection().getSchemas() != null && !getConnection().getSchemas().isEmpty()) {
+            // concept = (Concept) getConnection().getSchemas().get(0);
+            // // xmlFilePath = getConnection().getXmlFilePath();
+            // if (isContextMode()) {
+            // ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
+            // connectionItem.getConnection(), true);
+            // xsdFilePath = TalendTextUtils
+            // .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xsdFilePath));
+            // }
+            // } else {
+            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+            concept = ConnectionFactory.eINSTANCE.createConcept();
+            // concept.setLabel(conceptName);
+            // concept.setId(factory.getNextId());
+            getConnection().getSchemas().add(concept);
+            // }
         }
 
         loopModel.setConcept(concept);

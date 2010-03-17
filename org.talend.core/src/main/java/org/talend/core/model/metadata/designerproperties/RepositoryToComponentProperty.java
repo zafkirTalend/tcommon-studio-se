@@ -488,6 +488,10 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getUniverse());
             }
+        } else if ("CONCEPT".equals(value)) { //$NON-NLS-1$
+            if (table != null && table.getTableName() != null) {
+                return TalendTextUtils.addQuotes(table.getTableName());
+            }
         } else if ("DATACLUSTER".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getDatacluster())) {
                 return connection.getDatacluster();
