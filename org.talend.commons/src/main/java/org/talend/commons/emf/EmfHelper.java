@@ -18,10 +18,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -33,6 +37,16 @@ import org.talend.commons.exception.PersistenceException;
 
 /***/
 public class EmfHelper {
+
+    /**
+     * 
+     */
+    public static final String STRING_MAX_SIZE_ANNOTATION_KEY = "string.max.size";
+    /**
+     * 
+     */
+    public static final String UI_CONSTRAINTS_ANNOTATION_URL = "htttp://talend.org/UiConstraints";
+    private static Logger log = Logger.getLogger(EmfHelper.class);
 
     /**
      * WARNING : you may face StackOverflowError if you have bidirectional relationships or circular references it was
@@ -162,6 +176,29 @@ public class EmfHelper {
                 throw new PersistenceException(e);
             }
         }
+    }
+
+    /**
+     * return the String size limit for the given ecore feature. This looks for an annotation url :
+     * htttp://talend.org/UiConstraints and search for the key string.max.size
+     * 
+     * @param feature the ecore feature to get the size of, never null
+     * @param defaultValue the default value returned if limit not found in feature
+     * @return the string limit found or the default value
+     */
+    public static int getStringMaxSize(EStructuralFeature feature, int defaultValue) {
+        Assert.isNotNull(feature);
+        int result = defaultValue;
+        EAnnotation guiAnnotation = feature.getEAnnotation(UI_CONSTRAINTS_ANNOTATION_URL);
+        if (guiAnnotation != null) {
+            String docuValue = guiAnnotation.getDetails().get(STRING_MAX_SIZE_ANNOTATION_KEY);
+            try {
+                result = Integer.parseInt(docuValue);
+            } catch (Exception e) { // if conversion fail return default value
+                log.error("Could not get max size for attribute " + feature, e);
+            }
+        } // else return default value
+        return result;
     }
 
 }
