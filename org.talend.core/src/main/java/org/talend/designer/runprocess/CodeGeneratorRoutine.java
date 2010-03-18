@@ -13,6 +13,7 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,20 +64,30 @@ public final class CodeGeneratorRoutine {
         ProjectManager pManager = ProjectManager.getInstance();
 
         org.talend.core.model.properties.Project emfProject = pManager.getProject(processItem);
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        List<String> toReturn = initRoutineNamesFromProject(emfProject, repositoryFactory);
-        routinesName.put(emfProject, toReturn);
+        retrieveRoutineNamesFromProject(emfProject, true);
 
         EList referencedProjects = emfProject.getReferencedProjects();
         if (referencedProjects != null) {
             for (Object object : referencedProjects) {
                 ProjectReferenceImpl projectRef = (ProjectReferenceImpl) object;
                 org.talend.core.model.properties.Project refEmfProject = projectRef.getReferencedProject();
-                toReturn = initRoutineNamesFromProject(refEmfProject, repositoryFactory);
-                routinesName.put(refEmfProject, toReturn);
+                retrieveRoutineNamesFromProject(refEmfProject, true);
             }
         }
 
+    }
+
+    private static void retrieveRoutineNamesFromProject(org.talend.core.model.properties.Project emfProject, boolean force) {
+        List<String> routines = routinesName.get(emfProject);
+        if (routines == null || force) {
+            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                    .getProxyRepositoryFactory();
+            List<String> toReturn = initRoutineNamesFromProject(emfProject, repositoryFactory);
+            if (toReturn == null) {
+                toReturn = Collections.emptyList();
+            }
+            routinesName.put(emfProject, toReturn);
+        }
     }
 
     private static List<String> initRoutineNamesFromProject(org.talend.core.model.properties.Project emfProject,
@@ -151,15 +162,25 @@ public final class CodeGeneratorRoutine {
 
     private static List<String> getRoutineName(org.talend.core.model.properties.Project emfProject) {
         List<String> routines = routinesName.get(emfProject);
-
+        if (routines == null) {
+            retrieveRoutineNamesFromProject(emfProject, false);
+            return getRoutineName(emfProject);
+        }
         EList refProjects = emfProject.getReferencedProjects();
         if (refProjects != null) {
             for (Object object : refProjects) {
                 ProjectReferenceImpl projectRef = (ProjectReferenceImpl) object;
                 List<String> refRoutines = routinesName.get(projectRef.getReferencedProject());
-                for (String routineName : refRoutines) {
-                    if (!routines.contains(routineName)) {
-                        routines.add(routineName);
+                if (refRoutines == null) {
+                    retrieveRoutineNamesFromProject(projectRef.getReferencedProject(), false);
+                    // retrieve again
+                    refRoutines = routinesName.get(projectRef.getReferencedProject());
+                }
+                if (refRoutines != null && routines != null) {
+                    for (String routineName : refRoutines) {
+                        if (!routines.contains(routineName)) {
+                            routines.add(routineName);
+                        }
                     }
                 }
             }
