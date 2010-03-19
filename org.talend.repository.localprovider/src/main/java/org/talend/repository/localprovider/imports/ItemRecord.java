@@ -146,7 +146,7 @@ public class ItemRecord {
      * 
      * DOC hcw ItemRecord class global comment. Detailled comment
      */
-    enum State {
+    public enum State {
         NAME_EXISTED,
         ID_EXISTED,
         NON_EXISTED

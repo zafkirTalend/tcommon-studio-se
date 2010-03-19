@@ -266,7 +266,7 @@ public class ImportItemUtil {
                         result = true;
                     }
                 }
-                if (!result) {
+                if (!result && !isSystem) {
                     itemRecord.addError(Messages.getString("RepositoryUtil.nameUsed")); //$NON-NLS-1$
                 }
             }
