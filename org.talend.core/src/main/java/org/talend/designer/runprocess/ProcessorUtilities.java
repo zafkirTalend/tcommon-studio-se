@@ -329,6 +329,11 @@ public class ProcessorUtilities {
                     // get processitem from job
                     processItem = ItemCacheManager.getProcessItem(jobId, version);
 
+                    if (processItem == null) {
+                        throw new ProcessorException("tRunJob not setup or child job not found in the job:"
+                                + currentProcess.getLabel());
+                    }
+
                     if (jobInfo.isApplyContextToChildren()) {
                         subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
                         // see bug 0003862: Export job with the flag "Apply to children" if the child don't have the
