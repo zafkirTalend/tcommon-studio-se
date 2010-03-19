@@ -85,7 +85,15 @@ public final class ProjectManager {
     private void resolveRefProject(org.talend.core.model.properties.Project p) {
         if (p != null) {
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                resolveRefProject(pr.getReferencedProject()); // only to resolve all
+                Context ctx = CorePlugin.getContext();
+                if (ctx != null) {
+                    RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+                    String parentBranch = repositoryContext.getFields().get(
+                            IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
+                    if (pr.getBranch() != null && pr.getBranch().equals(parentBranch)) {
+                        resolveRefProject(pr.getReferencedProject()); // only to resolve all
+                    }
+                }
             }
         }
     }
