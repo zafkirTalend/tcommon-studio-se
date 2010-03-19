@@ -99,6 +99,7 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ItemRecord.State;
 import org.talend.repository.localprovider.imports.TreeBuilder.ProjectNode;
 import org.talend.repository.localprovider.model.XmiResourceManager;
+import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -134,6 +135,8 @@ public class ImportItemUtil {
     public static boolean isRoutineItem = false;
 
     private boolean initTDQRepository = false;
+
+    private static boolean hasJoblets = false;
 
     public void clear() {
         deletedItems.clear();
@@ -317,6 +320,7 @@ public class ImportItemUtil {
     @SuppressWarnings("unchecked")
     public List<ItemRecord> importItemRecords(final ResourcesManager manager, final List<ItemRecord> itemRecords,
             final IProgressMonitor monitor, final boolean overwrite, final IPath destinationPath) {
+        hasJoblets = false;
         monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), itemRecords.size() * 2 + 1); //$NON-NLS-1$
 
         RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Import Items") { //$NON-NLS-1$
@@ -332,7 +336,6 @@ public class ImportItemUtil {
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
-
                             importItemRecord(manager, itemRecord, overwrite, destinationPath, overwriteDeletedItems,
                                     originalDeleteStateItems);
                             monitor.worked(1);
@@ -370,6 +373,11 @@ public class ImportItemUtil {
 
         for (ItemRecord itemRecord : itemRecords) {
             itemRecord.clear();
+        }
+
+        if (hasJoblets) {
+            ComponentsFactoryProvider.getInstance().reset();
+            ComponentsFactoryProvider.getInstance().initializeComponents(monitor);
         }
 
         clearAllData();
@@ -486,6 +494,10 @@ public class ImportItemUtil {
                             // user in
                             // create method
                         }
+                    }
+
+                    if (item instanceof JobletProcessItem) {
+                        hasJoblets = true;
                     }
 
                     if (lastVersion == null) {
