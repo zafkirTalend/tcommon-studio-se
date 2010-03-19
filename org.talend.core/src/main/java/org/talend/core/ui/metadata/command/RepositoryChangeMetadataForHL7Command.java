@@ -19,12 +19,15 @@ import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.metadata.IEbcdicConstant;
+import org.talend.core.model.metadata.IHL7Constant;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.MultiSchemasUtil;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.utils.TalendTextUtils;
 
 /**
  * nrousseau class global comment. Detailled comment
@@ -99,7 +102,8 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
                 boolean found = false;
                 if (paramValues.size() > 0) {
                     for (Map<String, Object> line : paramValues) {
-                        String schemaName = (String) line.get(IEbcdicConstant.FIELD_SCHEMA);
+                        String schemaName = (String) line.get(IHL7Constant.FIELD_SCHEMA);
+                        String mappingName = (String) line.get(IHL7Constant.FIELD_SCHEMA);
                         if (schemaName != null && schemaName.equals(newPropValue)) {
                             found = true;
                             IMetadataTable table = MetadataTool.getMetadataTableFromNode(node, (String) newPropValue);
@@ -127,13 +131,22 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
             paramValues.add(valueMap);
         }
 
-        valueMap.put(IEbcdicConstant.FIELD_SCHEMA, newPropValue);
-        // // if no value, set default field value
-        // Object fieldValue = valueMap.get(IEbcdicConstant.FIELD_CODE);
-        //        if (fieldValue == null || "".equals(fieldValue)) { //$NON-NLS-1$
-        // valueMap.put(IEbcdicConstant.FIELD_CODE, newOutputMetadata.getLabel());
-        // }
-        // valueMap.put(IEbcdicConstant.FIELD_SCHEMA + IEbcdicConstant.REF_TYPE, IEbcdicConstant.REF_ATTR_REPOSITORY);
+        String displayName = "";
+        valueMap.put(IHL7Constant.FIELD_SCHEMA, newPropValue);
+        List columnList = ConvertionHelper.convert(newOutputMetadata).getColumns();
+        for (int i = 0; i < columnList.size(); i++) {
+            MetadataColumn column = (MetadataColumn) columnList.get(i);
+            String original = column.getOriginalField();
+            if (original != null && !"".equals(original)) {
+                original = original.substring(0, original.indexOf(TalendTextUtils.LBRACKET));
+            }
+            if (i != columnList.size() - 1) {
+                displayName = displayName + TalendTextUtils.QUOTATION_MARK + original + TalendTextUtils.QUOTATION_MARK + ",";
+            } else {
+                displayName = displayName + TalendTextUtils.QUOTATION_MARK + original + TalendTextUtils.QUOTATION_MARK;
+            }
+        }
+        valueMap.put(IHL7Constant.FIELD_MAPPING, displayName);
 
         if (oldOutputMetadata != null) {
             CorePlugin.getDefault().getDesignerCoreService().removeConnection(node, oldOutputMetadata.getTableName());
@@ -143,7 +156,7 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
         String uinqueTableName = node.getProcess().generateUniqueConnectionName(
                 MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
         newOutputMetadata.setLabel((String) newPropValue);
-        newOutputMetadata.setTableName(uinqueTableName);
+        newOutputMetadata.setTableName((String) newPropValue);
 
         node.getProcess().addUniqueConnectionName(uinqueTableName);
         node.getMetadataList().add(newOutputMetadata);

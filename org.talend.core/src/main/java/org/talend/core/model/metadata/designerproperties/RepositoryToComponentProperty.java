@@ -280,13 +280,13 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getStartChar())) {
                 return connection.getStartChar();
             } else {
-                return TalendTextUtils.addQuotes(connection.getStartChar());
+                return connection.getStartChar();
             }
         } else if ("END_MSG".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getEndChar())) {
                 return connection.getEndChar();
             } else {
-                return TalendTextUtils.addQuotes(connection.getEndChar());
+                return connection.getEndChar();
             }
         }
         return null;

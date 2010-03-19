@@ -27,6 +27,8 @@ public interface IHL7Constant {
 
     public static final String FIELD_SCHEMA = "SCHEMA"; //$NON-NLS-1$
 
+    public static final String FIELD_MAPPING = "MAPPING"; //$NON-NLS-1$
+
     public static final String FIELD_CODE = "CODE"; //$NON-NLS-1$
 
     /*
