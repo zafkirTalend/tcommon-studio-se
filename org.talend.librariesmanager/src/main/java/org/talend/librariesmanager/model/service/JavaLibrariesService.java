@@ -14,6 +14,7 @@ package org.talend.librariesmanager.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -194,15 +195,15 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                     .getAcceptJARFilesFilter(), false, monitorWrap);
 
             // 4. system routien libraries
-            String basePath = System.getProperty("user.dir") + File.separator + "plugins";
-            Map<String, List<String>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
+            Map<String, List<URI>> routineAndJars = RoutineLibraryMananger.getInstance().getRoutineAndJars();
             for (String key : routineAndJars.keySet()) {
-                List<String> jarList = routineAndJars.get(key);
+                List<URI> jarList = routineAndJars.get(key);
                 if (jarList != null) {
-                    for (String jarName : jarList) {
-                        File source = new File(basePath + File.separator + jarName);
+                    for (URI jar : jarList) {
+                        File source = new File(jar);
                         if (source.exists()) {
-                            FilesUtils.copyFile(source, new File(getLibrariesPath() + File.separator + jarName));
+                            FilesUtils.copyFile(source, new File(getLibrariesPath() + File.separator
+                                    + new Path(jar.getPath()).lastSegment()));
                         }
                     }
                 }

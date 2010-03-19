@@ -12,14 +12,21 @@
 // ============================================================================
 package org.talend.core.model.routines;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -30,7 +37,7 @@ import org.talend.core.language.ECodeLanguage;
  */
 public class RoutineLibraryMananger {
 
-    private Map<String, List<String>> routineAndJars = null;
+    private Map<String, List<URI>> routineAndJars = null;
 
     private static RoutineLibraryMananger manager = new RoutineLibraryMananger();
 
@@ -38,9 +45,9 @@ public class RoutineLibraryMananger {
         return manager;
     }
 
-    public Map<String, List<String>> getRoutineAndJars() {
+    public Map<String, List<URI>> getRoutineAndJars() {
         if (routineAndJars == null) {
-            routineAndJars = new HashMap<String, List<String>>();
+            routineAndJars = new HashMap<String, List<URI>>();
             IExtensionRegistry registry = Platform.getExtensionRegistry();
             IConfigurationElement[] configurationElements = registry
                     .getConfigurationElementsFor("org.talend.core.systemRoutineLibrary"); //$NON-NLS-1$
@@ -52,13 +59,36 @@ public class RoutineLibraryMananger {
                 if (lang == projectLanguage) {
                     String routineName = current.getAttribute("routineName"); //$NON-NLS-1$
                     String moduleName = current.getAttribute("moduleName"); //$NON-NLS-1$
-                    List<String> list = routineAndJars.get(routineName);
+                    List<URI> list = routineAndJars.get(routineName);
+                    Bundle bundle = Platform.getBundle(current.getContributor().getName());
+                    URL url = bundle.getEntry("/lib/" + moduleName);
+                    URL fileUrl;
+                    try {
+                        fileUrl = FileLocator.toFileURL(url);
+                    } catch (IOException e1) {
+                        ExceptionHandler.process(e1);
+                        continue;
+                    }
+                    if (url == null) {
+                        ExceptionHandler.process(new Exception("jar not found:" + current.getContributor().getName() + "/lib/"
+                                + moduleName));
+                        continue;
+                    }
                     if (list == null) {
-                        list = new ArrayList<String>();
-                        list.add(moduleName);
+                        list = new ArrayList<URI>();
+                        try {
+                            list.add(fileUrl.toURI());
+                        } catch (URISyntaxException e) {
+                            ExceptionHandler.process(e);
+                            continue;
+                        }
                         routineAndJars.put(routineName, list);
                     } else {
-                        list.add(moduleName);
+                        try {
+                            list.add(fileUrl.toURI());
+                        } catch (URISyntaxException e) {
+                            ExceptionHandler.process(e);
+                        }
                     }
                 }
             }
