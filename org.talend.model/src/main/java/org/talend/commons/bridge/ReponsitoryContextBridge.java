@@ -14,6 +14,8 @@ package org.talend.commons.bridge;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.talend.core.model.properties.Project;
+import org.talend.core.model.properties.User;
 
 /**
  * DOC bZhou class global comment. Detailled comment
@@ -26,6 +28,10 @@ public final class ReponsitoryContextBridge {
 
     private static String defaultProjectName = "TOP_DEFAULT_PRJ";
 
+    private static Project project;
+
+    private static User user;
+
     private ReponsitoryContextBridge() {
 
     }
@@ -36,7 +42,12 @@ public final class ReponsitoryContextBridge {
      * @return the projectName
      */
     public static String getProjectName() {
-        return projectName == null ? defaultProjectName : projectName;
+        if (project == null) {
+            return projectName == null ? defaultProjectName : projectName;
+        } else {
+            return project.getLabel();
+        }
+
     }
 
     /**
@@ -54,7 +65,11 @@ public final class ReponsitoryContextBridge {
      * @return the author
      */
     public static String getAuthor() {
-        return author == null ? "" : author;
+        if (user == null) {
+            return author == null ? "" : author;
+        } else {
+            return user.getLogin();
+        }
     }
 
     /**
@@ -73,5 +88,43 @@ public final class ReponsitoryContextBridge {
      */
     public static IProject getRootProject() {
         return ResourcesPlugin.getWorkspace().getRoot().getProject(getProjectName());
+    }
+
+    /**
+     * DOC bZhou Comment method "initialized".
+     * 
+     * @param proj
+     * @param user
+     */
+    public static void initialized(Project aProject, User aUser) {
+        project = aProject;
+        user = aUser;
+    }
+
+    /**
+     * Getter for project.
+     * 
+     * @return the project
+     */
+    public static IProject getProject() {
+        return ResourcesPlugin.getWorkspace().getRoot().getProject(getProjectName());
+    }
+
+    /**
+     * Getter for user.
+     * 
+     * @return the user
+     */
+    public static User getUser() {
+        return user;
+    }
+
+    /**
+     * DOC bZhou Comment method "isDefautProject".
+     * 
+     * @return
+     */
+    public static boolean isDefautProject() {
+        return project == null;
     }
 }

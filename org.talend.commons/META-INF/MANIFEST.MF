@@ -11,7 +11,6 @@ Require-Bundle: org.apache.log4j,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi
 Export-Package: org.talend.commons,
- org.talend.commons.bridge,
  org.talend.commons.emf,
  org.talend.commons.exception,
  org.talend.commons.i18n,
