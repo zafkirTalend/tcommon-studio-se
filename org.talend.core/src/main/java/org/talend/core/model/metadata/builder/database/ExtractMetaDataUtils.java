@@ -21,8 +21,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -342,8 +346,10 @@ public class ExtractMetaDataUtils {
                     // add for bug 10644
                     boolean as400 = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
                             EDatabaseTypeName.AS400.getProduct());
-                    if (teradata || as400) {
+                    if (teradata) {
                         schema = dataBase;
+                    } else if (as400) {
+                        schema = retrieveSchemaPatternForAS400(url);
                     } else {
                         schema = null;
                     }
@@ -361,6 +367,68 @@ public class ExtractMetaDataUtils {
             }
         }
         return conList;
+    }
+
+    /**
+     * 
+     * cli Comment method "retrieveSchemaPatternForAS400".
+     * 
+     * bug 12179
+     */
+    public static String retrieveSchemaPatternForAS400(String url) {
+        String libsPattern = "libraries\\s*=\\s*"; //$NON-NLS-1$
+        Pattern regex = Pattern.compile(libsPattern + "((\\w+),?)*;?", Pattern.CANON_EQ | Pattern.CASE_INSENSITIVE); //$NON-NLS-1$
+        Matcher regexMatcher = regex.matcher(url);
+        Set<String> libs = new HashSet<String>();
+        while (regexMatcher.find()) {
+            String str = regexMatcher.group();
+            if (str != null && !"".equals(str.trim())) { //$NON-NLS-1$
+                Pattern libP = Pattern.compile(libsPattern + "(.*)"); //$NON-NLS-1$
+                Matcher libMatcher = libP.matcher(str.trim());
+                if (libMatcher.find()) {
+                    String libStr = libMatcher.group(1);
+                    if (libStr != null) {
+                        libStr = libStr.trim();
+                        if (libStr.endsWith(";")) { //$NON-NLS-1$
+                            libStr = libStr.substring(0, libStr.length() - 1);
+                        }
+                        libStr = libStr.trim();
+                        if (!libStr.equals("")) { //$NON-NLS-1$
+                            libs.add(libStr);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!libs.isEmpty()) {
+            StringBuffer sb = new StringBuffer();
+            int index = 0;
+            for (String lib : libs) {
+                sb.append(lib);
+                if (index < libs.size() - 1) {
+                    sb.append(',');
+                }
+                index++;
+            }
+            return sb.toString();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 
+     * cli Comment method "getMultiSchems".
+     * 
+     * bug 12179
+     */
+    public static String[] getMultiSchems(String schemas) {
+        if (schemas != null) {
+            String[] split = schemas.split(","); //$NON-NLS-1$
+            return split;
+        }
+        return null;
     }
 
     /**

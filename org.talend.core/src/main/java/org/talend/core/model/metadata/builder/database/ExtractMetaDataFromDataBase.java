@@ -138,10 +138,12 @@ public class ExtractMetaDataFromDataBase {
     public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData, IMetadataConnection iMetadataConnection,
             int... limit) {
         String schema = iMetadataConnection.getSchema();
+        final boolean as400 = EDatabaseTypeName.AS400.getProduct().equals(iMetadataConnection.getProduct());
         if (schema == null || "".equals(schema)) {
-            if (EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())
-                    || EDatabaseTypeName.AS400.getProduct().equals(iMetadataConnection.getProduct())) {
+            if (EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())) {
                 schema = iMetadataConnection.getDatabase();
+            } else if (as400) {
+                schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataConnection.getUrl());
             }
         }
         if (dbMetaData.equals(oldMetadata) && schema.equals(oldSchema) && limit.equals(oldLimit)
@@ -184,8 +186,21 @@ public class ExtractMetaDataFromDataBase {
                 }
                 rsTableTypes.close();// See bug 5029 Avoid "Invalid cursor exception"
 
-                if (dbMetaData.supportsSchemasInTableDefinitions() && !schema.equals("")) { //$NON-NLS-1$
-                    rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
+                if (dbMetaData.supportsSchemasInTableDefinitions() && schema != null && !schema.equals("")) { //$NON-NLS-1$
+                    if (as400) {
+                        String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(schema);
+                        if (multiSchems != null) {
+                            for (String s : multiSchems) {
+                                rsTables = dbMetaData.getTables(null, s, null, availableTableTypes.toArray(new String[] {}));
+                                getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(),
+                                        tablesToFilter, limit);
+                                rsTables.close();
+                            }
+                            rsTables = null;
+                        }
+                    } else {
+                        rsTables = dbMetaData.getTables(null, schema, null, availableTableTypes.toArray(new String[] {}));
+                    }
                 } else {
                     rsTables = dbMetaData.getTables(null, null, null, availableTableTypes.toArray(new String[] {}));
                 }
@@ -195,8 +210,10 @@ public class ExtractMetaDataFromDataBase {
                 ExtractMetaDataUtils.setQueryStatementTimeout(stmt);
                 rsTables = stmt.executeQuery(sql);
             }
-            getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), tablesToFilter, limit);
-            rsTables.close();
+            if (rsTables != null) {
+                getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(), tablesToFilter, limit);
+                rsTables.close();
+            }
 
         } catch (SQLException e) {
             // e.printStackTrace();
@@ -999,12 +1016,12 @@ public class ExtractMetaDataFromDataBase {
 
                 } else {
                     if (nameFiters.isEmpty()) {
-                        itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters,
-                                "", iMetadataConnection.getDbType())); //$NON-NLS-1$
+                        itemTablesName = getTableNamesFromTablesForMultiSchema(tableInfoParameters,
+                                "", iMetadataConnection.getDbType()); //$NON-NLS-1$
                     } else {
                         for (String s : nameFiters) {
-                            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
-                                    tableInfoParameters, s, iMetadataConnection.getDbType()));
+                            List<String> tableNamesFromTables = getTableNamesFromTablesForMultiSchema(tableInfoParameters, s,
+                                    iMetadataConnection.getDbType());
                             for (String string : tableNamesFromTables) {
                                 if (!itemTablesName.contains(string)) {
                                     itemTablesName.add(string);
@@ -1046,6 +1063,27 @@ public class ExtractMetaDataFromDataBase {
         } catch (SQLException e) {
             // do nothing.
         }
+    }
+
+    /**
+     * 
+     * cli Comment method "getTableNamesFromTablesForMultiSchema".
+     * 
+     * bug 12179
+     */
+    private static List<String> getTableNamesFromTablesForMultiSchema(TableInfoParameters tableInfo, String namePattern,
+            String dbType) throws SQLException {
+
+        String[] multiSchemas = ExtractMetaDataUtils.getMultiSchems(ExtractMetaDataUtils.schema);
+        List<String> tableNames = new ArrayList<String>();
+        if (multiSchemas != null) {
+            for (String s : multiSchemas) {
+                List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern,
+                        dbType, s));
+                tableNames.addAll(tableNamesFromTables);
+            }
+        }
+        return tableNames;
     }
 
     /**
@@ -1097,8 +1135,8 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern, String dbType)
-            throws SQLException {
+    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern, String dbType,
+            String schema) throws SQLException {
         ResultSet rsTables = null;
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
         String[] types = new String[tableInfo.getTypes().size()];
@@ -1119,7 +1157,7 @@ public class ExtractMetaDataFromDataBase {
             }
         }
         rsTableTypes.close();
-        rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
+        rsTables = dbMetaData.getTables(null, schema, tableNamePattern, types);
         return rsTables;
     }
 
