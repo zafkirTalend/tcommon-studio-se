@@ -62,6 +62,7 @@ import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTy
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.core.utils.KeywordsValidator;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -1119,9 +1120,14 @@ public class RepositoryToComponentProperty {
             List<IMetadataColumn> listColumns = metaTable.getListColumns();
             for (IMetadataColumn metadataColumn : listColumns) {
                 for (SchemaTarget schema : schemaTargets) {
-                    if (metadataColumn.getLabel().equals(schema.getTagName())) {
+                    // add for bug 12034
+                    String label = metadataColumn.getLabel();
+                    String tagName = schema.getTagName();
+                    if (label.equals(tagName)
+                            || (label.length() > 1 && label.startsWith("_") && label.substring(1).equals(tagName) && KeywordsValidator //$NON-NLS-1$
+                                    .isKeyword(tagName))) {
                         Map<String, Object> map = new HashMap<String, Object>();
-                        map.put("SCHEMA_COLUMN", schema.getTagName()); //$NON-NLS-1$
+                        map.put("SCHEMA_COLUMN", tagName); //$NON-NLS-1$
                         map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
                         tableInfo.add(map);
                     }
