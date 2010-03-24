@@ -53,6 +53,8 @@ public class ExtractMetaDataUtils {
 
     private static Logger log = Logger.getLogger(ExtractMetaDataUtils.class);
 
+    private static final char SPLIT_CHAR = ',';
+
     public static Connection conn;
 
     public static String schema;
@@ -377,7 +379,8 @@ public class ExtractMetaDataUtils {
      */
     public static String retrieveSchemaPatternForAS400(String url) {
         String libsPattern = "libraries\\s*=\\s*"; //$NON-NLS-1$
-        Pattern regex = Pattern.compile(libsPattern + "((\\w+),?)*;?", Pattern.CANON_EQ | Pattern.CASE_INSENSITIVE); //$NON-NLS-1$
+        Pattern regex = Pattern.compile(libsPattern + "(([\\w.]+?)\\s*,?\\s*)*\\s*;?", //$NON-NLS-1$
+                Pattern.CANON_EQ | Pattern.CASE_INSENSITIVE);
         Matcher regexMatcher = regex.matcher(url);
         Set<String> libs = new HashSet<String>();
         while (regexMatcher.find()) {
@@ -394,7 +397,14 @@ public class ExtractMetaDataUtils {
                         }
                         libStr = libStr.trim();
                         if (!libStr.equals("")) { //$NON-NLS-1$
-                            libs.add(libStr);
+                            String[] multiSchems = getMultiSchems(libStr);
+                            if (multiSchems != null) {
+                                for (String s : multiSchems) {
+                                    if (s != null) {
+                                        libs.add(s.trim());
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -407,7 +417,7 @@ public class ExtractMetaDataUtils {
             for (String lib : libs) {
                 sb.append(lib);
                 if (index < libs.size() - 1) {
-                    sb.append(',');
+                    sb.append(SPLIT_CHAR);
                 }
                 index++;
             }
@@ -425,7 +435,7 @@ public class ExtractMetaDataUtils {
      */
     public static String[] getMultiSchems(String schemas) {
         if (schemas != null) {
-            String[] split = schemas.split(","); //$NON-NLS-1$
+            String[] split = schemas.split(String.valueOf(SPLIT_CHAR));
             return split;
         }
         return null;

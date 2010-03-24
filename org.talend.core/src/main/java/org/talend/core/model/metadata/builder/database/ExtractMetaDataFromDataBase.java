@@ -191,7 +191,8 @@ public class ExtractMetaDataFromDataBase {
                         String[] multiSchems = ExtractMetaDataUtils.getMultiSchems(schema);
                         if (multiSchems != null) {
                             for (String s : multiSchems) {
-                                rsTables = dbMetaData.getTables(null, s, null, availableTableTypes.toArray(new String[] {}));
+                                rsTables = dbMetaData.getTables(null, s.trim(), null, availableTableTypes
+                                        .toArray(new String[] {}));
                                 getMetadataTables(medataTables, rsTables, dbMetaData.supportsSchemasInTableDefinitions(),
                                         tablesToFilter, limit);
                                 rsTables.close();
@@ -1079,7 +1080,7 @@ public class ExtractMetaDataFromDataBase {
         if (multiSchemas != null) {
             for (String s : multiSchemas) {
                 List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern,
-                        dbType, s));
+                        dbType, s.trim()));
                 tableNames.addAll(tableNamesFromTables);
             }
         }
