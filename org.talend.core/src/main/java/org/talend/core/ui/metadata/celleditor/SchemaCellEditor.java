@@ -444,7 +444,7 @@ public class SchemaCellEditor extends DialogCellEditor {
 
             }
 
-            return tableToEdit.getTableName();
+            return schemaToEdit;
         } else {
             return ""; //$NON-NLS-1$
         }
