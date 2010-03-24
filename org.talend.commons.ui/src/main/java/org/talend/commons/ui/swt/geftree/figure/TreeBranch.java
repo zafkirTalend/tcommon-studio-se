@@ -478,6 +478,28 @@ public class TreeBranch extends Figure {
 
     }
 
+    public void doExpandCollapse(TreeBranch branch) {
+        if (!isEnableExpand()) {
+            return;
+        }
+        if (branch == null) {
+            return;
+        }
+        if (branch.getContentsPane().getChildren().isEmpty()) {
+            return;
+        }
+        if (isAnimate()) {
+            if (branch.isExpanded()) {
+                branch.collapse();
+            } else {
+                branch.expand();
+            }
+        } else {
+            branch.setExpanded(!branch.isExpanded());
+        }
+
+    }
+
     /**
      * @see java.lang.Object#toString()
      */
