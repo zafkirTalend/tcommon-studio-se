@@ -22,11 +22,7 @@ import org.talend.core.model.properties.User;
  */
 public final class ReponsitoryContextBridge {
 
-    private static String projectName;
-
-    private static String author;
-
-    private static String defaultProjectName = "TOP_DEFAULT_PRJ";
+    public static String defaultProjectName = "TOP_DEFAULT_PRJ";
 
     private static Project project;
 
@@ -42,21 +38,7 @@ public final class ReponsitoryContextBridge {
      * @return the projectName
      */
     public static String getProjectName() {
-        if (project == null) {
-            return projectName == null ? defaultProjectName : projectName;
-        } else {
-            return project.getLabel();
-        }
-
-    }
-
-    /**
-     * Sets the projectName.
-     * 
-     * @param projectName the projectName to set
-     */
-    public static void setProjectName(String projectName) {
-        ReponsitoryContextBridge.projectName = projectName;
+        return isDefautProject() ? defaultProjectName : project.getLabel();
     }
 
     /**
@@ -65,20 +47,7 @@ public final class ReponsitoryContextBridge {
      * @return the author
      */
     public static String getAuthor() {
-        if (user == null) {
-            return author == null ? "" : author;
-        } else {
-            return user.getLogin();
-        }
-    }
-
-    /**
-     * Sets the author.
-     * 
-     * @param author the author to set
-     */
-    public static void setAuthor(String author) {
-        ReponsitoryContextBridge.author = author;
+        return isDefautProject() ? "" : project.getAuthor().getLogin();
     }
 
     /**
@@ -106,8 +75,8 @@ public final class ReponsitoryContextBridge {
      * 
      * @return the project
      */
-    public static IProject getProject() {
-        return ResourcesPlugin.getWorkspace().getRoot().getProject(getProjectName());
+    public static Project getProject() {
+        return project;
     }
 
     /**
