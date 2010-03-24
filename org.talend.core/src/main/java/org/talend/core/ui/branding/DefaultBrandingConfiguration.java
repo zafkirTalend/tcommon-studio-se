@@ -161,6 +161,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
         bottomLayout.addView(ecosystemViewId);
         bottomLayout.addView(schedulerViewId);
         bottomLayout.addView(jobHierarchyViewId);
+        bottomLayout.addPlaceholder("*");
 
     }
 
