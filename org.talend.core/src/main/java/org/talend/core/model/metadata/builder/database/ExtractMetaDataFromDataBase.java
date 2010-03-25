@@ -1083,6 +1083,10 @@ public class ExtractMetaDataFromDataBase {
                         dbType, s.trim()));
                 tableNames.addAll(tableNamesFromTables);
             }
+        } else {
+            List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(tableInfo, namePattern, dbType,
+                    null));
+            tableNames.addAll(tableNamesFromTables);
         }
         return tableNames;
     }
