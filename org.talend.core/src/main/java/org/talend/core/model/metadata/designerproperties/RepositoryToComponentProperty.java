@@ -448,10 +448,9 @@ public class RepositoryToComponentProperty {
                     return TalendTextUtils.addQuotes(connection.getEncoding());
                 }
             }
+        } else if ("PARAMS".equals(value)) {
+            return connection.getParameters();
         }
-        // else if ("PARAMS".equals(value)) {
-        // return connection.getParameters();
-        // }
         return null;
     }
 
