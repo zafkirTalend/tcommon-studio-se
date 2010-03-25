@@ -51,7 +51,6 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.prefs.PreferenceManipulator;
-import org.talend.core.ui.branding.DefaultBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.rcp.Activator;
@@ -116,9 +115,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         }
         helper.preWindowOpen(configurer);
         // generate welcome header image.
-        if (brandingConfiguration instanceof DefaultBrandingConfiguration) {
-            ((DefaultBrandingConfiguration) brandingConfiguration).generateWelcomeHeaderImage();
-        }
+        // if (brandingConfiguration instanceof DefaultBrandingConfiguration) {
+        // ((DefaultBrandingConfiguration) brandingConfiguration).generateWelcomeHeaderImage();
+        // }
     }
 
     /*
