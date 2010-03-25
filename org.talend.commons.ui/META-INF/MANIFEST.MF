@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common UI Plug-in
 Bundle-SymbolicName: org.talend.commons.ui
 Bundle-Version: 2.2.0.qualifier
-Bundle-Activator: org.talend.commons.ui.CommonUIPlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.jface.text,
@@ -18,7 +17,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.exception,
- org.talend.commons.ui,
  org.talend.commons.ui.command,
  org.talend.commons.ui.geometry,
  org.talend.commons.ui.image,

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.image;
 
-import org.talend.commons.ui.CommonUIPlugin;
 
 /**
  * 
@@ -139,7 +138,7 @@ public enum EImage implements IImage {
      * @return the clazz
      */
     public Class getLocation() {
-        return CommonUIPlugin.class;
+        return EImage.class;
     }
 
 }
