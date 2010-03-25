@@ -6,9 +6,7 @@ Bundle-Version: 1.0.0.200610021
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.datatools.connectivity.oda;bundle-version="3.0.1",
- com.ibm.icu;bundle-version="3.4.4",
- org.eclipse.swt,
+Require-Bundle: org.eclipse.datatools.connectivity.oda;bundle-version="3.0.1";visibility:=reexport,
  org.eclipse.jface,
  org.apache.xerces
 Eclipse-LazyStart: true

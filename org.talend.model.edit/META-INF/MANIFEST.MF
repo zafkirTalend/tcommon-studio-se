@@ -8,11 +8,7 @@ Bundle-Activator: org.talend.designer.business.model.business.provider.BusinessE
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.talend.designer.business.model.business.provider
-Require-Bundle: org.eclipse.core.runtime,
- org.talend.model;visibility:=reexport,
- org.eclipse.emf.edit;visibility:=reexport,
- org.talend.core,
- org.eclipse.jface,
- org.talend.commons,
- org.talend.commons.ui
+Require-Bundle: org.talend.core,
+ org.talend.commons.ui,
+ org.eclipse.core.runtime
 Eclipse-LazyStart: true

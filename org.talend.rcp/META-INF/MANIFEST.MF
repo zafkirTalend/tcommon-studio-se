@@ -5,23 +5,17 @@ Bundle-SymbolicName: org.talend.rcp;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.rcp.Activator
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.intro,
- org.eclipse.ui.ide,
  org.talend.core,
  org.talend.repository,
- org.talend.help,
- org.talend.commons,
  org.talend.sqlbuilder,
  org.talend.designer.runprocess,
  org.talend.designer.codegen,
  org.eclipse.ui.ide.application,
- org.eclipse.core.resources,
  org.talend.designer.core,
  org.talend.commons.ui,
- org.eclipse.ui.forms,
- org.eclipse.core.expressions
+ org.eclipse.ui.forms
 Eclipse-LazyStart: true
 Export-Package: org.talend.rcp,
  org.talend.rcp.intro

@@ -6,28 +6,18 @@ Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.core.CorePlugin
 Bundle-Localization: plugin
 Eclipse-LazyStart: true
-Require-Bundle: org.apache.log4j;bundle-version="1.2.13",
- org.eclipse.ui,
- org.eclipse.core.resources,
- org.eclipse.core.runtime,
- org.talend.libraries;visibility:=reexport,
- org.eclipse.ui.forms,
- org.talend.model;visibility:=reexport,
+Require-Bundle: org.talend.model;visibility:=reexport,
  org.eclipse.update.scheduler,
  org.eclipse.update.core,
  org.eclipse.ui.ide,
  org.eclipse.debug.core,
  org.epic.perleditor,
- org.eclipse.jface.text;visibility:=reexport,
  org.eclipse.jdt.core,
  org.eclipse.jdt.ui,
  org.eclipse.ui.editors,
- org.eclipse.ui.workbench.texteditor,
- org.eclipse.ui.views,
- org.eclipse.ui.views.properties.tabbed,
  org.talend.commons.ui,
- org.talend.commons,
- org.eclipse.gmf.runtime.diagram.ui.properties
+ org.eclipse.gmf.runtime.diagram.ui.properties,
+ org.talend.libraries.dom4j
 Export-Package: org.talend.core,
  org.talend.core.context,
  org.talend.core.database,
@@ -119,4 +109,3 @@ Export-Package: org.talend.core,
  org.talend.resource,
  org.talend.runprocess.data
 Bundle-Vendor: .Talend SA.
-Import-Package: org.eclipse.ui.internal.ide.application

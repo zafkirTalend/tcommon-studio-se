@@ -4,20 +4,17 @@ Bundle-Name: Common UI Plug-in
 Bundle-SymbolicName: org.talend.commons.ui
 Bundle-Version: 2.2.0.qualifier
 Bundle-Activator: org.talend.commons.ui.CommonUIPlugin
-Require-Bundle: org.apache.log4j;bundle-version="1.2.13",
- org.eclipse.jface,
- org.eclipse.core.runtime,
- org.eclipse.core.resources,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.jface.text,
- org.eclipse.ui.workbench,
- org.eclipse.team.core,
  org.eclipse.jdt.ui,
  org.eclipse.jdt.core,
  org.eclipse.jdt.debug,
  org.talend.commons;visibility:=reexport,
  org.talend.libraries.ui;visibility:=reexport,
  org.eclipse.ui.ide,
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ org.talend.libraries.dom4j
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.exception,
