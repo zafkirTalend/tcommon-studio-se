@@ -161,6 +161,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEPOSITORYITEM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/sHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/vALUE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nOCONTEXTASSIST"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//LINKTOType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//LINKTOType/cTYPE"/>
@@ -192,6 +193,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/rEQUIRED"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/sHOW"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/sHOWIF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nOCONTEXTASSIST"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//PLUGINDEPENDENCIESType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PLUGINDEPENDENCIESType/pLUGINDEPENDENCY"/>

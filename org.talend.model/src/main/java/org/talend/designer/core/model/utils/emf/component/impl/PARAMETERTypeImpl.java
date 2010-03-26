@@ -53,6 +53,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  * </ul>
  * </p>
  *
@@ -531,6 +532,26 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected String sHOWIF = SHOWIF_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean NOCONTEXTASSIST_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     * @ordered
+     */
+    protected boolean nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1197,6 +1218,27 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isNOCONTEXTASSIST() {
+        return nOCONTEXTASSIST;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        nOCONTEXTASSIST = newNOCONTEXTASSIST;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -1262,6 +1304,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 return getSHOWIF();
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                return isNOCONTEXTASSIST() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1343,6 +1387,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 setSHOWIF((String)newValue);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                setNOCONTEXTASSIST(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1421,6 +1468,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 setSHOWIF(SHOWIF_EDEFAULT);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                setNOCONTEXTASSIST(NOCONTEXTASSIST_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1477,6 +1527,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return isSetSHOW();
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                return nOCONTEXTASSIST != NOCONTEXTASSIST_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1529,6 +1581,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", sHOWIF: ");
         result.append(sHOWIF);
+        result.append(", nOCONTEXTASSIST: ");
+        result.append(nOCONTEXTASSIST);
         result.append(')');
         return result.toString();
     }

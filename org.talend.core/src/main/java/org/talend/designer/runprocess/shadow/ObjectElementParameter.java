@@ -806,6 +806,24 @@ public class ObjectElementParameter implements IElementParameter {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isNoContextAssist()
+     */
+    public boolean isNoContextAssist() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setNoContextAssist(boolean)
+     */
+    public void setNoContextAssist(boolean enable) {
+
+    }
+
     public IElementParameter clone() throws CloneNotSupportedException {
         final IElementParameter clone = (IElementParameter) super.clone();
 
@@ -817,4 +835,5 @@ public class ObjectElementParameter implements IElementParameter {
 
         return clone;
     }
+
 }

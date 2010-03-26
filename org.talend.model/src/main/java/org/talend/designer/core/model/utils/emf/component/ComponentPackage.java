@@ -1446,13 +1446,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__VALUE = 11;
 
     /**
+     * The feature id for the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__NOCONTEXTASSIST = 12;
+
+    /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 12;
+    int ITEM_TYPE_FEATURE_COUNT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
@@ -1728,13 +1737,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__SHOWIF = 21;
 
     /**
+     * The feature id for the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__NOCONTEXTASSIST = 22;
+
+    /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 22;
+    int PARAMETER_TYPE_FEATURE_COUNT = 23;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -3641,6 +3659,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_VALUE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOCONTEXTASSIST</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_NOCONTEXTASSIST();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.LINKTOType <em>LINKTO Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3944,6 +3973,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getPARAMETERType_SHOWIF();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOCONTEXTASSIST</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_NOCONTEXTASSIST();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType <em>PLUGINDEPENDENCIES Type</em>}'.
@@ -5476,6 +5516,14 @@ public interface ComponentPackage extends EPackage {
         EAttribute ITEM_TYPE__VALUE = eINSTANCE.getITEMType_VALUE();
 
         /**
+         * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__NOCONTEXTASSIST = eINSTANCE.getITEMType_NOCONTEXTASSIST();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5704,6 +5752,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__SHOWIF = eINSTANCE.getPARAMETERType_SHOWIF();
+
+        /**
+         * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__NOCONTEXTASSIST = eINSTANCE.getPARAMETERType_NOCONTEXTASSIST();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.

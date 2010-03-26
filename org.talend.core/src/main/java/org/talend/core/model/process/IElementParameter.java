@@ -210,5 +210,9 @@ public interface IElementParameter extends Cloneable {
 
     public void setDynamicSettings(boolean dynamicSettings);
 
+    public boolean isNoContextAssist();
+
+    public void setNoContextAssist(boolean enable);
+
     public IElementParameter clone() throws CloneNotSupportedException;
 }

@@ -262,6 +262,7 @@
 						<xs:attribute name="FIELD" type="xs:string" use="optional"
 							default="TEXT" />
 						<xs:attribute name="READONLY" type="xs:boolean" use="optional" />
+						<xs:attribute name="NO_CONTEXT_ASSIST" type="xs:boolean" use="optional" />
 						<xs:attribute name="READONLY_IF" type="xs:string"
 							use="optional" />
 						<xs:attribute name="NOT_READONLY_IF" type="xs:string"
@@ -387,8 +388,8 @@
 			<xs:attribute name="BACKGROUND" type="xs:string" />
 			<xs:attribute name="DYNAMIC_SETTINGS" type="xs:boolean"></xs:attribute>
 			<xs:attribute name="READONLY_IF" type="xs:string" use="optional" />
-			<xs:attribute name="NOT_READONLY_IF" type="xs:string"
-				use="optional" />
+			<xs:attribute name="NOT_READONLY_IF" type="xs:string" use="optional" />
+			<xs:attribute name="NO_CONTEXT_ASSIST" type="xs:boolean" use="optional" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="FAMILIES">

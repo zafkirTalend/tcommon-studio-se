@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getVALUE <em>VALUE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  * </ul>
  * </p>
  *
@@ -420,5 +421,31 @@ public interface ITEMType extends EObject {
      * @generated
      */
     void setVALUE(String value);
+
+    /**
+     * Returns the value of the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NOCONTEXTASSIST</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_NOCONTEXTASSIST()
+     * @model extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isNOCONTEXTASSIST();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     */
+    void setNOCONTEXTASSIST(boolean value);
 
 } // ITEMType
