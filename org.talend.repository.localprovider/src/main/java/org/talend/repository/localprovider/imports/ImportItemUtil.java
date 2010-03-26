@@ -743,10 +743,10 @@ public class ImportItemUtil {
                 ItemRecord itemRecord = computeItemRecord(collector, path);
                 if (itemRecord.getProperty() != null) {
                     items.add(itemRecord);
-                    if (itemRecord.getItem() instanceof TDQItem) {
+                    if (ERepositoryObjectType.getItemType(itemRecord.getItem()) == ERepositoryObjectType.TDQ_ELEMENT) {
                         itemRecord.setItemProjectVersion(tdqVersion);
                     }
-                    if (checkItem(itemRecord, overwrite, itemsFromRepository)) {
+                    if (checkItem(itemRecord, overwrite, itemsFromRepository) && !itemRecord.isPureTOPItem()) {
                         InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
                         URI uri = null;
                         if (author != null) {
