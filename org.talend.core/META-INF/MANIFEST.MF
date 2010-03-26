@@ -17,7 +17,7 @@ Require-Bundle: org.talend.model;visibility:=reexport,
  org.eclipse.ui.editors,
  org.talend.commons.ui,
  org.eclipse.gmf.runtime.diagram.ui.properties,
- org.talend.libraries.dom4j
+ org.talend.libraries.dom4j-jaxen
 Export-Package: org.talend.core,
  org.talend.core.context,
  org.talend.core.database,

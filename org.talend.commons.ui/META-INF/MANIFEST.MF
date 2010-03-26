@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.libraries.ui;visibility:=reexport,
  org.eclipse.ui.ide,
  org.eclipse.ui.forms,
- org.talend.libraries.dom4j
+ org.talend.libraries.dom4j-jaxen
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.commons.exception,
