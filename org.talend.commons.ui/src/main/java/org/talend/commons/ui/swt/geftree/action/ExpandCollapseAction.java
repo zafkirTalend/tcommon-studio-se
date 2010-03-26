@@ -20,7 +20,7 @@ import org.talend.commons.ui.swt.geftree.layout.TreeAnimatingLayer;
  */
 public class ExpandCollapseAction extends AbstractTreeAction {
 
-    public static final String ID = "org.talend.repository.datalineage.ui.tree.action.ExpandCollapseAction";
+    public static final String ID = "org.talend.geftree.action.ExpandCollapseAction";
 
     public ExpandCollapseAction() {
         super(ID, "Expand/Collapse");
