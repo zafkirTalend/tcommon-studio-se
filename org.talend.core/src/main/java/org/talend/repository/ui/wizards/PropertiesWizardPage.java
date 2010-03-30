@@ -871,7 +871,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                     nameStatus = createOkStatus();
                 }
             } else {
-                nameStatus = createStatus(IStatus.WARNING, "Looking for current items name list"); //$NON-NLS-1$
+                nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
             }
         } else {
             nameStatus = createOkStatus();
