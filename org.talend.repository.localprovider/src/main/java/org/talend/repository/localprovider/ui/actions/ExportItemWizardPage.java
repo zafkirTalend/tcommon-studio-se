@@ -616,7 +616,7 @@ class ExportItemWizardPage extends WizardPage {
                 exportDependenciesSelected();
                 viewer.collapseAll();
                 allNode.clear();
-                if (exportDependencies.getSelection() == true) {
+                if (exportDependencies.getSelection()) {
                     allNode.addAll(checkedNodes);
                 } else {
                     repositoryNodes.clear();
@@ -649,6 +649,9 @@ class ExportItemWizardPage extends WizardPage {
                 monitor.setCanceled(false);
                 //
                 final List<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+
+                ProcessUtils.clearFakeProcesses();
+
                 // context
                 Display.getDefault().syncExec(new Runnable() {
 
@@ -705,6 +708,18 @@ class ExportItemWizardPage extends WizardPage {
                     }
                 });
                 monitor.worked(20);
+                // child joblet
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        Collection<IRepositoryObject> repJobletObjects = ProcessUtils.getProcessDependencies(
+                                ERepositoryObjectType.SQLPATTERNS, selectedItems);
+                        if (repJobletObjects != null) {
+                            repositoryObjects.addAll(repJobletObjects);
+                        }
+                    }
+                });
+                monitor.worked(10);
                 //
                 Display.getDefault().syncExec(new Runnable() {
 
@@ -744,6 +759,7 @@ class ExportItemWizardPage extends WizardPage {
 
                     }
                 });
+                ProcessUtils.clearFakeProcesses();
                 monitor.done();
             }
 

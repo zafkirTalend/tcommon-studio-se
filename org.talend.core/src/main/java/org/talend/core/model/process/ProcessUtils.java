@@ -28,8 +28,10 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
@@ -40,7 +42,72 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 /**
  * DOC bqian class global comment. Detailled comment
  */
-public class ProcessUtils {
+@SuppressWarnings("unchecked")
+public final class ProcessUtils {
+
+    private ProcessUtils() {
+    }
+
+    private static List<IProcess> fakeProcesses = new ArrayList<IProcess>();
+
+    public static void clearFakeProcesses() {
+        for (IProcess p : fakeProcesses) {
+            if (p instanceof IProcess2) {
+                ((IProcess2) p).dispose();
+            }
+        }
+        fakeProcesses.clear();
+    }
+
+    private static void createFakeProcesses(Collection<Item> items) {
+        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        if (items != null) {
+            for (Item item : items) {
+                if (item == null || existedFakeProcess(item.getProperty().getId())) {
+                    continue;
+                }
+                IProcess process = null;
+                if (item instanceof ProcessItem) {
+                    process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
+                } else if (item instanceof JobletProcessItem) {
+                    process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
+                }
+                if (process != null) {
+                    fakeProcesses.add(process);
+                }
+            }
+        }
+    }
+
+    private static boolean existedFakeProcess(String id) {
+        for (IProcess p : fakeProcesses) {
+            if (p.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static IProcess[] checkAndGetFakeProcesses(Collection<Item> items) {
+        List<IProcess> tmpProcesses = new ArrayList<IProcess>();
+
+        createFakeProcesses(items);
+        if (items != null) {
+            List<String> ids = new ArrayList<String>();
+            for (Item item : items) {
+                String id = item.getProperty().getId();
+                if (!ids.contains(id)) {
+                    for (IProcess p : fakeProcesses) {
+                        if (p != null && p.getId().equals(id)) {
+                            ids.add(p.getId());
+                            tmpProcesses.add(p);
+                        }
+                    }
+                }
+            }
+        }
+        return tmpProcesses.toArray(new IProcess[0]);
+    }
 
     public static Collection<IRepositoryObject> getProcessDependencies(ERepositoryObjectType dependencyType,
             Collection<Item> items) {
@@ -54,21 +121,28 @@ public class ProcessUtils {
             return getChildPorcessDependenciesOfProcess(items);
         case JOBLET:
             return getJobletDependenciesOfProcess(items);
+        case SQLPATTERNS:
+            return getSQLTemplatesDependenciesOfProcess(items);
         default:
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
     }
 
     public static Collection<IRepositoryObject> getAllProcessDependencies(Collection<Item> items) {
+        clearFakeProcesses();
+        createFakeProcesses(items);
+
         Collection<IRepositoryObject> dependencies = getContextDependenciesOfProcess(items);
         dependencies.addAll(getMetadataDependenciesOfProcess(items));
         dependencies.addAll(getChildPorcessDependenciesOfProcess(items));
         dependencies.addAll(getJobletDependenciesOfProcess(items));
+        dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items));
+
+        clearFakeProcesses();
         return dependencies;
     }
 
-    
     private static Collection<IRepositoryObject> getContextDependenciesOfProcess(Collection<Item> items) {
         Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
         for (Item item : items) {
@@ -109,18 +183,7 @@ public class ProcessUtils {
 
     private static Collection<IRepositoryObject> getMetadataDependenciesOfProcess(Collection<Item> items) {
         Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
-        for (Item item : items) {
-            if (item == null) {
-                continue;
-            }
-            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-
-            IProcess process = null;
-            if (item instanceof ProcessItem) {
-                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-            } else if (item instanceof JobletProcessItem) {
-                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-            }
+        for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
                 for (INode node : nodes) {
@@ -184,18 +247,7 @@ public class ProcessUtils {
         List<IRepositoryObject> returnListObject = new ArrayList<IRepositoryObject>();
         Map<String, Item> returnItems = new HashMap<String, Item>();
         // Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
-        for (Item item : items) {
-            if (item == null) {
-                continue;
-            }
-            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-            IProcess process = null;
-            if (item instanceof ProcessItem) {
-                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-            } else if (item instanceof JobletProcessItem) {
-                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-            }
-
+        for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
                 for (INode node : nodes) {
@@ -245,18 +297,7 @@ public class ProcessUtils {
     private static Collection<IRepositoryObject> getJobletDependenciesOfProcess(Collection<Item> items) {
         Map<String, Item> returnItems = new HashMap<String, Item>();
         Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
-        for (Item item : items) {
-            if (item == null) {
-                continue;
-            }
-            IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-            IProcess process = null;
-            if (item instanceof ProcessItem) {
-                process = designerCoreService.getProcessFromProcessItem((ProcessItem) item);
-            } else if (item instanceof JobletProcessItem) {
-                process = designerCoreService.getProcessFromJobletProcessItem((JobletProcessItem) item);
-            }
-
+        for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
                 for (INode node : nodes) {
@@ -306,4 +347,37 @@ public class ProcessUtils {
         return repositoryObjects;
     }
 
+    private static Collection<IRepositoryObject> getSQLTemplatesDependenciesOfProcess(Collection<Item> items) {
+        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        for (IProcess process : checkAndGetFakeProcesses(items)) {
+            if (process != null) {
+                List<INode> nodes = (List<INode>) process.getGraphicalNodes();
+                for (INode node : nodes) {
+                    IElementParameter sqlTemplateParam = node.getElementParameter("SQLPATTERN_VALUE"); //$NON-NLS-1$
+                    if (sqlTemplateParam != null && sqlTemplateParam.getField() == EParameterFieldType.TABLE) {
+                        List<Map<String, Object>> values = (List<Map<String, Object>>) sqlTemplateParam.getValue();
+                        if (values != null) {
+                            for (Map<String, Object> line : values) {
+                                Object object = line.get(SQLPatternUtils.SQLPATTERNLIST);
+                                if (object instanceof String) {
+                                    String[] idAndLable = ((String) object).split(SQLPatternUtils.ID_SEPARATOR);
+                                    if (idAndLable.length > 1) {
+                                        IRepositoryObject repositoryObject = SQLPatternUtils
+                                                .getLastVersionRepositoryObjectById(idAndLable[0]);
+                                        if (repositoryObject != null && repositoryObject.getLabel().equals(idAndLable[1])) {
+                                            Item item2 = repositoryObject.getProperty().getItem();
+                                            if (item2 instanceof SQLPatternItem && !((SQLPatternItem) item2).isSystem()) {
+                                                repositoryObjects.add(repositoryObject);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return repositoryObjects;
+    }
 }
