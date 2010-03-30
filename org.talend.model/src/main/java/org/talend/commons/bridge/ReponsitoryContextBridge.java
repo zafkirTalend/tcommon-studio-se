@@ -38,7 +38,7 @@ public final class ReponsitoryContextBridge {
      * @return the projectName
      */
     public static String getProjectName() {
-        return isDefautProject() ? PROJECT_DEFAULT_NAME : project.getLabel();
+        return isDefautProject() ? PROJECT_DEFAULT_NAME : project.getTechnicalLabel();
     }
 
     /**
