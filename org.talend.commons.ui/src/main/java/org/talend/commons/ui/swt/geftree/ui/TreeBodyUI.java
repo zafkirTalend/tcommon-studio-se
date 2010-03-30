@@ -67,6 +67,7 @@ public abstract class TreeBodyUI {
                         if (exFigure.containsPoint(point.x, point.y)) {
                             TreeBranch parent = exFigure.getParent();
                             parent.doExpandCollapse(parent);
+                            break;
                         }
                     }
                 }
