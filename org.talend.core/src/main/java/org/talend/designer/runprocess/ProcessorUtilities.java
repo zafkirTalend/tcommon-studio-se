@@ -348,7 +348,8 @@ public class ProcessorUtilities {
                         }
                     }
                     subJobInfo.setFatherJobInfo(jobInfo);
-
+                    // add sub jobitem, by nma, order 12345
+                    subJobInfo.setProcessItem(processItem);
                     if (!jobList.contains(subJobInfo)) {
                         processItems.add(processItem);
                         // children won't have stats / traces
