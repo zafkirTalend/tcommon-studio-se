@@ -35,6 +35,13 @@ public class ResumeUtil {
 
     ResumeCommonInfo commonInfo = null;
 
+    // this is for tuj bug:10586
+    private static boolean genDynamicPart = true;
+
+    public static void setGenDynamicPart(boolean genDynamicPart) {
+        ResumeUtil.genDynamicPart = genDynamicPart;
+    }
+
     // it is a flag, all jobs(parentjob/childjob) with the same root_pid will
     // share only one FileWriter.
     String root_pid = null;
@@ -66,10 +73,12 @@ public class ResumeUtil {
 
                 // output the header part
                 if (file.length() == 0) {
-                    csvWriter.write("eventDate");// eventDate--------------->???
-                    csvWriter.write("pid");// pid
-                    csvWriter.write("root_pid");// root_pid
-                    csvWriter.write("father_pid");// father_pid
+                    if (genDynamicPart) {
+                        csvWriter.write("eventDate");// eventDate--------------->???
+                        csvWriter.write("pid");// pid
+                        csvWriter.write("root_pid");// root_pid
+                        csvWriter.write("father_pid");// father_pid
+                    }
                     csvWriter.write("type");// type---------------->???
                     csvWriter.write("partName");// partName
                     csvWriter.write("parentPart");// parentPart
@@ -120,10 +129,12 @@ public class ResumeUtil {
         JobLogItem item = new JobLogItem(eventDate, type, partName, parentPart, threadId, logPriority, errorCode, message,
                 stackTrace, dynamicData);
         try {
-            csvWriter.write(item.eventDate);// eventDate--------------->???
-            csvWriter.write(commonInfo.pid);// pid
-            csvWriter.write(commonInfo.root_pid);// root_pid
-            csvWriter.write(commonInfo.father_pid);// father_pid
+            if (genDynamicPart) {
+                csvWriter.write(item.eventDate);// eventDate--------------->???
+                csvWriter.write(commonInfo.pid);// pid
+                csvWriter.write(commonInfo.root_pid);// root_pid
+                csvWriter.write(commonInfo.father_pid);// father_pid
+            }
             csvWriter.write(item.type);// type---------------->???
             csvWriter.write(item.partName);// partName
 
