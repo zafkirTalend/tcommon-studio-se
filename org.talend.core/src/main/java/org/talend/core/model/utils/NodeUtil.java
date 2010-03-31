@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.INode;
@@ -400,6 +402,19 @@ public class NodeUtil {
                     getLinkedMergeInfo(connec.getTarget(), map);
                 }
             }
+        }
+    }
+
+    // this is only for bug:11754, and only be used in generating code.
+    public static boolean isDataAutoPropagated(final INode node) {
+        IComponent component = node.getComponent();
+        // if it is tJavaFlex, use the property Version_V2_0 to instead the DATA_AUTO_PROPAGATE="false" config
+        // in tJavaFlex_java.xml
+        if (component.getName().compareTo("tJavaFlex") == 0) {
+            boolean isVersionV20 = "true".equals(ElementParameterParser.getValue(node, "__Version_V2_0__"));
+            return isVersionV20;
+        } else {
+            return component.isDataAutoPropagated();
         }
     }
 }
