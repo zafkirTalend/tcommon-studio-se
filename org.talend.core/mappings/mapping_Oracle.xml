@@ -22,7 +22,7 @@
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BINARY_DOUBLE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TIMESTAMP" defaultLength="6" ignoreLen="false" ignorePre="true"/>
+			<dbType type="TIMESTAMP" defaultPrecision="6" ignoreLen="true" ignorePre="false"/>
 			<dbType type="BLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="CLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="BFILE" ignoreLen="true" ignorePre="true"/>
