@@ -20,6 +20,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.update.IUpdateManager;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
@@ -96,5 +97,7 @@ public interface IProcess2 extends IProcess {
 
     // for tmap to add a "Error Reject"
     public void addUniqueConnectionName(String uniqueConnectionName, boolean needValidate);
+
+    public List<NodeType> getUnloadedNode();
 
 }
