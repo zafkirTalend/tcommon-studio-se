@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.ui.image;
 
-
 /**
  * 
  * DOC smallet ImageProvider class global comment. Detailled comment <br/>
@@ -28,6 +27,7 @@ public enum EImage implements IImage {
     SAVE_ICON("/icons/save.png"), //$NON-NLS-1$
     COPY_ICON("/icons/copy.gif"), //$NON-NLS-1$
     PASTE_ICON("/icons/paste.gif"), //$NON-NLS-1$
+    DUPLICATE_ICON("/icons/duplicate.png"), //$NON-NLS-1$
     CUT_ICON("/icons/cut.png"), //$NON-NLS-1$
     DELETE_ICON("/icons/delete.gif"), //$NON-NLS-1$
     RESTORE_ICON("/icons/add.gif"), //$NON-NLS-1$
@@ -45,6 +45,8 @@ public enum EImage implements IImage {
 
     IMPORT_ICON("/icons/import.gif"), //$NON-NLS-1$
     EXPORT_ICON("/icons/export.gif"), //$NON-NLS-1$
+    EXPORT_JOB_ICON("/icons/export_job.png"), //$NON-NLS-1$
+    EXPORT_HTML_ICON("/icons/export_html.png"), //$NON-NLS-1$
 
     TREE_EXPAND("/icons/tree_expand.gif"), //$NON-NLS-1$
     TREE_COLLAPSE("/icons/tree_collapse.gif"), //$NON-NLS-1$
@@ -109,9 +111,8 @@ public enum EImage implements IImage {
 
     COMPONENT_MISSING("/icons/component_missing.gif"), //$NON-NLS-1$
 
-    FILTER_ICON("/icons/filter.gif"), //$NON-NLS-1$
-
-    FILTER_USED_ICON("/icons/filter_used.gif");//$NON-NLS-1$
+    FILTER_DEACTIVED_ICON("/icons/filter_deactivated.png"), //$NON-NLS-1$
+    FILTER_ACTIVED_ICON("/icons/filter_activated.png");//$NON-NLS-1$
 
     private String path;
 
