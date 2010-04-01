@@ -163,7 +163,7 @@ public class StringUtils {
                     if (entirelyMatch) {
                         String upperSrc = caseSensitive ? src : src.toUpperCase();
                         String upperSearch = caseSensitive ? search : search.toUpperCase();
-                        return upperSrc.equals(upperSearch) ? replacement : search;
+                        return upperSrc.equals(upperSearch) ? replacement : src;
                     } else {
                         int flag = caseSensitive ? Pattern.LITERAL : Pattern.LITERAL | Pattern.CASE_INSENSITIVE;
                         return Pattern.compile(search, flag).matcher(src).replaceAll(Matcher.quoteReplacement(replacement));
