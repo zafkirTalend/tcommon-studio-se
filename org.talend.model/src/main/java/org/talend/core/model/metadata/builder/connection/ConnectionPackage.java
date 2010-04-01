@@ -5479,13 +5479,22 @@ public interface ConnectionPackage extends EPackage {
     int SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET = CONNECTION_FEATURE_COUNT + 13;
 
     /**
+     * The feature id for the '<em><b>Time Out</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION__TIME_OUT = CONNECTION_FEATURE_COUNT + 14;
+
+    /**
      * The number of structural features of the '<em>Salesforce Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 14;
+    int SALESFORCE_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 15;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
@@ -8937,6 +8946,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSalesforceSchemaConnection_UseAlphbet();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut <em>Time Out</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Time Out</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut()
+     * @see #getSalesforceSchemaConnection()
+     * @generated
+     */
+    EAttribute getSalesforceSchemaConnection_TimeOut();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -11171,6 +11191,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET = eINSTANCE.getSalesforceSchemaConnection_UseAlphbet();
+
+        /**
+         * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SALESFORCE_SCHEMA_CONNECTION__TIME_OUT = eINSTANCE.getSalesforceSchemaConnection_TimeOut();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.

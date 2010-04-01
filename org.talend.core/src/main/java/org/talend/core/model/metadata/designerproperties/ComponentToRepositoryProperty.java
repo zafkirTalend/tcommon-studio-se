@@ -1486,6 +1486,13 @@ public class ComponentToRepositoryProperty {
             }
 
         }
+        if ("TIMEOUT".equals(repositoryValue)) { //$NON-NLS-1$
+            String value = getParameterValue(node, "TIMEOUT"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setTimeOut(value);
+            }
+
+        }
     }
 
     /**

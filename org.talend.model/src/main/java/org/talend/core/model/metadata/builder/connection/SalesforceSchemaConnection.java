@@ -29,6 +29,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize <em>Batch Size</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy <em>Use Http Proxy</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut <em>Time Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -401,5 +402,31 @@ public interface SalesforceSchemaConnection extends Connection {
      * @generated
      */
     void setUseAlphbet(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Time Out</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Time Out</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Time Out</em>' attribute.
+     * @see #setTimeOut(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSalesforceSchemaConnection_TimeOut()
+     * @model
+     * @generated
+     */
+    String getTimeOut();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut <em>Time Out</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Time Out</em>' attribute.
+     * @see #getTimeOut()
+     * @generated
+     */
+    void setTimeOut(String value);
 
 } // SalesforceSchemaConnection

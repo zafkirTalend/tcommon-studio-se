@@ -18,13 +18,17 @@ package org.talend.repository.preview;
  */
 public class SalesforceSchemaBean {
 
+    public static final int DEFAULT_TIME_OUT = 60000;
+
+    public static final int DEFAULT_BATCH_SIZE = 250;
+
     private String webServerUrl = null;
 
     private String userName = null;
 
     private String password = null;
 
-    private String batchSize = null;
+    private String batchSize = String.valueOf(DEFAULT_BATCH_SIZE);
 
     private String moduleName = null;
 
@@ -43,6 +47,8 @@ public class SalesforceSchemaBean {
     private String proxyUsername = null;
 
     private String proxyPassword = null;
+
+    private int timeOut = DEFAULT_TIME_OUT;
 
     /**
      * Getter for webServerUrl.
@@ -197,6 +203,14 @@ public class SalesforceSchemaBean {
 
     public void setUesHttp(boolean uesHttp) {
         this.uesHttp = uesHttp;
+    }
+
+    public int getTimeOut() {
+        return this.timeOut;
+    }
+
+    public void setTimeOut(int timeOut) {
+        this.timeOut = timeOut;
     }
 
 }

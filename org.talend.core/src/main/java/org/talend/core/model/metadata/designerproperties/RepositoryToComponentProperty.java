@@ -364,6 +364,12 @@ public class RepositoryToComponentProperty {
             } else {
                 return TalendTextUtils.addQuotes(connection.getProxyPassword());
             }
+        } else if ("TIMEOUT".equals(value)) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getTimeOut())) {
+                return connection.getTimeOut();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getTimeOut());
+            }
         }
         return null;
     }

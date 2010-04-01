@@ -36,6 +36,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getBatchSize <em>Batch Size</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseHttpProxy <em>Use Http Proxy</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#isUseAlphbet <em>Use Alphbet</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl#getTimeOut <em>Time Out</em>}</li>
  * </ul>
  * </p>
  *
@@ -321,6 +322,26 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * @ordered
      */
     protected boolean useAlphbet = USE_ALPHBET_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTimeOut()
+     * @generated
+     * @ordered
+     */
+    protected static final String TIME_OUT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTimeOut()
+     * @generated
+     * @ordered
+     */
+    protected String timeOut = TIME_OUT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -639,6 +660,27 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getTimeOut() {
+        return timeOut;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTimeOut(String newTimeOut) {
+        String oldTimeOut = timeOut;
+        timeOut = newTimeOut;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT, oldTimeOut, timeOut));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
@@ -669,6 +711,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return isUseHttpProxy() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
                 return isUseAlphbet() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+                return getTimeOut();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -721,6 +765,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
                 setUseAlphbet(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+                setTimeOut((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -775,6 +822,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
                 setUseAlphbet(USE_ALPHBET_EDEFAULT);
                 return;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+                setTimeOut(TIME_OUT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -814,6 +864,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
                 return useHttpProxy != USE_HTTP_PROXY_EDEFAULT;
             case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
                 return useAlphbet != USE_ALPHBET_EDEFAULT;
+            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+                return TIME_OUT_EDEFAULT == null ? timeOut != null : !TIME_OUT_EDEFAULT.equals(timeOut);
         }
         return super.eIsSet(featureID);
     }
@@ -855,6 +907,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         result.append(useHttpProxy);
         result.append(", useAlphbet: ");
         result.append(useAlphbet);
+        result.append(", timeOut: ");
+        result.append(timeOut);
         result.append(')');
         return result.toString();
     }
