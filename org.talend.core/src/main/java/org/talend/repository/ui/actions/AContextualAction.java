@@ -461,11 +461,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         this.specialSelectionProvider = selectionProvider;
     }
 
-    /*
-     * final method to force only doRun implementation
-     */
     @Override
-    public final void run() {
+    public void run() {
         String name = "User action : " + getText(); //$NON-NLS-1$
         RepositoryWorkUnit<Object> repositoryWorkUnit = new RepositoryWorkUnit<Object>(name, this) {
 
