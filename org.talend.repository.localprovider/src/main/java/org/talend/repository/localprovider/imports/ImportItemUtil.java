@@ -743,7 +743,7 @@ public class ImportItemUtil {
                 ItemRecord itemRecord = computeItemRecord(collector, path);
                 if (itemRecord.getProperty() != null) {
                     items.add(itemRecord);
-                    if (ERepositoryObjectType.getItemType(itemRecord.getItem()) == ERepositoryObjectType.TDQ_ELEMENT) {
+                    if (itemRecord.isTOPItem()) {
                         itemRecord.setItemProjectVersion(tdqVersion);
                     }
                     if (checkItem(itemRecord, overwrite, itemsFromRepository) && !itemRecord.isPureTOPItem()) {
@@ -757,7 +757,11 @@ public class ImportItemUtil {
                         if (projectFilePath != null) {
                             Project project = computeProject(collector, itemRecord, projectFilePath);
                             if (checkProject(project, itemRecord)) {
-                                treeBuilder.addItem(project, itemRecord);
+
+                                // hide top items in import/export ui in tos.
+                                if (!itemRecord.isTOPItem()) {
+                                    treeBuilder.addItem(project, itemRecord);
+                                }
 
                                 // set item project into record.
                                 itemRecord.setItemProject(project);

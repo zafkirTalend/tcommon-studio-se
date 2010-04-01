@@ -253,6 +253,10 @@ public class ItemRecord {
         return itemProject;
     }
 
+    public boolean isTOPItem() {
+        return ERepositoryObjectType.getItemType(getItem()) == ERepositoryObjectType.TDQ_ELEMENT;
+    }
+
     public boolean isPureTOPItem() {
         return path != null && path.toString().indexOf(ReponsitoryContextBridge.PROJECT_DEFAULT_NAME) > 0;
     }
