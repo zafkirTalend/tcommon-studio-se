@@ -42,10 +42,12 @@ public class EmfHelper {
      * 
      */
     public static final String STRING_MAX_SIZE_ANNOTATION_KEY = "string.max.size";
+
     /**
      * 
      */
     public static final String UI_CONSTRAINTS_ANNOTATION_URL = "htttp://talend.org/UiConstraints";
+
     private static Logger log = Logger.getLogger(EmfHelper.class);
 
     /**
@@ -160,19 +162,16 @@ public class EmfHelper {
         } catch (IOException e) {
             throw new PersistenceException(e);
         } catch (RuntimeException e) {
-            e.printStackTrace();
+            // MOD sgandon 31/03/2010 : removed print stack trace to use log4j warn in log
+            log.warn("could not save resource: " + resource.getURI() + "\nLet us try to save using xml version 1.1", e);
             // if use the xml version 1.0 to store failed, try to use the xml
             // version 1.1 to store again
-            if (e.getMessage() != null && e.getMessage().contains("An invalid XML character")) { //$NON-NLS-1$
-                HashMap options = new HashMap(2);
-                options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-                options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
-                try {
-                    resource.save(options);
-                } catch (IOException e1) {
-                    throw new PersistenceException(e);
-                }
-            } else {
+            HashMap options = new HashMap(2);
+            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+            options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+            try {
+                resource.save(options);
+            } catch (IOException e1) {
                 throw new PersistenceException(e);
             }
         }
