@@ -127,6 +127,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         // separator
         Element separatorTD = dom.createElement("td");
         separatorTD.setAttribute("bgcolor", "#676767");
+        separatorTD.setAttribute("width", "1");
         separatorTD.appendChild(dom.createElement("div"));
         parent.appendChild(separatorTD);
 
@@ -136,6 +137,13 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         Element div = dom.createElement("div");
         div.setAttribute("style", "overflow:auto;height:400px;width:220px;padding-left:20px;");
         tdElem.appendChild(div);
+        
+        Element spanElem = dom.createElement("span");
+        spanElem.setAttribute("class", "style_1 style_2 style_3");
+        spanElem.appendChild(dom.createTextNode("Talend news"));
+        div.appendChild(spanElem);
+        div.appendChild(dom.createElement("br"));
+        
         Element p = dom.createElement("p");
         div.appendChild(p);
         Element strong = dom.createElement("strong");
