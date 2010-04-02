@@ -821,11 +821,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (IRepositoryObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = getProject().getFullPath().append(completeNewPath).append(resource.getURI().lastSegment());
-                xmiResourceManager.moveResource(resource, path);
+                xmiResourceManager.saveResource(resource);
             }
             for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
+                IPath path = getProject().getFullPath().append(completeNewPath).append(resource.getURI().lastSegment());
+                xmiResourceManager.moveResource(resource, path);
             }
         }
 
@@ -896,18 +896,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         List<IRepositoryObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
-            ItemState state = objToDelete.getProperty().getItem().getState();
+            ItemState state = currentVersion.getProperty().getItem().getState();
             state.setDeleted(true);
             xmiResourceManager.saveResource(state.eResource());
 
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
             for (Resource resource : affectedResources) {
+                xmiResourceManager.saveResource(resource);
+            }
+            for (Resource resource : affectedResources) {
                 IPath path = URIHelper.convert(resource.getURI());
                 IPath newPath = bin.getFullPath().append(path.lastSegment());
                 xmiResourceManager.moveResource(resource, newPath);
-            }
-            for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
             }
         }
     }
@@ -948,14 +948,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
             for (Resource resource : affectedResources) {
-                IPath originalPath = URIHelper.convert(resource.getURI());
-                String path2 = itemState.getPath();
-                itemState.setPath(path.toString());
-                IPath finalPath = typeRootFolder.getFullPath().append(path).append(originalPath.lastSegment());
-                xmiResourceManager.moveResource(resource, finalPath);
+                xmiResourceManager.saveResource(resource);
             }
             for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
+                IPath originalPath = URIHelper.convert(resource.getURI());
+                IPath finalPath = typeRootFolder.getFullPath().append(path).append(originalPath.lastSegment());
+                xmiResourceManager.moveResource(resource, finalPath);
             }
         }
 
@@ -981,11 +979,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(obj.getProperty());
             for (Resource resource : affectedResources) {
-                IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
-                xmiResourceManager.moveResource(resource, path);
+                xmiResourceManager.saveResource(resource);
             }
             for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
+                IPath path = folder.getFullPath().append(resource.getURI().lastSegment());
+                xmiResourceManager.moveResource(resource, path);
             }
         }
     }
