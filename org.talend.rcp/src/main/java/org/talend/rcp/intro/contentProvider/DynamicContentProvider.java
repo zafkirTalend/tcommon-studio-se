@@ -109,7 +109,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
         HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL("http://www.talend.com");
+            URL url = new URL("http://www.talend.com/builtin_news/index.html");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setDoOutput(true);
@@ -124,18 +124,15 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         } finally {
             urlConnection.disconnect();
         }
-        // separator
-        Element separatorTD = dom.createElement("td");
-        separatorTD.setAttribute("bgcolor", "#676767");
-        separatorTD.setAttribute("width", "1");
-        separatorTD.appendChild(dom.createElement("div"));
-        parent.appendChild(separatorTD);
-
+        
         // online content
+        
         Element tdElem = dom.createElement("td");
+        tdElem.setAttribute("class", "separator");
         parent.appendChild(tdElem);
+        
         Element div = dom.createElement("div");
-        div.setAttribute("style", "overflow:auto;height:400px;width:220px;padding-left:20px;");
+        div.setAttribute("style", "overflow:auto;height:400px;width:260px;padding-left:20px;");
         tdElem.appendChild(div);
         
         Element spanElem = dom.createElement("span");
@@ -143,143 +140,14 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         spanElem.appendChild(dom.createTextNode("Talend news"));
         div.appendChild(spanElem);
         div.appendChild(dom.createElement("br"));
-        
-        Element p = dom.createElement("p");
-        div.appendChild(p);
-        Element strong = dom.createElement("strong");
-        p.appendChild(strong);
-        strong.appendChild(dom.createTextNode("Talend Receives Intelligent Enterprise Editors' Choice Award - February 2010"));
-        p.appendChild(dom.createElement("br"));
-        Element img = dom.createElement("img");
-        img.setAttribute("src", "http://www.talend.com/img/home/2010_IE_edchoice_ctw.jpg");
-        img.setAttribute("alt", "Talend Receives Intelligent Enterprise Editors' Choice Award");
-        img.setAttribute("vspace", "1");
-        img.setAttribute("align", "left");
-        p.appendChild(img);
-        p.appendChild(dom.createTextNode("With \"its sights set on MDM\" "
-                + "Talend received the Intelligent Enterprise Editors' " + "Choice Award for \"democratizing data integration\" "
-                + "and \"making data integration and data quality management more affordable.\""));
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        Element a = dom.createElement("a");
-        a.setAttribute("href", "http://intelligent-enterprise.informationweek.com/"
-                + "showArticle.jhtml;jsessionid=OJ1CNZZDCSTHNQE1GHPSKHWATMY32JVN?articleID=222880034&amp;pgno=5");
-        a.setAttribute("target", "_blank");
-        a.setAttribute("title", "Talend Receives Intelligent Enterprise Editors' Choice Award");
-        a.appendChild(dom.createTextNode("Read more"));
-        p.appendChild(a);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        strong = dom.createElement("strong");
-        strong.appendChild(dom.createTextNode("Talend named Visionary in Gartner Magic Quadrant - December 2009"));
-        p.appendChild(strong);
-        img = dom.createElement("img");
-        img.setAttribute("src", "http://www.talend.com/img/home/logo_gartner.jpg");
-        img.setAttribute("alt", "Talend UK Partner Summit 2010");
-        img.setAttribute("vspace", "1");
-        img.setAttribute("align", "left");
-        p.appendChild(img);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        p.appendChild(dom.createTextNode("Talend is positioned as Visionary in the Gartner "
-                + "Magic Quadrant for Data Integration Tools."
-                + " Talend is happy to provide you complimentary access to the full report."));
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        a = dom.createElement("a");
-        a.setAttribute("href",
-                "http://www.talend.com/press/Talend-Positioned-as-a-Visionary-in-Magic-Quadrant-for-Data-Integration-Tools.php");
-        a.setAttribute("title", "Talend named Visionary in Gartner Magic Quadrant");
-        a.appendChild(dom.createTextNode("Read more"));
-        p.appendChild(a);
-        p.appendChild(dom.createTextNode(" | "));
-        a = dom.createElement("a");
-        a.setAttribute("href", "http://www.talend.com/campaign/campaign.php?id=137&amp;src=HomepageSpecial");
-        a.setAttribute("title", "Request Access to Gartner's Magic Quadrant for Data Integration Tools");
-        a.appendChild(dom.createTextNode("Access the report now!"));
-        p.appendChild(a);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        strong = dom.createElement("strong");
-        strong.appendChild(dom.createTextNode("Talend Named Open Source Company to Watch by Network World - November 2009"));
-        p.appendChild(strong);
-
-        img = dom.createElement("img");
-        img.setAttribute("src", "http://www.talend.com/img/home/logo_networkworld.jpg");
-        img.setAttribute("alt", "Talend Named Open Source Company to Watch by Network World");
-        img.setAttribute("vspace", "1");
-        img.setAttribute("align", "left");
-        p.appendChild(img);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        p.appendChild(dom.createTextNode("Network World named Talend an Open Source "
-                + "Company to Watch. According to the publication, "
-                + "Talend is worth watching because it started with data integration"
-                + " then added data quality and Master Data Management (MDM), which is the first open source MDM."));
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        a = dom.createElement("a");
-        a.setAttribute("href", "http://www.networkworld.com/slideshows/2009/110909-open-source-companies-list.html#slide11");
-        a.setAttribute("target", "_blank");
-        a.setAttribute("title", "Talend Named Open Source Company to Watch by Network World");
-        a.appendChild(dom.createTextNode("Read more"));
-        p.appendChild(a);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        strong = dom.createElement("strong");
-        strong.appendChild(dom.createTextNode("Talend MDM is Available - Download it Now!"));
-        p.appendChild(strong);
-        p.appendChild(dom.createElement("br"));
-        img = dom.createElement("img");
-        img.setAttribute("src", "http://www.talend.com/img/home/talendMDM.jpg");
-        img.setAttribute("alt", "Talend MDM is Available - Download it Now!");
-        img.setAttribute("vspace", "2");
-        img.setAttribute("align", "left");
-        p.appendChild(img);
-        p.appendChild(dom.createTextNode("The most complete open source master "
-                + "data management solution, Talend MDM provides Enterprise-grade"
-                + " features to synchronize, quality-assure and provide a single version "
-                + "of master data throughout and across the organization's systems."));
-
-        p = dom.createElement("p");
-        div.appendChild(p);
-        a = dom.createElement("a");
-        a.setAttribute("href", "http://www.talend.com/master-data-management/talend-mdm.php");
-        a.setAttribute("title", "Discover its features and benefits");
-        a.appendChild(dom.createTextNode("Discover its features and benefits"));
-        p.appendChild(a);
-        p.appendChild(dom.createTextNode(", "));
-        a = dom.createElement("a");
-        a.setAttribute("href", "http://www.talend.com/download_form.php?cont=mdm&amp;src=HomepageSpecial");
-        a.setAttribute("title", "download Talend MDM Community Edition");
-        a.appendChild(dom.createTextNode("download Talend MDM Community Edition"));
-        p.appendChild(a);
-        p.appendChild(dom.createTextNode(" or "));
-        a = dom.createElement("a");
-        a.setAttribute("href", "http://www.talend.com/campaign/campaign.php?id=135&amp;src=HomepageSpecial");
-        a.setAttribute("title", "download Talend MDM Community Edition");
-        a.appendChild(dom.createTextNode("request more information"));
-        p.appendChild(a);
-
-        p = dom.createElement("p");
-        div.appendChild(p);
+                      
+        Element iFrame = dom.createElement("iframe");
+        iFrame.setAttribute("src", "http://www.talend.com/builtin_news/index.html");
+        iFrame.setAttribute("frameborder","0");
+        iFrame.setAttribute("width","240px");
+        iFrame.setAttribute("height", "370px");
+        iFrame.appendChild(dom.createTextNode(" "));
+        div.appendChild(iFrame);
     }
 
     private List<IRepositoryObject> getLatestModifiedItems(ERepositoryObjectType type, int count) {
