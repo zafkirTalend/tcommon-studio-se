@@ -27,12 +27,6 @@
          <actionSet
                id="org.talend.repository.localprovider.actionSet">
          </actionSet>
-         <actionSet
-         	id="org.talend.repository.bootTalendActionSet">
-         </actionSet>
-         <actionSet
-         	id="org.talend.repository.refproject.mergeReferenceActionSet">
-         </actionSet> 
       </perspectiveExtension>
    </extension>
    
