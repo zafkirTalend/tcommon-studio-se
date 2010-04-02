@@ -275,7 +275,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getFilePath())) {
                 return connection.getFilePath();
             } else {
-                return connection.getFilePath();
+                return TalendTextUtils.addQuotes(connection.getFilePath());
             }
         } else if ("START_MSG".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getStartChar())) {
