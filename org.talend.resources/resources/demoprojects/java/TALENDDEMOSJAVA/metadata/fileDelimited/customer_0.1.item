@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TalendMetadata:DelimitedFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" Server="Localhost 127.0.0.1" FilePath="/home/nfrancisco/Talend/Formations/Foundation/FichiersFormation/customer.csv" Encoding="US-ASCII" FieldSeparatorValue="&quot;;&quot;" RowSeparatorValue="\n" UseHeader="true" HeaderValue="6" FirstLineCaption="true">
+<TalendMetadata:DelimitedFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" Server="Localhost 127.0.0.1" FilePath="/home/nfrancisco/Talend/Formations/Foundation/FichiersFormation/customer.csv" Encoding="US-ASCII" FieldSeparatorValue="&quot;;&quot;" RowSeparatorValue="&quot;\n&quot;" UseHeader="true" HeaderValue="6" FirstLineCaption="true">
   <tables id="_gc2hAC3iEd-gPuaSchhj7Q" label="customer">
     <columns label="id" talendType="id_Integer" key="true" length="2" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>
     <columns label="CustomerName" talendType="id_String" length="255" precision="0" pattern="&quot;dd-MM-yyyy&quot;"/>

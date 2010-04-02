@@ -137,10 +137,6 @@
     <elementParameter field="TEXT" name="HINT" value="__UNIQUE_NAME__" contextMode="false"/>
     <elementParameter field="TEXT" name="CONNECTION_FORMAT" value="row" contextMode="false"/>
     <elementParameter field="MEMO" name="COMMENT" value="" contextMode="false"/>
-    <elementParameter field="CHECK" name="DATA_AUTO_PROPAGATE" value="true"/>
-    <elementParameter field="CHECK" name="Version_V2_0" value="true"/>
-    <elementParameter field="CHECK" name="Version_V3_2" value="false"/>
-    <elementParameter field="CHECK" name="Version_V4.0" value="false"/>
     <metadata comment="" connector="FLOW" name="tJavaFlex_1">
       <column comment="" key="false" length="3" name="number" nullable="false" pattern="" sourceType="" type="id_Integer"/>
       <column comment="" key="false" length="20" name="txt" nullable="false" pattern="" sourceType="" type="id_String"/>
