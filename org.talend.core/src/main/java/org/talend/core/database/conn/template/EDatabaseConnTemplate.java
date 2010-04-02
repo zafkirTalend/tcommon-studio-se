@@ -318,6 +318,11 @@ public enum EDatabaseConnTemplate {
             case INFORMIX:
             case MYSQL:
             case AS400:
+            // for feature 10655
+            case ORACLEFORSID:
+            case ORACLESN:
+            case ORACLE_OCI:
+            case SYBASEASE:
                 return true;
             default:
             }
