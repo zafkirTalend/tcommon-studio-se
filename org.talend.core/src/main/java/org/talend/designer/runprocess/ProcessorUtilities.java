@@ -303,6 +303,7 @@ public class ProcessorUtilities {
                 IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
                 currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
                 jobInfo.setProcess(currentProcess);
+                currentProcess.setProperty(selectedProcessItem.getProperty());
             }
             if (currentProcess == null) {
                 return false;
@@ -348,8 +349,6 @@ public class ProcessorUtilities {
                         }
                     }
                     subJobInfo.setFatherJobInfo(jobInfo);
-                    // add sub jobitem, by nma, order 12345
-                    subJobInfo.setProcessItem(processItem);
                     if (!jobList.contains(subJobInfo)) {
                         processItems.add(processItem);
                         // children won't have stats / traces
@@ -720,13 +719,13 @@ public class ProcessorUtilities {
         if (selectedProcessItem != null) {
             IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
             currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+            currentProcess.setProperty(selectedProcessItem.getProperty());
         }
         if (currentProcess == null) {
             return new String[] {};
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, currentContext);
-
         String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") }; //$NON-NLS-1$ //$NON-NLS-2$
         if (codeOptions != null) {
             for (int i = 0; i < codeOptions.length; i++) {
