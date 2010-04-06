@@ -166,7 +166,8 @@ public class SimpleCache<K, V> {
     public V put(K key, V value) {
         int sizeItems = keysOrderedByPutTime.size();
         if (maxItems > 0 && sizeItems >= maxItems) {
-            keysOrderedByPutTime.remove(0);
+            HashKeyValue<K, V> removedFromList = keysOrderedByPutTime.remove(0);
+            cache.remove(removedFromList);
         }
         if (maxTime != Long.MAX_VALUE) {
             long currentTimeMillis = System.currentTimeMillis();
@@ -174,6 +175,7 @@ public class SimpleCache<K, V> {
                 HashKeyValue<K, V> hashKey = iterator.next();
                 if (hashKey.addTime - currentTimeMillis > maxTime) {
                     iterator.remove();
+                    cache.remove(hashKey);
                 } else {
                     break;
                 }
