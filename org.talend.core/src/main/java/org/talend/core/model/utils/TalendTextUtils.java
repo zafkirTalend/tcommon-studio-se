@@ -334,7 +334,13 @@ public class TalendTextUtils {
             String temp = removeQuotes(fieldName);
             Pattern pattern = Pattern.compile("\\w+"); //$NON-NLS-1$
             Matcher matcher = pattern.matcher(temp);
-            if (!matcher.matches()) {
+
+            // for bug 11938
+            // to see if the table name or column name was start with number
+            Pattern pattern2 = Pattern.compile("^[0-9]+[_0-9a-zA-Z]*$"); //$NON-NLS-1$  
+            Matcher matcher2 = pattern2.matcher(temp);
+
+            if (!matcher.matches() || matcher2.matches()) {
                 isCheck = true; // contain other char
             }
 
