@@ -122,8 +122,13 @@ public class RunTrace implements Runnable {
         pred.println("ID_STATUS"); //$NON-NLS-1$
     }
 
+    private String componentName = "";
+
     public void sendTrace(String componentId, String datas) {
         if (!openSocket) {
+            return;
+        }
+        if (componentId.equals(componentName)) {
             return;
         }
         TraceBean bean;
@@ -137,5 +142,6 @@ public class RunTrace implements Runnable {
 
         str = bean.getComponentId() + "|" + bean.getNbLine() + "|" + datas; //$NON-NLS-1$ //$NON-NLS-2$
         pred.println(str); // envoi d'un message
+        componentName = componentId;
     }
 }
