@@ -4,7 +4,7 @@ public class GetRandomPhoneNum {
 
 
     /**
-     * GetPhone: not return value, only print "hello" + message.
+     * GetPhone: generates randomly a french phone number
      * 
      * 
      * {talendTypes} String
