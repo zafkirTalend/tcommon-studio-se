@@ -26,13 +26,9 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
-import org.epic.core.preferences.PerlMainPreferencePage;
-import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 
@@ -96,12 +92,14 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath.replace("/", "\\"));//$NON-NLS-1$//$NON-NLS-1$ //$NON-NLS-2$
 
-            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-            String prelExecutableValue = store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
-                PerlEditorPlugin.getDefault().setExecutablePreference("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-                PerlMainPreferencePage.refreshExecutableTextValue("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-            }
+            /*
+             * IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore(); String prelExecutableValue =
+             * store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+             * 
+             * if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
+             * PerlEditorPlugin.getDefault().setExecutablePreference("\"" + prelExecutableValue + "\""); //$NON-NLS-1$
+             * PerlMainPreferencePage.refreshExecutableTextValue("\"" + prelExecutableValue + "\"");
+             */
 
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
