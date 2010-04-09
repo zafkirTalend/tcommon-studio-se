@@ -31,6 +31,8 @@ import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 
@@ -96,8 +98,10 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
             IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
             String prelExecutableValue = store.getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-            PerlEditorPlugin.getDefault().setExecutablePreference("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-            PerlMainPreferencePage.refreshExecutableTextValue("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
+                PerlEditorPlugin.getDefault().setExecutablePreference("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+                PerlMainPreferencePage.refreshExecutableTextValue("\"" + prelExecutableValue + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+            }
 
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
