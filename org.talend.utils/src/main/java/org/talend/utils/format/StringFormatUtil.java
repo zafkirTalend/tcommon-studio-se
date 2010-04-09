@@ -141,7 +141,8 @@ public final class StringFormatUtil {
      */
     public static Double parseDouble(Object input) {
         if (input != null) {
-            DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+            // MOD yyi 2010-04-09 12483 Locale.getDefault() to Locale.US
+            DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(Locale.US);
             try {
                 Number number = format.parse(input.toString());
                 return number.doubleValue();
