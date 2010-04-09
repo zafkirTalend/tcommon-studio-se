@@ -188,28 +188,33 @@ class ExportItemWizardPage extends WizardPage {
         // viewer.expandToLevel(4);
 
         addTreeCheckedSelection();
-
         // if user has select some items in repository view, mark them as checked
         if (!selection.isEmpty()) {
             // for bug 10969
             Set<RepositoryNode> newSelection = new HashSet<RepositoryNode>();
             for (RepositoryNode currentNode : (List<RepositoryNode>) selection.toList()) {
                 List<IRepositoryObject> objects = null;
-                try {
-                    objects = exportItemsTreeViewer.getAll(currentNode.getObjectType());
-                } catch (IllegalArgumentException e) {
-                    // do nothing
-                    objects = new ArrayList<IRepositoryObject>();
-                }
-                for (IRepositoryObject nodeToSelect : objects) {
-                    if (currentNode.getId().equals(nodeToSelect.getRepositoryNode().getId())) {
-                        newSelection.add(nodeToSelect.getRepositoryNode());
+                if (currentNode.getContentType() == null) {
+                    try {
+                        objects = exportItemsTreeViewer.getAll(currentNode.getObjectType());
+                    } catch (IllegalArgumentException e) {
+                        // do nothing
+                        objects = new ArrayList<IRepositoryObject>();
                     }
+
+                    for (IRepositoryObject nodeToSelect : objects) {
+                        if (currentNode.getId().equals(nodeToSelect.getRepositoryNode().getId())) {
+                            newSelection.add(nodeToSelect.getRepositoryNode());
+                        }
+                    }
+                } else {
+                    newSelection.add(currentNode);
                 }
             }
 
             repositoryNodes.addAll(newSelection);
             repositoryNodes.addAll(checkedNodes);
+
             Set<RepositoryNode> nodes = new HashSet<RepositoryNode>();
 
             for (RepositoryNode node : repositoryNodes) {
@@ -217,6 +222,7 @@ class ExportItemWizardPage extends WizardPage {
                 expandParent(viewer, node);
                 checkElement(node, nodes);
             }
+
             ((CheckboxTreeViewer) viewer).setCheckedElements(nodes.toArray());
         }
     }
@@ -244,7 +250,6 @@ class ExportItemWizardPage extends WizardPage {
             return;
         }
         ERepositoryObjectType objectType = node.getObjectType();
-
         Property property = null;
         if (objectType != null) {
             switch (objectType) {
