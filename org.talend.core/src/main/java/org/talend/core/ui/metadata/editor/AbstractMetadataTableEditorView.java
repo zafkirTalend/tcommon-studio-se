@@ -216,7 +216,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         //
         // /* (non-Javadoc)
         // * @see
-        //org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent#initialize(org.eclipse.swt.widgets.Table,
+        // org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent#initialize(org.eclipse.swt.widgets.Table,
         // org.eclipse.swt.custom.TableEditor,
         // org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn,
         // java.lang.Object, java.lang.Object)
@@ -331,7 +331,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setWeight(10);
         column.setMinimumWidth(10);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory
-                .getPositiveIntAdapter());
+                .getPositiveIntAdapter(true));
     }
 
     /**

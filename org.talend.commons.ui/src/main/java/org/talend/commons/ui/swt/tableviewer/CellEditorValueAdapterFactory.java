@@ -28,6 +28,10 @@ import org.talend.commons.ui.swt.tableviewer.behavior.ComboEditorValueAdapter;
 public class CellEditorValueAdapterFactory {
 
     public static CellEditorValueAdapter getPositiveIntAdapter() {
+        return getPositiveIntAdapter(false);
+    }
+
+    public static CellEditorValueAdapter getPositiveIntAdapter(final boolean emptyForNull) {
 
         CellEditorValueAdapter positiveIntValueAdapter = new CellEditorValueAdapter() {
 
@@ -39,6 +43,9 @@ public class CellEditorValueAdapterFactory {
                     }
                     return integer;
                 } catch (Exception ex) {
+                    if (emptyForNull) {
+                        return null;
+                    }
                     return 0;
                 }
             }
@@ -54,8 +61,9 @@ public class CellEditorValueAdapterFactory {
             /*
              * (non-Javadoc)
              * 
-             * @see org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor,
-             * java.lang.Object)
+             * @see
+             * org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter#getColumnText(org.eclipse.jface
+             * .viewers.CellEditor, java.lang.Object)
              */
             @Override
             public String getColumnText(CellEditor cellEditor, Object bean, Object cellEditorTypedValue) {
