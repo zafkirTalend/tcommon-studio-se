@@ -7,7 +7,12 @@ use Data::Dumper;
 use Term::Prompt;
 use File::Path;
 
+# set English locale
+$ENV{'LANG'} = "en_US.utf8";
+$ENV{'LC_ALL'}="en_US.utf8";
+
 my $svncommand = "/usr/bin/svn";
+
 
 #check svn version
 my $svnversioncommand = $svncommand." --version";
