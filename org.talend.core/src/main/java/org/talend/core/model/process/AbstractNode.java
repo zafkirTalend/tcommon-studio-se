@@ -60,9 +60,9 @@ public abstract class AbstractNode implements INode {
 
     private IExternalNode externalNode;
 
-    private Boolean hasConditionalOutputs = Boolean.FALSE;
+    private boolean hasConditionalOutputs = Boolean.FALSE;
 
-    private Boolean isMultiplyingOutputs = Boolean.FALSE;
+    private boolean isMultiplyingOutputs = Boolean.FALSE;
 
     private List<BlockCode> blocksCodeToClose;
 
@@ -289,7 +289,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#hasConditionnalOutputs()
      */
-    public Boolean hasConditionalOutputs() {
+    public boolean hasConditionalOutputs() {
         return this.hasConditionalOutputs;
     }
 
@@ -307,7 +307,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @return the isMultiplyingOutputs
      */
-    public Boolean isMultiplyingOutputs() {
+    public boolean isMultiplyingOutputs() {
         return isMultiplyingOutputs;
     }
 

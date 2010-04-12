@@ -88,11 +88,11 @@ public interface INode extends IElement {
 
     public String getPluginFullName();
 
-    public Boolean hasConditionalOutputs();
+    public boolean hasConditionalOutputs();
 
     public List<BlockCode> getBlocksCodeToClose();
 
-    public Boolean isMultiplyingOutputs();
+    public boolean isMultiplyingOutputs();
 
     /**
      * Set performance data on this node.
