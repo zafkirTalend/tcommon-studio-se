@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,8 @@ import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MultiSchemasUtil;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -46,6 +49,7 @@ import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
@@ -60,6 +64,7 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTypeMode;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.utils.KeywordsValidator;
@@ -1163,6 +1168,72 @@ public class RepositoryToComponentProperty {
         }
     }
 
+    public static void getTableXMLMappingValue(Connection connection, List<Map<String, Object>> tableInfo, INode node) {
+        List<IMetadataTable> metaTables = node.getMetadataList();
+
+        if (connection instanceof XmlFileConnection || connection instanceof MDMConnection) {
+            getTableXMLMappingValue(connection, tableInfo, metaTables.get(0));
+        } else if (connection instanceof HL7Connection) {
+            List<IMetadataTable> newMetaTables = new ArrayList<IMetadataTable>(metaTables);
+            HL7Connection hl7Connection = (HL7Connection) connection;
+            tableInfo.clear();
+            for (MetadataTable repTable : (List<MetadataTable>) connection.getTables()) {
+                IMetadataTable metaTable = null;
+                Iterator<IMetadataTable> iterator = newMetaTables.iterator();
+                while (iterator.hasNext()) {
+                    IMetadataTable nodeTable = iterator.next();
+                    if (repTable.getLabel() != null && repTable.getLabel().equals(nodeTable.getLabel())) {
+                        metaTable = nodeTable;
+                        iterator.remove();
+                        break;
+                    }
+                }
+                String xpathValue = "";
+                for (MetadataColumn col : (List<MetadataColumn>) repTable.getColumns()) {
+                    String original = col.getOriginalField();
+                    if (original != null && !"".equals(original)) {
+                        if (original.indexOf(TalendTextUtils.LBRACKET) != -1) {
+                            original = original.substring(0, original.indexOf(TalendTextUtils.LBRACKET));
+                        }
+                        original = TalendTextUtils.addQuotes(original);
+                        xpathValue += original;
+                    }
+                    if (repTable.getColumns().indexOf(col) < repTable.getColumns().size() - 1) {
+                        xpathValue += ",";
+                    }
+                }
+                Map<String, Object> map = new HashMap<String, Object>();
+                if (metaTable != null) {
+                    map.put("SCHEMA", metaTable.getTableName());
+
+                } else {
+                    IMetadataTable convert = ConvertionHelper.convert(repTable);
+                    String uinqueTableName = node.getProcess().generateUniqueConnectionName(
+                            MultiSchemasUtil.getConnectionBaseName((String) repTable.getLabel()));
+                    convert.setTableName(uinqueTableName);
+                    // IProxyRepositoryFactory factory =
+                    // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+                    // IMetadataTable newMetadata = new org.talend.core.model.metadata.MetadataTable();
+                    // newMetadata.setAttachedConnector(EConnectionType.FLOW_MAIN.getName());
+                    // newMetadata.setTableName(uinqueTableName);
+                    node.getProcess().addUniqueConnectionName(uinqueTableName);
+                    node.getMetadataList().add(convert);
+                    map.put("SCHEMA", uinqueTableName);
+                }
+                map.put("MAPPING", xpathValue);
+                tableInfo.add(map);
+
+            }
+            if (!newMetaTables.isEmpty()) {
+                metaTables.removeAll(newMetaTables);
+                for (IMetadataTable table : newMetaTables) {
+                    node.getProcess().removeUniqueConnectionName(table.getTableName());
+                }
+            }
+        }
+
+    }
+
     public static void getTableXmlFileValue(Connection connection, String value, IElementParameter param,
             List<Map<String, Object>> tableInfo, IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
@@ -1347,8 +1418,13 @@ public class RepositoryToComponentProperty {
      * @param metadataTable
      * @return
      */
-    public static List<Map<String, Object>> getXMLMappingValue(Connection connection, IMetadataTable metadataTable) {
+    public static List<Map<String, Object>> getXMLMappingValue(Connection connection, List<IMetadataTable> metadataTables) {
+        if (metadataTables == null || metadataTables.isEmpty()) {
+            return new ArrayList<Map<String, Object>>();
+        }
+
         if (connection instanceof XmlFileConnection) {
+            IMetadataTable metadataTable = metadataTables.get(0);
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
             EList objectList = xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
@@ -1373,6 +1449,7 @@ public class RepositoryToComponentProperty {
             }
         }
         if (connection instanceof MDMConnection) {
+            IMetadataTable metadataTable = metadataTables.get(0);
             MDMConnection xmlConnection = (MDMConnection) connection;
             EList objectList = xmlConnection.getSchemas();
             if (metadataTable != null) {
@@ -1401,27 +1478,34 @@ public class RepositoryToComponentProperty {
         if (connection instanceof HL7Connection) {
             HL7Connection hl7Connection = (HL7Connection) connection;
             EList objectList = hl7Connection.getTables();
-            if (metadataTable != null) {
+            List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+            for (IMetadataTable tableOfNode : metadataTables) {
+                Map<String, Object> map = new HashMap<String, Object>();
                 for (MetadataTable table : (List<MetadataTable>) objectList) {
-                    // test if sourcename is null, this is only for compatibility with first mdm repository released.
-                    if (table != null && (table.getLabel() == null || table.getLabel().equals(metadataTable.getLabel()))) {
-                        List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        // map.put("MAPPING", null); //$NON-NLS-1$
-
+                    if (table != null && (table.getLabel() == null || table.getLabel().equals(tableOfNode.getLabel()))) {
                         String xpathValue = "";
-                        for (IMetadataColumn col : metadataTable.getListColumns()) {
-                            xpathValue += col.getOriginalDbColumnName();
-                            if (metadataTable.getListColumns().indexOf(col) != metadataTable.getListColumns().size()) {
+                        for (MetadataColumn col : (List<MetadataColumn>) table.getColumns()) {
+                            String original = col.getOriginalField();
+                            if (original != null && !"".equals(original)) {
+                                if (original.indexOf(TalendTextUtils.LBRACKET) != -1) {
+                                    original = original.substring(0, original.indexOf(TalendTextUtils.LBRACKET));
+                                }
+                                original = TalendTextUtils.addQuotes(original);
+                                xpathValue += original;
+                            }
+                            if (table.getColumns().indexOf(col) < table.getColumns().size() - 1) {
                                 xpathValue += ",";
                             }
                         }
+
                         map.put("MAPPING", xpathValue);
+                        map.put("SCHEMA", tableOfNode.getTableName());
                         maps.add(map);
-                        return maps;
                     }
                 }
+
             }
+            return maps;
         }
         return null;
     }

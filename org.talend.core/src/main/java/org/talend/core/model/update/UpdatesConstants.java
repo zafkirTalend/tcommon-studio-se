@@ -101,6 +101,8 @@ public final class UpdatesConstants {
 
     public static final String XML_MAPPING = "XML_MAPPING"; //$NON-NLS-1$
 
+    public static final String MAPPING = "MAPPING"; //$NON-NLS-1$
+
     public static final String SERVER_NAME = "SERVER_NAME"; //$NON-NLS-1$
 
     public static final String MONITOR_IS_CANCELED = "MONITOR_IS_CANCELED"; //$NON-NLS-1$

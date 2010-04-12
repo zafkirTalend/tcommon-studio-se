@@ -21,6 +21,7 @@ import org.eclipse.gef.commands.Command;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IHL7Constant;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.MultiSchemasUtil;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -130,9 +131,13 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
             valueMap = new HashMap<String, Object>();
             paramValues.add(valueMap);
         }
+        String uinqueTableName = node.getProcess().generateUniqueConnectionName(
+                MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
+
+        valueMap.put(ISAPConstant.FIELD_SCHEMA, uinqueTableName);
 
         String displayName = "";
-        valueMap.put(IHL7Constant.FIELD_SCHEMA, newPropValue);
+        // valueMap.put(IHL7Constant.FIELD_SCHEMA, newPropValue);
         List columnList = ConvertionHelper.convert(newOutputMetadata).getColumns();
         for (int i = 0; i < columnList.size(); i++) {
             MetadataColumn column = (MetadataColumn) columnList.get(i);
@@ -153,10 +158,8 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
             node.getMetadataList().remove(oldOutputMetadata);
         }
 
-        String uinqueTableName = node.getProcess().generateUniqueConnectionName(
-                MultiSchemasUtil.getConnectionBaseName((String) newPropValue));
         newOutputMetadata.setLabel((String) newPropValue);
-        newOutputMetadata.setTableName((String) newPropValue);
+        newOutputMetadata.setTableName((String) uinqueTableName);
 
         node.getProcess().addUniqueConnectionName(uinqueTableName);
         node.getMetadataList().add(newOutputMetadata);
