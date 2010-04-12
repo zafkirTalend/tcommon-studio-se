@@ -68,6 +68,8 @@ public class RepositoryConstants {
 
     public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)"; //$NON-NLS-1$
 
+    public static final String NOT_SET_STATUS = "not_set_status";
+
     public static String getPattern(ERepositoryObjectType type) {
         switch (type) {
         case FOLDER:
