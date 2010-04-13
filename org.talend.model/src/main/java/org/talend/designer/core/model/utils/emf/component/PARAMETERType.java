@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getJAVACOMMAND <em>JAVACOMMAND</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getBACKGROUND <em>BACKGROUND</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT <em>CONTEXT</em>}</li>
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getGROUP <em>GROUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNUMROW <em>NUMROW</em>}</li>
@@ -39,7 +41,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getSHOWIF <em>SHOWIF</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  * </ul>
  * </p>
  *
@@ -119,6 +120,34 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     EList getTABLE();
+
+    /**
+     * Returns the value of the '<em><b>JAVACOMMAND</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * 
+     * 							This will run an external java code in a given jar.
+     * 						
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>JAVACOMMAND</em>' containment reference.
+     * @see #setJAVACOMMAND(JAVACOMMANDType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_JAVACOMMAND()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='JAVACOMMAND' namespace='##targetNamespace'"
+     * @generated
+     */
+    JAVACOMMANDType getJAVACOMMAND();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getJAVACOMMAND <em>JAVACOMMAND</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>JAVACOMMAND</em>' containment reference.
+     * @see #getJAVACOMMAND()
+     * @generated
+     */
+    void setJAVACOMMAND(JAVACOMMANDType value);
 
     /**
      * Returns the value of the '<em><b>BACKGROUND</b></em>' attribute.
@@ -835,9 +864,12 @@ public interface PARAMETERType extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
      * @see #setNOCONTEXTASSIST(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NOCONTEXTASSIST()
-     * @model extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
      * @generated
      */
     boolean isNOCONTEXTASSIST();
@@ -847,9 +879,34 @@ public interface PARAMETERType extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
      * @see #isNOCONTEXTASSIST()
      * @generated
      */
     void setNOCONTEXTASSIST(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    void unsetNOCONTEXTASSIST();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>NOCONTEXTASSIST</em>' attribute is set.
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    boolean isSetNOCONTEXTASSIST();
 
 } // PARAMETERType

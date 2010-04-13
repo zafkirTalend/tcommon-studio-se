@@ -114,6 +114,12 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ComponentPackage.ARG_TYPE: {
+                ARGType argType = (ARGType)theEObject;
+                Object result = caseARGType(argType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.CODEGENERATION_TYPE: {
                 CODEGENERATIONType codegenerationType = (CODEGENERATIONType)theEObject;
                 Object result = caseCODEGENERATIONType(codegenerationType);
@@ -207,6 +213,12 @@ public class ComponentSwitch {
             case ComponentPackage.ITEM_TYPE: {
                 ITEMType itemType = (ITEMType)theEObject;
                 Object result = caseITEMType(itemType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ComponentPackage.JAVACOMMAND_TYPE: {
+                JAVACOMMANDType javacommandType = (JAVACOMMANDType)theEObject;
+                Object result = caseJAVACOMMANDType(javacommandType);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -304,6 +316,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object caseADVANCEDPARAMETERSType(ADVANCEDPARAMETERSType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>ARG Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>ARG Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseARGType(ARGType object) {
         return null;
     }
 
@@ -544,6 +571,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object caseITEMType(ITEMType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>JAVACOMMAND Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>JAVACOMMAND Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseJAVACOMMANDType(JAVACOMMANDType object) {
         return null;
     }
 

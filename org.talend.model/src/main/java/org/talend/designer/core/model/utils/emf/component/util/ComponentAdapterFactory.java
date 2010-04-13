@@ -93,6 +93,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseADVANCEDPARAMETERSType(ADVANCEDPARAMETERSType object) {
                 return createADVANCEDPARAMETERSTypeAdapter();
             }
+            public Object caseARGType(ARGType object) {
+                return createARGTypeAdapter();
+            }
             public Object caseCODEGENERATIONType(CODEGENERATIONType object) {
                 return createCODEGENERATIONTypeAdapter();
             }
@@ -140,6 +143,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseITEMType(ITEMType object) {
                 return createITEMTypeAdapter();
+            }
+            public Object caseJAVACOMMANDType(JAVACOMMANDType object) {
+                return createJAVACOMMANDTypeAdapter();
             }
             public Object caseLINKTOType(LINKTOType object) {
                 return createLINKTOTypeAdapter();
@@ -210,6 +216,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createADVANCEDPARAMETERSTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.ARGType <em>ARG Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.ARGType
+     * @generated
+     */
+    public Adapter createARGTypeAdapter() {
         return null;
     }
 
@@ -434,6 +454,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createITEMTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType <em>JAVACOMMAND Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType
+     * @generated
+     */
+    public Adapter createJAVACOMMANDTypeAdapter() {
         return null;
     }
 

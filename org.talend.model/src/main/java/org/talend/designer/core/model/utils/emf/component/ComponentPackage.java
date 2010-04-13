@@ -89,6 +89,34 @@ public interface ComponentPackage extends EPackage {
     int ADVANCEDPARAMETERS_TYPE_FEATURE_COUNT = 1;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ARGTypeImpl <em>ARG Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ARGTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getARGType()
+     * @generated
+     */
+    int ARG_TYPE = 1;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ARG_TYPE__VALUE = 0;
+
+    /**
+     * The number of structural features of the '<em>ARG Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ARG_TYPE_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CODEGENERATIONTypeImpl <em>CODEGENERATION Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -96,7 +124,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCODEGENERATIONType()
      * @generated
      */
-    int CODEGENERATION_TYPE = 1;
+    int CODEGENERATION_TYPE = 2;
 
     /**
      * The feature id for the '<em><b>TEMPLATES</b></em>' containment reference list.
@@ -133,7 +161,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCOLUMNType()
      * @generated
      */
-    int COLUMN_TYPE = 2;
+    int COLUMN_TYPE = 3;
 
     /**
      * The feature id for the '<em><b>COMMENT</b></em>' attribute.
@@ -251,7 +279,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCOMPONENTType()
      * @generated
      */
-    int COMPONENT_TYPE = 3;
+    int COMPONENT_TYPE = 4;
 
     /**
      * The feature id for the '<em><b>HEADER</b></em>' containment reference.
@@ -360,7 +388,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCONNECTORSType()
      * @generated
      */
-    int CONNECTORS_TYPE = 4;
+    int CONNECTORS_TYPE = 5;
 
     /**
      * The feature id for the '<em><b>CONNECTOR</b></em>' containment reference list.
@@ -388,7 +416,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCONNECTORType()
      * @generated
      */
-    int CONNECTOR_TYPE = 5;
+    int CONNECTOR_TYPE = 6;
 
     /**
      * The feature id for the '<em><b>BASESCHEMA</b></em>' attribute.
@@ -551,7 +579,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getDEFAULTType()
      * @generated
      */
-    int DEFAULT_TYPE = 6;
+    int DEFAULT_TYPE = 7;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -597,7 +625,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getDOCUMENTATIONType()
      * @generated
      */
-    int DOCUMENTATION_TYPE = 7;
+    int DOCUMENTATION_TYPE = 8;
 
     /**
      * The feature id for the '<em><b>URL</b></em>' attribute.
@@ -625,7 +653,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getDocumentRoot()
      * @generated
      */
-    int DOCUMENT_ROOT = 8;
+    int DOCUMENT_ROOT = 9;
 
     /**
      * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -788,7 +816,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getFAMILIESType()
      * @generated
      */
-    int FAMILIES_TYPE = 9;
+    int FAMILIES_TYPE = 10;
 
     /**
      * The feature id for the '<em><b>FAMILY</b></em>' attribute list.
@@ -816,7 +844,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getFORMATType()
      * @generated
      */
-    int FORMAT_TYPE = 10;
+    int FORMAT_TYPE = 11;
 
     /**
      * The feature id for the '<em><b>CONNECTION</b></em>' attribute.
@@ -862,7 +890,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getHEADERType()
      * @generated
      */
-    int HEADER_TYPE = 11;
+    int HEADER_TYPE = 12;
 
     /**
      * The feature id for the '<em><b>SIGNATURE</b></em>' attribute.
@@ -1106,7 +1134,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getIMPORTSType()
      * @generated
      */
-    int IMPORTS_TYPE = 12;
+    int IMPORTS_TYPE = 13;
 
     /**
      * The feature id for the '<em><b>IMPORT</b></em>' containment reference list.
@@ -1134,7 +1162,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getIMPORTType()
      * @generated
      */
-    int IMPORT_TYPE = 13;
+    int IMPORT_TYPE = 14;
 
     /**
      * The feature id for the '<em><b>INSTALL</b></em>' containment reference list.
@@ -1225,7 +1253,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getINSTALLType()
      * @generated
      */
-    int INSTALL_TYPE = 14;
+    int INSTALL_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>COMMAND</b></em>' attribute.
@@ -1262,7 +1290,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMSType()
      * @generated
      */
-    int ITEMS_TYPE = 15;
+    int ITEMS_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>ITEM</b></em>' containment reference list.
@@ -1335,7 +1363,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMType()
      * @generated
      */
-    int ITEM_TYPE = 16;
+    int ITEM_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
@@ -1383,13 +1411,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__NAME = 4;
 
     /**
+     * The feature id for the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__NOCONTEXTASSIST = 5;
+
+    /**
      * The feature id for the '<em><b>NOTREADONLYIF</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTREADONLYIF = 5;
+    int ITEM_TYPE__NOTREADONLYIF = 6;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -1398,7 +1435,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTSHOWIF = 6;
+    int ITEM_TYPE__NOTSHOWIF = 7;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1407,7 +1444,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__READONLY = 7;
+    int ITEM_TYPE__READONLY = 8;
 
     /**
      * The feature id for the '<em><b>READONLYIF</b></em>' attribute.
@@ -1416,7 +1453,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__READONLYIF = 8;
+    int ITEM_TYPE__READONLYIF = 9;
 
     /**
      * The feature id for the '<em><b>REPOSITORYITEM</b></em>' attribute.
@@ -1425,7 +1462,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__REPOSITORYITEM = 9;
+    int ITEM_TYPE__REPOSITORYITEM = 10;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1434,7 +1471,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__SHOWIF = 10;
+    int ITEM_TYPE__SHOWIF = 11;
 
     /**
      * The feature id for the '<em><b>VALUE</b></em>' attribute.
@@ -1443,16 +1480,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__VALUE = 11;
-
-    /**
-     * The feature id for the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ITEM_TYPE__NOCONTEXTASSIST = 12;
+    int ITEM_TYPE__VALUE = 12;
 
     /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
@@ -1464,6 +1492,61 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE_FEATURE_COUNT = 13;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl <em>JAVACOMMAND Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getJAVACOMMANDType()
+     * @generated
+     */
+    int JAVACOMMAND_TYPE = 18;
+
+    /**
+     * The feature id for the '<em><b>ARG</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JAVACOMMAND_TYPE__ARG = 0;
+
+    /**
+     * The feature id for the '<em><b>CLASS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JAVACOMMAND_TYPE__CLASS = 1;
+
+    /**
+     * The feature id for the '<em><b>FUNCTION</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JAVACOMMAND_TYPE__FUNCTION = 2;
+
+    /**
+     * The feature id for the '<em><b>JAR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JAVACOMMAND_TYPE__JAR = 3;
+
+    /**
+     * The number of structural features of the '<em>JAVACOMMAND Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JAVACOMMAND_TYPE_FEATURE_COUNT = 4;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1471,7 +1554,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getLINKTOType()
      * @generated
      */
-    int LINKTO_TYPE = 17;
+    int LINKTO_TYPE = 19;
 
     /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
@@ -1508,7 +1591,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERSType()
      * @generated
      */
-    int PARAMETERS_TYPE = 18;
+    int PARAMETERS_TYPE = 20;
 
     /**
      * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
@@ -1536,7 +1619,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERType()
      * @generated
      */
-    int PARAMETER_TYPE = 19;
+    int PARAMETER_TYPE = 21;
 
     /**
      * The feature id for the '<em><b>DEFAULT</b></em>' containment reference list.
@@ -1566,13 +1649,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__TABLE = 2;
 
     /**
+     * The feature id for the '<em><b>JAVACOMMAND</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__JAVACOMMAND = 3;
+
+    /**
      * The feature id for the '<em><b>BACKGROUND</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__BACKGROUND = 3;
+    int PARAMETER_TYPE__BACKGROUND = 4;
 
     /**
      * The feature id for the '<em><b>COLOR</b></em>' attribute.
@@ -1581,7 +1673,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__COLOR = 4;
+    int PARAMETER_TYPE__COLOR = 5;
 
     /**
      * The feature id for the '<em><b>CONTEXT</b></em>' attribute.
@@ -1590,7 +1682,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__CONTEXT = 5;
+    int PARAMETER_TYPE__CONTEXT = 6;
 
     /**
      * The feature id for the '<em><b>CONTEXTMODE</b></em>' attribute.
@@ -1599,7 +1691,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__CONTEXTMODE = 6;
+    int PARAMETER_TYPE__CONTEXTMODE = 7;
 
     /**
      * The feature id for the '<em><b>DYNAMICSETTINGS</b></em>' attribute.
@@ -1608,7 +1700,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int PARAMETER_TYPE__DYNAMICSETTINGS = 7;
+	int PARAMETER_TYPE__DYNAMICSETTINGS = 8;
 
 				/**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
@@ -1617,7 +1709,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FIELD = 8;
+    int PARAMETER_TYPE__FIELD = 9;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -1626,7 +1718,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FILTER = 9;
+    int PARAMETER_TYPE__FILTER = 10;
 
     /**
      * The feature id for the '<em><b>GROUP</b></em>' attribute.
@@ -1635,7 +1727,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__GROUP = 10;
+    int PARAMETER_TYPE__GROUP = 11;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1644,7 +1736,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NAME = 11;
+    int PARAMETER_TYPE__NAME = 12;
 
     /**
      * The feature id for the '<em><b>NBLINES</b></em>' attribute.
@@ -1653,88 +1745,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NBLINES = 12;
-
-    /**
-     * The feature id for the '<em><b>NOTREADONLYIF</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__NOTREADONLYIF = 13;
-
-    /**
-     * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__NOTSHOWIF = 14;
-
-    /**
-     * The feature id for the '<em><b>NUMROW</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__NUMROW = 15;
-
-    /**
-     * The feature id for the '<em><b>READONLY</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__READONLY = 16;
-
-    /**
-     * The feature id for the '<em><b>READONLYIF</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__READONLYIF = 17;
-
-    /**
-     * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__REPOSITORYVALUE = 18;
-
-    /**
-     * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__REQUIRED = 19;
-
-    /**
-     * The feature id for the '<em><b>SHOW</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__SHOW = 20;
-
-    /**
-     * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PARAMETER_TYPE__SHOWIF = 21;
+    int PARAMETER_TYPE__NBLINES = 13;
 
     /**
      * The feature id for the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
@@ -1743,7 +1754,88 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NOCONTEXTASSIST = 22;
+    int PARAMETER_TYPE__NOCONTEXTASSIST = 14;
+
+    /**
+     * The feature id for the '<em><b>NOTREADONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__NOTREADONLYIF = 15;
+
+    /**
+     * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__NOTSHOWIF = 16;
+
+    /**
+     * The feature id for the '<em><b>NUMROW</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__NUMROW = 17;
+
+    /**
+     * The feature id for the '<em><b>READONLY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__READONLY = 18;
+
+    /**
+     * The feature id for the '<em><b>READONLYIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__READONLYIF = 19;
+
+    /**
+     * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__REPOSITORYVALUE = 20;
+
+    /**
+     * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__REQUIRED = 21;
+
+    /**
+     * The feature id for the '<em><b>SHOW</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__SHOW = 22;
+
+    /**
+     * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__SHOWIF = 23;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1752,7 +1844,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 23;
+    int PARAMETER_TYPE_FEATURE_COUNT = 24;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -1762,7 +1854,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCIESType()
      * @generated
      */
-    int PLUGINDEPENDENCIES_TYPE = 20;
+    int PLUGINDEPENDENCIES_TYPE = 22;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
@@ -1790,7 +1882,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCYType()
      * @generated
      */
-    int PLUGINDEPENDENCY_TYPE = 21;
+    int PLUGINDEPENDENCY_TYPE = 23;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1818,7 +1910,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNSType()
      * @generated
      */
-    int RETURNS_TYPE = 22;
+    int RETURNS_TYPE = 24;
 
     /**
      * The feature id for the '<em><b>RETURN</b></em>' containment reference list.
@@ -1846,7 +1938,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNType()
      * @generated
      */
-    int RETURN_TYPE = 23;
+    int RETURN_TYPE = 25;
 
     /**
      * The feature id for the '<em><b>AVAILABILITY</b></em>' attribute.
@@ -1892,7 +1984,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getSQLTEMPLATESType()
      * @generated
      */
-    int SQLTEMPLATES_TYPE = 24;
+    int SQLTEMPLATES_TYPE = 26;
 
     /**
      * The feature id for the '<em><b>SQLTEMPLATE</b></em>' containment reference list.
@@ -1929,7 +2021,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getSQLTEMPLATEType()
      * @generated
      */
-    int SQLTEMPLATE_TYPE = 25;
+    int SQLTEMPLATE_TYPE = 27;
 
     /**
      * The feature id for the '<em><b>CONTENT</b></em>' attribute.
@@ -1966,7 +2058,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTABLEType()
      * @generated
      */
-    int TABLE_TYPE = 26;
+    int TABLE_TYPE = 28;
 
     /**
      * The feature id for the '<em><b>COLUMN</b></em>' containment reference list.
@@ -2030,7 +2122,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 27;
+    int TEMPLATEPARAM_TYPE = 29;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -2076,7 +2168,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 28;
+    int TEMPLATES_TYPE = 30;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -2140,7 +2232,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 29;
+    int TEMPLATE_TYPE = 31;
 
     /**
      * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
@@ -2199,6 +2291,27 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getADVANCEDPARAMETERSType_PARAMETER();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.ARGType <em>ARG Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>ARG Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ARGType
+     * @generated
+     */
+    EClass getARGType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ARGType#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ARGType#getValue()
+     * @see #getARGType()
+     * @generated
+     */
+    EAttribute getARGType_Value();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType <em>CODEGENERATION Type</em>}'.
@@ -3659,6 +3772,60 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_VALUE();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType <em>JAVACOMMAND Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>JAVACOMMAND Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType
+     * @generated
+     */
+    EClass getJAVACOMMANDType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getARG <em>ARG</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>ARG</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getARG()
+     * @see #getJAVACOMMANDType()
+     * @generated
+     */
+    EReference getJAVACOMMANDType_ARG();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getCLASS <em>CLASS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CLASS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getCLASS()
+     * @see #getJAVACOMMANDType()
+     * @generated
+     */
+    EAttribute getJAVACOMMANDType_CLASS();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getFUNCTION <em>FUNCTION</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>FUNCTION</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getFUNCTION()
+     * @see #getJAVACOMMANDType()
+     * @generated
+     */
+    EAttribute getJAVACOMMANDType_FUNCTION();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getJAR <em>JAR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>JAR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType#getJAR()
+     * @see #getJAVACOMMANDType()
+     * @generated
+     */
+    EAttribute getJAVACOMMANDType_JAR();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3764,6 +3931,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getPARAMETERType_TABLE();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getJAVACOMMAND <em>JAVACOMMAND</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>JAVACOMMAND</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getJAVACOMMAND()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EReference getPARAMETERType_JAVACOMMAND();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getBACKGROUND <em>BACKGROUND</em>}'.
@@ -4410,6 +4588,24 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference ADVANCEDPARAMETERS_TYPE__PARAMETER = eINSTANCE.getADVANCEDPARAMETERSType_PARAMETER();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ARGTypeImpl <em>ARG Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ARGTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getARGType()
+         * @generated
+         */
+        EClass ARG_TYPE = eINSTANCE.getARGType();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ARG_TYPE__VALUE = eINSTANCE.getARGType_Value();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CODEGENERATIONTypeImpl <em>CODEGENERATION Type</em>}' class.
@@ -5516,6 +5712,48 @@ public interface ComponentPackage extends EPackage {
         EAttribute ITEM_TYPE__VALUE = eINSTANCE.getITEMType_VALUE();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl <em>JAVACOMMAND Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getJAVACOMMANDType()
+         * @generated
+         */
+        EClass JAVACOMMAND_TYPE = eINSTANCE.getJAVACOMMANDType();
+
+        /**
+         * The meta object literal for the '<em><b>ARG</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference JAVACOMMAND_TYPE__ARG = eINSTANCE.getJAVACOMMANDType_ARG();
+
+        /**
+         * The meta object literal for the '<em><b>CLASS</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute JAVACOMMAND_TYPE__CLASS = eINSTANCE.getJAVACOMMANDType_CLASS();
+
+        /**
+         * The meta object literal for the '<em><b>FUNCTION</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute JAVACOMMAND_TYPE__FUNCTION = eINSTANCE.getJAVACOMMANDType_FUNCTION();
+
+        /**
+         * The meta object literal for the '<em><b>JAR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute JAVACOMMAND_TYPE__JAR = eINSTANCE.getJAVACOMMANDType_JAR();
+
+        /**
          * The meta object literal for the '<em><b>NOCONTEXTASSIST</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -5600,6 +5838,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference PARAMETER_TYPE__TABLE = eINSTANCE.getPARAMETERType_TABLE();
+
+        /**
+         * The meta object literal for the '<em><b>JAVACOMMAND</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PARAMETER_TYPE__JAVACOMMAND = eINSTANCE.getPARAMETERType_JAVACOMMAND();
 
         /**
          * The meta object literal for the '<em><b>BACKGROUND</b></em>' attribute feature.

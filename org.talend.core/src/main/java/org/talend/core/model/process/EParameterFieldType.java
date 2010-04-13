@@ -63,7 +63,8 @@ public enum EParameterFieldType {
     ICON_SELECTION,
     RULE_TYPE, // hywang add for feature 6484
     TNS_EDITOR,
-    BROWSE_REPORTS; // bzhou add for feature 9745
+    BROWSE_REPORTS, // bzhou add for feature 9745
+    JAVA_COMMAND;
 
     public String getName() {
         return toString();

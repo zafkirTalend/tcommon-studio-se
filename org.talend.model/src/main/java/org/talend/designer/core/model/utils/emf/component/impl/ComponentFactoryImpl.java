@@ -81,6 +81,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case ComponentPackage.ADVANCEDPARAMETERS_TYPE: return createADVANCEDPARAMETERSType();
+            case ComponentPackage.ARG_TYPE: return createARGType();
             case ComponentPackage.CODEGENERATION_TYPE: return createCODEGENERATIONType();
             case ComponentPackage.COLUMN_TYPE: return createCOLUMNType();
             case ComponentPackage.COMPONENT_TYPE: return createCOMPONENTType();
@@ -97,6 +98,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.INSTALL_TYPE: return createINSTALLType();
             case ComponentPackage.ITEMS_TYPE: return createITEMSType();
             case ComponentPackage.ITEM_TYPE: return createITEMType();
+            case ComponentPackage.JAVACOMMAND_TYPE: return createJAVACOMMANDType();
             case ComponentPackage.LINKTO_TYPE: return createLINKTOType();
             case ComponentPackage.PARAMETERS_TYPE: return createPARAMETERSType();
             case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
@@ -123,6 +125,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public ADVANCEDPARAMETERSType createADVANCEDPARAMETERSType() {
         ADVANCEDPARAMETERSTypeImpl advancedparametersType = new ADVANCEDPARAMETERSTypeImpl();
         return advancedparametersType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ARGType createARGType() {
+        ARGTypeImpl argType = new ARGTypeImpl();
+        return argType;
     }
 
     /**
@@ -283,6 +295,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public ITEMType createITEMType() {
         ITEMTypeImpl itemType = new ITEMTypeImpl();
         return itemType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public JAVACOMMANDType createJAVACOMMANDType() {
+        JAVACOMMANDTypeImpl javacommandType = new JAVACOMMANDTypeImpl();
+        return javacommandType;
     }
 
     /**

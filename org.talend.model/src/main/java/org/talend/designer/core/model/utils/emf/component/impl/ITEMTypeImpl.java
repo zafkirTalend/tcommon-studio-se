@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLY <em>READONLY</em>}</li>
@@ -37,7 +38,6 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  * </ul>
  * </p>
  *
@@ -142,6 +142,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected String nAME = NAME_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean NOCONTEXTASSIST_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     * @ordered
+     */
+    protected boolean nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+
+    /**
+     * This is true if the NOCONTEXTASSIST attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean nOCONTEXTASSISTESet;
 
     /**
      * The default value of the '{@link #getNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
@@ -291,26 +320,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected String vALUE = VALUE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isNOCONTEXTASSIST()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean NOCONTEXTASSIST_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isNOCONTEXTASSIST()
-     * @generated
-     * @ordered
-     */
-    protected boolean nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -672,8 +681,33 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
     public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
         boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
         nOCONTEXTASSIST = newNOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSISTESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOCONTEXTASSIST() {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+        nOCONTEXTASSISTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOCONTEXTASSIST() {
+        return nOCONTEXTASSISTESet;
     }
 
     /**
@@ -708,6 +742,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getFILTER();
             case ComponentPackage.ITEM_TYPE__NAME:
                 return getNAME();
+            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
+                return isNOCONTEXTASSIST() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
                 return getNOTREADONLYIF();
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -722,8 +758,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getSHOWIF();
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return getVALUE();
-            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
-                return isNOCONTEXTASSIST() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -751,6 +785,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME((String)newValue);
                 return;
+            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
+                setNOCONTEXTASSIST(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
                 setNOTREADONLYIF((String)newValue);
                 return;
@@ -771,9 +808,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE((String)newValue);
-                return;
-            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
-                setNOCONTEXTASSIST(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -802,6 +836,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
+            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
+                unsetNOCONTEXTASSIST();
+                return;
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
                 setNOTREADONLYIF(NOTREADONLYIF_EDEFAULT);
                 return;
@@ -822,9 +859,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE(VALUE_EDEFAULT);
-                return;
-            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
-                setNOCONTEXTASSIST(NOCONTEXTASSIST_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -848,6 +882,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return FILTER_EDEFAULT == null ? fILTER != null : !FILTER_EDEFAULT.equals(fILTER);
             case ComponentPackage.ITEM_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
+            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
+                return isSetNOCONTEXTASSIST();
             case ComponentPackage.ITEM_TYPE__NOTREADONLYIF:
                 return NOTREADONLYIF_EDEFAULT == null ? nOTREADONLYIF != null : !NOTREADONLYIF_EDEFAULT.equals(nOTREADONLYIF);
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -862,8 +898,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return VALUE_EDEFAULT == null ? vALUE != null : !VALUE_EDEFAULT.equals(vALUE);
-            case ComponentPackage.ITEM_TYPE__NOCONTEXTASSIST:
-                return nOCONTEXTASSIST != NOCONTEXTASSIST_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -886,6 +920,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(fILTER);
         result.append(", nAME: ");
         result.append(nAME);
+        result.append(", nOCONTEXTASSIST: ");
+        if (nOCONTEXTASSISTESet) result.append(nOCONTEXTASSIST); else result.append("<unset>");
         result.append(", nOTREADONLYIF: ");
         result.append(nOTREADONLYIF);
         result.append(", nOTSHOWIF: ");
@@ -900,8 +936,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(sHOWIF);
         result.append(", vALUE: ");
         result.append(vALUE);
-        result.append(", nOCONTEXTASSIST: ");
-        result.append(nOCONTEXTASSIST);
         result.append(')');
         return result.toString();
     }

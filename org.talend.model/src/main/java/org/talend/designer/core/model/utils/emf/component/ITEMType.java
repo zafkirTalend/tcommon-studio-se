@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNAME <em>NAME</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLY <em>READONLY</em>}</li>
@@ -28,7 +29,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getVALUE <em>VALUE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  * </ul>
  * </p>
  *
@@ -431,9 +431,12 @@ public interface ITEMType extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
      * @see #setNOCONTEXTASSIST(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_NOCONTEXTASSIST()
-     * @model extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='NO_CONTEXT_ASSIST' namespace='##targetNamespace'"
      * @generated
      */
     boolean isNOCONTEXTASSIST();
@@ -443,9 +446,34 @@ public interface ITEMType extends EObject {
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>NOCONTEXTASSIST</em>' attribute.
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #unsetNOCONTEXTASSIST()
      * @see #isNOCONTEXTASSIST()
      * @generated
      */
     void setNOCONTEXTASSIST(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    void unsetNOCONTEXTASSIST();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>NOCONTEXTASSIST</em>' attribute is set.
+     * @see #unsetNOCONTEXTASSIST()
+     * @see #isNOCONTEXTASSIST()
+     * @see #setNOCONTEXTASSIST(boolean)
+     * @generated
+     */
+    boolean isSetNOCONTEXTASSIST();
 
 } // ITEMType

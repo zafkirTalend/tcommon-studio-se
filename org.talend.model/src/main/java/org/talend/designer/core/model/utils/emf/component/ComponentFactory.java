@@ -35,6 +35,15 @@ public interface ComponentFactory extends EFactory {
     ADVANCEDPARAMETERSType createADVANCEDPARAMETERSType();
 
     /**
+     * Returns a new object of class '<em>ARG Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>ARG Type</em>'.
+     * @generated
+     */
+    ARGType createARGType();
+
+    /**
      * Returns a new object of class '<em>CODEGENERATION Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -177,6 +186,15 @@ public interface ComponentFactory extends EFactory {
      * @generated
      */
     ITEMType createITEMType();
+
+    /**
+     * Returns a new object of class '<em>JAVACOMMAND Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>JAVACOMMAND Type</em>'.
+     * @generated
+     */
+    JAVACOMMANDType createJAVACOMMANDType();
 
     /**
      * Returns a new object of class '<em>LINKTO Type</em>'.

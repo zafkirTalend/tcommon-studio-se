@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
+import org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 
 import org.talend.designer.core.model.utils.emf.component.TABLEType;
@@ -34,6 +35,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getTABLE <em>TABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getJAVACOMMAND <em>JAVACOMMAND</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getBACKGROUND <em>BACKGROUND</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
@@ -44,6 +46,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getGROUP <em>GROUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNBLINES <em>NBLINES</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNOTREADONLYIF <em>NOTREADONLYIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNUMROW <em>NUMROW</em>}</li>
@@ -53,7 +56,6 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isREQUIRED <em>REQUIRED</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isSHOW <em>SHOW</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#isNOCONTEXTASSIST <em>NOCONTEXTASSIST</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,6 +91,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected EList tABLE;
+
+    /**
+     * The cached value of the '{@link #getJAVACOMMAND() <em>JAVACOMMAND</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJAVACOMMAND()
+     * @generated
+     * @ordered
+     */
+    protected JAVACOMMANDType jAVACOMMAND;
 
     /**
      * The default value of the '{@link #getBACKGROUND() <em>BACKGROUND</em>}' attribute.
@@ -318,6 +330,35 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     protected boolean nBLINESESet;
 
     /**
+     * The default value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean NOCONTEXTASSIST_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isNOCONTEXTASSIST()
+     * @generated
+     * @ordered
+     */
+    protected boolean nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+
+    /**
+     * This is true if the NOCONTEXTASSIST attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean nOCONTEXTASSISTESet;
+
+    /**
      * The default value of the '{@link #getNOTREADONLYIF() <em>NOTREADONLYIF</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -534,26 +575,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     protected String sHOWIF = SHOWIF_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isNOCONTEXTASSIST()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean NOCONTEXTASSIST_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isNOCONTEXTASSIST() <em>NOCONTEXTASSIST</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isNOCONTEXTASSIST()
-     * @generated
-     * @ordered
-     */
-    protected boolean nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
-
-    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -637,6 +658,49 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             tABLE = new EObjectContainmentEList(TABLEType.class, this, ComponentPackage.PARAMETER_TYPE__TABLE);
         }
         return tABLE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public JAVACOMMANDType getJAVACOMMAND() {
+        return jAVACOMMAND;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetJAVACOMMAND(JAVACOMMANDType newJAVACOMMAND, NotificationChain msgs) {
+        JAVACOMMANDType oldJAVACOMMAND = jAVACOMMAND;
+        jAVACOMMAND = newJAVACOMMAND;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__JAVACOMMAND, oldJAVACOMMAND, newJAVACOMMAND);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJAVACOMMAND(JAVACOMMANDType newJAVACOMMAND) {
+        if (newJAVACOMMAND != jAVACOMMAND) {
+            NotificationChain msgs = null;
+            if (jAVACOMMAND != null)
+                msgs = ((InternalEObject)jAVACOMMAND).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__JAVACOMMAND, null, msgs);
+            if (newJAVACOMMAND != null)
+                msgs = ((InternalEObject)newJAVACOMMAND).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__JAVACOMMAND, null, msgs);
+            msgs = basicSetJAVACOMMAND(newJAVACOMMAND, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__JAVACOMMAND, newJAVACOMMAND, newJAVACOMMAND));
     }
 
     /**
@@ -1230,8 +1294,33 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     public void setNOCONTEXTASSIST(boolean newNOCONTEXTASSIST) {
         boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
         nOCONTEXTASSIST = newNOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSISTESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, nOCONTEXTASSIST, !oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetNOCONTEXTASSIST() {
+        boolean oldNOCONTEXTASSIST = nOCONTEXTASSIST;
+        boolean oldNOCONTEXTASSISTESet = nOCONTEXTASSISTESet;
+        nOCONTEXTASSIST = NOCONTEXTASSIST_EDEFAULT;
+        nOCONTEXTASSISTESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST, oldNOCONTEXTASSIST, NOCONTEXTASSIST_EDEFAULT, oldNOCONTEXTASSISTESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetNOCONTEXTASSIST() {
+        return nOCONTEXTASSISTESet;
     }
 
     /**
@@ -1248,6 +1337,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return basicSetITEMS(null, msgs);
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return ((InternalEList)getTABLE()).basicRemove(otherEnd, msgs);
+            case ComponentPackage.PARAMETER_TYPE__JAVACOMMAND:
+                return basicSetJAVACOMMAND(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -1266,6 +1357,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getITEMS();
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return getTABLE();
+            case ComponentPackage.PARAMETER_TYPE__JAVACOMMAND:
+                return getJAVACOMMAND();
             case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
                 return getBACKGROUND();
             case ComponentPackage.PARAMETER_TYPE__COLOR:
@@ -1286,6 +1379,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getNAME();
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 return new Integer(getNBLINES());
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                return isNOCONTEXTASSIST() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
                 return getNOTREADONLYIF();
             case ComponentPackage.PARAMETER_TYPE__NOTSHOWIF:
@@ -1304,8 +1399,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return isSHOW() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 return getSHOWIF();
-            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
-                return isNOCONTEXTASSIST() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1329,6 +1422,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 getTABLE().clear();
                 getTABLE().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__JAVACOMMAND:
+                setJAVACOMMAND((JAVACOMMANDType)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
                 setBACKGROUND((String)newValue);
@@ -1360,6 +1456,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 setNBLINES(((Integer)newValue).intValue());
                 return;
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                setNOCONTEXTASSIST(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
                 setNOTREADONLYIF((String)newValue);
                 return;
@@ -1387,9 +1486,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 setSHOWIF((String)newValue);
                 return;
-            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
-                setNOCONTEXTASSIST(((Boolean)newValue).booleanValue());
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1410,6 +1506,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 getTABLE().clear();
+                return;
+            case ComponentPackage.PARAMETER_TYPE__JAVACOMMAND:
+                setJAVACOMMAND((JAVACOMMANDType)null);
                 return;
             case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
                 setBACKGROUND(BACKGROUND_EDEFAULT);
@@ -1441,6 +1540,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 unsetNBLINES();
                 return;
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                unsetNOCONTEXTASSIST();
+                return;
             case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
                 setNOTREADONLYIF(NOTREADONLYIF_EDEFAULT);
                 return;
@@ -1468,9 +1570,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 setSHOWIF(SHOWIF_EDEFAULT);
                 return;
-            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
-                setNOCONTEXTASSIST(NOCONTEXTASSIST_EDEFAULT);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -1489,6 +1588,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return iTEMS != null;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return tABLE != null && !tABLE.isEmpty();
+            case ComponentPackage.PARAMETER_TYPE__JAVACOMMAND:
+                return jAVACOMMAND != null;
             case ComponentPackage.PARAMETER_TYPE__BACKGROUND:
                 return BACKGROUND_EDEFAULT == null ? bACKGROUND != null : !BACKGROUND_EDEFAULT.equals(bACKGROUND);
             case ComponentPackage.PARAMETER_TYPE__COLOR:
@@ -1509,6 +1610,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.PARAMETER_TYPE__NBLINES:
                 return isSetNBLINES();
+            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
+                return isSetNOCONTEXTASSIST();
             case ComponentPackage.PARAMETER_TYPE__NOTREADONLYIF:
                 return NOTREADONLYIF_EDEFAULT == null ? nOTREADONLYIF != null : !NOTREADONLYIF_EDEFAULT.equals(nOTREADONLYIF);
             case ComponentPackage.PARAMETER_TYPE__NOTSHOWIF:
@@ -1527,8 +1630,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return isSetSHOW();
             case ComponentPackage.PARAMETER_TYPE__SHOWIF:
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
-            case ComponentPackage.PARAMETER_TYPE__NOCONTEXTASSIST:
-                return nOCONTEXTASSIST != NOCONTEXTASSIST_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1563,6 +1664,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         result.append(nAME);
         result.append(", nBLINES: ");
         if (nBLINESESet) result.append(nBLINES); else result.append("<unset>");
+        result.append(", nOCONTEXTASSIST: ");
+        if (nOCONTEXTASSISTESet) result.append(nOCONTEXTASSIST); else result.append("<unset>");
         result.append(", nOTREADONLYIF: ");
         result.append(nOTREADONLYIF);
         result.append(", nOTSHOWIF: ");
@@ -1581,8 +1684,6 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         if (sHOWESet) result.append(sHOW); else result.append("<unset>");
         result.append(", sHOWIF: ");
         result.append(sHOWIF);
-        result.append(", nOCONTEXTASSIST: ");
-        result.append(nOCONTEXTASSIST);
         result.append(')');
         return result.toString();
     }

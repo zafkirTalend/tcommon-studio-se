@@ -198,6 +198,7 @@
 											maxOccurs="unbounded" />
 									</xs:sequence>
 									<xs:attribute name="NAME" type="xs:string" />
+									<xs:attribute name="UrlPath" type="xs:string" use="optional" />
 									<xs:attribute name="MODULE" type="xs:string" />
 									<xs:attribute name="MESSAGE" type="xs:string" />
 									<xs:attribute name="REQUIRED" type="xs:boolean" />
@@ -362,6 +363,28 @@
 						<xs:attribute name="NOT_IF" type="xs:string" use="optional" />
 						<xs:attribute name="READ_ONLY_COLUMN_POSITION" type="xs:string"
 							use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="JAVACOMMAND" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							This will run an external java code in a given jar.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ARG" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="JAR" type="xs:string" />
+						<xs:attribute name="CLASS" type="xs:string" />
+						<xs:attribute name="FUNCTION" type="xs:string" />
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

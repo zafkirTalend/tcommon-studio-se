@@ -270,6 +270,7 @@ public interface IMPORTType extends EObject {
      * @see #setUrlPath(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_UrlPath()
      * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='UrlPath' namespace='##targetNamespace'"
      * @generated
      */
     String getUrlPath();
