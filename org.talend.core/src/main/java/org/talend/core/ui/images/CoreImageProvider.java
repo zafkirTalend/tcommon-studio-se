@@ -64,6 +64,7 @@ public class CoreImageProvider {
         case METADATA_CONNECTIONS:
             return ECoreImage.METADATA_CONNECTION_ICON;
         case METADATA_SAPCONNECTIONS:
+        case METADATA_SAP_FUNCTION:
             return ECoreImage.METADATA_SAPCONNECTION_ICON;
         case SQLPATTERNS:
             return ECoreImage.METADATA_SQLPATTERN_ICON;

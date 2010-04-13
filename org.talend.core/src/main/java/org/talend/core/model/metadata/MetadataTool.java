@@ -348,7 +348,7 @@ public class MetadataTool {
             if (functions != null && !functions.isEmpty()) {
                 final EList tables = new BasicEList();
                 for (int i = 0; i < functions.size(); i++) {
-                    tables.add(((SAPFunctionUnit) functions.get(i)).getTables());
+                    tables.addAll(((SAPFunctionUnit) functions.get(i)).getTables());
                 }
                 return tables;
             }
