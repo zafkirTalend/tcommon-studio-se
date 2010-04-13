@@ -44,8 +44,6 @@ import org.w3c.dom.NodeList;
  */
 public class DynamicContentProvider implements IIntroXHTMLContentProvider {
 
-    private static boolean isInternetChecked;
-
     /*
      * (non-Javadoc)
      * 
@@ -71,10 +69,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                     + "class=org.talend.designer.business.diagram.custom.actions.OpenDiagramAction&"
                     + "id=org.talend.designer.business.diagram.Action2&nodeId=";
         } else if ("CUSTOMER_PAGE".equals(id)) {
-            if (!isInternetChecked) {
-                createOnlinePage(dom, parent);
-            }
-            isInternetChecked = !isInternetChecked;
+            createOnlinePage(dom, parent);
         }
 
         for (IRepositoryObject object : latestItems) {
@@ -124,27 +119,27 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         } finally {
             urlConnection.disconnect();
         }
-        
+
         // online content
-        
+
         Element tdElem = dom.createElement("td");
         tdElem.setAttribute("class", "separator");
         parent.appendChild(tdElem);
-        
+
         Element div = dom.createElement("div");
         div.setAttribute("style", "overflow:auto;height:400px;width:260px;padding-left:20px;");
         tdElem.appendChild(div);
-        
+
         Element spanElem = dom.createElement("span");
         spanElem.setAttribute("class", "style_1 style_2 style_3");
         spanElem.appendChild(dom.createTextNode("Talend news"));
         div.appendChild(spanElem);
         div.appendChild(dom.createElement("br"));
-                      
+
         Element iFrame = dom.createElement("iframe");
         iFrame.setAttribute("src", "http://www.talend.com/builtin_news/index.html");
-        iFrame.setAttribute("frameborder","0");
-        iFrame.setAttribute("width","240px");
+        iFrame.setAttribute("frameborder", "0");
+        iFrame.setAttribute("width", "240px");
         iFrame.setAttribute("height", "370px");
         iFrame.appendChild(dom.createTextNode(" "));
         div.appendChild(iFrame);

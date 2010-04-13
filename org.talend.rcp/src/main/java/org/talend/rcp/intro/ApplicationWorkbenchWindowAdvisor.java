@@ -128,13 +128,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void postWindowOpen() {
         // intro
-        if (PluginChecker.isTIS()) {
-            IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
-            boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
-            if (alwaysWelcome) {
-                getWindowConfigurer().getWindow().getWorkbench().getIntroManager().showIntro(getWindowConfigurer().getWindow(),
-                        !alwaysWelcome);
-            }
+
+        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+        boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
+        if (alwaysWelcome) {
+            getWindowConfigurer().getWindow().getWorkbench().getIntroManager().showIntro(getWindowConfigurer().getWindow(),
+                    !alwaysWelcome);
         }
 
         createActions();
