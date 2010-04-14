@@ -117,7 +117,7 @@ public class TreeBranch extends Figure {
     private void createTitleImage() {
         if (getElement() instanceof ITreeAction) {
             Image elementImage = ((ITreeAction) getElement()).getElementImage();
-            if (elementImage != null) {
+            if (elementImage != null && !elementImage.isDisposed()) {
                 this.titleImage = new ImageFigure(elementImage);
                 add(this.titleImage);
             }
