@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.database.conn;
 
-
 /**
  * cli class global comment. Detailled comment
  */
@@ -41,7 +40,7 @@ public enum EDatabaseConnVar {
     }
 
     EDatabaseConnVar(String variable, String pattern) {
-        assert (!variable.matches(DatabaseConnConstants.PATTERN_VAR));
+        assert (variable.matches(DatabaseConnConstants.PATTERN_VAR));
         this.variable = variable;
         this.pattern = pattern;
     }
