@@ -125,6 +125,8 @@ public class SaveAsGenericSchemaCommand extends Command {
             }
 
             MetadataTable createMetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
+            CorePlugin.getDefault().getProxyRepositoryFactory().getNextId();
+            metadataTable.setId(nextId);
             createMetadataTable.setConnection(connection);
             createMetadataTable.setLabel("metadata"); //$NON-NLS-1$
             for (IMetadataColumn column : listColumns) {
