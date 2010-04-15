@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
+import org.talend.repository.model.BinRepositoryNode;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
@@ -83,8 +84,8 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
                     visible = true;
                 }
                 // for cdc
+                RepositoryNode parent = node.getParent();
                 if (ENodeType.STABLE_SYSTEM_FOLDER.equals(node.getType())) {
-                    RepositoryNode parent = node.getParent();
                     if (parent != null) {
                         RepositoryNode pNode = parent;
                         if (ENodeType.STABLE_SYSTEM_FOLDER.equals(parent.getType())) {
@@ -105,6 +106,9 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
                             }
                         }
                     }
+                }
+                if (visible && parent != null && parent instanceof BinRepositoryNode) {
+                    visible = false;
                 }
             }
         }
