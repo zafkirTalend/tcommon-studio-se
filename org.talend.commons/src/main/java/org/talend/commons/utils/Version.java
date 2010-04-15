@@ -56,12 +56,7 @@ public class Version implements Comparable<Version> {
     }
 
     public void upMinor() {
-        if (this.minor == 9) {
-            this.minor = 0;
-            this.major++;
-        } else {
-            this.minor++;
-        }
+        this.minor++;
     }
 
     /**
