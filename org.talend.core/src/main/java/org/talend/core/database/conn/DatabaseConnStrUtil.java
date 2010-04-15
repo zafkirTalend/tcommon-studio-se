@@ -149,16 +149,8 @@ public class DatabaseConnStrUtil {
         if (string.equals(DatabaseConnConstants.EMPTY)) {
             return DatabaseConnConstants.EMPTY;
         }
-        EDatabaseConnTemplate connStr = EDatabaseConnTemplate.indexOfTemplate(dbType);
-        if (connStr != null) {
-            switch (connStr) {
-            case MYSQL:
-            case MSSQL:
-            case INFORMIX:
-            case AS400:
-                string = getStringReplace(string, EDatabaseConnVar.PROPERTY.getVariable(), addParams, supportContext);
-            default:
-            }
+        if (EDatabaseConnTemplate.isAddtionParamsNeeded(dbType)) {
+            string = getStringReplace(string, EDatabaseConnVar.PROPERTY.getVariable(), addParams, supportContext);
         }
         return string;
     }

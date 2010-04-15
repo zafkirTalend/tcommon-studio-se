@@ -129,7 +129,8 @@ public enum EDatabaseConnTemplate {
             "9001")), //$NON-NLS-1$
 
     HSQLDB_IN_PROGRESS(new DbConnStr(EDatabaseTypeName.HSQLDB_IN_PROGRESS, //
-            "jdbc:hsqldb:file:<dbRootPath>/<sid>;ifexists=true")), //$NON-NLS-1$
+            "jdbc:hsqldb:file:<dbRootPath>/<sid>;<property>", //$NON-NLS-1$
+            null, "ifexists=true")), //$NON-NLS-1$
 
     MAXDB(new DbConnStr(EDatabaseTypeName.MAXDB, //
             "jdbc:sapdb://<host>:<port>/<sid>", //$NON-NLS-1$
@@ -318,11 +319,12 @@ public enum EDatabaseConnTemplate {
             case INFORMIX:
             case MYSQL:
             case AS400:
-            // for feature 10655
+                // for feature 10655
             case ORACLEFORSID:
             case ORACLESN:
             case ORACLE_OCI:
             case SYBASEASE:
+            case HSQLDB_IN_PROGRESS: // for feature 11674
                 return true;
             default:
             }
@@ -360,4 +362,16 @@ public enum EDatabaseConnTemplate {
         return false;
     }
 
+    public static String getAdditionProperty(String dbType) {
+        if (isAddtionParamsNeeded(dbType)) {
+            EDatabaseConnTemplate template = indexOfTemplate(dbType);
+            if (template != null) {
+                String additionProperty = template.getAdditionProperty();
+                if (additionProperty != null) {
+                    return additionProperty;
+                }
+            }
+        }
+        return ""; //$NON-NLS-1$
+    }
 }
