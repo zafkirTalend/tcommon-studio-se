@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -409,15 +410,29 @@ public final class UpdateRepositoryUtils {
         final Connection connection = item.getConnection();
         if (connection != null) {
             final EList tables = MetadataTool.getMetadataTableFromConnection(connection);
-            if (tables != null) {
-                for (MetadataTable table : (List<MetadataTable>) tables) {
-                    Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
-                    if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
-                        if (table.getLabel().equals(name)) {
-                            return ConvertionHelper.convert(table);
+            //for bug 12543
+            if (tables != null && tables.size() > 0) {
+                Object tableObject = tables.get(0);
+                if (tableObject instanceof MetadataTable) {
+                    for (MetadataTable table : (List<MetadataTable>) tables) {
+                        Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
+                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
+                            if (table.getLabel().equals(name)) {
+                                return ConvertionHelper.convert(table);
+                            }
                         }
                     }
 
+                } else if (tableObject instanceof EObjectContainmentEList) {
+                    EObjectContainmentEList eObjectContainmentEList = (EObjectContainmentEList) tableObject;
+                    for (MetadataTable table : (List<MetadataTable>) eObjectContainmentEList) {
+                        Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
+                        if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
+                            if (table.getLabel().equals(name)) {
+                                return ConvertionHelper.convert(table);
+                            }
+                        }
+                    }
                 }
             }
         }
