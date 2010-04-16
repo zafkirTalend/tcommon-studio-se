@@ -663,6 +663,11 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         } else {
             previewButton.setEnabled(true);
         }
+        if (concept == null || concept.getConceptTargets().isEmpty()) {
+            updateStatus(IStatus.ERROR, null);
+            return false;
+        }
+
         updateStatus(IStatus.OK, null);
         return true;
     }

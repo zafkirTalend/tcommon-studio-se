@@ -65,16 +65,21 @@ public class UniverseForm extends AbstractForm {
 
     private ConnectionItem connectionItem;
 
+    private UniversePage universePage;
+
     /**
      * DOC Administrator UniverseForm constructor comment.
      * 
      * @param parent
      * @param style
      * @param existingNames
+     * @param universePage
      */
-    protected UniverseForm(Composite parent, int style, String[] existingNames, ConnectionItem connectionItem) {
+    protected UniverseForm(Composite parent, int style, String[] existingNames, ConnectionItem connectionItem,
+            UniversePage universePage) {
         super(parent, style, existingNames);
         this.connectionItem = connectionItem;
+        this.universePage = universePage;
         setupForm(true);
     }
 
@@ -107,6 +112,8 @@ public class UniverseForm extends AbstractForm {
         universeCombo = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm.UNIVERSE"), "", list, true); //$NON-NLS-1$ //$NON-NLS-2$
         modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm.MODLE"), "", modelList, true); //$NON-NLS-1$
         clusterText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm.CLUSTER"), "", clusterList, true); //$NON-NLS-1$
+
+        universePage.setPageComplete(false);
     }
 
     /*
@@ -139,11 +146,11 @@ public class UniverseForm extends AbstractForm {
                     refreshModelCombo(models);
                     refreshClusterCombo(clusters);
                     checkFieldsValue();
+                    universePage.setPageComplete(true);
                 } catch (RemoteException e1) {
                     modelText.setText("");//$NON-NLS-1$
                     clusterText.setText("");//$NON-NLS-1$
                     ExceptionHandler.process(e1);
-
                 }
             }
 

@@ -53,7 +53,7 @@ public class UniversePage extends WizardPage {
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
     public void createControl(Composite parent) {
-        universeForm = new UniverseForm(parent, SWT.NONE, null, connectionItem);
+        universeForm = new UniverseForm(parent, SWT.NONE, null, connectionItem, this);
         universeForm.setReadOnly(false);// (!isRepositoryObjectEditable);
 
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {

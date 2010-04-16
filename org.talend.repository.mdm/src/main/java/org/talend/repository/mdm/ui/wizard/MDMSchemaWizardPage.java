@@ -62,6 +62,7 @@ public class MDMSchemaWizardPage extends WizardPage {
             }
         };
         xsdFileForm.setListener(listener);
+        this.setPageComplete(false);
         setControl(xsdFileForm);
     }
 
