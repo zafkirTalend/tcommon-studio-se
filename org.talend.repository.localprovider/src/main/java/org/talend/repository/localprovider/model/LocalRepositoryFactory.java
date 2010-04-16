@@ -337,12 +337,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     Timer.getTimer("loadProperty").stop();
                                     nbTries++;
                                 }
-                                addToHistory(id, type, property.getItem().getState().getPath());
                             } catch (RuntimeException e) {
                                 // property will be null
                                 ExceptionHandler.process(e);
                             }
                             if (property != null) {
+                                addToHistory(property.getId(), type, property.getItem().getState().getPath());
                                 if (id == null || property.getId().equals(id)) {
                                     if (withDeleted || !property.getItem().getState().isDeleted()) {
                                         toReturn.add(new RepositoryObject(property));
