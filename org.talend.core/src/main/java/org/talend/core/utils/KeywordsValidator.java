@@ -89,6 +89,33 @@ public class KeywordsValidator {
         return true;
     }
 
+    /**
+     * DOC zli Comment method "isSqlKeyword".
+     * 
+     * @param word
+     * @param isOracle
+     * @return
+     */
+    public static boolean isSqlKeyword(String word, boolean isOracle) {
+        if (Platform.getOS().equals(Platform.OS_AIX)) {
+            return false;
+        }
+        if (sqlKeywords.isEmpty()) {
+            Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
+            KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
+            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
+            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
+            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
+        }
+        if (isOracle) {
+            sqlKeywords.add("COMMENT");
+        }
+        if (word != null) {
+            return sqlKeywords.contains(word.toUpperCase());
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         System.out.println(isKeyword(ECodeLanguage.JAVA, "class")); //$NON-NLS-1$
     }

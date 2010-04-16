@@ -23,6 +23,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.utils.KeywordsValidator;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -340,7 +341,10 @@ public class TalendTextUtils {
             Pattern pattern2 = Pattern.compile("^[0-9]+[_0-9a-zA-Z]*$"); //$NON-NLS-1$  
             Matcher matcher2 = pattern2.matcher(temp);
 
-            if (!matcher.matches() || matcher2.matches()) {
+            // for bug 12092
+            boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, dbType.toUpperCase().startsWith("ORACLE")); //$NON-NLS-1$  
+
+            if (!matcher.matches() || matcher2.matches() || isSqlKeyword) {
                 isCheck = true; // contain other char
             }
 
