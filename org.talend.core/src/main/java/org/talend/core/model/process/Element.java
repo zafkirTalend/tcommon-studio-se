@@ -210,6 +210,16 @@ public abstract class Element implements Cloneable, IElement {
         return null;
     }
 
+    public List<IElementParameter> getElementParametersFromField(EParameterFieldType fieldType) {
+        List<IElementParameter> params = new ArrayList<IElementParameter>();
+        for (IElementParameter elementParam : listParam) {
+            if (elementParam.getField().equals(fieldType)) {
+                params.add(elementParam);
+            }
+        }
+        return params;
+    }
+
     public IElementParameter getElementParameterFromField(EParameterFieldType fieldType, EComponentCategory category) {
         for (IElementParameter elementParam : listParam) {
             if (elementParam.getCategory().equals(category) && elementParam.getField().equals(fieldType)) {

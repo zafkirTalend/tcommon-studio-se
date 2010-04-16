@@ -70,6 +70,8 @@ public final class UpdatesConstants {
 
     public static final String SCHEMA = "SCHEMA"; //$NON-NLS-1$
 
+    public static final String SCHEMA_TARGET = "SCHEMA_TARGET";//$NON-NLS-1$
+
     public static final String PROCESS = "PROCESS"; //$NON-NLS-1$
 
     public static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
@@ -106,4 +108,6 @@ public final class UpdatesConstants {
     public static final String SERVER_NAME = "SERVER_NAME"; //$NON-NLS-1$
 
     public static final String MONITOR_IS_CANCELED = "MONITOR_IS_CANCELED"; //$NON-NLS-1$
+
+    public static final String REPOSITORY_SCHEMA_TYPE = "REPOSITORY_SCHEMA_TYPE";
 }
