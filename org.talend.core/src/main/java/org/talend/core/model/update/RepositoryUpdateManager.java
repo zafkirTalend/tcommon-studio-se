@@ -407,6 +407,13 @@ public abstract class RepositoryUpdateManager {
                 // check sap function and schema
                 IMetadataTable table1 = ((IMetadataTable) object);
                 return table1.getId().equals(((SAPFunctionUnit) parameter).getMetadataTable().getId());
+            } else if (parameter instanceof Connection) {
+                EList tables = ((Connection) parameter).getTables();
+                if (tables.size() == 1) {
+                    IMetadataTable table1 = ((IMetadataTable) object);
+                    MetadataTable table2 = (MetadataTable) tables.get(0);
+                    return table1.getId().equals(table2.getId());
+                }
             }
 
         }

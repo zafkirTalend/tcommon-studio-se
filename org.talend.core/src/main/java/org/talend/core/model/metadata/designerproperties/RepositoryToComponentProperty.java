@@ -67,7 +67,6 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
-import org.talend.core.utils.KeywordsValidator;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -1128,20 +1127,26 @@ public class RepositoryToComponentProperty {
             List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
             tableInfo.clear();
             List<IMetadataColumn> listColumns = metaTable.getListColumns();
-            for (IMetadataColumn metadataColumn : listColumns) {
-                for (SchemaTarget schema : schemaTargets) {
-                    // add for bug 12034
-                    String label = metadataColumn.getLabel();
-                    String tagName = schema.getTagName();
-                    if (label.equals(tagName)
-                            || (label.length() > 1 && label.startsWith("_") && label.substring(1).equals(tagName) && KeywordsValidator //$NON-NLS-1$
-                                    .isKeyword(tagName))) {
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        map.put("SCHEMA_COLUMN", tagName); //$NON-NLS-1$
-                        map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
-                        tableInfo.add(map);
-                    }
-                }
+            // for (IMetadataColumn metadataColumn : listColumns) {
+            // for (SchemaTarget schema : schemaTargets) {
+            // // add for bug 12034
+            // String label = metadataColumn.getLabel();
+            // String tagName = schema.getTagName();
+            // if (label.equals(tagName)
+            //                            || (label.length() > 1 && label.startsWith("_") && label.substring(1).equals(tagName) && KeywordsValidator //$NON-NLS-1$
+            // .isKeyword(tagName))) {
+            // Map<String, Object> map = new HashMap<String, Object>();
+            //                        map.put("SCHEMA_COLUMN", tagName); //$NON-NLS-1$
+            //                        map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
+            // tableInfo.add(map);
+            // }
+            // }
+            // }
+            for (SchemaTarget schema : schemaTargets) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("SCHEMA_COLUMN", schema.getTagName()); //$NON-NLS-1$
+                map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
+                tableInfo.add(map);
             }
         }
         if (connection instanceof MDMConnection) {
@@ -1432,16 +1437,23 @@ public class RepositoryToComponentProperty {
                 if (xmlDesc != null) {
                     List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
                     List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
-                    for (IMetadataColumn col : metadataTable.getListColumns()) {
+                    // for (IMetadataColumn col : metadataTable.getListColumns()) {
+                    // Map<String, Object> map = new HashMap<String, Object>();
+                    //                        map.put("QUERY", null); //$NON-NLS-1$
+                    // for (int i = 0; i < schemaTargets.size(); i++) {
+                    // SchemaTarget sch = schemaTargets.get(i);
+                    // if (col.getLabel().equals(sch.getTagName())) {
+                    // // map.put("SCHEMA_COLUMN", sch.getTagName());
+                    //                                map.put("QUERY", TalendTextUtils.addQuotes(sch.getRelativeXPathQuery())); //$NON-NLS-1$
+                    // }
+                    // }
+                    // maps.add(map);
+                    // }
+
+                    for (int i = 0; i < schemaTargets.size(); i++) {
                         Map<String, Object> map = new HashMap<String, Object>();
-                        map.put("QUERY", null); //$NON-NLS-1$
-                        for (int i = 0; i < schemaTargets.size(); i++) {
-                            SchemaTarget sch = schemaTargets.get(i);
-                            if (col.getLabel().equals(sch.getTagName())) {
-                                // map.put("SCHEMA_COLUMN", sch.getTagName());
-                                map.put("QUERY", TalendTextUtils.addQuotes(sch.getRelativeXPathQuery())); //$NON-NLS-1$
-                            }
-                        }
+                        SchemaTarget sch = schemaTargets.get(i);
+                        map.put("QUERY", TalendTextUtils.addQuotes(sch.getRelativeXPathQuery()));
                         maps.add(map);
                     }
                     return maps;
