@@ -46,6 +46,9 @@ public class KeywordsValidator {
         if (word.equalsIgnoreCase("class")) { //$NON-NLS-1$
             return true;
         }
+        if (word.equalsIgnoreCase("org")) { //$NON-NLS-1$
+            return false;
+        }
         return words.contains(word);
     }
 
