@@ -1492,13 +1492,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__VALUE = 12;
 
     /**
+     * The feature id for the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__DISPLAYNAMEASVALUE = 13;
+
+    /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 13;
+    int ITEM_TYPE_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl <em>JAVACOMMAND Type</em>}' class.
@@ -3792,6 +3801,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_VALUE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DISPLAYNAMEASVALUE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_DISPLAYNAMEASVALUE();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.JAVACOMMANDType <em>JAVACOMMAND Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5738,6 +5758,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_TYPE__VALUE = eINSTANCE.getITEMType_VALUE();
+
+        /**
+         * The meta object literal for the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__DISPLAYNAMEASVALUE = eINSTANCE.getITEMType_DISPLAYNAMEASVALUE();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.JAVACOMMANDTypeImpl <em>JAVACOMMAND Type</em>}' class.

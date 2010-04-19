@@ -274,6 +274,7 @@
 						<xs:attribute name="FIELD" type="xs:string" use="optional"
 							default="TEXT" />
 						<xs:attribute name="READONLY" type="xs:boolean" use="optional" />
+						<xs:attribute name="DISPLAY_NAME_AS_VALUE" type="xs:boolean" use="optional" />
 						<xs:attribute name="NO_CONTEXT_ASSIST" type="xs:boolean" use="optional" />
 						<xs:attribute name="READONLY_IF" type="xs:string"
 							use="optional" />

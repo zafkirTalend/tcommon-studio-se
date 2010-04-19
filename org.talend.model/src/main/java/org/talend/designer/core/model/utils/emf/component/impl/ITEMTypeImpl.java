@@ -38,6 +38,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}</li>
  * </ul>
  * </p>
  *
@@ -320,6 +321,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected String vALUE = VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isDISPLAYNAMEASVALUE() <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDISPLAYNAMEASVALUE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean DISPLAYNAMEASVALUE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isDISPLAYNAMEASVALUE() <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDISPLAYNAMEASVALUE()
+     * @generated
+     * @ordered
+     */
+    protected boolean dISPLAYNAMEASVALUE = DISPLAYNAMEASVALUE_EDEFAULT;
+
+    /**
+     * This is true if the DISPLAYNAMEASVALUE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean dISPLAYNAMEASVALUEESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -669,6 +699,52 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isDISPLAYNAMEASVALUE() {
+        return dISPLAYNAMEASVALUE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDISPLAYNAMEASVALUE(boolean newDISPLAYNAMEASVALUE) {
+        boolean oldDISPLAYNAMEASVALUE = dISPLAYNAMEASVALUE;
+        dISPLAYNAMEASVALUE = newDISPLAYNAMEASVALUE;
+        boolean oldDISPLAYNAMEASVALUEESet = dISPLAYNAMEASVALUEESet;
+        dISPLAYNAMEASVALUEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE, oldDISPLAYNAMEASVALUE, dISPLAYNAMEASVALUE, !oldDISPLAYNAMEASVALUEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetDISPLAYNAMEASVALUE() {
+        boolean oldDISPLAYNAMEASVALUE = dISPLAYNAMEASVALUE;
+        boolean oldDISPLAYNAMEASVALUEESet = dISPLAYNAMEASVALUEESet;
+        dISPLAYNAMEASVALUE = DISPLAYNAMEASVALUE_EDEFAULT;
+        dISPLAYNAMEASVALUEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE, oldDISPLAYNAMEASVALUE, DISPLAYNAMEASVALUE_EDEFAULT, oldDISPLAYNAMEASVALUEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetDISPLAYNAMEASVALUE() {
+        return dISPLAYNAMEASVALUEESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isNOCONTEXTASSIST() {
         return nOCONTEXTASSIST;
     }
@@ -758,6 +834,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getSHOWIF();
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return getVALUE();
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                return isDISPLAYNAMEASVALUE() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -808,6 +886,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE((String)newValue);
+                return;
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                setDISPLAYNAMEASVALUE(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -860,6 +941,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE(VALUE_EDEFAULT);
                 return;
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                unsetDISPLAYNAMEASVALUE();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -898,6 +982,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return VALUE_EDEFAULT == null ? vALUE != null : !VALUE_EDEFAULT.equals(vALUE);
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                return isSetDISPLAYNAMEASVALUE();
         }
         return super.eIsSet(featureID);
     }
@@ -936,6 +1022,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(sHOWIF);
         result.append(", vALUE: ");
         result.append(vALUE);
+        result.append(", dISPLAYNAMEASVALUE: ");
+        if (dISPLAYNAMEASVALUEESet) result.append(dISPLAYNAMEASVALUE); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

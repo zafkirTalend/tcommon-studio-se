@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getVALUE <em>VALUE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}</li>
  * </ul>
  * </p>
  *
@@ -421,6 +422,60 @@ public interface ITEMType extends EObject {
      * @generated
      */
     void setVALUE(String value);
+
+    /**
+     * Returns the value of the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>DISPLAYNAMEASVALUE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>DISPLAYNAMEASVALUE</em>' attribute.
+     * @see #isSetDISPLAYNAMEASVALUE()
+     * @see #unsetDISPLAYNAMEASVALUE()
+     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_DISPLAYNAMEASVALUE()
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='DISPLAY_NAME_AS_VALUE' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isDISPLAYNAMEASVALUE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>DISPLAYNAMEASVALUE</em>' attribute.
+     * @see #isSetDISPLAYNAMEASVALUE()
+     * @see #unsetDISPLAYNAMEASVALUE()
+     * @see #isDISPLAYNAMEASVALUE()
+     * @generated
+     */
+    void setDISPLAYNAMEASVALUE(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetDISPLAYNAMEASVALUE()
+     * @see #isDISPLAYNAMEASVALUE()
+     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @generated
+     */
+    void unsetDISPLAYNAMEASVALUE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>DISPLAYNAMEASVALUE</em>' attribute is set.
+     * @see #unsetDISPLAYNAMEASVALUE()
+     * @see #isDISPLAYNAMEASVALUE()
+     * @see #setDISPLAYNAMEASVALUE(boolean)
+     * @generated
+     */
+    boolean isSetDISPLAYNAMEASVALUE();
 
     /**
      * Returns the value of the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
