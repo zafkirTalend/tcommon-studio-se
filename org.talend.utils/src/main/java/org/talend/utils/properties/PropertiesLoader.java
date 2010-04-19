@@ -152,7 +152,7 @@ public final class PropertiesLoader {
                 log.info("Loading Properties from file: " + quotedAbsolutePath(in));
             } else {
                 ok = false;
-                log.error("Given file for properties does not exist: " + quotedAbsolutePath(in));
+                log.info("Given file for properties does not exist: " + quotedAbsolutePath(in));
             }
             String filename = in.getAbsolutePath();
             ok = ok && loadPropertiesLow(filename, prop);
