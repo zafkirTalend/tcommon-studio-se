@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSERIAL <em>SERIAL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSHORTNAME <em>SHORTNAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
@@ -709,6 +710,33 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setSERIAL(String value);
+
+    /**
+     * Returns the value of the '<em><b>SHORTNAME</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SHORTNAME</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SHORTNAME</em>' attribute.
+     * @see #setSHORTNAME(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SHORTNAME()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='SHORTNAME' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSHORTNAME();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSHORTNAME <em>SHORTNAME</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SHORTNAME</em>' attribute.
+     * @see #getSHORTNAME()
+     * @generated
+     */
+    void setSHORTNAME(String value);
 
     /**
      * Returns the value of the '<em><b>SINGLETON</b></em>' attribute.

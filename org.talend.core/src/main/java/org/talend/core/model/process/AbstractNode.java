@@ -80,6 +80,8 @@ public abstract class AbstractNode implements INode {
 
     private boolean isVirtualGenerateNode;
 
+    private String uniqueShortName;
+
     public String getComponentName() {
         return componentName;
     }
@@ -671,5 +673,23 @@ public abstract class AbstractNode implements INode {
 
     public boolean isUseLoopOnConditionalOutput(String outputName) {
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#getUniqueShortName()
+     */
+    public String getUniqueShortName() {
+        return this.uniqueShortName;
+    }
+
+    /**
+     * Sets the uniqueShortName.
+     * 
+     * @param uniqueShortName the uniqueShortName to set
+     */
+    public void setUniqueShortName(String uniqueShortName) {
+        this.uniqueShortName = uniqueShortName;
     }
 }

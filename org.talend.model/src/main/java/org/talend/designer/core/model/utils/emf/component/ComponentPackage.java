@@ -1037,13 +1037,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__SERIAL = 15;
 
     /**
+     * The feature id for the '<em><b>SHORTNAME</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__SHORTNAME = 16;
+
+    /**
      * The feature id for the '<em><b>SINGLETON</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SINGLETON = 16;
+    int HEADER_TYPE__SINGLETON = 17;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -1052,7 +1061,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 17;
+    int HEADER_TYPE__STARTABLE = 18;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -1061,7 +1070,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 18;
+    int HEADER_TYPE__STATUS = 19;
 
     /**
      * The feature id for the '<em><b>SUBJOBCOLOR</b></em>' attribute.
@@ -1070,7 +1079,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SUBJOBCOLOR = 19;
+    int HEADER_TYPE__SUBJOBCOLOR = 20;
 
     /**
      * The feature id for the '<em><b>SUBJOBTITLECOLOR</b></em>' attribute.
@@ -1079,7 +1088,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SUBJOBTITLECOLOR = 20;
+    int HEADER_TYPE__SUBJOBTITLECOLOR = 21;
 
     /**
      * The feature id for the '<em><b>TECHNICAL</b></em>' attribute.
@@ -1088,7 +1097,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TECHNICAL = 21;
+    int HEADER_TYPE__TECHNICAL = 22;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -1097,7 +1106,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 22;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 23;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -1106,7 +1115,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 23;
+    int HEADER_TYPE__VERSION = 24;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -1115,7 +1124,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 24;
+    int HEADER_TYPE__VISIBLE = 25;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -1124,7 +1133,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 25;
+    int HEADER_TYPE_FEATURE_COUNT = 26;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3304,6 +3313,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_SERIAL();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSHORTNAME <em>SHORTNAME</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SHORTNAME</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getSHORTNAME()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_SHORTNAME();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSINGLETON <em>SINGLETON</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5356,6 +5376,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__SERIAL = eINSTANCE.getHEADERType_SERIAL();
+
+        /**
+         * The meta object literal for the '<em><b>SHORTNAME</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__SHORTNAME = eINSTANCE.getHEADERType_SHORTNAME();
 
         /**
          * The meta object literal for the '<em><b>SINGLETON</b></em>' attribute feature.

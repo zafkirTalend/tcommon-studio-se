@@ -51,6 +51,8 @@ public interface INode extends IElement {
      */
     public String getUniqueName();
 
+    public String getUniqueShortName();
+
     /**
      * Return the start status of this node.
      * 

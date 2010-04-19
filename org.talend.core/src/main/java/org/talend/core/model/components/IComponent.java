@@ -125,4 +125,6 @@ public interface IComponent {
     public boolean isMainCodeCalled();
 
     public boolean canParallelize();
+
+    public String getShortName();
 }

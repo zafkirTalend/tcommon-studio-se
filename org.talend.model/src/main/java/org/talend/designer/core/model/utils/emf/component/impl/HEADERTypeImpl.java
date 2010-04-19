@@ -41,6 +41,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSERIAL <em>SERIAL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSHORTNAME <em>SHORTNAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSINGLETON <em>SINGLETON</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
@@ -437,6 +438,26 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String sERIAL = SERIAL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSHORTNAME() <em>SHORTNAME</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSHORTNAME()
+     * @generated
+     * @ordered
+     */
+    protected static final String SHORTNAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSHORTNAME() <em>SHORTNAME</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSHORTNAME()
+     * @generated
+     * @ordered
+     */
+    protected String sHORTNAME = SHORTNAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #isSINGLETON() <em>SINGLETON</em>}' attribute.
@@ -1245,6 +1266,27 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSHORTNAME() {
+        return sHORTNAME;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSHORTNAME(String newSHORTNAME) {
+        String oldSHORTNAME = sHORTNAME;
+        sHORTNAME = newSHORTNAME;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SHORTNAME, oldSHORTNAME, sHORTNAME));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public boolean isSINGLETON() {
         return sINGLETON;
     }
@@ -1608,6 +1650,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSCHEMAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 return getSERIAL();
+            case ComponentPackage.HEADER_TYPE__SHORTNAME:
+                return getSHORTNAME();
             case ComponentPackage.HEADER_TYPE__SINGLETON:
                 return isSINGLETON() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__STARTABLE:
@@ -1685,6 +1729,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 setSERIAL((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__SHORTNAME:
+                setSHORTNAME((String)newValue);
                 return;
             case ComponentPackage.HEADER_TYPE__SINGLETON:
                 setSINGLETON(((Boolean)newValue).booleanValue());
@@ -1773,6 +1820,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 setSERIAL(SERIAL_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__SHORTNAME:
+                setSHORTNAME(SHORTNAME_EDEFAULT);
+                return;
             case ComponentPackage.HEADER_TYPE__SINGLETON:
                 unsetSINGLETON();
                 return;
@@ -1844,6 +1894,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetSCHEMAAUTOPROPAGATE();
             case ComponentPackage.HEADER_TYPE__SERIAL:
                 return SERIAL_EDEFAULT == null ? sERIAL != null : !SERIAL_EDEFAULT.equals(sERIAL);
+            case ComponentPackage.HEADER_TYPE__SHORTNAME:
+                return SHORTNAME_EDEFAULT == null ? sHORTNAME != null : !SHORTNAME_EDEFAULT.equals(sHORTNAME);
             case ComponentPackage.HEADER_TYPE__SINGLETON:
                 return isSetSINGLETON();
             case ComponentPackage.HEADER_TYPE__STARTABLE:
@@ -1906,6 +1958,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (sCHEMAAUTOPROPAGATEESet) result.append(sCHEMAAUTOPROPAGATE); else result.append("<unset>");
         result.append(", sERIAL: ");
         result.append(sERIAL);
+        result.append(", sHORTNAME: ");
+        result.append(sHORTNAME);
         result.append(", sINGLETON: ");
         if (sINGLETONESet) result.append(sINGLETON); else result.append("<unset>");
         result.append(", sTARTABLE: ");
