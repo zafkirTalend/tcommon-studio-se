@@ -29,10 +29,8 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
-import org.talend.core.model.context.JobContextParameter;
-import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
-import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
@@ -168,33 +166,6 @@ public final class ContextManagerHelper {
         return null;
     }
 
-    /*
-     * get the name of ContextParameterType from ContextItem by name.
-     */
-
-    private ContextParameterType getContextParameterType(ContextItem item, ContextParameterType defaultContextParameterType,
-            String typeName, boolean defaultType) {
-        if (!isValid(item) || !isValid(defaultContextParameterType) || !isValid(typeName)) {
-            return null;
-        }
-        if (defaultType) { // default ContextType
-            typeName = item.getDefaultContext();
-        }
-        for (Object obj : item.getContext()) {
-            ContextType type = (ContextType) obj;
-            if (type.getName().equals(typeName)) {
-                for (ContextParameterType param : (List<ContextParameterType>) type.getContextParameter()) {
-                    if (param.getName().equals(defaultContextParameterType.getName())) {
-                        return param;
-                    }
-                }
-                break;
-            }
-        }
-
-        return null;
-    }
-
     /**
      * get the ContextItem from the name.
      */
@@ -315,47 +286,6 @@ public final class ContextManagerHelper {
         return manager.getDefaultContext().getContextParameter(paramName);
     }
 
-    /*
-     * create the JobContextParameter form the contextParamType of contextItem.
-     */
-    private JobContextParameter createJobContextParameter(ContextItem contextItem, ContextParameterType contextParamType) {
-        if (!isValid(contextItem) || !isValid(contextParamType)) {
-            return null;
-        }
-        JobContextParameter contextParam = new JobContextParameter();
-
-        contextParam.setName(contextParamType.getName());
-        contextParam.setPrompt(contextParamType.getPrompt());
-        boolean exists = false;
-        ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
-        if (curLanguage == ECodeLanguage.JAVA) {
-            exists = true;
-            try {
-                ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
-            } catch (IllegalArgumentException e) {
-                exists = false;
-            }
-        } else {
-            String[] existingTypes;
-            existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-            for (int k = 0; k < existingTypes.length; k++) {
-                if (existingTypes[k].equals(contextParamType.getType())) {
-                    exists = true;
-                }
-            }
-        }
-        if (exists) {
-            contextParam.setType(contextParamType.getType());
-        } else {
-            contextParam.setType(MetadataTalendType.getDefaultTalendType());
-        }
-        contextParam.setValue(contextParamType.getValue());
-        contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
-        contextParam.setComment(contextParamType.getComment());
-        contextParam.setSource(contextItem.getProperty().getLabel());
-        return contextParam;
-    }
-
     /**
      * 
      * DOC ggu Comment method "addContextParameterType".
@@ -371,17 +301,7 @@ public final class ContextManagerHelper {
         if (item == null) {
             return;
         }
-        for (IContext context : manager.getListContext()) {
-            ContextParameterType foundParam = getContextParameterType(item, defaultContextParameterType, context.getName(), false);
-            if (foundParam == null) {
-                // not found, set the default
-                foundParam = getContextParameterType(item, defaultContextParameterType, context.getName(), true);
-            }
-            if (foundParam != null) {
-                JobContextParameter jobParam = createJobContextParameter(item, foundParam);
-                context.getContextParameterList().add(jobParam);
-            }
-        }
+        ContextUtils.addContextParameterType(manager, item, defaultContextParameterType);
     }
 
     /**

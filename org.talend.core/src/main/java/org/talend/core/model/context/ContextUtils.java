@@ -35,9 +35,15 @@ import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -417,4 +423,140 @@ public class ContextUtils {
         return Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
                 "propagateContextVariable")); //$NON-NLS-1$
     }
+
+    /**
+     * 
+     * ggu Comment method "addInContextModelForProcessItem".
+     */
+    public static boolean addInContextModelForProcessItem(Item item, Map<String, Set<String>> contextVars,
+            List<ContextItem> allContextItems) {
+        ProcessType processType = null;
+        if (item instanceof ProcessItem) {
+            processType = ((ProcessItem) item).getProcess();
+        } else if (item instanceof JobletProcessItem) {
+            processType = ((JobletProcessItem) item).getJobletProcess();
+        }
+        boolean added = false;
+        if (processType != null) {
+            if (allContextItems == null) {
+                allContextItems = ContextUtils.getAllContextItem();
+            }
+            for (String id : contextVars.keySet()) {
+                ConnectionItem connItem = UpdateRepositoryUtils.getConnectionItemByItemId(id);
+                if (connItem != null) {
+                    String contextId = connItem.getConnection().getContextId();
+                    if (contextId != null) {
+                        Set<String> set = contextVars.get(id);
+                        if (set != null) {
+                            ContextItem contextItem = getContextItemById(allContextItems, contextId);
+                            ContextType contextType = getContextTypeByName(contextItem, contextItem.getDefaultContext(), true);
+                            JobContextManager processJobManager = new JobContextManager(processType.getContext(), processType
+                                    .getDefaultContext());
+
+                            boolean modified = false;
+                            for (String varName : set) {
+                                ContextParameterType contextParameterType = ContextUtils.getContextParameterTypeByName(
+                                        contextType, varName);
+                                IContextParameter contextParameter = processJobManager.getDefaultContext().getContextParameter(
+                                        varName);
+                                if (contextParameter == null) { // added
+                                    addContextParameterType(processJobManager, contextItem, contextParameterType);
+                                    modified = true;
+                                }
+                            }
+                            if (modified) {
+                                processType.getContext().clear();
+                                processJobManager.saveToEmf(processType.getContext());
+                                added = true;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return added;
+    }
+
+    public static void addContextParameterType(IContextManager manager, ContextItem contextItem,
+            ContextParameterType setContextParameterType) {
+        for (IContext context : manager.getListContext()) {
+            ContextParameterType foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(),
+                    false);
+            if (foundParam == null) {
+                // not found, set the default
+                foundParam = getContextParameterType(contextItem, setContextParameterType, context.getName(), true);
+            }
+            if (foundParam != null) {
+                JobContextParameter jobParam = createJobContextParameter(contextItem, foundParam);
+                context.getContextParameterList().add(jobParam);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static ContextParameterType getContextParameterType(ContextItem item,
+            ContextParameterType defaultContextParameterType, String typeName, boolean defaultType) {
+        if (checkObject(item) || checkObject(defaultContextParameterType) || checkObject(typeName)) {
+            return null;
+        }
+        if (defaultType) { // default ContextType
+            typeName = item.getDefaultContext();
+        }
+        for (Object obj : item.getContext()) {
+            ContextType type = (ContextType) obj;
+            if (type.getName().equals(typeName)) {
+                for (ContextParameterType param : (List<ContextParameterType>) type.getContextParameter()) {
+                    if (param.getName().equals(defaultContextParameterType.getName())) {
+                        return param;
+                    }
+                }
+                break;
+            }
+        }
+
+        return null;
+    }
+
+    /*
+     * create the JobContextParameter form the contextParamType of contextItem.
+     */
+    private static JobContextParameter createJobContextParameter(ContextItem contextItem, ContextParameterType contextParamType) {
+        if (checkObject(contextItem) || checkObject(contextParamType)) {
+            return null;
+        }
+        JobContextParameter contextParam = new JobContextParameter();
+
+        contextParam.setName(contextParamType.getName());
+        contextParam.setPrompt(contextParamType.getPrompt());
+        boolean exists = false;
+        ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
+        if (curLanguage == ECodeLanguage.JAVA) {
+            exists = true;
+            try {
+                ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
+            } catch (IllegalArgumentException e) {
+                exists = false;
+            }
+        } else {
+            String[] existingTypes;
+            existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
+            for (int k = 0; k < existingTypes.length; k++) {
+                if (existingTypes[k].equals(contextParamType.getType())) {
+                    exists = true;
+                }
+            }
+        }
+        if (exists) {
+            contextParam.setType(contextParamType.getType());
+        } else {
+            contextParam.setType(MetadataTalendType.getDefaultTalendType());
+        }
+        contextParam.setValue(contextParamType.getValue());
+        contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
+        contextParam.setComment(contextParamType.getComment());
+        contextParam.setSource(contextItem.getProperty().getLabel());
+        return contextParam;
+    }
+
 }
