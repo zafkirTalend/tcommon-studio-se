@@ -5,6 +5,5 @@
 	<classpathentry kind="src" path="main/java/src"/>
 	<classpathentry exported="true" kind="lib" path="lib/terajdbc4.jar" sourcepath="org.talend.libraries.jdbc.teradatasrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/tdgssconfig.jar" sourcepath="org.talend.libraries.jdbc.teradatasrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/tdgssjava.jar" sourcepath="org.talend.libraries.jdbc.teradatasrc.zip"/>
 	<classpathentry kind="output" path="class"/>
 </classpath>
