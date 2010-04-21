@@ -18,9 +18,11 @@ import java.util.Map;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
+import org.apache.oro.text.regex.Substitution;
 import org.apache.oro.text.regex.Util;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
@@ -92,12 +94,45 @@ public final class ParameterValueUtil {
 
         if (matcher.contains(value, pattern)) {
             // replace
-            String returnValue = Util.substitute(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
+            String returnValue = "";
+            if (value.contains("\"")) {
+                returnValue = splitQueryData(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
+            } else {
+                returnValue = Util.substitute(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
+            }
             return returnValue;
 
         }
         return value; // keep original value
 
+    }
+
+    // for bug 12594 split ";
+    public static String splitQueryData(PatternMatcher matcher, Pattern pattern, Substitution sub, String value, int numSubs) {
+        String[] split = value.split("\"");
+        int i = 0;
+        String replace = "";
+        for (String s : split) {
+            if (i % 2 == 0) {
+                replace = s;
+                if (i != 0) {
+                    if (matcher.contains(value, pattern)) {
+                        replace = split[i].toString();
+                        split[i] = Util.substitute(matcher, pattern, sub, replace, numSubs);
+                    }
+                }
+            }
+            i++;
+        }
+        String returnValue = "";
+        for (int t = 1; t < split.length; t++) {
+            if (t % 2 == 0) {
+                returnValue += split[t];
+            } else {
+                returnValue += "\"" + split[t] + "\"";
+            }
+        }
+        return returnValue;
     }
 
     public static boolean isUseData(final IElementParameter param, final String name) {
