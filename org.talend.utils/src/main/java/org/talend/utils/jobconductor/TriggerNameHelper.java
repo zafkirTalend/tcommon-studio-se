@@ -118,6 +118,11 @@ public final class TriggerNameHelper {
         return quartzTriggerName;
     }
 
+    public String buildQuartzTriggerName(int talendTriggerId) {
+        String quartzTriggerName = String.valueOf(talendTriggerId);
+        return quartzTriggerName;
+    }
+
     public boolean isTalendRecoverTriggerName(String triggerName) {
         return triggerName.matches(".*" + PREFIX_TALEND_RECOVER_TRIGGER + ".+");
     }
@@ -139,8 +144,7 @@ public final class TriggerNameHelper {
     }
 
     public boolean isTalendTriggerDependent(String quartzTriggerName) {
-        return isTimeTriggerName(quartzTriggerName)
-                || isFileTriggerName(quartzTriggerName);
+        return isTimeTriggerName(quartzTriggerName) || isFileTriggerName(quartzTriggerName);
     }
 
 }
