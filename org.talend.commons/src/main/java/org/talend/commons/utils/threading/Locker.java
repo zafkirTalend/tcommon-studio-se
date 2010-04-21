@@ -669,8 +669,9 @@ public class Locker<B, KP> {
     }
 
     public synchronized void shutdown() {
-        Collection<Thread> values = waitingThreadsByKey.values();
-        for (Object object : values) {
+        Object[] values = waitingThreadsByKey.values().toArray(new Object[0]);
+        for (int j = 0; j < values.length; j++) {
+            Object object = values[j];
             if (object instanceof List) {
                 List<Thread> list = (List<Thread>) object;
                 for (Thread thread : list) {
