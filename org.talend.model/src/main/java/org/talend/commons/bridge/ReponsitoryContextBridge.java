@@ -47,7 +47,15 @@ public final class ReponsitoryContextBridge {
      * @return the author
      */
     public static String getAuthor() {
-        return isDefautProject() ? "" : project.getAuthor().getLogin();
+    	//MOD mzhao bug 12646, 2010-04-21, Handle NPE.
+    	String author = "";
+    	if(project!=null&&project.getAuthor()!=null){
+    		author = project.getAuthor().getLogin();
+    	}else if(user!=null){
+    		author = user.getLogin();
+    	}
+        return isDefautProject() ? "" : author;
+        //~
     }
 
     /**
