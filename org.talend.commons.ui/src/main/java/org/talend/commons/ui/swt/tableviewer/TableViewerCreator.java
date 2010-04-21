@@ -113,10 +113,15 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * </p>
  * <p>
  * 2) configure, the methods below are used to configure internally style of <code>Table</code> object, so if you want
- * use these methods call them before <code>createTable</code> : <br/>- <code>setLineSelection</code> <br/>-
- * <code>setShowSelection</code> <br/>- <code>setCheckboxInFirstColumn</code> <br/>- <code>setBorderVisible</code>
- * <br/>- <code>setHorizontalScroll</code> <br/>- <code>setVerticalScroll</code> <br/>- <code>setHeaderVisible</code>
- * <br/>- <code>setLinesVisible</code>
+ * use these methods call them before <code>createTable</code> : <br/>
+ * - <code>setLineSelection</code> <br/>
+ * - <code>setShowSelection</code> <br/>
+ * - <code>setCheckboxInFirstColumn</code> <br/>
+ * - <code>setBorderVisible</code> <br/>
+ * - <code>setHorizontalScroll</code> <br/>
+ * - <code>setVerticalScroll</code> <br/>
+ * - <code>setHeaderVisible</code> <br/>
+ * - <code>setLinesVisible</code>
  * </p>
  * 
  * <p>
@@ -124,17 +129,20 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * <code>init</code> call.
  * </p>
  * <p>
- * 4) create <code>TableViewerCreatorColumn</code> columns and configure them. <BR/>Description of the main parameters :
- * <BR/> - <code>beanPropertyName</code> represents the property of each object of your addedObjects which will be read
- * (and write). <BR/> - <code>idProperty</code> (optional) represents the <b>unique id</b> of the column, it is by
- * default the value of <code>beanPropertyName</code>. If the unicity is not respected, a assertion is thrown. <BR/> -
- * set a <code>width</code> or a <code>weight</code> value. <BR/> - see others parameters in
- * <code>TableViewerCreatorColumn</code>
+ * 4) create <code>TableViewerCreatorColumn</code> columns and configure them. <BR/>
+ * Description of the main parameters : <BR/>
+ * - <code>beanPropertyName</code> represents the property of each object of your addedObjects which will be read (and
+ * write). <BR/>
+ * - <code>idProperty</code> (optional) represents the <b>unique id</b> of the column, it is by default the value of
+ * <code>beanPropertyName</code>. If the unicity is not respected, a assertion is thrown. <BR/>
+ * - set a <code>width</code> or a <code>weight</code> value. <BR/>
+ * - see others parameters in <code>TableViewerCreatorColumn</code>
  * </p>
  * <p>
- * 5) set commons value for columns as you want, call them before <code>init</code> : <br/>-
- * <code>setAllColumnsMoveable</code> <br/>- <code>setAllColumnsResizable</code> <br/>-
- * <code>setAllColumnsSortable</code> <br/>
+ * 5) set commons value for columns as you want, call them before <code>init</code> : <br/>
+ * - <code>setAllColumnsMoveable</code> <br/>
+ * - <code>setAllColumnsResizable</code> <br/>
+ * - <code>setAllColumnsSortable</code> <br/>
  * </p>
  * 
  * <p>
@@ -552,7 +560,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         table.setHeaderVisible(headerVisible);
         table.setLinesVisible(linesVisible);
 
-        if (this.emptyZoneColor != null && !WindowSystem.isGTK()) {
+        if (this.emptyZoneColor != null && !WindowSystem.isGTK() && !WindowSystem.isOSX()) {
             Listener paintListener = new Listener() {
 
                 public void handleEvent(Event event) {
@@ -1132,7 +1140,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             final TableViewerCreatorColumn column = columns.get(i);
             column.setIndex(i);
             TableColumn tableColumn = column.getTableColumn();
-            if (WindowSystem.isGTK() && column.getWidth() == 0 && column.getWeight() == 0) {
+            if ((WindowSystem.isGTK() || WindowSystem.isOSX()) && column.getWidth() == 0 && column.getWeight() == 0) {
                 // bug with GTK for cell edition when width == 0
                 column.setWidth(1);
             }

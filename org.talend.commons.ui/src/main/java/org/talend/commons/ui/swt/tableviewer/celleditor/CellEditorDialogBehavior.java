@@ -65,7 +65,9 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.designer.rowgenerator.ui.tabs.IExtendedCellEditorBehavior#createBehaviorControls(org.eclipse.swt.widgets.Composite)
+     * @see
+     * org.talend.designer.rowgenerator.ui.tabs.IExtendedCellEditorBehavior#createBehaviorControls(org.eclipse.swt.widgets
+     * .Composite)
      */
     public Control createBehaviorControls(Composite parent) {
 
@@ -75,7 +77,7 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
         gridLayout.marginBottom = 0;
         gridLayout.marginHeight = 0;
         gridLayout.marginLeft = 0;
-        gridLayout.marginRight = 0;
+        gridLayout.marginRight = 2;
         gridLayout.marginTop = 0;
         gridLayout.marginWidth = 0;
         panel.setLayout(gridLayout);
