@@ -12,12 +12,9 @@
 // ============================================================================
 package org.talend.runprocess.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.draw2d.geometry.Point;
@@ -45,17 +42,7 @@ public class ParallelPerformance extends CommonPerformance {
     /**
      * store the ids of exec that will be displayed on current row link.
      */
-    private List<String> displayedExecutionId = new ArrayList<String>(DISPLAY_LIMIT);
-
-    /**
-     * store the ids of exec that have already stopped.
-     */
-    private Set<String> stoppeddExecutionId = new HashSet<String>();
-
-    /**
-     * store the ids of exec that are running now.
-     */
-    private Set<String> runningExecutionId = new HashSet<String>();
+    private LinkedList<String> displayedExecutionId = new LinkedList<String>();
 
     /**
      * store entry of connetionId and IPerformanceData.
@@ -68,9 +55,7 @@ public class ParallelPerformance extends CommonPerformance {
 
     public void resetStatus() {
         displayedExecutionId.clear();
-        stoppeddExecutionId.clear();
         performanceDataMap.clear();
-        runningExecutionId.clear();
     }
 
     @Override
@@ -86,14 +71,7 @@ public class ParallelPerformance extends CommonPerformance {
             // has format as row1.72, means have parallel execution
             String connectionId = data.getConnectionId();
             String execId = connectionId.substring(connectionId.indexOf('.') + 1);
-
             performanceDataMap.put(execId, data);
-            if (data.getAction().equals(IPerformanceData.ACTION_START)) {
-                runningExecutionId.add(execId);
-            } else if (data.getAction().equals(IPerformanceData.ACTION_STOP)) {
-                stoppeddExecutionId.add(execId);
-                runningExecutionId.remove(execId);
-            }
 
             displayIfPossible(execId, data);
 
@@ -101,9 +79,6 @@ public class ParallelPerformance extends CommonPerformance {
             for (String id : displayedExecutionId) {
                 builder.append(constructLabel(performanceDataMap.get(id)));
             }
-
-            // check if there are other exec running that cannot display on row link.
-            checkOtherRunningExecution(builder);
 
             // set the label location
             // offset = computeLabelOffset();
@@ -114,23 +89,6 @@ public class ParallelPerformance extends CommonPerformance {
             // firePropertyChange(LABEL_PROP, oldLabel, label);
         }
         return this.label;
-    }
-
-    /**
-     * DOC hcw Comment method "checkOtherRunningExecution".
-     * 
-     * @param builder
-     */
-    public void checkOtherRunningExecution(StringBuilder builder) {
-        int otherExecution = runningExecutionId.size() - DISPLAY_LIMIT;
-        if (otherExecution > 0) {
-            String execString = "exec"; //$NON-NLS-1$
-            if (otherExecution > 1) {
-                execString = "execs"; //$NON-NLS-1$
-            }
-            builder.append(String.format("<font color='#AA3322'>             %1$s other %2$s   </font>", otherExecution, //$NON-NLS-1$
-                    execString));
-        }
     }
 
     /**
@@ -146,7 +104,7 @@ public class ParallelPerformance extends CommonPerformance {
         if (size > DISPLAY_LIMIT) {
             size = DISPLAY_LIMIT;
         }
-        if (runningExecutionId.size() > DISPLAY_LIMIT) {
+        if (displayedExecutionId.size() > DISPLAY_LIMIT) {
             size++;
         }
         return new Point(0, -14 * size);
@@ -158,21 +116,10 @@ public class ParallelPerformance extends CommonPerformance {
             return;
         }
 
-        if (displayedExecutionId.size() < DISPLAY_LIMIT) {
-            // will be displayed on label
-            displayedExecutionId.add(execId);
-        } else {
-            // If we can find a finished execution that is already displayed, replace it with this new data. Otherwise
-            // the new data will not be displayed.
-            for (int i = 0; i < displayedExecutionId.size(); i++) {
-                String id = displayedExecutionId.get(i);
-                if (stoppeddExecutionId.contains(id)) {
-                    // replace the finished execution with new data
-                    displayedExecutionId.set(i, execId);
-                    return;
-                }
-            }
+        if (displayedExecutionId.size() >= DISPLAY_LIMIT) {
+            performanceDataMap.remove(displayedExecutionId.removeFirst());
         }
+        displayedExecutionId.add(execId);
     }
 
     /**
@@ -182,7 +129,7 @@ public class ParallelPerformance extends CommonPerformance {
      */
     private String constructLabel(IPerformanceData data) {
         String connectionId = data.getConnectionId();
-        String execId = connectionId.substring(connectionId.indexOf('.') + 1);
+        long execId = Long.parseLong(connectionId.substring(connectionId.indexOf('.') + 1)) + 1;
         long lineCount = data.getLineCount();
         long processingTime = data.getProcessingTime();
         double avg = processingTime > 0 ? lineCount * 1000.0 / processingTime : 0.0;

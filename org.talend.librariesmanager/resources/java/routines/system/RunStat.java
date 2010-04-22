@@ -16,6 +16,10 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class RunStat implements Runnable {
 
@@ -143,7 +147,9 @@ public class RunStat implements Runnable {
 
     }
 
-    private java.util.concurrent.ConcurrentHashMap<String, StatBean> processStats = new java.util.concurrent.ConcurrentHashMap<String, StatBean>();
+    private Map<String, StatBean> processStats = new HashMap<String, StatBean>();
+
+    private List<String> keysList = new LinkedList<String>();
 
     // private java.util.ArrayList<StatBean> processStats = new java.util.ArrayList<StatBean>();
 
@@ -235,7 +241,8 @@ public class RunStat implements Runnable {
         // SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss.SZ");
         // System.out.println("############ Sending packets " + sdf.format(new Date()) + " ... #################");
 
-        for (StatBean sb : processStats.values()) {
+        for (String curKey : keysList) {
+            StatBean sb = processStats.get(curKey);
             // it is connection
             int jobStat = sb.getJobStat();
             if (jobStat == JOBDEFAULT) {
@@ -252,17 +259,13 @@ public class RunStat implements Runnable {
                     }
                     if (sb.getState() != RunStat.RUNNING) {
                         str += "|" + ((sb.getState() == RunStat.BEGIN) ? "start" : "stop"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                        processStats.remove(sb.getConnectionId());
                     }
                 }
-
             } else {
-
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss.SSSZ");
 
                 // it is job, for feature:11356
                 String jobStatStr = "";
-                long time = 0;
                 String itemId = sb.getItemId();
                 itemId = itemId == null ? "" : itemId;
                 if (jobStat == JOBSTART) {
@@ -272,35 +275,68 @@ public class RunStat implements Runnable {
                     jobStatStr = jobName + "|" + "end job" + "|" + itemId + "|"
                             + simpleDateFormat.format(new Date(sb.getEndTime()));
                 }
-                String key = jobStat + "";
-                processStats.remove(key);
 
                 str = TYPE0_JOB + "|" + rootPid + "|" + fatherPid + "|" + pid + "|" + jobStatStr;
             }
-
-            // System.out.println("Packet " + sdf.format(new Date()) + " => " + str);
-
+            // System.out.println(str);
             pred.println(str); // envoi d'un message
         }
+        processStats.clear();
+        keysList.clear();
 
+        // System.out.println("*** data sent ***");
     }
+
+    long lastStatsUpdate = 0;
 
     public synchronized void updateStatOnConnection(String connectionId, int mode, int nbLine) {
         StatBean bean;
-        if (processStats.containsKey(connectionId)) {
-            bean = processStats.get(connectionId);
+        String key = connectionId;
+        if (connectionId.contains(".")) {
+            String firstKey = null;
+            String connectionName = connectionId.split("\\.")[0];
+            int nbKeys = 0;
+            for (String myKey : keysList) {
+                if (myKey.startsWith(connectionName + ".")) {
+                    if (firstKey == null) {
+                        firstKey = myKey;
+                    }
+                    nbKeys++;
+                    if (nbKeys == 4) {
+                        break;
+                    }
+                }
+            }
+            if (nbKeys == 4) {
+                keysList.remove(firstKey);
+            }
+        }
+
+        if (keysList.contains(key)) {
+            keysList.remove(key);
+        }
+        keysList.add(key);
+
+        if (processStats.containsKey(key)) {
+            bean = processStats.get(key);
         } else {
             bean = new StatBean(connectionId);
         }
         bean.setState(mode);
         bean.setEndTime(System.currentTimeMillis());
         bean.setNbLine(bean.getNbLine() + nbLine);
-        processStats.put(connectionId, bean);
+        processStats.put(key, bean);
 
         // if tFileList-->tFileInputDelimited-->tFileOuputDelimited, it should clear the data every iterate
         if (mode == BEGIN) {
             bean.setNbLine(0);
-            sendMessages();
+            // Set a maximum interval for each update of 250ms.
+            // since Iterate can be fast, we try to update the UI often.
+            long newStatsUpdate = System.currentTimeMillis();
+            if (lastStatsUpdate == 0 || lastStatsUpdate + 250 < newStatsUpdate) {
+                sendMessages();
+                lastStatsUpdate = newStatsUpdate;
+            }
         }
 
         if (debug) {
@@ -310,22 +346,63 @@ public class RunStat implements Runnable {
 
     public synchronized void updateStatOnConnection(String connectionId, int mode, String exec) {
         StatBean bean;
-        if (processStats.containsKey(connectionId)) {
-            bean = processStats.get(connectionId);
+        String key = connectionId + "|" + mode;
+
+        if (connectionId.startsWith("iterate")) {
+            key = connectionId + "|" + mode + "|" + exec;
+        } else {
+            if (connectionId.contains(".")) {
+                String firstKey = null;
+                String connectionName = connectionId.split(".")[0];
+                int nbKeys = 0;
+                for (String myKey : keysList) {
+                    if (myKey.startsWith(connectionName + ".")) {
+                        if (firstKey == null) {
+                            firstKey = myKey;
+                        }
+                        nbKeys++;
+                        if (nbKeys == 4) {
+                            break;
+                        }
+                    }
+                }
+                if (nbKeys == 4) {
+                    keysList.remove(firstKey);
+                }
+            }
+        }
+        if (keysList.contains(key)) {
+            keysList.remove(key);
+        }
+        keysList.add(key);
+        // System.out.println(connectionId);
+        if (processStats.containsKey(key)) {
+            bean = processStats.get(key);
         } else {
             bean = new StatBean(connectionId);
         }
         bean.setState(mode);
         bean.setExec(exec);
-        processStats.put(connectionId, bean);
+        processStats.put(key, bean);
 
-        sendMessages();
+        // Set a maximum interval for each update of 250ms.
+        // since Iterate can be fast, we try to update the UI often.
+        long newStatsUpdate = System.currentTimeMillis();
+        if (lastStatsUpdate == 0 || lastStatsUpdate + 250 < newStatsUpdate) {
+            sendMessages();
+            lastStatsUpdate = newStatsUpdate;
+        }
     }
 
     public synchronized void updateStatOnJob(int jobStat, String parentNodeName) {
         StatBean bean = new StatBean(jobStat, parentNodeName);
         String key = jobStat + "";
+        if (keysList.contains(key)) {
+            keysList.remove(key);
+        }
+        keysList.add(key);
         processStats.put(key, bean);
+
         sendMessages();
     }
 
