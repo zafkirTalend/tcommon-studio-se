@@ -436,4 +436,11 @@ public class QueryUtil {
         }
         return false;
     }
+
+    public static boolean checkIfHasSpecialEscapeValue(String query) {
+        if (query.contains("\\n") || query.contains("\\r") || query.contains("\\t")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return true;
+        }
+        return false;
+    }
 }
