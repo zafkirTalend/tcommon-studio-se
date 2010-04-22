@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.utils.format;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Locale;
@@ -172,5 +173,14 @@ public final class StringFormatUtil {
         }
 
         return true;
+    }
+
+    public static Double formatPercentDecimalDouble(Object input) {
+        if (checkInput(input)) {
+            BigDecimal bd1 = new BigDecimal(input.toString());
+            BigDecimal bd2 = new BigDecimal("100");
+            return bd1.multiply(bd2).doubleValue();
+        }
+        return null;
     }
 }
