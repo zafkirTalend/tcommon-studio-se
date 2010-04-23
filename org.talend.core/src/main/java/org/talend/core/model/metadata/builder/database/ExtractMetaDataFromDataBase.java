@@ -129,6 +129,8 @@ public class ExtractMetaDataFromDataBase {
 
     private static List<IMetadataTable> oldMetadataRetrieved = null;
 
+    private static List<String> filterTablesName = new ArrayList<String>();
+
     /**
      * DOC cantoine. Method to return a Collection of Tables for a DB connection.
      * 
@@ -962,6 +964,7 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection,
             TableInfoParameters tableInfoParameters) {
         List<String> itemTablesName = new ArrayList<String>();
+        filterTablesName.clear();
         // add by wzhang
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
@@ -1044,8 +1047,12 @@ public class ExtractMetaDataFromDataBase {
             filterTablesFromRecycleBin(itemTablesName);
         }
         ExtractMetaDataUtils.closeConnection();
-
+        filterTablesName = itemTablesName;
         return itemTablesName;
+    }
+
+    public static List<String> getFilterTablesName() {
+        return filterTablesName;
     }
 
     /**
