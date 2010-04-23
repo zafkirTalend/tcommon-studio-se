@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +48,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -98,6 +100,7 @@ import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ItemRecord.State;
 import org.talend.repository.localprovider.imports.TreeBuilder.ProjectNode;
+import org.talend.repository.localprovider.model.PropertiesProjectResourceImpl;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
@@ -408,6 +411,23 @@ public class ImportItemUtil {
     private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath,
             final Set<String> overwriteDeletedItems, final Set<String> originalDeleteStateItems) {
         resolveItem(manager, itemRecord);
+        int num = 0;
+        for (Object obj : itemRecord.getResourceSet().getResources()) {
+            if (!(obj instanceof PropertiesProjectResourceImpl)) {
+                if (obj instanceof XMIResourceImpl) {
+                    num++;
+                    if (num > 1) {
+                        try {
+                            throw new InvocationTargetException(new PersistenceException("The source file of "
+                                    + itemRecord.getLabel() + " has error,Please check it!"));
+                        } catch (InvocationTargetException e) {
+                            ExceptionHandler.process(e);
+                        }
+                        return;
+                    }
+                }
+            }
+        }
         final Item item = itemRecord.getItem();
         if (item != null) {
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
