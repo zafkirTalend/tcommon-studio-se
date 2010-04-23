@@ -41,4 +41,5 @@ public interface IRepositoryPrefConstants {
 
     public static final String USE_FILTER = "use_filter";
 
+    public static final String USE_EXPORT_SAVE = "use_export_save_for_jobscript";
 }
