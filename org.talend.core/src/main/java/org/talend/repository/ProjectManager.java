@@ -89,7 +89,7 @@ public final class ProjectManager {
             String parentBranch = repositoryContext.getFields().get(
                     IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                if (pr.getBranch() != null && pr.getBranch().equals(parentBranch)) {
+                if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
                     resolveRefProject(pr.getReferencedProject()); // only to resolve all
                 }
             }
@@ -103,7 +103,7 @@ public final class ProjectManager {
             String parentBranch = repositoryContext.getFields().get(
                     IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                if (pr.getBranch() != null && pr.getBranch().equals(parentBranch)) {
+                if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
                     Project project = new Project(pr.getReferencedProject());
                     allReferencedprojects.add(project);
                     resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
@@ -191,7 +191,7 @@ public final class ProjectManager {
 
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                if (refProject.getBranch() != null && refProject.getBranch().equals(parentBranch)) {
+                if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
                     refProjects.add(new Project(refProject.getReferencedProject()));
                 }
             }

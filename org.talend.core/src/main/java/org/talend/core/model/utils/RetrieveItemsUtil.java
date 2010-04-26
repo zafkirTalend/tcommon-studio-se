@@ -19,6 +19,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
@@ -194,10 +196,19 @@ public final class RetrieveItemsUtil {
             }
         }
         if (withRefProject) {
-            EList refProjects = project.getEmfProject().getReferencedProjects();
-            for (ProjectReference pRef : (List<ProjectReference>) refProjects) {
-                Project refP = new Project(pRef.getReferencedProject());
-                retrieveItems(factory, refP, type, withLastVersion, withDeleted, withLocked, withRefProject, results);
+            Context ctx = CorePlugin.getContext();
+            if (ctx != null) {
+                RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+                String parentBranch = repositoryContext.getFields().get(
+                        IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+
+                EList refProjects = project.getEmfProject().getReferencedProjects();
+                for (ProjectReference pRef : (List<ProjectReference>) refProjects) {
+                    if (pRef.getBranch() == null || parentBranch.equals(pRef.getBranch())) {
+                        Project refP = new Project(pRef.getReferencedProject());
+                        retrieveItems(factory, refP, type, withLastVersion, withDeleted, withLocked, withRefProject, results);
+                    }
+                }
             }
         }
 

@@ -18,6 +18,8 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.Item;
@@ -90,10 +92,21 @@ public final class SQLPatternUtils {
 
     private static void addReferencedSQLTemplate(List<IRepositoryObject> list, Project project) {
         try {
+            Context ctx = CorePlugin.getContext();
+            if (ctx == null) {
+                return;
+            }
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+
             List<ProjectReference> referencedProjects = (List<ProjectReference>) project.getEmfProject().getReferencedProjects();
             for (ProjectReference referenced : referencedProjects) {
                 org.talend.core.model.properties.Project referencedEmfProject = referenced.getReferencedProject();
                 EList refeInRef = referencedEmfProject.getReferencedProjects();
+                if (referenced.getBranch() != null && !parentBranch.equals(referenced.getBranch())) {
+                    continue;
+                }
                 Project newProject = new Project(referencedEmfProject);
                 if (refeInRef != null && refeInRef.size() > 0) {
                     addReferencedSQLTemplate(list, newProject);
