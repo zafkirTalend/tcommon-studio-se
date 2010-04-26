@@ -83,27 +83,31 @@ public final class ProjectManager {
 
     @SuppressWarnings("unchecked")
     private void resolveRefProject(org.talend.core.model.properties.Project p) {
-        if (p != null) {
+        Context ctx = CorePlugin.getContext();
+        if (p != null && ctx != null) {
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                Context ctx = CorePlugin.getContext();
-                if (ctx != null) {
-                    RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-                    String parentBranch = repositoryContext.getFields().get(
-                            IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
-                    if (pr.getBranch() != null && pr.getBranch().equals(parentBranch)) {
-                        resolveRefProject(pr.getReferencedProject()); // only to resolve all
-                    }
+                if (pr.getBranch() != null && pr.getBranch().equals(parentBranch)) {
+                    resolveRefProject(pr.getReferencedProject()); // only to resolve all
                 }
             }
         }
     }
 
     private void resolveSubRefProject(org.talend.core.model.properties.Project p) {
-        if (p != null) {
+        Context ctx = CorePlugin.getContext();
+        if (ctx != null && p != null) {
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + p.getTechnicalLabel());
             for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                Project project = new Project(pr.getReferencedProject());
-                allReferencedprojects.add(project);
-                resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
+                if (pr.getBranch() != null && pr.getBranch().equals(parentBranch)) {
+                    Project project = new Project(pr.getReferencedProject());
+                    allReferencedprojects.add(project);
+                    resolveSubRefProject(pr.getReferencedProject()); // only to resolve all
+                }
             }
         }
     }
@@ -116,7 +120,7 @@ public final class ProjectManager {
         referencedprojects.clear();
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         if (factory != null) {
-            List<org.talend.core.model.properties.Project> rProjects = factory.getReferencedProjects();
+            List<org.talend.core.model.properties.Project> rProjects = factory.getReferencedProjects(this.getCurrentProject());
             if (rProjects != null) {
                 for (org.talend.core.model.properties.Project p : rProjects) {
                     Project project = new Project(p);
@@ -156,7 +160,8 @@ public final class ProjectManager {
             allReferencedprojects.clear();
             IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
             if (factory != null) {
-                List<org.talend.core.model.properties.Project> rProjects = factory.getReferencedProjects();
+                List<org.talend.core.model.properties.Project> rProjects = factory
+                        .getReferencedProjects(this.getCurrentProject());
                 if (rProjects != null) {
                     for (org.talend.core.model.properties.Project p : rProjects) {
                         Project project = new Project(p);
@@ -175,16 +180,20 @@ public final class ProjectManager {
      */
     @SuppressWarnings("unchecked")
     public List<Project> getReferencedProjects(Project project) {
-        if (project != null) {
-
+        Context ctx = CorePlugin.getContext();
+        if (project != null && ctx != null) {
             if (project.equals(this.currentProject)) {
-                // retrieveReferencedProjects();
-                return this.referencedprojects;
+                return getReferencedProjects();
             }
+            RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+            String parentBranch = repositoryContext.getFields().get(
+                    IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
 
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                refProjects.add(new Project(refProject.getReferencedProject()));
+                if (refProject.getBranch() != null && refProject.getBranch().equals(parentBranch)) {
+                    refProjects.add(new Project(refProject.getReferencedProject()));
+                }
             }
             return refProjects;
         }

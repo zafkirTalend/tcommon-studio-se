@@ -641,7 +641,7 @@ public interface IProxyRepositoryFactory {
 
     public boolean isUserReadOnlyOnCurrentProject();
 
-    public abstract List<org.talend.core.model.properties.Project> getReferencedProjects();
+    public abstract List<org.talend.core.model.properties.Project> getReferencedProjects(Project project);
 
     public void removeContextFiles(IProcess process, IContext context) throws Exception;
 

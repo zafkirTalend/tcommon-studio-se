@@ -102,6 +102,7 @@ import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.ILocalRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.URIHelper;
@@ -1666,11 +1667,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return null;
     }
 
-    public List<org.talend.core.model.properties.Project> getReferencedProjects() {
+    public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
+        String parentBranch = getRepositoryContext().getFields().get(
+                IProxyRepositoryFactory.BRANCH_SELECTION + "_" + project.getTechnicalLabel());
+
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) getRepositoryContext().getProject().getEmfProject()
                 .getReferencedProjects()) {
-            refProjectList.add(refProject.getReferencedProject());
+            if (refProject.getBranch() != null && refProject.getBranch().equals(parentBranch)) {
+                refProjectList.add(refProject.getReferencedProject());
+            }
         }
         return refProjectList;
     }
