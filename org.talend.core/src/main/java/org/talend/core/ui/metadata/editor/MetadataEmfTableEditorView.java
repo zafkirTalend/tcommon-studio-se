@@ -31,8 +31,8 @@ import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/> TGU same purpose as MetadataTableEditorView but uses EMF
- * model directly
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * TGU same purpose as MetadataTableEditorView but uses EMF model directly
  * 
  * $Id$
  * 
@@ -173,7 +173,10 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, Integer value) {
-                bean.setPrecision(value);
+                if (value == null)
+                    bean.setPrecision(0);
+                else
+                    bean.setPrecision(value);
             }
 
         };
@@ -202,7 +205,10 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, Integer value) {
-                bean.setLength(value);
+                if (value == null)
+                    bean.setLength(0);
+                else
+                    bean.setLength(value);
             }
 
         };
