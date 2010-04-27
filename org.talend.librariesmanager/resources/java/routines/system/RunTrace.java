@@ -128,8 +128,10 @@ public class RunTrace implements Runnable {
         if (!openSocket) {
             return;
         }
-        if (componentId.equals(componentName)) {
-            return;
+        if (processTraces.size() > 1) { // if the connections are more than one, will check
+            if (componentId.equals(componentName)) {
+                return;
+            }
         }
         TraceBean bean;
         if (processTraces.containsKey(componentId)) {
