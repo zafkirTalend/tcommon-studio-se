@@ -3134,12 +3134,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_JOB_PRM__LABEL = 1;
 
     /**
-     * The feature id for the '<em><b>Default Value</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The feature id for the '<em><b>Custom Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = 2;
+    int EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE = 2;
 
     /**
      * The feature id for the '<em><b>Override</b></em>' attribute.
@@ -3159,13 +3160,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_JOB_PRM__EXECUTION_TASK = 4;
 
     /**
+     * The feature id for the '<em><b>Original Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_JOB_PRM__ORIGINAL_VALUE = 5;
+
+    /**
      * The number of structural features of the '<em>Execution Task Job Prm</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_JOB_PRM_FEATURE_COUNT = 5;
+    int EXECUTION_TASK_JOB_PRM_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -8399,16 +8409,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTaskJobPrm_Label();
 
     /**
-     * Returns the meta object for the attribute '
-     * {@link org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue <em>Default Value</em>}'. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @return the meta object for the attribute '<em>Default Value</em>'.
-     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue()
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getCustomValue <em>Custom Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Custom Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getCustomValue()
      * @see #getExecutionTaskJobPrm()
      * @generated
      */
-    EAttribute getExecutionTaskJobPrm_DefaultValue();
+    EAttribute getExecutionTaskJobPrm_CustomValue();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#isOverride <em>Override</em>}'.
@@ -8432,6 +8441,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getExecutionTaskJobPrm_ExecutionTask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getOriginalValue <em>Original Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Original Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getOriginalValue()
+     * @see #getExecutionTaskJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionTaskJobPrm_OriginalValue();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
@@ -12565,12 +12585,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK_JOB_PRM__LABEL = eINSTANCE.getExecutionTaskJobPrm_Label();
 
         /**
-         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Custom Value</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = eINSTANCE.getExecutionTaskJobPrm_DefaultValue();
+        EAttribute EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE = eINSTANCE.getExecutionTaskJobPrm_CustomValue();
 
         /**
          * The meta object literal for the '<em><b>Override</b></em>' attribute feature.
@@ -12587,6 +12607,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_TASK_JOB_PRM__EXECUTION_TASK = eINSTANCE.getExecutionTaskJobPrm_ExecutionTask();
+
+        /**
+         * The meta object literal for the '<em><b>Original Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK_JOB_PRM__ORIGINAL_VALUE = eINSTANCE.getExecutionTaskJobPrm_OriginalValue();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

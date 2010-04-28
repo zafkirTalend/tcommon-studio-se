@@ -309,9 +309,10 @@
     <genClasses ecoreClass="properties.ecore#//ExecutionTaskJobPrm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/label"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/defaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/customValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/override"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTaskJobPrm/executionTask"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTaskJobPrm/originalValue"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//TaskExecutionHistory">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/id"/>

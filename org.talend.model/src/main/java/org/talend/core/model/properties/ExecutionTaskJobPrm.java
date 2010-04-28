@@ -18,9 +18,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getLabel <em>Label</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getCustomValue <em>Custom Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#isOverride <em>Override</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getExecutionTask <em>Execution Task</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getOriginalValue <em>Original Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,30 +83,30 @@ public interface ExecutionTaskJobPrm extends EObject {
     void setLabel(String value);
 
     /**
-     * Returns the value of the '<em><b>Default Value</b></em>' attribute.
+     * Returns the value of the '<em><b>Custom Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Default Value</em>' attribute isn't clear,
+     * If the meaning of the '<em>Custom Value</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Default Value</em>' attribute.
-     * @see #setDefaultValue(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTaskJobPrm_DefaultValue()
+     * @return the value of the '<em>Custom Value</em>' attribute.
+     * @see #setCustomValue(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTaskJobPrm_CustomValue()
      * @model
      * @generated
      */
-    String getDefaultValue();
+    String getCustomValue();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue <em>Default Value</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getCustomValue <em>Custom Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Default Value</em>' attribute.
-     * @see #getDefaultValue()
+     * @param value the new value of the '<em>Custom Value</em>' attribute.
+     * @see #getCustomValue()
      * @generated
      */
-    void setDefaultValue(String value);
+    void setCustomValue(String value);
 
     /**
      * Returns the value of the '<em><b>Override</b></em>' attribute.
@@ -160,5 +161,31 @@ public interface ExecutionTaskJobPrm extends EObject {
      * @generated
      */
     void setExecutionTask(ExecutionTask value);
+
+    /**
+     * Returns the value of the '<em><b>Original Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Original Value</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Original Value</em>' attribute.
+     * @see #setOriginalValue(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTaskJobPrm_OriginalValue()
+     * @model
+     * @generated
+     */
+    String getOriginalValue();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getOriginalValue <em>Original Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Original Value</em>' attribute.
+     * @see #getOriginalValue()
+     * @generated
+     */
+    void setOriginalValue(String value);
 
 } // ExecutionTaskJobPrm
