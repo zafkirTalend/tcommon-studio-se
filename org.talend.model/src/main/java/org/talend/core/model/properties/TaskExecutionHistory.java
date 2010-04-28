@@ -59,6 +59,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getRequestId <em>Request Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#isResumingMode <em>Resuming Mode</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getJvmValues <em>Jvm Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -396,8 +397,8 @@ public interface TaskExecutionHistory extends EObject {
      * Returns the value of the '<em><b>Execution Server Host</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Execution Server Host</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Execution Server Host</em>' attribute isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Execution Server Host</em>' attribute.
@@ -410,8 +411,7 @@ public interface TaskExecutionHistory extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerHost <em>Execution Server Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Execution Server Host</em>' attribute.
      * @see #getExecutionServerHost()
      * @generated
@@ -422,8 +422,8 @@ public interface TaskExecutionHistory extends EObject {
      * Returns the value of the '<em><b>Execution Server Cmd Port</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Execution Server Cmd Port</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Execution Server Cmd Port</em>' attribute isn't clear, there really should be more of
+     * a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Execution Server Cmd Port</em>' attribute.
@@ -436,8 +436,7 @@ public interface TaskExecutionHistory extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerCmdPort <em>Execution Server Cmd Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Execution Server Cmd Port</em>' attribute.
      * @see #getExecutionServerCmdPort()
      * @generated
@@ -448,8 +447,8 @@ public interface TaskExecutionHistory extends EObject {
      * Returns the value of the '<em><b>Execution Server File Port</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Execution Server File Port</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Execution Server File Port</em>' attribute isn't clear, there really should be more of
+     * a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Execution Server File Port</em>' attribute.
@@ -462,8 +461,7 @@ public interface TaskExecutionHistory extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerFilePort <em>Execution Server File Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Execution Server File Port</em>' attribute.
      * @see #getExecutionServerFilePort()
      * @generated
@@ -474,8 +472,8 @@ public interface TaskExecutionHistory extends EObject {
      * Returns the value of the '<em><b>Execution Server Monitoring Port</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Execution Server Monitoring Port</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Execution Server Monitoring Port</em>' attribute isn't clear, there really should be
+     * more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Execution Server Monitoring Port</em>' attribute.
@@ -488,8 +486,7 @@ public interface TaskExecutionHistory extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerMonitoringPort <em>Execution Server Monitoring Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Execution Server Monitoring Port</em>' attribute.
      * @see #getExecutionServerMonitoringPort()
      * @generated
@@ -1125,8 +1122,8 @@ public interface TaskExecutionHistory extends EObject {
      * Returns the value of the '<em><b>Error Code</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Error Code</em>' attribute isn't clear, there really should be more of a description
-     * here...
+     * If the meaning of the '<em>Error Code</em>' attribute isn't clear,
+     * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Error Code</em>' attribute.
@@ -1139,15 +1136,38 @@ public interface TaskExecutionHistory extends EObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Error Code</em>' attribute.
      * @see #getErrorCode()
      * @generated
      */
     void setErrorCode(Integer value);
 
+    /**
+     * Returns the value of the '<em><b>Jvm Values</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Jvm Values</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Jvm Values</em>' attribute.
+     * @see #setJvmValues(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_JvmValues()
+     * @model
+     * @generated
+     */
     String getJvmValues();
 
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getJvmValues <em>Jvm Values</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Jvm Values</em>' attribute.
+     * @see #getJvmValues()
+     * @generated
+     */
     void setJvmValues(String value);
 
 } // TaskExecutionHistory

@@ -4255,6 +4255,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTaskExecutionHistory_JvmValues() {
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(43);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4705,6 +4714,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__REQUEST_ID);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__RESUMING_MODE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__ERROR_CODE);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__JVM_VALUES);
 
         talendTriggerEClass = createEClass(TALEND_TRIGGER);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ID);
@@ -5309,6 +5319,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTaskExecutionHistory_RequestId(), theEcorePackage.getEString(), "requestId", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ResumingMode(), theEcorePackage.getEBoolean(), "resumingMode", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ErrorCode(), theEcorePackage.getEIntegerObject(), "errorCode", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_JvmValues(), theEcorePackage.getEString(), "jvmValues", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(talendTriggerEClass, TalendTrigger.class, "TalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTalendTrigger_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

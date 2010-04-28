@@ -63,6 +63,7 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getRequestId <em>Request Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isResumingMode <em>Resuming Mode</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getJvmValues <em>Jvm Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -329,9 +330,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String executionServerName = EXECUTION_SERVER_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getExecutionServerHost() <em>Execution Server Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getExecutionServerHost() <em>Execution Server Host</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getExecutionServerHost()
      * @generated
      * @ordered
@@ -339,9 +340,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final String EXECUTION_SERVER_HOST_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getExecutionServerHost() <em>Execution Server Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getExecutionServerHost() <em>Execution Server Host</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getExecutionServerHost()
      * @generated
      * @ordered
@@ -350,8 +351,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The default value of the '{@link #getExecutionServerCmdPort() <em>Execution Server Cmd Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExecutionServerCmdPort()
      * @generated
      * @ordered
@@ -359,9 +359,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected static final int EXECUTION_SERVER_CMD_PORT_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getExecutionServerCmdPort() <em>Execution Server Cmd Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getExecutionServerCmdPort() <em>Execution Server Cmd Port</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getExecutionServerCmdPort()
      * @generated
      * @ordered
@@ -370,8 +370,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The default value of the '{@link #getExecutionServerFilePort() <em>Execution Server File Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExecutionServerFilePort()
      * @generated
      * @ordered
@@ -380,8 +379,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The cached value of the '{@link #getExecutionServerFilePort() <em>Execution Server File Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExecutionServerFilePort()
      * @generated
      * @ordered
@@ -390,8 +388,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The default value of the '{@link #getExecutionServerMonitoringPort() <em>Execution Server Monitoring Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExecutionServerMonitoringPort()
      * @generated
      * @ordered
@@ -400,8 +397,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The cached value of the '{@link #getExecutionServerMonitoringPort() <em>Execution Server Monitoring Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getExecutionServerMonitoringPort()
      * @generated
      * @ordered
@@ -908,8 +904,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The default value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getErrorCode()
      * @generated
      * @ordered
@@ -918,16 +914,32 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
 
     /**
      * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getErrorCode()
      * @generated
      * @ordered
      */
     protected Integer errorCode = ERROR_CODE_EDEFAULT;
 
+    /**
+     * The default value of the '{@link #getJvmValues() <em>Jvm Values</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJvmValues()
+     * @generated
+     * @ordered
+     */
     protected static final String JVM_VALUES_EDEFAULT = null;
 
+    /**
+     * The cached value of the '{@link #getJvmValues() <em>Jvm Values</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJvmValues()
+     * @generated
+     * @ordered
+     */
     protected String jvmValues = JVM_VALUES_EDEFAULT;
 
     /**
@@ -1024,12 +1036,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getIdRemoteJob();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
                 return getIdRemoteJobExecution();
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
-                return getRequestId();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
                 return isResumingMode() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
                 return getErrorCode();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
+                return getJvmValues();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1126,6 +1138,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return resumingMode != RESUMING_MODE_EDEFAULT;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
                 return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
+                return JVM_VALUES_EDEFAULT == null ? jvmValues != null : !JVM_VALUES_EDEFAULT.equals(jvmValues);
         }
         return super.eIsSet(featureID);
     }
@@ -1264,6 +1278,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
                 setErrorCode((Integer)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
+                setJvmValues((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1412,6 +1429,9 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
                 setErrorCode(ERROR_CODE_EDEFAULT);
                 return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
+                setJvmValues(JVM_VALUES_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1462,14 +1482,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      */
     public String getDetailedStatus() {
         return detailedStatus;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public Integer getErrorCode() {
-        return errorCode;
     }
 
     /**
@@ -1566,15 +1578,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      */
     public String getJobArchiveFilename() {
         return jobArchiveFilename;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.properties.TaskExecutionHistory#getJvmValues()
-     */
-    public String getJvmValues() {
-        return jvmValues;
     }
 
     /**
@@ -1818,17 +1821,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public void setErrorCode(Integer newErrorCode) {
-        Integer oldErrorCode = errorCode;
-        errorCode = newErrorCode;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE, oldErrorCode, errorCode));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public void setExecutionServerName(String newExecutionServerName) {
         String oldExecutionServerName = executionServerName;
         executionServerName = newExecutionServerName;
@@ -1837,8 +1829,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getExecutionServerHost() {
@@ -1846,8 +1837,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExecutionServerHost(String newExecutionServerHost) {
@@ -1858,8 +1848,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getExecutionServerCmdPort() {
@@ -1867,8 +1856,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExecutionServerCmdPort(int newExecutionServerCmdPort) {
@@ -1879,8 +1867,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getExecutionServerFilePort() {
@@ -1888,8 +1875,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExecutionServerFilePort(int newExecutionServerFilePort) {
@@ -1900,8 +1886,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getExecutionServerMonitoringPort() {
@@ -1909,8 +1894,7 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setExecutionServerMonitoringPort(int newExecutionServerMonitoringPort) {
@@ -2041,19 +2025,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME, oldJobArchiveFilename, jobArchiveFilename));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.properties.TaskExecutionHistory#setJvmValues(java.lang.String)
-     */
-    public void setJvmValues(String newJvmValue) {
-        String oldJvmValues = jvmValues;
-        jvmValues = newJvmValue;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES,
-                    oldJvmValues, jvmValues));
-    }
-
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2096,6 +2067,48 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         resumingMode = newResumingMode;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE, oldResumingMode, resumingMode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Integer getErrorCode() {
+        return errorCode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setErrorCode(Integer newErrorCode) {
+        Integer oldErrorCode = errorCode;
+        errorCode = newErrorCode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE, oldErrorCode, errorCode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getJvmValues() {
+        return jvmValues;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJvmValues(String newJvmValues) {
+        String oldJvmValues = jvmValues;
+        jvmValues = newJvmValues;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES, oldJvmValues, jvmValues));
     }
 
     /**
@@ -2357,6 +2370,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(resumingMode);
         result.append(", errorCode: ");
         result.append(errorCode);
+        result.append(", jvmValues: ");
+        result.append(jvmValues);
         result.append(')');
         return result.toString();
     }
