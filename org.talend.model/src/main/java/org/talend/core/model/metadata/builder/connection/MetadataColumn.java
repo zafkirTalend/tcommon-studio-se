@@ -178,12 +178,12 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Length</em>' attribute.
-     * @see #setLength(int)
+     * @see #setLength(Integer)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Length()
      * @model default="-1"
      * @generated
      */
-    int getLength();
+    Integer getLength();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getLength <em>Length</em>}' attribute.
@@ -193,7 +193,7 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @see #getLength()
      * @generated
      */
-    void setLength(int value);
+    void setLength(Integer value);
 
     /**
      * Returns the value of the '<em><b>Precision</b></em>' attribute.
@@ -205,12 +205,12 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Precision</em>' attribute.
-     * @see #setPrecision(int)
+     * @see #setPrecision(Integer)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Precision()
      * @model default="-1"
      * @generated
      */
-    int getPrecision();
+    Integer getPrecision();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPrecision <em>Precision</em>}' attribute.
@@ -220,7 +220,7 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @see #getPrecision()
      * @generated
      */
-    void setPrecision(int value);
+    void setPrecision(Integer value);
 
     /**
      * Returns the value of the '<em><b>Table</b></em>' container reference.

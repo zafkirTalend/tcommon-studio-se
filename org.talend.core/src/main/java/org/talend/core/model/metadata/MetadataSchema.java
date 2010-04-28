@@ -211,7 +211,7 @@ public class MetadataSchema {
             metadataColumn.setType(sourceType.getNodeValue());
         }
         if (originalDbColumnName != null && !"".equals(originalDbColumnName.getNodeValue().toString())) { // hywang for //$NON-NLS-1$
-                                                                                                          // 0007919
+            // 0007919
             metadataColumn.setOriginalDbColumnName(originalDbColumnName.getNodeValue());
         } else {
             metadataColumn.setOriginalDbColumnName(nodeValue);
@@ -336,7 +336,7 @@ public class MetadataSchema {
                     try {
                         metadataColumn.setPrecision(Integer.parseInt(precision.getNodeValue()));
                     } catch (final NumberFormatException e) {
-                        metadataColumn.setPrecision(0);
+                        metadataColumn.setPrecision(null);
                     }
                 } else {
                     metadataColumn.setPrecision(0);

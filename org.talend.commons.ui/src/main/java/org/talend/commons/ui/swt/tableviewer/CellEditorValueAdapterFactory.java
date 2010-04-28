@@ -31,7 +31,7 @@ public class CellEditorValueAdapterFactory {
         return getPositiveIntAdapter(false);
     }
 
-    public static CellEditorValueAdapter getPositiveIntAdapter(final boolean emptyForNull) {
+    public static CellEditorValueAdapter getPositiveIntAdapter(final boolean ignoreZero) {
 
         CellEditorValueAdapter positiveIntValueAdapter = new CellEditorValueAdapter() {
 
@@ -43,17 +43,16 @@ public class CellEditorValueAdapterFactory {
                     }
                     return integer;
                 } catch (Exception ex) {
-                    if (emptyForNull) {
-                        return null;
-                    }
-                    return 0;
+                    return null;
                 }
             }
 
             public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
-                if (value != null && value instanceof Integer && ((Integer) value).intValue() != -1
-                        && ((Integer) value).intValue() != 0) {
-                    return String.valueOf(value);
+                if (value != null && value instanceof Integer) {
+                    int i = ((Integer) value).intValue();
+                    if (i > -1 && !(ignoreZero && i == 0)) {
+                        return String.valueOf(value);
+                    }
                 }
                 return ""; //$NON-NLS-1$
             }

@@ -173,10 +173,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, Integer value) {
-                if (value == null)
-                    bean.setPrecision(0);
-                else
-                    bean.setPrecision(value);
+                bean.setPrecision(value);
             }
 
         };
@@ -205,10 +202,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, Integer value) {
-                if (value == null)
-                    bean.setLength(0);
-                else
-                    bean.setLength(value);
+                bean.setLength(value);
             }
 
         };
@@ -314,16 +308,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         List<DbDefaultLengthAndPrecision> dlpList = dbmsD.getDefaultLengthPrecision();
         for (DbDefaultLengthAndPrecision dlp : dlpList) {
             if (dlp.getDbTypeName().equals(bean.getSourceType())) {
-                if (dlp.getDefaultLength() == null) {
-                    bean.setLength(0);
-                } else {
-                    bean.setLength(dlp.getDefaultLength());
-                }
-                if (dlp.getDefaultPrecision() == null) {
-                    bean.setPrecision(0);
-                } else {
-                    bean.setPrecision(dlp.getDefaultPrecision());
-                }
+                bean.setLength(dlp.getDefaultLength());
+                bean.setPrecision(dlp.getDefaultPrecision());
             }
         }
 

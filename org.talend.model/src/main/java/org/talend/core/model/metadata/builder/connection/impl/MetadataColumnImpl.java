@@ -149,7 +149,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      * @ordered
      */
-    protected static final int LENGTH_EDEFAULT = -1;
+    protected static final Integer LENGTH_EDEFAULT = new Integer(-1);
 
     /**
      * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
@@ -159,7 +159,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      * @ordered
      */
-    protected int length = LENGTH_EDEFAULT;
+    protected Integer length = LENGTH_EDEFAULT;
 
     /**
      * The default value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
@@ -169,7 +169,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      * @ordered
      */
-    protected static final int PRECISION_EDEFAULT = -1;
+    protected static final Integer PRECISION_EDEFAULT = new Integer(-1);
 
     /**
      * The cached value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
@@ -179,7 +179,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      * @ordered
      */
-    protected int precision = PRECISION_EDEFAULT;
+    protected Integer precision = PRECISION_EDEFAULT;
 
     /**
      * The default value of the '{@link #getOriginalField() <em>Original Field</em>}' attribute.
@@ -374,7 +374,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getLength() {
+    public Integer getLength() {
         return length;
     }
 
@@ -383,8 +383,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setLength(int newLength) {
-        int oldLength = length;
+    public void setLength(Integer newLength) {
+        Integer oldLength = length;
         length = newLength;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__LENGTH, oldLength, length));
@@ -395,7 +395,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getPrecision() {
+    public Integer getPrecision() {
         return precision;
     }
 
@@ -404,8 +404,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setPrecision(int newPrecision) {
-        int oldPrecision = precision;
+    public void setPrecision(Integer newPrecision) {
+        Integer oldPrecision = precision;
         precision = newPrecision;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__PRECISION, oldPrecision, precision));
@@ -574,9 +574,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             case ConnectionPackage.METADATA_COLUMN__NULLABLE:
                 return isNullable() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.METADATA_COLUMN__LENGTH:
-                return new Integer(getLength());
+                return getLength();
             case ConnectionPackage.METADATA_COLUMN__PRECISION:
-                return new Integer(getPrecision());
+                return getPrecision();
             case ConnectionPackage.METADATA_COLUMN__TABLE:
                 return getTable();
             case ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD:
@@ -612,10 +612,10 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 setNullable(((Boolean)newValue).booleanValue());
                 return;
             case ConnectionPackage.METADATA_COLUMN__LENGTH:
-                setLength(((Integer)newValue).intValue());
+                setLength((Integer)newValue);
                 return;
             case ConnectionPackage.METADATA_COLUMN__PRECISION:
-                setPrecision(((Integer)newValue).intValue());
+                setPrecision((Integer)newValue);
                 return;
             case ConnectionPackage.METADATA_COLUMN__TABLE:
                 setTable((MetadataTable)newValue);
@@ -695,9 +695,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             case ConnectionPackage.METADATA_COLUMN__NULLABLE:
                 return nullable != NULLABLE_EDEFAULT;
             case ConnectionPackage.METADATA_COLUMN__LENGTH:
-                return length != LENGTH_EDEFAULT;
+                return LENGTH_EDEFAULT == null ? length != null : !LENGTH_EDEFAULT.equals(length);
             case ConnectionPackage.METADATA_COLUMN__PRECISION:
-                return precision != PRECISION_EDEFAULT;
+                return PRECISION_EDEFAULT == null ? precision != null : !PRECISION_EDEFAULT.equals(precision);
             case ConnectionPackage.METADATA_COLUMN__TABLE:
                 return getTable() != null;
             case ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD:
