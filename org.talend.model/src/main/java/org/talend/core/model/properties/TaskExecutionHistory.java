@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTalendJobId <em>Talend Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getTalendJobVersion <em>Talend Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getContextName <em>Context Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName <em>Virtual Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerName <em>Execution Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getExecutionServerHost <em>Execution Server Host</em>}</li>
@@ -58,7 +57,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getRequestId <em>Request Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#isResumingMode <em>Resuming Mode</em>}</li>
- *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getJvmValues <em>Jvm Values</em>}</li>
  * </ul>
  * </p>
@@ -342,6 +341,32 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setContextValues(String value);
+
+    /**
+     * Returns the value of the '<em><b>Jvm Values</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Jvm Values</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Jvm Values</em>' attribute.
+     * @see #setJvmValues(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_JvmValues()
+     * @model
+     * @generated
+     */
+    String getJvmValues();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getJvmValues <em>Jvm Values</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Jvm Values</em>' attribute.
+     * @see #getJvmValues()
+     * @generated
+     */
+    void setJvmValues(String value);
 
     /**
      * Returns the value of the '<em><b>Virtual Server Name</b></em>' attribute.
@@ -1117,57 +1142,5 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setResumingMode(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>Error Code</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Error Code</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Error Code</em>' attribute.
-     * @see #setErrorCode(Integer)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ErrorCode()
-     * @model
-     * @generated
-     */
-    Integer getErrorCode();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getErrorCode <em>Error Code</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Error Code</em>' attribute.
-     * @see #getErrorCode()
-     * @generated
-     */
-    void setErrorCode(Integer value);
-
-    /**
-     * Returns the value of the '<em><b>Jvm Values</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Jvm Values</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Jvm Values</em>' attribute.
-     * @see #setJvmValues(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_JvmValues()
-     * @model
-     * @generated
-     */
-    String getJvmValues();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getJvmValues <em>Jvm Values</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Jvm Values</em>' attribute.
-     * @see #getJvmValues()
-     * @generated
-     */
-    void setJvmValues(String value);
 
 } // TaskExecutionHistory

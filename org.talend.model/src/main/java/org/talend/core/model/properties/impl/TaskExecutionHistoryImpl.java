@@ -30,7 +30,6 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobId <em>Talend Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getTalendJobVersion <em>Talend Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextName <em>Context Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getVirtualServerName <em>Virtual Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerName <em>Execution Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getExecutionServerHost <em>Execution Server Host</em>}</li>
@@ -62,7 +61,7 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getRequestId <em>Request Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isResumingMode <em>Resuming Mode</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getJvmValues <em>Jvm Values</em>}</li>
  * </ul>
  * </p>
@@ -268,26 +267,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
      * @ordered
      */
     protected String contextName = CONTEXT_NAME_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getContextValues() <em>Context Values</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getContextValues()
-     * @generated
-     * @ordered
-     */
-    protected static final String CONTEXT_VALUES_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getContextValues() <em>Context Values</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getContextValues()
-     * @generated
-     * @ordered
-     */
-    protected String contextValues = CONTEXT_VALUES_EDEFAULT;
 
     /**
      * The default value of the '{@link #getVirtualServerName() <em>Virtual Server Name</em>}' attribute. <!--
@@ -903,24 +882,24 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected boolean resumingMode = RESUMING_MODE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
+     * The default value of the '{@link #getContextValues() <em>Context Values</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getErrorCode()
+     * @see #getContextValues()
      * @generated
      * @ordered
      */
-    protected static final Integer ERROR_CODE_EDEFAULT = null;
+    protected static final String CONTEXT_VALUES_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' attribute.
+     * The cached value of the '{@link #getContextValues() <em>Context Values</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getErrorCode()
+     * @see #getContextValues()
      * @generated
      * @ordered
      */
-    protected Integer errorCode = ERROR_CODE_EDEFAULT;
+    protected String contextValues = CONTEXT_VALUES_EDEFAULT;
 
     /**
      * The default value of the '{@link #getJvmValues() <em>Jvm Values</em>}' attribute.
@@ -976,8 +955,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getTalendJobVersion();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
                 return getContextName();
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-                return getContextValues();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
                 return getVirtualServerName();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
@@ -1036,10 +1013,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getIdRemoteJob();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION:
                 return getIdRemoteJobExecution();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__REQUEST_ID:
+                return getRequestId();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
                 return isResumingMode() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-                return getErrorCode();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                return getContextValues();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 return getJvmValues();
         }
@@ -1072,8 +1051,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return TALEND_JOB_VERSION_EDEFAULT == null ? talendJobVersion != null : !TALEND_JOB_VERSION_EDEFAULT.equals(talendJobVersion);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
                 return CONTEXT_NAME_EDEFAULT == null ? contextName != null : !CONTEXT_NAME_EDEFAULT.equals(contextName);
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-                return CONTEXT_VALUES_EDEFAULT == null ? contextValues != null : !CONTEXT_VALUES_EDEFAULT.equals(contextValues);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
                 return VIRTUAL_SERVER_NAME_EDEFAULT == null ? virtualServerName != null : !VIRTUAL_SERVER_NAME_EDEFAULT.equals(virtualServerName);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME:
@@ -1136,8 +1113,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return REQUEST_ID_EDEFAULT == null ? requestId != null : !REQUEST_ID_EDEFAULT.equals(requestId);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
                 return resumingMode != RESUMING_MODE_EDEFAULT;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-                return ERROR_CODE_EDEFAULT == null ? errorCode != null : !ERROR_CODE_EDEFAULT.equals(errorCode);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                return CONTEXT_VALUES_EDEFAULT == null ? contextValues != null : !CONTEXT_VALUES_EDEFAULT.equals(contextValues);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 return JVM_VALUES_EDEFAULT == null ? jvmValues != null : !JVM_VALUES_EDEFAULT.equals(jvmValues);
         }
@@ -1179,9 +1156,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
                 setContextName((String)newValue);
-                return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-                setContextValues((String)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
                 setVirtualServerName((String)newValue);
@@ -1276,8 +1250,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
                 setResumingMode(((Boolean)newValue).booleanValue());
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-                setErrorCode((Integer)newValue);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                setContextValues((String)newValue);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 setJvmValues((String)newValue);
@@ -1329,9 +1303,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_NAME:
                 setContextName(CONTEXT_NAME_EDEFAULT);
-                return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
-                setContextValues(CONTEXT_VALUES_EDEFAULT);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME:
                 setVirtualServerName(VIRTUAL_SERVER_NAME_EDEFAULT);
@@ -1426,8 +1397,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
             case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
                 setResumingMode(RESUMING_MODE_EDEFAULT);
                 return;
-            case PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE:
-                setErrorCode(ERROR_CODE_EDEFAULT);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
+                setContextValues(CONTEXT_VALUES_EDEFAULT);
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 setJvmValues(JVM_VALUES_EDEFAULT);
@@ -1807,6 +1778,27 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getJvmValues() {
+        return jvmValues;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJvmValues(String newJvmValues) {
+        String oldJvmValues = jvmValues;
+        jvmValues = newJvmValues;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES, oldJvmValues, jvmValues));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2070,48 +2062,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setErrorCode(Integer newErrorCode) {
-        Integer oldErrorCode = errorCode;
-        errorCode = newErrorCode;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__ERROR_CODE, oldErrorCode, errorCode));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getJvmValues() {
-        return jvmValues;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setJvmValues(String newJvmValues) {
-        String oldJvmValues = jvmValues;
-        jvmValues = newJvmValues;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES, oldJvmValues, jvmValues));
-    }
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2304,8 +2254,6 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(talendJobVersion);
         result.append(", contextName: ");
         result.append(contextName);
-        result.append(", contextValues: ");
-        result.append(contextValues);
         result.append(", virtualServerName: ");
         result.append(virtualServerName);
         result.append(", executionServerName: ");
@@ -2368,8 +2316,8 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(requestId);
         result.append(", resumingMode: ");
         result.append(resumingMode);
-        result.append(", errorCode: ");
-        result.append(errorCode);
+        result.append(", contextValues: ");
+        result.append(contextValues);
         result.append(", jvmValues: ");
         result.append(jvmValues);
         result.append(')');
