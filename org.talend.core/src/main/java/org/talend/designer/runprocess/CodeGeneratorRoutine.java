@@ -30,6 +30,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.impl.ProjectReferenceImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -181,29 +182,35 @@ public final class CodeGeneratorRoutine {
             RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
             String parentBranch = repositoryContext.getFields().get(
                     IProxyRepositoryFactory.BRANCH_SELECTION + "_" + emfProject.getTechnicalLabel());
+            List refProjects = emfProject.getReferencedProjects();
+            getRoutineNameFromRef(routines, refProjects);
+        }
+        return routines;
+    }
 
-            EList refProjects = emfProject.getReferencedProjects();
-            if (refProjects != null) {
-                for (Object object : refProjects) {
-                    ProjectReferenceImpl projectRef = (ProjectReferenceImpl) object;
-                    if (projectRef.getBranch() == null || parentBranch.equals(projectRef.getBranch())) {
-                        List<String> refRoutines = routinesName.get(projectRef.getReferencedProject());
-                        if (refRoutines == null) {
-                            retrieveRoutineNamesFromProject(projectRef.getReferencedProject(), false);
-                            // retrieve again
-                            refRoutines = routinesName.get(projectRef.getReferencedProject());
-                        }
-                        if (refRoutines != null && routines != null) {
-                            for (String routineName : refRoutines) {
-                                if (!routines.contains(routineName)) {
-                                    routines.add(routineName);
-                                }
+    private static void getRoutineNameFromRef(List<String> routines, List projects) {
+        if (projects != null) {
+            for (Object obj : projects) {
+                if (obj instanceof ProjectReference) {
+                    ProjectReference projectRef = (ProjectReference) obj;
+                    org.talend.core.model.properties.Project referencedProject = projectRef.getReferencedProject();
+                    List<String> refRoutines = routinesName.get(referencedProject);
+                    if (refRoutines == null) {
+                        retrieveRoutineNamesFromProject(referencedProject, false);
+                        // retrieve again
+                        refRoutines = routinesName.get(referencedProject);
+                    }
+                    if (refRoutines != null && routines != null) {
+                        for (String routineName : refRoutines) {
+                            if (!routines.contains(routineName)) {
+                                routines.add(routineName);
                             }
                         }
                     }
+
+                    getRoutineNameFromRef(routines, referencedProject.getReferencedProjects());
                 }
             }
         }
-        return routines;
     }
 }
