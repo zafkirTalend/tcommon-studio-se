@@ -28,9 +28,11 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.designer.codegen.ICodeGeneratorService;
 
 /**
  * wchen class global comment. Detailled comment
@@ -93,7 +95,29 @@ public class RoutineLibraryMananger {
                 }
             }
         }
+        // for user routine to update.
+        ICodeGeneratorService codeGenService = null;
+        try {
+            codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
+        } catch (RuntimeException e) {
+            // nothing to do
+        }
+        if (codeGenService != null) {
+            Map<String, List<URI>> userRoutineModules = codeGenService.createRoutineSynchronizer().getUserRoutineModules();
+            if (userRoutineModules != null) {
+                for (String routineName : userRoutineModules.keySet()) {
+                    List<URI> newlist = userRoutineModules.get(routineName);
 
+                    List<URI> list = routineAndJars.get(routineName);
+                    if (list == null) {
+                        list = new ArrayList<URI>();
+                        routineAndJars.put(routineName, list);
+                    }
+                    list.clear();
+                    list.addAll(newlist);
+                }
+            }
+        }
         return routineAndJars;
     }
 }

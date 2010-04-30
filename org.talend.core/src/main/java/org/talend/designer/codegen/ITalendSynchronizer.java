@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.model.properties.Item;
@@ -37,4 +41,5 @@ public interface ITalendSynchronizer {
 
     public abstract void renameRoutineClass(RoutineItem routineItem);
 
+    public Map<String, List<URI>> getUserRoutineModules();
 }
