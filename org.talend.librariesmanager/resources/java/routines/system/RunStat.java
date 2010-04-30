@@ -281,7 +281,6 @@ public class RunStat implements Runnable {
             // System.out.println(str);
             pred.println(str); // envoi d'un message
         }
-        processStats.clear();
         keysList.clear();
 
         // System.out.println("*** data sent ***");
@@ -313,9 +312,12 @@ public class RunStat implements Runnable {
         }
 
         if (keysList.contains(key)) {
+            int keyNb = keysList.indexOf(key);
             keysList.remove(key);
+            keysList.add(keyNb, key);
+        } else {
+            keysList.add(key);
         }
-        keysList.add(key);
 
         if (processStats.containsKey(key)) {
             bean = processStats.get(key);
