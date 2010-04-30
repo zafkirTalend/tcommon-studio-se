@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ItemState#getLocker <em>Locker</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ItemState#getLockDate <em>Lock Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ItemState#getCommitDate <em>Commit Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ItemState#isRunningFromRep <em>Running From Rep</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,5 +184,31 @@ public interface ItemState extends EObject {
      * @generated
      */
     void setCommitDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Running From Rep</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Running From Rep</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Running From Rep</em>' attribute.
+     * @see #setRunningFromRep(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_RunningFromRep()
+     * @model
+     * @generated
+     */
+    boolean isRunningFromRep();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#isRunningFromRep <em>Running From Rep</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Running From Rep</em>' attribute.
+     * @see #isRunningFromRep()
+     * @generated
+     */
+    void setRunningFromRep(boolean value);
 
 } // ItemState

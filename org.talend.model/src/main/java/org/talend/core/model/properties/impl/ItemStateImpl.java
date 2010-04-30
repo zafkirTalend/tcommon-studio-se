@@ -145,6 +145,26 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected Date commitDate = COMMIT_DATE_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isRunningFromRep() <em>Running From Rep</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRunningFromRep()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean RUNNING_FROM_REP_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isRunningFromRep() <em>Running From Rep</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRunningFromRep()
+     * @generated
+     * @ordered
+     */
+    protected boolean runningFromRep = RUNNING_FROM_REP_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -300,6 +320,27 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isRunningFromRep() {
+        return runningFromRep;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRunningFromRep(boolean newRunningFromRep) {
+        boolean oldRunningFromRep = runningFromRep;
+        runningFromRep = newRunningFromRep;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_STATE__RUNNING_FROM_REP, oldRunningFromRep, runningFromRep));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -318,6 +359,8 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
                 return getLockDate();
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 return getCommitDate();
+            case PropertiesPackage.ITEM_STATE__RUNNING_FROM_REP:
+                return isRunningFromRep() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -345,6 +388,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
                 return;
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 setCommitDate((Date)newValue);
+                return;
+            case PropertiesPackage.ITEM_STATE__RUNNING_FROM_REP:
+                setRunningFromRep(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -374,6 +420,9 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 setCommitDate(COMMIT_DATE_EDEFAULT);
                 return;
+            case PropertiesPackage.ITEM_STATE__RUNNING_FROM_REP:
+                setRunningFromRep(RUNNING_FROM_REP_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -396,6 +445,8 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
                 return LOCK_DATE_EDEFAULT == null ? lockDate != null : !LOCK_DATE_EDEFAULT.equals(lockDate);
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 return COMMIT_DATE_EDEFAULT == null ? commitDate != null : !COMMIT_DATE_EDEFAULT.equals(commitDate);
+            case PropertiesPackage.ITEM_STATE__RUNNING_FROM_REP:
+                return runningFromRep != RUNNING_FROM_REP_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -418,6 +469,8 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
         result.append(lockDate);
         result.append(", commitDate: ");
         result.append(commitDate);
+        result.append(", runningFromRep: ");
+        result.append(runningFromRep);
         result.append(')');
         return result.toString();
     }
