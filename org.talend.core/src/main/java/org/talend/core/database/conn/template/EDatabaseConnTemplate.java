@@ -247,6 +247,7 @@ public enum EDatabaseConnTemplate {
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.MSSQL, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INGRES, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INTERBASE, display));
+            databaseType.remove(getDBTypeName(EDatabaseConnTemplate.INFORMIX, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.FIREBIRD, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.ACCESS, display));
             databaseType.remove(getDBTypeName(EDatabaseConnTemplate.TERADATA, display));
