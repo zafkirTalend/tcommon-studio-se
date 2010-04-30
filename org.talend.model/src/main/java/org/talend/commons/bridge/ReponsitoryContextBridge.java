@@ -22,7 +22,7 @@ import org.talend.core.model.properties.User;
  */
 public final class ReponsitoryContextBridge {
 
-    public static final String PROJECT_DEFAULT_NAME = "TOP_DEFAULT_PRJ";
+    public static String PROJECT_DEFAULT_NAME = "TOP_DEFAULT_PRJ";
 
     private static Project project;
 
@@ -47,15 +47,15 @@ public final class ReponsitoryContextBridge {
      * @return the author
      */
     public static String getAuthor() {
-    	//MOD mzhao bug 12646, 2010-04-21, Handle NPE.
-    	String author = "";
-    	if(project!=null&&project.getAuthor()!=null){
-    		author = project.getAuthor().getLogin();
-    	}else if(user!=null){
-    		author = user.getLogin();
-    	}
+        // MOD mzhao bug 12646, 2010-04-21, Handle NPE.
+        String author = "";
+        if (project != null && project.getAuthor() != null) {
+            author = project.getAuthor().getLogin();
+        } else if (user != null) {
+            author = user.getLogin();
+        }
         return isDefautProject() ? "" : author;
-        //~
+        // ~
     }
 
     /**
@@ -103,5 +103,15 @@ public final class ReponsitoryContextBridge {
      */
     public static boolean isDefautProject() {
         return project == null;
+    }
+
+    /**
+     * 
+     * MOD zshen bug:11068 For component only. 2010-04-30
+     * 
+     * @param projectName
+     */
+    public static void setDefaultProjectName(String projectName) {
+        PROJECT_DEFAULT_NAME = projectName;
     }
 }
