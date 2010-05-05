@@ -48,6 +48,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.repository.model.IRepositoryService;
 
@@ -502,9 +503,11 @@ public class ExtractMetaDataFromDataBase {
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
+                fetchTableName = TalendTextUtils.filterSpecialChar(fetchTableName); // for 8115
                 if (fetchTableName.equals(tableName) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                     String label = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME", null); //$NON-NLS-1$
+                    label = TalendTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
                     if (label != null && label.length() > 0) {
@@ -552,6 +555,7 @@ public class ExtractMetaDataFromDataBase {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
                     String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, typeName, null).toUpperCase(); //$NON-NLS-1$
+                    dbType = TalendTextUtils.filterSpecialChar(dbType);
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
 
@@ -567,6 +571,7 @@ public class ExtractMetaDataFromDataBase {
                     talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils
                             .getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, //$NON-NLS-1$
                             "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    talendType = TalendTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
                         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                             talendType = JavaTypesManager.getDefaultJavaType().getId();
@@ -588,14 +593,16 @@ public class ExtractMetaDataFromDataBase {
 
                     // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
                     String commentInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS", null); //$NON-NLS-1$
+                    // if (commentInfo != null && commentInfo.length() > 0) {
+                    // for (int i = 0; i < commentInfo.length(); i++) {
+                    // if (commentInfo.codePointAt(i) == 0x0) {
+                    // String commentSub1 = commentInfo.substring(0, i);
+                    // String commentSub2 = commentInfo.substring(i + 1);
+                    // commentInfo = commentSub1 + commentSub2;
+                    // }
+                    // }
                     if (commentInfo != null && commentInfo.length() > 0) {
-                        for (int i = 0; i < commentInfo.length(); i++) {
-                            if (commentInfo.codePointAt(i) == 0x0) {
-                                String commentSub1 = commentInfo.substring(0, i);
-                                String commentSub2 = commentInfo.substring(i + 1);
-                                commentInfo = commentSub1 + commentSub2;
-                            }
-                        }
+                        commentInfo = TalendTextUtils.filterSpecialChar(commentInfo);
                     }
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo); //$NON-NLS-1$
@@ -607,6 +614,7 @@ public class ExtractMetaDataFromDataBase {
                     if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                         stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                     }
+                    stringMetaDataInfo = TalendTextUtils.filterSpecialChar(stringMetaDataInfo);
                     metadataColumn.setDefaultValue(stringMetaDataInfo);
 
                     // for bug 6919, oracle driver doesn't give correctly the length for timestamp
@@ -636,7 +644,7 @@ public class ExtractMetaDataFromDataBase {
                         int i = 0;
                         while (keys.next()) {
                             MetadataColumn metadataColumn = (MetadataColumn) metadataColumns.get(i++);
-                            metadataColumn.setComment(keys.getString("COMMENTS")); //$NON-NLS-1$
+                            metadataColumn.setComment(TalendTextUtils.filterSpecialChar(keys.getString("COMMENTS"))); //$NON-NLS-1$
                         }
                     }
                     keys.close();
