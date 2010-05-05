@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
@@ -210,6 +211,10 @@ public class XmiResourceManager {
             if (item instanceof JobletDocumentationItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOBLET_DOC);
             }
+            if (item instanceof DatabaseConnectionItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_CONNECTIONS);
+            }
+
             if (folder != null) {
                 IPath path = new Path(project.getTechnicalLabel());
                 path = path.append(folder);
