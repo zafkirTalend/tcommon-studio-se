@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
+import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
@@ -1193,11 +1194,10 @@ public class ComponentToRepositoryProperty {
             if (value != null) {
                 connection.setCsvOption(Boolean.valueOf(value).booleanValue());
             }
-        }
-        if ("ESCAPE_CHAR".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "ESCAPE_CHAR"); //$NON-NLS-1$
-            if (value != null) {
-                connection.setEscapeChar(value);
+            if (connection.isCsvOption()) {
+                connection.setEscapeType(Escape.CSV_LITERAL);
+            } else {
+                connection.setEscapeType(Escape.DELIMITED_LITERAL);
             }
         }
         if ("ESCAPE_CHAR".equals(repositoryValue)) { //$NON-NLS-1$
