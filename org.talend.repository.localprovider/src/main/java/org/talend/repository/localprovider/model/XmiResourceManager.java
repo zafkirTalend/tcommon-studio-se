@@ -33,10 +33,13 @@ import org.talend.commons.emf.EmfHelper;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.DatabaseConnectionItem;
+import org.talend.core.model.properties.DelimitedFileConnectionItem;
+import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
+import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -207,12 +210,16 @@ public class XmiResourceManager {
             if (item instanceof JobDocumentationItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOB_DOC);
 
-            }
-            if (item instanceof JobletDocumentationItem) {
+            } else if (item instanceof JobletDocumentationItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.JOBLET_DOC);
-            }
-            if (item instanceof DatabaseConnectionItem) {
+            } else if (item instanceof DatabaseConnectionItem) {
                 folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_CONNECTIONS);
+            } else if (item instanceof DelimitedFileConnectionItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_FILE_DELIMITED);
+            } else if (item instanceof EbcdicConnectionItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_FILE_EBCDIC);
+            } else if (item instanceof PositionalFileConnectionItem) {
+                folder = ERepositoryObjectType.getFolderName(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
             }
 
             if (folder != null) {
