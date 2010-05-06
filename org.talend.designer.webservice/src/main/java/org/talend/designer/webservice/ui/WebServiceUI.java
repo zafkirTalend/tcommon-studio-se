@@ -308,8 +308,12 @@ public class WebServiceUI {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
-                        getInConnList();
-                        getOutConnList();
+                        if (inPutcolumnList.isEmpty()) {
+                            getInConnList();
+                        }
+                        if (outPutcolumnList.isEmpty()) {
+                            getOutConnList();
+                        }
                         getLastFunction();
                         getInputElementList();
                         getOutputElementList();
@@ -1516,6 +1520,7 @@ public class WebServiceUI {
         tabs[0] = expressTableForIn;
         tabTotabLinkForin.init(rowTableForin, tabs, backgroundRefresher);
         addListenerForInputCom();
+        getInConnList();
         initLinksForIn();
         inputComposite.setWeights(new int[] { 5, 2, 5 });
         return inputComposite;
@@ -2048,6 +2053,7 @@ public class WebServiceUI {
         Table[] tabs = new Table[1];
         tabs[0] = expressTableForout;
         tabTotabLinkForout.init(rowTableForout, tabs, backgroundRefresher);
+        getOutConnList();
         initLinksForOut();
         addListenerForOutputCom();
         outputComposite.setWeights(new int[] { 5, 2, 5 });
