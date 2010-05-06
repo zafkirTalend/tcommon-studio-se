@@ -29,7 +29,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getCustomValue <em>Custom Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#isOverride <em>Override</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getExecutionTask <em>Execution Task</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskJobPrmImpl#getOriginalValue <em>Original Value</em>}</li>
@@ -80,24 +80,24 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
     protected String label = LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getCustomValue() <em>Custom Value</em>}' attribute.
+     * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCustomValue()
+     * @see #getDefaultValue()
      * @generated
      * @ordered
      */
-    protected static final String CUSTOM_VALUE_EDEFAULT = null;
+    protected static final String DEFAULT_VALUE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCustomValue() <em>Custom Value</em>}' attribute.
+     * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getCustomValue()
+     * @see #getDefaultValue()
      * @generated
      * @ordered
      */
-    protected String customValue = CUSTOM_VALUE_EDEFAULT;
+    protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
 
     /**
      * The default value of the '{@link #isOverride() <em>Override</em>}' attribute.
@@ -204,8 +204,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getCustomValue() {
-        return customValue;
+    public String getDefaultValue() {
+        return defaultValue;
     }
 
     /**
@@ -213,11 +213,11 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setCustomValue(String newCustomValue) {
-        String oldCustomValue = customValue;
-        customValue = newCustomValue;
+    public void setDefaultValue(String newDefaultValue) {
+        String oldDefaultValue = defaultValue;
+        defaultValue = newDefaultValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE, oldCustomValue, customValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE, oldDefaultValue, defaultValue));
     }
 
     /**
@@ -355,8 +355,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
                 return new Integer(getId());
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
                 return getLabel();
-            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE:
-                return getCustomValue();
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                return getDefaultValue();
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
                 return isOverride() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
@@ -380,8 +380,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
                 setLabel((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE:
-                setCustomValue((String)newValue);
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                setDefaultValue((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
                 setOverride(((Boolean)newValue).booleanValue());
@@ -409,8 +409,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE:
-                setCustomValue(CUSTOM_VALUE_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
                 return;
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
                 setOverride(OVERRIDE_EDEFAULT);
@@ -436,8 +436,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
                 return id != ID_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE:
-                return CUSTOM_VALUE_EDEFAULT == null ? customValue != null : !CUSTOM_VALUE_EDEFAULT.equals(customValue);
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
+                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
                 return override != OVERRIDE_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__EXECUTION_TASK:
@@ -461,8 +461,8 @@ public class ExecutionTaskJobPrmImpl extends EObjectImpl implements ExecutionTas
         result.append(id);
         result.append(", label: ");
         result.append(label);
-        result.append(", customValue: ");
-        result.append(customValue);
+        result.append(", defaultValue: ");
+        result.append(defaultValue);
         result.append(", override: ");
         result.append(override);
         result.append(", originalValue: ");

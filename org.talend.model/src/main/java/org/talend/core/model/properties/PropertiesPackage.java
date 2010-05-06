@@ -3138,12 +3138,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK_JOB_PRM__LABEL = 1;
 
     /**
-     * The feature id for the '<em><b>Custom Value</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE = 2;
+    int EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = 2;
 
     /**
      * The feature id for the '<em><b>Override</b></em>' attribute.
@@ -8400,16 +8401,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTaskJobPrm_Label();
 
     /**
-     * Returns the meta object for the attribute '
-     * {@link org.talend.core.model.properties.ExecutionTaskJobPrm#getCustomValue <em>Custom Value</em>}'. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @return the meta object for the attribute '<em>Custom Value</em>'.
-     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getCustomValue()
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionTaskJobPrm#getDefaultValue()
      * @see #getExecutionTaskJobPrm()
      * @generated
      */
-    EAttribute getExecutionTaskJobPrm_CustomValue();
+    EAttribute getExecutionTaskJobPrm_DefaultValue();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTaskJobPrm#isOverride <em>Override</em>}'.
@@ -12572,12 +12572,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK_JOB_PRM__LABEL = eINSTANCE.getExecutionTaskJobPrm_Label();
 
         /**
-         * The meta object literal for the '<em><b>Custom Value</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_TASK_JOB_PRM__CUSTOM_VALUE = eINSTANCE.getExecutionTaskJobPrm_CustomValue();
+        EAttribute EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE = eINSTANCE.getExecutionTaskJobPrm_DefaultValue();
 
         /**
          * The meta object literal for the '<em><b>Override</b></em>' attribute feature.
