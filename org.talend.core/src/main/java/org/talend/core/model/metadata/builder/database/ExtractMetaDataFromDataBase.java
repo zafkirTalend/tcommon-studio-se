@@ -510,7 +510,7 @@ public class ExtractMetaDataFromDataBase {
                     label = TalendTextUtils.filterSpecialChar(label);
                     String sub = ""; //$NON-NLS-1$
                     String sub2 = ""; //$NON-NLS-1$
-                    if (label != null && label.length() > 0) {
+                    if (label != null && label.length() > 0 && label.startsWith("_")) { //$NON-NLS-1$
                         sub = label.substring(1);
                         if (sub != null && sub.length() > 0) {
                             sub2 = sub.substring(1);
@@ -523,7 +523,7 @@ public class ExtractMetaDataFromDataBase {
                     }
                     metadataColumn.setLabel(label); //$NON-NLS-1$
                     String label2 = metadataColumn.getLabel();
-                    if (label2 != null && label2.length() > 0) {
+                    if (label2 != null && label2.length() > 0 && label2.startsWith("_")) { //$NON-NLS-1$
                         String substring = label2.substring(1);
                         if (b
                                 && label2.startsWith("_") //$NON-NLS-1$
