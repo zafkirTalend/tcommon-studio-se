@@ -29,6 +29,7 @@ import javax.xml.namespace.QName;
 
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
+import org.apache.ws.commons.schema.XmlSchemaChoice;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentExtension;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentRestriction;
@@ -639,88 +640,7 @@ public class ComponentBuilder {
                         xmlSchemaObjectCollection = xmlSchemaSequence.getItems();
                     }
                     if (xmlSchemaObjectCollection != null) {
-                        // XmlSchemaSequence xmlSchemaSequence = (XmlSchemaSequence) xmlSchemaParticle;
-                        // XmlSchemaObjectCollection xmlSchemaObjectCollection = xmlSchemaSequence.getItems();
-                        int count = xmlSchemaObjectCollection.getCount();
-                        for (int j = 0; j < count; j++) {
-                            XmlSchemaObject xmlSchemaObject = xmlSchemaObjectCollection.getItem(j);
-                            if (xmlSchemaObject instanceof XmlSchemaElement) {
-                                XmlSchemaElement xmlSchemaElement = (XmlSchemaElement) xmlSchemaObject;
-                                String elementName = xmlSchemaElement.getName();
-                                ParameterInfo parameterSon = new ParameterInfo();
-                                parameterSon.setName(elementName);
-                                parameterSon.setParent(parameter);
-                                Long min = xmlSchemaElement.getMinOccurs();
-                                Long max = xmlSchemaElement.getMaxOccurs();
-                                if (max - min > 1) {
-                                    parameterSon.setArraySize(-1);
-                                    parameterSon.setIndex("*");
-                                }
-                                parameter.getParameterInfos().add(parameterSon);
-                                if (xmlSchemaElement.getSchemaTypeName() != null) {
-                                    String elementTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
-                                    parameterSon.setType(elementTypeName);
-                                    // if ((xmlSchemaElement.getSchemaType()) instanceof XmlSchemaSimpleType) {
-                                    // XmlSchemaSimpleType xmlSchemaSimpleType = (XmlSchemaSimpleType) xmlSchemaElement
-                                    // .getSchemaType();
-                                    // xmlSchemaSimpleType.getBaseSchemaType();
-                                    // } else
-                                    // if (xmlSchemaElement.getSchemaType() != null
-                                    // && xmlSchemaElement.getSchemaType() instanceof XmlSchemaComplexType) {
-                                    // XmlSchemaComplexType xmlSchemaComplexTypeSon = (XmlSchemaComplexType)
-                                    // xmlSchemaElement
-                                    // .getSchemaType();
-                                    // }
-                                    if (!parametersName.isEmpty() && parameterSon.getName() != null) {
-                                        Boolean isHave = false;
-                                        for (int p = 0; p < parametersName.size(); p++) {
-                                            if (parameterSon.getName().equals(parametersName.get(p))) {
-                                                isHave = true;
-                                            }
-                                        }
-                                        if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
-                                            buileParameterFromTypes(elementTypeName, parameterSon, 3);
-                                        }
-                                    }
-                                }
-                            } else if (xmlSchemaObject instanceof XmlSchemaAttribute) {
-                                XmlSchemaAttribute xmlSchemaAttribute = (XmlSchemaAttribute) xmlSchemaObject;
-                                String elementName = xmlSchemaAttribute.getName();
-                                ParameterInfo parameterSon = new ParameterInfo();
-                                parameterSon.setName(elementName);
-                                parameterSon.setParent(parameter);
-
-                                parameter.getParameterInfos().add(parameterSon);
-                                if (xmlSchemaAttribute.getSchemaTypeName() != null) {
-                                    String elementTypeName = xmlSchemaAttribute.getSchemaTypeName().getLocalPart();
-                                    parameterSon.setType(elementTypeName);
-                                    if (!parametersName.isEmpty() && parameterSon.getName() != null) {
-                                        Boolean isHave = false;
-                                        for (int p = 0; p < parametersName.size(); p++) {
-                                            if (parameterSon.getName().equals(parametersName.get(p))) {
-                                                isHave = true;
-                                            }
-                                        }
-                                        if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
-                                            buileParameterFromTypes(elementTypeName, parameterSon, 3);
-                                        }
-                                    }
-                                } else if (xmlSchemaAttribute.getRefName() != null) {
-                                    String refName = xmlSchemaAttribute.getRefName().getLocalPart();
-                                    if (!parametersName.isEmpty() && refName != null) {
-                                        Boolean isHave = false;
-                                        for (int p = 0; p < parametersName.size(); p++) {
-                                            if (refName.equals(parametersName.get(p))) {
-                                                isHave = true;
-                                            }
-                                        }
-                                        if (!isHave) {
-                                            buileParameterFromTypes(refName, parameterSon, 3);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        buildParameterFromCollection(xmlSchemaObjectCollection, parameter);
                     }
                 } else if (type instanceof XmlSchemaSimpleType) {
                     // Will TO DO if need.
@@ -729,6 +649,95 @@ public class ComponentBuilder {
                 }
             }
 
+        }
+    }
+
+    private void buildParameterFromCollection(XmlSchemaObjectCollection xmlSchemaObjectCollection, ParameterInfo parameter) {
+        int count = xmlSchemaObjectCollection.getCount();
+        for (int j = 0; j < count; j++) {
+            XmlSchemaObject xmlSchemaObject = xmlSchemaObjectCollection.getItem(j);
+            if (xmlSchemaObject instanceof XmlSchemaElement) {
+                XmlSchemaElement xmlSchemaElement = (XmlSchemaElement) xmlSchemaObject;
+                String elementName = xmlSchemaElement.getName();
+                ParameterInfo parameterSon = new ParameterInfo();
+                parameterSon.setName(elementName);
+                parameterSon.setParent(parameter);
+                Long min = xmlSchemaElement.getMinOccurs();
+                Long max = xmlSchemaElement.getMaxOccurs();
+                if (max - min > 1) {
+                    parameterSon.setArraySize(-1);
+                    parameterSon.setIndex("*");
+                }
+                parameter.getParameterInfos().add(parameterSon);
+                if (xmlSchemaElement.getSchemaTypeName() != null) {
+                    String elementTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
+                    parameterSon.setType(elementTypeName);
+                    // if ((xmlSchemaElement.getSchemaType()) instanceof XmlSchemaSimpleType) {
+                    // XmlSchemaSimpleType xmlSchemaSimpleType = (XmlSchemaSimpleType) xmlSchemaElement
+                    // .getSchemaType();
+                    // xmlSchemaSimpleType.getBaseSchemaType();
+                    // } else
+                    // if (xmlSchemaElement.getSchemaType() != null
+                    // && xmlSchemaElement.getSchemaType() instanceof XmlSchemaComplexType) {
+                    // XmlSchemaComplexType xmlSchemaComplexTypeSon = (XmlSchemaComplexType)
+                    // xmlSchemaElement
+                    // .getSchemaType();
+                    // }
+                    if (!parametersName.isEmpty() && parameterSon.getName() != null) {
+                        Boolean isHave = false;
+                        for (int p = 0; p < parametersName.size(); p++) {
+                            if (parameterSon.getName().equals(parametersName.get(p))) {
+                                isHave = true;
+                            }
+                        }
+                        if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
+                            buileParameterFromTypes(elementTypeName, parameterSon, 3);
+                        }
+                    }
+                }
+            } else if (xmlSchemaObject instanceof XmlSchemaAttribute) {
+                XmlSchemaAttribute xmlSchemaAttribute = (XmlSchemaAttribute) xmlSchemaObject;
+                String elementName = xmlSchemaAttribute.getName();
+                ParameterInfo parameterSon = new ParameterInfo();
+                parameterSon.setName(elementName);
+                parameterSon.setParent(parameter);
+
+                parameter.getParameterInfos().add(parameterSon);
+                if (xmlSchemaAttribute.getSchemaTypeName() != null) {
+                    String elementTypeName = xmlSchemaAttribute.getSchemaTypeName().getLocalPart();
+                    parameterSon.setType(elementTypeName);
+                    if (!parametersName.isEmpty() && parameterSon.getName() != null) {
+                        Boolean isHave = false;
+                        for (int p = 0; p < parametersName.size(); p++) {
+                            if (parameterSon.getName().equals(parametersName.get(p))) {
+                                isHave = true;
+                            }
+                        }
+                        if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
+                            buileParameterFromTypes(elementTypeName, parameterSon, 3);
+                        }
+                    }
+                } else if (xmlSchemaAttribute.getRefName() != null) {
+                    String refName = xmlSchemaAttribute.getRefName().getLocalPart();
+                    if (!parametersName.isEmpty() && refName != null) {
+                        Boolean isHave = false;
+                        for (int p = 0; p < parametersName.size(); p++) {
+                            if (refName.equals(parametersName.get(p))) {
+                                isHave = true;
+                            }
+                        }
+                        if (!isHave) {
+                            buileParameterFromTypes(refName, parameterSon, 3);
+                        }
+                    }
+                }
+            } else if (xmlSchemaObject instanceof XmlSchemaChoice) {
+                XmlSchemaChoice xmlSchemaChoice = (XmlSchemaChoice) xmlSchemaObject;
+                XmlSchemaObjectCollection items = xmlSchemaChoice.getItems();
+                if (items != null) {
+                    buildParameterFromCollection(items, parameter);
+                }
+            }
         }
     }
 
