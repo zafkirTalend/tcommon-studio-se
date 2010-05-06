@@ -35,6 +35,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -864,8 +865,15 @@ public class ExtractMetaDataFromDataBase {
         // add by wzhang
         ExtractMetaDataUtils.metadataCon = iMetadataConnection;
         // end
-        // bug 9162
+        // bug 9162 bug 12888
+        String dbType = iMetadataConnection.getDbType();
         String url = iMetadataConnection.getUrl();
+
+        String generalJDBCDisplayName = EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName();
+        if (dbType.equals(generalJDBCDisplayName) && url.contains("oracle")) {//$NON-NLS-1$
+            iMetadataConnection.setSchema(iMetadataConnection.getUsername().toUpperCase());
+        }
+
         List list = ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), url, iMetadataConnection.getUsername(),
                 iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection.getSchema(),
                 iMetadataConnection.getDriverClass(), iMetadataConnection.getDriverJarPath(), iMetadataConnection
@@ -883,14 +891,14 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
         }
-        String dbType = iMetadataConnection.getDbType();
+
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn, dbType);
 
         List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData, iMetadataConnection,
                 limit);
 
         ExtractMetaDataUtils.closeConnection();
-        if ((dbType.equals("JavaDB Embeded") || dbType.equals("General JDBC")) && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$
+        if ((dbType.equals("JavaDB Embeded") || dbType.equals(generalJDBCDisplayName)) && (url != null && url.contains("jdbc:derby")) && wapperDriver != null) { //$NON-NLS-1$ //$NON-NLS-2$
             try {
                 wapperDriver.connect("jdbc:derby:;shutdown=true", null); //$NON-NLS-1$
             } catch (SQLException e) {
