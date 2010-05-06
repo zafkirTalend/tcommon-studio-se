@@ -54,9 +54,9 @@
 					<dbType type="TEXT"/>	
 				</talendType>
 				<talendType type="id_Date">
-					<dbType type="DATE" default="true" />
+					<dbType type="DATE" />
 					<dbType type="DATETIME" />	
-					<dbType type="DATETIME YEAR TO FRACTION" />			
+					<dbType type="DATETIME YEAR TO FRACTION" default="true" />			
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="DECIMAL" default="true" />
