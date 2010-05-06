@@ -12,28 +12,11 @@
 // ============================================================================
 package org.talend.repository.editor;
 
-import java.io.IOException;
-
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.part.FileEditorInput;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.MessageBoxExceptionHandler;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.JobletProcessItem;
-import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.Property;
-import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.RepositoryManager;
-import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-import org.talend.designer.joblet.model.JobletProcess;
-import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -48,8 +31,6 @@ public class RepositoryEditorInput extends FileEditorInput {
     private Item item;
 
     private boolean readOnly;
-
-    protected IProcess2 loadedProcess;
 
     public RepositoryEditorInput(IFile file, Item item) {
         super(file);
@@ -76,12 +57,8 @@ public class RepositoryEditorInput extends FileEditorInput {
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
-        if (loadedProcess != null) {
-            loadedProcess.setReadOnly(readOnly);
-        }
     }
 
-    @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -105,100 +82,11 @@ public class RepositoryEditorInput extends FileEditorInput {
         return true;
     }
 
-    /**
-     * DOC qzhang Comment method "getLoadedProcess".
-     * 
-     * @return
-     */
-    public IProcess2 getLoadedProcess() {
-        return loadedProcess;
-    }
-
-    protected Item getProcessItem() {
-        return getItem();
-    }
-
-    protected void loadProcess() throws PersistenceException {
-        loadedProcess.loadXmlFile(true);
-        // loadedProcess.checkLoadNodes();
-    }
-
-    public boolean saveProcess(IProgressMonitor monitor, IPath path) {
-        // PTODO SML Removed null test on monitor after assure that in can't be
-        try {
-            if (monitor != null) {
-                monitor.beginTask("save process", 100); //$NON-NLS-1$
-            }
-            ProcessType processType = loadedProcess.saveXmlFile();
-            if (monitor != null) {
-                monitor.worked(40);
-            }
-
-            // getFile().refreshLocal(IResource.DEPTH_ONE, monitor);
-
-            // loadedProcess.setXmlStream(getFile().getContents());
-
-            IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-
-            if (path != null) {
-                // factory.createProcess(project, loadedProcess, path);
-            } else {
-                resetItem();
-
-                if (getProcessItem() instanceof JobletProcessItem) {
-                    ((JobletProcessItem) getProcessItem()).setJobletProcess((JobletProcess) processType);
-                } else {
-                    ((ProcessItem) getProcessItem()).setProcess(processType);
-                }
-                factory.save(getProcessItem());
-
-                if (CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore().getBoolean(
-                        ITalendCorePrefConstants.ITEM_INDEX)) {
-                    RelationshipItemBuilder.getInstance().addOrUpdateItem(getProcessItem());
-                }
-                if (monitor != null) {
-                    monitor.worked(50);
-                }
-            }
-
-            if (monitor != null) {
-                monitor.worked(10);
-            }
-            return true;
-        } catch (IOException e) {
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-            if (monitor != null) {
-                monitor.setCanceled(true);
-            }
-            return false;
-        } catch (PersistenceException e) {
-            MessageBoxExceptionHandler.process(e);
-            if (monitor != null) {
-                monitor.setCanceled(true);
-            }
-            return false;
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-            if (monitor != null) {
-                monitor.setCanceled(true);
-            }
-            return false;
-        } finally {
-            if (monitor != null) {
-                monitor.done();
-            }
+    public int hashCode() {
+        if (getItem() != null) {
+            return super.hashCode() & getItem().hashCode();
         }
-    }
-
-    private void resetItem() throws PersistenceException {
-        if (getProcessItem().getProperty().eResource() == null || getProcessItem().eResource() == null) {
-            IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            Property updated = factory.getUptodateProperty(getProcessItem().getProperty());
-            setItem(updated.getItem());
-        }
+        return super.hashCode();
     }
 
     private IRepositoryView view;
@@ -220,30 +108,6 @@ public class RepositoryEditorInput extends FileEditorInput {
 
     public RepositoryNode getRepositoryNode() {
         return this.repositoryNode;
-    }
-
-    /**
-     * DOC mhelleboid Comment method "checkReadOnly".
-     * 
-     * @param processItem
-     * @throws PersistenceException
-     */
-    protected boolean checkReadOnly() throws PersistenceException {
-        return loadedProcess.checkReadOnly();
-    }
-
-    public boolean setForceReadOnly(boolean readonly) {
-        if (readonly) {
-            loadedProcess.setReadOnly(readonly);
-            return true;
-        } else {
-            try {
-                return checkReadOnly();
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-                return false;
-            }
-        }
     }
 
     /**
@@ -281,15 +145,6 @@ public class RepositoryEditorInput extends FileEditorInput {
             this.repositoryNode = CorePlugin.getDefault().getRepositoryService().getRepositoryNode(
                     getItem().getProperty().getId(), false);
         }
-    }
-
-    /**
-     * Sets the loadedProcess.
-     * 
-     * @param loadedProcess the loadedProcess to set
-     */
-    public void setLoadedProcess(IProcess2 loadedProcess) {
-        this.loadedProcess = loadedProcess;
     }
 
     @Override
