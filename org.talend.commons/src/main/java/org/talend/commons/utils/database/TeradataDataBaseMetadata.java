@@ -141,10 +141,13 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
 
             while (rs.next()) {
                 String name = rs.getString("TableName").trim(); //$NON-NLS-1$
-                String creator = rs.getString("CreatorName").trim(); //$NON-NLS-1$
+                // for bug 12811
+                if (database == null || "".equals(database)) {
+                    database = rs.getString("CreatorName").trim(); //$NON-NLS-1$
+                }
                 String type = rs.getString("TableKind").trim(); //$NON-NLS-1$
 
-                String[] r = new String[] { "", creator, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
+                String[] r = new String[] { "", database, name, type, "" }; //$NON-NLS-1$ //$NON-NLS-2$
                 list.add(r);
             }
 

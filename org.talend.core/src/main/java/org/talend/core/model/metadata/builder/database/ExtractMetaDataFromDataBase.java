@@ -456,22 +456,6 @@ public class ExtractMetaDataFromDataBase {
                         keys = dbMetaData.getIndexInfo(null, null, medataTable.getLabel(), true, true);
                     }
 
-                    // // get the primary key information
-                    // while (keys.next()) {
-                    // // System.out.println("-----------");
-                    // // for (int i = 1; i < 14; i++) {
-                    // // System.out.println("" + i + "=>" + keys.getString(i));
-                    // // }
-                    // // System.out.println("-----------");
-                    // String idx = keys.getString(6);
-                    // if (idx != null) {
-                    // // Note: index "PrimaryKey" is Access DB specific
-                    // // other db server has diff. index syntax.
-                    // if (idx.equalsIgnoreCase("PrimaryKey")) {
-                    // keyname = keys.getString(9);
-                    // }
-                    // }
-                    // }
                 }
                 primaryKeys.clear();
                 while (keys.next()) {
