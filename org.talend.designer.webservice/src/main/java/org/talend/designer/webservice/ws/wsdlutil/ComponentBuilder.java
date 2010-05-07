@@ -29,17 +29,16 @@ import javax.xml.namespace.QName;
 
 import org.apache.ws.commons.schema.XmlSchema;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
-import org.apache.ws.commons.schema.XmlSchemaChoice;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentExtension;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentRestriction;
 import org.apache.ws.commons.schema.XmlSchemaComplexType;
 import org.apache.ws.commons.schema.XmlSchemaElement;
+import org.apache.ws.commons.schema.XmlSchemaGroupBase;
 import org.apache.ws.commons.schema.XmlSchemaObject;
 import org.apache.ws.commons.schema.XmlSchemaObjectCollection;
 import org.apache.ws.commons.schema.XmlSchemaObjectTable;
 import org.apache.ws.commons.schema.XmlSchemaParticle;
-import org.apache.ws.commons.schema.XmlSchemaSequence;
 import org.apache.ws.commons.schema.XmlSchemaSimpleType;
 import org.apache.ws.commons.schema.XmlSchemaType;
 import org.talend.commons.exception.ExceptionHandler;
@@ -508,7 +507,7 @@ public class ComponentBuilder {
             // }
             if (allXmlSchemaElement.size() > 0) {
 
-                buileParameterFromElements(partElement, parameterRoot, manner);
+                buildParameterFromElements(partElement, parameterRoot, manner);
 
             } else if (allXmlSchemaType.size() > 0) {
 
@@ -518,7 +517,7 @@ public class ComponentBuilder {
         }
     }
 
-    private void buileParameterFromElements(String partElement, ParameterInfo parameterRoot, int ioOrRecursion) {
+    private void buildParameterFromElements(String partElement, ParameterInfo parameterRoot, int ioOrRecursion) {
         // XmlSchemaObjectTable elements = xmlSchema.getElements();
         Iterator elementsItr = allXmlSchemaElement.iterator();
         if (partElement != null) {
@@ -531,42 +530,11 @@ public class ComponentBuilder {
                         if (xmlSchemaElement.getSchemaType() instanceof XmlSchemaComplexType) {
                             XmlSchemaComplexType xmlElementComplexType = (XmlSchemaComplexType) xmlSchemaElement.getSchemaType();
                             XmlSchemaParticle xmlSchemaParticle = xmlElementComplexType.getParticle();
-                            if (xmlSchemaParticle instanceof XmlSchemaSequence) {
-                                XmlSchemaSequence xmlSchemaSequence = (XmlSchemaSequence) xmlSchemaParticle;
-                                XmlSchemaObjectCollection xmlSchemaObjectCollection = xmlSchemaSequence.getItems();
-                                int count = xmlSchemaObjectCollection.getCount();
-                                for (int i = 0; i < count; i++) {
-                                    XmlSchemaObject xmlSchemaObject = xmlSchemaObjectCollection.getItem(i);
-                                    if (xmlSchemaObject instanceof XmlSchemaElement) {
-                                        XmlSchemaElement xmlSchemaElementSon = (XmlSchemaElement) xmlSchemaObject;
-                                        String elementName = xmlSchemaElementSon.getName();
-                                        ParameterInfo parameterSon = new ParameterInfo();
-                                        parameterSon.setName(elementName);
-                                        parameterSon.setParent(parameterRoot);
-                                        Long min = xmlSchemaElementSon.getMinOccurs();
-                                        Long max = xmlSchemaElementSon.getMaxOccurs();
-                                        if (max - min > 1) {
-                                            parameterSon.setArraySize(-1);
-                                            parameterSon.setIndex("*");
-                                        }
-                                        parameterRoot.getParameterInfos().add(parameterSon);
-                                        // if xmlSchemaElementSon is XmlSchemaComplexType also.
-                                        if (xmlSchemaElementSon.getSchemaTypeName() != null) {
-                                            String paraTypeName = xmlSchemaElementSon.getSchemaTypeName().getLocalPart();
-                                            if (paraTypeName != null) {
-                                                parameterSon.setType(paraTypeName);
-                                                buileParameterFromTypes(paraTypeName, parameterSon, ioOrRecursion);
-                                            }
-                                        } else if (xmlSchemaElementSon.getRefName() != null) {
-                                            String paraTypeName = xmlSchemaElementSon.getRefName().getLocalPart();
-                                            if (paraTypeName != null) {
-                                                parameterSon.setType(paraTypeName);
-                                                buileParameterFromTypes(paraTypeName, parameterSon, ioOrRecursion);
-                                            }
-                                        }
-
-                                    }
-
+                            if (xmlSchemaParticle instanceof XmlSchemaGroupBase) {
+                                XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaParticle;
+                                XmlSchemaObjectCollection xmlSchemaObjectCollection = xmlSchemaGroupBase.getItems();
+                                if (xmlSchemaObjectCollection != null) {
+                                    buildParameterFromCollection(xmlSchemaObjectCollection, parameterRoot, ioOrRecursion);
                                 }
                             } else if (xmlSchemaElement.getSchemaTypeName() != null) {
                                 String paraTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
@@ -625,9 +593,9 @@ public class ComponentBuilder {
                             if (xscce != null) {
                                 xmlSchemaParticle = xscce.getParticle();
                             }
-                            if (xmlSchemaParticle instanceof XmlSchemaSequence) {
-                                XmlSchemaSequence xmlSchemaSequence = (XmlSchemaSequence) xmlSchemaParticle;
-                                xmlSchemaObjectCollection = xmlSchemaSequence.getItems();
+                            if (xmlSchemaParticle instanceof XmlSchemaGroupBase) {
+                                XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaParticle;
+                                xmlSchemaObjectCollection = xmlSchemaGroupBase.getItems();
                             }
 
                         } else if (obj instanceof XmlSchemaComplexContentRestriction) {
@@ -635,12 +603,12 @@ public class ComponentBuilder {
                             xmlSchemaObjectCollection = xsccr.getAttributes();
                         }
 
-                    } else if (xmlSchemaParticle instanceof XmlSchemaSequence) {
-                        XmlSchemaSequence xmlSchemaSequence = (XmlSchemaSequence) xmlSchemaParticle;
-                        xmlSchemaObjectCollection = xmlSchemaSequence.getItems();
+                    } else if (xmlSchemaParticle instanceof XmlSchemaGroupBase) {
+                        XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaParticle;
+                        xmlSchemaObjectCollection = xmlSchemaGroupBase.getItems();
                     }
                     if (xmlSchemaObjectCollection != null) {
-                        buildParameterFromCollection(xmlSchemaObjectCollection, parameter);
+                        buildParameterFromCollection(xmlSchemaObjectCollection, parameter, 3);
                     }
                 } else if (type instanceof XmlSchemaSimpleType) {
                     // Will TO DO if need.
@@ -652,11 +620,21 @@ public class ComponentBuilder {
         }
     }
 
-    private void buildParameterFromCollection(XmlSchemaObjectCollection xmlSchemaObjectCollection, ParameterInfo parameter) {
+    private void buildParameterFromCollection(XmlSchemaObjectCollection xmlSchemaObjectCollection, ParameterInfo parameter,
+            int ioOrRecursion) {
+
+        // XmlSchemaSequence xmlSchemaSequence = (XmlSchemaSequence) xmlSchemaParticle;
+        // XmlSchemaObjectCollection xmlSchemaObjectCollection = xmlSchemaSequence.getItems();
         int count = xmlSchemaObjectCollection.getCount();
         for (int j = 0; j < count; j++) {
             XmlSchemaObject xmlSchemaObject = xmlSchemaObjectCollection.getItem(j);
-            if (xmlSchemaObject instanceof XmlSchemaElement) {
+            if (xmlSchemaObject instanceof XmlSchemaGroupBase) {
+                XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaObject;
+                XmlSchemaObjectCollection items = xmlSchemaGroupBase.getItems();
+                if (items != null) {
+                    buildParameterFromCollection(items, parameter, ioOrRecursion);
+                }
+            } else if (xmlSchemaObject instanceof XmlSchemaElement) {
                 XmlSchemaElement xmlSchemaElement = (XmlSchemaElement) xmlSchemaObject;
                 String elementName = xmlSchemaElement.getName();
                 ParameterInfo parameterSon = new ParameterInfo();
@@ -669,32 +647,53 @@ public class ComponentBuilder {
                     parameterSon.setIndex("*");
                 }
                 parameter.getParameterInfos().add(parameterSon);
-                if (xmlSchemaElement.getSchemaTypeName() != null) {
-                    String elementTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
-                    parameterSon.setType(elementTypeName);
-                    // if ((xmlSchemaElement.getSchemaType()) instanceof XmlSchemaSimpleType) {
-                    // XmlSchemaSimpleType xmlSchemaSimpleType = (XmlSchemaSimpleType) xmlSchemaElement
-                    // .getSchemaType();
-                    // xmlSchemaSimpleType.getBaseSchemaType();
-                    // } else
-                    // if (xmlSchemaElement.getSchemaType() != null
-                    // && xmlSchemaElement.getSchemaType() instanceof XmlSchemaComplexType) {
-                    // XmlSchemaComplexType xmlSchemaComplexTypeSon = (XmlSchemaComplexType)
-                    // xmlSchemaElement
-                    // .getSchemaType();
-                    // }
-                    if (!parametersName.isEmpty() && parameterSon.getName() != null) {
-                        Boolean isHave = false;
-                        for (int p = 0; p < parametersName.size(); p++) {
-                            if (parameterSon.getName().equals(parametersName.get(p))) {
-                                isHave = true;
-                            }
-                        }
-                        if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
-                            buileParameterFromTypes(elementTypeName, parameterSon, 3);
+
+                Boolean isHave = false;
+                if (!parametersName.isEmpty() && parameterSon.getName() != null) {
+                    for (int p = 0; p < parametersName.size(); p++) {
+                        if (parameterSon.getName().equals(parametersName.get(p))) {
+                            isHave = true;
                         }
                     }
                 }
+                if (xmlSchemaElement.getSchemaTypeName() != null) {
+                    String elementTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
+                    parameterSon.setType(elementTypeName);
+                    if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
+                        buileParameterFromTypes(elementTypeName, parameterSon, ioOrRecursion);
+                    }
+
+                } else if (xmlSchemaElement.getSchemaType() != null) {
+                    if (xmlSchemaElement.getSchemaType() instanceof XmlSchemaComplexType) {
+                        XmlSchemaComplexType xmlElementComplexType = (XmlSchemaComplexType) xmlSchemaElement.getSchemaType();
+                        XmlSchemaParticle xmlSchemaParticle = xmlElementComplexType.getParticle();
+                        if (xmlSchemaParticle instanceof XmlSchemaGroupBase) {
+                            XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaParticle;
+                            XmlSchemaObjectCollection childCollection = xmlSchemaGroupBase.getItems();
+                            if (childCollection != null && !isHave) {
+                                buildParameterFromCollection(childCollection, parameter, ioOrRecursion);
+                            }
+                        } else if (xmlSchemaElement.getSchemaTypeName() != null) {
+                            String paraTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
+                            if (paraTypeName != null && !isHave) {
+                                parameter.setType(paraTypeName);
+                                buileParameterFromTypes(paraTypeName, parameter, ioOrRecursion);
+                            }
+                        }
+                    } else if (xmlSchemaElement.getSchemaType() instanceof XmlSchemaSimpleType) {
+                        XmlSchemaSimpleType xmlSchemaSimpleType = (XmlSchemaSimpleType) xmlSchemaElement.getSchemaType();
+                        String typeName = xmlSchemaSimpleType.getName();
+                        parameter.setType(typeName);
+
+                    }
+
+                } else if (xmlSchemaElement.getRefName() != null) {
+                    String elementTypeName = xmlSchemaElement.getRefName().getLocalPart();
+                    if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
+                        buildParameterFromElements(elementTypeName, parameterSon, ioOrRecursion);
+                    }
+                }
+
             } else if (xmlSchemaObject instanceof XmlSchemaAttribute) {
                 XmlSchemaAttribute xmlSchemaAttribute = (XmlSchemaAttribute) xmlSchemaObject;
                 String elementName = xmlSchemaAttribute.getName();
@@ -703,42 +702,32 @@ public class ComponentBuilder {
                 parameterSon.setParent(parameter);
 
                 parameter.getParameterInfos().add(parameterSon);
+                Boolean isHave = false;
+                if (!parametersName.isEmpty() && parameterSon.getName() != null) {
+                    for (int p = 0; p < parametersName.size(); p++) {
+                        if (parameterSon.getName().equals(parametersName.get(p))) {
+                            isHave = true;
+                        }
+                    }
+
+                }
                 if (xmlSchemaAttribute.getSchemaTypeName() != null) {
                     String elementTypeName = xmlSchemaAttribute.getSchemaTypeName().getLocalPart();
                     parameterSon.setType(elementTypeName);
-                    if (!parametersName.isEmpty() && parameterSon.getName() != null) {
-                        Boolean isHave = false;
-                        for (int p = 0; p < parametersName.size(); p++) {
-                            if (parameterSon.getName().equals(parametersName.get(p))) {
-                                isHave = true;
-                            }
-                        }
-                        if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
-                            buileParameterFromTypes(elementTypeName, parameterSon, 3);
-                        }
+                    if (!isHave && !WsdlTypeUtil.isJavaBasicType(elementTypeName)) {
+                        buileParameterFromTypes(elementTypeName, parameterSon, ioOrRecursion);
                     }
                 } else if (xmlSchemaAttribute.getRefName() != null) {
                     String refName = xmlSchemaAttribute.getRefName().getLocalPart();
-                    if (!parametersName.isEmpty() && refName != null) {
-                        Boolean isHave = false;
-                        for (int p = 0; p < parametersName.size(); p++) {
-                            if (refName.equals(parametersName.get(p))) {
-                                isHave = true;
-                            }
-                        }
-                        if (!isHave) {
-                            buileParameterFromTypes(refName, parameterSon, 3);
-                        }
+                    parameterSon.setType(refName);
+                    if (!isHave) {
+                        buildParameterFromElements(refName, parameterSon, ioOrRecursion);
+
                     }
-                }
-            } else if (xmlSchemaObject instanceof XmlSchemaChoice) {
-                XmlSchemaChoice xmlSchemaChoice = (XmlSchemaChoice) xmlSchemaObject;
-                XmlSchemaObjectCollection items = xmlSchemaChoice.getItems();
-                if (items != null) {
-                    buildParameterFromCollection(items, parameter);
                 }
             }
         }
+
     }
 
     public String getExceptionMessage() {
