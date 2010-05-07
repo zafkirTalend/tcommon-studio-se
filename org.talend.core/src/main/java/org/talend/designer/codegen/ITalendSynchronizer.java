@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.repository.IRepositoryObject;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -42,4 +43,6 @@ public interface ITalendSynchronizer {
     public abstract void renameRoutineClass(RoutineItem routineItem);
 
     public Map<String, List<URI>> getUserRoutineModules();
+
+    public void deleteRoutinefile(IRepositoryObject objToDelete);
 }
