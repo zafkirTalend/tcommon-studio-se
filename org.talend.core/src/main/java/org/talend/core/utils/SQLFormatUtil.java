@@ -31,7 +31,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.junit.Test;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.utils.TalendTextUtils;
@@ -264,17 +263,4 @@ public class SQLFormatUtil {
 
         return results;
     }
-
-    @Test
-    public void testSep() {
-        SQLFormatUtil util = new SQLFormatUtil();
-        try {
-            Collection<String> res = util.separate("select * from table", "sel|table"); //$NON-NLS-1$ //$NON-NLS-2$
-            System.out.println(res);
-        } catch (MalformedPatternException e) {
-            // e.printStackTrace();
-            ExceptionHandler.process(e);
-        }
-    }
-
 }

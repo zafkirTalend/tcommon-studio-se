@@ -93,11 +93,11 @@ public final class ElapsedTime {
      * @param day
      * @return the julian day
      */
-    static long getJulianDays(int year, int month, int day) throws IllegalArgumentException {
+    public static long getJulianDays(int year, int month, int day) throws IllegalArgumentException {
         if ((year < GREGORIAN_CAL_YEAR) || ((year == GREGORIAN_CAL_YEAR) && (month < GREGORIAN_CAL_MONTH))
                 || ((year == GREGORIAN_CAL_YEAR) && (month == GREGORIAN_CAL_MONTH)) && (day < GREGORIAN_CAL_DAY)) {
-            throw new IllegalArgumentException("Dates before 15 Oct 1582 are not valid Gregorian dates " + year + "/"
-                    + month + "/" + day);
+            throw new IllegalArgumentException("Dates before 15 Oct 1582 are not valid Gregorian dates " + year + "/" + month
+                    + "/" + day);
         }
 
         // TODO understand this formula, and find reference
