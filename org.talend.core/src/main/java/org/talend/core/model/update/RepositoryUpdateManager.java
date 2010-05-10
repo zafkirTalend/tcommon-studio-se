@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -643,6 +644,26 @@ public abstract class RepositoryUpdateManager {
                 List<IContext> listIContext = new ArrayList<IContext>();
                 if (iterator != null && iterator.hasNext()) {
                     List<IContext> next = iterator.next();
+                    // for bug 7769
+                    if (next.listIterator().hasNext()) {
+                        ListIterator<IContext> contextList = next.listIterator();
+                        while (contextList.hasNext()) {
+                            IContext context = contextList.next();
+                            for (int j = 0; j < context.getContextParameterList().size(); j++) {
+                                String contextName = context.getContextParameterList().get(j).getName();
+                                for (int i = 0; i < jobContextManager.getDefaultContext().getContextParameterList().size(); i++) {
+                                    String name = jobContextManager.getDefaultContext().getContextParameterList().get(i)
+                                            .getName();
+                                    if (!name.equals(contextName)) {
+                                        context.getContextParameterList().remove(j);
+                                        j--;
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
                     listIContext.addAll(next);
                 }
                 jobContextManager.setAddGroupContext(listIContext);
