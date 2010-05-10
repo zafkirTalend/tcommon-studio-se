@@ -265,6 +265,7 @@ public interface ExecutionTask extends EObject {
 
     /**
      * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Active</em>' attribute isn't clear, there really should be more of a description
@@ -274,7 +275,7 @@ public interface ExecutionTask extends EObject {
      * @return the value of the '<em>Active</em>' attribute.
      * @see #setActive(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Active()
-     * @model
+     * @model default="true"
      * @generated
      */
     boolean isActive();

@@ -193,6 +193,7 @@ public interface ExecutionServer extends EObject {
 
     /**
      * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Active</em>' attribute isn't clear,
@@ -202,7 +203,7 @@ public interface ExecutionServer extends EObject {
      * @return the value of the '<em>Active</em>' attribute.
      * @see #setActive(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Active()
-     * @model
+     * @model default="true"
      * @generated
      */
     boolean isActive();

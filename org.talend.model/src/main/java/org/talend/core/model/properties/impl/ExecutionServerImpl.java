@@ -167,7 +167,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @generated
      * @ordered
      */
-    protected static final boolean ACTIVE_EDEFAULT = false;
+    protected static final boolean ACTIVE_EDEFAULT = true;
 
     /**
      * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
