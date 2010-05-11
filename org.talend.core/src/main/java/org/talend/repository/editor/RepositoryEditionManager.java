@@ -94,7 +94,7 @@ public class RepositoryEditionManager {
         return iFolder.getFullPath();
     }
 
-    public void openEditor(IWorkbenchPage page, IFile file, Item item, boolean forceReadOnly) {
+    public IEditorPart openEditor(IWorkbenchPage page, IFile file, Item item, boolean forceReadOnly) {
         try {
             IEditorDescriptor editorDesc = IDE.getEditorDescriptor(file);
             RepositoryEditorInput repositoryEditorInput = new RepositoryEditorInput(file, item);
@@ -102,9 +102,11 @@ public class RepositoryEditionManager {
             repositoryEditorInput.setRepositoryNode(null);
             IEditorPart editorPart = IDE.openEditor(page, repositoryEditorInput, editorDesc.getId());
             editors.put(editorPart, repositoryEditorInput);
+            return editorPart;
         } catch (PartInitException e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
         }
+        return null;
     }
 }

@@ -20,4 +20,7 @@ import org.talend.core.model.properties.Item;
 public interface ILastVersionChecker {
 
     public boolean isLastVersion(Item item);
+
+    public void setLastVersion(Boolean lastVersion);
+
 }

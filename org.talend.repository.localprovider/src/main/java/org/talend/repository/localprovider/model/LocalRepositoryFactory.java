@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -1579,6 +1580,27 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void initialize() throws PersistenceException {
         // xmiResourceManager.unloadResources();
+        List<Property> propertiesToUnload = new ArrayList<Property>();
+        for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
+            for (EObject object : resource.getContents()) {
+                if (object instanceof Property) {
+                    ERepositoryStatus status = getStatus(((Property) object).getItem());
+                    if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
+                        continue;
+                    }
+                    if (!object.eIsProxy()) {
+                        continue;
+                    }
+                    propertiesToUnload.add((Property) object);
+                }
+            }
+            // resource;
+        }
+
+        for (Property property : propertiesToUnload) {
+            System.out.println("unload:" + property.getLabel());
+            xmiResourceManager.unloadResources(property);
+        }
     }
 
     public void logOnProject(Project project) throws PersistenceException, LoginException {

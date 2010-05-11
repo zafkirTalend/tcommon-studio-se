@@ -126,7 +126,7 @@ public class XmiResourceManager {
 
     public Property forceReloadProperty(Property property) {
         URI propertyURI = property.eResource().getURI();
-        property.eResource().unload();
+        unloadResources(property);
         Resource propertyResource = resourceSet.getResource(propertyURI, true);
         return (Property) EcoreUtil.getObjectByType(propertyResource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
     }

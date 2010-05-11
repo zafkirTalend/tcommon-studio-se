@@ -33,6 +33,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.ILastVersionChecker;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.ProjectManager;
@@ -51,14 +52,21 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
     protected IProcess2 loadedProcess;
 
     public JobEditorInput(Item item, boolean load) throws PersistenceException {
-        this(item, load, null);
+        this(item, load, null, null);
     }
 
-    public JobEditorInput(Item item, boolean load, Boolean readonly) throws PersistenceException {
+    public JobEditorInput(Item item, boolean load, Boolean lastVersion) throws PersistenceException {
+        this(item, load, lastVersion, null);
+    }
+
+    public JobEditorInput(Item item, boolean load, Boolean lastVersion, Boolean readonly) throws PersistenceException {
 
         super(initFile(item), item);
 
         loadedProcess = createProcess();
+        if (loadedProcess instanceof ILastVersionChecker) {
+            ((ILastVersionChecker) loadedProcess).setLastVersion(lastVersion);
+        }
         if (load) {
             loadProcess();
         } else {
