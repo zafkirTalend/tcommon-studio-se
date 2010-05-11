@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.talend.core.IService;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.properties.tab.IDynamicProperty;
 
@@ -36,4 +37,6 @@ public interface ISVNProviderService extends IService {
     public String getLastSVNRevision(Object process);
 
     public String getCurrentSVNRevision(Object process);
+
+    public String[] getBranchList(Project project);
 }
