@@ -242,17 +242,21 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         removeButton = createRemovePushButton(buttonsComposite);
         buttonList.add(removeButton);
 
-        moveUpButton = createMoveUpPushButton(buttonsComposite);
-        buttonList.add(moveUpButton);
-        moveDownButton = createMoveDownPushButton(buttonsComposite);
-        buttonList.add(moveDownButton);
+        if (!isRepositoryContext) {// for bug 7393
+            moveUpButton = createMoveUpPushButton(buttonsComposite);
+            buttonList.add(moveUpButton);
+            moveDownButton = createMoveDownPushButton(buttonsComposite);
+            buttonList.add(moveDownButton);
+        }
 
         if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
             Button selectContextVariablesButton = createSelectContextVariablesPushButton(buttonsComposite);
             buttonList.add(selectContextVariablesButton);
         }
-        orderButton = createOrderCheckButton(buttonsComposite);
-        buttonList.add(orderButton);
+        if (!isRepositoryContext) {// for bug 7393
+            orderButton = createOrderCheckButton(buttonsComposite);
+            buttonList.add(orderButton);
+        }
     }
 
     /**
