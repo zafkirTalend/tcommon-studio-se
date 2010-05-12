@@ -359,9 +359,15 @@ public class ExtractMetaDataFromDataBase {
             // StringUtils.trimToEmpty(name) is because bug 4547
             if (name != null && StringUtils.trimToEmpty(name).equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
+                if (tableName.contains("/")) {
+                    tableName = tableName.replace("/", "");
+                }
                 metaTable1.setLabel(tableName);
                 metaTable1.setTableName(tableName);
             } else {
+                if (tableLabel.contains("/")) {
+                    tableLabel = tableLabel.replace("/", "");
+                }
                 metaTable1.setLabel(tableLabel);
                 metaTable1.setTableName(tableLabel);
             }
