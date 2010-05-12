@@ -668,22 +668,13 @@ public interface PropertiesPackage extends EPackage {
     int ITEM_STATE__COMMIT_DATE = 5;
 
     /**
-     * The feature id for the '<em><b>Running From Rep</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ITEM_STATE__RUNNING_FROM_REP = 6;
-
-    /**
      * The number of structural features of the '<em>Item State</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int ITEM_STATE_FEATURE_COUNT = 7;
+    int ITEM_STATE_FEATURE_COUNT = 6;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -6568,17 +6559,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getItemState_CommitDate();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemState#isRunningFromRep <em>Running From Rep</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Running From Rep</em>'.
-     * @see org.talend.core.model.properties.ItemState#isRunningFromRep()
-     * @see #getItemState()
-     * @generated
-     */
-    EAttribute getItemState_RunningFromRep();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FileItem <em>File Item</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -11100,14 +11080,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_STATE__COMMIT_DATE = eINSTANCE.getItemState_CommitDate();
-
-        /**
-         * The meta object literal for the '<em><b>Running From Rep</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ITEM_STATE__RUNNING_FROM_REP = eINSTANCE.getItemState_RunningFromRep();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FileItemImpl <em>File Item</em>}' class.
