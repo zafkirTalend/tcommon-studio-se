@@ -57,7 +57,10 @@ public enum EDatabaseVersion4Drivers {
     // MYSQL
     MYSQL_5(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 5", "MYSQL_5", "mysql-connector-java-5.1.0-bin.jar")), //$NON-NLS-N$ add for 9594 //$NON-NLS-1$ //$NON-NLS-1$
     MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
-    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")), //$NON-NLS-N$ add for 9594 //$NON-NLS-1$ //$NON-NLS-1$
+    // add for 9594
+    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")), //$NON-NLS-1$
+    // for bug 0013127
+    PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
 
     EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")); //$NON-NLS-N$
 
