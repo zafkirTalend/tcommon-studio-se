@@ -124,7 +124,8 @@ public class CustomTableManager {
 
                     public void widgetSelected(SelectionEvent e) {
                         MetadataTool.copyTable(table, linkedTable);
-                        linkedTableEditorView.getTableViewerCreator().getTableViewer().refresh();
+                        if (linkedTableEditorView != null)
+                            linkedTableEditorView.getTableViewerCreator().getTableViewer().refresh();
                     }
 
                 };
@@ -169,7 +170,7 @@ public class CustomTableManager {
             }
         }
         if (linkedTable != null) {
-            if (linkedTable.isReadOnly()) {
+            if (linkedTable.isReadOnly() && linkedTableEditorView != null) {
                 linkedTableEditorView.getToolBar().getPasteButton().getButton().setEnabled(false);
             }
         }
