@@ -101,7 +101,6 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.preview.AsynchronousPreviewHandler;
 import org.talend.repository.preview.IPreviewHandlerListener;
-import org.talend.repository.preview.StoppablePreviewLoader;
 import org.talend.repository.ui.swt.preview.ShadowProcessPreview;
 import org.talend.repository.ui.swt.utils.IRefreshable;
 import org.talend.repository.ui.utils.ConnectionContextHelper;
@@ -518,27 +517,28 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             return;
         }
 
-        StoppablePreviewLoader previewLoader = new StoppablePreviewLoader<CsvArray>(previewHandler, previewInformationLabel) {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see
-             * org.talend.repository.ui.wizards.metadata.connection.files.xml.StoppablePreviewLoader#previewEnded(java
-             * .lang.Object)
-             */
-            @Override
-            protected void previewEnded(CsvArray result) {
-                xmlFilePreview.refreshTablePreview(result, false, ((Concept) getConnection().getSchemas().get(0))
-                        .getConceptTargets());
-            }
-
-            @Override
-            public void previewInError(CoreException e) {
-                MDMXSDFileForm.this.previewInError(e);
-            }
-
-        };
+        // StoppablePreviewLoader previewLoader = new StoppablePreviewLoader<CsvArray>(previewHandler,
+        // previewInformationLabel) {
+        //
+        // /*
+        // * (non-Javadoc)
+        // *
+        // * @see
+        // * org.talend.repository.ui.wizards.metadata.connection.files.xml.StoppablePreviewLoader#previewEnded(java
+        // * .lang.Object)
+        // */
+        // @Override
+        // protected void previewEnded(CsvArray result) {
+        // xmlFilePreview.refreshTablePreview(result, false, ((Concept) getConnection().getSchemas().get(0))
+        // .getConceptTargets());
+        // }
+        //
+        // @Override
+        // public void previewInError(CoreException e) {
+        // MDMXSDFileForm.this.previewInError(e);
+        // }
+        //
+        // };
 
         // previewLoader.load(getProcessDescription(false));
 
