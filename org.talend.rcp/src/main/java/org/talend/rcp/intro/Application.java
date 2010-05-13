@@ -45,9 +45,10 @@ public class Application implements IApplication {
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
             // If we cannot get the workspace lock, pop up an error dialog and then exit the application.
-            if (!acquireWorkspaceLock(shell)) {
-                return IApplication.EXIT_OK;
-            }
+            boolean inuse = !acquireWorkspaceLock(shell);
+            // if (!acquireWorkspaceLock(shell)) {
+            // return IApplication.EXIT_OK;
+            // }
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
@@ -58,7 +59,7 @@ public class Application implements IApplication {
             service.executeWorspaceTasks();
 
             try {
-                if (!logUserOnProject(display.getActiveShell())) {
+                if (!logUserOnProject(display.getActiveShell(), inuse)) {
                     Platform.endSplash();
                     return EXIT_OK;
                 }
@@ -159,8 +160,8 @@ public class Application implements IApplication {
         } catch (Throwable t) {
             // do nothing
         }
-        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
-                Messages.getString("Application.workspaceInUse")); //$NON-NLS-1$
+        //        MessageDialog.openError(shell, Messages.getString("Application_workspaceInUseTitle"), //$NON-NLS-1$
+        //                Messages.getString("Application.workspaceInUse")); //$NON-NLS-1$
         return false;
     }
 
@@ -174,9 +175,9 @@ public class Application implements IApplication {
         }
     }
 
-    private boolean logUserOnProject(Shell shell) {
+    private boolean logUserOnProject(Shell shell, boolean inuse) {
         boolean logged = false;
-        LoginDialog loginDialog = new LoginDialog(shell);
+        LoginDialog loginDialog = new LoginDialog(shell, inuse);
         logged = loginDialog.open() == LoginDialog.OK;
         return logged;
     }
