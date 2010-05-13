@@ -55,6 +55,7 @@
 			<dbType type="VARBIT" ignoreLen="true" ignorePre="true"  />			
 			<dbType type="VARCHAR" defaultLength="200" ignorePre="true" />
 			<dbType type="XID" ignoreLen="true" ignorePre="true"  />
+			<dbType type="UUID" ignoreLen="true" ignorePre="true"  />
 			
 			<dbType type="_ABSTIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="_ACLITEM" ignoreLen="true" ignorePre="true" />
@@ -104,6 +105,7 @@
 			<dbType type="_VARBIT" ignoreLen="true" ignorePre="true" />
 			<dbType type="_VARCHAR" ignoreLen="true" ignorePre="true" />
 			<dbType type="_XID" ignoreLen="true" ignorePre="true" />
+			<dbType type="_UUID" ignoreLen="true" ignorePre="true"  />
 		</dbTypes>
 
 		<language name="java">
@@ -125,12 +127,12 @@
 					<dbType type="TEXT" />							
 				</talendType>
 				<talendType type="id_Date">
-					<dbType type="DATE"  />				
+					<dbType type="DATE" default="true" />	
 					<dbType type="ABSTIME" />
 					<dbType type="TIMETZ" />
 					<dbType type="TIME" />
 					<dbType type="TIMESTAMPTZ" />
-					<dbType type="TIMESTAMP" default="true"/>
+					<dbType type="TIMESTAMP" />
 					<dbType type="INTERVAL" />
 					<dbType type="TINTERVAL" />
 					<dbType type="RELTIME" />						
@@ -183,7 +185,8 @@
 					<dbType type="_TIMESTAMPTZ" />
 					<dbType type="_TIMESTAMP" />
 					<dbType type="_TINTERVAL" />
-					<dbType type="_XID" />						
+					<dbType type="_XID" />		
+					<dbType type="_UUID" />					
 					<dbType type="ACLITEM" />			
 					<dbType type="BYTEA" />						
 					<dbType type="CID" />
@@ -205,6 +208,7 @@
 					<dbType type="SMGR" />			
 					<dbType type="TID" />
 					<dbType type="XID" />
+					<dbType type="UUID" />
 					<dbType type="_CHAR" />
 					<dbType type="_ABSTIME" />
 					<dbType type="_ACLITEM" />
@@ -393,7 +397,10 @@
 				</dbType>				
 				<dbType type="XID" >
 					<talendType type="id_Object" default="true" />				
-				</dbType>				
+				</dbType>	
+				<dbType type="UUID" >
+					<talendType type="id_Object" default="true" />				
+ 				</dbType>			
 				<dbType type="BOX" >
 					<talendType type="id_Object" default="true" />				
 				</dbType>				
@@ -559,7 +566,10 @@
 				</dbType>				
 				<dbType type="_XID" >
 					<talendType type="id_Object" default="true" />				
-				</dbType>									
+				</dbType>		
+				<dbType type="_UUID" >
+					<talendType type="id_Object" default="true" />				
+				</dbType>								
 			</dbToTalendTypes>
 		</language>
 		<language name="perl">
