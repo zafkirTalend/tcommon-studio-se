@@ -152,4 +152,12 @@ public interface ITDQImportExportService extends IService {
      * @see getItemTypePath(), the key
      */
     public Map<String, List<TDQItem>> retrieveAllItems(Project curProject);
+
+    /**
+     * DOC bZhou Comment method "getVersion".
+     * 
+     * @param item
+     * @return
+     */
+    public String getVersion(TDQItem item);
 }
