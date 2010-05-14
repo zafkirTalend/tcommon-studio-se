@@ -24,7 +24,6 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 
 /***/
@@ -67,12 +66,6 @@ public abstract class AbstractComponentsProvider {
             if (externalComponentsLocation.exists()) {
                 try {
                     FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
-                    if (installationFolder.getPath().endsWith(
-                            IComponentsFactory.COMPONENTS_INNER_FOLDER + File.separator
-                                    + IComponentsFactory.EXTERNAL_COMPONENTS_INNER_FOLDER + File.separator
-                                    + ComponentUtilities.getExtFolder("user"))) { //$NON-NLS-1$
-                        CorePlugin.getDefault().getLibrariesService().syncLibraries();
-                    }
                 } catch (IOException e) {
                     ExceptionHandler.process(e);
                 }
