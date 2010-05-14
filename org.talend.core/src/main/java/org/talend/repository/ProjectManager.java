@@ -209,6 +209,20 @@ public final class ProjectManager {
             // if object is in current project, the rootObj will be self.
             EObject rootObj = EcoreUtil.getRootContainer(object);
             if (rootObj != null && rootObj instanceof org.talend.core.model.properties.Project) {
+                // don't return the root of the project directly, since it might be desynchronized
+                org.talend.core.model.properties.Project project = (org.talend.core.model.properties.Project) rootObj;
+                String projectName = project.getTechnicalLabel();
+                if (projectName.equals(getCurrentProject().getTechnicalLabel())) {
+                    return getCurrentProject().getEmfProject();
+                }
+                for (Project curProject : getReferencedProjects()) {
+                    if (curProject.getTechnicalLabel().equals(projectName)) {
+                        return curProject.getEmfProject();
+                    }
+                }
+
+                // in case don't find the new instance of the project, we still return the old instance.
+                // But this shouldn't happen.
                 return (org.talend.core.model.properties.Project) rootObj;
             }
         }

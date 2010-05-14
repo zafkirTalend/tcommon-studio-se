@@ -44,6 +44,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
@@ -51,6 +52,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
@@ -307,6 +309,24 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             }
         }
         RepositoryNode node = (RepositoryNode) obj;
+        if (node == null || node.getObject() == null || !(node.getObject() instanceof RepositoryNode)) {
+            return node;
+        }
+        Property property = node.getObject().getProperty();
+        Property updatedProperty = null;
+
+        try {
+            CorePlugin.getDefault().getProxyRepositoryFactory().initialize();
+
+            updatedProperty = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                    new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId()).getProperty();
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+
+        // update the property of the node repository object
+        node.getObject().setProperty(updatedProperty);
+
         return node;
     }
 
@@ -461,6 +481,9 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         this.specialSelectionProvider = selectionProvider;
     }
 
+    protected void updateNodeToLastVersion() {
+    }
+
     @Override
     public void run() {
         String name = "User action : " + getText(); //$NON-NLS-1$
@@ -468,6 +491,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
             @Override
             protected void run() throws LoginException, PersistenceException {
+                updateNodeToLastVersion();
                 doRun();
             }
         };

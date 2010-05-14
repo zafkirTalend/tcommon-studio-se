@@ -41,11 +41,6 @@ public class ItemCacheManager {
     private static Map<String, JobletProcessItem> jobletItemCache = new HashMap<String, JobletProcessItem>();
 
     public static void clearCache() {
-        try {
-            CorePlugin.getDefault().getProxyRepositoryFactory().initialize();
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        }
         processItemCache.clear();
         jobletItemCache.clear();
     }
@@ -59,7 +54,6 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             IRepositoryObject object = factory.getLastVersion(project, processId);
-            object.setProperty(factory.reload(object.getProperty()));
             if (object == null || object.getType() != ERepositoryObjectType.PROCESS) {
                 return null;
             }
@@ -130,7 +124,6 @@ public class ItemCacheManager {
             List<IRepositoryObject> allVersions = factory.getAllVersion(project, processId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.PROCESS) {
-                    ro.setProperty(factory.reload(ro.getProperty()));
                     processItemCache.put(processId + " -- " + ro.getVersion(), (ProcessItem) ro.getProperty().getItem()); //$NON-NLS-1$
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (ProcessItem) ro.getProperty().getItem();
@@ -161,7 +154,6 @@ public class ItemCacheManager {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             IRepositoryObject object = factory.getLastVersion(project, jobletId);
-            object.setProperty(factory.reload(object.getProperty()));
             if (object == null || object.getType() != ERepositoryObjectType.JOBLET) {
                 return null;
             }
@@ -207,7 +199,6 @@ public class ItemCacheManager {
             List<IRepositoryObject> allVersions = factory.getAllVersion(project, jobletId);
             for (IRepositoryObject ro : allVersions) {
                 if (ro.getType() == ERepositoryObjectType.JOBLET) {
-                    ro.setProperty(factory.reload(ro.getProperty()));
                     jobletItemCache.put(jobletId + " -- " + ro.getVersion(), (JobletProcessItem) ro.getProperty().getItem()); //$NON-NLS-1$
                     if (ro.getVersion().equals(version)) {
                         selectedProcessItem = (JobletProcessItem) ro.getProperty().getItem();
