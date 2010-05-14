@@ -21,5 +21,5 @@ public interface IExternalMapTable {
 
     public String getName();
 
-    public List<? extends IExternalMapEntry> getTableEntries();
+    public List<? extends IExternalMapEntry> returnTableEntries();
 }
