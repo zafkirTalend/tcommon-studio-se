@@ -28,7 +28,6 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -104,8 +103,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
     private Combo ruleCombo;
 
-    // private Label status;
-
     private final INode node;
 
     private final RulesItem[] items;
@@ -170,11 +167,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
 
         createOptionArea(composite);
 
-        // status = new Label(composite, SWT.NONE);
-        // status.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        //        status.setText(Messages.getString("SchemaOperationChoiceDialog.StatusMessage")); //$NON-NLS-1$
-        // status.setForeground(new Color(null, 255, 0, 0));
-        // status.setVisible(false);
         return composite;
     }
 
@@ -281,7 +273,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                     // versionLabel.setVisible(false);
                     // }
                 }
-                setButtonAndStatus(true);
             }
 
         });
@@ -300,7 +291,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                     isRepositoryBtnChecked = true;
                     setSelection(ESelectionCategoryForRule.REPOSITORY);
 
-                    // setButtonAndStatus(checkSchema());
                     if (ruleCombo != null) {
                         ruleCombo.setVisible(true);
                     }
@@ -355,13 +345,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
                 ruleCombo.select(0);
             }
         }
-        // ruleCombo.addModifyListener(new ModifyListener() {
-        //
-        // public void modifyText(ModifyEvent e) {
-        // setButtonAndStatus(checkSchema());
-        // }
-        //
-        // });
 
     }
 
@@ -379,12 +362,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
     //
     // }
 
-    /**
-     * DOC hywang Comment method "getVersionsForEachRuleFile".
-     * 
-     * @param currentRuleName
-     */
-
     private void configControlStatus() {
         if (readOnlyJob) {
             // if (repositoryBtn != null && !repositoryBtn.isDisposed()) {
@@ -398,31 +375,6 @@ public class RuleOperationChoiceDialog extends SelectionDialog {
             }
         }
     }
-
-    private void setButtonAndStatus(boolean enable) {
-        Button okBtn = getButton(IDialogConstants.OK_ID);
-        if (okBtn != null) {
-            okBtn.setEnabled(enable);
-            // status.setVisible(!enable);
-        }
-    }
-
-    // private boolean checkSchema() {
-    // boolean valid = true;
-    // // valid = node.getProcess().checkValidConnectionName(schemaName);
-    // if (valid) {
-    // if (MetadataTool.getMetadataTableFromNode(node, ruleCombo.getText()) != null) {
-    // valid = false;
-    // }
-    // }
-    // if (!valid && processType == EProcessTypeForRule.BUILTIN) {
-    // // only, change to repository
-    // if (ruleCombo.getText().equals(ruleName)) {
-    // valid = true;
-    // }
-    // }
-    // return valid;
-    // }
 
     @Override
     protected void okPressed() {
