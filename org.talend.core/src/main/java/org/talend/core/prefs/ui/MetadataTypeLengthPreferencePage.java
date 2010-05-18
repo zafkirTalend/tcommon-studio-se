@@ -190,7 +190,7 @@ public class MetadataTypeLengthPreferencePage extends FieldEditorPreferencePage 
      * DOC qwei Comment method "createJavaFieldEditors".
      */
     private void createJavaFieldEditors(Composite com) {
-        JavaType[] strTypeValue = JavaTypesManager.JAVA_TYPES;
+        JavaType[] strTypeValue = JavaTypesManager.getJavaTypes();
         String[] strDisplay = new String[strTypeValue.length];
         String[] strValue = new String[strTypeValue.length];
         for (int i = 0; i < strDisplay.length; i++) {

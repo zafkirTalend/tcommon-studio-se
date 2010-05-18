@@ -339,7 +339,7 @@ public final class ContextManagerHelper {
 
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            String[] values = ContextConstant.ITEMS;
+            String[] values = ContextParameterJavaTypeManager.getJavaTypesLabels();
             newType = contextParameterType.substring(3, contextParameterType.length());
             for (String format : values) {
                 if (format.indexOf(ContextConstant.DOWNWARDS_STRING) != -1) {

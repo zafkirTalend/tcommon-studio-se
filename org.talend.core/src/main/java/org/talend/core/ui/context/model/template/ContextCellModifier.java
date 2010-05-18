@@ -83,8 +83,8 @@ public class ContextCellModifier extends AbstractContextCellModifier {
                 String s = ContextManagerHelper.convertFormat(para.getType());
                 final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
                 if (codeLanguage == ECodeLanguage.JAVA) {
-                    for (int i = 0; i < ContextConstant.ITEMS.length; i++) {
-                        if (s.equals(ContextConstant.ITEMS[i])) {
+                    for (int i = 0; i < ContextParameterJavaTypeManager.getJavaTypesLabels().length; i++) {
+                        if (s.equals(ContextParameterJavaTypeManager.getJavaTypesLabels()[i])) {
                             return i;
                         }
                     }
@@ -157,15 +157,15 @@ public class ContextCellModifier extends AbstractContextCellModifier {
             String s = ContextManagerHelper.convertFormat(para.getType());
             final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
             if (codeLanguage == ECodeLanguage.JAVA) {
-                for (int i = 0; i < ContextConstant.ITEMS.length; i++) {
-                    if (s.equals(ContextConstant.ITEMS[i])) {
+                for (int i = 0; i < ContextParameterJavaTypeManager.getJavaTypesLabels().length; i++) {
+                    if (s.equals(ContextParameterJavaTypeManager.getJavaTypesLabels()[i])) {
                         index = i;
                     }
                 }
                 if (index == ((Integer) value)) {
                     return;
                 }
-                String newType = getRealType(ContextConstant.ITEMS[(Integer) value]);
+                String newType = getRealType(ContextParameterJavaTypeManager.getJavaTypesLabels()[(Integer) value]);
                 String name = para.getName();
                 for (IContext context : getContextManager().getListContext()) {
                     for (IContextParameter contextParameter : context.getContextParameterList()) {

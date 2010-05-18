@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -118,14 +119,14 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
                                                     .getValue())) {
-                                        if (ContextConstant.ITEMS[0].equals(s)) {
+                                        if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
                                             getContextManager().getDefaultContext().getContextParameter(
                                                     ((ContextParameterSortedParent) element).getParameter().getName()).setValue(
                                                     Boolean.FALSE.toString());
                                         }
                                         return string[1];
                                     } else {
-                                        if (ContextConstant.ITEMS[0].equals(s)) {
+                                        if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
                                             if (!(Boolean.TRUE.toString().equals(getContextManager().getDefaultContext()
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
@@ -176,14 +177,14 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
                                                     .getValue())) {
-                                        if (ContextConstant.ITEMS[0].equals(s)) {
+                                        if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
                                             getContextManager().getDefaultContext().getContextParameter(
                                                     ((ContextParameterSortedParent) element).getParameter().getName()).setValue(
                                                     Boolean.FALSE.toString());
                                         }
                                         return string[1];
                                     } else {
-                                        if (ContextConstant.ITEMS[0].equals(s)) {
+                                        if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
                                             if (!(Boolean.TRUE.toString().equals(getContextManager().getDefaultContext()
                                                     .getContextParameter(
                                                             ((ContextParameterSortedParent) element).getParameter().getName())
@@ -390,13 +391,13 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                     .getContextParameter(son.getParameter().getName()).getValue())
                                     || ContextConstant.NULL_STRING.equals(getContextManager().getDefaultContext()
                                             .getContextParameter(son.getParameter().getName()).getValue())) {
-                                if (ContextConstant.ITEMS[0].equals(s)) {
+                                if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
                                     getContextManager().getDefaultContext().getContextParameter(son.getParameter().getName())
                                             .setValue(Boolean.FALSE.toString());
                                 }
                                 return string[1];
                             } else {
-                                if (ContextConstant.ITEMS[0].equals(s)) {
+                                if (ContextParameterJavaTypeManager.getJavaTypesLabels()[0].equals(s)) {
                                     if (!(Boolean.TRUE.toString().equals(getContextManager().getDefaultContext()
                                             .getContextParameter(son.getParameter().getName()).getValue()))
                                             && !(Boolean.FALSE.toString().equals(getContextManager().getDefaultContext()

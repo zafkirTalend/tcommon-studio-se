@@ -21,6 +21,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.metadata.MetadataTalendType;
 
 /**
@@ -29,7 +36,7 @@ import org.talend.core.model.metadata.MetadataTalendType;
  */
 public class ContextParameterJavaTypeManager {
 
-    public static final JavaType[] JAVA_TYPES = new JavaType[] { JavaTypesManager.BOOLEAN, JavaTypesManager.CHARACTER,
+    private static final JavaType[] JAVA_TYPES = new JavaType[] { JavaTypesManager.BOOLEAN, JavaTypesManager.CHARACTER,
             JavaTypesManager.DATE, JavaTypesManager.DOUBLE, JavaTypesManager.FLOAT, JavaTypesManager.INTEGER,
             JavaTypesManager.LONG, JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.OBJECT,
             JavaTypesManager.BIGDECIMAL, JavaTypesManager.FILE, JavaTypesManager.DIRECTORY, JavaTypesManager.VALUE_LIST,
@@ -83,6 +90,24 @@ public class ContextParameterJavaTypeManager {
             JavaType javaType = JAVA_TYPES[i];
             addJavaType(javaType);
         }
+        IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+        IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.java_type"); //$NON-NLS-1$
+        IExtension[] extensions = extensionPoint.getExtensions();
+        for (IExtension extension : extensions) {
+            IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+            for (IConfigurationElement configurationElement : configurationElements) {
+                if ("true".equals(configurationElement.getAttribute("displayInContext"))) {
+                    try {
+                        Object myClass = configurationElement.createExecutableExtension("nullableClass");
+                        JavaType javaType = new JavaType(myClass.getClass());
+                        addJavaType(javaType);
+                    } catch (CoreException e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            }
+        }
+
         final String[] loadTalendTypes = MetadataTalendType.getTalendTypesLabels(); //$NON-NLS-1$
         perlTypes.addAll(Arrays.asList(loadTalendTypes));
         perlTypes.add(PERL_FILE);

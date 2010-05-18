@@ -33,7 +33,7 @@ public class ContextConstant {
     /*
      * java type
      */
-    public static final String[] ITEMS = new String[] { "boolean | Boolean", "char | Character", //$NON-NLS-1$ //$NON-NLS-2$
+    private static final String[] ITEMS = new String[] { "boolean | Boolean", "char | Character", //$NON-NLS-1$ //$NON-NLS-2$
             "Date", "double | Double", //$NON-NLS-1$ //$NON-NLS-2$
             "float | Float", "int | Integer", "long | Long", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             "short | Short", "String", //$NON-NLS-1$ //$NON-NLS-2$

@@ -187,7 +187,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
 
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboBoxCellEditor = new ComboBoxCellEditor(tree, ContextConstant.ITEMS);
+            comboBoxCellEditor = new ComboBoxCellEditor(tree, ContextParameterJavaTypeManager.getJavaTypesLabels());
         } else {
             String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
             comboBoxCellEditor = new ComboBoxCellEditor(tree, values);

@@ -15,7 +15,9 @@ package org.talend.core.model.metadata;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,6 +28,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.xml.XmlNodeRetriever;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.metadata.types.DBTypeUtil;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.w3c.dom.Document;
@@ -40,6 +43,8 @@ import org.w3c.dom.NodeList;
 public class MappingFileLoader {
 
     private static Logger log = Logger.getLogger(MappingFileLoader.class);
+
+    private Dbms dbms;
 
     /**
      * DOC amaumont Comment method "load".
@@ -95,7 +100,7 @@ public class MappingFileLoader {
                     defaultDbms = true;
                 }
 
-                Dbms dbms = new Dbms(dbmsIdValue);
+                dbms = new Dbms(dbmsIdValue);
                 dbms.setLabel(dbmsLabelValue);
                 dbms.setProduct(dbmsProductValue);
                 dbms.setDefaultDbms(defaultDbms);
@@ -328,6 +333,40 @@ public class MappingFileLoader {
 
                     }
                 }
+                if (hTalendTypesProcessed.size() > 0) {
+                    Map<String, Map<String, List<DBTypeUtil>>> javaTypeMappingFromExtension = JavaTypesManager
+                            .getJavaTypeMappingFromExtension();
+                    Iterator<String> iterator = hTalendTypesProcessed.iterator();
+                    while (iterator.hasNext()) {
+                        String talendType = iterator.next();
+                        Map<String, List<DBTypeUtil>> dbAndDBType = javaTypeMappingFromExtension.get(talendType);
+                        if (dbAndDBType != null) {
+                            // remove talend type if from extension
+                            iterator.remove();
+                            List<DBTypeUtil> dBTypeUtils = dbAndDBType.get(dbms.getId());
+                            Set<MappingType> talendToDbTypes = dbms.getTalendToDbTypes();
+                            Set<MappingType> dbToTalendTypes = dbms.getDbToTalendTypes();
+                            if (dBTypeUtils != null && !dBTypeUtils.isEmpty()) {
+                                for (DBTypeUtil dbType : dBTypeUtils) {
+                                    MappingType mappingType = new MappingType();
+                                    mappingType.setDbType(dbType.getDbTypeName());
+                                    mappingType.setTalendType(talendType);
+                                    mappingType.setDefaultSelected(dbType.isDefault());
+                                    talendToDbTypes.add(mappingType);
+
+                                    mappingType = new MappingType();
+                                    mappingType.setDbType(dbType.getDbTypeName());
+                                    mappingType.setTalendType(talendType);
+                                    // user added talend type won't be the default mapping type to dbtype
+                                    mappingType.setDefaultSelected(false);
+                                    dbToTalendTypes.add(mappingType);
+                                }
+                            }
+                        }
+                    }
+
+                }
+
                 if (hDbTypesProcessed.size() > 0) {
                     String dbTypesStr = ""; //$NON-NLS-1$
                     for (String dbType : hDbTypesProcessed) {

@@ -22,6 +22,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.i18n.Messages;
 
 /**
@@ -85,6 +92,8 @@ public final class JavaTypesManager {
     public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, BYTE, BYTE_ARRAY, CHARACTER, DATE, DOUBLE, FLOAT,
             BIGDECIMAL, INTEGER, LONG, OBJECT, SHORT, STRING, LIST };
 
+    private static Map<String, Map<String, List<DBTypeUtil>>> javaTypeMappingFromExtension;
+
     private static Map<String, JavaType> shortNameToJavaType;
 
     private static Map<String, JavaType> canonicalClassNameToJavaType;
@@ -115,11 +124,44 @@ public final class JavaTypesManager {
         idToJavaType = new HashMap<String, JavaType>();
         canonicalClassNameToJavaType = new HashMap<String, JavaType>();
         javaTypes = new ArrayList<JavaType>();
+        javaTypeMappingFromExtension = new HashMap<String, Map<String, List<DBTypeUtil>>>();
 
         for (int i = 0; i < JAVA_TYPES.length; i++) {
             JavaType javaType = JAVA_TYPES[i];
             addJavaType(javaType);
         }
+        IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+        IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint("org.talend.core.java_type"); //$NON-NLS-1$
+        IExtension[] extensions = extensionPoint.getExtensions();
+        for (IExtension extension : extensions) {
+            IConfigurationElement[] configurationElements = extension.getConfigurationElements();
+            for (IConfigurationElement configurationElement : configurationElements) {
+                try {
+                    Object myClass = configurationElement.createExecutableExtension("nullableClass");
+                    JavaType javaType = new JavaType(myClass.getClass());
+                    addJavaType(javaType);
+
+                    IConfigurationElement[] dbMappingElements = configurationElement.getChildren();
+                    Map<String, List<DBTypeUtil>> dbAndDBType = new HashMap<String, List<DBTypeUtil>>();
+                    for (IConfigurationElement dbMappingElement : dbMappingElements) {
+                        String mappingId = dbMappingElement.getAttribute("mapping_id");
+                        IConfigurationElement[] dbTypeElements = dbMappingElement.getChildren();
+                        List<DBTypeUtil> dbTypes = new ArrayList<DBTypeUtil>();
+                        for (IConfigurationElement dbTypeElement : dbTypeElements) {
+                            boolean isDefault = dbTypeElement.getAttribute("default") == null ? false : Boolean
+                                    .valueOf(dbTypeElement.getAttribute("default"));
+                            DBTypeUtil dbType = new DBTypeUtil(dbTypeElement.getAttribute("DbType"), isDefault);
+                            dbTypes.add(dbType);
+                        }
+                        dbAndDBType.put(mappingId, dbTypes);
+                    }
+                    javaTypeMappingFromExtension.put(javaType.getId(), dbAndDBType);
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+
         idToJavaType.put(PASSWORD.getId(), PASSWORD);
     }
 
@@ -139,6 +181,10 @@ public final class JavaTypesManager {
         }
 
         String nullableName = javaType.getNullableClass().getSimpleName();
+        // if java type id exist , don't add it
+        if (idToJavaType.keySet().contains(javaType.getId())) {
+            return;
+        }
         shortNameToJavaType.put(nullableName, javaType);
         canonicalClassNameToJavaType.put(javaType.getNullableClass().getCanonicalName(), javaType);
         labelToJavaType.put(javaType.getLabel(), javaType);
@@ -430,6 +476,10 @@ public final class JavaTypesManager {
 
         System.out.println(JavaTypesManager.getDefaultValueFromJavaType("char")); //$NON-NLS-1$
 
+    }
+
+    public static Map<String, Map<String, List<DBTypeUtil>>> getJavaTypeMappingFromExtension() {
+        return javaTypeMappingFromExtension;
     }
 
 }
