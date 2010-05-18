@@ -118,7 +118,7 @@ public class ContextCellModifier extends AbstractContextCellModifier {
 
         if (getParentMode().isGroupBySource()) {
             if (element instanceof ContextParameterSortedParent) {
-                if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceId())) {
                     para = context.getContextParameter(((ContextParameterSortedParent) element).getParameter().getName());
                 }
             } else if (element instanceof ContextParameterSortedSon) {

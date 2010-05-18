@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Platform;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
@@ -40,6 +41,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -207,6 +209,8 @@ public class ContextUtils {
     /**
      * 
      * get ContextItem by the id.
+     * 
+     * @deprecated by bug 13184
      */
     public static ContextItem getContextItemById(String contextId) {
         if (checkObject(contextId)) {
@@ -216,6 +220,26 @@ public class ContextUtils {
         List<ContextItem> contextItemList = getAllContextItem();
 
         return getContextItemById(contextItemList, contextId);
+    }
+
+    public static ContextItem getContextItemById2(String contextId) {
+        if (checkObject(contextId)) {
+            return null;
+        }
+
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        try {
+            final IRepositoryObject lastVersion = factory.getLastVersion(contextId);
+            if (lastVersion != null) {
+                final Item item = lastVersion.getProperty().getItem();
+                if (item != null && item instanceof ContextItem) {
+                    return (ContextItem) item;
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return null;
     }
 
     public static ContextItem getContextItemById(List<ContextItem> contextItemList, String contextId) {
@@ -236,6 +260,7 @@ public class ContextUtils {
      * 
      * get ContextItem by name.
      * 
+     * @deprecated by bug 13184
      */
     public static ContextItem getContextItemByName(String name) {
         if (checkObject(name)) {
@@ -247,6 +272,12 @@ public class ContextUtils {
 
     }
 
+    /**
+     * 
+     * ggu Comment method "getContextItemByName".
+     * 
+     *@deprecated by bug 13184
+     */
     public static ContextItem getContextItemByName(List<ContextItem> contextItemList, String name) {
         if (checkObject(contextItemList) || checkObject(name)) {
             return null;
@@ -555,7 +586,7 @@ public class ContextUtils {
         contextParam.setValue(contextParamType.getValue());
         contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
         contextParam.setComment(contextParamType.getComment());
-        contextParam.setSource(contextItem.getProperty().getLabel());
+        contextParam.setSource(contextItem.getProperty().getId());
         return contextParam;
     }
 

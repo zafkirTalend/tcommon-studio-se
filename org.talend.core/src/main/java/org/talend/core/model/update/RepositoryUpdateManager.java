@@ -296,7 +296,7 @@ public abstract class RepositoryUpdateManager {
                     Object job = result.getJob();
                     if (parameter instanceof ContextItem && job instanceof IProcess2) {
                         ContextItem contextItem = (ContextItem) parameter;
-                        String sourceLabel = contextItem.getProperty().getLabel();
+                        String sourceId = contextItem.getProperty().getId();
                         IProcess2 relatedJob = (IProcess2) job;
                         if (relatedJob != null) {
                             List<IContext> listContext = relatedJob.getContextManager().getListContext();
@@ -309,7 +309,7 @@ public abstract class RepositoryUpdateManager {
                                     }
                                 }
                             }
-                            if (existSource.contains(sourceLabel)) {
+                            if (existSource.contains(sourceId)) {
                                 checkedResults.add(result);
                             }
                         }

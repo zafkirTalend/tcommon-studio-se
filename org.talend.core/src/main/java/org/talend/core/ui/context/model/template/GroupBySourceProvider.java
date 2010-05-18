@@ -18,15 +18,19 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.Project;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.ContextProviderProxy;
+import org.talend.repository.ProjectManager;
 
 /**
  * A label and content provider for the treeviewer which groups the Contexts by source.
@@ -60,9 +64,24 @@ public class GroupBySourceProvider extends ContextProviderProxy {
         // int index = -1;
         // String name=getContextManager().getDefaultContext().getName();
         if (element instanceof ContextParameterSortedParent) {
+            final String sourceId = ((ContextParameterSortedParent) element).getSourceId();
+            String sourceLabel = sourceId;
+            if (sourceId != null && !IContextParameter.BUILT_IN.equals(sourceId)) {
+                final ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
+                if (contextItem != null) {
+                    sourceLabel = contextItem.getProperty().getLabel();
+                    final ProjectManager pm = ProjectManager.getInstance();
+                    if (!pm.isInCurrentMainProject(contextItem)) {
+                        final Project project = pm.getProject(contextItem);
+                        if (project != null) {
+                            sourceLabel += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + project.getLabel();
+                        }
+                    }
+                }
+            }
             switch (columnIndex) {
             case 0:
-                if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                if (IContextParameter.BUILT_IN.equals(sourceId)) {
                     if (((ContextParameterSortedParent) element).getParameter() != null) {
                         if (getContextManager().getDefaultContext().getContextParameter(
                                 ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -75,20 +94,33 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                         break;
                     }
                 } else {
-                    if (((ContextParameterSortedParent) element).getSourceName() != null) {
-                        return ((ContextParameterSortedParent) element).getSourceName();
+                    if (sourceId != null) {
+                        return sourceLabel;
                     } else {
                         break;
                     }
                 }
             case 1:
                 if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                    if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                    if (IContextParameter.BUILT_IN.equals(sourceId)) {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                return getContextManager().getDefaultContext().getContextParameter(
+                                final String source = getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()).getSource();
+                                ContextItem contextItem = ContextUtils.getContextItemById2(source);
+                                if (contextItem != null) {
+                                    String label = contextItem.getProperty().getLabel();
+                                    final ProjectManager pm = ProjectManager.getInstance();
+                                    if (!pm.isInCurrentMainProject(contextItem)) {
+                                        final Project project = pm.getProject(contextItem);
+                                        if (project != null) {
+                                            label += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + project.getLabel();
+                                        }
+                                    }
+                                    return label;
+                                }
+                                return source;
                             } else {
                                 break;
                             }
@@ -96,14 +128,14 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             break;
                         }
                     } else {
-                        if (((ContextParameterSortedParent) element).getSourceName() != null) {
-                            return ((ContextParameterSortedParent) element).getSourceName();
+                        if (sourceId != null) {
+                            return sourceLabel;
                         } else {
                             break;
                         }
                     }
                 } else {
-                    if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                    if (IContextParameter.BUILT_IN.equals(sourceId)) {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -152,7 +184,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             break;
                         }
                     } else {
-                        if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                        if (sourceId != null) {
                             return ContextConstant.LINE_STRING;
                         } else {
                             break;
@@ -161,7 +193,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 }
             case 2:
                 if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                    if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                    if (IContextParameter.BUILT_IN.equals(sourceId)) {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -210,7 +242,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             break;
                         }
                     } else {
-                        if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                        if (sourceId != null) {
                             return ContextConstant.LINE_STRING;
                         } else {
                             break;
@@ -219,7 +251,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 } else {
                     final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
                     if (codeLanguage == ECodeLanguage.JAVA) {
-                        if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -234,14 +266,14 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                 break;
                             }
                         } else {
-                            if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                            if (sourceId != null) {
                                 return ContextConstant.LINE_STRING;
                             } else {
                                 break;
                             }
                         }
                     } else {
-                        if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -254,7 +286,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                 break;
                             }
                         } else {
-                            if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                            if (sourceId != null) {
                                 return ContextConstant.LINE_STRING;
                             } else {
                                 break;
@@ -266,7 +298,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
                     final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
                     if (codeLanguage == ECodeLanguage.JAVA) {
-                        if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -281,14 +313,14 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                 break;
                             }
                         } else {
-                            if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                            if (sourceId != null) {
                                 return ContextConstant.LINE_STRING;
                             } else {
                                 break;
                             }
                         }
                     } else {
-                        if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (((ContextParameterSortedParent) element).getParameter() != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -301,7 +333,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                                 break;
                             }
                         } else {
-                            if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                            if (sourceId != null) {
                                 return ContextConstant.LINE_STRING;
                             } else {
                                 break;
@@ -309,7 +341,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                         }
                     }
                 } else {
-                    if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                    if (IContextParameter.BUILT_IN.equals(sourceId)) {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -322,7 +354,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                             break;
                         }
                     } else {
-                        if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                        if (sourceId != null) {
                             return ContextConstant.LINE_STRING;
                         } else {
                             break;
@@ -330,7 +362,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                     }
                 }
             case 4:
-                if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) element).getSourceName())) {
+                if (IContextParameter.BUILT_IN.equals(sourceId)) {
                     if (((ContextParameterSortedParent) element).getParameter() != null) {
                         if (getContextManager().getDefaultContext().getContextParameter(
                                 ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
@@ -343,7 +375,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                         break;
                     }
                 } else {
-                    if (((ContextParameterSortedParent) element).getSourceName() != null) {
+                    if (sourceId != null) {
                         return ContextConstant.LINE_STRING;
                     } else {
                         break;
@@ -369,8 +401,21 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 // source column
                 if (son.getParameter() != null) {
                     if (getContextManager().getDefaultContext().getContextParameter(son.getParameter().getName()) != null) {
-                        return getContextManager().getDefaultContext().getContextParameter(son.getParameter().getName())
-                                .getSource();
+                        final String source = getContextManager().getDefaultContext().getContextParameter(
+                                son.getParameter().getName()).getSource();
+                        ContextItem contextItem = ContextUtils.getContextItemById2(source);
+                        if (contextItem != null) {
+                            String sourceLabel = contextItem.getProperty().getLabel();
+                            final ProjectManager pm = ProjectManager.getInstance();
+                            if (!pm.isInCurrentMainProject(contextItem)) {
+                                final Project project = pm.getProject(contextItem);
+                                if (project != null) {
+                                    sourceLabel += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + project.getLabel();
+                                }
+                            }
+                            return sourceLabel;
+                        }
+                        return source;
                     } else {
                         break;
                     }
@@ -517,21 +562,25 @@ public class GroupBySourceProvider extends ContextProviderProxy {
         if (!contexts.isEmpty()) {
             IContext context = contexts.get(0);
             oldBuiltinName.clear();
-            for (String sourceName : containers) {
+            for (String sourceId : containers) {
                 builtin = false;
                 ContextParameterSortedParent parent = new ContextParameterSortedParent();
-                parent.setSourceName(sourceName);
+                ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
+                if (contextItem != null) {
+                    sourceId = contextItem.getProperty().getId();
+                }
+                parent.setSourceId(sourceId);
                 for (String paraName : nameContainers) {
                     IContextParameter contextPara = context.getContextParameter(paraName);
                     if (!(IContextParameter.BUILT_IN.equals(contextPara.getSource()))) {
-                        if (parent.getSourceName().equals(contextPara.getSource())) {
+                        if (parent.getSourceId().equals(contextPara.getSource())) {
                             ContextParameterSortedSon son = new ContextParameterSortedSon();
                             son.setParameter(contextPara);
                             son.setParent(parent);
                             parent.getSon().add(son);
                         }
                     } else {
-                        if (IContextParameter.BUILT_IN.equals(parent.getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(parent.getSourceId())) {
                             if (!builtin) {
                                 b = false;
                                 for (String name : oldBuiltinName) {

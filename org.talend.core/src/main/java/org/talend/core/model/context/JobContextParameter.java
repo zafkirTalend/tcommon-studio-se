@@ -46,6 +46,9 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     String[] valueList;
 
+    /**
+     * change to save id always for bug 13184.
+     */
     String source = ""; //$NON-NLS-1$
 
     public JobContextParameter() {
@@ -140,7 +143,9 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.designer.core.model.context.IDesignerContextParameter#setType(org.talend.core.model.metadata.EMetadataType)
+     * @see
+     * org.talend.designer.core.model.context.IDesignerContextParameter#setType(org.talend.core.model.metadata.EMetadataType
+     * )
      */
     public void setType(final String type) {
         this.type = type;
@@ -270,7 +275,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     /**
      * Sets the source.
      * 
-     * @param source the source to set
+     * bug 13184, later will be always saved by id.
      */
     public void setSource(String source) {
         this.source = source;
@@ -374,7 +379,8 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.process.IContextParameter#checkBuiltIn(org.talend.core.model.process.IContextParameter)
+     * @see
+     * org.talend.core.model.process.IContextParameter#checkBuiltIn(org.talend.core.model.process.IContextParameter)
      */
     public boolean isBuiltIn() {
         if (getSource() != null && !"".equals(getSource()) && !IContextParameter.BUILT_IN.equals(getSource())) { //$NON-NLS-1$

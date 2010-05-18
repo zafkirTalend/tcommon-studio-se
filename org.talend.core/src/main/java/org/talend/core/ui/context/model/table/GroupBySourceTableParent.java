@@ -18,14 +18,14 @@ package org.talend.core.ui.context.model.table;
  */
 public class GroupBySourceTableParent extends ContextTableParent {
 
-    private String sourceName;
+    private String sourceId;
 
-    public String getSourceName() {
-        return this.sourceName;
+    public String getSourceId() {
+        return this.sourceId;
     }
 
-    public void setSourceName(String sourceName) {
-        this.sourceName = sourceName;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
 }

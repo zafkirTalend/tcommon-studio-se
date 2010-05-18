@@ -16,12 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.Project;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ContextTableValuesComposite;
 import org.talend.core.ui.context.model.ContextProviderProxy;
 import org.talend.core.ui.context.model.template.ContextConstant;
+import org.talend.repository.ProjectManager;
 
 /**
  * cli class global comment. Detailled comment
@@ -47,8 +51,9 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
 
         IContext defaultContext = parentModel.getContextModelManager().getContextManager().getDefaultContext();
         if (element instanceof GroupBySourceTableParent) {
+            final String sourceId = ((GroupBySourceTableParent) element).getSourceId();
             if (columnIndex == 0) {
-                if (IContextParameter.BUILT_IN.equals(((GroupBySourceTableParent) element).getSourceName())) {
+                if (IContextParameter.BUILT_IN.equals(sourceId)) {
                     if (((GroupBySourceTableParent) element).getContextParameter() != null) {
                         if (defaultContext.getContextParameter(((GroupBySourceTableParent) element).getContextParameter()
                                 .getName()) != null) {
@@ -57,8 +62,20 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
                         }
                     }
                 } else {
-                    if (((GroupBySourceTableParent) element).getSourceName() != null) {
-                        return ((GroupBySourceTableParent) element).getSourceName();
+                    if (sourceId != null) {
+                        final ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
+                        if (contextItem != null) {
+                            String label = contextItem.getProperty().getLabel();
+                            final ProjectManager pm = ProjectManager.getInstance();
+                            if (!pm.isInCurrentMainProject(contextItem)) {
+                                final Project project = pm.getProject(contextItem);
+                                if (project != null) {
+                                    label += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + project.getLabel();
+                                }
+                            }
+                            return label;
+                        }
+                        return sourceId;
                     }
                 }
             }
@@ -66,7 +83,7 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
             for (int j = 1; j <= count; j++) {
                 if (j == 1) {
                     if (columnIndex == j) {
-                        if (IContextParameter.BUILT_IN.equals(((GroupBySourceTableParent) element).getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (((GroupBySourceTableParent) element).getContextParameter() != null) {
                                 if (contextList.get(columnIndex - 1).getContextParameter(
                                         ((GroupBySourceTableParent) element).getContextParameter().getName()) != null) {
@@ -99,7 +116,7 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
                     }
                 } else {
                     if (columnIndex == j) {
-                        if (IContextParameter.BUILT_IN.equals(((GroupBySourceTableParent) element).getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (((GroupBySourceTableParent) element).getContextParameter() != null) {
                                 if (contextList.get(columnIndex - 1).getContextParameter(
                                         ((GroupBySourceTableParent) element).getContextParameter().getName()) != null) {
@@ -219,12 +236,15 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
         }
 
         List<GroupBySourceTableParent> root = new ArrayList<GroupBySourceTableParent>();
-
         if (!contexts.isEmpty()) {
-            for (String sourceName : containers) {
+            for (String sourceId : containers) {
                 builtin = false;
                 GroupBySourceTableParent parent = new GroupBySourceTableParent();
-                parent.setSourceName(sourceName);
+                ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
+                if (contextItem != null) {
+                    sourceId = contextItem.getProperty().getId();
+                }
+                parent.setSourceId(sourceId);
                 for (String paraName : nameContainers) {
                     for (IContextParameter para : contexts) {
                         if (para.getName().equals(paraName)) {
@@ -233,14 +253,14 @@ public class GroupBySourceTableProvider extends ContextProviderProxy {
                     }
                     IContextParameter contextPara = contexts.get(index);
                     if (!(IContextParameter.BUILT_IN.equals(contextPara.getSource()))) {
-                        if (parent.getSourceName().equals(contextPara.getSource())) {
+                        if (parent.getSourceId().equals(contextPara.getSource())) {
                             GroupBySourceTableSon son = new GroupBySourceTableSon();
                             son.setParameter(contextPara);
                             son.setParent(parent);
                             parent.getSon().add(son);
                         }
                     } else {
-                        if (IContextParameter.BUILT_IN.equals(parent.getSourceName())) {
+                        if (IContextParameter.BUILT_IN.equals(parent.getSourceId())) {
                             if (!builtin) {
                                 b = false;
                                 for (String name : oldBuiltinName) {

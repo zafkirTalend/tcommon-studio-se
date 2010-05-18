@@ -388,7 +388,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
         for (IContext context : contexts) {
             for (IContextParameter param : context.getContextParameterList()) {
                 if (!param.isBuiltIn()) {
-                    ContextItem item = helper.getContextItemByName(param.getSource());
+                    ContextItem item = helper.getContextItemById(param.getSource());
                     if (item == null) { // source not found
                         param.setSource(IContextParameter.BUILT_IN);
                         continue;
@@ -533,7 +533,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                         }
 
                         if (object instanceof ContextParameterSortedParent) {
-                            if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceName())) {
+                            if (IContextParameter.BUILT_IN.equals(((ContextParameterSortedParent) object).getSourceId())) {
                                 /*
                                  * make the view just refresh one time when delete more than one context in designer
                                  * added by hyWang

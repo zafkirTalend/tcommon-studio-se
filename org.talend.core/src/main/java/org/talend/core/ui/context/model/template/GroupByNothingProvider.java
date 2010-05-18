@@ -18,10 +18,12 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.context.ContextComposite;
 import org.talend.core.ui.context.ContextManagerHelper;
@@ -76,8 +78,13 @@ public class GroupByNothingProvider extends ContextProviderProxy {
                     if (((ContextParameterParent) element).getParameter() != null) {
                         if (getContextManager().getDefaultContext().getContextParameter(
                                 ((ContextParameterParent) element).getParameter().getName()) != null) {
-                            return getContextManager().getDefaultContext().getContextParameter(
+                            final String source = getContextManager().getDefaultContext().getContextParameter(
                                     ((ContextParameterParent) element).getParameter().getName()).getSource();
+                            ContextItem contextItem = ContextUtils.getContextItemById2(source);
+                            if (contextItem != null) {
+                                return contextItem.getProperty().getLabel();
+                            }
+                            return source;
                         } else {
                             break;
                         }

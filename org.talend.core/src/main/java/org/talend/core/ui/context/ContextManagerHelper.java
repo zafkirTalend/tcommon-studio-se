@@ -168,6 +168,8 @@ public final class ContextManagerHelper {
 
     /**
      * get the ContextItem from the name.
+     * 
+     * @deprecated by 13184
      */
     public ContextItem getContextItemByName(String name) {
         if (!isValid(name)) {
@@ -176,6 +178,26 @@ public final class ContextManagerHelper {
         Set<ContextItem> itemSet = getContextItems();
         for (ContextItem item : itemSet) {
             if (item.getProperty().getLabel().equals(name)) {
+                return item;
+            }
+        }
+        return null;
+
+    }
+
+    /**
+     * 
+     * ggu Comment method "getContextItemById".
+     * 
+     * bug 13184
+     */
+    public ContextItem getContextItemById(String id) {
+        if (!isValid(id)) {
+            return null;
+        }
+        Set<ContextItem> itemSet = getContextItems();
+        for (ContextItem item : itemSet) {
+            if (item.getProperty().getId().equals(id)) {
                 return item;
             }
         }
@@ -315,12 +337,12 @@ public final class ContextManagerHelper {
             return false;
         }
         if (obj instanceof ContextItem) {
-            Set<String> paramSet = this.itemNameToParametersMap.get(((ContextItem) obj).getProperty().getLabel());
+            Set<String> paramSet = this.itemNameToParametersMap.get(((ContextItem) obj).getProperty().getId());
             return paramSet != null && !paramSet.isEmpty();
         } else if (obj instanceof ContextParameterType) {
             ContextItem contextItem = (ContextItem) getParentContextItem(obj);
             if (contextItem != null) {
-                Set<String> paramSet = this.itemNameToParametersMap.get(contextItem.getProperty().getLabel());
+                Set<String> paramSet = this.itemNameToParametersMap.get(contextItem.getProperty().getId());
                 return paramSet != null && paramSet.contains(((ContextParameterType) obj).getName());
             }
         }

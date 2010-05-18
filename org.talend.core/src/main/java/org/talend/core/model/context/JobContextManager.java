@@ -233,7 +233,7 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
                     if (!contextParam.isBuiltIn()) {
-                        ContextItem item = ContextUtils.getContextItemByName(contextParam.getSource());
+                        ContextItem item = ContextUtils.getContextItemById2(contextParam.getSource());
                         if (item != null) {
                             contextParamType.setRepositoryContextId(item.getProperty().getId());
                         }
@@ -308,7 +308,7 @@ public class JobContextManager implements IContextManager {
                 if (repositoryContextId != null && !UpdatesConstants.EMPTY.equals(repositoryContextId)) {
                     ContextItem item = ContextUtils.getContextItemById(contextItemList, repositoryContextId);
                     if (item != null) {
-                        source = item.getProperty().getLabel();
+                        source = item.getProperty().getId();
                     } else {
                         lostParameters.add(contextParam.getName());
                     }

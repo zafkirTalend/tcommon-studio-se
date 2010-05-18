@@ -80,7 +80,7 @@ public class ContextBuiltinToRepositoryAction extends AContextualAction {
                 Object object = iter.next();
                 if (object instanceof ContextParameterSortedParent) {
                     ContextParameterSortedParent param = (ContextParameterSortedParent) object;
-                    if (!IContextParameter.BUILT_IN.equals(param.getSourceName())) {
+                    if (!IContextParameter.BUILT_IN.equals(param.getSourceId())) {
                         setEnabled(false);
                         return;
                     } else {

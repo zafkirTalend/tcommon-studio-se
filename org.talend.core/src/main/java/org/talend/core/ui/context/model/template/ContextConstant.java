@@ -30,6 +30,10 @@ public class ContextConstant {
 
     public static final String LINE_STRING = "-"; //$NON-NLS-1$
 
+    public static final String SPACE_CHAR = " "; //$NON-NLS-1$
+
+    public static final String REF_CHAR = "@"; //$NON-NLS-1$
+
     /*
      * java type
      */

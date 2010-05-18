@@ -53,8 +53,7 @@ public class AddRepositoryContextVariablesCommand extends Command {
 
     @Override
     public void execute() {
-        if (modelManager == null || helper == null || parameterList == null || parameterList.isEmpty()
-                || manager == null) {
+        if (modelManager == null || helper == null || parameterList == null || parameterList.isEmpty() || manager == null) {
             return;
         }
         if (monitor == null) {
@@ -70,7 +69,7 @@ public class AddRepositoryContextVariablesCommand extends Command {
             IContextParameter paramExisted = helper.getExistedContextParameter(defaultContextParamType.getName());
             if (paramExisted != null) {
                 // existed.
-                if (!paramExisted.isBuiltIn() && contextItem.getProperty().getLabel().equals(paramExisted.getSource())) {
+                if (!paramExisted.isBuiltIn() && contextItem.getProperty().getId().equals(paramExisted.getSource())) {
                     // update the parameter.
                     modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName());
                     helper.addContextParameterType(defaultContextParamType);

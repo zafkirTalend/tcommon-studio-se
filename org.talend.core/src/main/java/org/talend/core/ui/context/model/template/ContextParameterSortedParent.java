@@ -17,18 +17,18 @@ package org.talend.core.ui.context.model.template;
  */
 public class ContextParameterSortedParent extends ContextParameterParent {
 
-    private String sourceName;
+    private String sourceId;
 
     public ContextParameterSortedParent() {
         super();
     }
 
-    public String getSourceName() {
-        return this.sourceName;
+    public String getSourceId() {
+        return this.sourceId;
     }
 
-    public void setSourceName(String sourceName) {
-        this.sourceName = sourceName;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
 }

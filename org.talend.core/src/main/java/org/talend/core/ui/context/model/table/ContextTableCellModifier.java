@@ -110,7 +110,7 @@ public class ContextTableCellModifier extends AbstractContextCellModifier {
         }
 
         if (element instanceof GroupBySourceTableParent) {
-            if (IContextParameter.BUILT_IN.equals(((GroupBySourceTableParent) element).getSourceName())) {
+            if (IContextParameter.BUILT_IN.equals(((GroupBySourceTableParent) element).getSourceId())) {
                 IContextParameter builtContextParameter = ((GroupBySourceTableParent) element).getContextParameter();
                 if (builtContextParameter != null) {
                     para = context.getContextParameter(builtContextParameter.getName());
