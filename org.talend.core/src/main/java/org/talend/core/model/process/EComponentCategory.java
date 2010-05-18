@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -19,25 +21,25 @@ package org.talend.core.model.process;
  * 
  */
 public enum EComponentCategory {
-    MAIN("Main", 1), //$NON-NLS-1$
-    VIEW("View", 3), //$NON-NLS-1$
-    APPEARANCE("Appearance", 2), //$NON-NLS-1$
-    RULERS_AND_GRID("Rulers & Grid", 3), //$NON-NLS-1$
-    ASSIGNMENT("Assignment", 4), //$NON-NLS-1$
-    DOC("Documentation", 4), //$NON-NLS-1$
-    CONTEXT("Context", 5), //$NON-NLS-1$
-    VERSIONS("Version", 9), //$NON-NLS-1$
-    SVNHISTORY("SVN History", 9), //$NON-NLS-1$
-    LOGS("Logs", 6), //$NON-NLS-1$
-    STATSANDLOGS("Stats & Logs", 7), //$NON-NLS-1$
-    TECHNICAL("Technical", 8), // for non displayed parameters //$NON-NLS-1$
-    ADVANCED("Advanced settings", 9), //$NON-NLS-1$
-    RESUMING("Error recovery", 15), //$NON-NLS-1$
-    BASIC("Basic settings", 10), //$NON-NLS-1$
-    ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED), //$NON-NLS-1$
-    EXTRA("Extra", 12), //$NON-NLS-1$
-    DYNAMICS_SETTINGS("Dynamic settings", 13), //$NON-NLS-1$
-    SQL_PATTERN("SQL Template", 14); //$NON-NLS-1$
+    MAIN(Messages.getString("EComponentCategory_main"), 1), //$NON-NLS-1$
+    VIEW(Messages.getString("EComponentCategory_view"), 3), //$NON-NLS-1$
+    APPEARANCE(Messages.getString("EComponentCategory_appearance"), 2), //$NON-NLS-1$
+    RULERS_AND_GRID(Messages.getString("EComponentCategory_rulerAndGrid"), 3), //$NON-NLS-1$
+    ASSIGNMENT(Messages.getString("EComponentCategory_assignment"), 4), //$NON-NLS-1$
+    DOC(Messages.getString("EComponentCategory_doc"), 4), //$NON-NLS-1$
+    CONTEXT(Messages.getString("EComponentCategory_context"), 5), //$NON-NLS-1$
+    VERSIONS(Messages.getString("EComponentCategory_version"), 9), //$NON-NLS-1$
+    SVNHISTORY(Messages.getString("EComponentCategory_svnHistory"), 9), //$NON-NLS-1$
+    LOGS(Messages.getString("EComponentCategory_logs"), 6), //$NON-NLS-1$
+    STATSANDLOGS(Messages.getString("EComponentCategory_statsAndLogs"), 7), //$NON-NLS-1$
+    TECHNICAL(Messages.getString("EComponentCategory_technical"), 8), // for non displayed parameters //$NON-NLS-1$
+    ADVANCED(Messages.getString("EComponentCategory_advanceSetting"), 9), //$NON-NLS-1$
+    RESUMING(Messages.getString("EComponentCategory_errorRecovery"), 15), //$NON-NLS-1$
+    BASIC(Messages.getString("EComponentCategory_basicSetting"), 10), //$NON-NLS-1$
+    ADVANCED_PROPERTIES(Messages.getString("EComponentCategory_properties"), 11, BASIC, ADVANCED), //$NON-NLS-1$
+    EXTRA(Messages.getString("EComponentCategory_extra"), 12), //$NON-NLS-1$
+    DYNAMICS_SETTINGS(Messages.getString("EComponentCategory_dynamicSetting"), 13), //$NON-NLS-1$
+    SQL_PATTERN(Messages.getString("EComponentCategory_sqlTemplate"), 14); //$NON-NLS-1$
 
     private String title;
 
