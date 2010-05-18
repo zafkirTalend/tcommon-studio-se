@@ -8,7 +8,10 @@
 			<dbType type="BINARY" ignoreLen="true" ignorePre="true" />
 			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
 			<dbType type="CHAR" defaultLength="50" ignorePre="true" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATETIME2" ignoreLen="true" defaultPrecision="7" />
+			<dbType type="DATETIMEOFFSET" ignoreLen="true" defaultPrecision="7" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DECIMAL IDENTITY" defaultLength="20"
 				defaultPrecision="10" />
@@ -30,6 +33,7 @@
 			<dbType type="SMALLMONEY" ignoreLen="true" ignorePre="true" />
 			<dbType type="SQL_VARIANT" ignoreLen="true" ignorePre="true" />
 			<dbType type="TEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" defaultPrecision="7" />
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
 			<dbType type="TINYINT" ignoreLen="true" ignorePre="true" />
 			<dbType type="TINYINT IDENTITY" />
@@ -64,6 +68,10 @@
 					<dbType type="DATETIME" default="true" />
 					<dbType type="SMALLDATETIME" />
 					<dbType type="TIMESTAMP" />
+					<dbType type="DATE" />
+					<dbType type="DATETIME2" />
+					<dbType type="DATETIMEOFFSET" />
+					<dbType type="TIME" />
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="DECIMAL" default="true" />
@@ -254,6 +262,18 @@
 				</dbType>
 				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="DATE">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="DATETIME2">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="DATETIMEOFFSET">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="TIME">
+					<talendType type="id_Date" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
