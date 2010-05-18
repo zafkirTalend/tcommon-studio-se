@@ -491,6 +491,7 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
+            boolean isMSSQL = EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataConnection.getDbType());
             while (columns.next()) {
                 Boolean b = false;
                 String fetchTableName = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TABLE_NAME", null); //$NON-NLS-1$
@@ -577,7 +578,36 @@ public class ExtractMetaDataFromDataBase {
                     }
 
                     metadataColumn.setTalendType(talendType);
-                    metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    // for bug 13078
+                    if (isMSSQL && metadataColumn.isKey() && "INT IDENTITY".equals(dbType)) {
+                        Integer ident = 0;
+                        try {
+                            PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(" select IDENT_INCR ( '" //$NON-NLS-1$
+                                    + medataTable.getLabel() + "')"); //$NON-NLS-1$ //$NON-NLS-2$
+                            ResultSet resultSet = null;
+                            ExtractMetaDataUtils.setQueryStatementTimeout(statement);
+                            if (statement.execute()) {
+                                resultSet = statement.getResultSet();
+                                while (resultSet.next()) {
+                                    String st = resultSet.getString(1);
+                                    Integer valueOf = Integer.valueOf(st);
+                                    if (valueOf != null) {
+                                        ident = valueOf;
+                                    }
+
+                                }
+                            }
+                            resultSet.close();
+                            statement.close();
+
+                        } catch (Exception e) {
+                            log.error(e.toString());
+                        }
+
+                        metadataColumn.setPrecision(ident); //$NON-NLS-1$
+                    } else {
+                        metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    }
 
                     boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
                     metadataColumn.setNullable(isNullable);
