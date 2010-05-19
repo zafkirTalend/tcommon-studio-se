@@ -292,7 +292,8 @@ public class ActionBarBuildHelper implements IActionBarHelper {
         hideWindowActions();
         hideHelpActions();
         hideEditActions();
-        hideCoolBarActions();
+        // for bug 12937
+        // hideCoolBarActions();
 
         boolean useJava = LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA;
 
