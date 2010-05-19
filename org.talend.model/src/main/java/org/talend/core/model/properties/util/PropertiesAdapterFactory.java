@@ -289,6 +289,24 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseTDQItem(TDQItem object) {
                 return createTDQItemAdapter();
             }
+            public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
+                return createTDQAnalysisItemAdapter();
+            }
+            public Object caseTDQReportItem(TDQReportItem object) {
+                return createTDQReportItemAdapter();
+            }
+            public Object caseTDQDBConnectionItem(TDQDBConnectionItem object) {
+                return createTDQDBConnectionItemAdapter();
+            }
+            public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
+                return createTDQMDMConnectionItemAdapter();
+            }
+            public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
+                return createTDQIndicatorItemAdapter();
+            }
+            public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
+                return createTDQBusinessRuleItemAdapter();
+            }
             public Object caseLinkRulesItem(LinkRulesItem object) {
                 return createLinkRulesItemAdapter();
             }
@@ -1327,6 +1345,90 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTDQItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQAnalysisItem <em>TDQ Analysis Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQAnalysisItem
+     * @generated
+     */
+    public Adapter createTDQAnalysisItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQReportItem <em>TDQ Report Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQReportItem
+     * @generated
+     */
+    public Adapter createTDQReportItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQDBConnectionItem <em>TDQDB Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQDBConnectionItem
+     * @generated
+     */
+    public Adapter createTDQDBConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQMDMConnectionItem <em>TDQMDM Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQMDMConnectionItem
+     * @generated
+     */
+    public Adapter createTDQMDMConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQIndicatorItem <em>TDQ Indicator Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQIndicatorItem
+     * @generated
+     */
+    public Adapter createTDQIndicatorItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQBusinessRuleItem <em>TDQ Business Rule Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQBusinessRuleItem
+     * @generated
+     */
+    public Adapter createTDQBusinessRuleItemAdapter() {
         return null;
     }
 

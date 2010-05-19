@@ -650,6 +650,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="TDQItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="filename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TDQAnalysisItem" eSuperTypes="#//TDQItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TDQReportItem" eSuperTypes="#//TDQItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TDQDBConnectionItem" eSuperTypes="#//TDQItem #//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TDQMDMConnectionItem" eSuperTypes="#//TDQItem #//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TDQIndicatorItem" eSuperTypes="#//TDQItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TDQBusinessRuleItem" eSuperTypes="#//TDQItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="LinkRulesItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="extension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

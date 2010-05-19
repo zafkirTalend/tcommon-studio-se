@@ -5597,13 +5597,307 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQAnalysisItemImpl <em>TDQ Analysis Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQAnalysisItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQAnalysisItem()
+     * @generated
+     */
+    int TDQ_ANALYSIS_ITEM = 73;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ANALYSIS_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ANALYSIS_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ANALYSIS_ITEM__FILENAME = TDQ_ITEM__FILENAME;
+
+    /**
+     * The number of structural features of the '<em>TDQ Analysis Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ANALYSIS_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQReportItemImpl <em>TDQ Report Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQReportItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQReportItem()
+     * @generated
+     */
+    int TDQ_REPORT_ITEM = 74;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_REPORT_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_REPORT_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_REPORT_ITEM__FILENAME = TDQ_ITEM__FILENAME;
+
+    /**
+     * The number of structural features of the '<em>TDQ Report Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_REPORT_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQDBConnectionItemImpl <em>TDQDB Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQDBConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQDBConnectionItem()
+     * @generated
+     */
+    int TDQDB_CONNECTION_ITEM = 75;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQDB_CONNECTION_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQDB_CONNECTION_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQDB_CONNECTION_ITEM__FILENAME = TDQ_ITEM__FILENAME;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQDB_CONNECTION_ITEM__CONNECTION = TDQ_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>TDQDB Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQDB_CONNECTION_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl <em>TDQMDM Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQMDMConnectionItem()
+     * @generated
+     */
+    int TDQMDM_CONNECTION_ITEM = 76;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQMDM_CONNECTION_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQMDM_CONNECTION_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQMDM_CONNECTION_ITEM__FILENAME = TDQ_ITEM__FILENAME;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQMDM_CONNECTION_ITEM__CONNECTION = TDQ_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>TDQMDM Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQMDM_CONNECTION_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQIndicatorItemImpl <em>TDQ Indicator Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQIndicatorItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQIndicatorItem()
+     * @generated
+     */
+    int TDQ_INDICATOR_ITEM = 77;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_INDICATOR_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_INDICATOR_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_INDICATOR_ITEM__FILENAME = TDQ_ITEM__FILENAME;
+
+    /**
+     * The number of structural features of the '<em>TDQ Indicator Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_INDICATOR_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQBusinessRuleItemImpl <em>TDQ Business Rule Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQBusinessRuleItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQBusinessRuleItem()
+     * @generated
+     */
+    int TDQ_BUSINESS_RULE_ITEM = 78;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_BUSINESS_RULE_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_BUSINESS_RULE_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_BUSINESS_RULE_ITEM__FILENAME = TDQ_ITEM__FILENAME;
+
+    /**
+     * The number of structural features of the '<em>TDQ Business Rule Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_BUSINESS_RULE_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkRulesItemImpl <em>Link Rules Item</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.impl.LinkRulesItemImpl
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLinkRulesItem()
      * @generated
      */
-    int LINK_RULES_ITEM = 73;
+    int LINK_RULES_ITEM = 79;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -5661,7 +5955,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelations()
      * @generated
      */
-    int ITEM_RELATIONS = 74;
+    int ITEM_RELATIONS = 80;
 
     /**
      * The feature id for the '<em><b>Base Item</b></em>' containment reference.
@@ -5697,7 +5991,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelation()
      * @generated
      */
-    int ITEM_RELATION = 75;
+    int ITEM_RELATION = 81;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5739,7 +6033,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotification()
      * @generated
      */
-    int NOTIFICATION = 76;
+    int NOTIFICATION = 82;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5789,7 +6083,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHL7ConnectionItem()
      * @generated
      */
-    int HL7_CONNECTION_ITEM = 77;
+    int HL7_CONNECTION_ITEM = 83;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -5832,7 +6126,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 78;
+    int FOLDER_TYPE = 84;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -5841,7 +6135,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 79;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 85;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -5850,7 +6144,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 80;
+    int USER_MODULE_AUTHORIZATION_TYPE = 86;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -5859,7 +6153,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 81;
+    int INFORMATION_LEVEL = 87;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -9779,6 +10073,66 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTDQItem_Filename();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQAnalysisItem <em>TDQ Analysis Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQ Analysis Item</em>'.
+     * @see org.talend.core.model.properties.TDQAnalysisItem
+     * @generated
+     */
+    EClass getTDQAnalysisItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQReportItem <em>TDQ Report Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQ Report Item</em>'.
+     * @see org.talend.core.model.properties.TDQReportItem
+     * @generated
+     */
+    EClass getTDQReportItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQDBConnectionItem <em>TDQDB Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQDB Connection Item</em>'.
+     * @see org.talend.core.model.properties.TDQDBConnectionItem
+     * @generated
+     */
+    EClass getTDQDBConnectionItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQMDMConnectionItem <em>TDQMDM Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQMDM Connection Item</em>'.
+     * @see org.talend.core.model.properties.TDQMDMConnectionItem
+     * @generated
+     */
+    EClass getTDQMDMConnectionItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQIndicatorItem <em>TDQ Indicator Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQ Indicator Item</em>'.
+     * @see org.talend.core.model.properties.TDQIndicatorItem
+     * @generated
+     */
+    EClass getTDQIndicatorItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQBusinessRuleItem <em>TDQ Business Rule Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQ Business Rule Item</em>'.
+     * @see org.talend.core.model.properties.TDQBusinessRuleItem
+     * @generated
+     */
+    EClass getTDQBusinessRuleItem();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.LinkRulesItem <em>Link Rules Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Link Rules Item</em>'.
@@ -13647,6 +14001,66 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TDQ_ITEM__FILENAME = eINSTANCE.getTDQItem_Filename();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQAnalysisItemImpl <em>TDQ Analysis Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQAnalysisItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQAnalysisItem()
+         * @generated
+         */
+        EClass TDQ_ANALYSIS_ITEM = eINSTANCE.getTDQAnalysisItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQReportItemImpl <em>TDQ Report Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQReportItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQReportItem()
+         * @generated
+         */
+        EClass TDQ_REPORT_ITEM = eINSTANCE.getTDQReportItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQDBConnectionItemImpl <em>TDQDB Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQDBConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQDBConnectionItem()
+         * @generated
+         */
+        EClass TDQDB_CONNECTION_ITEM = eINSTANCE.getTDQDBConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl <em>TDQMDM Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQMDMConnectionItem()
+         * @generated
+         */
+        EClass TDQMDM_CONNECTION_ITEM = eINSTANCE.getTDQMDMConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQIndicatorItemImpl <em>TDQ Indicator Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQIndicatorItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQIndicatorItem()
+         * @generated
+         */
+        EClass TDQ_INDICATOR_ITEM = eINSTANCE.getTDQIndicatorItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQBusinessRuleItemImpl <em>TDQ Business Rule Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQBusinessRuleItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQBusinessRuleItem()
+         * @generated
+         */
+        EClass TDQ_BUSINESS_RULE_ITEM = eINSTANCE.getTDQBusinessRuleItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.LinkRulesItemImpl <em>Link Rules Item</em>}' class.

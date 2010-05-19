@@ -46,7 +46,13 @@ import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
+import org.talend.core.model.properties.TDQAnalysisItem;
+import org.talend.core.model.properties.TDQBusinessRuleItem;
+import org.talend.core.model.properties.TDQDBConnectionItem;
+import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
+import org.talend.core.model.properties.TDQMDMConnectionItem;
+import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
@@ -104,8 +110,15 @@ public enum ERepositoryObjectType {
     METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     JOBLETS("repository.joblets"), //$NON-NLS-1$
     JOBLET_DOC("repository.jobletdoc"), //$NON-NLS-1$
+    // MOD mzhao feature 13114, 2010-05-19
+    TDQ_ANALYSIS_ELEMENT("repository.tdqelement.analysis", "repository.tdqelement.analysis"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_REPORT_ELEMENT("repository.tdqelement.report", "repository.tdqelement.report"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_DBCONNECTION_ELEMENT("repository.tdqelement.dbconnection", "repository.tdqelement.dbconnection"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_MDMCONNECTION_ELEMENT("repository.tdqelement.mdmconnection", "repository.tdqelement.mdmconnection"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
     // MOD mzhao feature 9207
-    TDQ_ELEMENT("repository.tdqelement"); //$NON-NLS-1$
+    TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String key;
 
@@ -233,6 +246,19 @@ public enum ERepositoryObjectType {
             return "metadata/rules"; //$NON-NLS-1$
         case METADATA_FILE_LINKRULES:
             return "metadata/rules"; //$NON-NLS-1$
+            // MOD mzhao feature 13114, 2010-05-19
+        case TDQ_ANALYSIS_ELEMENT:
+            return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
+        case TDQ_BUSINESSRULE_ELEMENT:
+            return "TDQ_Libraries/Rules"; //$NON-NLS-1$
+        case TDQ_DBCONNECTION_ELEMENT:
+            return "DQ_Metadata/DB Connections"; //$NON-NLS-1$
+        case TDQ_INDICATOR_ELEMENT:
+            return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
+        case TDQ_MDMCONNECTION_ELEMENT:
+            return "TDQ_Metadata/MDM Connections"; //$NON-NLS-1$
+        case TDQ_REPORT_ELEMENT:
+            return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
             // MOD mzhao feature 9207
         case TDQ_ELEMENT:
             return "";//$NON-NLS-1$
@@ -424,6 +450,37 @@ public enum ERepositoryObjectType {
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
                 // TODO Auto-generated method stub
                 return SVG_BUSINESS_PROCESS;
+            }
+
+            // MOD mzhao feature 13114, 2010-05-19
+            @Override
+            public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
+                return TDQ_ANALYSIS_ELEMENT;
+            }
+
+            @Override
+            public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
+                return TDQ_BUSINESSRULE_ELEMENT;
+            }
+
+            @Override
+            public Object caseTDQDBConnectionItem(TDQDBConnectionItem object) {
+                return TDQ_DBCONNECTION_ELEMENT;
+            }
+
+            @Override
+            public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
+                return TDQ_INDICATOR_ELEMENT;
+            }
+
+            @Override
+            public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
+                return TDQ_MDMCONNECTION_ELEMENT;
+            }
+
+            @Override
+            public Object caseTDQReportItem(TDQReportItem object) {
+                return TDQ_REPORT_ELEMENT;
             }
 
             // MOD mzhao feature 9207

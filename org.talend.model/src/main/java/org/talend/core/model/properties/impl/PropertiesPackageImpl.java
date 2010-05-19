@@ -87,7 +87,13 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.TDQAnalysisItem;
+import org.talend.core.model.properties.TDQBusinessRuleItem;
+import org.talend.core.model.properties.TDQDBConnectionItem;
+import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
+import org.talend.core.model.properties.TDQMDMConnectionItem;
+import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -535,6 +541,48 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass tdqItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqAnalysisItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqReportItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqdbConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqmdmConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqIndicatorItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqBusinessRuleItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3814,6 +3862,60 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQAnalysisItem() {
+        return tdqAnalysisItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQReportItem() {
+        return tdqReportItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQDBConnectionItem() {
+        return tdqdbConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQMDMConnectionItem() {
+        return tdqmdmConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQIndicatorItem() {
+        return tdqIndicatorItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQBusinessRuleItem() {
+        return tdqBusinessRuleItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4806,6 +4908,18 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqItemEClass = createEClass(TDQ_ITEM);
         createEAttribute(tdqItemEClass, TDQ_ITEM__FILENAME);
 
+        tdqAnalysisItemEClass = createEClass(TDQ_ANALYSIS_ITEM);
+
+        tdqReportItemEClass = createEClass(TDQ_REPORT_ITEM);
+
+        tdqdbConnectionItemEClass = createEClass(TDQDB_CONNECTION_ITEM);
+
+        tdqmdmConnectionItemEClass = createEClass(TDQMDM_CONNECTION_ITEM);
+
+        tdqIndicatorItemEClass = createEClass(TDQ_INDICATOR_ITEM);
+
+        tdqBusinessRuleItemEClass = createEClass(TDQ_BUSINESS_RULE_ITEM);
+
         linkRulesItemEClass = createEClass(LINK_RULES_ITEM);
         createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__NAME);
         createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__EXTENSION);
@@ -4903,6 +5017,14 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         rulesItemEClass.getESuperTypes().add(this.getFileItem());
         svgBusinessProcessItemEClass.getESuperTypes().add(this.getFileItem());
         tdqItemEClass.getESuperTypes().add(this.getItem());
+        tdqAnalysisItemEClass.getESuperTypes().add(this.getTDQItem());
+        tdqReportItemEClass.getESuperTypes().add(this.getTDQItem());
+        tdqdbConnectionItemEClass.getESuperTypes().add(this.getTDQItem());
+        tdqdbConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        tdqmdmConnectionItemEClass.getESuperTypes().add(this.getTDQItem());
+        tdqmdmConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        tdqIndicatorItemEClass.getESuperTypes().add(this.getTDQItem());
+        tdqBusinessRuleItemEClass.getESuperTypes().add(this.getTDQItem());
         linkRulesItemEClass.getESuperTypes().add(this.getItem());
         hl7ConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
 
@@ -4916,7 +5038,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProject_Language(), ecorePackage.getEString(), "language", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_TechnicalLabel(), ecorePackage.getEString(), "technicalLabel", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Local(), ecorePackage.getEBoolean(), "local", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getProject_Folders(), this.getFolderItem(), null, "folders", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_Folders(), this.getFolderItem(), null, "folders", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_DeleteDate(), ecorePackage.getEDate(), "deleteDate", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5078,7 +5200,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_Language(), ecorePackage.getEString(), "language", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(folderItemEClass, FolderItem.class, "FolderItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFolderItem_Type(), this.getFolderType(), "type", null, 1, 1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5409,6 +5531,18 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(tdqItemEClass, TDQItem.class, "TDQItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTDQItem_Filename(), ecorePackage.getEString(), "filename", null, 0, 1, TDQItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(tdqAnalysisItemEClass, TDQAnalysisItem.class, "TDQAnalysisItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdqReportItemEClass, TDQReportItem.class, "TDQReportItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdqdbConnectionItemEClass, TDQDBConnectionItem.class, "TDQDBConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdqmdmConnectionItemEClass, TDQMDMConnectionItem.class, "TDQMDMConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdqIndicatorItemEClass, TDQIndicatorItem.class, "TDQIndicatorItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdqBusinessRuleItemEClass, TDQBusinessRuleItem.class, "TDQBusinessRuleItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(linkRulesItemEClass, LinkRulesItem.class, "LinkRulesItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLinkRulesItem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, LinkRulesItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

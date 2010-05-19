@@ -160,6 +160,12 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.ROLE_RIGHT: return createRoleRight();
             case PropertiesPackage.SVG_BUSINESS_PROCESS_ITEM: return createSVGBusinessProcessItem();
             case PropertiesPackage.TDQ_ITEM: return createTDQItem();
+            case PropertiesPackage.TDQ_ANALYSIS_ITEM: return createTDQAnalysisItem();
+            case PropertiesPackage.TDQ_REPORT_ITEM: return createTDQReportItem();
+            case PropertiesPackage.TDQDB_CONNECTION_ITEM: return createTDQDBConnectionItem();
+            case PropertiesPackage.TDQMDM_CONNECTION_ITEM: return createTDQMDMConnectionItem();
+            case PropertiesPackage.TDQ_INDICATOR_ITEM: return createTDQIndicatorItem();
+            case PropertiesPackage.TDQ_BUSINESS_RULE_ITEM: return createTDQBusinessRuleItem();
             case PropertiesPackage.LINK_RULES_ITEM: return createLinkRulesItem();
             case PropertiesPackage.ITEM_RELATIONS: return createItemRelations();
             case PropertiesPackage.ITEM_RELATION: return createItemRelation();
@@ -867,6 +873,66 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public TDQItem createTDQItem() {
         TDQItemImpl tdqItem = new TDQItemImpl();
         return tdqItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQAnalysisItem createTDQAnalysisItem() {
+        TDQAnalysisItemImpl tdqAnalysisItem = new TDQAnalysisItemImpl();
+        return tdqAnalysisItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQReportItem createTDQReportItem() {
+        TDQReportItemImpl tdqReportItem = new TDQReportItemImpl();
+        return tdqReportItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQDBConnectionItem createTDQDBConnectionItem() {
+        TDQDBConnectionItemImpl tdqdbConnectionItem = new TDQDBConnectionItemImpl();
+        return tdqdbConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQMDMConnectionItem createTDQMDMConnectionItem() {
+        TDQMDMConnectionItemImpl tdqmdmConnectionItem = new TDQMDMConnectionItemImpl();
+        return tdqmdmConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQIndicatorItem createTDQIndicatorItem() {
+        TDQIndicatorItemImpl tdqIndicatorItem = new TDQIndicatorItemImpl();
+        return tdqIndicatorItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQBusinessRuleItem createTDQBusinessRuleItem() {
+        TDQBusinessRuleItemImpl tdqBusinessRuleItem = new TDQBusinessRuleItemImpl();
+        return tdqBusinessRuleItem;
     }
 
     /**
