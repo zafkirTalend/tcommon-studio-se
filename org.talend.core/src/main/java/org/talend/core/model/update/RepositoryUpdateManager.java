@@ -392,9 +392,18 @@ public abstract class RepositoryUpdateManager {
         // schema
         if (object instanceof IMetadataTable) { // 
             if (parameter instanceof ConnectionItem) { //
-                String source = UpdateRepositoryUtils.getRepositorySourceName((ConnectionItem) parameter);
-                if (result.getRemark() != null && result.getRemark().startsWith(source)) {
-                    return true;
+                ConnectionItem connection = (ConnectionItem) parameter;
+                String source = UpdateRepositoryUtils.getRepositorySourceName(connection);
+                if (result.getRemark() != null) {
+                    if (result.getRemark().startsWith(source)) {
+                        return true;
+                    } else {
+                        // for bug 10365
+                        String[] split = result.getRemark().split(UpdatesConstants.SEGMENT_LINE);
+                        if (connection.getProperty() != null && split[0].equals(connection.getProperty().getId())) {
+                            return true;
+                        }
+                    }
                 }
             } else if (parameter instanceof org.talend.core.model.metadata.builder.connection.MetadataTable) {
                 IMetadataTable table1 = ((IMetadataTable) object);
