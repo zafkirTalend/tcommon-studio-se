@@ -34,6 +34,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -284,13 +285,24 @@ public final class RepositoryManager {
                             //
                             for (IEditorReference editorReference : editorReferences) {
                                 IEditorInput editorInput = editorReference.getEditorInput();
-                                if (editorInput != null && editorInput instanceof RepositoryEditorInput) {
+                                if ((editorInput != null && editorInput instanceof RepositoryEditorInput)) {
                                     RepositoryEditorInput rInput = (RepositoryEditorInput) editorInput;
                                     Property openedProperty = rInput.getItem().getProperty();
                                     if (openedProperty.getId().equals(property.getId())
                                             && VersionUtils.compareTo(openedProperty.getVersion(), property.getVersion()) == 0) {
                                         return true;
                                     }
+                                } else if (objectToMove.getProperty().getItem() instanceof BusinessProcessItem) {
+                                    Object obj = editorInput.getAdapter(RepositoryEditorInput.class);
+                                    if (obj instanceof RepositoryEditorInput) {
+                                        RepositoryEditorInput rInput = (RepositoryEditorInput) obj;
+                                        Property openedProperty = rInput.getItem().getProperty();
+                                        if (openedProperty.getId().equals(property.getId())
+                                                && VersionUtils.compareTo(openedProperty.getVersion(), property.getVersion()) == 0) {
+                                            return true;
+                                        }
+                                    }
+
                                 }
                             }
                         }
