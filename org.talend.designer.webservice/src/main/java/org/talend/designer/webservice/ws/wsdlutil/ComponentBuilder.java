@@ -671,13 +671,13 @@ public class ComponentBuilder {
                             XmlSchemaGroupBase xmlSchemaGroupBase = (XmlSchemaGroupBase) xmlSchemaParticle;
                             XmlSchemaObjectCollection childCollection = xmlSchemaGroupBase.getItems();
                             if (childCollection != null && !isHave) {
-                                buildParameterFromCollection(childCollection, parameter, ioOrRecursion);
+                                buildParameterFromCollection(childCollection, parameterSon, ioOrRecursion);
                             }
                         } else if (xmlSchemaElement.getSchemaTypeName() != null) {
                             String paraTypeName = xmlSchemaElement.getSchemaTypeName().getLocalPart();
                             if (paraTypeName != null && !isHave) {
                                 parameter.setType(paraTypeName);
-                                buileParameterFromTypes(paraTypeName, parameter, ioOrRecursion);
+                                buileParameterFromTypes(paraTypeName, parameterSon, ioOrRecursion);
                             }
                         }
                     } else if (xmlSchemaElement.getSchemaType() instanceof XmlSchemaSimpleType) {
