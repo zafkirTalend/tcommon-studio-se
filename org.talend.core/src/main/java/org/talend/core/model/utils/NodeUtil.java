@@ -387,7 +387,28 @@ public class NodeUtil {
 
         getLinkedMergeInfo(node, map);
 
+        if (map.isEmpty()) {
+            // in case the component is not linked directly, it should take the status of previous component, since it
+            // will be in the same branch.
+            getLinkedMergeInfoFromMainLink(node, map);
+        }
+
         return map;
+    }
+
+    private static void getLinkedMergeInfoFromMainLink(final INode node, final Map<INode, Integer> map) {
+        if (node.getComponent().useMerge()) {
+            return;
+        }
+        List<IConnection> inputConnections = (List<IConnection>) getIncomingConnections(node, IConnectionCategory.MAIN);
+        if (inputConnections.size() > 0) {
+            IConnection input = inputConnections.get(0);
+            getLinkedMergeInfo(input.getSource(), map);
+            if (map.isEmpty()) {
+                getLinkedMergeInfoFromMainLink(input.getSource(), map);
+            }
+        }
+
     }
 
     private static void getLinkedMergeInfo(final INode node, final Map<INode, Integer> map) {
