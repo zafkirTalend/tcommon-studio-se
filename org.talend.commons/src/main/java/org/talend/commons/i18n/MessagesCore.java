@@ -44,6 +44,11 @@ public abstract class MessagesCore {
 
     public static final String KEY_NOT_FOUND_SUFFIX = "!!!"; //$NON-NLS-1$
 
+    // add by wzhang for 13249, MessageFormat will not indicate {0} as i18n args if in couple single quotes.
+    public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
+
+    public static final String SINGLE_QUOTE_MUTI = "''"; //$NON-NLS-1$
+
     /**
      * Returns the i18n formatted message for <i>key</i> in the specified bundle.
      * 
@@ -74,7 +79,7 @@ public abstract class MessagesCore {
      */
     // modified by wzhang. add a pluginId parameter
     public static String getString(String key, String pluginId, ResourceBundle resourceBundle, Object... args) {
-        return MessageFormat.format(getString(key, pluginId, resourceBundle), args);
+        return MessageFormat.format(getString(key, pluginId, resourceBundle).replaceAll(SINGLE_QUOTE, SINGLE_QUOTE_MUTI), args);
     }
 
     /**
@@ -87,7 +92,7 @@ public abstract class MessagesCore {
      * @deprecated
      */
     public static String getString(String key, ResourceBundle resourceBundle, Object... args) {
-        return MessageFormat.format(getString(key, null, resourceBundle), args);
+        return MessageFormat.format(getString(key, null, resourceBundle).replaceAll(SINGLE_QUOTE, SINGLE_QUOTE_MUTI), args);
     }
 
     /**
