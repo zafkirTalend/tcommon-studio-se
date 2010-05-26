@@ -264,7 +264,11 @@ public class JobContextManager implements IContextManager {
         boolean setDefault = false;
         for (int i = 0; i < contextTypeList.size(); i++) {
             contextType = (ContextType) contextTypeList.get(i);
-            context = new JobContext(contextType.getName());
+            String name = contextType.getName();
+            if (name == null) {
+                name = "Default";
+            }
+            context = new JobContext(name);
             context.setConfirmationNeeded(contextType.isConfirmationNeeded());
             contextParamList = new ArrayList<IContextParameter>();
             contextTypeParamList = contextType.getContextParameter();
