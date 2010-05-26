@@ -142,8 +142,9 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                 document, null);
 
         IPath packagePath = new Path("/.Java/src/internal"); //$NON-NLS-1$
-        className = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++;
-        filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java"; //$NON-NLS-1$
+        int id = currentId++;
+        className = TalendJavaSourceViewer.VIEWER_CLASS_NAME + id;
+        filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + id++ + ".java"; //$NON-NLS-1$
         IPackageFragment packageFragment;
         try {
             packageFragment = CorePlugin.getDefault().getRunProcessService().getJavaProject().findPackageFragment(packagePath);

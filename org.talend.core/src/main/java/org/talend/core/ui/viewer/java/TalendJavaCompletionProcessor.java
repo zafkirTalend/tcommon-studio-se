@@ -123,6 +123,7 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
     @Override
     protected ContentAssistInvocationContext createContext(ITextViewer viewer, int offset) {
         if (viewer instanceof TalendJavaSourceViewer) {
+            ((TalendJavaSourceViewer) viewer).updateContents();
             CompletionProposalCollector cpc = new CompletionProposalCollector(((TalendJavaSourceViewer) viewer)
                     .getCompilationUnit());
             // set an empty editor Part as it's the only constructor where the viewer can be used.
