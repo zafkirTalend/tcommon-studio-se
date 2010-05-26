@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -244,7 +245,10 @@ public final class UpdateRepositoryUtils {
         }
         final IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            final IRepositoryObject lastVersion = proxyRepositoryFactory.getLastVersion(itemId);
+            IRepositoryObject lastVersion = proxyRepositoryFactory.getLastVersion(itemId);
+            if (lastVersion == null) {
+                lastVersion = getRepositoryObjectFromRef(itemId, proxyRepositoryFactory);
+            }
             if (lastVersion != null) {
                 if (!deleted && proxyRepositoryFactory.getStatus(lastVersion) == ERepositoryStatus.DELETED) {
                     return null;
@@ -363,6 +367,9 @@ public final class UpdateRepositoryUtils {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
             IRepositoryObject lastVersion = factory.getLastVersion(id);
+            if (lastVersion == null) {
+                lastVersion = getRepositoryObjectFromRef(id, factory);
+            }
             if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
                 return lastVersion;
             }
@@ -370,6 +377,20 @@ public final class UpdateRepositoryUtils {
             //
         }
         return null;
+    }
+
+    private static IRepositoryObject getRepositoryObjectFromRef(String id, IProxyRepositoryFactory factory)
+            throws PersistenceException {
+        IRepositoryObject lastVersion = null;
+        final List<Project> allReferencedProjects = ProjectManager.getInstance().getAllReferencedProjects();
+        for (Project refPro : allReferencedProjects) {
+            lastVersion = factory.getLastVersion(refPro, id);
+            if (lastVersion != null) {
+                break;
+            }
+        }
+        return lastVersion;
+
     }
 
     /**
@@ -410,7 +431,7 @@ public final class UpdateRepositoryUtils {
         final Connection connection = item.getConnection();
         if (connection != null) {
             final EList tables = MetadataTool.getMetadataTableFromConnection(connection);
-            //for bug 12543
+            // for bug 12543
             if (tables != null && tables.size() > 0) {
                 Object tableObject = tables.get(0);
                 if (tableObject instanceof MetadataTable) {
