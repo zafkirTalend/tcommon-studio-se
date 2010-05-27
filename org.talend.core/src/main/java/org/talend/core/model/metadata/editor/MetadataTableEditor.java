@@ -121,6 +121,12 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         for (int i = 0; i < lstSize; i++) {
             if (columnName.equals(getBeansList().get(i).getLabel()) && i != beanPosition) {
                 return Messages.getString("MetadataTableEditor.ColumnNameExists", columnName); //$NON-NLS-1$
+            } else if (columnName.toLowerCase().equals(getBeansList().get(i).getLabel().toLowerCase()) && i != beanPosition) {
+                String index = columnName.substring(0, 1);
+                String last = getBeansList().get(i).getLabel().substring(0, 1);
+                if (index.toLowerCase().equals(last.toLowerCase())) {
+                    return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", columnName);
+                }
             }
 
         }
