@@ -22,7 +22,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
@@ -145,9 +144,9 @@ public final class ProjectManager {
      * return the referenced projects of current project.
      */
     public List<Project> getReferencedProjects() {
-        if (this.referencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
-            retrieveReferencedProjects();
-        }
+        // if (this.referencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
+        retrieveReferencedProjects();
+        // }
         return this.referencedprojects;
     }
 
@@ -156,21 +155,20 @@ public final class ProjectManager {
      * return all the referenced projects of current project.
      */
     public List<Project> getAllReferencedProjects() {
-        if (this.allReferencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
-            allReferencedprojects.clear();
-            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-            if (factory != null) {
-                List<org.talend.core.model.properties.Project> rProjects = factory
-                        .getReferencedProjects(this.getCurrentProject());
-                if (rProjects != null) {
-                    for (org.talend.core.model.properties.Project p : rProjects) {
-                        Project project = new Project(p);
-                        allReferencedprojects.add(project);
-                        resolveSubRefProject(p);
-                    }
+        // if (this.allReferencedprojects.isEmpty() || CommonsPlugin.isHeadless()) {
+        allReferencedprojects.clear();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        if (factory != null) {
+            List<org.talend.core.model.properties.Project> rProjects = factory.getReferencedProjects(this.getCurrentProject());
+            if (rProjects != null) {
+                for (org.talend.core.model.properties.Project p : rProjects) {
+                    Project project = new Project(p);
+                    allReferencedprojects.add(project);
+                    resolveSubRefProject(p);
                 }
             }
         }
+        // }
         return this.allReferencedprojects;
     }
 
