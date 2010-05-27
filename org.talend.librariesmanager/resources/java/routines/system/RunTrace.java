@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class RunTrace implements Runnable {
 
@@ -53,6 +57,8 @@ public class RunTrace implements Runnable {
     }
 
     private java.util.concurrent.ConcurrentHashMap<String, TraceBean> processTraces = new java.util.concurrent.ConcurrentHashMap<String, TraceBean>();
+
+    private Map<String, String> subjobMap = new HashMap<String, String>();
 
     private java.net.Socket s;
 
@@ -124,11 +130,24 @@ public class RunTrace implements Runnable {
 
     private String componentName = "";
 
-    public void sendTrace(String componentId, String datas) {
+    public void sendTrace(String componentId, String startNodeCid, String datas) {
         if (!openSocket) {
             return;
         }
-        if (processTraces.size() > 1) { // if the connections are more than one, will check
+        subjobMap.put(componentId, startNodeCid);
+        Iterator<Entry<String, String>> ite = subjobMap.entrySet().iterator();
+        boolean sameSub = false;
+        while (ite.hasNext()) {
+            Entry<String, String> en = ite.next();
+            if (en.getKey().equals(componentId)) {
+                continue;
+            }
+            if (en.getValue().equals(startNodeCid)) {
+                sameSub = true;
+                break;
+            }
+        }
+        if (sameSub && processTraces.size() > 1) { // if the connections are more than one, will check
             if (componentId.equals(componentName)) {
                 return;
             }
