@@ -44,11 +44,14 @@ public final class ParameterValueUtil {
         if (param == null || oldName == null || newName == null) {
             return;
         }
+        boolean flag = true;
+        if (param.getField() == EParameterFieldType.MEMO_SQL)
+            flag = false;
         if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
             String value = (String) param.getValue();
             if (value.contains(oldName)) {
                 // param.setValue(value.replaceAll(oldName, newName));
-                String newValue = renameValues(value, oldName, newName);
+                String newValue = renameValues(value, oldName, newName, flag);
                 if (!value.equals(newValue)) {
                     param.setValue(newValue);
                 }
@@ -65,7 +68,7 @@ public final class ParameterValueUtil {
                         if (value.contains(oldName)) {
                             // line.put(key, value.replaceAll(oldName,
                             // newName));
-                            String newValue = renameValues(value, oldName, newName);
+                            String newValue = renameValues(value, oldName, newName, flag);
                             if (!value.equals(newValue)) {
                                 line.put(key, newValue);
                             }
@@ -76,7 +79,7 @@ public final class ParameterValueUtil {
         }
     }
 
-    public static String renameValues(final String value, final String oldName, final String newName) {
+    public static String renameValues(final String value, final String oldName, final String newName, boolean flag) {
         if (value == null || oldName == null || newName == null) {
             return value; // keep original value
         }
@@ -95,7 +98,7 @@ public final class ParameterValueUtil {
         if (matcher.contains(value, pattern)) {
             // replace
             String returnValue = "";
-            if (value.contains("\"")) {
+            if (value.contains(TalendTextUtils.getQuoteChar()) && !flag) {
                 returnValue = splitQueryData(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
             } else {
                 returnValue = Util.substitute(matcher, pattern, substitution, value, Util.SUBSTITUTE_ALL);
