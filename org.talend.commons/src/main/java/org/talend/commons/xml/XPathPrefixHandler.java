@@ -196,17 +196,18 @@ public class XPathPrefixHandler {
                 if (!paths[i].resolved) {
                     // several node with same name
                     List<NodeInfo> nodes = nameNodesMap.get(paths[i].originalPath);
-                    for (NodeInfo node : nodes) {
-                        if (validatePath(paths, i, node)) {
-                            fixed++;
-                            totalFixed++;
-                            paths[i].resolved = true;
-                            paths[i].info = node;
-                            paths[i].transformPath = getQualifiedName(namespaceContext.getPrefix(node.namespace),
-                                    paths[i].originalPath);
-                            break;
+                    if (nodes != null)
+                        for (NodeInfo node : nodes) {
+                            if (validatePath(paths, i, node)) {
+                                fixed++;
+                                totalFixed++;
+                                paths[i].resolved = true;
+                                paths[i].info = node;
+                                paths[i].transformPath = getQualifiedName(namespaceContext.getPrefix(node.namespace),
+                                        paths[i].originalPath);
+                                break;
+                            }
                         }
-                    }
                 }
             }
             if (fixed == 0) {
@@ -243,8 +244,10 @@ public class XPathPrefixHandler {
                 continue;
             }
             List<NodeInfo> nodes = nameNodesMap.get(paths[i].originalPath);
-            paths[i].transformPath = namespaceContext.getPrefix(nodes.get(0).namespace) + ":" + paths[i].originalPath; //$NON-NLS-1$
-            paths[i].resolved = true;
+            if (nodes != null) {
+                paths[i].transformPath = namespaceContext.getPrefix(nodes.get(0).namespace) + ":" + paths[i].originalPath; //$NON-NLS-1$
+                paths[i].resolved = true;
+            }
         }
 
     }
