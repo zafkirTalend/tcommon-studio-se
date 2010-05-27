@@ -82,6 +82,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     private String groupId;
 
+    private String neededVersion;
+
     public boolean isEditAction() {
         return editAction;
     }
@@ -149,6 +151,24 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      */
     public Class getClassForDoubleClick() {
         return null;
+    }
+
+    /**
+     * Getter for neededVersion.
+     * 
+     * @return the neededVersion
+     */
+    public String getNeededVersion() {
+        return this.neededVersion;
+    }
+
+    /**
+     * Sets the neededVersion.
+     * 
+     * @param neededVersion the neededVersion to set
+     */
+    public void setNeededVersion(String neededVersion) {
+        this.neededVersion = neededVersion;
     }
 
     /**

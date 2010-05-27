@@ -139,12 +139,19 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private static final boolean NEED_CANCEL_BUTTON = true;
 
+    private String lastVersionFound;
+
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
-        this(pageName, property, destinationPath, false, true);
+        this(pageName, property, destinationPath, false, true, null);
     }
 
     protected PropertiesWizardPage(String pageName, final Property property, IPath destinationPath, boolean readOnly,
             boolean editPath) {
+        this(pageName, property, destinationPath, false, true, null);
+    }
+
+    protected PropertiesWizardPage(String pageName, final Property property, IPath destinationPath, boolean readOnly,
+            boolean editPath, String lastVersionFound) {
         super(pageName);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
@@ -156,6 +163,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
         nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
         commentStatus = createOkStatus();
+
+        this.lastVersionFound = lastVersionFound;
 
         Job job = new Job("") { //$NON-NLS-1$
 
@@ -176,7 +185,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         job.schedule(); // start as soon as possible
 
         this.property = property;
-
     }
 
     protected boolean isReadOnly() {
@@ -819,6 +827,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 String version = property.getVersion();
+                if (lastVersionFound != null && VersionUtils.compareTo(lastVersionFound, version) > 0) {
+                    version = lastVersionFound;
+                }
                 version = VersionUtils.upMajor(version);
                 versionText.setText(version);
                 property.setVersion(version);
@@ -832,6 +843,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 String version = property.getVersion();
+                if (lastVersionFound != null && VersionUtils.compareTo(lastVersionFound, version) > 0) {
+                    version = lastVersionFound;
+                }
                 version = VersionUtils.upMinor(version);
                 versionText.setText(version);
                 property.setVersion(version);
