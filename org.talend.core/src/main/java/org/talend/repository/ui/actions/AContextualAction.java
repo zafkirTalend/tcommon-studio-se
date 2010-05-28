@@ -512,11 +512,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
             @Override
             protected void run() throws LoginException, PersistenceException {
                 updateNodeToLastVersion();
+                doRun();
             }
         };
         CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
-        // fixed for 13285
-        doRun();
     }
 
     protected abstract void doRun();

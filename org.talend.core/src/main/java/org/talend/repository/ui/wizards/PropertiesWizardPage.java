@@ -147,7 +147,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected PropertiesWizardPage(String pageName, final Property property, IPath destinationPath, boolean readOnly,
             boolean editPath) {
-        this(pageName, property, destinationPath, false, true, null);
+        this(pageName, property, destinationPath, readOnly, true, null);
     }
 
     protected PropertiesWizardPage(String pageName, final Property property, IPath destinationPath, boolean readOnly,

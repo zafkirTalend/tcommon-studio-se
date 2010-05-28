@@ -31,8 +31,10 @@ public abstract class RepositoryWorkUnit<T> {
 
     private PersistenceException persistenceException;
 
-    private Object startingPoint;    
-    
+    private Object startingPoint;
+
+    private boolean forceTransaction;
+
     public Object getStartingPoint() {
         return startingPoint;
     }
@@ -49,7 +51,7 @@ public abstract class RepositoryWorkUnit<T> {
         this(name);
         this.startingPoint = startingPoint;
     }
-    
+
     public RepositoryWorkUnit(Project project, String name) {
         this.project = project;
         this.name = name;
@@ -93,5 +95,13 @@ public abstract class RepositoryWorkUnit<T> {
         if (persistenceException != null) {
             throw persistenceException;
         }
+    }
+
+    public boolean isForceTransaction() {
+        return this.forceTransaction;
+    }
+
+    public void setForceTransaction(boolean forceTransaction) {
+        this.forceTransaction = forceTransaction;
     }
 }
