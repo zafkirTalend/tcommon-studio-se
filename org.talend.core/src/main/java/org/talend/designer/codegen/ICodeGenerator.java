@@ -13,7 +13,6 @@
 package org.talend.designer.codegen;
 
 import org.talend.commons.exception.SystemException;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.temp.ECodePart;
@@ -32,7 +31,7 @@ public interface ICodeGenerator {
      * @return
      * @throws CodeGeneratorException
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public String generateProcessCode() throws SystemException;
 
     /**
@@ -50,7 +49,7 @@ public interface ICodeGenerator {
      * @throws CoreException
      */
     public String generateComponentCode(INode node, ECodePart part) throws SystemException;
-    
+
     /**
      * Generate Part Code for a given node, with optional nodeConfigurer.
      * 
@@ -59,5 +58,7 @@ public interface ICodeGenerator {
      * @return generated code
      */
     public String generateComponentCodeWithRows(String nodeName, IAloneProcessNodeConfigurer nodeConfigurer);
+
+    public void setContextName(String contextName);
 
 }
