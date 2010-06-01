@@ -78,7 +78,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ItemState/locker"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemState/lockDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemState/commitDate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemState/runningFromRep"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//Property">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/id"/>
@@ -512,6 +511,12 @@
     <genClasses ecoreClass="properties.ecore#//TDQItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TDQItem/filename"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//TDQAnalysisItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQReportItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQDBConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQMDMConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQIndicatorItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQBusinessRuleItem"/>
     <genClasses ecoreClass="properties.ecore#//LinkRulesItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/extension"/>
@@ -533,5 +538,28 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/enabled"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//HL7ConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//ExecutionPlan"/>
+    <genClasses ecoreClass="properties.ecore#//ExecutionPlanItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanItem/id"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlanItem/executionTask"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlanItem/executionPlan"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlanItem/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanItem/actionType"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ExecutionPlanPrm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPrm/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPrm/active"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlanPrm/executionPlan"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPrm/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPrm/value"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ExecutionPlanTrigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanTrigger/idQuartzJob"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanTrigger/status"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanTrigger/errorStatus"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlanTrigger/triggers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanTrigger/concurrentExecution"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanTrigger/processingState"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

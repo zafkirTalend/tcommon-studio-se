@@ -322,6 +322,18 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
                 return createHL7ConnectionItemAdapter();
             }
+            public Object caseExecutionPlan(ExecutionPlan object) {
+                return createExecutionPlanAdapter();
+            }
+            public Object caseExecutionPlanItem(ExecutionPlanItem object) {
+                return createExecutionPlanItemAdapter();
+            }
+            public Object caseExecutionPlanPrm(ExecutionPlanPrm object) {
+                return createExecutionPlanPrmAdapter();
+            }
+            public Object caseExecutionPlanTrigger(ExecutionPlanTrigger object) {
+                return createExecutionPlanTriggerAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1499,6 +1511,62 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createHL7ConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionPlan
+     * @generated
+     */
+    public Adapter createExecutionPlanAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionPlanItem <em>Execution Plan Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionPlanItem
+     * @generated
+     */
+    public Adapter createExecutionPlanItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionPlanPrm <em>Execution Plan Prm</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm
+     * @generated
+     */
+    public Adapter createExecutionPlanPrmAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionPlanTrigger <em>Execution Plan Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger
+     * @generated
+     */
+    public Adapter createExecutionPlanTriggerAdapter() {
         return null;
     }
 

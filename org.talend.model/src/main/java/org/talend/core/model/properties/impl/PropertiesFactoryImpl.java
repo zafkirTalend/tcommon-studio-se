@@ -171,6 +171,10 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.ITEM_RELATION: return createItemRelation();
             case PropertiesPackage.NOTIFICATION: return createNotification();
             case PropertiesPackage.HL7_CONNECTION_ITEM: return createHL7ConnectionItem();
+            case PropertiesPackage.EXECUTION_PLAN: return createExecutionPlan();
+            case PropertiesPackage.EXECUTION_PLAN_ITEM: return createExecutionPlanItem();
+            case PropertiesPackage.EXECUTION_PLAN_PRM: return createExecutionPlanPrm();
+            case PropertiesPackage.EXECUTION_PLAN_TRIGGER: return createExecutionPlanTrigger();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -983,6 +987,46 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public HL7ConnectionItem createHL7ConnectionItem() {
         HL7ConnectionItemImpl hl7ConnectionItem = new HL7ConnectionItemImpl();
         return hl7ConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlan createExecutionPlan() {
+        ExecutionPlanImpl executionPlan = new ExecutionPlanImpl();
+        return executionPlan;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanItem createExecutionPlanItem() {
+        ExecutionPlanItemImpl executionPlanItem = new ExecutionPlanItemImpl();
+        return executionPlanItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanPrm createExecutionPlanPrm() {
+        ExecutionPlanPrmImpl executionPlanPrm = new ExecutionPlanPrmImpl();
+        return executionPlanPrm;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionPlanTrigger createExecutionPlanTrigger() {
+        ExecutionPlanTriggerImpl executionPlanTrigger = new ExecutionPlanTriggerImpl();
+        return executionPlanTrigger;
     }
 
     /**

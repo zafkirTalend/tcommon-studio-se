@@ -724,6 +724,42 @@ public interface PropertiesFactory extends EFactory {
     HL7ConnectionItem createHL7ConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Execution Plan</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Plan</em>'.
+     * @generated
+     */
+    ExecutionPlan createExecutionPlan();
+
+    /**
+     * Returns a new object of class '<em>Execution Plan Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Plan Item</em>'.
+     * @generated
+     */
+    ExecutionPlanItem createExecutionPlanItem();
+
+    /**
+     * Returns a new object of class '<em>Execution Plan Prm</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Plan Prm</em>'.
+     * @generated
+     */
+    ExecutionPlanPrm createExecutionPlanPrm();
+
+    /**
+     * Returns a new object of class '<em>Execution Plan Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Plan Trigger</em>'.
+     * @generated
+     */
+    ExecutionPlanTrigger createExecutionPlanTrigger();
+
+    /**
      * Returns a new object of class '<em>Task Execution History</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

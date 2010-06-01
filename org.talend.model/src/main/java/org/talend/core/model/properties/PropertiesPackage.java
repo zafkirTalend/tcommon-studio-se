@@ -6119,6 +6119,676 @@ public interface PropertiesPackage extends EPackage {
     int HL7_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlan()
+     * @generated
+     */
+    int EXECUTION_PLAN = 84;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ID = EXECUTION_TASK__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LABEL = EXECUTION_TASK__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__DESCRIPTION = EXECUTION_TASK__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Execution Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__EXECUTION_SERVER = EXECUTION_TASK__EXECUTION_SERVER;
+
+    /**
+     * The feature id for the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__PROJECT = EXECUTION_TASK__PROJECT;
+
+    /**
+     * The feature id for the '<em><b>Branch</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__BRANCH = EXECUTION_TASK__BRANCH;
+
+    /**
+     * The feature id for the '<em><b>Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__CONTEXT = EXECUTION_TASK__CONTEXT;
+
+    /**
+     * The feature id for the '<em><b>Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__JOB_VERSION = EXECUTION_TASK__JOB_VERSION;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ACTIVE = EXECUTION_TASK__ACTIVE;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ID_QUARTZ_JOB = EXECUTION_TASK__ID_QUARTZ_JOB;
+
+    /**
+     * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LAST_SCRIPT_GENERATION_DATE = EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE;
+
+    /**
+     * The feature id for the '<em><b>Generated Svn Revision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__GENERATED_SVN_REVISION = EXECUTION_TASK__GENERATED_SVN_REVISION;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ID_REMOTE_JOB = EXECUTION_TASK__ID_REMOTE_JOB;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ID_REMOTE_JOB_EXECUTION = EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION;
+
+    /**
+     * The feature id for the '<em><b>Checksum Archive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__CHECKSUM_ARCHIVE = EXECUTION_TASK__CHECKSUM_ARCHIVE;
+
+    /**
+     * The feature id for the '<em><b>Job Script Archive Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__JOB_SCRIPT_ARCHIVE_FILENAME = EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__STATUS = EXECUTION_TASK__STATUS;
+
+    /**
+     * The feature id for the '<em><b>Processing State</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__PROCESSING_STATE = EXECUTION_TASK__PROCESSING_STATE;
+
+    /**
+     * The feature id for the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ERROR_STATUS = EXECUTION_TASK__ERROR_STATUS;
+
+    /**
+     * The feature id for the '<em><b>Last Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LAST_RUN_DATE = EXECUTION_TASK__LAST_RUN_DATE;
+
+    /**
+     * The feature id for the '<em><b>Last Deployment Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LAST_DEPLOYMENT_DATE = EXECUTION_TASK__LAST_DEPLOYMENT_DATE;
+
+    /**
+     * The feature id for the '<em><b>Last Ended Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LAST_ENDED_RUN_DATE = EXECUTION_TASK__LAST_ENDED_RUN_DATE;
+
+    /**
+     * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__TRIGGERS = EXECUTION_TASK__TRIGGERS;
+
+    /**
+     * The feature id for the '<em><b>Cmd Prms</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__CMD_PRMS = EXECUTION_TASK__CMD_PRMS;
+
+    /**
+     * The feature id for the '<em><b>Job Prms</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__JOB_PRMS = EXECUTION_TASK__JOB_PRMS;
+
+    /**
+     * The feature id for the '<em><b>Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__JOB_ID = EXECUTION_TASK__JOB_ID;
+
+    /**
+     * The feature id for the '<em><b>Virtual Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__VIRTUAL_SERVER = EXECUTION_TASK__VIRTUAL_SERVER;
+
+    /**
+     * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__CONCURRENT_EXECUTION = EXECUTION_TASK__CONCURRENT_EXECUTION;
+
+    /**
+     * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__MAX_CONCURRENT_EXECUTIONS = EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS;
+
+    /**
+     * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__GENERATED_PROJECT_NAME = EXECUTION_TASK__GENERATED_PROJECT_NAME;
+
+    /**
+     * The feature id for the '<em><b>Generated Job Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__GENERATED_JOB_NAME = EXECUTION_TASK__GENERATED_JOB_NAME;
+
+    /**
+     * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__APPLY_CONTEXT_TO_CHILDREN = EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN;
+
+    /**
+     * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ERROR_STACK_TRACE = EXECUTION_TASK__ERROR_STACK_TRACE;
+
+    /**
+     * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LAST_TRIGGERING_DATE = EXECUTION_TASK__LAST_TRIGGERING_DATE;
+
+    /**
+     * The feature id for the '<em><b>Exec Statistics Enabled</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__EXEC_STATISTICS_ENABLED = EXECUTION_TASK__EXEC_STATISTICS_ENABLED;
+
+    /**
+     * The feature id for the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ADD_STATISTICS_CODE_ENABLED = EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED;
+
+    /**
+     * The feature id for the '<em><b>Owner Scheduler Instance Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__OWNER_SCHEDULER_INSTANCE_ID = EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID;
+
+    /**
+     * The number of structural features of the '<em>Execution Plan</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_FEATURE_COUNT = EXECUTION_TASK_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanItemImpl <em>Execution Plan Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanItem()
+     * @generated
+     */
+    int EXECUTION_PLAN_ITEM = 85;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_ITEM__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_ITEM__EXECUTION_TASK = 1;
+
+    /**
+     * The feature id for the '<em><b>Execution Plan</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_ITEM__EXECUTION_PLAN = 2;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_ITEM__PARENT = 3;
+
+    /**
+     * The feature id for the '<em><b>Action Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_ITEM__ACTION_TYPE = 4;
+
+    /**
+     * The number of structural features of the '<em>Execution Plan Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_ITEM_FEATURE_COUNT = 5;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanPrmImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPrm()
+     * @generated
+     */
+    int EXECUTION_PLAN_PRM = 86;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PRM__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PRM__ACTIVE = 1;
+
+    /**
+     * The feature id for the '<em><b>Execution Plan</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PRM__EXECUTION_PLAN = 2;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PRM__NAME = 3;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PRM__VALUE = 4;
+
+    /**
+     * The number of structural features of the '<em>Execution Plan Prm</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PRM_FEATURE_COUNT = 5;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanTriggerImpl <em>Execution Plan Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionPlanTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanTrigger()
+     * @generated
+     */
+    int EXECUTION_PLAN_TRIGGER = 87;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__ID = TALEND_TRIGGER__ID;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__ACTIVE = TALEND_TRIGGER__ACTIVE;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__LABEL = TALEND_TRIGGER__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__DESCRIPTION = TALEND_TRIGGER__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
+
+    /**
+     * The feature id for the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__START_TIME = TALEND_TRIGGER__START_TIME;
+
+    /**
+     * The feature id for the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__END_TIME = TALEND_TRIGGER__END_TIME;
+
+    /**
+     * The feature id for the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__PREVIOUS_FIRE_TIME = TALEND_TRIGGER__PREVIOUS_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__ID_QUARTZ_TRIGGER = TALEND_TRIGGER__ID_QUARTZ_TRIGGER;
+
+    /**
+     * The feature id for the '<em><b>Resume Pause Updated</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__RESUME_PAUSE_UPDATED = TALEND_TRIGGER__RESUME_PAUSE_UPDATED;
+
+    /**
+     * The feature id for the '<em><b>Previously Paused</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__PREVIOUSLY_PAUSED = TALEND_TRIGGER__PREVIOUSLY_PAUSED;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__ID_QUARTZ_JOB = TALEND_TRIGGER_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__STATUS = TALEND_TRIGGER_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__ERROR_STATUS = TALEND_TRIGGER_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__TRIGGERS = TALEND_TRIGGER_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__CONCURRENT_EXECUTION = TALEND_TRIGGER_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Processing State</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER__PROCESSING_STATE = TALEND_TRIGGER_FEATURE_COUNT + 5;
+
+    /**
+     * The number of structural features of the '<em>Execution Plan Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 6;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -6126,7 +6796,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 84;
+    int FOLDER_TYPE = 88;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -6135,7 +6805,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 85;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 89;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -6144,7 +6814,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 86;
+    int USER_MODULE_AUTHORIZATION_TYPE = 90;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -6153,7 +6823,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 87;
+    int INFORMATION_LEVEL = 91;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -10291,6 +10961,222 @@ public interface PropertiesPackage extends EPackage {
     EClass getHL7ConnectionItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Plan</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlan
+     * @generated
+     */
+    EClass getExecutionPlan();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanItem <em>Execution Plan Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Plan Item</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanItem
+     * @generated
+     */
+    EClass getExecutionPlanItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanItem#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanItem#getId()
+     * @see #getExecutionPlanItem()
+     * @generated
+     */
+    EAttribute getExecutionPlanItem_Id();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionPlanItem#getExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanItem#getExecutionTask()
+     * @see #getExecutionPlanItem()
+     * @generated
+     */
+    EReference getExecutionPlanItem_ExecutionTask();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionPlanItem#getExecutionPlan <em>Execution Plan</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Execution Plan</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanItem#getExecutionPlan()
+     * @see #getExecutionPlanItem()
+     * @generated
+     */
+    EReference getExecutionPlanItem_ExecutionPlan();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionPlanItem#getParent <em>Parent</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Parent</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanItem#getParent()
+     * @see #getExecutionPlanItem()
+     * @generated
+     */
+    EReference getExecutionPlanItem_Parent();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanItem#getActionType <em>Action Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Action Type</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanItem#getActionType()
+     * @see #getExecutionPlanItem()
+     * @generated
+     */
+    EAttribute getExecutionPlanItem_ActionType();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanPrm <em>Execution Plan Prm</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Plan Prm</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm
+     * @generated
+     */
+    EClass getExecutionPlanPrm();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPrm#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm#getId()
+     * @see #getExecutionPlanPrm()
+     * @generated
+     */
+    EAttribute getExecutionPlanPrm_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPrm#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm#isActive()
+     * @see #getExecutionPlanPrm()
+     * @generated
+     */
+    EAttribute getExecutionPlanPrm_Active();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionPlanPrm#getExecutionPlan <em>Execution Plan</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Execution Plan</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm#getExecutionPlan()
+     * @see #getExecutionPlanPrm()
+     * @generated
+     */
+    EReference getExecutionPlanPrm_ExecutionPlan();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPrm#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm#getName()
+     * @see #getExecutionPlanPrm()
+     * @generated
+     */
+    EAttribute getExecutionPlanPrm_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPrm#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPrm#getValue()
+     * @see #getExecutionPlanPrm()
+     * @generated
+     */
+    EAttribute getExecutionPlanPrm_Value();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanTrigger <em>Execution Plan Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Plan Trigger</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger
+     * @generated
+     */
+    EClass getExecutionPlanTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanTrigger#getIdQuartzJob <em>Id Quartz Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Quartz Job</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger#getIdQuartzJob()
+     * @see #getExecutionPlanTrigger()
+     * @generated
+     */
+    EAttribute getExecutionPlanTrigger_IdQuartzJob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanTrigger#getStatus <em>Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Status</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger#getStatus()
+     * @see #getExecutionPlanTrigger()
+     * @generated
+     */
+    EAttribute getExecutionPlanTrigger_Status();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanTrigger#getErrorStatus <em>Error Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Error Status</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger#getErrorStatus()
+     * @see #getExecutionPlanTrigger()
+     * @generated
+     */
+    EAttribute getExecutionPlanTrigger_ErrorStatus();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionPlanTrigger#getTriggers <em>Triggers</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Triggers</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger#getTriggers()
+     * @see #getExecutionPlanTrigger()
+     * @generated
+     */
+    EReference getExecutionPlanTrigger_Triggers();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanTrigger#isConcurrentExecution <em>Concurrent Execution</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Concurrent Execution</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger#isConcurrentExecution()
+     * @see #getExecutionPlanTrigger()
+     * @generated
+     */
+    EAttribute getExecutionPlanTrigger_ConcurrentExecution();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanTrigger#isProcessingState <em>Processing State</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Processing State</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanTrigger#isProcessingState()
+     * @see #getExecutionPlanTrigger()
+     * @generated
+     */
+    EAttribute getExecutionPlanTrigger_ProcessingState();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Extension</em>'.
@@ -14194,6 +15080,174 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass HL7_CONNECTION_ITEM = eINSTANCE.getHL7ConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionPlanImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlan()
+         * @generated
+         */
+        EClass EXECUTION_PLAN = eINSTANCE.getExecutionPlan();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanItemImpl <em>Execution Plan Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionPlanItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanItem()
+         * @generated
+         */
+        EClass EXECUTION_PLAN_ITEM = eINSTANCE.getExecutionPlanItem();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_ITEM__ID = eINSTANCE.getExecutionPlanItem_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_PLAN_ITEM__EXECUTION_TASK = eINSTANCE.getExecutionPlanItem_ExecutionTask();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Plan</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_PLAN_ITEM__EXECUTION_PLAN = eINSTANCE.getExecutionPlanItem_ExecutionPlan();
+
+        /**
+         * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_PLAN_ITEM__PARENT = eINSTANCE.getExecutionPlanItem_Parent();
+
+        /**
+         * The meta object literal for the '<em><b>Action Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_ITEM__ACTION_TYPE = eINSTANCE.getExecutionPlanItem_ActionType();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionPlanPrmImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanPrm()
+         * @generated
+         */
+        EClass EXECUTION_PLAN_PRM = eINSTANCE.getExecutionPlanPrm();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PRM__ID = eINSTANCE.getExecutionPlanPrm_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PRM__ACTIVE = eINSTANCE.getExecutionPlanPrm_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Plan</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_PLAN_PRM__EXECUTION_PLAN = eINSTANCE.getExecutionPlanPrm_ExecutionPlan();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PRM__NAME = eINSTANCE.getExecutionPlanPrm_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PRM__VALUE = eINSTANCE.getExecutionPlanPrm_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanTriggerImpl <em>Execution Plan Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionPlanTriggerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionPlanTrigger()
+         * @generated
+         */
+        EClass EXECUTION_PLAN_TRIGGER = eINSTANCE.getExecutionPlanTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>Id Quartz Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_TRIGGER__ID_QUARTZ_JOB = eINSTANCE.getExecutionPlanTrigger_IdQuartzJob();
+
+        /**
+         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_TRIGGER__STATUS = eINSTANCE.getExecutionPlanTrigger_Status();
+
+        /**
+         * The meta object literal for the '<em><b>Error Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_TRIGGER__ERROR_STATUS = eINSTANCE.getExecutionPlanTrigger_ErrorStatus();
+
+        /**
+         * The meta object literal for the '<em><b>Triggers</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_PLAN_TRIGGER__TRIGGERS = eINSTANCE.getExecutionPlanTrigger_Triggers();
+
+        /**
+         * The meta object literal for the '<em><b>Concurrent Execution</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_TRIGGER__CONCURRENT_EXECUTION = eINSTANCE.getExecutionPlanTrigger_ConcurrentExecution();
+
+        /**
+         * The meta object literal for the '<em><b>Processing State</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_TRIGGER__PROCESSING_STATE = eINSTANCE.getExecutionPlanTrigger_ProcessingState();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.

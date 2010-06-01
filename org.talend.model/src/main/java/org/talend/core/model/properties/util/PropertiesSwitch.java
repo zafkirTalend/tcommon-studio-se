@@ -731,6 +731,32 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.EXECUTION_PLAN: {
+                ExecutionPlan executionPlan = (ExecutionPlan)theEObject;
+                Object result = caseExecutionPlan(executionPlan);
+                if (result == null) result = caseExecutionTask(executionPlan);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_ITEM: {
+                ExecutionPlanItem executionPlanItem = (ExecutionPlanItem)theEObject;
+                Object result = caseExecutionPlanItem(executionPlanItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PRM: {
+                ExecutionPlanPrm executionPlanPrm = (ExecutionPlanPrm)theEObject;
+                Object result = caseExecutionPlanPrm(executionPlanPrm);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_TRIGGER: {
+                ExecutionPlanTrigger executionPlanTrigger = (ExecutionPlanTrigger)theEObject;
+                Object result = caseExecutionPlanTrigger(executionPlanTrigger);
+                if (result == null) result = caseTalendTrigger(executionPlanTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1879,6 +1905,66 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionPlan(ExecutionPlan object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionPlanItem(ExecutionPlanItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Prm</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan Prm</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionPlanPrm(ExecutionPlanPrm object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionPlanTrigger(ExecutionPlanTrigger object) {
         return null;
     }
 
