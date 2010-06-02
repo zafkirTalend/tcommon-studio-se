@@ -47,7 +47,7 @@ public class FormatterUtils {
         } else {
             result = s.substring(0, decimalIndex);
         }
-        
+
         if (decimalSeparator != null) {
             result += (s.substring(decimalIndex)).replace('.', decimalSeparator);
         } else {
@@ -68,5 +68,50 @@ public class FormatterUtils {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Bug 13352 by nsun: always return the format using "." for decimal separator.
+     */
+    public static String unformat_Number(String s, Character thousandsSeparator, Character decimalSeparator) {
+        if (s == null) {
+            return null;
+        }
+        String result = s;
+        int decimalIndex = s.indexOf(decimalSeparator);
+        if (decimalIndex == -1) {
+            if (thousandsSeparator != null) {
+                return unformatNumber(result, thousandsSeparator);
+            } else {
+                return result;
+            }
+        }
+        if (thousandsSeparator != null) {
+            result = unformatNumber(s.substring(0, decimalIndex), thousandsSeparator);
+        } else {
+            result = s.substring(0, decimalIndex);
+        }
+
+        if (decimalSeparator != null) {
+            if ("\\.".equals(decimalSeparator)) {
+                result += (s.substring(decimalIndex)).replace(thousandsSeparator, decimalSeparator);
+            } else {
+                result += (s.substring(decimalIndex)).replace(decimalSeparator, '.');
+            }
+        } else {
+            result += s.substring(decimalIndex);
+        }
+        return result;
+    }
+
+    private static String unformatNumber(String str, Character thousandsSeparator) {
+        StringBuilder returnString = new StringBuilder();
+        String separator = thousandsSeparator.toString();
+        if (".".equals(separator))
+            separator = "\\.";
+        String[] s = str.split(separator);
+        for (String part : s)
+            returnString.append(part);
+        return returnString.toString();
     }
 }
