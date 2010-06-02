@@ -12,7 +12,8 @@ $ENV{'LANG'} = "en_US.utf8";
 $ENV{'LC_ALL'}="en_US.utf8";
 
 my $svncommand = "/usr/bin/svn";
-
+# MOD scorreia-2010-06-02 project folder added to svn path
+my $folder="tos";
 
 #check svn version
 my $svnversioncommand = $svncommand." --version";
@@ -109,7 +110,8 @@ if ($to eq $from) {
 #do merge
 for my $rev (@revs) {
     #log
-    my $msglogcommand = $svncommand." log -r".$rev." ".$rooturl;
+    # MOD scorreia-2010-06-02 project folder added to svn path    
+    my $msglogcommand = $svncommand." log -r".$rev." ".$rooturl."/".$folder;
     my $msglog = `$msglogcommand`;
     my @msgloglines = split("\n", $msglog);
     open(LOGFILE, ">", $logfile) || die "cannot open file $logfile";
@@ -121,7 +123,8 @@ for my $rev (@revs) {
     close(LOGFILE);
 
     #modified files
-    my $pathlogcommand = $svncommand." log --xml -v -r".$rev." ".$rooturl;
+    # MOD scorreia-2010-06-02 project folder added to svn path
+    my $pathlogcommand = $svncommand." log --xml -v -r".$rev." ".$rooturl."/".$folder;
     my @files;
     my $pathlog = `$pathlogcommand`;
     while($pathlog =~ m{<path[^>]+>([^<]+)</path>}g) {
@@ -135,7 +138,8 @@ for my $rev (@revs) {
     
     #checkout root
     unless(-d $rootpath) {
-	my $checkoutcommand = $svncommand." checkout -N ".$rooturl." ".$rootpath;
+        # MOD scorreia-2010-06-02 project folder added to svn path
+	my $checkoutcommand = $svncommand." checkout -N ".$rooturl."/".$folder." ".$rootpath."/".$folder;
 	print $checkoutcommand, "\n";
 	system $checkoutcommand;
     }
@@ -158,16 +162,13 @@ for my $rev (@revs) {
 	}
     }
 
-    #find relevants reps MOD scorreia 2010-06-01 force one svn folder here
-    my %reps = ( "tos" => "tos" );
-
-# MOD scorreia 2010-06-01 removed the computation of folders
-#    for my $file (@files) {
-#	if ($file =~ m{([^/]+)/}) {
-#	    $reps{$1}++;
-#	}
-#    }    
-# ~
+    #find relevants reps
+    my %reps;
+    for my $file (@files) {
+	if ($file =~ m{([^/]+)/}) {
+	    $reps{$1}++;
+	}
+    }    
 
     #merge
     print "\n--------------------------------------------------\n\n";
@@ -189,16 +190,19 @@ for my $rev (@revs) {
 
 	if ($result eq "c") {
 	    #commit
-	    my $svncommitcommand = $svncommand." commit -F ".$logfile." ".$rootpath;
+            # MOD scorreia-2010-06-02 project folder added to svn path
+	    my $svncommitcommand = $svncommand." commit -F ".$logfile." ".$rootpath."/".$folder;
 	    print $svncommitcommand, "\n";
 	    system $svncommitcommand;
 	    $continue = 0;
 	} elsif ($result eq "s") {
-	    my $statuscommand = $svncommand." status ".$rootpath;
+            # MOD scorreia-2010-06-02 project folder added to svn path
+	    my $statuscommand = $svncommand." status ".$rootpath."/".$folder;
 	    print $statuscommand, "\n";
 	    system($statuscommand);
 	} elsif ($result eq "r") {
-	    my $revertcommand = $svncommand." revert -R ".$rootpath;
+            # MOD scorreia-2010-06-02 project folder added to svn path
+	    my $revertcommand = $svncommand." revert -R ".$rootpath."/".$folder;
 	    print $revertcommand, "\n";
 	    system($revertcommand);
 	} elsif ($result eq "m") {
@@ -217,11 +221,13 @@ for my $rev (@revs) {
             close($logfile_ifh);
             print "--------------------------------------------------\n\n";
 	} elsif ($result eq "d") {
-	    my $diffcommand = $svncommand." diff ".$rootpath;
+            # MOD scorreia-2010-06-02 project folder added to svn path
+	    my $diffcommand = $svncommand." diff ".$rootpath."/".$folder;
 	    print $diffcommand, "\n";
 	    system($diffcommand);
 	} elsif ($result eq "k") {
-	    my $diffcommand = $svncommand." diff ".$rootpath." | kompare -";
+            # MOD scorreia-2010-06-02 project folder added to svn path
+	    my $diffcommand = $svncommand." diff ".$rootpath."/".$folder." | kompare -";
 	    print $diffcommand, "\n";
 	    system($diffcommand);
         }
