@@ -409,7 +409,7 @@ public class TalendTextUtils {
 
     private static boolean isLeft = true;
 
-    private static String getQuoteByDBType(EDatabaseTypeName name) {
+    public static String getQuoteByDBType(EDatabaseTypeName name) {
 
         switch (name) {
         case GODBC:

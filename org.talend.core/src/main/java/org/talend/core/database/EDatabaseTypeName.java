@@ -140,6 +140,24 @@ public enum EDatabaseTypeName {
     }
 
     /**
+     * DOC zli Comment method "getTypeFromProductName".
+     * 
+     * @param productName
+     * @return
+     */
+    public static EDatabaseTypeName getTypeFromProductName(String productName) {
+        if (productName == null) {
+            return MYSQL;
+        }
+        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+            if (typename.getProduct().equals(productName)) {
+                return typename;
+            }
+        }
+        return MYSQL;
+    }
+
+    /**
      * This is only for the component type, not for the repository.
      * 
      * @param dbType
