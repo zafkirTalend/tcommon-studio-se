@@ -10,24 +10,24 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Execution Plan Prm</b></em>'.
+ * A representation of the model object '<em><b>Execution Plan Part Job Prm</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlanPrm#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlanPrm#getExecutionPlan <em>Execution Plan</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlanPrm#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlanPrm#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getExecutionPlanPart <em>Execution Plan Part</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPrm()
+ * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm()
  * @model
  * @generated
  */
-public interface ExecutionPlanPrm extends EObject {
+public interface ExecutionPlanPartJobPrm extends EObject {
     /**
      * Returns the value of the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -38,14 +38,14 @@ public interface ExecutionPlanPrm extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(int)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPrm_Id()
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_Id()
      * @model id="true" required="true"
      * @generated
      */
     int getId();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPrm#getId <em>Id</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getId <em>Id</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Id</em>' attribute.
@@ -55,30 +55,30 @@ public interface ExecutionPlanPrm extends EObject {
     void setId(int value);
 
     /**
-     * Returns the value of the '<em><b>Execution Plan</b></em>' reference.
+     * Returns the value of the '<em><b>Execution Plan Part</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Execution Plan</em>' reference isn't clear,
+     * If the meaning of the '<em>Execution Plan Part</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Execution Plan</em>' reference.
-     * @see #setExecutionPlan(ExecutionPlan)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPrm_ExecutionPlan()
+     * @return the value of the '<em>Execution Plan Part</em>' reference.
+     * @see #setExecutionPlanPart(ExecutionPlanPart)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_ExecutionPlanPart()
      * @model
      * @generated
      */
-    ExecutionPlan getExecutionPlan();
+    ExecutionPlanPart getExecutionPlanPart();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPrm#getExecutionPlan <em>Execution Plan</em>}' reference.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getExecutionPlanPart <em>Execution Plan Part</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Execution Plan</em>' reference.
-     * @see #getExecutionPlan()
+     * @param value the new value of the '<em>Execution Plan Part</em>' reference.
+     * @see #getExecutionPlanPart()
      * @generated
      */
-    void setExecutionPlan(ExecutionPlan value);
+    void setExecutionPlanPart(ExecutionPlanPart value);
 
     /**
      * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -90,14 +90,14 @@ public interface ExecutionPlanPrm extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPrm_Name()
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_Name()
      * @model
      * @generated
      */
     String getName();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPrm#getName <em>Name</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getName <em>Name</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Name</em>' attribute.
@@ -116,14 +116,14 @@ public interface ExecutionPlanPrm extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPrm_Value()
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_Value()
      * @model
      * @generated
      */
     String getValue();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPrm#getValue <em>Value</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue <em>Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Value</em>' attribute.
@@ -132,4 +132,4 @@ public interface ExecutionPlanPrm extends EObject {
      */
     void setValue(String value);
 
-} // ExecutionPlanPrm
+} // ExecutionPlanPartJobPrm

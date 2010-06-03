@@ -48,8 +48,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Link Documentation Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Link Documentation Item</em>'.
      * @generated
      */
@@ -57,8 +56,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Link Type</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Link Type</em>'.
      * @generated
      */
@@ -114,8 +112,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Snippet Variable</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Snippet Variable</em>'.
      * @generated
      */
@@ -123,8 +120,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Snippet Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Snippet Item</em>'.
      * @generated
      */
@@ -149,27 +145,25 @@ public interface PropertiesFactory extends EFactory {
     PositionalFileConnectionItem createPositionalFileConnectionItem();
 
     /**
-     * Returns a new object of class '<em>Reg Ex File Connection Item</em>'.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * Returns a new object of class '<em>Reg Ex File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>Reg Ex File Connection Item</em>'.
      * @generated
      */
     RegExFileConnectionItem createRegExFileConnectionItem();
 
     /**
-     * Returns a new object of class '<em>CSV File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>CSV File Connection Item</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>CSV File Connection Item</em>'.
      * @generated
      */
     CSVFileConnectionItem createCSVFileConnectionItem();
 
     /**
-     * Returns a new object of class '<em>Database Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>Database Connection Item</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Database Connection Item</em>'.
      * @generated
      */
@@ -177,8 +171,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SAP Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>SAP Connection Item</em>'.
      * @generated
      */
@@ -217,9 +210,8 @@ public interface PropertiesFactory extends EFactory {
     Component createComponent();
 
     /**
-     * Returns a new object of class '<em>Xml File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>Xml File Connection Item</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Xml File Connection Item</em>'.
      * @generated
      */
@@ -251,18 +243,17 @@ public interface PropertiesFactory extends EFactory {
     ProjectReference createProjectReference();
 
     /**
-     * Returns a new object of class '<em>Ldif File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>Ldif File Connection Item</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Ldif File Connection Item</em>'.
      * @generated
      */
     LdifFileConnectionItem createLdifFileConnectionItem();
 
     /**
-     * Returns a new object of class '<em>Excel File Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Excel File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>Excel File Connection Item</em>'.
      * @generated
      */
@@ -270,8 +261,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Ebcdic Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Ebcdic Connection Item</em>'.
      * @generated
      */
@@ -279,17 +269,16 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>MDM Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>MDM Connection Item</em>'.
      * @generated
      */
     MDMConnectionItem createMDMConnectionItem();
 
     /**
-     * Returns a new object of class '<em>User Project Authorization</em>'.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * Returns a new object of class '<em>User Project Authorization</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>User Project Authorization</em>'.
      * @generated
      */
@@ -329,18 +318,17 @@ public interface PropertiesFactory extends EFactory {
     GenericSchemaConnectionItem createGenericSchemaConnectionItem();
 
     /**
-     * Returns a new object of class '<em>User Module Authorization</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>User Module Authorization</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Module Authorization</em>'.
      * @generated
      */
     UserModuleAuthorization createUserModuleAuthorization();
 
     /**
-     * Returns a new object of class '<em>LDAP Schema Connection Item</em>'.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * Returns a new object of class '<em>LDAP Schema Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>LDAP Schema Connection Item</em>'.
      * @generated
      */
@@ -348,8 +336,8 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Salesforce Schema Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>Salesforce Schema Connection Item</em>'.
      * @generated
      */
@@ -365,8 +353,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Execution Server</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Execution Server</em>'.
      * @generated
      */
@@ -374,8 +361,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Execution Task</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Execution Task</em>'.
      * @generated
      */
@@ -383,8 +369,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Execution Task Cmd Prm</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Execution Task Cmd Prm</em>'.
      * @generated
      */
@@ -392,8 +377,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Execution Task Job Prm</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Execution Task Job Prm</em>'.
      * @generated
      */
@@ -401,8 +385,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Talend Trigger</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Talend Trigger</em>'.
      * @generated
      */
@@ -410,8 +393,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Cron Talend Trigger</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Cron Talend Trigger</em>'.
      * @generated
      */
@@ -419,8 +401,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Cron UI Talend Trigger</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Cron UI Talend Trigger</em>'.
      * @generated
      */
@@ -428,8 +409,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Simple Talend Trigger</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Simple Talend Trigger</em>'.
      * @generated
      */
@@ -437,8 +417,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Execution Virtual Server</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Execution Virtual Server</em>'.
      * @generated
      */
@@ -446,8 +425,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>File Trigger</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>File Trigger</em>'.
      * @generated
      */
@@ -455,8 +433,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>File Trigger Mask</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>File Trigger Mask</em>'.
      * @generated
      */
@@ -464,8 +441,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Joblet Process Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Joblet Process Item</em>'.
      * @generated
      */
@@ -473,8 +449,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Job Documentation Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Job Documentation Item</em>'.
      * @generated
      */
@@ -482,17 +457,16 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Joblet Documentation Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Joblet Documentation Item</em>'.
      * @generated
      */
     JobletDocumentationItem createJobletDocumentationItem();
 
     /**
-     * Returns a new object of class '<em>WSDL Schema Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>WSDL Schema Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>WSDL Schema Connection Item</em>'.
      * @generated
      */
@@ -500,8 +474,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Schema Information</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Schema Information</em>'.
      * @generated
      */
@@ -509,8 +482,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Information</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Information</em>'.
      * @generated
      */
@@ -518,8 +490,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SQL Pattern Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>SQL Pattern Item</em>'.
      * @generated
      */
@@ -527,8 +498,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Component Setting</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Component Setting</em>'.
      * @generated
      */
@@ -536,8 +506,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Stat And Logs Settings</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Stat And Logs Settings</em>'.
      * @generated
      */
@@ -545,8 +514,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Implicit Context Settings</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Implicit Context Settings</em>'.
      * @generated
      */
@@ -554,8 +522,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Soa Operation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Soa Operation</em>'.
      * @generated
      */
@@ -563,8 +530,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Soa Input Parameter</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Soa Input Parameter</em>'.
      * @generated
      */
@@ -572,8 +538,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Soa Service</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Soa Service</em>'.
      * @generated
      */
@@ -581,8 +546,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Rules Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Rules Item</em>'.
      * @generated
      */
@@ -590,8 +554,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>User Right</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Right</em>'.
      * @generated
      */
@@ -599,8 +562,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Role Right</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Role Right</em>'.
      * @generated
      */
@@ -608,8 +570,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SVG Business Process Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>SVG Business Process Item</em>'.
      * @generated
      */
@@ -617,8 +578,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQ Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQ Item</em>'.
      * @generated
      */
@@ -626,8 +586,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQ Analysis Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQ Analysis Item</em>'.
      * @generated
      */
@@ -635,8 +594,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQ Report Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQ Report Item</em>'.
      * @generated
      */
@@ -644,8 +602,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQDB Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQDB Connection Item</em>'.
      * @generated
      */
@@ -653,8 +610,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQMDM Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQMDM Connection Item</em>'.
      * @generated
      */
@@ -662,8 +618,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQ Indicator Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQ Indicator Item</em>'.
      * @generated
      */
@@ -671,8 +626,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>TDQ Business Rule Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>TDQ Business Rule Item</em>'.
      * @generated
      */
@@ -680,8 +634,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Link Rules Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Link Rules Item</em>'.
      * @generated
      */
@@ -689,8 +642,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Item Relations</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Item Relations</em>'.
      * @generated
      */
@@ -698,8 +650,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Item Relation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Item Relation</em>'.
      * @generated
      */
@@ -707,8 +658,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Notification</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Notification</em>'.
      * @generated
      */
@@ -716,8 +666,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>HL7 Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>HL7 Connection Item</em>'.
      * @generated
      */
@@ -733,13 +682,13 @@ public interface PropertiesFactory extends EFactory {
     ExecutionPlan createExecutionPlan();
 
     /**
-     * Returns a new object of class '<em>Execution Plan Item</em>'.
+     * Returns a new object of class '<em>Execution Plan Part</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Execution Plan Item</em>'.
+     * @return a new object of class '<em>Execution Plan Part</em>'.
      * @generated
      */
-    ExecutionPlanItem createExecutionPlanItem();
+    ExecutionPlanPart createExecutionPlanPart();
 
     /**
      * Returns a new object of class '<em>Execution Plan Prm</em>'.
@@ -751,18 +700,26 @@ public interface PropertiesFactory extends EFactory {
     ExecutionPlanPrm createExecutionPlanPrm();
 
     /**
-     * Returns a new object of class '<em>Execution Plan Trigger</em>'.
+     * Returns a new object of class '<em>Execution Plan Part Cmd Prm</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Execution Plan Trigger</em>'.
+     * @return a new object of class '<em>Execution Plan Part Cmd Prm</em>'.
      * @generated
      */
-    ExecutionPlanTrigger createExecutionPlanTrigger();
+    ExecutionPlanPartCmdPrm createExecutionPlanPartCmdPrm();
+
+    /**
+     * Returns a new object of class '<em>Execution Plan Part Job Prm</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Plan Part Job Prm</em>'.
+     * @generated
+     */
+    ExecutionPlanPartJobPrm createExecutionPlanPartJobPrm();
 
     /**
      * Returns a new object of class '<em>Task Execution History</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Task Execution History</em>'.
      * @generated
      */

@@ -60,7 +60,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ExecutionTask extends EObject {
+public interface ExecutionTask extends ITriggerable {
 
     /**
      * Returns the value of the '<em><b>Id</b></em>' attribute.

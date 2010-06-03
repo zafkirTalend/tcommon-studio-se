@@ -14,27 +14,27 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.talend.core.model.properties.ExecutionPlan;
-import org.talend.core.model.properties.ExecutionPlanPrm;
+import org.talend.core.model.properties.ExecutionPlanPart;
+import org.talend.core.model.properties.ExecutionPlanPartCmdPrm;
 import org.talend.core.model.properties.PropertiesPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Execution Plan Prm</b></em>'.
+ * An implementation of the model object '<em><b>Execution Plan Part Cmd Prm</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl#getExecutionPlan <em>Execution Plan</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl#getExecutionPlanPart <em>Execution Plan Part</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPrm {
+public class ExecutionPlanPartCmdPrmImpl extends EObjectImpl implements ExecutionPlanPartCmdPrm {
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -56,14 +56,14 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
     protected int id = ID_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getExecutionPlan() <em>Execution Plan</em>}' reference.
+     * The cached value of the '{@link #getExecutionPlanPart() <em>Execution Plan Part</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getExecutionPlan()
+     * @see #getExecutionPlanPart()
      * @generated
      * @ordered
      */
-    protected ExecutionPlan executionPlan;
+    protected ExecutionPlanPart executionPlanPart;
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -110,7 +110,7 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      * <!-- end-user-doc -->
      * @generated
      */
-    protected ExecutionPlanPrmImpl() {
+    protected ExecutionPlanPartCmdPrmImpl() {
         super();
     }
 
@@ -120,7 +120,7 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      * @generated
      */
     protected EClass eStaticClass() {
-        return PropertiesPackage.Literals.EXECUTION_PLAN_PRM;
+        return PropertiesPackage.Literals.EXECUTION_PLAN_PART_CMD_PRM;
     }
 
     /**
@@ -141,7 +141,7 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
         int oldId = id;
         id = newId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PRM__ID, oldId, id));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__ID, oldId, id));
     }
 
     /**
@@ -149,16 +149,16 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionPlan getExecutionPlan() {
-        if (executionPlan != null && executionPlan.eIsProxy()) {
-            InternalEObject oldExecutionPlan = (InternalEObject)executionPlan;
-            executionPlan = (ExecutionPlan)eResolveProxy(oldExecutionPlan);
-            if (executionPlan != oldExecutionPlan) {
+    public ExecutionPlanPart getExecutionPlanPart() {
+        if (executionPlanPart != null && executionPlanPart.eIsProxy()) {
+            InternalEObject oldExecutionPlanPart = (InternalEObject)executionPlanPart;
+            executionPlanPart = (ExecutionPlanPart)eResolveProxy(oldExecutionPlanPart);
+            if (executionPlanPart != oldExecutionPlanPart) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_PLAN_PRM__EXECUTION_PLAN, oldExecutionPlan, executionPlan));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__EXECUTION_PLAN_PART, oldExecutionPlanPart, executionPlanPart));
             }
         }
-        return executionPlan;
+        return executionPlanPart;
     }
 
     /**
@@ -166,8 +166,8 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionPlan basicGetExecutionPlan() {
-        return executionPlan;
+    public ExecutionPlanPart basicGetExecutionPlanPart() {
+        return executionPlanPart;
     }
 
     /**
@@ -175,11 +175,11 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setExecutionPlan(ExecutionPlan newExecutionPlan) {
-        ExecutionPlan oldExecutionPlan = executionPlan;
-        executionPlan = newExecutionPlan;
+    public void setExecutionPlanPart(ExecutionPlanPart newExecutionPlanPart) {
+        ExecutionPlanPart oldExecutionPlanPart = executionPlanPart;
+        executionPlanPart = newExecutionPlanPart;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PRM__EXECUTION_PLAN, oldExecutionPlan, executionPlan));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__EXECUTION_PLAN_PART, oldExecutionPlanPart, executionPlanPart));
     }
 
     /**
@@ -200,7 +200,7 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PRM__NAME, oldName, name));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__NAME, oldName, name));
     }
 
     /**
@@ -221,7 +221,7 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
         String oldValue = value;
         value = newValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PRM__VALUE, oldValue, value));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__VALUE, oldValue, value));
     }
 
     /**
@@ -231,14 +231,14 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_PLAN_PRM__ID:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__ID:
                 return new Integer(getId());
-            case PropertiesPackage.EXECUTION_PLAN_PRM__EXECUTION_PLAN:
-                if (resolve) return getExecutionPlan();
-                return basicGetExecutionPlan();
-            case PropertiesPackage.EXECUTION_PLAN_PRM__NAME:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__EXECUTION_PLAN_PART:
+                if (resolve) return getExecutionPlanPart();
+                return basicGetExecutionPlanPart();
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__NAME:
                 return getName();
-            case PropertiesPackage.EXECUTION_PLAN_PRM__VALUE:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__VALUE:
                 return getValue();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -251,16 +251,16 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_PLAN_PRM__ID:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__ID:
                 setId(((Integer)newValue).intValue());
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__EXECUTION_PLAN:
-                setExecutionPlan((ExecutionPlan)newValue);
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__EXECUTION_PLAN_PART:
+                setExecutionPlanPart((ExecutionPlanPart)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__NAME:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__NAME:
                 setName((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__VALUE:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__VALUE:
                 setValue((String)newValue);
                 return;
         }
@@ -274,16 +274,16 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_PLAN_PRM__ID:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__ID:
                 setId(ID_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__EXECUTION_PLAN:
-                setExecutionPlan((ExecutionPlan)null);
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__EXECUTION_PLAN_PART:
+                setExecutionPlanPart((ExecutionPlanPart)null);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__NAME:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__VALUE:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__VALUE:
                 setValue(VALUE_EDEFAULT);
                 return;
         }
@@ -297,13 +297,13 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_PLAN_PRM__ID:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__ID:
                 return id != ID_EDEFAULT;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__EXECUTION_PLAN:
-                return executionPlan != null;
-            case PropertiesPackage.EXECUTION_PLAN_PRM__NAME:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__EXECUTION_PLAN_PART:
+                return executionPlanPart != null;
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case PropertiesPackage.EXECUTION_PLAN_PRM__VALUE:
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
         }
         return super.eIsSet(featureID);
@@ -328,4 +328,4 @@ public class ExecutionPlanPrmImpl extends EObjectImpl implements ExecutionPlanPr
         return result.toString();
     }
 
-} //ExecutionPlanPrmImpl
+} //ExecutionPlanPartCmdPrmImpl

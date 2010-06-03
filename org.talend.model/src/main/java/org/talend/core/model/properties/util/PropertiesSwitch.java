@@ -35,9 +35,12 @@ import org.talend.core.model.properties.FileTrigger;
 import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ItemRelation;
+import org.talend.core.model.properties.ItemRelations;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
@@ -48,7 +51,9 @@ import org.talend.core.model.properties.License;
 import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.LinkType;
+import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.NotationHolder;
+import org.talend.core.model.properties.Notification;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -74,7 +79,13 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.TDQAnalysisItem;
+import org.talend.core.model.properties.TDQBusinessRuleItem;
+import org.talend.core.model.properties.TDQDBConnectionItem;
+import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
+import org.talend.core.model.properties.TDQMDMConnectionItem;
+import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -458,6 +469,7 @@ public class PropertiesSwitch {
             case PropertiesPackage.EXECUTION_TASK: {
                 ExecutionTask executionTask = (ExecutionTask)theEObject;
                 Object result = caseExecutionTask(executionTask);
+                if (result == null) result = caseITriggerable(executionTask);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -734,13 +746,13 @@ public class PropertiesSwitch {
             case PropertiesPackage.EXECUTION_PLAN: {
                 ExecutionPlan executionPlan = (ExecutionPlan)theEObject;
                 Object result = caseExecutionPlan(executionPlan);
-                if (result == null) result = caseExecutionTask(executionPlan);
+                if (result == null) result = caseITriggerable(executionPlan);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.EXECUTION_PLAN_ITEM: {
-                ExecutionPlanItem executionPlanItem = (ExecutionPlanItem)theEObject;
-                Object result = caseExecutionPlanItem(executionPlanItem);
+            case PropertiesPackage.EXECUTION_PLAN_PART: {
+                ExecutionPlanPart executionPlanPart = (ExecutionPlanPart)theEObject;
+                Object result = caseExecutionPlanPart(executionPlanPart);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -750,10 +762,21 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.EXECUTION_PLAN_TRIGGER: {
-                ExecutionPlanTrigger executionPlanTrigger = (ExecutionPlanTrigger)theEObject;
-                Object result = caseExecutionPlanTrigger(executionPlanTrigger);
-                if (result == null) result = caseTalendTrigger(executionPlanTrigger);
+            case PropertiesPackage.ITRIGGERABLE: {
+                ITriggerable iTriggerable = (ITriggerable)theEObject;
+                Object result = caseITriggerable(iTriggerable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM: {
+                ExecutionPlanPartCmdPrm executionPlanPartCmdPrm = (ExecutionPlanPartCmdPrm)theEObject;
+                Object result = caseExecutionPlanPartCmdPrm(executionPlanPartCmdPrm);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM: {
+                ExecutionPlanPartJobPrm executionPlanPartJobPrm = (ExecutionPlanPartJobPrm)theEObject;
+                Object result = caseExecutionPlanPartJobPrm(executionPlanPartJobPrm);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1130,11 +1153,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>MDM Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>MDM Connection Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>MDM Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1745,11 +1767,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Analysis Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>TDQ Analysis Item</em>'. <!-- begin-user-doc
+     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
+     * -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>TDQ Analysis Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1760,11 +1781,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Report Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>TDQ Report Item</em>'. <!-- begin-user-doc
+     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
+     * -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>TDQ Report Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1775,11 +1795,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQDB Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>TDQDB Connection Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>TDQDB Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1790,11 +1809,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQMDM Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>TDQMDM Connection Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>TDQMDM Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1805,11 +1823,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Indicator Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>TDQ Indicator Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>TDQ Indicator Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1820,11 +1837,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Business Rule Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>TDQ Business Rule Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>TDQ Business Rule Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1849,11 +1865,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Item Relations</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>Item Relations</em>'. <!-- begin-user-doc
+     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
+     * -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Item Relations</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1866,9 +1881,7 @@ public class PropertiesSwitch {
     /**
      * Returns the result of interpreting the object as an instance of '<em>Item Relation</em>'.
      * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Item Relation</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1881,9 +1894,7 @@ public class PropertiesSwitch {
     /**
      * Returns the result of interpreting the object as an instance of '<em>Notification</em>'.
      * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Notification</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1894,11 +1905,10 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>HL7 Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>HL7 Connection Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>HL7 Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -1924,17 +1934,17 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Part</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Execution Plan Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan Part</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseExecutionPlanItem(ExecutionPlanItem object) {
+    public Object caseExecutionPlanPart(ExecutionPlanPart object) {
         return null;
     }
 
@@ -1954,17 +1964,47 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Trigger</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>ITriggerable</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Execution Plan Trigger</em>'.
+     * @return the result of interpreting the object as an instance of '<em>ITriggerable</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseExecutionPlanTrigger(ExecutionPlanTrigger object) {
+    public Object caseITriggerable(ITriggerable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Part Cmd Prm</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan Part Cmd Prm</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionPlanPartCmdPrm(ExecutionPlanPartCmdPrm object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Plan Part Job Prm</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Plan Part Job Prm</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionPlanPartJobPrm(ExecutionPlanPartJobPrm object) {
         return null;
     }
 
