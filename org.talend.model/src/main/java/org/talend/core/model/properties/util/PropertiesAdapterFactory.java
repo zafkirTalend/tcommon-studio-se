@@ -1555,9 +1555,10 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionPlanPrm <em>Execution Plan Prm</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can
-     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.properties.ExecutionPlanPrm
      * @generated

@@ -628,7 +628,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass executionPlanPartEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass executionPlanPrmEClass = null;
@@ -2352,7 +2353,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_Id() {
+    public EAttribute getExecutionTask_Label() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(0);
     }
 
@@ -2360,7 +2361,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_Label() {
+    public EAttribute getExecutionTask_Description() {
         return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(1);
     }
 
@@ -2368,16 +2369,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionTask_Description() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getExecutionTask_ExecutionServer() {
-        return (EReference)executionTaskEClass.getEStructuralFeatures().get(3);
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2385,7 +2378,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getExecutionTask_Project() {
-        return (EReference)executionTaskEClass.getEStructuralFeatures().get(4);
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2393,7 +2386,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_Branch() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -2401,7 +2394,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_Context() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -2409,7 +2402,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_JobVersion() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -2417,7 +2410,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_Active() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -2425,7 +2418,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_IdQuartzJob() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -2433,7 +2426,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_LastScriptGenerationDate() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -2441,7 +2434,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_GeneratedSvnRevision() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -2449,7 +2442,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_IdRemoteJob() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(12);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -2457,7 +2450,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_IdRemoteJobExecution() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(13);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -2465,7 +2458,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ChecksumArchive() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -2473,7 +2466,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_JobScriptArchiveFilename() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(15);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -2481,7 +2474,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_Status() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(16);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(15);
     }
 
     /**
@@ -2489,7 +2482,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ProcessingState() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(17);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(16);
     }
 
     /**
@@ -2497,7 +2490,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ErrorStatus() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(18);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(17);
     }
 
     /**
@@ -2505,7 +2498,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_LastRunDate() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(19);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -2513,7 +2506,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_LastDeploymentDate() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(20);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(19);
     }
 
     /**
@@ -2521,15 +2514,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_LastEndedRunDate() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(21);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getExecutionTask_Triggers() {
-        return (EReference)executionTaskEClass.getEStructuralFeatures().get(22);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(20);
     }
 
     /**
@@ -2537,7 +2522,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getExecutionTask_CmdPrms() {
-        return (EReference)executionTaskEClass.getEStructuralFeatures().get(23);
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(21);
     }
 
     /**
@@ -2545,7 +2530,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getExecutionTask_JobPrms() {
-        return (EReference)executionTaskEClass.getEStructuralFeatures().get(24);
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -2553,7 +2538,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_JobId() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(25);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(23);
     }
 
     /**
@@ -2561,7 +2546,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getExecutionTask_VirtualServer() {
-        return (EReference)executionTaskEClass.getEStructuralFeatures().get(26);
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(24);
     }
 
     /**
@@ -2569,7 +2554,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ConcurrentExecution() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(27);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(25);
     }
 
     /**
@@ -2577,7 +2562,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_MaxConcurrentExecutions() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(28);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(26);
     }
 
     /**
@@ -2585,7 +2570,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_GeneratedProjectName() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(29);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(27);
     }
 
     /**
@@ -2593,7 +2578,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_GeneratedJobName() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(30);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(28);
     }
 
     /**
@@ -2601,7 +2586,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ApplyContextToChildren() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(31);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(29);
     }
 
     /**
@@ -2609,7 +2594,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ErrorStackTrace() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(32);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(30);
     }
 
     /**
@@ -2617,7 +2602,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_LastTriggeringDate() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(33);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(31);
     }
 
     /**
@@ -2625,7 +2610,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_ExecStatisticsEnabled() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(34);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(32);
     }
 
     /**
@@ -2633,7 +2618,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_AddStatisticsCodeEnabled() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(35);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(33);
     }
 
     /**
@@ -2641,7 +2626,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionTask_OwnerSchedulerInstanceId() {
-        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(36);
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(34);
     }
 
     /**
@@ -3873,7 +3858,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionPlan_Id() {
+    public EAttribute getExecutionPlan_Label() {
         return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(0);
     }
 
@@ -3882,17 +3867,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionPlan_Label() {
-        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getExecutionPlan_ExecPlanParts() {
-        return (EReference)executionPlanEClass.getEStructuralFeatures().get(2);
+        return (EReference)executionPlanEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -3901,7 +3877,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getExecutionPlan_ExecPlanPrms() {
-        return (EReference)executionPlanEClass.getEStructuralFeatures().get(3);
+        return (EReference)executionPlanEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -3910,7 +3886,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionPlan_IdQuartzJob() {
-        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -3919,7 +3895,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionPlan_Status() {
-        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -3928,16 +3904,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionPlan_ErrorStatus() {
-        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getExecutionPlan_Triggers() {
-        return (EReference)executionPlanEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -3946,7 +3913,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionPlan_ConcurrentExecution() {
-        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -3955,7 +3922,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getExecutionPlan_ProcessingState() {
-        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)executionPlanEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -4031,7 +3998,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getExecutionPlanPrm() {
@@ -4039,7 +4007,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPrm_Id() {
@@ -4047,7 +4016,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPrm_ExecutionPlan() {
@@ -4055,7 +4025,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPrm_Name() {
@@ -4063,7 +4034,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPrm_Value() {
@@ -4077,6 +4049,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EClass getITriggerable() {
         return iTriggerableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getITriggerable_Id() {
+        return (EAttribute)iTriggerableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getITriggerable_Triggers() {
+        return (EReference)iTriggerableEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -4995,7 +4985,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionServerEClass, EXECUTION_SERVER__MONITORING_PORT);
 
         executionTaskEClass = createEClass(EXECUTION_TASK);
-        createEAttribute(executionTaskEClass, EXECUTION_TASK__ID);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__LABEL);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__DESCRIPTION);
         createEReference(executionTaskEClass, EXECUTION_TASK__EXECUTION_SERVER);
@@ -5017,7 +5006,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionTaskEClass, EXECUTION_TASK__LAST_RUN_DATE);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__LAST_DEPLOYMENT_DATE);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__LAST_ENDED_RUN_DATE);
-        createEReference(executionTaskEClass, EXECUTION_TASK__TRIGGERS);
         createEReference(executionTaskEClass, EXECUTION_TASK__CMD_PRMS);
         createEReference(executionTaskEClass, EXECUTION_TASK__JOB_PRMS);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__JOB_ID);
@@ -5284,14 +5272,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         hl7ConnectionItemEClass = createEClass(HL7_CONNECTION_ITEM);
 
         executionPlanEClass = createEClass(EXECUTION_PLAN);
-        createEAttribute(executionPlanEClass, EXECUTION_PLAN__ID);
         createEAttribute(executionPlanEClass, EXECUTION_PLAN__LABEL);
         createEReference(executionPlanEClass, EXECUTION_PLAN__EXEC_PLAN_PARTS);
         createEReference(executionPlanEClass, EXECUTION_PLAN__EXEC_PLAN_PRMS);
         createEAttribute(executionPlanEClass, EXECUTION_PLAN__ID_QUARTZ_JOB);
         createEAttribute(executionPlanEClass, EXECUTION_PLAN__STATUS);
         createEAttribute(executionPlanEClass, EXECUTION_PLAN__ERROR_STATUS);
-        createEReference(executionPlanEClass, EXECUTION_PLAN__TRIGGERS);
         createEAttribute(executionPlanEClass, EXECUTION_PLAN__CONCURRENT_EXECUTION);
         createEAttribute(executionPlanEClass, EXECUTION_PLAN__PROCESSING_STATE);
 
@@ -5311,6 +5297,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionPlanPrmEClass, EXECUTION_PLAN_PRM__VALUE);
 
         iTriggerableEClass = createEClass(ITRIGGERABLE);
+        createEAttribute(iTriggerableEClass, ITRIGGERABLE__ID);
+        createEReference(iTriggerableEClass, ITRIGGERABLE__TRIGGERS);
 
         executionPlanPartCmdPrmEClass = createEClass(EXECUTION_PLAN_PART_CMD_PRM);
         createEAttribute(executionPlanPartCmdPrmEClass, EXECUTION_PLAN_PART_CMD_PRM__ID);
@@ -5422,7 +5410,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProject_Language(), ecorePackage.getEString(), "language", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_TechnicalLabel(), ecorePackage.getEString(), "technicalLabel", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Local(), ecorePackage.getEBoolean(), "local", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getProject_Folders(), this.getFolderItem(), null, "folders", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_Folders(), this.getFolderItem(), null, "folders", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_DeleteDate(), ecorePackage.getEDate(), "deleteDate", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5584,7 +5572,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_Language(), ecorePackage.getEString(), "language", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(folderItemEClass, FolderItem.class, "FolderItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFolderItem_Type(), this.getFolderType(), "type", null, 1, 1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5662,7 +5650,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionServer_MonitoringPort(), theEcorePackage.getEInt(), "monitoringPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionTaskEClass, ExecutionTask.class, "ExecutionTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getExecutionTask_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_Description(), theEcorePackage.getEString(), "description", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getExecutionTask_ExecutionServer(), this.getExecutionServer(), null, "executionServer", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5684,7 +5671,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionTask_LastRunDate(), theEcorePackage.getEDate(), "lastRunDate", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_LastDeploymentDate(), theEcorePackage.getEDate(), "lastDeploymentDate", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_LastEndedRunDate(), theEcorePackage.getEDate(), "lastEndedRunDate", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getExecutionTask_Triggers(), this.getTalendTrigger(), this.getTalendTrigger_ExecutionTask(), "triggers", null, 0, -1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getExecutionTask_CmdPrms(), this.getExecutionTaskCmdPrm(), this.getExecutionTaskCmdPrm_ExecutionTask(), "cmdPrms", null, 0, -1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getExecutionTask_JobPrms(), this.getExecutionTaskJobPrm(), this.getExecutionTaskJobPrm_ExecutionTask(), "jobPrms", null, 0, -1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getExecutionTask_JobId(), ecorePackage.getEString(), "jobId", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5766,7 +5752,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTalendTrigger_Label(), theEcorePackage.getEString(), "label", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_Description(), theEcorePackage.getEString(), "description", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_TriggerType(), theEcorePackage.getEString(), "triggerType", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTalendTrigger_ExecutionTask(), this.getExecutionTask(), this.getExecutionTask_Triggers(), "executionTask", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTalendTrigger_ExecutionTask(), this.getExecutionTask(), null, "executionTask", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_StartTime(), theEcorePackage.getEDate(), "startTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_EndTime(), theEcorePackage.getEDate(), "endTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_PreviousFireTime(), theEcorePackage.getEDate(), "previousFireTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5951,14 +5937,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(hl7ConnectionItemEClass, HL7ConnectionItem.class, "HL7ConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(executionPlanEClass, ExecutionPlan.class, "ExecutionPlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getExecutionPlan_Id(), theEcorePackage.getEInt(), "id", null, 1, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlan_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getExecutionPlan_ExecPlanParts(), this.getExecutionPlanPart(), null, "execPlanParts", null, 0, -1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getExecutionPlan_ExecPlanPrms(), this.getExecutionPlanPrm(), null, "execPlanPrms", null, 0, -1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getExecutionPlan_IdQuartzJob(), theEcorePackage.getEInt(), "idQuartzJob", null, 0, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlan_Status(), theEcorePackage.getEString(), "status", null, 0, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlan_ErrorStatus(), theEcorePackage.getEString(), "errorStatus", null, 0, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getExecutionPlan_Triggers(), this.getTalendTrigger(), null, "triggers", null, 0, -1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlan_ConcurrentExecution(), theEcorePackage.getEBoolean(), "concurrentExecution", null, 0, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlan_ProcessingState(), theEcorePackage.getEBoolean(), "processingState", null, 0, 1, ExecutionPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -5978,18 +5962,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionPlanPrm_Value(), theEcorePackage.getEString(), "value", null, 0, 1, ExecutionPlanPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(iTriggerableEClass, ITriggerable.class, "ITriggerable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        addEOperation(iTriggerableEClass, theEcorePackage.getEInt(), "getIdQuartzJob", 0, 1);
-
-        addEOperation(iTriggerableEClass, theEcorePackage.getEString(), "getStatus", 0, 1);
-
-        addEOperation(iTriggerableEClass, theEcorePackage.getEString(), "getErrorStatus", 0, 1);
-
-        addEOperation(iTriggerableEClass, this.getTalendTrigger(), "getTriggers", 0, -1);
-
-        addEOperation(iTriggerableEClass, theEcorePackage.getEBoolean(), "isConcurrentExecution", 0, 1);
-
-        addEOperation(iTriggerableEClass, theEcorePackage.getEBoolean(), "isProcessingState", 0, 1);
+        initEAttribute(getITriggerable_Id(), theEcorePackage.getEInt(), "id", null, 1, 1, ITriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getITriggerable_Triggers(), this.getTalendTrigger(), null, "triggers", null, 0, -1, ITriggerable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionPlanPartCmdPrmEClass, ExecutionPlanPartCmdPrm.class, "ExecutionPlanPartCmdPrm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionPlanPartCmdPrm_Id(), theEcorePackage.getEInt(), "id", null, 1, 1, ExecutionPlanPartCmdPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

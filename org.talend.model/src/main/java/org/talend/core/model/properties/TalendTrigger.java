@@ -170,28 +170,26 @@ public interface TalendTrigger extends EObject {
     void setTriggerType(String value);
 
     /**
-     * Returns the value of the '<em><b>Execution Task</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionTask#getTriggers <em>Triggers</em>}'.
+     * Returns the value of the '<em><b>Execution Task</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Execution Task</em>' reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Execution Task</em>' container reference.
+     * @return the value of the '<em>Execution Task</em>' reference.
      * @see #setExecutionTask(ExecutionTask)
      * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_ExecutionTask()
-     * @see org.talend.core.model.properties.ExecutionTask#getTriggers
-     * @model opposite="triggers" transient="false"
+     * @model
      * @generated
      */
     ExecutionTask getExecutionTask();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}' container reference.
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Execution Task</em>' container reference.
+     * @param value the new value of the '<em>Execution Task</em>' reference.
      * @see #getExecutionTask()
      * @generated
      */

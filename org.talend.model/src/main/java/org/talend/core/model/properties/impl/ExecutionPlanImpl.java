@@ -37,13 +37,13 @@ import org.talend.core.model.properties.TalendTrigger;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getTriggers <em>Triggers</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanParts <em>Exec Plan Parts</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getErrorStatus <em>Error Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getTriggers <em>Triggers</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#isProcessingState <em>Processing State</em>}</li>
  * </ul>
@@ -71,6 +71,16 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      * @ordered
      */
     protected int id = ID_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTriggers()
+     * @generated
+     * @ordered
+     */
+    protected EList triggers;
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -171,16 +181,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      * @ordered
      */
     protected String errorStatus = ERROR_STATUS_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getTriggers()
-     * @generated
-     * @ordered
-     */
-    protected EList triggers;
 
     /**
      * The default value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
@@ -447,6 +447,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_PLAN__ID:
                 return new Integer(getId());
+            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
+                return getTriggers();
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 return getLabel();
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
@@ -459,8 +461,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return getStatus();
             case PropertiesPackage.EXECUTION_PLAN__ERROR_STATUS:
                 return getErrorStatus();
-            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
-                return getTriggers();
             case PropertiesPackage.EXECUTION_PLAN__CONCURRENT_EXECUTION:
                 return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
@@ -478,6 +478,10 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_PLAN__ID:
                 setId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
+                getTriggers().clear();
+                getTriggers().addAll((Collection)newValue);
                 return;
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 setLabel((String)newValue);
@@ -499,10 +503,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
             case PropertiesPackage.EXECUTION_PLAN__ERROR_STATUS:
                 setErrorStatus((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
-                getTriggers().clear();
-                getTriggers().addAll((Collection)newValue);
-                return;
             case PropertiesPackage.EXECUTION_PLAN__CONCURRENT_EXECUTION:
                 setConcurrentExecution(((Boolean)newValue).booleanValue());
                 return;
@@ -523,6 +523,9 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
             case PropertiesPackage.EXECUTION_PLAN__ID:
                 setId(ID_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
+                getTriggers().clear();
+                return;
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -540,9 +543,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return;
             case PropertiesPackage.EXECUTION_PLAN__ERROR_STATUS:
                 setErrorStatus(ERROR_STATUS_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
-                getTriggers().clear();
                 return;
             case PropertiesPackage.EXECUTION_PLAN__CONCURRENT_EXECUTION:
                 setConcurrentExecution(CONCURRENT_EXECUTION_EDEFAULT);
@@ -563,6 +563,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_PLAN__ID:
                 return id != ID_EDEFAULT;
+            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
+                return triggers != null && !triggers.isEmpty();
             case PropertiesPackage.EXECUTION_PLAN__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
@@ -575,8 +577,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
             case PropertiesPackage.EXECUTION_PLAN__ERROR_STATUS:
                 return ERROR_STATUS_EDEFAULT == null ? errorStatus != null : !ERROR_STATUS_EDEFAULT.equals(errorStatus);
-            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
-                return triggers != null && !triggers.isEmpty();
             case PropertiesPackage.EXECUTION_PLAN__CONCURRENT_EXECUTION:
                 return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:

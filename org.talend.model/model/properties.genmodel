@@ -261,7 +261,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/monitoringPort"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionTask">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/executionServer"/>
@@ -283,7 +282,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastRunDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastDeploymentDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastEndedRunDate"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/triggers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/cmdPrms"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/jobPrms"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobId"/>
@@ -539,14 +537,12 @@
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//HL7ConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//ExecutionPlan">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlan/execPlanParts"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlan/execPlanPrms"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/idQuartzJob"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/status"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/errorStatus"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlan/triggers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/concurrentExecution"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/processingState"/>
     </genClasses>
@@ -565,13 +561,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPrm/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPrm/value"/>
     </genClasses>
-    <genClasses ecoreClass="properties.ecore#//ITriggerable">
-      <genOperations ecoreOperation="properties.ecore#//ITriggerable/getIdQuartzJob"/>
-      <genOperations ecoreOperation="properties.ecore#//ITriggerable/getStatus"/>
-      <genOperations ecoreOperation="properties.ecore#//ITriggerable/getErrorStatus"/>
-      <genOperations ecoreOperation="properties.ecore#//ITriggerable/getTriggers"/>
-      <genOperations ecoreOperation="properties.ecore#//ITriggerable/isConcurrentExecution"/>
-      <genOperations ecoreOperation="properties.ecore#//ITriggerable/isProcessingState"/>
+    <genClasses image="false" ecoreClass="properties.ecore#//ITriggerable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/id"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ITriggerable/triggers"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionPlanPartCmdPrm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPartCmdPrm/id"/>

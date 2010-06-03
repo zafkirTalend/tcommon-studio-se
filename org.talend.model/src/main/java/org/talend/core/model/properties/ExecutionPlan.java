@@ -7,6 +7,7 @@
 package org.talend.core.model.properties;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,14 +17,12 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getExecPlanParts <em>Exec Plan Parts</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getErrorStatus <em>Error Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getTriggers <em>Triggers</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#isProcessingState <em>Processing State</em>}</li>
  * </ul>
@@ -34,32 +33,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface ExecutionPlan extends ITriggerable {
-    /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Id</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Id</em>' attribute.
-     * @see #setId(int)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_Id()
-     * @model id="true" required="true"
-     * @generated
-     */
-    int getId();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlan#getId <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Id</em>' attribute.
-     * @see #getId()
-     * @generated
-     */
-    void setId(int value);
-
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -195,22 +168,6 @@ public interface ExecutionPlan extends ITriggerable {
      * @generated
      */
     void setErrorStatus(String value);
-
-    /**
-     * Returns the value of the '<em><b>Triggers</b></em>' reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.TalendTrigger}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Triggers</em>' reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Triggers</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_Triggers()
-     * @model type="org.talend.core.model.properties.TalendTrigger"
-     * @generated
-     */
-    EList getTriggers();
 
     /**
      * Returns the value of the '<em><b>Concurrent Execution</b></em>' attribute.

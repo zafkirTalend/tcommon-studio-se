@@ -2717,13 +2717,31 @@ public interface PropertiesPackage extends EPackage {
     int ITRIGGERABLE = 87;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITRIGGERABLE__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Triggers</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITRIGGERABLE__TRIGGERS = 1;
+
+    /**
      * The number of structural features of the '<em>ITriggerable</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITRIGGERABLE_FEATURE_COUNT = 0;
+    int ITRIGGERABLE_FEATURE_COUNT = 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
@@ -2740,7 +2758,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID = ITRIGGERABLE_FEATURE_COUNT + 0;
+    int EXECUTION_TASK__ID = ITRIGGERABLE__ID;
+
+    /**
+     * The feature id for the '<em><b>Triggers</b></em>' reference list.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__TRIGGERS = ITRIGGERABLE__TRIGGERS;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -2748,7 +2775,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LABEL = ITRIGGERABLE_FEATURE_COUNT + 1;
+    int EXECUTION_TASK__LABEL = ITRIGGERABLE_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -2756,7 +2783,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__DESCRIPTION = ITRIGGERABLE_FEATURE_COUNT + 2;
+    int EXECUTION_TASK__DESCRIPTION = ITRIGGERABLE_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Execution Server</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2765,7 +2792,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__EXECUTION_SERVER = ITRIGGERABLE_FEATURE_COUNT + 3;
+    int EXECUTION_TASK__EXECUTION_SERVER = ITRIGGERABLE_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Project</b></em>' reference.
@@ -2773,7 +2800,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__PROJECT = ITRIGGERABLE_FEATURE_COUNT + 4;
+    int EXECUTION_TASK__PROJECT = ITRIGGERABLE_FEATURE_COUNT + 3;
 
     /**
      * The feature id for the '<em><b>Branch</b></em>' attribute.
@@ -2781,7 +2808,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__BRANCH = ITRIGGERABLE_FEATURE_COUNT + 5;
+    int EXECUTION_TASK__BRANCH = ITRIGGERABLE_FEATURE_COUNT + 4;
 
     /**
      * The feature id for the '<em><b>Context</b></em>' attribute.
@@ -2789,7 +2816,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CONTEXT = ITRIGGERABLE_FEATURE_COUNT + 6;
+    int EXECUTION_TASK__CONTEXT = ITRIGGERABLE_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>Job Version</b></em>' attribute.
@@ -2797,7 +2824,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_VERSION = ITRIGGERABLE_FEATURE_COUNT + 7;
+    int EXECUTION_TASK__JOB_VERSION = ITRIGGERABLE_FEATURE_COUNT + 6;
 
     /**
      * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -2805,7 +2832,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ACTIVE = ITRIGGERABLE_FEATURE_COUNT + 8;
+    int EXECUTION_TASK__ACTIVE = ITRIGGERABLE_FEATURE_COUNT + 7;
 
     /**
      * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
@@ -2813,7 +2840,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_QUARTZ_JOB = ITRIGGERABLE_FEATURE_COUNT + 9;
+    int EXECUTION_TASK__ID_QUARTZ_JOB = ITRIGGERABLE_FEATURE_COUNT + 8;
 
     /**
      * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
@@ -2822,7 +2849,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = ITRIGGERABLE_FEATURE_COUNT + 10;
+    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = ITRIGGERABLE_FEATURE_COUNT + 9;
 
     /**
      * The feature id for the '<em><b>Generated Svn Revision</b></em>' attribute.
@@ -2831,7 +2858,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_SVN_REVISION = ITRIGGERABLE_FEATURE_COUNT + 11;
+    int EXECUTION_TASK__GENERATED_SVN_REVISION = ITRIGGERABLE_FEATURE_COUNT + 10;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -2839,7 +2866,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB = ITRIGGERABLE_FEATURE_COUNT + 12;
+    int EXECUTION_TASK__ID_REMOTE_JOB = ITRIGGERABLE_FEATURE_COUNT + 11;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -2848,7 +2875,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = ITRIGGERABLE_FEATURE_COUNT + 13;
+    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = ITRIGGERABLE_FEATURE_COUNT + 12;
 
     /**
      * The feature id for the '<em><b>Checksum Archive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2857,7 +2884,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CHECKSUM_ARCHIVE = ITRIGGERABLE_FEATURE_COUNT + 14;
+    int EXECUTION_TASK__CHECKSUM_ARCHIVE = ITRIGGERABLE_FEATURE_COUNT + 13;
 
     /**
      * The feature id for the '<em><b>Job Script Archive Filename</b></em>' attribute.
@@ -2866,7 +2893,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = ITRIGGERABLE_FEATURE_COUNT + 15;
+    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = ITRIGGERABLE_FEATURE_COUNT + 14;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -2874,7 +2901,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__STATUS = ITRIGGERABLE_FEATURE_COUNT + 16;
+    int EXECUTION_TASK__STATUS = ITRIGGERABLE_FEATURE_COUNT + 15;
 
     /**
      * The feature id for the '<em><b>Processing State</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2883,7 +2910,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__PROCESSING_STATE = ITRIGGERABLE_FEATURE_COUNT + 17;
+    int EXECUTION_TASK__PROCESSING_STATE = ITRIGGERABLE_FEATURE_COUNT + 16;
 
     /**
      * The feature id for the '<em><b>Error Status</b></em>' attribute.
@@ -2891,7 +2918,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STATUS = ITRIGGERABLE_FEATURE_COUNT + 18;
+    int EXECUTION_TASK__ERROR_STATUS = ITRIGGERABLE_FEATURE_COUNT + 17;
 
     /**
      * The feature id for the '<em><b>Last Run Date</b></em>' attribute.
@@ -2899,7 +2926,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_RUN_DATE = ITRIGGERABLE_FEATURE_COUNT + 19;
+    int EXECUTION_TASK__LAST_RUN_DATE = ITRIGGERABLE_FEATURE_COUNT + 18;
 
     /**
      * The feature id for the '<em><b>Last Deployment Date</b></em>' attribute.
@@ -2908,7 +2935,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = ITRIGGERABLE_FEATURE_COUNT + 20;
+    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = ITRIGGERABLE_FEATURE_COUNT + 19;
 
     /**
      * The feature id for the '<em><b>Last Ended Run Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2917,16 +2944,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = ITRIGGERABLE_FEATURE_COUNT + 21;
-
-    /**
-     * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TASK__TRIGGERS = ITRIGGERABLE_FEATURE_COUNT + 22;
+    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = ITRIGGERABLE_FEATURE_COUNT + 20;
 
     /**
      * The feature id for the '<em><b>Cmd Prms</b></em>' containment reference list.
@@ -2935,7 +2953,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CMD_PRMS = ITRIGGERABLE_FEATURE_COUNT + 23;
+    int EXECUTION_TASK__CMD_PRMS = ITRIGGERABLE_FEATURE_COUNT + 21;
 
     /**
      * The feature id for the '<em><b>Job Prms</b></em>' containment reference list.
@@ -2944,7 +2962,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_PRMS = ITRIGGERABLE_FEATURE_COUNT + 24;
+    int EXECUTION_TASK__JOB_PRMS = ITRIGGERABLE_FEATURE_COUNT + 22;
 
     /**
      * The feature id for the '<em><b>Job Id</b></em>' attribute.
@@ -2952,7 +2970,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_ID = ITRIGGERABLE_FEATURE_COUNT + 25;
+    int EXECUTION_TASK__JOB_ID = ITRIGGERABLE_FEATURE_COUNT + 23;
 
     /**
      * The feature id for the '<em><b>Virtual Server</b></em>' reference.
@@ -2960,7 +2978,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__VIRTUAL_SERVER = ITRIGGERABLE_FEATURE_COUNT + 26;
+    int EXECUTION_TASK__VIRTUAL_SERVER = ITRIGGERABLE_FEATURE_COUNT + 24;
 
     /**
      * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
@@ -2969,7 +2987,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CONCURRENT_EXECUTION = ITRIGGERABLE_FEATURE_COUNT + 27;
+    int EXECUTION_TASK__CONCURRENT_EXECUTION = ITRIGGERABLE_FEATURE_COUNT + 25;
 
     /**
      * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
@@ -2978,7 +2996,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = ITRIGGERABLE_FEATURE_COUNT + 28;
+    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = ITRIGGERABLE_FEATURE_COUNT + 26;
 
     /**
      * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
@@ -2987,7 +3005,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_PROJECT_NAME = ITRIGGERABLE_FEATURE_COUNT + 29;
+    int EXECUTION_TASK__GENERATED_PROJECT_NAME = ITRIGGERABLE_FEATURE_COUNT + 27;
 
     /**
      * The feature id for the '<em><b>Generated Job Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2996,7 +3014,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_JOB_NAME = ITRIGGERABLE_FEATURE_COUNT + 30;
+    int EXECUTION_TASK__GENERATED_JOB_NAME = ITRIGGERABLE_FEATURE_COUNT + 28;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -3005,7 +3023,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = ITRIGGERABLE_FEATURE_COUNT + 31;
+    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = ITRIGGERABLE_FEATURE_COUNT + 29;
 
     /**
      * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3014,7 +3032,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STACK_TRACE = ITRIGGERABLE_FEATURE_COUNT + 32;
+    int EXECUTION_TASK__ERROR_STACK_TRACE = ITRIGGERABLE_FEATURE_COUNT + 30;
 
     /**
      * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
@@ -3023,7 +3041,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_TRIGGERING_DATE = ITRIGGERABLE_FEATURE_COUNT + 33;
+    int EXECUTION_TASK__LAST_TRIGGERING_DATE = ITRIGGERABLE_FEATURE_COUNT + 31;
 
     /**
      * The feature id for the '<em><b>Exec Statistics Enabled</b></em>' attribute.
@@ -3032,7 +3050,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = ITRIGGERABLE_FEATURE_COUNT + 34;
+    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = ITRIGGERABLE_FEATURE_COUNT + 32;
 
     /**
      * The feature id for the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
@@ -3041,7 +3059,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = ITRIGGERABLE_FEATURE_COUNT + 35;
+    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = ITRIGGERABLE_FEATURE_COUNT + 33;
 
     /**
      * The feature id for the '<em><b>Owner Scheduler Instance Id</b></em>' attribute.
@@ -3050,7 +3068,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = ITRIGGERABLE_FEATURE_COUNT + 36;
+    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = ITRIGGERABLE_FEATURE_COUNT + 34;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -3059,7 +3077,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = ITRIGGERABLE_FEATURE_COUNT + 37;
+    int EXECUTION_TASK_FEATURE_COUNT = ITRIGGERABLE_FEATURE_COUNT + 35;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
@@ -3753,7 +3771,7 @@ public interface PropertiesPackage extends EPackage {
     int TALEND_TRIGGER__TRIGGER_TYPE = 4;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -3871,7 +3889,7 @@ public interface PropertiesPackage extends EPackage {
     int CRON_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -3997,7 +4015,7 @@ public interface PropertiesPackage extends EPackage {
     int CRON_UI_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -4165,7 +4183,7 @@ public interface PropertiesPackage extends EPackage {
     int SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -4357,7 +4375,7 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER__TRIGGER_TYPE = SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -6154,61 +6172,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN__ID = ITRIGGERABLE_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_PLAN__LABEL = ITRIGGERABLE_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Exec Plan Parts</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_PLAN__EXEC_PLAN_PARTS = ITRIGGERABLE_FEATURE_COUNT + 2;
-
-    /**
-     * The feature id for the '<em><b>Exec Plan Prms</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_PLAN__EXEC_PLAN_PRMS = ITRIGGERABLE_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_PLAN__ID_QUARTZ_JOB = ITRIGGERABLE_FEATURE_COUNT + 4;
-
-    /**
-     * The feature id for the '<em><b>Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_PLAN__STATUS = ITRIGGERABLE_FEATURE_COUNT + 5;
-
-    /**
-     * The feature id for the '<em><b>Error Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_PLAN__ERROR_STATUS = ITRIGGERABLE_FEATURE_COUNT + 6;
+    int EXECUTION_PLAN__ID = ITRIGGERABLE__ID;
 
     /**
      * The feature id for the '<em><b>Triggers</b></em>' reference list.
@@ -6217,7 +6181,61 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN__TRIGGERS = ITRIGGERABLE_FEATURE_COUNT + 7;
+    int EXECUTION_PLAN__TRIGGERS = ITRIGGERABLE__TRIGGERS;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__LABEL = ITRIGGERABLE_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Exec Plan Parts</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__EXEC_PLAN_PARTS = ITRIGGERABLE_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Exec Plan Prms</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__EXEC_PLAN_PRMS = ITRIGGERABLE_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ID_QUARTZ_JOB = ITRIGGERABLE_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__STATUS = ITRIGGERABLE_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__ERROR_STATUS = ITRIGGERABLE_FEATURE_COUNT + 5;
 
     /**
      * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
@@ -6226,7 +6244,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN__CONCURRENT_EXECUTION = ITRIGGERABLE_FEATURE_COUNT + 8;
+    int EXECUTION_PLAN__CONCURRENT_EXECUTION = ITRIGGERABLE_FEATURE_COUNT + 6;
 
     /**
      * The feature id for the '<em><b>Processing State</b></em>' attribute.
@@ -6235,7 +6253,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN__PROCESSING_STATE = ITRIGGERABLE_FEATURE_COUNT + 9;
+    int EXECUTION_PLAN__PROCESSING_STATE = ITRIGGERABLE_FEATURE_COUNT + 7;
 
     /**
      * The number of structural features of the '<em>Execution Plan</em>' class.
@@ -6244,7 +6262,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_FEATURE_COUNT = ITRIGGERABLE_FEATURE_COUNT + 10;
+    int EXECUTION_PLAN_FEATURE_COUNT = ITRIGGERABLE_FEATURE_COUNT + 8;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl <em>Execution Plan Part</em>}' class.
@@ -8563,16 +8581,6 @@ public interface PropertiesPackage extends EPackage {
     EClass getExecutionTask();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getId <em>Id</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getId()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EAttribute getExecutionTask_Id();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Label</em>'.
@@ -8791,17 +8799,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionTask_LastEndedRunDate();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionTask#getTriggers <em>Triggers</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Triggers</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getTriggers()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EReference getExecutionTask_Triggers();
 
     /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionTask#getCmdPrms <em>Cmd Prms</em>}'.
@@ -10676,17 +10673,6 @@ public interface PropertiesPackage extends EPackage {
     EClass getExecutionPlan();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlan#getId <em>Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.properties.ExecutionPlan#getId()
-     * @see #getExecutionPlan()
-     * @generated
-     */
-    EAttribute getExecutionPlan_Id();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlan#getLabel <em>Label</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10751,17 +10737,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionPlan_ErrorStatus();
-
-    /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ExecutionPlan#getTriggers <em>Triggers</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Triggers</em>'.
-     * @see org.talend.core.model.properties.ExecutionPlan#getTriggers()
-     * @see #getExecutionPlan()
-     * @generated
-     */
-    EReference getExecutionPlan_Triggers();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlan#isConcurrentExecution <em>Concurrent Execution</em>}'.
@@ -10935,6 +10910,28 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getITriggerable();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ITriggerable#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ITriggerable#getId()
+     * @see #getITriggerable()
+     * @generated
+     */
+    EAttribute getITriggerable_Id();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ITriggerable#getTriggers <em>Triggers</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Triggers</em>'.
+     * @see org.talend.core.model.properties.ITriggerable#getTriggers()
+     * @see #getITriggerable()
+     * @generated
+     */
+    EReference getITriggerable_Triggers();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanPartCmdPrm <em>Execution Plan Part Cmd Prm</em>}'.
@@ -13282,14 +13279,6 @@ public interface PropertiesPackage extends EPackage {
         EClass EXECUTION_TASK = eINSTANCE.getExecutionTask();
 
         /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_TASK__ID = eINSTANCE.getExecutionTask_Id();
-
-        /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
          * <!-- begin-user-doc --> <!--
          * end-user-doc -->
@@ -13456,14 +13445,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__LAST_ENDED_RUN_DATE = eINSTANCE.getExecutionTask_LastEndedRunDate();
-
-        /**
-         * The meta object literal for the '<em><b>Triggers</b></em>' containment reference list feature. <!--
-         * begin-user-doc --> <!-- end-user-doc -->
-         * 
-         * @generated
-         */
-        EReference EXECUTION_TASK__TRIGGERS = eINSTANCE.getExecutionTask_Triggers();
 
         /**
          * The meta object literal for the '<em><b>Cmd Prms</b></em>' containment reference list feature. <!--
@@ -14960,14 +14941,6 @@ public interface PropertiesPackage extends EPackage {
         EClass EXECUTION_PLAN = eINSTANCE.getExecutionPlan();
 
         /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute EXECUTION_PLAN__ID = eINSTANCE.getExecutionPlan_Id();
-
-        /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -15014,14 +14987,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_PLAN__ERROR_STATUS = eINSTANCE.getExecutionPlan_ErrorStatus();
-
-        /**
-         * The meta object literal for the '<em><b>Triggers</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference EXECUTION_PLAN__TRIGGERS = eINSTANCE.getExecutionPlan_Triggers();
 
         /**
          * The meta object literal for the '<em><b>Concurrent Execution</b></em>' attribute feature.
@@ -15156,6 +15121,22 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass ITRIGGERABLE = eINSTANCE.getITriggerable();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITRIGGERABLE__ID = eINSTANCE.getITriggerable_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Triggers</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ITRIGGERABLE__TRIGGERS = eINSTANCE.getITriggerable_Triggers();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartCmdPrmImpl <em>Execution Plan Part Cmd Prm</em>}' class.
