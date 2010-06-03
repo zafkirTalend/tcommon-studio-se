@@ -220,7 +220,7 @@ public class QueryUtil {
         String currentTableName = null;
         boolean flag = false;
         String dbTableName = getDbTableName(node);
-        String dbName = getDbName(node);
+
         if (dbTableName != null) {
             switch (LanguageManager.getCurrentLanguage()) {
             case JAVA:
@@ -228,13 +228,13 @@ public class QueryUtil {
                     if (dbTableName.startsWith(TalendTextUtils.QUOTATION_MARK)
                             && dbTableName.endsWith(TalendTextUtils.QUOTATION_MARK) && dbTableName.length() > 2) {
                         currentTableName = dbTableName.substring(1, dbTableName.length() - 1);
-                        if (dbType != null && (dbType.equals("NETEZZA") || dbType.equals("Netezza"))) {
-                            if (dbName != null && schema != null) {
-                                currentTableName = dbName + "." + schema + "." + currentTableName;
-                            } else if (dbName != null && schema == null) {
-                                currentTableName = dbName + ".." + currentTableName;
-                            }
-                        }
+                        // if (dbType != null && (dbType.equals("NETEZZA") || dbType.equals("Netezza"))) {
+                        // if (dbName != null && schema != null) {
+                        // currentTableName = dbName + "." + schema + "." + currentTableName;
+                        // } else if (dbName != null && schema == null) {
+                        // currentTableName = dbName + ".." + currentTableName;
+                        // }
+                        // }
                         flag = true;
                     } else {
                         currentTableName = null;
@@ -288,7 +288,7 @@ public class QueryUtil {
         String prefix;
         String suffix;
         EDatabaseTypeName typeFromDbType = EDatabaseTypeName.getTypeFromDbType(dbType);
-        if (typeFromDbType.isNeedSchema()) {
+        if (typeFromDbType.isNeedSchema() || typeFromDbType == EDatabaseTypeName.NETEZZA) {
             // wzhang modified to fix bug 7879. value of oracle schema can't attach quotation marks.
             boolean isOracle = (typeFromDbType == EDatabaseTypeName.ORACLEFORSID || EDatabaseTypeName.ORACLESN == typeFromDbType || EDatabaseTypeName.ORACLE_OCI == typeFromDbType);
             if (isContext(schema)) {
