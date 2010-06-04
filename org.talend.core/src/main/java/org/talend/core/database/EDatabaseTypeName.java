@@ -123,6 +123,9 @@ public enum EDatabaseTypeName {
             if (typename.getXmlName().toUpperCase().equals(dbType.toUpperCase())) {
                 return typename;
             }
+            if (typename.getProduct().toUpperCase().equals(dbType.toUpperCase())) {
+                return typename;
+            }
         }
         return getTypeFromDisplayName(dbType);
     }
