@@ -31,6 +31,8 @@ public final class DateUtils {
 
     public static final String PATTERN_4 = "MM/dd/yyyy HH:mm";//$NON-NLS-1$
 
+    public static final String PATTERN_5 = "yyyy-MM-dd HH:mm:ss";//$NON-NLS-1$
+
     /**
      * DOC bZhou DateUtils constructor comment.
      */
