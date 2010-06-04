@@ -39,7 +39,8 @@ public enum EComponentCategory {
     ADVANCED_PROPERTIES(Messages.getString("EComponentCategory_properties"), 11, BASIC, ADVANCED), //$NON-NLS-1$
     EXTRA(Messages.getString("EComponentCategory_extra"), 12), //$NON-NLS-1$
     DYNAMICS_SETTINGS(Messages.getString("EComponentCategory_dynamicSetting"), 13), //$NON-NLS-1$
-    SQL_PATTERN(Messages.getString("EComponentCategory_sqlTemplate"), 14); //$NON-NLS-1$
+    SQL_PATTERN(Messages.getString("EComponentCategory_sqlTemplate"), 14), //$NON-NLS-1$
+    BREAKPOINT("Breakpoint", 15);
 
     private String title;
 
