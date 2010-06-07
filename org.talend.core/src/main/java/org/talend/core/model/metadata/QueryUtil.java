@@ -17,6 +17,8 @@ import java.util.List;
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.query.GenerateQueryFactory;
+import org.talend.core.model.metadata.query.IQueryGenerator;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IElementParameter;
@@ -42,13 +44,61 @@ public class QueryUtil {
 
     public static boolean isContextQuery = false;
 
+    public static boolean needFormatSQL(String dbType) {
+        if (dbType != null) {
+            EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDbType(dbType);
+            if (type != null) {
+                switch (type) {
+                case NETEZZA:
+                case ORACLE_OCI:
+                case ORACLEFORSID:
+                case ORACLESN:
+                case PSQL:
+                case PLUSPSQL:
+                case AS400:
+                case ACCESS:
+                case MYSQL:
+                case IBMDB2:
+                case IBMDB2ZOS:
+                    /*
+                     * if not work on DefaultQueryGenerator.
+                     */
+                    return false; // no need
+                default: // need
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+            String realTableName) {
+        IQueryGenerator generator = GenerateQueryFactory.getGenerator(dbType);
+        if (generator != null) {
+            generator.setParameters(node, repositoryMetadata, schema, realTableName);
+            return generator.generateQuery();
+        }
+        return generateNewQueryDelegate(node, repositoryMetadata, dbType, schema, realTableName);
+    }
+
+    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+            String realTableName, boolean standardSyntax) {
+        IQueryGenerator generator = GenerateQueryFactory.getGenerator(dbType);
+        if (generator != null) {
+            generator.setParameters(node, repositoryMetadata, schema, realTableName);
+            return generator.generateQuery();
+        }
+        return generateNewQueryDelegate(node, repositoryMetadata, dbType, schema, realTableName, standardSyntax);
+    }
+
+    public static String generateNewQueryDelegate(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName) {
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
         return generateNewQuery(repositoryMetadata, dbType, tableName, realTableName);
     }
 
-    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+    public static String generateNewQueryDelegate(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
             String realTableName, boolean standardSyntax) {
 
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
@@ -288,7 +338,7 @@ public class QueryUtil {
         String prefix;
         String suffix;
         EDatabaseTypeName typeFromDbType = EDatabaseTypeName.getTypeFromDbType(dbType);
-        if (typeFromDbType.isNeedSchema() || typeFromDbType == EDatabaseTypeName.NETEZZA) {
+        if (typeFromDbType.isNeedSchema()) {
             // wzhang modified to fix bug 7879. value of oracle schema can't attach quotation marks.
             boolean isOracle = (typeFromDbType == EDatabaseTypeName.ORACLEFORSID || EDatabaseTypeName.ORACLESN == typeFromDbType || EDatabaseTypeName.ORACLE_OCI == typeFromDbType);
             if (isContext(schema)) {

@@ -113,7 +113,9 @@ public class TalendTextUtils {
 
     public static String addSQLQuotes(String text) {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
-
+        if (ContextParameterUtils.isContainContextParam(text)) {
+            return text;
+        }
         switch (language) {
         case JAVA:
             return addSQLQuotes(text, QUOTATION_MARK);
@@ -367,7 +369,7 @@ public class TalendTextUtils {
      * 
      * if simple is true, the text should not be the context or variables.
      */
-    private static String addQuotesForSQLString(String text, String quoteStyle, boolean simple) {
+    public static String addQuotesForSQLString(String text, String quoteStyle, boolean simple) {
 
         String con = getStringConnect();
         String newString;
