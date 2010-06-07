@@ -94,4 +94,6 @@ public interface IConnection extends IElement {
      * feature 6355. get the trace condition this connection.
      */
     public String getTracesCondition();
+
+    public INode getTmpNode();
 }
