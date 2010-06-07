@@ -34,6 +34,11 @@ import org.talend.core.model.properties.TalendTrigger;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getTriggers <em>Triggers</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStatus <em>Error Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isProcessingState <em>Processing State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getExecutionServer <em>Execution Server</em>}</li>
@@ -42,16 +47,12 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobVersion <em>Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isActive <em>Active</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedSvnRevision <em>Generated Svn Revision</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getChecksumArchive <em>Checksum Archive</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getStatus <em>Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isProcessingState <em>Processing State</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStatus <em>Error Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastRunDate <em>Last Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
@@ -59,7 +60,6 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobPrms <em>Job Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getVirtualServer <em>Virtual Server</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedProjectName <em>Generated Project Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedJobName <em>Generated Job Name</em>}</li>
@@ -103,6 +103,106 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected EList triggers;
+
+    /**
+     * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIdQuartzJob()
+     * @generated
+     * @ordered
+     */
+    protected static final int ID_QUARTZ_JOB_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIdQuartzJob()
+     * @generated
+     * @ordered
+     */
+    protected int idQuartzJob = ID_QUARTZ_JOB_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @see #getStatus()
+     * @generated
+     * @ordered
+     */
+    protected static final String STATUS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @see #getStatus()
+     * @generated
+     * @ordered
+     */
+    protected String status = STATUS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getErrorStatus()
+     * @generated
+     * @ordered
+     */
+    protected static final String ERROR_STATUS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * @see #getErrorStatus()
+     * @generated
+     * @ordered
+     */
+    protected String errorStatus = ERROR_STATUS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #isConcurrentExecution()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CONCURRENT_EXECUTION_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #isConcurrentExecution()
+     * @generated
+     * @ordered
+     */
+    protected boolean concurrentExecution = CONCURRENT_EXECUTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * @see #isProcessingState()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean PROCESSING_STATE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * @see #isProcessingState()
+     * @generated
+     * @ordered
+     */
+    protected boolean processingState = PROCESSING_STATE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -245,26 +345,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected boolean active = ACTIVE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getIdQuartzJob()
-     * @generated
-     * @ordered
-     */
-    protected static final int ID_QUARTZ_JOB_EDEFAULT = 0;
-
-    /**
-     * The cached value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getIdQuartzJob()
-     * @generated
-     * @ordered
-     */
-    protected int idQuartzJob = ID_QUARTZ_JOB_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getLastScriptGenerationDate() <em>Last Script Generation Date</em>}' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastScriptGenerationDate()
@@ -381,66 +461,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected String jobScriptArchiveFilename = JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getStatus()
-     * @generated
-     * @ordered
-     */
-    protected static final String STATUS_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getStatus()
-     * @generated
-     * @ordered
-     */
-    protected String status = STATUS_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * @see #isProcessingState()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean PROCESSING_STATE_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isProcessingState() <em>Processing State</em>}' attribute.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     * @see #isProcessingState()
-     * @generated
-     * @ordered
-     */
-    protected boolean processingState = PROCESSING_STATE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getErrorStatus()
-     * @generated
-     * @ordered
-     */
-    protected static final String ERROR_STATUS_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getErrorStatus() <em>Error Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getErrorStatus()
-     * @generated
-     * @ordered
-     */
-    protected String errorStatus = ERROR_STATUS_EDEFAULT;
-
-    /**
      * The default value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -549,26 +569,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected ExecutionVirtualServer virtualServer;
-
-    /**
-     * The default value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #isConcurrentExecution()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean CONCURRENT_EXECUTION_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #isConcurrentExecution()
-     * @generated
-     * @ordered
-     */
-    protected boolean concurrentExecution = CONCURRENT_EXECUTION_EDEFAULT;
 
     /**
      * The default value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
@@ -1208,7 +1208,7 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      */
     public EList getTriggers() {
         if (triggers == null) {
-            triggers = new EObjectResolvingEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS);
+            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE);
         }
         return triggers;
     }
@@ -1491,6 +1491,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 return ((InternalEList)getCmdPrms()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
@@ -1505,6 +1507,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__CMD_PRMS:
                 return ((InternalEList)getCmdPrms()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_TASK__JOB_PRMS:
@@ -1523,6 +1527,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return new Integer(getId());
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return getTriggers();
+            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+                return new Integer(getIdQuartzJob());
+            case PropertiesPackage.EXECUTION_TASK__STATUS:
+                return getStatus();
+            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+                return getErrorStatus();
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+                return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 return getLabel();
             case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
@@ -1541,8 +1555,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getJobVersion();
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                return new Integer(getIdQuartzJob());
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 return getLastScriptGenerationDate();
             case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
@@ -1555,12 +1567,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getChecksumArchive();
             case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
                 return getJobScriptArchiveFilename();
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                return getStatus();
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                return getErrorStatus();
             case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
                 return getLastRunDate();
             case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
@@ -1576,8 +1582,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 if (resolve) return getVirtualServer();
                 return basicGetVirtualServer();
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 return new Integer(getMaxConcurrentExecutions());
             case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
@@ -1613,6 +1617,21 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 getTriggers().clear();
                 getTriggers().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+                setIdQuartzJob(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_TASK__STATUS:
+                setStatus((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+                setErrorStatus((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                setConcurrentExecution(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+                setProcessingState(((Boolean)newValue).booleanValue());
+                return;
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 setLabel((String)newValue);
                 return;
@@ -1637,9 +1656,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 setActive(((Boolean)newValue).booleanValue());
                 return;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                setIdQuartzJob(((Integer)newValue).intValue());
-                return;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 setLastScriptGenerationDate((Date)newValue);
                 return;
@@ -1657,15 +1673,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
                 setJobScriptArchiveFilename((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                setStatus((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                setProcessingState(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                setErrorStatus((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
                 setLastRunDate((Date)newValue);
@@ -1689,9 +1696,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 setVirtualServer((ExecutionVirtualServer)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                setConcurrentExecution(((Boolean)newValue).booleanValue());
                 return;
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 setMaxConcurrentExecutions(((Integer)newValue).intValue());
@@ -1736,6 +1740,21 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 getTriggers().clear();
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+                setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__STATUS:
+                setStatus(STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+                setErrorStatus(ERROR_STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                setConcurrentExecution(CONCURRENT_EXECUTION_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+                setProcessingState(PROCESSING_STATE_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -1760,9 +1779,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 setActive(ACTIVE_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
-                return;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 setLastScriptGenerationDate(LAST_SCRIPT_GENERATION_DATE_EDEFAULT);
                 return;
@@ -1780,15 +1796,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
                 setJobScriptArchiveFilename(JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                setStatus(STATUS_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                setProcessingState(PROCESSING_STATE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                setErrorStatus(ERROR_STATUS_EDEFAULT);
                 return;
             case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
                 setLastRunDate(LAST_RUN_DATE_EDEFAULT);
@@ -1810,9 +1817,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 setVirtualServer((ExecutionVirtualServer)null);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                setConcurrentExecution(CONCURRENT_EXECUTION_EDEFAULT);
                 return;
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 setMaxConcurrentExecutions(MAX_CONCURRENT_EXECUTIONS_EDEFAULT);
@@ -1855,6 +1859,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return id != ID_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return triggers != null && !triggers.isEmpty();
+            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+                return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__STATUS:
+                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+                return ERROR_STATUS_EDEFAULT == null ? errorStatus != null : !ERROR_STATUS_EDEFAULT.equals(errorStatus);
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
+                return processingState != PROCESSING_STATE_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
@@ -1871,8 +1885,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return JOB_VERSION_EDEFAULT == null ? jobVersion != null : !JOB_VERSION_EDEFAULT.equals(jobVersion);
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 return active != ACTIVE_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
-                return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
                 return LAST_SCRIPT_GENERATION_DATE_EDEFAULT == null ? lastScriptGenerationDate != null : !LAST_SCRIPT_GENERATION_DATE_EDEFAULT.equals(lastScriptGenerationDate);
             case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
@@ -1885,12 +1897,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return CHECKSUM_ARCHIVE_EDEFAULT == null ? checksumArchive != null : !CHECKSUM_ARCHIVE_EDEFAULT.equals(checksumArchive);
             case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
                 return JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT == null ? jobScriptArchiveFilename != null : !JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT.equals(jobScriptArchiveFilename);
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-                return processingState != PROCESSING_STATE_EDEFAULT;
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
-                return ERROR_STATUS_EDEFAULT == null ? errorStatus != null : !ERROR_STATUS_EDEFAULT.equals(errorStatus);
             case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
                 return LAST_RUN_DATE_EDEFAULT == null ? lastRunDate != null : !LAST_RUN_DATE_EDEFAULT.equals(lastRunDate);
             case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
@@ -1905,8 +1911,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 return virtualServer != null;
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
-                return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
                 return maxConcurrentExecutions != MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
@@ -1939,6 +1943,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
+        result.append(", idQuartzJob: ");
+        result.append(idQuartzJob);
+        result.append(", status: ");
+        result.append(status);
+        result.append(", errorStatus: ");
+        result.append(errorStatus);
+        result.append(", concurrentExecution: ");
+        result.append(concurrentExecution);
+        result.append(", processingState: ");
+        result.append(processingState);
         result.append(", label: ");
         result.append(label);
         result.append(", description: ");
@@ -1951,8 +1965,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(jobVersion);
         result.append(", active: ");
         result.append(active);
-        result.append(", idQuartzJob: ");
-        result.append(idQuartzJob);
         result.append(", lastScriptGenerationDate: ");
         result.append(lastScriptGenerationDate);
         result.append(", generatedSvnRevision: ");
@@ -1965,12 +1977,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(checksumArchive);
         result.append(", jobScriptArchiveFilename: ");
         result.append(jobScriptArchiveFilename);
-        result.append(", status: ");
-        result.append(status);
-        result.append(", processingState: ");
-        result.append(processingState);
-        result.append(", errorStatus: ");
-        result.append(errorStatus);
         result.append(", lastRunDate: ");
         result.append(lastRunDate);
         result.append(", lastDeploymentDate: ");
@@ -1979,8 +1985,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(lastEndedRunDate);
         result.append(", jobId: ");
         result.append(jobId);
-        result.append(", concurrentExecution: ");
-        result.append(concurrentExecution);
         result.append(", maxConcurrentExecutions: ");
         result.append(maxConcurrentExecutions);
         result.append(", generatedProjectName: ");

@@ -460,16 +460,47 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.EXECUTION_SERVER: {
-                ExecutionServer executionServer = (ExecutionServer)theEObject;
-                Object result = caseExecutionServer(executionServer);
+            case PropertiesPackage.EXECUTION_TRIGGERABLE: {
+                ExecutionTriggerable executionTriggerable = (ExecutionTriggerable)theEObject;
+                Object result = caseExecutionTriggerable(executionTriggerable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN: {
+                ExecutionPlan executionPlan = (ExecutionPlan)theEObject;
+                Object result = caseExecutionPlan(executionPlan);
+                if (result == null) result = caseExecutionTriggerable(executionPlan);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PART: {
+                ExecutionPlanPart executionPlanPart = (ExecutionPlanPart)theEObject;
+                Object result = caseExecutionPlanPart(executionPlanPart);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PRM: {
+                ExecutionPlanPrm executionPlanPrm = (ExecutionPlanPrm)theEObject;
+                Object result = caseExecutionPlanPrm(executionPlanPrm);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM: {
+                ExecutionPlanPartCmdPrm executionPlanPartCmdPrm = (ExecutionPlanPartCmdPrm)theEObject;
+                Object result = caseExecutionPlanPartCmdPrm(executionPlanPartCmdPrm);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM: {
+                ExecutionPlanPartJobPrm executionPlanPartJobPrm = (ExecutionPlanPartJobPrm)theEObject;
+                Object result = caseExecutionPlanPartJobPrm(executionPlanPartJobPrm);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
             case PropertiesPackage.EXECUTION_TASK: {
                 ExecutionTask executionTask = (ExecutionTask)theEObject;
                 Object result = caseExecutionTask(executionTask);
-                if (result == null) result = caseITriggerable(executionTask);
+                if (result == null) result = caseExecutionTriggerable(executionTask);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -518,12 +549,6 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: {
-                ExecutionVirtualServer executionVirtualServer = (ExecutionVirtualServer)theEObject;
-                Object result = caseExecutionVirtualServer(executionVirtualServer);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case PropertiesPackage.FILE_TRIGGER: {
                 FileTrigger fileTrigger = (FileTrigger)theEObject;
                 Object result = caseFileTrigger(fileTrigger);
@@ -535,6 +560,18 @@ public class PropertiesSwitch {
             case PropertiesPackage.FILE_TRIGGER_MASK: {
                 FileTriggerMask fileTriggerMask = (FileTriggerMask)theEObject;
                 Object result = caseFileTriggerMask(fileTriggerMask);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_SERVER: {
+                ExecutionServer executionServer = (ExecutionServer)theEObject;
+                Object result = caseExecutionServer(executionServer);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: {
+                ExecutionVirtualServer executionVirtualServer = (ExecutionVirtualServer)theEObject;
+                Object result = caseExecutionVirtualServer(executionVirtualServer);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -740,43 +777,6 @@ public class PropertiesSwitch {
                 Object result = caseHL7ConnectionItem(hl7ConnectionItem);
                 if (result == null) result = caseConnectionItem(hl7ConnectionItem);
                 if (result == null) result = caseItem(hl7ConnectionItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.EXECUTION_PLAN: {
-                ExecutionPlan executionPlan = (ExecutionPlan)theEObject;
-                Object result = caseExecutionPlan(executionPlan);
-                if (result == null) result = caseITriggerable(executionPlan);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.EXECUTION_PLAN_PART: {
-                ExecutionPlanPart executionPlanPart = (ExecutionPlanPart)theEObject;
-                Object result = caseExecutionPlanPart(executionPlanPart);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.EXECUTION_PLAN_PRM: {
-                ExecutionPlanPrm executionPlanPrm = (ExecutionPlanPrm)theEObject;
-                Object result = caseExecutionPlanPrm(executionPlanPrm);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.ITRIGGERABLE: {
-                ITriggerable iTriggerable = (ITriggerable)theEObject;
-                Object result = caseITriggerable(iTriggerable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM: {
-                ExecutionPlanPartCmdPrm executionPlanPartCmdPrm = (ExecutionPlanPartCmdPrm)theEObject;
-                Object result = caseExecutionPlanPartCmdPrm(executionPlanPartCmdPrm);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM: {
-                ExecutionPlanPartJobPrm executionPlanPartJobPrm = (ExecutionPlanPartJobPrm)theEObject;
-                Object result = caseExecutionPlanPartJobPrm(executionPlanPartJobPrm);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1365,6 +1365,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseDashboardConnection(DashboardConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Triggerable</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Triggerable</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionTriggerable(ExecutionTriggerable object) {
         return null;
     }
 
@@ -1960,21 +1975,6 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseExecutionPlanPrm(ExecutionPlanPrm object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>ITriggerable</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>ITriggerable</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseITriggerable(ITriggerable object) {
         return null;
     }
 

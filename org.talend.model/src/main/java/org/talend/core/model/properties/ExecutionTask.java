@@ -24,16 +24,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedSvnRevision <em>Generated Svn Revision</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
@@ -41,7 +37,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobPrms <em>Job Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer <em>Virtual Server</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName <em>Generated Project Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName <em>Generated Job Name</em>}</li>
@@ -58,7 +53,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ExecutionTask extends ITriggerable {
+public interface ExecutionTask extends ExecutionTriggerable {
 
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.
@@ -263,31 +258,6 @@ public interface ExecutionTask extends ITriggerable {
     void setActive(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Id Quartz Job</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Id Quartz Job</em>' attribute isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Id Quartz Job</em>' attribute.
-     * @see #setIdQuartzJob(int)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdQuartzJob()
-     * @model
-     * @generated
-     */
-    int getIdQuartzJob();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Id Quartz Job</em>' attribute.
-     * @see #getIdQuartzJob()
-     * @generated
-     */
-    void setIdQuartzJob(int value);
-
-    /**
      * Returns the value of the '<em><b>Last Script Generation Date</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -437,81 +407,6 @@ public interface ExecutionTask extends ITriggerable {
      * @generated
      */
     void setJobScriptArchiveFilename(String value);
-
-    /**
-     * Returns the value of the '<em><b>Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Status</em>' attribute isn't clear, there really should be more of a description
-     * here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Status</em>' attribute.
-     * @see #setStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Status()
-     * @model
-     * @generated
-     */
-    String getStatus();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Status</em>' attribute.
-     * @see #getStatus()
-     * @generated
-     */
-    void setStatus(String value);
-
-    /**
-     * Returns the value of the '<em><b>Processing State</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Processing State</em>' attribute isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Processing State</em>' attribute.
-     * @see #setProcessingState(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ProcessingState()
-     * @model
-     * @generated
-     */
-    boolean isProcessingState();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Processing State</em>' attribute.
-     * @see #isProcessingState()
-     * @generated
-     */
-    void setProcessingState(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>Error Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Error Status</em>' attribute isn't clear, there really should be more of a description
-     * here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Error Status</em>' attribute.
-     * @see #setErrorStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ErrorStatus()
-     * @model
-     * @generated
-     */
-    String getErrorStatus();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Error Status</em>' attribute.
-     * @see #getErrorStatus()
-     * @generated
-     */
-    void setErrorStatus(String value);
 
     /**
      * Returns the value of the '<em><b>Last Run Date</b></em>' attribute.
@@ -677,31 +572,6 @@ public interface ExecutionTask extends ITriggerable {
      * @generated
      */
     void setVirtualServer(ExecutionVirtualServer value);
-
-    /**
-     * Returns the value of the '<em><b>Concurrent Execution</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Concurrent Execution</em>' attribute isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Concurrent Execution</em>' attribute.
-     * @see #setConcurrentExecution(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ConcurrentExecution()
-     * @model
-     * @generated
-     */
-    boolean isConcurrentExecution();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution <em>Concurrent Execution</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @param value the new value of the '<em>Concurrent Execution</em>' attribute.
-     * @see #isConcurrentExecution()
-     * @generated
-     */
-    void setConcurrentExecution(boolean value);
 
     /**
      * Returns the value of the '<em><b>Max Concurrent Executions</b></em>' attribute.

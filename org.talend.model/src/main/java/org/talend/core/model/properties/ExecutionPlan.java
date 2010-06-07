@@ -20,11 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getExecPlanParts <em>Exec Plan Parts</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getIdQuartzJob <em>Id Quartz Job</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getStatus <em>Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#getErrorStatus <em>Error Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#isConcurrentExecution <em>Concurrent Execution</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlan#isProcessingState <em>Processing State</em>}</li>
  * </ul>
  * </p>
  *
@@ -32,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ExecutionPlan extends ITriggerable {
+public interface ExecutionPlan extends ExecutionTriggerable {
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -90,135 +85,5 @@ public interface ExecutionPlan extends ITriggerable {
      * @generated
      */
     EList getExecPlanPrms();
-
-    /**
-     * Returns the value of the '<em><b>Id Quartz Job</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Id Quartz Job</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Id Quartz Job</em>' attribute.
-     * @see #setIdQuartzJob(int)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_IdQuartzJob()
-     * @model
-     * @generated
-     */
-    int getIdQuartzJob();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlan#getIdQuartzJob <em>Id Quartz Job</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Id Quartz Job</em>' attribute.
-     * @see #getIdQuartzJob()
-     * @generated
-     */
-    void setIdQuartzJob(int value);
-
-    /**
-     * Returns the value of the '<em><b>Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Status</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Status</em>' attribute.
-     * @see #setStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_Status()
-     * @model
-     * @generated
-     */
-    String getStatus();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlan#getStatus <em>Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Status</em>' attribute.
-     * @see #getStatus()
-     * @generated
-     */
-    void setStatus(String value);
-
-    /**
-     * Returns the value of the '<em><b>Error Status</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Error Status</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Error Status</em>' attribute.
-     * @see #setErrorStatus(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_ErrorStatus()
-     * @model
-     * @generated
-     */
-    String getErrorStatus();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlan#getErrorStatus <em>Error Status</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Error Status</em>' attribute.
-     * @see #getErrorStatus()
-     * @generated
-     */
-    void setErrorStatus(String value);
-
-    /**
-     * Returns the value of the '<em><b>Concurrent Execution</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Concurrent Execution</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Concurrent Execution</em>' attribute.
-     * @see #setConcurrentExecution(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_ConcurrentExecution()
-     * @model
-     * @generated
-     */
-    boolean isConcurrentExecution();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlan#isConcurrentExecution <em>Concurrent Execution</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Concurrent Execution</em>' attribute.
-     * @see #isConcurrentExecution()
-     * @generated
-     */
-    void setConcurrentExecution(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>Processing State</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Processing State</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Processing State</em>' attribute.
-     * @see #setProcessingState(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlan_ProcessingState()
-     * @model
-     * @generated
-     */
-    boolean isProcessingState();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlan#isProcessingState <em>Processing State</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Processing State</em>' attribute.
-     * @see #isProcessingState()
-     * @generated
-     */
-    void setProcessingState(boolean value);
 
 } // ExecutionPlan

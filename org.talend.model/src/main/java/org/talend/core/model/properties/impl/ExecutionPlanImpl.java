@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -38,14 +39,14 @@ import org.talend.core.model.properties.TalendTrigger;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getTriggers <em>Triggers</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanParts <em>Exec Plan Parts</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getErrorStatus <em>Error Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#isProcessingState <em>Processing State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanParts <em>Exec Plan Parts</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,7 +74,7 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
     protected int id = ID_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' reference list.
+     * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getTriggers()
@@ -81,46 +82,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      * @ordered
      */
     protected EList triggers;
-
-    /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
-    protected static final String LABEL_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
-    protected String label = LABEL_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getExecPlanParts() <em>Exec Plan Parts</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getExecPlanParts()
-     * @generated
-     * @ordered
-     */
-    protected EList execPlanParts;
-
-    /**
-     * The cached value of the '{@link #getExecPlanPrms() <em>Exec Plan Prms</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getExecPlanPrms()
-     * @generated
-     * @ordered
-     */
-    protected EList execPlanPrms;
 
     /**
      * The default value of the '{@link #getIdQuartzJob() <em>Id Quartz Job</em>}' attribute.
@@ -223,6 +184,46 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
     protected boolean processingState = PROCESSING_STATE_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLabel()
+     * @generated
+     * @ordered
+     */
+    protected static final String LABEL_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLabel()
+     * @generated
+     * @ordered
+     */
+    protected String label = LABEL_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getExecPlanParts() <em>Exec Plan Parts</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecPlanParts()
+     * @generated
+     * @ordered
+     */
+    protected EList execPlanParts;
+
+    /**
+     * The cached value of the '{@link #getExecPlanPrms() <em>Exec Plan Prms</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getExecPlanPrms()
+     * @generated
+     * @ordered
+     */
+    protected EList execPlanPrms;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -311,6 +312,19 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      * <!-- end-user-doc -->
      * @generated
      */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
+                return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public int getIdQuartzJob() {
         return idQuartzJob;
     }
@@ -376,7 +390,7 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      */
     public EList getTriggers() {
         if (triggers == null) {
-            triggers = new EObjectResolvingEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_PLAN__TRIGGERS);
+            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_PLAN__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE);
         }
         return triggers;
     }
@@ -430,6 +444,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
+                return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
                 return ((InternalEList)getExecPlanParts()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
@@ -449,12 +465,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return new Integer(getId());
             case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
                 return getTriggers();
-            case PropertiesPackage.EXECUTION_PLAN__LABEL:
-                return getLabel();
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
-                return getExecPlanParts();
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
-                return getExecPlanPrms();
             case PropertiesPackage.EXECUTION_PLAN__ID_QUARTZ_JOB:
                 return new Integer(getIdQuartzJob());
             case PropertiesPackage.EXECUTION_PLAN__STATUS:
@@ -465,6 +475,12 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_PLAN__LABEL:
+                return getLabel();
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
+                return getExecPlanParts();
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
+                return getExecPlanPrms();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -483,17 +499,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 getTriggers().clear();
                 getTriggers().addAll((Collection)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN__LABEL:
-                setLabel((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
-                getExecPlanParts().clear();
-                getExecPlanParts().addAll((Collection)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
-                getExecPlanPrms().clear();
-                getExecPlanPrms().addAll((Collection)newValue);
-                return;
             case PropertiesPackage.EXECUTION_PLAN__ID_QUARTZ_JOB:
                 setIdQuartzJob(((Integer)newValue).intValue());
                 return;
@@ -508,6 +513,17 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 setProcessingState(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__LABEL:
+                setLabel((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
+                getExecPlanParts().clear();
+                getExecPlanParts().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
+                getExecPlanPrms().clear();
+                getExecPlanPrms().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -526,15 +542,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
             case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
                 getTriggers().clear();
                 return;
-            case PropertiesPackage.EXECUTION_PLAN__LABEL:
-                setLabel(LABEL_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
-                getExecPlanParts().clear();
-                return;
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
-                getExecPlanPrms().clear();
-                return;
             case PropertiesPackage.EXECUTION_PLAN__ID_QUARTZ_JOB:
                 setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
                 return;
@@ -549,6 +556,15 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 setProcessingState(PROCESSING_STATE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__LABEL:
+                setLabel(LABEL_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
+                getExecPlanParts().clear();
+                return;
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
+                getExecPlanPrms().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -565,12 +581,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return id != ID_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN__TRIGGERS:
                 return triggers != null && !triggers.isEmpty();
-            case PropertiesPackage.EXECUTION_PLAN__LABEL:
-                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
-                return execPlanParts != null && !execPlanParts.isEmpty();
-            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
-                return execPlanPrms != null && !execPlanPrms.isEmpty();
             case PropertiesPackage.EXECUTION_PLAN__ID_QUARTZ_JOB:
                 return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN__STATUS:
@@ -581,6 +591,12 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN__PROCESSING_STATE:
                 return processingState != PROCESSING_STATE_EDEFAULT;
+            case PropertiesPackage.EXECUTION_PLAN__LABEL:
+                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PARTS:
+                return execPlanParts != null && !execPlanParts.isEmpty();
+            case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
+                return execPlanPrms != null && !execPlanPrms.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -596,8 +612,6 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
-        result.append(", label: ");
-        result.append(label);
         result.append(", idQuartzJob: ");
         result.append(idQuartzJob);
         result.append(", status: ");
@@ -608,6 +622,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         result.append(concurrentExecution);
         result.append(", processingState: ");
         result.append(processingState);
+        result.append(", label: ");
+        result.append(label);
         result.append(')');
         return result.toString();
     }

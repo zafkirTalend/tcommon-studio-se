@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.core.model.properties.ExecutionTriggerable;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.TalendTrigger;
@@ -34,7 +35,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getTriggerType <em>Trigger Type</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getExecutionTask <em>Execution Task</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getExecutionTriggerable <em>Execution Triggerable</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getStartTime <em>Start Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getEndTime <em>End Time</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TalendTriggerImpl#getPreviousFireTime <em>Previous Fire Time</em>}</li>
@@ -147,16 +148,6 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * @ordered
      */
     protected String triggerType = TRIGGER_TYPE_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getExecutionTask() <em>Execution Task</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getExecutionTask()
-     * @generated
-     * @ordered
-     */
-    protected ExecutionTask executionTask;
 
     /**
      * The default value of the '{@link #getStartTime() <em>Start Time</em>}' attribute.
@@ -426,37 +417,40 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * <!-- end-user-doc -->
      * @generated
      */
-    public ExecutionTask getExecutionTask() {
-        if (executionTask != null && executionTask.eIsProxy()) {
-            InternalEObject oldExecutionTask = (InternalEObject)executionTask;
-            executionTask = (ExecutionTask)eResolveProxy(oldExecutionTask);
-            if (executionTask != oldExecutionTask) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK, oldExecutionTask, executionTask));
-            }
+    public ExecutionTriggerable getExecutionTriggerable() {
+        if (eContainerFeatureID() != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE) return null;
+        return (ExecutionTriggerable)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetExecutionTriggerable(ExecutionTriggerable newExecutionTriggerable, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newExecutionTriggerable, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setExecutionTriggerable(ExecutionTriggerable newExecutionTriggerable) {
+        if (newExecutionTriggerable != eInternalContainer() || (eContainerFeatureID() != PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE && newExecutionTriggerable != null)) {
+            if (EcoreUtil.isAncestor(this, newExecutionTriggerable))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newExecutionTriggerable != null)
+                msgs = ((InternalEObject)newExecutionTriggerable).eInverseAdd(this, PropertiesPackage.EXECUTION_TRIGGERABLE__TRIGGERS, ExecutionTriggerable.class, msgs);
+            msgs = basicSetExecutionTriggerable(newExecutionTriggerable, msgs);
+            if (msgs != null) msgs.dispatch();
         }
-        return executionTask;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ExecutionTask basicGetExecutionTask() {
-        return executionTask;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setExecutionTask(ExecutionTask newExecutionTask) {
-        ExecutionTask oldExecutionTask = executionTask;
-        executionTask = newExecutionTask;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK, oldExecutionTask, executionTask));
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE, newExecutionTriggerable, newExecutionTriggerable));
     }
 
     /**
@@ -611,6 +605,47 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
      * <!-- end-user-doc -->
      * @generated
      */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetExecutionTriggerable((ExecutionTriggerable)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                return basicSetExecutionTriggerable(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID()) {
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                return eInternalContainer().eInverseRemove(this, PropertiesPackage.EXECUTION_TRIGGERABLE__TRIGGERS, ExecutionTriggerable.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.TALEND_TRIGGER__ID:
@@ -623,9 +658,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return getDescription();
             case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
                 return getTriggerType();
-            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-                if (resolve) return getExecutionTask();
-                return basicGetExecutionTask();
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                return getExecutionTriggerable();
             case PropertiesPackage.TALEND_TRIGGER__START_TIME:
                 return getStartTime();
             case PropertiesPackage.TALEND_TRIGGER__END_TIME:
@@ -666,8 +700,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
             case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
                 setTriggerType((String)newValue);
                 return;
-            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-                setExecutionTask((ExecutionTask)newValue);
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                setExecutionTriggerable((ExecutionTriggerable)newValue);
                 return;
             case PropertiesPackage.TALEND_TRIGGER__START_TIME:
                 setStartTime((Date)newValue);
@@ -716,8 +750,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
             case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
                 setTriggerType(TRIGGER_TYPE_EDEFAULT);
                 return;
-            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-                setExecutionTask((ExecutionTask)null);
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                setExecutionTriggerable((ExecutionTriggerable)null);
                 return;
             case PropertiesPackage.TALEND_TRIGGER__START_TIME:
                 setStartTime(START_TIME_EDEFAULT);
@@ -761,8 +795,8 @@ public class TalendTriggerImpl extends EObjectImpl implements TalendTrigger {
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
             case PropertiesPackage.TALEND_TRIGGER__TRIGGER_TYPE:
                 return TRIGGER_TYPE_EDEFAULT == null ? triggerType != null : !TRIGGER_TYPE_EDEFAULT.equals(triggerType);
-            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK:
-                return executionTask != null;
+            case PropertiesPackage.TALEND_TRIGGER__EXECUTION_TRIGGERABLE:
+                return getExecutionTriggerable() != null;
             case PropertiesPackage.TALEND_TRIGGER__START_TIME:
                 return START_TIME_EDEFAULT == null ? startTime != null : !START_TIME_EDEFAULT.equals(startTime);
             case PropertiesPackage.TALEND_TRIGGER__END_TIME:

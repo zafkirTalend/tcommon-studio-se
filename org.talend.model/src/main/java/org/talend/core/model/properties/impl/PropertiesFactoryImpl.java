@@ -181,7 +181,11 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM: return createLDAPSchemaConnectionItem();
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM: return createSalesforceSchemaConnectionItem();
             case PropertiesPackage.DASHBOARD_CONNECTION: return createDashboardConnection();
-            case PropertiesPackage.EXECUTION_SERVER: return createExecutionServer();
+            case PropertiesPackage.EXECUTION_PLAN: return createExecutionPlan();
+            case PropertiesPackage.EXECUTION_PLAN_PART: return createExecutionPlanPart();
+            case PropertiesPackage.EXECUTION_PLAN_PRM: return createExecutionPlanPrm();
+            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM: return createExecutionPlanPartCmdPrm();
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM: return createExecutionPlanPartJobPrm();
             case PropertiesPackage.EXECUTION_TASK: return createExecutionTask();
             case PropertiesPackage.EXECUTION_TASK_CMD_PRM: return createExecutionTaskCmdPrm();
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM: return createExecutionTaskJobPrm();
@@ -190,9 +194,10 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.CRON_TALEND_TRIGGER: return createCronTalendTrigger();
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER: return createCronUITalendTrigger();
             case PropertiesPackage.SIMPLE_TALEND_TRIGGER: return createSimpleTalendTrigger();
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: return createExecutionVirtualServer();
             case PropertiesPackage.FILE_TRIGGER: return createFileTrigger();
             case PropertiesPackage.FILE_TRIGGER_MASK: return createFileTriggerMask();
+            case PropertiesPackage.EXECUTION_SERVER: return createExecutionServer();
+            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: return createExecutionVirtualServer();
             case PropertiesPackage.JOBLET_PROCESS_ITEM: return createJobletProcessItem();
             case PropertiesPackage.JOB_DOCUMENTATION_ITEM: return createJobDocumentationItem();
             case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM: return createJobletDocumentationItem();
@@ -222,11 +227,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.ITEM_RELATION: return createItemRelation();
             case PropertiesPackage.NOTIFICATION: return createNotification();
             case PropertiesPackage.HL7_CONNECTION_ITEM: return createHL7ConnectionItem();
-            case PropertiesPackage.EXECUTION_PLAN: return createExecutionPlan();
-            case PropertiesPackage.EXECUTION_PLAN_PART: return createExecutionPlanPart();
-            case PropertiesPackage.EXECUTION_PLAN_PRM: return createExecutionPlanPrm();
-            case PropertiesPackage.EXECUTION_PLAN_PART_CMD_PRM: return createExecutionPlanPartCmdPrm();
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM: return createExecutionPlanPartJobPrm();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }

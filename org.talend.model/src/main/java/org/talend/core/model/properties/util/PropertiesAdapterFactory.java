@@ -275,8 +275,23 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseDashboardConnection(DashboardConnection object) {
                 return createDashboardConnectionAdapter();
             }
-            public Object caseExecutionServer(ExecutionServer object) {
-                return createExecutionServerAdapter();
+            public Object caseExecutionTriggerable(ExecutionTriggerable object) {
+                return createExecutionTriggerableAdapter();
+            }
+            public Object caseExecutionPlan(ExecutionPlan object) {
+                return createExecutionPlanAdapter();
+            }
+            public Object caseExecutionPlanPart(ExecutionPlanPart object) {
+                return createExecutionPlanPartAdapter();
+            }
+            public Object caseExecutionPlanPrm(ExecutionPlanPrm object) {
+                return createExecutionPlanPrmAdapter();
+            }
+            public Object caseExecutionPlanPartCmdPrm(ExecutionPlanPartCmdPrm object) {
+                return createExecutionPlanPartCmdPrmAdapter();
+            }
+            public Object caseExecutionPlanPartJobPrm(ExecutionPlanPartJobPrm object) {
+                return createExecutionPlanPartJobPrmAdapter();
             }
             public Object caseExecutionTask(ExecutionTask object) {
                 return createExecutionTaskAdapter();
@@ -302,14 +317,17 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseSimpleTalendTrigger(SimpleTalendTrigger object) {
                 return createSimpleTalendTriggerAdapter();
             }
-            public Object caseExecutionVirtualServer(ExecutionVirtualServer object) {
-                return createExecutionVirtualServerAdapter();
-            }
             public Object caseFileTrigger(FileTrigger object) {
                 return createFileTriggerAdapter();
             }
             public Object caseFileTriggerMask(FileTriggerMask object) {
                 return createFileTriggerMaskAdapter();
+            }
+            public Object caseExecutionServer(ExecutionServer object) {
+                return createExecutionServerAdapter();
+            }
+            public Object caseExecutionVirtualServer(ExecutionVirtualServer object) {
+                return createExecutionVirtualServerAdapter();
             }
             public Object caseJobletProcessItem(JobletProcessItem object) {
                 return createJobletProcessItemAdapter();
@@ -397,24 +415,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
                 return createHL7ConnectionItemAdapter();
-            }
-            public Object caseExecutionPlan(ExecutionPlan object) {
-                return createExecutionPlanAdapter();
-            }
-            public Object caseExecutionPlanPart(ExecutionPlanPart object) {
-                return createExecutionPlanPartAdapter();
-            }
-            public Object caseExecutionPlanPrm(ExecutionPlanPrm object) {
-                return createExecutionPlanPrmAdapter();
-            }
-            public Object caseITriggerable(ITriggerable object) {
-                return createITriggerableAdapter();
-            }
-            public Object caseExecutionPlanPartCmdPrm(ExecutionPlanPartCmdPrm object) {
-                return createExecutionPlanPartCmdPrmAdapter();
-            }
-            public Object caseExecutionPlanPartJobPrm(ExecutionPlanPartJobPrm object) {
-                return createExecutionPlanPartJobPrmAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -995,6 +995,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionTriggerable <em>Execution Triggerable</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionTriggerable
+     * @generated
+     */
+    public Adapter createExecutionTriggerableAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionServer <em>Execution Server</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can
      * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
@@ -1564,20 +1578,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createExecutionPlanPrmAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ITriggerable <em>ITriggerable</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.ITriggerable
-     * @generated
-     */
-    public Adapter createITriggerableAdapter() {
         return null;
     }
 
