@@ -190,7 +190,7 @@ public abstract class AbstractConnection implements IConnection {
     public void setOutputId(int outputId) {
         this.outputId = outputId;
     }
-    
+
     @SuppressWarnings("unchecked")
     public boolean isUseByMetter() {
         INode sourceNode = this.getSource();
@@ -245,4 +245,8 @@ public abstract class AbstractConnection implements IConnection {
         return null;
     }
 
+    public INode getTmpNode() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
