@@ -564,6 +564,11 @@
     <genClasses image="false" ecoreClass="properties.ecore#//ITriggerable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/id"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ITriggerable/triggers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/idQuartzJob"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/status"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/errorStatus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/concurrentExecution"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ITriggerable/processingState"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionPlanPartCmdPrm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPartCmdPrm/id"/>
