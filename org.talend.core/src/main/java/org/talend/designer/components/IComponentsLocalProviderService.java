@@ -39,6 +39,8 @@ public interface IComponentsLocalProviderService extends IService {
 
     public boolean isAvoidToShowJobAfterDoubleClick();
 
+    public boolean isAvoidToShowJobletAfterDoubleClick();
+
     public IPreferenceStore getPreferenceStore();
 
     public void setPreferenceStoreValue(String key, Object value);
