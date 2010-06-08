@@ -47,6 +47,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanParts <em>Exec Plan Parts</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getExecPlanPrms <em>Exec Plan Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -224,6 +225,26 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
     protected EList execPlanPrms;
 
     /**
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected static final String DESCRIPTION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDescription()
+     * @generated
+     * @ordered
+     */
+    protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -305,6 +326,27 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
             execPlanPrms = new EObjectContainmentEList(ExecutionPlanPrm.class, this, PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS);
         }
         return execPlanPrms;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDescription(String newDescription) {
+        String oldDescription = description;
+        description = newDescription;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN__DESCRIPTION, oldDescription, description));
     }
 
     /**
@@ -481,6 +523,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return getExecPlanParts();
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
                 return getExecPlanPrms();
+            case PropertiesPackage.EXECUTION_PLAN__DESCRIPTION:
+                return getDescription();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -525,6 +569,9 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 getExecPlanPrms().clear();
                 getExecPlanPrms().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN__DESCRIPTION:
+                setDescription((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -566,6 +613,9 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
                 getExecPlanPrms().clear();
                 return;
+            case PropertiesPackage.EXECUTION_PLAN__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -597,6 +647,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
                 return execPlanParts != null && !execPlanParts.isEmpty();
             case PropertiesPackage.EXECUTION_PLAN__EXEC_PLAN_PRMS:
                 return execPlanPrms != null && !execPlanPrms.isEmpty();
+            case PropertiesPackage.EXECUTION_PLAN__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
         }
         return super.eIsSet(featureID);
     }
@@ -624,6 +676,8 @@ public class ExecutionPlanImpl extends EObjectImpl implements ExecutionPlan {
         result.append(processingState);
         result.append(", label: ");
         result.append(label);
+        result.append(", description: ");
+        result.append(description);
         result.append(')');
         return result.toString();
     }

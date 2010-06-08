@@ -263,6 +263,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlan/execPlanParts"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionPlan/execPlanPrms"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlan/description"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//ExecutionPlanPart">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionPlanPart/id"/>

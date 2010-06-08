@@ -3183,13 +3183,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN__EXEC_PLAN_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN__DESCRIPTION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Execution Plan</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 3;
+    int EXECUTION_PLAN_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl <em>Execution Plan Part</em>}' class.
@@ -10783,6 +10792,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionPlan_ExecPlanPrms();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlan#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlan#getDescription()
+     * @see #getExecutionPlan()
+     * @generated
+     */
+    EAttribute getExecutionPlan_Description();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanPart <em>Execution Plan Part</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -14979,6 +14999,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_PLAN__EXEC_PLAN_PRMS = eINSTANCE.getExecutionPlan_ExecPlanPrms();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN__DESCRIPTION = eINSTANCE.getExecutionPlan_Description();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl <em>Execution Plan Part</em>}' class.
