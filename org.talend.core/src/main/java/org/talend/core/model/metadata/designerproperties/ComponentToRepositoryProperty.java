@@ -476,6 +476,13 @@ public class ComponentToRepositoryProperty {
                 connection.setCdcTypeMode(CDCTypeMode.LOG_MODE.getName());
             }
         }
+        // for feature 11674
+        if ("DBPATH".equals(repositoryValue)) {//$NON-NLS-1$
+            String value = getParameterValue(node, "DBPATH"); //$NON-NLS-1$
+            if (value != null) {
+                connection.setDBRootPath(value);
+            }
+        }
         if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
             setDatabaseValueForOracleSid(connection, node, repositoryValue);
         }

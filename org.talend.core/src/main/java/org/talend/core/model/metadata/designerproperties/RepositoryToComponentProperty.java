@@ -554,22 +554,24 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getDatabaseValue(DatabaseConnection connection, String value) {
-
+        String databaseType = connection.getDatabaseType();
         if (value.equals("TYPE")) { //$NON-NLS-1$
-            String typeByProduct = getStandardDbTypeFromConnection(connection.getDatabaseType());
+            String typeByProduct = getStandardDbTypeFromConnection(databaseType);
             // See bug 4565
-            if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
+            if (databaseType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
                 // see StatsAndLogConstants
                 // This connection is Oracle_SID
                 return EDatabaseTypeName.ORACLEFORSID.getXmlName();
-            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
+            } else if (databaseType.equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
                 // This connection is Oracle_service_name
                 return EDatabaseTypeName.ORACLESN.getXmlName();
-            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
+            } else if (databaseType.equals(EDatabaseTypeName.ORACLE_OCI.getDisplayName())) {
                 return EDatabaseTypeName.ORACLE_OCI.getXmlName();
-            } else if (connection.getDatabaseType().equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
+            } else if (databaseType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                 return EDatabaseTypeName.MSSQL.getXMLType(); // for component
-            } else {
+            }
+           
+            else {
                 return typeByProduct;
             }
         }
@@ -589,24 +591,24 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("FRAMEWORK_TYPE")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getDatabaseType())) {
-                if (connection.getDatabaseType().equals("JavaDB Embeded")) { //$NON-NLS-1$
+            if (isContextMode(connection, databaseType)) {
+                if (databaseType.equals("JavaDB Embeded")) { //$NON-NLS-1$
                     return "EMBEDED"; //$NON-NLS-1$
                 }
-                if (connection.getDatabaseType().equals("JavaDB JCCJDBC")) { //$NON-NLS-1$
+                if (databaseType.equals("JavaDB JCCJDBC")) { //$NON-NLS-1$
                     return "JCCJDBC"; //$NON-NLS-1$
                 }
-                if (connection.getDatabaseType().equals("JavaDB DerbyClient")) { //$NON-NLS-1$
+                if (databaseType.equals("JavaDB DerbyClient")) { //$NON-NLS-1$
                     return "DERBYCLIENT"; //$NON-NLS-1$
                 }
             } else {
-                if (connection.getDatabaseType().equals("JavaDB Embeded")) { //$NON-NLS-1$
+                if (databaseType.equals("JavaDB Embeded")) { //$NON-NLS-1$
                     return "EMBEDED"; //$NON-NLS-1$
                 }
-                if (connection.getDatabaseType().equals("JavaDB JCCJDBC")) { //$NON-NLS-1$
+                if (databaseType.equals("JavaDB JCCJDBC")) { //$NON-NLS-1$
                     return "JCCJDBC"; //$NON-NLS-1$
                 }
-                if (connection.getDatabaseType().equals("JavaDB DerbyClient")) { //$NON-NLS-1$
+                if (databaseType.equals("JavaDB DerbyClient")) { //$NON-NLS-1$
                     return "DERBYCLIENT"; //$NON-NLS-1$
                 }
             }
@@ -678,11 +680,11 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("DB_VERSION")) { //$NON-NLS-1$
             String dbVersionString = connection.getDbVersionString();
-            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(connection.getDatabaseType())) {
+            if (EDatabaseConnTemplate.ACCESS.getDBDisplayName().equals(databaseType)) {
                 // see bug 7262
                 return dbVersionString.toUpperCase();
             } else {
-                String driverValue = EDatabaseVersion4Drivers.getDriversStr(connection.getDatabaseType(), dbVersionString);
+                String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
                 if (isContextMode(connection, dbVersionString)) {
                     return dbVersionString;
                 } else {
@@ -753,6 +755,32 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(connection.getDBRootPath());
             }
 
+        }
+          // add for feature 11674
+        if (value.equals("RUNNING_MODE")) {//$NON-NLS-1$       
+            String runningMode =  "HSQLDB_IN_MEMORY";//$NON-NLS-1$   
+            if (EDatabaseTypeName.HSQLDB_IN_PROGRESS.getXmlName().equals(databaseType)) {
+                runningMode = "HSQLDB_INPROGRESS_PERSISTENT";//$NON-NLS-1$   
+            } else if (EDatabaseTypeName.HSQLDB_SERVER.getXmlName().equals(databaseType)) {
+                runningMode = "HSQLDB_SERVER";//$NON-NLS-1$   
+            } else if (EDatabaseTypeName.HSQLDB_WEBSERVER.getXmlName().equals(databaseType)) {
+                runningMode = "HSQLDB_WEBSERVER";//$NON-NLS-1$   
+            } 
+            return runningMode;
+        }
+        if (value.equals("DBPATH")) {//$NON-NLS-1$
+            if (isContextMode(connection, connection.getDBRootPath())) {
+                return connection.getDBRootPath();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDBRootPath());
+            }
+        }
+        if (value.equals("DBNAME")) {//$NON-NLS-1$
+            if (isContextMode(connection, connection.getDatasourceName())) {
+                return connection.getDatasourceName();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDatasourceName());
+            }
         }
         return null;
     }
