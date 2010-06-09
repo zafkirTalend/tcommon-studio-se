@@ -32,15 +32,6 @@ public interface ITDQImportExportService extends IService {
 
     /**
      * 
-     * cli Comment method "initRepository".
-     * 
-     * init the tdq repository dirs.
-     * 
-     */
-    public boolean initRepository(Project project);
-
-    /**
-     * 
      * cli Comment method "importElement".
      * 
      * the version is tdq version for migration task.

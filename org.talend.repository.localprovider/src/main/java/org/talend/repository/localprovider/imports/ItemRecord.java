@@ -253,11 +253,11 @@ public class ItemRecord {
         return itemProject;
     }
 
-    public boolean isTOPItem() {
+    public boolean isTDQItem() {
         return ERepositoryObjectType.getItemType(getItem()) == ERepositoryObjectType.TDQ_ELEMENT;
     }
 
-    public boolean isPureTOPItem() {
+    public boolean isTOPItem() {
         return path != null && path.toString().indexOf(ReponsitoryContextBridge.PROJECT_DEFAULT_NAME) > 0;
     }
 }

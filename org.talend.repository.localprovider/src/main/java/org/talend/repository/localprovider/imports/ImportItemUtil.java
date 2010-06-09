@@ -411,23 +411,27 @@ public class ImportItemUtil {
     private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath,
             final Set<String> overwriteDeletedItems, final Set<String> originalDeleteStateItems) {
         resolveItem(manager, itemRecord);
-        int num = 0;
-        for (Object obj : itemRecord.getResourceSet().getResources()) {
-            if (!(obj instanceof PropertiesProjectResourceImpl)) {
-                if (obj instanceof XMIResourceImpl) {
-                    num++;
-                    if (num > 1) {
-                        try {
-                            throw new InvocationTargetException(new PersistenceException("The source file of "
-                                    + itemRecord.getLabel() + " has error,Please check it!"));
-                        } catch (InvocationTargetException e) {
-                            ExceptionHandler.process(e);
+
+        if (!itemRecord.isTDQItem()) {
+            int num = 0;
+            for (Object obj : itemRecord.getResourceSet().getResources()) {
+                if (!(obj instanceof PropertiesProjectResourceImpl)) {
+                    if (obj instanceof XMIResourceImpl) {
+                        num++;
+                        if (num > 1) {
+                            try {
+                                throw new InvocationTargetException(new PersistenceException("The source file of "
+                                        + itemRecord.getLabel() + " has error,Please check it!"));
+                            } catch (InvocationTargetException e) {
+                                ExceptionHandler.process(e);
+                            }
+                            return;
                         }
-                        return;
                     }
                 }
             }
         }
+
         final Item item = itemRecord.getItem();
         if (item != null) {
             ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
@@ -455,24 +459,22 @@ public class ImportItemUtil {
                 }
                 if (service != null) {
                     Project emfProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
-                    if (!initTDQRepository) {
-                        initTDQRepository = service.initRepository(emfProject);
-                    }
-                    if (initTDQRepository) {
-                        boolean imported = service.importElement(emfProject, itemRecord.getItemProject(), itemRecord
-                                .getProperty(), itemRecord.getItemProjectVersion());
-                        if (imported) {
-                            itemRecord.setImportPath(path.toPortableString());
-                            itemRecord.setRepositoryType(itemType);
-                            itemRecord.setItemId(itemRecord.getProperty().getId());
-                            itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
-                            itemRecord.setImported(true);
-                        } else {
-                            PersistenceException e = new PersistenceException(Messages.getString("ImportItemUtil.tdqErrorInfor", //$NON-NLS-1$
-                                    ((TDQItem) item).getFilename()));
-                            itemRecord.addError(e.getMessage());
-                            logError(e);
-                        }
+
+                    // it's initialized when create the service.
+
+                    boolean imported = service.importElement(emfProject, itemRecord.getItemProject(), itemRecord.getProperty(),
+                            itemRecord.getItemProjectVersion());
+                    if (imported) {
+                        itemRecord.setImportPath(path.toPortableString());
+                        itemRecord.setRepositoryType(itemType);
+                        itemRecord.setItemId(itemRecord.getProperty().getId());
+                        itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
+                        itemRecord.setImported(true);
+                    } else {
+                        PersistenceException e = new PersistenceException(Messages.getString("ImportItemUtil.tdqErrorInfor", //$NON-NLS-1$
+                                ((TDQItem) item).getFilename()));
+                        itemRecord.addError(e.getMessage());
+                        logError(e);
                     }
                 }
 
@@ -763,10 +765,10 @@ public class ImportItemUtil {
                 ItemRecord itemRecord = computeItemRecord(collector, path);
                 if (itemRecord.getProperty() != null) {
                     items.add(itemRecord);
-                    if (itemRecord.isTOPItem()) {
+                    if (itemRecord.isTDQItem()) {
                         itemRecord.setItemProjectVersion(tdqVersion);
                     }
-                    if (checkItem(itemRecord, overwrite, itemsFromRepository) && !itemRecord.isPureTOPItem()) {
+                    if (checkItem(itemRecord, overwrite, itemsFromRepository) && !itemRecord.isTOPItem()) {
                         InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
                         URI uri = null;
                         if (author != null) {
@@ -779,7 +781,7 @@ public class ImportItemUtil {
                             if (checkProject(project, itemRecord)) {
 
                                 // hide top items in import/export ui in tos.
-                                if (!itemRecord.isTOPItem()) {
+                                if (!itemRecord.isTDQItem()) {
                                     treeBuilder.addItem(project, itemRecord);
                                 }
 
@@ -972,6 +974,7 @@ public class ImportItemUtil {
             }
             stream = manager.getStream(itemPath);
             Resource resource = createResource(itemRecord.getResourceSet(), itemPath, byteArray);
+
             resource.load(stream, null);
             resetItemReference(itemRecord, resource);
             EcoreUtil.resolveAll(itemRecord.getResourceSet());
