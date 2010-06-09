@@ -27,6 +27,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getCustomerName <em>Customer Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getParams <em>Params</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getToken <em>Token</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.LicenseImpl#getDateTokenCheck <em>Date Token Check</em>}</li>
  * </ul>
  * </p>
  *
@@ -112,6 +113,26 @@ public class LicenseImpl extends EObjectImpl implements License {
      * @ordered
      */
     protected String token = TOKEN_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDateTokenCheck() <em>Date Token Check</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDateTokenCheck()
+     * @generated
+     * @ordered
+     */
+    protected static final String DATE_TOKEN_CHECK_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDateTokenCheck() <em>Date Token Check</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDateTokenCheck()
+     * @generated
+     * @ordered
+     */
+    protected String dateTokenCheck = DATE_TOKEN_CHECK_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -220,6 +241,27 @@ public class LicenseImpl extends EObjectImpl implements License {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDateTokenCheck() {
+        return dateTokenCheck;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDateTokenCheck(String newDateTokenCheck) {
+        String oldDateTokenCheck = dateTokenCheck;
+        dateTokenCheck = newDateTokenCheck;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.LICENSE__DATE_TOKEN_CHECK, oldDateTokenCheck, dateTokenCheck));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.LICENSE__LICENSE:
@@ -230,6 +272,8 @@ public class LicenseImpl extends EObjectImpl implements License {
                 return getParams();
             case PropertiesPackage.LICENSE__TOKEN:
                 return getToken();
+            case PropertiesPackage.LICENSE__DATE_TOKEN_CHECK:
+                return getDateTokenCheck();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -252,6 +296,9 @@ public class LicenseImpl extends EObjectImpl implements License {
                 return;
             case PropertiesPackage.LICENSE__TOKEN:
                 setToken((String)newValue);
+                return;
+            case PropertiesPackage.LICENSE__DATE_TOKEN_CHECK:
+                setDateTokenCheck((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -276,6 +323,9 @@ public class LicenseImpl extends EObjectImpl implements License {
             case PropertiesPackage.LICENSE__TOKEN:
                 setToken(TOKEN_EDEFAULT);
                 return;
+            case PropertiesPackage.LICENSE__DATE_TOKEN_CHECK:
+                setDateTokenCheck(DATE_TOKEN_CHECK_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -295,6 +345,8 @@ public class LicenseImpl extends EObjectImpl implements License {
                 return PARAMS_EDEFAULT == null ? params != null : !PARAMS_EDEFAULT.equals(params);
             case PropertiesPackage.LICENSE__TOKEN:
                 return TOKEN_EDEFAULT == null ? token != null : !TOKEN_EDEFAULT.equals(token);
+            case PropertiesPackage.LICENSE__DATE_TOKEN_CHECK:
+                return DATE_TOKEN_CHECK_EDEFAULT == null ? dateTokenCheck != null : !DATE_TOKEN_CHECK_EDEFAULT.equals(dateTokenCheck);
         }
         return super.eIsSet(featureID);
     }
@@ -316,6 +368,8 @@ public class LicenseImpl extends EObjectImpl implements License {
         result.append(params);
         result.append(", token: ");
         result.append(token);
+        result.append(", dateTokenCheck: ");
+        result.append(dateTokenCheck);
         result.append(')');
         return result.toString();
     }

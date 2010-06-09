@@ -2332,12 +2332,21 @@ public interface PropertiesPackage extends EPackage {
     int LICENSE__TOKEN = 3;
 
     /**
+     * The feature id for the '<em><b>Date Token Check</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__DATE_TOKEN_CHECK = 4;
+
+    /**
      * The number of structural features of the '<em>License</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LICENSE_FEATURE_COUNT = 4;
+    int LICENSE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.
@@ -8323,6 +8332,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getLicense_Token();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.License#getDateTokenCheck <em>Date Token Check</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Date Token Check</em>'.
+     * @see org.talend.core.model.properties.License#getDateTokenCheck()
+     * @see #getLicense()
+     * @generated
+     */
+    EAttribute getLicense_DateTokenCheck();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.GenericSchemaConnectionItem <em>Generic Schema Connection Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Generic Schema Connection Item</em>'.
@@ -13040,6 +13060,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute LICENSE__TOKEN = eINSTANCE.getLicense_Token();
+
+        /**
+         * The meta object literal for the '<em><b>Date Token Check</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LICENSE__DATE_TOKEN_CHECK = eINSTANCE.getLicense_DateTokenCheck();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.GenericSchemaConnectionItemImpl <em>Generic Schema Connection Item</em>}' class.

@@ -227,6 +227,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/customerName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/params"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/token"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//License/dateTokenCheck"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//GenericSchemaConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//UserModuleAuthorization">

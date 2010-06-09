@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.License#getCustomerName <em>Customer Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.License#getParams <em>Params</em>}</li>
  *   <li>{@link org.talend.core.model.properties.License#getToken <em>Token</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.License#getDateTokenCheck <em>Date Token Check</em>}</li>
  * </ul>
  * </p>
  *
@@ -131,5 +132,31 @@ public interface License extends EObject {
      * @generated
      */
     void setToken(String value);
+
+    /**
+     * Returns the value of the '<em><b>Date Token Check</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Date Token Check</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Date Token Check</em>' attribute.
+     * @see #setDateTokenCheck(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getLicense_DateTokenCheck()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
+    String getDateTokenCheck();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.License#getDateTokenCheck <em>Date Token Check</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Date Token Check</em>' attribute.
+     * @see #getDateTokenCheck()
+     * @generated
+     */
+    void setDateTokenCheck(String value);
 
 } // License
