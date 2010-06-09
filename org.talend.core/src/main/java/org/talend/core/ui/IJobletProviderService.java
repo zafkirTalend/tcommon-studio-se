@@ -68,4 +68,8 @@ public interface IJobletProviderService extends IService {
     public ProcessType getJobletProcess(NodeType node);
 
     public IEditorPart openJobletItem(JobletProcessItem item);
+
+    public List<INode> getInputNodes(INode jobletNode);
+
+    public boolean isInputNodes(INode jobletNode);
 }
