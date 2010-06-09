@@ -711,11 +711,14 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("DRIVER_JAR")) { //$NON-NLS-1$
+            List<Map<String, Object>> value2 = new ArrayList<Map<String, Object>>();
             if (isContextMode(connection, connection.getDriverJarPath())) {
-                return connection.getDriverJarPath();
+                Map<String, Object> line = new HashMap<String, Object>();
+                line.put("JAR_NAME", connection.getDriverJarPath());
+                value2.add(line);
             } else {
                 String userDir = System.getProperty("user.dir"); //$NON-NLS-1$
-                String pathSeparator = System.getProperty("path.separator"); //$NON-NLS-1$
+                String pathSeparator = System.getProperty("file.separator"); //$NON-NLS-1$
                 String defaultPath = userDir + pathSeparator + "lib" + pathSeparator + "java"; //$NON-NLS-1$ //$NON-NLS-2$
                 String jarPath = connection.getDriverJarPath();
 
@@ -724,24 +727,33 @@ public class RepositoryToComponentProperty {
                 }
 
                 try {
-                    String fileName = new File(jarPath).getName();
-
-                    if (!jarPath.equals(defaultPath + pathSeparator + fileName)) {
-                        // deploy this library
-                        try {
-                            CorePlugin.getDefault().getLibrariesService().deployLibrary(
-                                    Path.fromOSString(jarPath).toFile().toURL());
-                        } catch (IOException e) {
-                            ExceptionHandler.process(e);
-                            return null;
+                    Character comma = ';';
+                    String[] jars = jarPath.split(comma.toString());
+                    if (jars != null) {
+                        for (String jar : jars) {
+                            String fileName = new File(jar).getName();
+                            Map<String, Object> line = new HashMap<String, Object>();
+                            line.put("JAR_NAME", fileName);
+                            value2.add(line);
+                            if (!jar.equals(new File(defaultPath + pathSeparator + fileName))) {
+                                // deploy this library
+                                try {
+                                    CorePlugin.getDefault().getLibrariesService().deployLibrary(
+                                            Path.fromOSString(jar).toFile().toURL());
+                                } catch (IOException e) {
+                                    ExceptionHandler.process(e);
+                                    return null;
+                                }
+                            }
                         }
+                        CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
                     }
-                    CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
-                    return TalendTextUtils.addQuotes(new File(jarPath).getName());
+
                 } catch (Exception e) {
                     return null;
                 }
             }
+            return value2;
 
         }
         if (value.equals("CDC_TYPE_MODE")) { //$NON-NLS-1$
