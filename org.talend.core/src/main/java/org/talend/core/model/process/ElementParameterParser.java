@@ -59,14 +59,15 @@ public final class ElementParameterParser {
         boolean end = false;
 
         List<IElementParameter> params = (List<IElementParameter>) node.getElementParametersWithChildrens();
-        for (int i = 0; i < params.size() && !end; i++) {
-            param = params.get(i);
-            if (text.indexOf(param.getVariableName()) != -1) {
-                newText = getDisplayValue(param);
-                end = true;
+        if (params != null && !params.isEmpty()) {
+            for (int i = 0; i < params.size() && !end; i++) {
+                param = params.get(i);
+                if (text.indexOf(param.getVariableName()) != -1) {
+                    newText = getDisplayValue(param);
+                    end = true;
+                }
             }
         }
-
         // see feature 3725 replace tMsgBox MESSAGE parameter
         if (node instanceof INode) {
             INode valueNode = (INode) node;
@@ -156,14 +157,16 @@ public final class ElementParameterParser {
         IElementParameter param;
 
         List<IElementParameter> params = (List<IElementParameter>) element.getElementParametersWithChildrens();
-        for (int i = 0; i < params.size(); i++) {
-            param = params.get(i);
-            if (text.indexOf(param.getVariableName()) != -1
-                    || (param.getVariableName() != null && param.getVariableName().contains(text))) {
-                if (param.getField() == EParameterFieldType.TABLE) {
-                    return createTableValues((List<Map<String, Object>>) param.getValue(), param);
+        if (params != null && !params.isEmpty()) {
+            for (int i = 0; i < params.size(); i++) {
+                param = params.get(i);
+                if (text.indexOf(param.getVariableName()) != -1
+                        || (param.getVariableName() != null && param.getVariableName().contains(text))) {
+                    if (param.getField() == EParameterFieldType.TABLE) {
+                        return createTableValues((List<Map<String, Object>>) param.getValue(), param);
+                    }
+                    return param.getValue();
                 }
-                return param.getValue();
             }
         }
         return null;
