@@ -88,7 +88,9 @@ public enum EDatabaseConnTemplate {
     INGRES(new DbConnStr(EDatabaseTypeName.INGRES, //
             "jdbc:ingres://<host>:<port>/<sid>", //$NON-NLS-1$
             "II7")), //$NON-NLS-1$
-
+    VECTORWISE(new DbConnStr(EDatabaseTypeName.VECTORWISE, //
+            "jdbc:ingres://<host>:<port>/<sid>", //$NON-NLS-1$
+            "II7")), //$NON-NLS-1$
     INTERBASE(new DbConnStr(EDatabaseTypeName.INTERBASE, //
             "jdbc:interbase://<host>/<sid>")), //$NON-NLS-1$
 

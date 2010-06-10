@@ -61,6 +61,7 @@ public enum EDatabaseVersion4Drivers {
     MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.jar")), //$NON-NLS-1$
     // for bug 0013127
     PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
+    VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
 
     EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "jdbc14.jar")); //$NON-NLS-N$
 

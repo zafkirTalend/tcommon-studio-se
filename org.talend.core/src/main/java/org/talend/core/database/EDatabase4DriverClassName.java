@@ -36,6 +36,7 @@ public enum EDatabase4DriverClassName {
     INFORMIX(EDatabaseTypeName.INFORMIX, "com.informix.jdbc.IfxDriver"), //$NON-NLS-1$
     INGRES(EDatabaseTypeName.INGRES, "com.ingres.jdbc.IngresDriver"), //$NON-NLS-1$
     INTERBASE(EDatabaseTypeName.INTERBASE, "interbase.interclient.Driver"), //$NON-NLS-1$
+    VECTORWISE(EDatabaseTypeName.VECTORWISE, "com.ingres.jdbc.IngresDriver"), //$NON-NLS-1$
 
     JAVADB_DERBYCLIENT(EDatabaseTypeName.JAVADB_DERBYCLIENT, "org.apache.derby.jdbc.ClientDriver"), //$NON-NLS-1$
     JAVADB_EMBEDED(EDatabaseTypeName.JAVADB_EMBEDED, "org.apache.derby.jdbc.EmbeddedDriver"), //$NON-NLS-1$
