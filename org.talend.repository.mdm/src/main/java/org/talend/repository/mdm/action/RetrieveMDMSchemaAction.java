@@ -22,7 +22,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.mdm.ui.wizard.CreateConceptWizard;
@@ -126,7 +126,7 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
 
         if (ERepositoryObjectType.METADATA_CON_TABLE.equals(nodeType)) {
-            final IRepositoryObject object = node.getObject();
+            final IRepositoryViewObject object = node.getObject();
 
             ConnectionItem connectionItem = (ConnectionItem) object.getProperty().getItem();
             nodeType = ERepositoryObjectType.getItemType(connectionItem);

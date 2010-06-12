@@ -585,7 +585,7 @@ public interface Project extends EObject {
     void setLocal(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Folders</b></em>' containment reference list.
+     * Returns the value of the '<em><b>Folders</b></em>' reference list.
      * The list contents are of type {@link org.talend.core.model.properties.FolderItem}.
      * <!-- begin-user-doc -->
      * <p>
@@ -593,9 +593,9 @@ public interface Project extends EObject {
      * of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Folders</em>' containment reference list.
+     * @return the value of the '<em>Folders</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_Folders()
-     * @model type="org.talend.core.model.properties.FolderItem" containment="true"
+     * @model type="org.talend.core.model.properties.FolderItem"
      * @generated
      */
     EList getFolders();

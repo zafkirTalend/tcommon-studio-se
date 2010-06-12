@@ -24,7 +24,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -36,12 +36,12 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     private Project project;
 
-    public final ExecutionResult execute(Project project) {
+    public ExecutionResult execute(Project project) {
         setProject(project);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
         ExecutionResult executeFinal = null;
-        List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
                 list.addAll(factory.getAll(curTyp, true, true));
@@ -51,7 +51,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
                 return ExecutionResult.NOTHING_TO_DO;
             }
 
-            for (IRepositoryObject object : list) {
+            for (IRepositoryViewObject object : list) {
                 ExecutionResult execute = null;
                 Item item = object.getProperty().getItem();
 

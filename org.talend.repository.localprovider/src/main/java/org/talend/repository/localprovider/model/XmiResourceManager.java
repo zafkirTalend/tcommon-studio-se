@@ -36,6 +36,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.FileItem;
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
@@ -81,6 +82,8 @@ public class XmiResourceManager {
 
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
+        unloadResource(uri.toString());
+        // unloadResources();
         Resource resource = resourceSet.getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
@@ -232,7 +235,7 @@ public class XmiResourceManager {
                 return URIHelper.convert(path);
             }
         }
-        return item.eResource().getURI();
+        return item.getProperty().eResource().getURI();
     }
 
     public List<Resource> getAffectedResources(Property property) {
@@ -338,6 +341,10 @@ public class XmiResourceManager {
                     moveResource(resource, expectedFilePath);
                 }
                 resourcesToSave.add(resource);
+            }
+            if (lastVersionProperty.getItem().getParent() instanceof FolderItem) {
+                FolderItem folderItem = (FolderItem) lastVersionProperty.getItem().getParent();
+                folderItem.getChildren().add(previousVersionProperty.getItem());
             }
         }
 

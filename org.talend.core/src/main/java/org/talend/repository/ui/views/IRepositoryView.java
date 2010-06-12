@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -51,7 +51,7 @@ public interface IRepositoryView extends IViewPart {
 
     public RepositoryNode getRoot();
 
-    public List<IRepositoryObject> getAll(ERepositoryObjectType type);
+    public List<IRepositoryViewObject> getAll(ERepositoryObjectType type);
 
     /** only for repository manager. */
     public void refreshAllChildNodes(RepositoryNode rootNode);

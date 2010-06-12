@@ -32,6 +32,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.ILastVersionChecker;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -189,8 +190,25 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
         if (getItem().getProperty().eResource() == null || getItem().eResource() == null) {
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            Property updated = factory.getUptodateProperty(getItem().getProperty());
-            setItem(updated.getItem());
+            //            
+            // Property updated = factory.getUptodateProperty(getItem().getProperty());
+            Property updatedProperty = null;
+            try {
+                factory.initialize();
+                IRepositoryViewObject repositoryViewObject = factory.getLastVersion(new Project(ProjectManager.getInstance()
+                        .getProject(getItem().getProperty().getItem())), getItem().getProperty().getId());
+                if (repositoryViewObject != null) {
+                    updatedProperty = repositoryViewObject.getProperty();
+                    setItem(updatedProperty.getItem());
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+
+            // update the property of the node repository object
+            // object.setProperty(updatedProperty);
+
+            // setItem(updatedProperty.getItem());
         }
     }
 

@@ -38,6 +38,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -70,13 +71,13 @@ public class PerlFunctionParser extends AbstractFunctionParser {
                     ICodeGeneratorService.class);
             ITalendSynchronizer routineSynchronizer = service.createRoutineSynchronizer();
 
-            RootContainer<String, IRepositoryObject> routineContainer = factory.getRoutine();
-            ContentList<String, IRepositoryObject> routineAbsoluteMembers = routineContainer.getAbsoluteMembers();
-            final List<Container<String, IRepositoryObject>> subContainer = routineContainer.getSubContainer();
-            for (Container<String, IRepositoryObject> container : subContainer) {
+            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getRoutine();
+            ContentList<String, IRepositoryViewObject> routineAbsoluteMembers = routineContainer.getAbsoluteMembers();
+            final List<Container<String, IRepositoryViewObject>> subContainer = routineContainer.getSubContainer();
+            for (Container<String, IRepositoryViewObject> container : subContainer) {
                 if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
-                    final List<IRepositoryObject> members = container.getMembers();
-                    for (IRepositoryObject object : members) {
+                    final List<IRepositoryViewObject> members = container.getMembers();
+                    for (IRepositoryViewObject object : members) {
                         IFile routineFile = getRoutineFile(routineSynchronizer, object);
                         if (routineFile != null) {
                             systems.add(routineFile.getLocation().toOSString());
@@ -84,7 +85,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
                     }
                 }
             }
-            for (Content<String, IRepositoryObject> object : routineAbsoluteMembers.values()) {
+            for (Content<String, IRepositoryViewObject> object : routineAbsoluteMembers.values()) {
                 IRepositoryObject routine = (IRepositoryObject) object.getContent();
                 IFile routineFile = getRoutineFile(routineSynchronizer, routine);
                 if (routineFile != null) {
@@ -106,8 +107,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
         this.files = filesList.toArray(new File[filesList.size()]);
     }
 
-    private IFile getRoutineFile(ITalendSynchronizer routineSynchronizer, IRepositoryObject object)
-            throws SystemException {
+    private IFile getRoutineFile(ITalendSynchronizer routineSynchronizer, IRepositoryViewObject object) throws SystemException {
         Item item = object.getProperty().getItem();
         if (item.eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
             RoutineItem routineItem = (RoutineItem) item;

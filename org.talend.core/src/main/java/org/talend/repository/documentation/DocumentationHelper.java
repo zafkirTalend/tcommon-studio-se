@@ -33,7 +33,7 @@ import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.generation.DocumentationPathProvider;
@@ -84,7 +84,7 @@ public class DocumentationHelper {
             return docItem;
         }
         IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        List<IRepositoryObject> itemsList;
+        List<IRepositoryViewObject> itemsList;
         if (docItem instanceof JobDocumentationItem) {
             itemsList = proxyFactory.getAll(ERepositoryObjectType.PROCESS);
         } else if (docItem instanceof JobletDocumentationItem) {
@@ -93,7 +93,7 @@ public class DocumentationHelper {
             return null;
         }
 
-        for (IRepositoryObject repositoryObject : itemsList) {
+        for (IRepositoryViewObject repositoryObject : itemsList) {
             String label = repositoryObject.getProperty().getLabel();
             String version = repositoryObject.getProperty().getVersion();
 
@@ -134,7 +134,7 @@ public class DocumentationHelper {
             addTreeNode(node, folderName, list, allVersions);
         }
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
-            IRepositoryObject repositoryObject = node.getObject();
+            IRepositoryViewObject repositoryObject = node.getObject();
             if ((repositoryObject.getProperty().getItem() instanceof Item)) {
                 Item baseItem = repositoryObject.getProperty().getItem();
                 Item jobOrJobletItem = null;
@@ -151,8 +151,9 @@ public class DocumentationHelper {
                         IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
                                 .getProxyRepositoryFactory();
                         try {
-                            List<IRepositoryObject> objects = proxyFactory.getAllVersion(jobOrJobletItem.getProperty().getId());
-                            for (IRepositoryObject object : objects) {
+                            List<IRepositoryViewObject> objects = proxyFactory.getAllVersion(jobOrJobletItem.getProperty()
+                                    .getId());
+                            for (IRepositoryViewObject object : objects) {
                                 docsToGenerate.add(object.getProperty().getItem());
                             }
                         } catch (PersistenceException e) {
@@ -182,7 +183,7 @@ public class DocumentationHelper {
      */
     private static void addTreeNode(RepositoryNode node, String path, List<ExportFileResource> list, boolean allVersions) {
         if (node != null && node.getType() == ENodeType.REPOSITORY_ELEMENT) {
-            IRepositoryObject repositoryObject = node.getObject();
+            IRepositoryViewObject repositoryObject = node.getObject();
             if (repositoryObject.getProperty().getItem() instanceof Item) {
                 Item processItem = repositoryObject.getProperty().getItem();
                 ExportFileResource resource = new ExportFileResource(processItem, path);
@@ -198,7 +199,7 @@ public class DocumentationHelper {
 
             String label = ((RepositoryNode) nodes[i]).getProperties(EProperties.LABEL).toString();
             String version = ""; //$NON-NLS-1$
-            IRepositoryObject object = ((RepositoryNode) nodes[i]).getObject();
+            IRepositoryViewObject object = ((RepositoryNode) nodes[i]).getObject();
             if (((RepositoryNode) nodes[i]).getType() != ENodeType.SIMPLE_FOLDER && object != null) {
                 version = object.getProperty().getVersion();
             }
@@ -213,8 +214,8 @@ public class DocumentationHelper {
                     IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
                             .getProxyRepositoryFactory();
                     try {
-                        List<IRepositoryObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
-                        for (IRepositoryObject curObj : objects) {
+                        List<IRepositoryViewObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
+                        for (IRepositoryViewObject curObj : objects) {
                             RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) nodes[i]).getType());
                             addTreeNode(repNode, nodePath + curObj.getProperty().getLabel() + "_" //$NON-NLS-1$
                                     + curObj.getProperty().getVersion(), list, allVersions);
@@ -358,7 +359,7 @@ public class DocumentationHelper {
 
                 for (RepositoryNode grandChildNode : subNode.getChildren()) {
 
-                    IRepositoryObject object = selectedJobNode.getObject();
+                    IRepositoryViewObject object = selectedJobNode.getObject();
                     String path = ""; //$NON-NLS-1$
                     if (object != null) {
                         path = object.getProperty().getItem().getState().getPath();

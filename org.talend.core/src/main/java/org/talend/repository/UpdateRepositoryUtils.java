@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -36,7 +35,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.UpdatesConstants;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -245,10 +244,7 @@ public final class UpdateRepositoryUtils {
         }
         final IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            IRepositoryObject lastVersion = proxyRepositoryFactory.getLastVersion(itemId);
-            if (lastVersion == null) {
-                lastVersion = getRepositoryObjectFromRef(itemId, proxyRepositoryFactory);
-            }
+            final IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(itemId);
             if (lastVersion != null) {
                 if (!deleted && proxyRepositoryFactory.getStatus(lastVersion) == ERepositoryStatus.DELETED) {
                     return null;
@@ -360,16 +356,13 @@ public final class UpdateRepositoryUtils {
      * @param id
      * @return
      */
-    public static IRepositoryObject getRepositoryObjectById(final String id) {
+    public static IRepositoryViewObject getRepositoryObjectById(final String id) {
         if (id == null || "".equals(id) || RepositoryNode.NO_ID.equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            IRepositoryObject lastVersion = factory.getLastVersion(id);
-            if (lastVersion == null) {
-                lastVersion = getRepositoryObjectFromRef(id, factory);
-            }
+            IRepositoryViewObject lastVersion = factory.getLastVersion(id);
             if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
                 return lastVersion;
             }
@@ -377,20 +370,6 @@ public final class UpdateRepositoryUtils {
             //
         }
         return null;
-    }
-
-    private static IRepositoryObject getRepositoryObjectFromRef(String id, IProxyRepositoryFactory factory)
-            throws PersistenceException {
-        IRepositoryObject lastVersion = null;
-        final List<Project> allReferencedProjects = ProjectManager.getInstance().getAllReferencedProjects();
-        for (Project refPro : allReferencedProjects) {
-            lastVersion = factory.getLastVersion(refPro, id);
-            if (lastVersion != null) {
-                break;
-            }
-        }
-        return lastVersion;
-
     }
 
     /**

@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
 public interface FolderItem extends Item {
 
     /**
-     * Returns the value of the '<em><b>Children</b></em>' containment reference list.
+     * Returns the value of the '<em><b>Children</b></em>' reference list.
      * The list contents are of type {@link org.talend.core.model.properties.Item}.
      * <!-- begin-user-doc -->
      * <p>
@@ -34,9 +34,9 @@ public interface FolderItem extends Item {
      * of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Children</em>' containment reference list.
+     * @return the value of the '<em>Children</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getFolderItem_Children()
-     * @model type="org.talend.core.model.properties.Item" containment="true"
+     * @model type="org.talend.core.model.properties.Item"
      * @generated
      */
     EList getChildren();

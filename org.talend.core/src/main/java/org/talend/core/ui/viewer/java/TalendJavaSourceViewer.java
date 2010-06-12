@@ -71,7 +71,7 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.test.shadow.Variable;
@@ -378,8 +378,8 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         Project project = ProjectManager.getInstance().getProject(null);
         try {
-            List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES);
-            for (IRepositoryObject routine : routines) {
+            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES);
+            for (IRepositoryViewObject routine : routines) {
                 if (routine.getProperty().getItem() instanceof RoutineItem
                         && ((RoutineItem) routine.getProperty().getItem()).isBuiltIn()) {
 

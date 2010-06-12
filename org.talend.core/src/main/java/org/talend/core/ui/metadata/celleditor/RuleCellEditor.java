@@ -35,6 +35,7 @@ import org.talend.core.model.properties.LinkRulesItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.metadata.celleditor.RuleOperationChoiceDialog.EProcessTypeForRule;
@@ -138,7 +139,7 @@ public class RuleCellEditor extends DialogCellEditor {
             if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-1$
                     && node.getElementParameter("PROPERTY_TYPE").getValue().toString().equals("REPOSITORY")) { //$NON-NLS-N$ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
                 itemId = node.getElementParameter("REPOSITORY_PROPERTY_TYPE").getValue().toString(); //$NON-NLS-1$
-                IRepositoryObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
+                IRepositoryViewObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(itemId);
                 if (obj.getProperty().getItem() != null && obj.getProperty().getItem() instanceof RulesItem) {
                     rulesItem = (RulesItem) obj.getProperty().getItem();
                     findRepositoryItem = true;

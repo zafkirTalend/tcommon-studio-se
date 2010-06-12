@@ -40,6 +40,7 @@ public class LocalFolderHelper extends FolderHelper {
     }
 
     private void cleanResource(Resource resource, FolderItem folder) {
+        resource.getContents().remove(folder);
         resource.getContents().remove(folder.getProperty());
         if (folder.getState() != null) {
             resource.getContents().remove(folder.getState());
@@ -50,6 +51,7 @@ public class LocalFolderHelper extends FolderHelper {
     }
 
     protected void doCreateFolder(FolderItem folderItem) {
+        project.eResource().getContents().add(folderItem);
         project.eResource().getContents().add(folderItem.getProperty());
         project.eResource().setModified(true);
     }

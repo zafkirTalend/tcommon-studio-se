@@ -13,7 +13,6 @@
 package org.talend.core.model.repository;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -163,37 +162,37 @@ public final class RepositoryManager {
     public static void refreshDeletedNode(Set<ERepositoryObjectType> types) {
         IRepositoryView repositoryView = getRepositoryView();
         if (repositoryView != null) {
-            if (isRefreshManually() || !isRefreshDeleted()) {
-
-                RepositoryNode root = repositoryView.getRoot();
-                if (root != null && root instanceof IProjectRepositoryNode) {
-                    RepositoryNode recBinNode = ((IProjectRepositoryNode) root).getRecBinNode();
-
-                    Set<ERepositoryObjectType> existedTypes = new HashSet<ERepositoryObjectType>();
-                    for (RepositoryNode child : recBinNode.getChildren()) {
-                        ERepositoryObjectType objectType = child.getObjectType();
-                        if (objectType.isSubItem()) {
-                            RepositoryNode parent = child.getParent();
-                            if (parent.getObject() == null) { // for db connection
-                                parent = parent.getParent();
-                            }
-                            existedTypes.add(parent.getObjectType());
-                        }
-                    }
-                    repositoryView.refreshAllChildNodes(recBinNode);
-
-                    if (types != null) {
-                        refresh(types);
-                        existedTypes.removeAll(types);
-                    }
-                    refresh(existedTypes);
-
-                    repositoryView.refresh(recBinNode);
-                }
-
-            } else {
-                repositoryView.refresh();
-            }
+            // if (isRefreshManually() || !isRefreshDeleted()) {
+            //
+            // RepositoryNode root = repositoryView.getRoot();
+            // if (root != null && root instanceof IProjectRepositoryNode) {
+            // RepositoryNode recBinNode = ((IProjectRepositoryNode) root).getRecBinNode();
+            //
+            // Set<ERepositoryObjectType> existedTypes = new HashSet<ERepositoryObjectType>();
+            // for (RepositoryNode child : recBinNode.getChildren()) {
+            // ERepositoryObjectType objectType = child.getObjectType();
+            // if (objectType.isSubItem()) {
+            // RepositoryNode parent = child.getParent();
+            // if (parent.getObject() == null) { // for db connection
+            // parent = parent.getParent();
+            // }
+            // existedTypes.add(parent.getObjectType());
+            // }
+            // }
+            // repositoryView.refreshAllChildNodes(recBinNode);
+            //
+            // if (types != null) {
+            // refresh(types);
+            // existedTypes.removeAll(types);
+            // }
+            // refresh(existedTypes);
+            //
+            // repositoryView.refresh(recBinNode);
+            // }
+            //
+            // } else {
+            repositoryView.refresh();
+            // }
         }
     }
 
@@ -272,7 +271,7 @@ public final class RepositoryManager {
      * 
      * for jobs/joblets/business diagrams/routines/sql patterns
      */
-    public static boolean isOpenedItemInEditor(IRepositoryObject objectToMove) {
+    public static boolean isOpenedItemInEditor(IRepositoryViewObject objectToMove) {
         try {
             if (objectToMove != null) {
                 IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -323,7 +322,7 @@ public final class RepositoryManager {
      * 
      * for jobs/joblets/business diagrams/routines/sql patterns
      */
-    public static boolean isEditableItemInEditor(IRepositoryObject objectToMove) {
+    public static boolean isEditableItemInEditor(IRepositoryViewObject objectToMove) {
         try {
             if (objectToMove != null) {
                 IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();

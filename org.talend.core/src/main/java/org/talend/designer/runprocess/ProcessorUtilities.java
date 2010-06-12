@@ -48,7 +48,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ISVNProviderService;
@@ -754,14 +754,14 @@ public class ProcessorUtilities {
      * @param processId
      * @return
      */
-    public static List<IRepositoryObject> getAllVersionObjectById(String id) {
+    public static List<IRepositoryViewObject> getAllVersionObjectById(String id) {
         if (id == null || "".equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            final List<IRepositoryObject> allVersion = factory.getAllVersion(id);
-            final IRepositoryObject lastVersion = factory.getLastVersion(id);
+            final List<IRepositoryViewObject> allVersion = factory.getAllVersion(id);
+            final IRepositoryViewObject lastVersion = factory.getLastVersion(id);
             if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
                 return allVersion;
             }

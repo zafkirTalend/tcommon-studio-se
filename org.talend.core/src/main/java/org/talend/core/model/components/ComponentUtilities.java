@@ -41,7 +41,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.IFilter;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -531,8 +531,8 @@ public class ComponentUtilities {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getProxyRepositoryFactory();
 
         try {
-            List<IRepositoryObject> allProcess = repositoryFactory.getAll(project, ERepositoryObjectType.PROCESS, true);
-            List<IRepositoryObject> allJoblet = repositoryFactory.getAll(project, ERepositoryObjectType.JOBLET, true);
+            List<IRepositoryViewObject> allProcess = repositoryFactory.getAll(project, ERepositoryObjectType.PROCESS, true);
+            List<IRepositoryViewObject> allJoblet = repositoryFactory.getAll(project, ERepositoryObjectType.JOBLET, true);
             addUsedComponents(components, allProcess);
             addUsedComponents(components, allJoblet);
         } catch (PersistenceException e) {
@@ -541,8 +541,8 @@ public class ComponentUtilities {
         return components;
     }
 
-    private static void addUsedComponents(Set<String> components, List<IRepositoryObject> allProcess) {
-        for (IRepositoryObject object : allProcess) {
+    private static void addUsedComponents(Set<String> components, List<IRepositoryViewObject> allProcess) {
+        for (IRepositoryViewObject object : allProcess) {
             Item item = object.getProperty().getItem();
 
             List parameters = null;

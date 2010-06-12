@@ -35,7 +35,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
 
@@ -61,7 +61,7 @@ public interface IRepositoryService extends IService {
 
     public void repositoryChanged(RepositoryElementDelta event);
 
-    public void notifySQLBuilder(List<IRepositoryObject> list);
+    public void notifySQLBuilder(List<IRepositoryViewObject> list);
 
     public String validateColumnName(String columnName, int index);
 
@@ -93,7 +93,7 @@ public interface IRepositoryService extends IService {
 
     public void setRCPMode();
 
-    public void openMetadataConnection(IRepositoryObject o);
+    public void openMetadataConnection(IRepositoryViewObject o);
 
     public ConnectionItem openMetadataConnection(boolean creation, RepositoryNode realNode, INode node);
 

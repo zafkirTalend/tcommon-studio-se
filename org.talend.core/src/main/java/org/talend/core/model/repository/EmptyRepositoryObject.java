@@ -206,7 +206,7 @@ public class EmptyRepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getChildren()
      */
-    public List<IRepositoryObject> getChildren() {
+    public List<IRepositoryViewObject> getChildren() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -224,7 +224,8 @@ public class EmptyRepositoryObject implements IRepositoryObject {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
+     * @see
+     * org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
      */
     public void setRepositoryNode(RepositoryNode node) {
         // TODO Auto-generated method stub

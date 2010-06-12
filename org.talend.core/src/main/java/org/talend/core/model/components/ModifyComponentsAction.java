@@ -26,7 +26,7 @@ import org.talend.core.model.components.filters.NameComponentFilter;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -44,49 +44,47 @@ public class ModifyComponentsAction {
         searchAndModify(item, new NameComponentFilter(oldName), Arrays
                 .<IComponentConversion> asList(new RenameComponentConversion(newName)));
     }
-    
-	public static void searchAndRename(Item item, ProcessType processType,
-			String oldName, String newName) throws PersistenceException {
-		 searchAndModify(item,processType, new NameComponentFilter(oldName), Arrays
-	                .<IComponentConversion> asList(new RenameComponentConversion(newName)));
 
-	}
+    public static void searchAndRename(Item item, ProcessType processType, String oldName, String newName)
+            throws PersistenceException {
+        searchAndModify(item, processType, new NameComponentFilter(oldName), Arrays
+                .<IComponentConversion> asList(new RenameComponentConversion(newName)));
+
+    }
 
     public static void searchAndModify(ProcessItem item, IComponentFilter filter, List<IComponentConversion> conversions)
             throws PersistenceException {
-    	searchAndModify(item, item.getProcess(), filter, conversions);   
+        searchAndModify(item, item.getProcess(), filter, conversions);
     }
-    
-    public static void searchAndModify(Item item, ProcessType processType,
-			IComponentFilter filter, List<IComponentConversion> conversions)
-			throws PersistenceException {
-		if (processType == null) {
-			return;
-		}
-		IRepositoryService service = (IRepositoryService) GlobalServiceRegister
-				.getDefault().getService(IRepositoryService.class);
-		IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-		boolean modified = false;
-		for (Object o : processType.getNode()) {
-			if (searchAndModify((NodeType) o, filter, conversions)) {
-				modified = true;
-			}
-		}
-		if (modified) {
-			factory.save(item, true);
-		}
-	}
+
+    public static void searchAndModify(Item item, ProcessType processType, IComponentFilter filter,
+            List<IComponentConversion> conversions) throws PersistenceException {
+        if (processType == null) {
+            return;
+        }
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+        boolean modified = false;
+        for (Object o : processType.getNode()) {
+            if (searchAndModify((NodeType) o, filter, conversions)) {
+                modified = true;
+            }
+        }
+        if (modified) {
+            factory.save(item, true);
+        }
+    }
 
     public static void searchAndModify(IComponentFilter filter, List<IComponentConversion> conversions)
             throws PersistenceException, IOException, CoreException {
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
 
-        List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS, true);
+        List<IRepositoryViewObject> list = factory.getAll(ERepositoryObjectType.PROCESS, true);
 
-        for (IRepositoryObject mainobject : list) {
-            List<IRepositoryObject> allVersion = factory.getAllVersion(mainobject.getId());
-            for (IRepositoryObject object : allVersion) {
+        for (IRepositoryViewObject mainobject : list) {
+            List<IRepositoryViewObject> allVersion = factory.getAllVersion(mainobject.getId());
+            for (IRepositoryViewObject object : allVersion) {
                 ProcessItem item = (ProcessItem) object.getProperty().getItem();
                 searchAndModify(item, filter, conversions);
             }
@@ -106,5 +104,5 @@ public class ModifyComponentsAction {
         }
         return modified;
     }
-	
+
 }

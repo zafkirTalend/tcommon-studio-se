@@ -23,7 +23,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.business.model.business.Joblet;
 
@@ -37,8 +37,8 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
-     * This constructs an instance from a factory and a notifier.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public JobletItemProvider(AdapterFactory adapterFactory) {
@@ -46,8 +46,8 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
     }
 
     /**
-     * This returns the property descriptors for the adapted class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public List getPropertyDescriptors(Object object) {
@@ -66,7 +66,8 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
     public Object getImage(Object object) {
 
         try {
-            IRepositoryObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(((Joblet) object).getId());
+            IRepositoryViewObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                    ((Joblet) object).getId());
             if (obj != null) {
                 Item item = obj.getProperty().getItem();
                 if (item instanceof JobletProcessItem) {
@@ -109,9 +110,9 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
     }
 
     /**
-     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-     * that can be created under this object.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that can be created
+     * under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {

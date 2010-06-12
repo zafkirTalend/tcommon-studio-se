@@ -49,7 +49,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -68,6 +67,8 @@ import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FileItem;
+import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LinkDocumentationItem;
@@ -85,7 +86,7 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.tis.ITDQImportExportService;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
@@ -104,6 +105,7 @@ import org.talend.repository.localprovider.model.PropertiesProjectResourceImpl;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.ILocalRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -181,7 +183,7 @@ public class ImportItemUtil {
     }
 
     private boolean checkItem(ItemRecord itemRecord, boolean overwrite,
-            Map<ERepositoryObjectType, List<IRepositoryObject>> itemsFromRepository) {
+            Map<ERepositoryObjectType, List<IRepositoryViewObject>> itemsFromRepository) {
         boolean result = false;
 
         try {
@@ -194,14 +196,14 @@ public class ImportItemUtil {
             }
 
             if (!itemsFromRepository.containsKey(itemType)) {
-                List<IRepositoryObject> list = ProxyRepositoryFactory.getInstance().getAll(
+                List<IRepositoryViewObject> list = ProxyRepositoryFactory.getInstance().getAll(
                         ProjectManager.getInstance().getCurrentProject(), itemType, true, false);
                 itemsFromRepository.put(itemType, list);
             }
 
             boolean nameAvailable = true;
-            IRepositoryObject itemWithSameId = null;
-            for (IRepositoryObject current : itemsFromRepository.get(itemType)) {
+            IRepositoryViewObject itemWithSameId = null;
+            for (IRepositoryViewObject current : itemsFromRepository.get(itemType)) {
                 if (itemRecord.getProperty().getLabel().equalsIgnoreCase(current.getProperty().getLabel())
                         && itemRecord.getProperty().getId() != current.getProperty().getId()) {
                     // To check SQLPattern in same path. see bug 0005038: unable to add a SQLPattern into repository.
@@ -244,9 +246,10 @@ public class ImportItemUtil {
                 if (idAvailable) {
                     if (!isSystem) {
                         result = true;
-                    } else {
-                        itemRecord.addError(Messages.getString("RepositoryUtil.isSystemRoutine")); //$NON-NLS-1$ 
-                    }
+                    } /*
+                       * else { itemRecord.addError(Messages.getString("RepositoryUtil.isSystemRoutine")); //$NON-NLS-1$
+                       * }
+                       */
                 } else {
                     // same id but different name
                     itemRecord.setState(State.ID_EXISTED);
@@ -305,9 +308,9 @@ public class ImportItemUtil {
         }
 
         ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-        List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
+        List<IRepositoryViewObject> list = cache.findObjectsByItem(itemRecord);
 
-        for (IRepositoryObject obj : list) {
+        for (IRepositoryViewObject obj : list) {
             ERepositoryStatus status = factory.getStatus(obj);
             if (status == ERepositoryStatus.LOCK_BY_OTHER || status == ERepositoryStatus.LOCK_BY_USER) {
                 itemRecord.setLocked(true);
@@ -330,33 +333,21 @@ public class ImportItemUtil {
 
             @Override
             public void run() throws PersistenceException {
+                final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
                 // bug 10520
                 final Set<String> overwriteDeletedItems = new HashSet<String>();
-                final Set<String> originalDeleteStateItems = new HashSet<String>();
 
                 for (ItemRecord itemRecord : itemRecords) {
                     if (!monitor.isCanceled()) {
                         monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
                         if (itemRecord.isValid()) {
                             reinitRepository();
-                            importItemRecord(manager, itemRecord, overwrite, destinationPath, overwriteDeletedItems,
-                                    originalDeleteStateItems);
+                            importItemRecord(manager, itemRecord, overwrite, destinationPath, overwriteDeletedItems);
                             monitor.worked(1);
                         }
                     }
                 }
 
-                // bug 10520
-                for (String deletedId : originalDeleteStateItems) {
-                    final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                    IRepositoryObject deleteObject = factory.getLastVersion(deletedId);
-                    try {
-                        factory.deleteObjectLogical(deleteObject);
-                    } catch (BusinessException e) {
-                        logError(e);
-                    }
-                    monitor.worked(1);
-                }
                 // cannot cancel this part
                 monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
                 for (ItemRecord itemRecord : itemRecords) {
@@ -366,7 +357,9 @@ public class ImportItemUtil {
                     }
                     monitor.worked(1);
                 }
+                checkDeletedFolders();
                 monitor.done();
+                factory.saveProject(ProjectManager.getInstance().getCurrentProject());
             }
         };
 
@@ -378,13 +371,61 @@ public class ImportItemUtil {
             itemRecord.clear();
         }
 
+        clearAllData();
         if (hasJoblets) {
             ComponentsFactoryProvider.getInstance().reset();
             ComponentsFactoryProvider.getInstance().initializeComponents(monitor);
         }
 
-        clearAllData();
         return itemRecords;
+    }
+
+    private void checkDeletedFolders() {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<FolderItem> foldersList = (List<FolderItem>) ProjectManager.getInstance().getCurrentProject().getEmfProject()
+                .getFolders();
+        for (FolderItem folderItem : foldersList) {
+            setPathToDeleteIfNeed(folderItem);
+        }
+        try {
+            factory.saveProject(ProjectManager.getInstance().getCurrentProject());
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    private boolean setPathToDeleteIfNeed(FolderItem folderItem) {
+        if (folderItem.getState().isDeleted()) {
+            return true;
+        }
+        boolean allDeleted = folderItem.getType().getValue() == FolderType.FOLDER && folderItem.getChildren().size() != 0;
+        for (Item item : (List<Item>) folderItem.getChildren()) {
+            if (item instanceof FolderItem) {
+                if (!setPathToDeleteIfNeed((FolderItem) item)) {
+                    allDeleted = false;
+                }
+            }
+            if (!item.getState().isDeleted()) {
+                allDeleted = false;
+            }
+        }
+        if (allDeleted) {
+            folderItem.getState().setDeleted(true);
+            String fullPath = "";
+            FolderItem curItem = folderItem;
+            while (curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem
+                    && ((FolderItem) ((Item) curItem.getParent()).getParent()).getType().getValue() == FolderType.FOLDER) {
+                FolderItem parentFolder = (FolderItem) curItem.getParent();
+                if ("".equals(fullPath)) {
+                    fullPath = parentFolder.getProperty().getLabel() + fullPath;
+                } else {
+                    fullPath = parentFolder.getProperty().getLabel() + "/" + fullPath;
+                }
+                curItem = parentFolder;
+            }
+            folderItem.getState().setPath(fullPath);
+        }
+        return allDeleted;
     }
 
     public void clearAllData() {
@@ -399,6 +440,10 @@ public class ImportItemUtil {
 
     private void reinitRepository() {
         ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+        if (repFactory.getRepositoryFactoryFromProvider() instanceof ILocalRepositoryFactory) {
+            return;
+        }
+        // only reinitialize for db repository
         if (usedItems++ > 2) {
             usedItems = 0;
             try {
@@ -409,7 +454,7 @@ public class ImportItemUtil {
     }
 
     private void importItemRecord(ResourcesManager manager, ItemRecord itemRecord, boolean overwrite, IPath destinationPath,
-            final Set<String> overwriteDeletedItems, final Set<String> originalDeleteStateItems) {
+            final Set<String> overwriteDeletedItems) {
         resolveItem(manager, itemRecord);
 
         if (!itemRecord.isTDQItem()) {
@@ -486,7 +531,7 @@ public class ImportItemUtil {
                     // once for a different id
                     String id = itemRecord.getProperty().getId();
 
-                    IRepositoryObject lastVersion = itemRecord.getExistingItemWithSameId();
+                    IRepositoryViewObject lastVersion = itemRecord.getExistingItemWithSameId();
                     if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
                             && !deletedItems.contains(id)) {
                         if (!overwriteDeletedItems.contains(id)) { // bug 10520.
@@ -523,11 +568,7 @@ public class ImportItemUtil {
                     }
 
                     if (lastVersion == null) {
-                        boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
                         repFactory.create(tmpItem, path, true);
-                        if (originalDeleteState) {
-                            originalDeleteStateItems.add(id); // should delete later.
-                        }
                         itemRecord.setImportPath(path.toPortableString());
                         itemRecord.setRepositoryType(itemType);
                         itemRecord.setItemId(itemRecord.getProperty().getId());
@@ -635,10 +676,10 @@ public class ImportItemUtil {
         } else {
             Item item = null;
             try {
-                List<IRepositoryObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
+                List<IRepositoryViewObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
                         ProjectManager.getInstance().getCurrentProject(), itemRecord.getItemId(), itemRecord.getImportPath(),
                         repositoryType);
-                for (IRepositoryObject repositoryObject : allVersion) {
+                for (IRepositoryViewObject repositoryObject : allVersion) {
                     if (repositoryObject.getProperty().getVersion().equals(itemRecord.getItemVersion())) {
                         item = repositoryObject.getProperty().getItem();
                     }
@@ -754,7 +795,7 @@ public class ImportItemUtil {
             }
         }
 
-        Map<ERepositoryObjectType, List<IRepositoryObject>> itemsFromRepository = new HashMap<ERepositoryObjectType, List<IRepositoryObject>>();
+        Map<ERepositoryObjectType, List<IRepositoryViewObject>> itemsFromRepository = new HashMap<ERepositoryObjectType, List<IRepositoryViewObject>>();
 
         progressMonitor.beginTask("Populate items to import", nbItems); //$NON-NLS-1$
 
@@ -809,7 +850,7 @@ public class ImportItemUtil {
             }
         });
 
-        for (List<IRepositoryObject> list : itemsFromRepository.values()) {
+        for (List<IRepositoryViewObject> list : itemsFromRepository.values()) {
             list.clear();
         }
         itemsFromRepository.clear();
@@ -1134,27 +1175,27 @@ public class ImportItemUtil {
 
         // key is id of IRepositoryObject, value is a list of IRepositoryObject
         // with same id
-        private Map<String, List<IRepositoryObject>> cache = new HashMap<String, List<IRepositoryObject>>();
+        private Map<String, List<IRepositoryViewObject>> cache = new HashMap<String, List<IRepositoryViewObject>>();
 
-        public List<IRepositoryObject> findObjectsByItem(ItemRecord itemRecord) throws PersistenceException {
+        public List<IRepositoryViewObject> findObjectsByItem(ItemRecord itemRecord) throws PersistenceException {
             Item item = itemRecord.getItem();
             ERepositoryObjectType type = ERepositoryObjectType.getItemType(item);
             if (!types.contains(type)) {
                 types.add(type);
                 // load object by type
-                List<IRepositoryObject> list = factory.getAll(type, true, true);
-                for (IRepositoryObject obj : list) {
+                List<IRepositoryViewObject> list = factory.getAll(type, true, true);
+                for (IRepositoryViewObject obj : list) {
                     // items with same id
-                    List<IRepositoryObject> items = cache.get(obj.getId());
+                    List<IRepositoryViewObject> items = cache.get(obj.getId());
                     if (items == null) {
-                        items = new ArrayList<IRepositoryObject>();
+                        items = new ArrayList<IRepositoryViewObject>();
                         cache.put(obj.getId(), items);
                     }
                     items.add(obj);
                 }
             }
 
-            List<IRepositoryObject> result = cache.get(itemRecord.getProperty().getId());
+            List<IRepositoryViewObject> result = cache.get(itemRecord.getProperty().getId());
             if (result == null) {
                 result = Collections.EMPTY_LIST;
             }

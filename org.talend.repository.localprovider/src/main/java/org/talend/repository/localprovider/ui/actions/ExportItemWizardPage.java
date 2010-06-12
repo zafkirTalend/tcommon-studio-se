@@ -70,7 +70,7 @@ import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.local.ExportItemUtil;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ProjectRepositoryNode;
@@ -193,16 +193,16 @@ class ExportItemWizardPage extends WizardPage {
             // for bug 10969
             Set<RepositoryNode> newSelection = new HashSet<RepositoryNode>();
             for (RepositoryNode currentNode : (List<RepositoryNode>) selection.toList()) {
-                List<IRepositoryObject> objects = null;
+                List<IRepositoryViewObject> objects = null;
                 if (currentNode.getContentType() == null) {
                     try {
                         objects = exportItemsTreeViewer.getAll(currentNode.getObjectType());
                     } catch (IllegalArgumentException e) {
                         // do nothing
-                        objects = new ArrayList<IRepositoryObject>();
+                        objects = new ArrayList<IRepositoryViewObject>();
                     }
 
-                    for (IRepositoryObject nodeToSelect : objects) {
+                    for (IRepositoryViewObject nodeToSelect : objects) {
                         if (currentNode.getId().equals(nodeToSelect.getRepositoryNode().getId())) {
                             newSelection.add(nodeToSelect.getRepositoryNode());
                         }
@@ -653,7 +653,7 @@ class ExportItemWizardPage extends WizardPage {
                 monitor.beginTask("Dependencies", 100);//$NON-NLS-1$
                 monitor.setCanceled(false);
                 //
-                final List<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+                final List<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
 
                 ProcessUtils.clearFakeProcesses();
 
@@ -662,13 +662,13 @@ class ExportItemWizardPage extends WizardPage {
 
                     public void run() {
                         // process dependent items
-                        Collection<IRepositoryObject> repContextObjects = ProcessUtils.getProcessDependencies(
+                        Collection<IRepositoryViewObject> repContextObjects = ProcessUtils.getProcessDependencies(
                                 ERepositoryObjectType.CONTEXT, selectedItems);
                         if (repContextObjects != null) {
                             repositoryObjects.addAll(repContextObjects);
                         }
                         // metadata dependent items
-                        Collection<IRepositoryObject> repContext = MetadataTool
+                        Collection<IRepositoryViewObject> repContext = MetadataTool
                                 .getContextDependenciesOfMetadataConnection(selectedItems);
                         if (repContext != null) {
                             repositoryObjects.addAll(repContext);
@@ -680,7 +680,7 @@ class ExportItemWizardPage extends WizardPage {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
-                        Collection<IRepositoryObject> repMetadataObjects = ProcessUtils.getProcessDependencies(
+                        Collection<IRepositoryViewObject> repMetadataObjects = ProcessUtils.getProcessDependencies(
                                 ERepositoryObjectType.METADATA, selectedItems);
                         if (repMetadataObjects != null) {
                             repositoryObjects.addAll(repMetadataObjects);
@@ -692,7 +692,7 @@ class ExportItemWizardPage extends WizardPage {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
-                        Collection<IRepositoryObject> repChildProcessObjects = ProcessUtils.getProcessDependencies(
+                        Collection<IRepositoryViewObject> repChildProcessObjects = ProcessUtils.getProcessDependencies(
                                 ERepositoryObjectType.PROCESS, selectedItems);
                         if (repChildProcessObjects != null) {
                             repositoryObjects.addAll(repChildProcessObjects);
@@ -705,7 +705,7 @@ class ExportItemWizardPage extends WizardPage {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
-                        Collection<IRepositoryObject> repJobletObjects = ProcessUtils.getProcessDependencies(
+                        Collection<IRepositoryViewObject> repJobletObjects = ProcessUtils.getProcessDependencies(
                                 ERepositoryObjectType.JOBLET, selectedItems);
                         if (repJobletObjects != null) {
                             repositoryObjects.addAll(repJobletObjects);
@@ -717,7 +717,7 @@ class ExportItemWizardPage extends WizardPage {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
-                        Collection<IRepositoryObject> repJobletObjects = ProcessUtils.getProcessDependencies(
+                        Collection<IRepositoryViewObject> repJobletObjects = ProcessUtils.getProcessDependencies(
                                 ERepositoryObjectType.SQLPATTERNS, selectedItems);
                         if (repJobletObjects != null) {
                             repositoryObjects.addAll(repJobletObjects);
@@ -730,7 +730,7 @@ class ExportItemWizardPage extends WizardPage {
 
                     public void run() {
                         if (exportDependencies.getSelection()) {
-                            for (IRepositoryObject repositoryObject : repositoryObjects) {
+                            for (IRepositoryViewObject repositoryObject : repositoryObjects) {
                                 RepositoryNode repositoryNode = RepositoryNodeUtilities
                                         .getRepositoryNode(repositoryObject, false);
                                 if (repositoryNode != null && !repositoryNodes.contains(repositoryNode)) {
@@ -740,7 +740,7 @@ class ExportItemWizardPage extends WizardPage {
 
                             }
                         } else {
-                            for (IRepositoryObject repositoryObject : repositoryObjects) {
+                            for (IRepositoryViewObject repositoryObject : repositoryObjects) {
                                 RepositoryNode repositoryNode = RepositoryNodeUtilities
                                         .getRepositoryNode(repositoryObject, false);
                                 if (repositoryNode != null && repositoryNodes.contains(repositoryNode)) {
@@ -951,7 +951,7 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     private void collectNodes(Map<String, Item> items, RepositoryNode repositoryNode) {
-        IRepositoryObject repositoryObject = repositoryNode.getObject();
+        IRepositoryViewObject repositoryObject = repositoryNode.getObject();
         if (repositoryObject != null) {
             if (repositoryObject.getType().isResourceItem()) {
                 Item item = repositoryObject.getProperty().getItem();

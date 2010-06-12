@@ -34,7 +34,7 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.impl.ProjectReferenceImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -115,8 +115,8 @@ public final class CodeGeneratorRoutine {
         String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::"; //$NON-NLS-1$ //$NON-NLS-2$
         try {
-            List<IRepositoryObject> routines = repositoryFactory.getAll(currentProject, ERepositoryObjectType.ROUTINES);
-            for (IRepositoryObject routine : routines) {
+            List<IRepositoryViewObject> routines = repositoryFactory.getAll(currentProject, ERepositoryObjectType.ROUTINES);
+            for (IRepositoryViewObject routine : routines) {
                 RoutineItem item = (RoutineItem) routine.getProperty().getItem();
                 if (currentLanguage.equals(ECodeLanguage.JAVA)) {
                     InformationLevel level = routine.getProperty().getMaxInformationLevel();

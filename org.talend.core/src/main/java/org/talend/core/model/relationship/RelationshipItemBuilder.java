@@ -36,7 +36,7 @@ import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -256,7 +256,7 @@ public class RelationshipItemBuilder {
 
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-        List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
                 list.addAll(factory.getAll(curTyp, true, true));
@@ -267,7 +267,7 @@ public class RelationshipItemBuilder {
                 return;
             }
 
-            for (IRepositoryObject object : list) {
+            for (IRepositoryViewObject object : list) {
                 Item item = object.getProperty().getItem();
                 monitor.subTask(Messages.getString("RelationshipItemBuilder.forItem") + item.getProperty().getLabel()); //$NON-NLS-1$
                 addOrUpdateItem(item, true);

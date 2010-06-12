@@ -140,7 +140,7 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__LOCAL = 7;
 
     /**
-     * The feature id for the '<em><b>Folders</b></em>' containment reference list.
+     * The feature id for the '<em><b>Folders</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -800,12 +800,21 @@ public interface PropertiesPackage extends EPackage {
     int ITEM__STATE = 1;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM__PARENT = 2;
+
+    /**
      * The number of structural features of the '<em>Item</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_FEATURE_COUNT = 2;
+    int ITEM_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkDocumentationItemImpl <em>Link Documentation Item</em>}' class.
@@ -831,6 +840,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LINK_DOCUMENTATION_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_DOCUMENTATION_ITEM__PARENT = ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -916,6 +934,15 @@ public interface PropertiesPackage extends EPackage {
     int BUSINESS_PROCESS_ITEM__STATE = ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_PROCESS_ITEM__PARENT = ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Notation</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -972,6 +999,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int FILE_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_ITEM__PARENT = ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1040,6 +1076,15 @@ public interface PropertiesPackage extends EPackage {
     int DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1087,6 +1132,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int ROUTINE_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__PARENT = FILE_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1153,6 +1207,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int CONNECTION_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_ITEM__PARENT = ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -1247,6 +1310,15 @@ public interface PropertiesPackage extends EPackage {
     int SNIPPET_ITEM__STATE = ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SNIPPET_ITEM__PARENT = ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1296,6 +1368,15 @@ public interface PropertiesPackage extends EPackage {
     int DELIMITED_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1327,6 +1408,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -1362,6 +1452,15 @@ public interface PropertiesPackage extends EPackage {
     int REG_EX_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REG_EX_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1395,6 +1494,15 @@ public interface PropertiesPackage extends EPackage {
     int CSV_FILE_CONNECTION_ITEM__STATE = DELIMITED_FILE_CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION_ITEM__PARENT = DELIMITED_FILE_CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1426,6 +1534,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int DATABASE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -1470,6 +1587,15 @@ public interface PropertiesPackage extends EPackage {
     int SAP_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1501,6 +1627,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int XML_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -1545,6 +1680,15 @@ public interface PropertiesPackage extends EPackage {
     int LDIF_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1585,6 +1729,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int EXCEL_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXCEL_FILE_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -1629,6 +1782,15 @@ public interface PropertiesPackage extends EPackage {
     int EBCDIC_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EBCDIC_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1671,6 +1833,15 @@ public interface PropertiesPackage extends EPackage {
     int MDM_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MDM_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1702,6 +1873,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int PROCESS_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_ITEM__PARENT = ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Process</b></em>' reference.
@@ -1990,7 +2170,16 @@ public interface PropertiesPackage extends EPackage {
     int FOLDER_ITEM__STATE = ITEM__STATE;
 
     /**
-     * The feature id for the '<em><b>Children</b></em>' containment reference list.
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FOLDER_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Children</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
@@ -2190,6 +2379,15 @@ public interface PropertiesPackage extends EPackage {
     int CONTEXT_ITEM__STATE = ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__PARENT = ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Context</b></em>' reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2374,6 +2572,15 @@ public interface PropertiesPackage extends EPackage {
     int GENERIC_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2450,6 +2657,15 @@ public interface PropertiesPackage extends EPackage {
     int LDAP_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2490,6 +2706,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SALESFORCE_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -5223,6 +5448,15 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_PROCESS_ITEM__STATE = ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__PARENT = ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Joblet Process</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -5262,6 +5496,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int JOB_DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5313,6 +5556,15 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -5360,6 +5612,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -5443,6 +5704,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int SQL_PATTERN_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SQL_PATTERN_ITEM__PARENT = FILE_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5968,6 +6238,15 @@ public interface PropertiesPackage extends EPackage {
     int RULES_ITEM__STATE = FILE_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RULES_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -6084,6 +6363,15 @@ public interface PropertiesPackage extends EPackage {
     int SVG_BUSINESS_PROCESS_ITEM__STATE = FILE_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SVG_BUSINESS_PROCESS_ITEM__PARENT = FILE_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -6142,6 +6430,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_ITEM__STATE = ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__PARENT = ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -6174,6 +6471,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int TDQ_ANALYSIS_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ANALYSIS_ITEM__PARENT = TDQ_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
@@ -6212,6 +6518,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_REPORT_ITEM__STATE = TDQ_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_REPORT_ITEM__PARENT = TDQ_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6246,6 +6561,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int TDQDB_CONNECTION_ITEM__STATE = TDQ_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQDB_CONNECTION_ITEM__PARENT = TDQ_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
@@ -6293,6 +6617,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQMDM_CONNECTION_ITEM__STATE = TDQ_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQMDM_CONNECTION_ITEM__PARENT = TDQ_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6338,6 +6671,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_INDICATOR_ITEM__STATE = TDQ_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_INDICATOR_ITEM__PARENT = TDQ_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6374,6 +6716,15 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_BUSINESS_RULE_ITEM__STATE = TDQ_ITEM__STATE;
 
     /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_BUSINESS_RULE_ITEM__PARENT = TDQ_ITEM__PARENT;
+
+    /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6406,6 +6757,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int LINK_RULES_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINK_RULES_ITEM__PARENT = ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6556,6 +6916,15 @@ public interface PropertiesPackage extends EPackage {
      * @ordered
      */
     int HL7_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
@@ -6911,10 +7280,10 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getProject_Local();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Project#getFolders <em>Folders</em>}'.
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Project#getFolders <em>Folders</em>}'.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Folders</em>'.
+     * @return the meta object for the reference list '<em>Folders</em>'.
      * @see org.talend.core.model.properties.Project#getFolders()
      * @see #getProject()
      * @generated
@@ -7113,6 +7482,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getItem_State();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.Item#getParent <em>Parent</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Parent</em>'.
+     * @see org.talend.core.model.properties.Item#getParent()
+     * @see #getItem()
+     * @generated
+     */
+    EReference getItem_Parent();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.LinkDocumentationItem <em>Link Documentation Item</em>}'.
@@ -7844,10 +8224,10 @@ public interface PropertiesPackage extends EPackage {
     EClass getFolderItem();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.FolderItem#getChildren <em>Children</em>}'.
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.FolderItem#getChildren <em>Children</em>}'.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Children</em>'.
+     * @return the meta object for the reference list '<em>Children</em>'.
      * @see org.talend.core.model.properties.FolderItem#getChildren()
      * @see #getFolderItem()
      * @generated
@@ -12059,6 +12439,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference ITEM__STATE = eINSTANCE.getItem_State();
+
+        /**
+         * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ITEM__PARENT = eINSTANCE.getItem_Parent();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.LinkDocumentationItemImpl <em>Link Documentation Item</em>}' class.

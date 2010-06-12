@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.FolderItem;
@@ -87,7 +88,7 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
      */
     public EList getChildren() {
         if (children == null) {
-            children = new EObjectContainmentEList(Item.class, this, PropertiesPackage.FOLDER_ITEM__CHILDREN);
+            children = new EObjectResolvingEList(Item.class, this, PropertiesPackage.FOLDER_ITEM__CHILDREN);
         }
         return children;
     }
@@ -109,18 +110,6 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
         type = newType == null ? TYPE_EDEFAULT : newType;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FOLDER_ITEM__TYPE, oldType, type));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
-                return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**

@@ -30,7 +30,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -51,7 +51,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
      */
     public void createContent(String id, Element parent) {
         // content for latest modified jobs and business models
-        List<IRepositoryObject> latestItems = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> latestItems = new ArrayList<IRepositoryViewObject>();
         Document dom = parent.getOwnerDocument();
         String url = "";
         if (ERepositoryObjectType.PROCESS.name().equals(id)) {
@@ -72,7 +72,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
             createOnlinePage(dom, parent);
         }
 
-        for (IRepositoryObject object : latestItems) {
+        for (IRepositoryViewObject object : latestItems) {
             Element hyperlink = dom.createElement("a");
             hyperlink.setAttribute("href", url + object.getId());
             hyperlink.setAttribute("title", "Modified at " + object.getModificationDate() + " by " + object.getAuthor() + "\n"
@@ -145,13 +145,13 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
         div.appendChild(iFrame);
     }
 
-    private List<IRepositoryObject> getLatestModifiedItems(ERepositoryObjectType type, int count) {
-        List<IRepositoryObject> latestItems = new ArrayList<IRepositoryObject>();
+    private List<IRepositoryViewObject> getLatestModifiedItems(ERepositoryObjectType type, int count) {
+        List<IRepositoryViewObject> latestItems = new ArrayList<IRepositoryViewObject>();
         try {
             Project currentProject = ProjectManager.getInstance().getCurrentProject();
             if (currentProject != null) {
-                List<IRepositoryObject> all = ProxyRepositoryFactory.getInstance().getAll(currentProject, type);
-                IRepositoryObject[] data = new IRepositoryObject[all.size()];
+                List<IRepositoryViewObject> all = ProxyRepositoryFactory.getInstance().getAll(currentProject, type);
+                IRepositoryViewObject[] data = new IRepositoryViewObject[all.size()];
                 all.toArray(data);
                 for (int i = 0; i < data.length && i < count; i++) {
                     for (int j = data.length - 1; j > i; j--) {
@@ -164,7 +164,7 @@ public class DynamicContentProvider implements IIntroXHTMLContentProvider {
                             modificationDate2 = data[j - 1].getCreationDate();
                         }
                         if (modificationDate.after(modificationDate2)) {
-                            IRepositoryObject temp = data[j - 1];
+                            IRepositoryViewObject temp = data[j - 1];
                             data[j - 1] = data[j];
                             data[j] = temp;
                         }

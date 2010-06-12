@@ -50,14 +50,12 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.ui.image.ImageProvider;
-import org.talend.commons.utils.Timer;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
@@ -92,10 +90,12 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.imports.ImportItemUtil;
@@ -125,7 +125,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     private static LocalRepositoryFactory singleton = null;
 
-    private static final boolean DEBUG = false;
+    private List<String> loadedFolders = new ArrayList<String>();
 
     public LocalRepositoryFactory() {
         super();
@@ -138,6 +138,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         return singleton;
     }
+
+    boolean projectModified;
 
     /**
      * DOC smallet Comment method "getObjectFromFolder".
@@ -165,7 +167,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // log.info(rex.getMessage());
             return new RootContainer<K, T>(); // return empty
         }
+        projectModified = false;
         addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion);
+
+        if (projectModified) {
+            saveProject(project);
+        }
 
         String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
         String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
@@ -190,99 +197,138 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
             Object objectFolder, boolean onlyLastVersion) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        FolderItem currentFolderItem = folderHelper.getFolder(((IFolder) objectFolder).getProjectRelativePath());
-        // FolderItem folder =
-        // folderHelper.getFolder(current.getProjectRelativePath());
+        FolderItem currentFolderItem;
+        if (objectFolder instanceof IFolder) {
+            currentFolderItem = folderHelper.getFolder(((IFolder) objectFolder).getProjectRelativePath());
+            if (currentFolderItem == null) {
+                // create folder
+                currentFolderItem = folderHelper.createFolder(((IFolder) objectFolder).getProjectRelativePath()
+                        .toPortableString());
+            }
+        } else {
+            currentFolderItem = (FolderItem) objectFolder;
+        }
+        List<String> nameFounds = new ArrayList<String>();
+        for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+            if (curItem instanceof FolderItem) {
+                FolderItem subFolder = (FolderItem) curItem;
+                Container<K, T> cont = toReturn.addSubContainer(subFolder.getProperty().getLabel());
+                Property property = subFolder.getProperty();
+                subFolder.setParent(currentFolderItem);
 
-        for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
-            if (current instanceof IFile) {
-                try {
-                    IRepositoryObject currentObject = null;
+                cont.setProperty(property);
+                cont.setId(property.getId());
+                addFolderMembers(project, type, cont, curItem, onlyLastVersion);
+            } else {
+                Property property = curItem.getProperty();
+                IRepositoryViewObject currentObject = new RepositoryViewObject(property);
+                nameFounds.add(property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION);
+                addItemToContainer(toReturn, currentObject, onlyLastVersion);
 
-                    if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                        Property property = null;
-                        try {
-                            property = xmiResourceManager.loadProperty(current);
-                        } catch (RuntimeException e) {
-                            // property will be null
-                            ExceptionHandler.process(e);
-                        }
-                        if (property != null) {
-                            currentObject = new RepositoryObject(property);
-                            if (!currentFolderItem.getChildren().contains(property.getItem())
-                                    && !getRepositoryContext().getProject().equals(project)) {
+                property.getItem().setParent(currentFolderItem);
+                addToHistory(property.getId(), type, property.getItem().getState().getPath());
+            }
+        }
+
+        // if not logged on project, allow to browse directly the folders.
+        // if already logged, project should be up to date.
+        if (objectFolder instanceof IFolder && !loadedFolders.contains(((IFolder) objectFolder).getLocation().toOSString())) {
+            loadedFolders.add(((IFolder) objectFolder).getLocation().toOSString());
+            for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
+                if (current instanceof IFile) {
+                    try {
+                        String fileName = ((IFile) current).getName();
+                        IRepositoryViewObject currentObject = null;
+
+                        if (xmiResourceManager.isPropertyFile((IFile) current) && !nameFounds.contains(fileName)) {
+                            Property property = null;
+                            try {
+                                property = xmiResourceManager.loadProperty(current);
+                            } catch (RuntimeException e) {
+                                // property will be null
+                                ExceptionHandler.process(e);
+                            }
+                            if (property != null) {
+                                // System.out.println("new propertyLoaded:" + property.getLabel());
+                                currentObject = new RepositoryViewObject(property);
                                 currentFolderItem.getChildren().add(property.getItem());
-                            }
-                        } else {
-                            log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
-                        }
-                    }
-
-                    if (currentObject != null) {
-                        K key;
-                        String currentVersion = null;
-                        try {
-                            currentVersion = currentObject.getVersion();
-                        } catch (Exception e) {
-                            // e.printStackTrace();
-                            ExceptionHandler.process(e);
-                        }
-                        if (onlyLastVersion) {
-                            key = (K) currentObject.getId();
-                        } else {
-                            key = (K) new MultiKey(currentObject.getId(), currentVersion);
-                        }
-
-                        try {
-                            if (onlyLastVersion) {
-                                // Version :
-                                T old = toReturn.getMember(key);
-
-                                if (old == null) {
-                                    toReturn.addMember(key, (T) currentObject);
-                                } else {
-                                    String oldVersion = ((IRepositoryObject) old).getVersion();
-                                    if (VersionUtils.compareTo(oldVersion, currentVersion) < 0) {
-                                        toReturn.addMember(key, (T) currentObject);
-                                    }
-                                }
+                                property.getItem().setParent(currentFolderItem);
+                                projectModified = true;
                             } else {
-                                toReturn.addMember(key, (T) currentObject);
+                                log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                             }
-                        } catch (BusinessException e) {
-                            throw new PersistenceException(e);
                         }
+                        addItemToContainer(toReturn, currentObject, onlyLastVersion);
+                    } catch (IncorrectFileException e) {
+                        ExceptionHandler.process(e);
+                    } catch (PersistenceException e) {
+                        ExceptionHandler.process(e);
                     }
-                } catch (IncorrectFileException e) {
-                    ExceptionHandler.process(e);
-                } catch (PersistenceException e) {
-                    ExceptionHandler.process(e);
-                }
-            } else if (current instanceof IFolder) {
-                if (!current.getName().equals(BIN)) {
-                    Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                    FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
+                } else if (current instanceof IFolder) {
+                    if (!current.getName().equals(BIN)) {
+                        Container<K, T> cont = toReturn.addSubContainer(current.getName());
+                        FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
 
-                    Property property = null;
-                    if (folder == null) {
-                        FolderItem newFolder = folderHelper.createFolder(current.getProjectRelativePath().toString());
-                        property = newFolder.getProperty();
-                    } else {
+                        Property property = null;
+                        if (folder == null) {
+                            folder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                        }
                         property = folder.getProperty();
-                    }
+                        folder.setParent(currentFolderItem);
 
-                    cont.setProperty(property);
-                    cont.setId(property.getId());
-                    addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion);
-                } else {
-                    addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion);
+                        cont.setProperty(property);
+                        cont.setId(property.getId());
+                        addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion);
+                    } else {
+                        addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion);
+                    }
                 }
             }
         }
     }
 
-    public List<IRepositoryObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted, boolean allVersions)
+    private <K, T> void addItemToContainer(Container<K, T> container, IRepositoryViewObject objectToAdd, boolean onlyLastVersion)
             throws PersistenceException {
+        if (objectToAdd != null) {
+            K key;
+            String currentVersion = null;
+            try {
+                currentVersion = objectToAdd.getVersion();
+            } catch (Exception e) {
+                // e.printStackTrace();
+                ExceptionHandler.process(e);
+            }
+            if (onlyLastVersion) {
+                key = (K) objectToAdd.getId();
+            } else {
+                key = (K) new MultiKey(objectToAdd.getId(), currentVersion);
+            }
+
+            try {
+                if (onlyLastVersion) {
+                    // Version :
+                    T old = container.getMember(key);
+
+                    if (old == null) {
+                        container.addMember(key, (T) objectToAdd);
+                    } else {
+                        String oldVersion = ((IRepositoryViewObject) old).getVersion();
+                        if (VersionUtils.compareTo(oldVersion, currentVersion) < 0) {
+                            container.addMember(key, (T) objectToAdd);
+                        }
+                    }
+                } else {
+                    container.addMember(key, (T) objectToAdd);
+                }
+            } catch (BusinessException e) {
+                throw new PersistenceException(e);
+            }
+        }
+
+    }
+
+    public List<IRepositoryViewObject> getAll(Project project, ERepositoryObjectType type, boolean withDeleted,
+            boolean allVersions) throws PersistenceException {
         IFolder folder = null;
         try {
             if (type.hasFolder()) {
@@ -296,8 +342,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return convert(getSerializableFromFolder(project, folder, null, type, allVersions, true, withDeleted));
     }
 
-    private long nbTries = 0;
-
     /**
      * 
      * Get all object in a folder recursively.
@@ -310,124 +354,111 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @return a list (may be empty) of objects found
      * @throws PersistenceException
      */
-    protected List<IRepositoryObject> getSerializableFromFolder(Project project, Object folder, String id,
+    protected List<IRepositoryViewObject> getSerializableFromFolder(Project project, Object folder, String id,
             ERepositoryObjectType type, boolean allVersion, boolean searchInChildren, boolean withDeleted,
             boolean... recursiveCall) throws PersistenceException {
-        List<IRepositoryObject> toReturn = new VersionList(allVersion);
+        List<IRepositoryViewObject> toReturn = new VersionList(allVersion);
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        if (DEBUG) {
-            System.out.println("looking for id=" + id + "(" + type + ") in " + folder + " with options allVersion=" + allVersion
-                    + " searchInChildren=" + searchInChildren + " withDeleted=" + withDeleted);
-            log.info(this, new Exception());
+
+        if (recursiveCall.length == 0 || !recursiveCall[0]) {
+            projectModified = false;
         }
 
         if (folder != null) {
-            IFolder folder2 = (IFolder) folder;
-            if (folder2.exists()) {
-                FolderItem currentFolderItem = folderHelper.getFolder(folder2.getProjectRelativePath());
-
-                for (IResource current : ResourceUtils.getMembers(folder2)) {
-                    if (current instanceof IFile) {
-                        if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                            Property property = null;
-                            try {
-                                if (DEBUG) {
-                                    Timer.getTimer("loadProperty").start();
+            FolderItem currentFolderItem;
+            if (folder instanceof IFolder) {
+                currentFolderItem = folderHelper.getFolder(((IFolder) folder).getProjectRelativePath());
+                if (((IFolder) folder).getLocation().toPortableString().contains("bin")) {
+                    // don't do anything for bin directory
+                } else if (currentFolderItem == null) {
+                    // create folder
+                    currentFolderItem = folderHelper.createFolder(((IFolder) folder).getProjectRelativePath().toPortableString());
+                }
+            } else {
+                currentFolderItem = (FolderItem) folder;
+            }
+            List<String> nameFounds = new ArrayList<String>();
+            List<Item> toRemoveFromFolder = new ArrayList<Item>();
+            if (currentFolderItem != null) {
+                for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
+                    if (curItem instanceof FolderItem && searchInChildren) {
+                        toReturn
+                                .addAll(getSerializableFromFolder(project, curItem, id, type, allVersion, true, withDeleted, true));
+                    } else if (!(curItem instanceof FolderItem)) {
+                        Property property = curItem.getProperty();
+                        if (property != null) {
+                            if (id == null || property.getId().equals(id)) {
+                                if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                    toReturn.add(new RepositoryObject(property));
                                 }
-                                property = xmiResourceManager.loadProperty(current);
-                                if (DEBUG) {
-                                    Timer.getTimer("loadProperty").stop();
-                                    nbTries++;
-                                }
-                            } catch (RuntimeException e) {
-                                // property will be null
-                                ExceptionHandler.process(e);
                             }
-                            if (property != null) {
-                                addToHistory(property.getId(), type, property.getItem().getState().getPath());
-                                if (id == null || property.getId().equals(id)) {
-                                    if (withDeleted || !property.getItem().getState().isDeleted()) {
-                                        toReturn.add(new RepositoryObject(property));
-                                        if (DEBUG) {
-                                            System.out.println("found after " + nbTries + " tries");
-                                            Timer.getTimer("loadProperty").print();
-                                            nbTries = 0;
+                            nameFounds.add(property.getLabel() + "_" + property.getVersion() + "."
+                                    + FileConstants.PROPERTIES_EXTENSION);
+                            property.getItem().setParent(currentFolderItem);
+                            addToHistory(id, type, property.getItem().getState().getPath());
+                        } else {
+                            toRemoveFromFolder.add(curItem);
+                        }
+                    }
+                }
+                if (toRemoveFromFolder.size() != 0) {
+                    currentFolderItem.getChildren().removeAll(toRemoveFromFolder);
+                    projectModified = true;
+                    // System.out.println("bug !!! should never go here");
+                }
+            }
+            // if not logged on project, allow to browse directly the folders.
+            // if already logged, project should be up to date.
+            if (folder instanceof IFolder && !loadedFolders.contains(((IFolder) folder).getLocation().toOSString())) {
+                loadedFolders.add(((IFolder) folder).getLocation().toOSString());
+                IFolder folder2 = (IFolder) folder;
+                if (folder2.exists()) {
+                    for (IResource current : ResourceUtils.getMembers(folder2)) {
+                        if (current instanceof IFile) {
+                            String fileName = ((IFile) current).getName();
+                            if (xmiResourceManager.isPropertyFile((IFile) current) && !nameFounds.contains(fileName)) {
+                                Property property = null;
+                                try {
+                                    property = xmiResourceManager.loadProperty(current);
+                                    addToHistory(id, type, property.getItem().getState().getPath());
+                                } catch (RuntimeException e) {
+                                    // property will be null
+                                    ExceptionHandler.process(e);
+                                }
+                                if (property != null) {
+                                    // System.out.println("new propertyLoaded:" + property.getLabel());
+                                    if (id == null || property.getId().equals(id)) {
+                                        if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                            toReturn.add(new RepositoryObject(property));
                                         }
                                     }
-                                }
-                                if (currentFolderItem != null && !currentFolderItem.getChildren().contains(property.getItem())
-                                        && !getRepositoryContext().getProject().equals(project)) {
                                     currentFolderItem.getChildren().add(property.getItem());
+                                    property.getItem().setParent(currentFolderItem);
+                                    projectModified = true;
+                                } else {
+                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                                 }
-                            } else {
-                                log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
                             }
-                        }
-                    } else if (current instanceof IFolder) { // &&
-                        if (!FilesUtils.isSVNFolder(current)
-                                && (searchInChildren || (withDeleted && current.getName().equals("bin")))) {
-                            toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
-                                    withDeleted, true));
+                        } else if (current instanceof IFolder) { // &&
+                            if (!FilesUtils.isSVNFolder(current) && searchInChildren) {
+                                toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
+                                        withDeleted, true));
+                            }
                         }
                     }
                 }
             }
         }
+        if ((recursiveCall.length != 0 && !recursiveCall[0] && projectModified) || (recursiveCall.length == 0 && projectModified)) {
+            saveProject(project);
+        }
         return toReturn;
     }
-
-    /**
-     * @see org.talend.core.model.repository.factories.IRepositoryFactory#createProject(java.lang.String,
-     * java.lang.String, java.lang.String, org.talend.core.model.general.User)
-     */
-    private static List<ERepositoryObjectType> needsBinFolder = new ArrayList<ERepositoryObjectType>();
 
     static {
         // /PTODO tgu quick fix for registering the emf package. needed to make
         // the extention point work
         ConnectionPackage.eINSTANCE.getClass();
-
-        needsBinFolder.add(ERepositoryObjectType.BUSINESS_PROCESS);
-        needsBinFolder.add(ERepositoryObjectType.SVG_BUSINESS_PROCESS);
-        needsBinFolder.add(ERepositoryObjectType.DOCUMENTATION);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_CONNECTIONS);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_SAPCONNECTIONS);
-        needsBinFolder.add(ERepositoryObjectType.SQLPATTERNS);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_XML);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_EXCEL);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_LDIF);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
-        needsBinFolder.add(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
-        needsBinFolder.add(ERepositoryObjectType.PROCESS);
-        needsBinFolder.add(ERepositoryObjectType.ROUTINES);
-        needsBinFolder.add(ERepositoryObjectType.SNIPPETS);
-        needsBinFolder.add(ERepositoryObjectType.JOBLET);
-        needsBinFolder.add(ERepositoryObjectType.CONTEXT);
-
-        if (PluginChecker.isDocumentationPluginLoaded()) {
-            needsBinFolder.add(ERepositoryObjectType.JOBS);
-            if (PluginChecker.isJobLetPluginLoaded()) {
-                needsBinFolder.add(ERepositoryObjectType.JOBLETS);
-            }
-        }
-        if (PluginChecker.isEBCDICPluginLoaded()) {
-            needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_EBCDIC);
-        }
-        if (PluginChecker.isHL7PluginLoaded()) {
-            needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_HL7);
-        }
-        if (PluginChecker.isRulesPluginLoaded()) {
-            needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_RULES);
-        }
-        if (PluginChecker.isMDMPluginLoaded()) {
-            needsBinFolder.add(ERepositoryObjectType.METADATA_MDMCONNECTION);
-        }
-
     }
 
     public Project createProject(String label, String description, ECodeLanguage language, User author)
@@ -573,12 +604,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE);
         createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY_OF_JOBLET_OUTLINE);
 
-        // 3. Bin folders :
-        for (ERepositoryObjectType type : needsBinFolder) {
-            String folderName = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + BIN;
-            createFolder(prj, folderHelper, folderName);
-        }
-
         // 4. Code/routines/Snippets :
         createFolder(prj, folderHelper, "code/routines"); //$NON-NLS-1$  
         // 5. Job Disigns/System
@@ -601,6 +626,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder folderTemp = ResourceUtils.getFolder(prj, path, false);
         if (!folderTemp.exists()) {
             ResourceUtils.createFolder(folderTemp);
+        }
+        if (folderHelper.getFolder(new Path(path)) == null) {
             folderHelper.createSystemFolder(new Path(path));
         }
     }
@@ -673,6 +700,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         if (path.lastSegment().equals(".settings")) { //$NON-NLS-1$
                             return false;
                         }
+                        if (path.lastSegment().equals("bin")) { //$NON-NLS-1$
+                            return false;
+                        }
+                        if (path.toPortableString().equals("lib")) { //$NON-NLS-1$
+                            return false;
+                        }
 
                         if (!listFolders.remove(path)) {
                             // create emf folder
@@ -720,7 +753,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         IProject fsProject = ResourceModelUtils.getProject(project);
 
-        String parentPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
+        String parentPath = ERepositoryObjectType.getFolderName(type);
+        if (!path.isEmpty()) {
+            parentPath += IPath.SEPARATOR + path.toString();
+        }
 
         String completePath = parentPath + IPath.SEPARATOR + label;
         FolderItem folderItem = getFolderHelper(project.getEmfProject()).createFolder(completePath);
@@ -746,7 +782,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return false;
         }
 
-        if (label.equalsIgnoreCase(BIN)) {
+        if (label.equalsIgnoreCase("bin")) {
             return false;
         } else if (RepositoryConstants.isSystemFolder(label) || RepositoryConstants.isGeneratedFolder(label)
                 || RepositoryConstants.isJobsFolder(label) || RepositoryConstants.isJobletsFolder(label)) {
@@ -801,9 +837,17 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IProject fsProject = ResourceModelUtils.getProject(project);
 
         String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
-        String completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
-                + IPath.SEPARATOR + sourcePath.lastSegment();
-
+        String completeNewPath;
+        if (targetPath.equals("")) {
+            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.lastSegment();
+        } else {
+            completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
+                    + IPath.SEPARATOR + sourcePath.lastSegment();
+        }
+        if (completeNewPath.equals(completeOldPath)) {
+            // nothing to do
+            return;
+        }
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
 
@@ -811,22 +855,28 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
 
         createFolder(getRepositoryContext().getProject(), type, targetPath, emfFolder.getProperty().getLabel());
+        FolderItem newFolder = folderHelper.getFolder(completeNewPath);
 
         Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
         for (int i = 0; i < childrens.length; i++) {
-            FolderItem children = (FolderItem) childrens[i];
-            moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
-                    .getLabel()));
+            if (childrens[i] instanceof FolderItem) {
+                FolderItem children = (FolderItem) childrens[i];
+                moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
+                        .getLabel()));
+            } else {
+                emfFolder.getChildren().remove(childrens[i]);
+                newFolder.getChildren().add(childrens[i]);
+                childrens[i].setParent(newFolder);
+            }
         }
 
-        List<IRepositoryObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true, true);
-        for (IRepositoryObject object : serializableFromFolder) {
+        List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(project, folder, null, type, true, true,
+                true);
+        for (IRepositoryViewObject object : serializableFromFolder) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
             for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
-            }
-            for (Resource resource : affectedResources) {
-                IPath path = getProject().getFullPath().append(completeNewPath).append(resource.getURI().lastSegment());
+                IPath path = getPhysicalProject(project).getFullPath().append(completeNewPath).append(
+                        resource.getURI().lastSegment());
                 xmiResourceManager.moveResource(resource, path);
             }
         }
@@ -858,10 +908,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * 
      * @see org.talend.repository.model.IRepositoryFactory#getProcess2()
      */
-    public List<IRepositoryObject> getProcess2() throws PersistenceException {
-        List<IRepositoryObject> toReturn = new VersionList(false);
+    public List<IRepositoryViewObject> getProcess2() throws PersistenceException {
+        List<IRepositoryViewObject> toReturn = new VersionList(false);
 
-        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
         IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), ERepositoryObjectType.PROCESS);
 
         for (IResource current : ResourceUtils.getMembers(folder)) {
@@ -869,12 +918,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 if (xmiResourceManager.isPropertyFile((IFile) current)) {
                     Property property = xmiResourceManager.loadProperty(current);
                     toReturn.add(new RepositoryObject(property));
-                }
-            } else if (current instanceof IFolder) {
-                if (!current.getName().equals(BIN)) {
-                    Property property = folderHelper.getFolder(current.getProjectRelativePath()).getProperty();
-                    Folder oFolder = new Folder(property, ERepositoryObjectType.PROCESS);
-                    toReturn.add(oFolder);
                 }
             }
         }
@@ -885,96 +928,93 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * (non-Javadoc)
      * 
      * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend .core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
+     * org.talend.core.model.repository.IRepositoryViewObject)
      */
 
-    public void deleteObjectLogical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
+    public void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException {
 
         // can only delete in the main project
-        IProject fsProject = ResourceModelUtils.getProject(project);
+        // IProject fsProject = ResourceModelUtils.getProject(project);
 
-        IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
-                + IPath.SEPARATOR + BIN, true);
+        // IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
+        // + IPath.SEPARATOR + BIN, true);
 
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
-        for (IRepositoryObject currentVersion : allVersionToDelete) {
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
+        for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             ItemState state = currentVersion.getProperty().getItem().getState();
             state.setDeleted(true);
             xmiResourceManager.saveResource(state.eResource());
-
-            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
-            for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
-            }
-            for (Resource resource : affectedResources) {
-                IPath path = URIHelper.convert(resource.getURI());
-                IPath newPath = bin.getFullPath().append(path.lastSegment());
-                xmiResourceManager.moveResource(resource, newPath);
-            }
         }
     }
 
-    public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete) throws PersistenceException {
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException {
         deleteObjectPhysical(project, objToDelete, null);
     }
 
-    public void deleteObjectPhysical(Project project, IRepositoryObject objToDelete, String version) throws PersistenceException {
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
+            throws PersistenceException {
         if ("".equals(version)) { //$NON-NLS-1$
             version = null; // for all version
         }
         // can only delete in the main project
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
-        for (IRepositoryObject currentVersion : allVersionToDelete) {
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId());
+        for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             if (version == null || currentVersion.getVersion().equals(version)) {
+                Item currentItem = currentVersion.getProperty().getItem();
+                if (currentItem.getParent() instanceof FolderItem) {
+                    ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
+                }
+                currentItem.setParent(null);
                 List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
                 for (Resource resource : affectedResources) {
                     xmiResourceManager.deleteResource(resource);
                 }
             }
         }
+        saveProject(project);
     }
 
-    public void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore.getType()),
-                true);
+    public void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException {
+        // IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        // IFolder typeRootFolder = ResourceUtils.getFolder(fsProject,
+        // ERepositoryObjectType.getFolderName(objToRestore.getType()),
+        // true);
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() :
         // typeRootFolder.getFullPath().append(path));
-        org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
+        // org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
-        List<IRepositoryObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId());
-        for (IRepositoryObject currentVersion : allVersionToDelete) {
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId());
+        for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
             xmiResourceManager.saveResource(itemState.eResource());
-
-            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
-            for (Resource resource : affectedResources) {
-                xmiResourceManager.saveResource(resource);
-            }
-            for (Resource resource : affectedResources) {
-                IPath originalPath = URIHelper.convert(resource.getURI());
-                IPath finalPath = typeRootFolder.getFullPath().append(path).append(originalPath.lastSegment());
-                xmiResourceManager.moveResource(resource, finalPath);
-            }
         }
 
-        xmiResourceManager.saveResource(project.eResource());
+        // xmiResourceManager.saveResource(project.eResource());
     }
 
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.repository.model.IRepositoryFactory#moveObject(org.talend. core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject, org.eclipse.core.runtime.IPath)
+     * org.talend.core.model.repository.IRepositoryViewObject, org.eclipse.core.runtime.IPath)
      */
-    public void moveObject(IRepositoryObject objToMove, IPath newPath) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+    public void moveObject(IRepositoryViewObject objToMove, IPath newPath) throws PersistenceException {
+        Project project = getRepositoryContext().getProject();
+        IProject fsProject = ResourceModelUtils.getProject(project);
         String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
-        List<IRepositoryObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId());
-        for (IRepositoryObject obj : allVersionToMove) {
+        List<IRepositoryViewObject> allVersionToMove = getAllVersion(getRepositoryContext().getProject(), objToMove.getId());
+        for (IRepositoryViewObject obj : allVersionToMove) {
+            Item currentItem = obj.getProperty().getItem();
+            if (currentItem.getParent() instanceof FolderItem) {
+                ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
+            }
+            FolderItem newFolderItem = getFolderItem(project, objToMove.getType(), newPath);
+            newFolderItem.getChildren().add(currentItem);
+            currentItem.setParent(newFolderItem);
+
             ItemState state = obj.getProperty().getItem().getState();
             state.setPath(newPath.toString());
             xmiResourceManager.saveResource(state.eResource());
@@ -988,6 +1028,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 xmiResourceManager.moveResource(resource, path);
             }
         }
+        saveProject(project);
     }
 
     public XmiResourceManager xmiResourceManager = new XmiResourceManager();
@@ -999,7 +1040,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             item.getState().setLockDate(new Date());
             item.getState().setLocker(getRepositoryContext().getUser());
             item.getState().setLocked(true);
-            xmiResourceManager.saveResource(item.eResource());
+            xmiResourceManager.saveResource(item.getProperty().eResource());
         }
     }
 
@@ -1010,23 +1051,23 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             item.getState().setLocker(null);
             item.getState().setLockDate(null);
             item.getState().setLocked(false);
-            xmiResourceManager.saveResource(item.eResource());
+            xmiResourceManager.saveResource(item.getProperty().eResource());
         }
     }
 
     public List<Status> getDocumentationStatus() throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        return copyList(loadProject.getDocumentationStatus());
+        // reloadProject(ProjectManager.getInstance().getCurrentProject());
+        return copyList(ProjectManager.getInstance().getCurrentProject().getEmfProject().getDocumentationStatus());
     }
 
     public List<Status> getTechnicalStatus() throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        return copyList(loadProject.getTechnicalStatus());
+        // reloadProject(ProjectManager.getInstance().getCurrentProject());
+        return copyList(ProjectManager.getInstance().getCurrentProject().getEmfProject().getTechnicalStatus());
     }
 
     public List<SpagoBiServer> getSpagoBiServer() throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        return copyListOfSpagoBiServer(loadProject.getSpagoBiServer());
+        // reloadProject(ProjectManager.getInstance().getCurrentProject());
+        return copyListOfSpagoBiServer(ProjectManager.getInstance().getCurrentProject().getEmfProject().getSpagoBiServer());
     }
 
     private List<Status> copyList(List listOfStatus) {
@@ -1046,32 +1087,36 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void setDocumentationStatus(List<Status> list) throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        loadProject.getDocumentationStatus().clear();
-        loadProject.getDocumentationStatus().addAll(list);
-        xmiResourceManager.saveResource(loadProject.eResource());
+        Project curProject = ProjectManager.getInstance().getCurrentProject();
+        // reloadProject(curProject);
+        curProject.getEmfProject().getDocumentationStatus().clear();
+        curProject.getEmfProject().getDocumentationStatus().addAll(list);
+        xmiResourceManager.saveResource(curProject.getEmfProject().eResource());
     }
 
     public void setTechnicalStatus(List<Status> list) throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        loadProject.getTechnicalStatus().clear();
-        loadProject.getTechnicalStatus().addAll(list);
-        xmiResourceManager.saveResource(loadProject.eResource());
+        Project curProject = ProjectManager.getInstance().getCurrentProject();
+        // reloadProject(curProject);
+        curProject.getEmfProject().getTechnicalStatus().clear();
+        curProject.getEmfProject().getTechnicalStatus().addAll(list);
+        xmiResourceManager.saveResource(curProject.getEmfProject().eResource());
     }
 
     public void setSpagoBiServer(List<SpagoBiServer> list) throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        loadProject.getSpagoBiServer().clear();
-        loadProject.getSpagoBiServer().addAll(list);
-        xmiResourceManager.saveResource(loadProject.eResource());
+        Project curProject = ProjectManager.getInstance().getCurrentProject();
+        // reloadProject(curProject);
+        curProject.getEmfProject().getSpagoBiServer().clear();
+        curProject.getEmfProject().getSpagoBiServer().addAll(list);
+        xmiResourceManager.saveResource(curProject.getEmfProject().eResource());
     }
 
     public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
-        IProject iproject = ResourceModelUtils.getProject(project);
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(iproject);
-        loadProject.getMigrationTasks().clear();
-        loadProject.getMigrationTasks().addAll(list);
-        xmiResourceManager.saveResource(loadProject.eResource());
+        // reloadProject(project);
+        // IProject iproject = ResourceModelUtils.getProject(project);
+        // org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(iproject);
+        project.getEmfProject().getMigrationTasks().clear();
+        project.getEmfProject().getMigrationTasks().addAll(list);
+        xmiResourceManager.saveResource(project.getEmfProject().eResource());
     }
 
     /*
@@ -1263,7 +1308,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         computePropertyMaxInformationLevel(item.getProperty());
 
         item.getProperty().setModificationDate(new Date());
-
         Resource itemResource;
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
@@ -1345,10 +1389,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void save(Project project, Property property) throws PersistenceException {
         computePropertyMaxInformationLevel(property);
-
         propagateFileName(project, property);
-
-        property.setModificationDate(new Date());
+        // update the property of the node repository object
         Resource propertyResource = property.eResource();
         if (propertyResource != null) {
             xmiResourceManager.saveResource(propertyResource);
@@ -1386,19 +1428,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void propagateFileName(Project project, Property property) throws PersistenceException {
-        List<IRepositoryObject> allVersionToMove = getAllVersion(project, property.getId());
-        for (IRepositoryObject object : allVersionToMove) {
+        List<IRepositoryViewObject> allVersionToMove = getAllVersion(project, property.getId());
+        for (IRepositoryViewObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
     }
 
-    private Resource propertyResource;
-
-    public Resource getPropertyResource() {
-        return this.propertyResource;
-    }
-
-    public void create(Project project, Item item, IPath path) throws PersistenceException {
+    public void create(Project project, Item item, IPath path, boolean... isImportItem) throws PersistenceException {
         computePropertyMaxInformationLevel(item.getProperty());
 
         if (item.getProperty().getVersion() == null) {
@@ -1417,7 +1453,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         ItemState itemState = PropertiesFactory.eINSTANCE.createItemState();
-        itemState.setDeleted(false);
+        if (item.getState() != null) {
+            itemState.setDeleted(item.getState().isDeleted());
+        } else {
+            itemState.setDeleted(false);
+        }
         itemState.setPath(path.toString());
 
         item.setState(itemState);
@@ -1520,27 +1560,28 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throw new UnsupportedOperationException();
         }
 
-        propertyResource = xmiResourceManager.createPropertyResource(itemResource);
+        Resource propertyResource = xmiResourceManager.createPropertyResource(itemResource);
         propertyResource.getContents().add(item.getProperty());
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
 
-        // String parentPath =
-        // ERepositoryObjectType.getFolderName(ERepositoryObjectType
-        // .getItemType(item)) +
-        // IPath.SEPARATOR
-        // + path.toString();
-        // FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
-        // FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
-        // parentFolderItem.getChildren().add(item);
+        String parentPath = ERepositoryObjectType.getFolderName(ERepositoryObjectType.getItemType(item)) + IPath.SEPARATOR
+                + path.toString();
+        FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
+        FolderItem parentFolderItem = folderHelper.getFolder(parentPath);
+        parentFolderItem.getChildren().add(item);
+        item.setParent(parentFolderItem);
 
         xmiResourceManager.saveResource(itemResource);
         xmiResourceManager.saveResource(propertyResource);
-        // saveProject();
+
+        if (isImportItem.length == 0 || !isImportItem[0]) {
+            saveProject(project);
+        }
     }
 
-    private IProject getProject() throws PersistenceException {
-        return ResourceModelUtils.getProject(getRepositoryContext().getProject());
+    private IProject getPhysicalProject(Project project) throws PersistenceException {
+        return ResourceModelUtils.getProject(project);
     }
 
     public Property reload(Property property) {
@@ -1553,10 +1594,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return xmiResourceManager.loadProperty(file);
     }
 
+    public Property reload(Property property, IFile file) {
+        // IFile file = URIHelper.getFile(property.eResource().getURI());
+        List<Resource> affectedResources = xmiResourceManager.getAffectedResources(property);
+        for (Resource resource : affectedResources) {
+            resource.unload();
+        }
+
+        return xmiResourceManager.loadProperty(file);
+    }
+
     public boolean doesLoggedUserExist() throws PersistenceException {
         boolean exist = false;
-        IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
+        org.talend.core.model.properties.Project emfProject = getRepositoryContext().getProject().getEmfProject();
+        // IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        // org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
@@ -1579,7 +1631,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void initialize() throws PersistenceException {
-        // xmiResourceManager.unloadResources();
         List<Property> propertiesToUnload = new ArrayList<Property>();
         for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
             for (EObject object : resource.getContents()) {
@@ -1598,13 +1649,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         for (Property property : propertiesToUnload) {
-            System.out.println("unload:" + property.getLabel());
+            // System.out.println("unload:" + property.getLabel());
             xmiResourceManager.unloadResources(property);
         }
     }
 
     public void logOnProject(Project project) throws PersistenceException, LoginException {
-
+        this.loadedFolders.clear();
         if (getRepositoryContext().getUser().getLogin() == null) {
             throw new LoginException(Messages.getString("LocalRepositoryFactory.UserLoginCannotBeNull")); //$NON-NLS-1$
         }
@@ -1629,8 +1680,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         try {
             ImportItemUtil util = new ImportItemUtil();
-            List<IRepositoryObject> allRoutines = getAll(project, ERepositoryObjectType.ROUTINES, true, true);
-            for (IRepositoryObject object : allRoutines) {
+            List<IRepositoryViewObject> allRoutines = getAll(project, ERepositoryObjectType.ROUTINES, true, true);
+            for (IRepositoryViewObject object : allRoutines) {
                 Item item = object.getProperty().getItem();
                 util.changeRoutinesPackage(item);
             }
@@ -1713,9 +1764,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String folderPathString = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString();
         IFolder folder = ResourceUtils.getFolder(project, folderPathString, false);
 
-        List<IRepositoryObject> serializableFromFolder = getSerializableFromFolder(baseProject, folder, null, type, true, false,
-                false);
-        for (IRepositoryObject repositoryObject : serializableFromFolder) {
+        List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(baseProject, folder, null, type, true,
+                false, false);
+        for (IRepositoryViewObject repositoryObject : serializableFromFolder) {
             ItemState state = repositoryObject.getProperty().getItem().getState();
             state.setPath(targetPath.toString());
             xmiResourceManager.saveResource(state.eResource());
@@ -1729,9 +1780,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public boolean setAuthorByLogin(Item item, String login) throws PersistenceException {
-        IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
-        Resource projectResource = emfProject.eResource();
+        // IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        // org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
+        Resource projectResource = getRepositoryContext().getProject().getEmfProject().eResource();
 
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
@@ -1744,10 +1795,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return false;
     }
 
-    protected void saveProject() throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
-        xmiResourceManager.saveResource(loadProject.eResource());
-    }
+    // protected void saveProject() throws PersistenceException {
+    // org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
+    // xmiResourceManager.saveResource(loadProject.eResource());
+    // }
 
     public void unloadResources(Property property) {
         xmiResourceManager.unloadResources(property);
@@ -1767,22 +1818,25 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public Property getUptodateProperty(Project project, Property property) throws PersistenceException {
         Property uptodateProperty = super.getUptodateProperty(project, property);
-        FolderItem folderItem = null;
-        if (property.getItem().eContainer() instanceof FolderItem) {
-            folderItem = (FolderItem) property.getItem().eContainer();
-            folderItem.getChildren().remove(property.getItem());
-        }
-        // property.eResource()
-        // property.getItem().eResource()
 
-        // afterForceReload.eResource()
+        // FolderItem folderItem = null;
+        // if (property.getItem().getParent() instanceof FolderItem) {
+        // folderItem = (FolderItem) property.getItem().getParent();
+        // folderItem.getChildren().remove(property.getItem());
+        // }
+        //
+        // Property afterForceReload = xmiResourceManager.forceReloadProperty(uptodateProperty);
+        // if (folderItem != null) {
+        // folderItem.getChildren().add(afterForceReload.getItem());
+        // afterForceReload.getItem().setParent(folderItem);
+        // saveProject(project);
+        // }
 
-        Property afterForceReload = xmiResourceManager.forceReloadProperty(uptodateProperty);
-        if (folderItem != null) {
-            folderItem.getChildren().add(afterForceReload.getItem());
-        }
-
-        return afterForceReload;
+        return uptodateProperty;
     }
 
+    protected void reloadProject(Project project) throws PersistenceException {
+        IProject pproject = getPhysicalProject(project);
+        project.setEmfProject(xmiResourceManager.loadProject(pproject));
+    }
 }

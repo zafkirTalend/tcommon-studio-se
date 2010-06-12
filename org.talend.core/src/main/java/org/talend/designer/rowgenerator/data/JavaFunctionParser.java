@@ -41,7 +41,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
@@ -76,12 +76,12 @@ public class JavaFunctionParser extends AbstractFunctionParser {
         systems = new ArrayList<String>();
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            RootContainer<String, IRepositoryObject> routineContainer = factory.getRoutine();
-            final List<Container<String, IRepositoryObject>> subContainer = routineContainer.getSubContainer();
-            for (Container<String, IRepositoryObject> container : subContainer) {
+            RootContainer<String, IRepositoryViewObject> routineContainer = factory.getRoutine();
+            final List<Container<String, IRepositoryViewObject>> subContainer = routineContainer.getSubContainer();
+            for (Container<String, IRepositoryViewObject> container : subContainer) {
                 if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
-                    final List<IRepositoryObject> members = container.getMembers();
-                    for (IRepositoryObject object : members) {
+                    final List<IRepositoryViewObject> members = container.getMembers();
+                    for (IRepositoryViewObject object : members) {
                         systems.add(object.getLabel());
                     }
                 }

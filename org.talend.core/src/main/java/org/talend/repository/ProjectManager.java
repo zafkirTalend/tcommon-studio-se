@@ -21,7 +21,6 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.CorePlugin;
@@ -30,9 +29,11 @@ import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -204,26 +205,17 @@ public final class ProjectManager {
      */
     public org.talend.core.model.properties.Project getProject(EObject object) {
         if (object != null) {
-            // if object is in current project, the rootObj will be self.
-            EObject rootObj = EcoreUtil.getRootContainer(object);
-            if (rootObj != null && rootObj instanceof org.talend.core.model.properties.Project) {
-                // don't return the root of the project directly, since it might be desynchronized
-                org.talend.core.model.properties.Project project = (org.talend.core.model.properties.Project) rootObj;
-                String projectName = project.getTechnicalLabel();
-                if (projectName.equals(getCurrentProject().getTechnicalLabel())) {
-                    return getCurrentProject().getEmfProject();
-                }
-                for (Project curProject : getReferencedProjects()) {
-                    if (curProject.getTechnicalLabel().equals(projectName)) {
-                        return curProject.getEmfProject();
-                    }
-                }
-
-                // in case don't find the new instance of the project, we still return the old instance.
-                // But this shouldn't happen.
-                return (org.talend.core.model.properties.Project) rootObj;
+            if (object instanceof org.talend.core.model.properties.Project) {
+                return (org.talend.core.model.properties.Project) object;
+            }
+            if (object instanceof Property) {
+                return getProject(((Property) object).getItem());
+            }
+            if (object instanceof Item) {
+                return getProject(((Item) object).getParent());
             }
         }
+
         // default
         Project p = getCurrentProject();
         if (p != null) {
@@ -281,7 +273,7 @@ public final class ProjectManager {
                 IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
                         IReferencedProjectService.class);
                 if (service != null && service.isMergeRefProject() && curP != null) {
-                    IRepositoryObject object = node.getObject();
+                    IRepositoryViewObject object = node.getObject();
                     if (object == null) {
                         return true;
                     }

@@ -34,7 +34,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -192,7 +192,7 @@ public class MDMWizard extends RepositoryWizard implements INewWizard {
             //                log.error(Messages.getString("CommonWizard.persistenceException") + "\n" + detailError); //$NON-NLS-1$ //$NON-NLS-2$
             return false;
         }
-        List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         list.add(repositoryObject);
         // RepositoryPlugin.getDefault().getRepositoryService()
         // .notifySQLBuilder(list);

@@ -50,7 +50,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.impl.ConnectionItemImpl;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
@@ -369,7 +369,7 @@ public class MetadataTool {
 
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            IRepositoryObject object = factory.getLastVersion(connectionId);
+            IRepositoryViewObject object = factory.getLastVersion(connectionId);
             if (object == null) {
                 return null;
             }
@@ -782,8 +782,8 @@ public class MetadataTool {
         return false;
     }
 
-    public static Collection<IRepositoryObject> getContextDependenciesOfMetadataConnection(Collection<Item> items) {
-        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+    public static Collection<IRepositoryViewObject> getContextDependenciesOfMetadataConnection(Collection<Item> items) {
+        Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         try {
             for (Item item : items) {
                 if (item == null) {
@@ -792,7 +792,7 @@ public class MetadataTool {
                 if (item instanceof ConnectionItemImpl) {
                     Connection connection = ((ConnectionItemImpl) item).getConnection();
                     if (connection != null) {
-                        IRepositoryObject lastVersion = null;
+                        IRepositoryViewObject lastVersion = null;
                         if (connection.getContextId() != null) {
                             lastVersion = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
                                     connection.getContextId());

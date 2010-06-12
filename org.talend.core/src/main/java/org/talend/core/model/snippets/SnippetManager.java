@@ -23,7 +23,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.StringUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.SnippetItem;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.snippet.VariableItemHelper;
 
 /**
@@ -52,11 +52,11 @@ public class SnippetManager {
 
     public List<SnippetItem> getListSnippet() {
         try {
-            List<IRepositoryObject> snippets = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+            List<IRepositoryViewObject> snippets = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
                     .getSnippets().getMembers();
 
             List<SnippetItem> list = new ArrayList<SnippetItem>(snippets.size());
-            for (IRepositoryObject repositoryObject : snippets) {
+            for (IRepositoryViewObject repositoryObject : snippets) {
                 list.add((SnippetItem) repositoryObject.getProperty().getItem());
             }
             return list;

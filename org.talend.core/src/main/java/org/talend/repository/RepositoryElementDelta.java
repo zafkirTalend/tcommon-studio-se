@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository;
 
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 
 /**
  * DOC bqian concrete class of interface IRepositoryElementDelta <br/>
@@ -22,16 +22,16 @@ import org.talend.core.model.repository.IRepositoryObject;
  */
 public class RepositoryElementDelta implements IRepositoryElementDelta {
 
-    private IRepositoryObject repositoryObject;
+    private IRepositoryViewObject repositoryObject;
 
     /**
      * DOC bqian RepositoryElementDelta constructor comment.
      */
-    public RepositoryElementDelta(IRepositoryObject repositoryObject) {
+    public RepositoryElementDelta(IRepositoryViewObject repositoryObject) {
         this.repositoryObject = repositoryObject;
     }
 
-    public IRepositoryObject getRepositoryObject() {
+    public IRepositoryViewObject getRepositoryObject() {
         return repositoryObject;
     }
 }

@@ -30,7 +30,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -109,7 +109,7 @@ public final class ProcessUtils {
         return tmpProcesses.toArray(new IProcess[0]);
     }
 
-    public static Collection<IRepositoryObject> getProcessDependencies(ERepositoryObjectType dependencyType,
+    public static Collection<IRepositoryViewObject> getProcessDependencies(ERepositoryObjectType dependencyType,
             Collection<Item> items) {
 
         switch (dependencyType) {
@@ -129,11 +129,11 @@ public final class ProcessUtils {
 
     }
 
-    public static Collection<IRepositoryObject> getAllProcessDependencies(Collection<Item> items) {
+    public static Collection<IRepositoryViewObject> getAllProcessDependencies(Collection<Item> items) {
         clearFakeProcesses();
         createFakeProcesses(items);
 
-        Collection<IRepositoryObject> dependencies = getContextDependenciesOfProcess(items);
+        Collection<IRepositoryViewObject> dependencies = getContextDependenciesOfProcess(items);
         dependencies.addAll(getMetadataDependenciesOfProcess(items));
         dependencies.addAll(getChildPorcessDependenciesOfProcess(items));
         dependencies.addAll(getJobletDependenciesOfProcess(items));
@@ -143,8 +143,8 @@ public final class ProcessUtils {
         return dependencies;
     }
 
-    private static Collection<IRepositoryObject> getContextDependenciesOfProcess(Collection<Item> items) {
-        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+    private static Collection<IRepositoryViewObject> getContextDependenciesOfProcess(Collection<Item> items) {
+        Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         for (Item item : items) {
             if (item == null) {
                 continue;
@@ -162,7 +162,7 @@ public final class ProcessUtils {
                     if (repositoryContextId != null && !"".equals(repositoryContextId)) { //$NON-NLS-1$
                         try {
                             IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                            IRepositoryObject lastVersion = factory.getLastVersion(repositoryContextId);
+                            IRepositoryViewObject lastVersion = factory.getLastVersion(repositoryContextId);
                             if (lastVersion != null) {
                                 if (!repositoryObjects.contains(lastVersion)) {
                                     repositoryObjects.add(lastVersion);
@@ -181,8 +181,8 @@ public final class ProcessUtils {
         return repositoryObjects;
     }
 
-    private static Collection<IRepositoryObject> getMetadataDependenciesOfProcess(Collection<Item> items) {
-        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+    private static Collection<IRepositoryViewObject> getMetadataDependenciesOfProcess(Collection<Item> items) {
+        Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
@@ -222,14 +222,14 @@ public final class ProcessUtils {
         return repositoryObjects;
     }
 
-    private static void addRepositoryObject(String repositoryMetadataId, Collection<IRepositoryObject> repositoryObjects) {
+    private static void addRepositoryObject(String repositoryMetadataId, Collection<IRepositoryViewObject> repositoryObjects) {
         String[] id = repositoryMetadataId.split(" - "); //$NON-NLS-1$
         if (id.length > 0) {
 
             if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                 try {
                     IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                    IRepositoryObject lastVersion = factory.getLastVersion(id[0].trim());
+                    IRepositoryViewObject lastVersion = factory.getLastVersion(id[0].trim());
                     if (lastVersion != null) {
                         if (!repositoryObjects.contains(lastVersion)) {
                             repositoryObjects.add(lastVersion);
@@ -243,8 +243,8 @@ public final class ProcessUtils {
         }
     }
 
-    private static Collection<IRepositoryObject> getChildPorcessDependenciesOfProcess(Collection<Item> items) {
-        List<IRepositoryObject> returnListObject = new ArrayList<IRepositoryObject>();
+    private static Collection<IRepositoryViewObject> getChildPorcessDependenciesOfProcess(Collection<Item> items) {
+        List<IRepositoryViewObject> returnListObject = new ArrayList<IRepositoryViewObject>();
         Map<String, Item> returnItems = new HashMap<String, Item>();
         // Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
         for (IProcess process : checkAndGetFakeProcesses(items)) {
@@ -258,7 +258,7 @@ public final class ProcessUtils {
                         if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                             try {
                                 IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                                IRepositoryObject lastVersion = factory.getLastVersion(repositoryMetadataId);
+                                IRepositoryViewObject lastVersion = factory.getLastVersion(repositoryMetadataId);
                                 if (lastVersion != null) {
                                     if (!returnListObject.contains(lastVersion)) {
                                         // repositoryObjects.add(lastVersion);
@@ -294,9 +294,9 @@ public final class ProcessUtils {
 
     }
 
-    private static Collection<IRepositoryObject> getJobletDependenciesOfProcess(Collection<Item> items) {
+    private static Collection<IRepositoryViewObject> getJobletDependenciesOfProcess(Collection<Item> items) {
         Map<String, Item> returnItems = new HashMap<String, Item>();
-        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+        Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
@@ -314,7 +314,7 @@ public final class ProcessUtils {
                             if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
                                 try {
                                     IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                                    IRepositoryObject lastVersion = factory.getLastVersion(repositoryMetadataId);
+                                    IRepositoryViewObject lastVersion = factory.getLastVersion(repositoryMetadataId);
                                     if (lastVersion != null) {
                                         if (!repositoryObjects.contains(lastVersion)) {
                                             repositoryObjects.add(lastVersion);
@@ -347,8 +347,8 @@ public final class ProcessUtils {
         return repositoryObjects;
     }
 
-    private static Collection<IRepositoryObject> getSQLTemplatesDependenciesOfProcess(Collection<Item> items) {
-        Collection<IRepositoryObject> repositoryObjects = new ArrayList<IRepositoryObject>();
+    private static Collection<IRepositoryViewObject> getSQLTemplatesDependenciesOfProcess(Collection<Item> items) {
+        Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
                 List<INode> nodes = (List<INode>) process.getGraphicalNodes();
@@ -362,7 +362,7 @@ public final class ProcessUtils {
                                 if (object instanceof String) {
                                     String[] idAndLable = ((String) object).split(SQLPatternUtils.ID_SEPARATOR);
                                     if (idAndLable.length > 1) {
-                                        IRepositoryObject repositoryObject = SQLPatternUtils
+                                        IRepositoryViewObject repositoryObject = SQLPatternUtils
                                                 .getLastVersionRepositoryObjectById(idAndLable[0]);
                                         if (repositoryObject != null && repositoryObject.getLabel().equals(idAndLable[1])) {
                                             Item item2 = repositoryObject.getProperty().getItem();

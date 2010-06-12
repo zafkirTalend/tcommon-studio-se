@@ -26,7 +26,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -46,7 +46,7 @@ public final class SQLPatternUtils {
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
 
-        IRepositoryObject repositoryObject = null;
+        IRepositoryViewObject repositoryObject = null;
         String id = compoundId.split(SQLPatternUtils.ID_SEPARATOR)[0];
         try {
             repositoryObject = factory.getLastVersion(id);
@@ -71,10 +71,10 @@ public final class SQLPatternUtils {
         //        String eltNodeName = (String) element.getElementParameter("SQLPATTERN_DB_NAME").getValue(); //$NON-NLS-1$
         SQLPatternItem sqlpatternItem = null;
         try {
-            List<IRepositoryObject> list = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(
+            List<IRepositoryViewObject> list = CorePlugin.getDefault().getProxyRepositoryFactory().getAll(
                     ERepositoryObjectType.SQLPATTERNS, false);
             addReferencedSQLTemplate(list, ProjectManager.getInstance().getCurrentProject());
-            for (IRepositoryObject repositoryObject : list) {
+            for (IRepositoryViewObject repositoryObject : list) {
                 SQLPatternItem item = (SQLPatternItem) repositoryObject.getProperty().getItem();
                 // modify for bug 10375
                 if (item.getProperty().getLabel().equals(sqlpatternName)) {
@@ -90,7 +90,7 @@ public final class SQLPatternUtils {
         return sqlpatternItem;
     }
 
-    private static void addReferencedSQLTemplate(List<IRepositoryObject> list, Project project) {
+    private static void addReferencedSQLTemplate(List<IRepositoryViewObject> list, Project project) {
         try {
             Context ctx = CorePlugin.getContext();
             if (ctx == null) {
@@ -111,10 +111,10 @@ public final class SQLPatternUtils {
                 if (refeInRef != null && refeInRef.size() > 0) {
                     addReferencedSQLTemplate(list, newProject);
                 }
-                List<IRepositoryObject> refList;
+                List<IRepositoryViewObject> refList;
                 refList = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAll(newProject,
                         ERepositoryObjectType.SQLPATTERNS, false);
-                for (IRepositoryObject repositoryObject : refList) {
+                for (IRepositoryViewObject repositoryObject : refList) {
                     Item item = repositoryObject.getProperty().getItem();
                     if (item instanceof SQLPatternItem) {
                         if (!((SQLPatternItem) item).isSystem()) {
@@ -134,14 +134,14 @@ public final class SQLPatternUtils {
      * @param id
      * @return
      */
-    public static IRepositoryObject getLastVersionRepositoryObjectById(String id) {
+    public static IRepositoryViewObject getLastVersionRepositoryObjectById(String id) {
 
         if (id == null || "".equals(id)) { //$NON-NLS-1$
             return null;
         }
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
-            IRepositoryObject lastVersion = factory.getLastVersion(id);
+            IRepositoryViewObject lastVersion = factory.getLastVersion(id);
             if (lastVersion != null && factory.getStatus(lastVersion) != ERepositoryStatus.DELETED) {
                 return lastVersion;
             }

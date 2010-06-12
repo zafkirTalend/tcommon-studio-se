@@ -21,7 +21,7 @@ import org.talend.commons.ui.image.IImage;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.CoreImageProvider;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 
@@ -73,7 +73,7 @@ public class RepositoryNode {
 
     private String id;
 
-    private IRepositoryObject object;
+    private IRepositoryViewObject object;
 
     private RepositoryNode parent;
 
@@ -133,7 +133,7 @@ public class RepositoryNode {
      * @param root Root Node (project)
      * @param type
      */
-    public RepositoryNode(IRepositoryObject object, RepositoryNode parent, ENodeType type) {
+    public RepositoryNode(IRepositoryViewObject object, RepositoryNode parent, ENodeType type) {
         super();
         this.id = (object == null ? NO_ID : object.getId()); //$NON-NLS-1$
         this.object = object;
@@ -176,7 +176,7 @@ public class RepositoryNode {
 
         List<RepositoryNode> toReturn = new ArrayList<RepositoryNode>();
 
-        for (IRepositoryObject currentChild : getObject().getChildren()) {
+        for (IRepositoryViewObject currentChild : getObject().getChildren()) {
             RepositoryNode repositoryNode = new RepositoryNode(currentChild, this, ENodeType.REPOSITORY_ELEMENT);
             toReturn.add(repositoryNode);
         }
@@ -216,7 +216,7 @@ public class RepositoryNode {
      * 
      * @see org.talend.repository.model.RepositoryNode#getObject()
      */
-    public IRepositoryObject getObject() {
+    public IRepositoryViewObject getObject() {
         return this.object;
     }
 
@@ -272,6 +272,9 @@ public class RepositoryNode {
             if (getObject() instanceof Folder) {
                 return ((Folder) getObject()).getContentType();
             } else {
+                if (getParent() != null) {
+                    return getParent().getContentType();
+                }
                 return null;
             }
         }

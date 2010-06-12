@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.repository;
 
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 
 /**
  * A repository element delta describes changes in repository element between two discrete points in time. Given a
@@ -23,6 +23,6 @@ import org.talend.core.model.repository.IRepositoryObject;
  */
 public interface IRepositoryElementDelta {
 
-    public IRepositoryObject getRepositoryObject();
+    public IRepositoryViewObject getRepositoryObject();
 
 }

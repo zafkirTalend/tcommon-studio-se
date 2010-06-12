@@ -27,7 +27,7 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.relationship.RelationshipItemBuilder.Relation;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
@@ -47,12 +47,12 @@ public final class RetrieveItemsUtil {
      * cli Comment method "retrieveItems".
      * 
      */
-    public static List<IRepositoryObject> retrieveItems(final ERepositoryObjectType[] types, final boolean withLastVersion,
+    public static List<IRepositoryViewObject> retrieveItems(final ERepositoryObjectType[] types, final boolean withLastVersion,
             final boolean withDeleted, final boolean withLocked, final boolean withRefProject) throws PersistenceException {
         final Project curProject = ProjectManager.getInstance().getCurrentProject();
         final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
 
-        List<IRepositoryObject> results = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> results = new ArrayList<IRepositoryViewObject>();
         if (types != null) {
             for (ERepositoryObjectType type : types) {
                 retrieveItems(factory, curProject, type, withLastVersion, withDeleted, withLocked, withRefProject, results);
@@ -69,7 +69,7 @@ public final class RetrieveItemsUtil {
      * ? Did the index function support for Ref project or not?
      * 
      */
-    public static List<IRepositoryObject> retrieveObjectByIndexWithType(String relatedId, final boolean withLastVersion,
+    public static List<IRepositoryViewObject> retrieveObjectByIndexWithType(String relatedId, final boolean withLastVersion,
             final boolean withDeleted, final boolean withLocked, final boolean withRefProject, String indexType)
             throws PersistenceException {
         if (relatedId == null || "".equals(relatedId.trim()) || RepositoryNode.NO_ID.equals(relatedId.trim())) { //$NON-NLS-1$
@@ -85,10 +85,10 @@ public final class RetrieveItemsUtil {
         final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         final Project curProject = ProjectManager.getInstance().getCurrentProject();
 
-        List<IRepositoryObject> tmpObjects = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> tmpObjects = new ArrayList<IRepositoryViewObject>();
 
         for (Relation r : itemsRelated) {
-            IRepositoryObject lastVersion = factory.getLastVersion(curProject, r.getId());
+            IRepositoryViewObject lastVersion = factory.getLastVersion(curProject, r.getId());
             ERepositoryStatus status = factory.getStatus(lastVersion);
 
             if ((withDeleted || status != ERepositoryStatus.DELETED)
@@ -100,8 +100,8 @@ public final class RetrieveItemsUtil {
                 } else {
                     Item item = lastVersion.getProperty().getItem();
                     ERepositoryObjectType objectType = ERepositoryObjectType.getItemType(item);
-                    List<IRepositoryObject> allVersion = factory.getAllVersion(lastVersion.getId(), item.getState().getPath(),
-                            objectType);
+                    List<IRepositoryViewObject> allVersion = factory.getAllVersion(lastVersion.getId(),
+                            item.getState().getPath(), objectType);
 
                     tmpObjects.addAll(allVersion);
                 }
@@ -118,7 +118,7 @@ public final class RetrieveItemsUtil {
      * 
      * arguments set by preference
      */
-    public static List<IRepositoryObject> retrieveItems(ERepositoryObjectType[] types) throws PersistenceException {
+    public static List<IRepositoryViewObject> retrieveItems(ERepositoryObjectType[] types) throws PersistenceException {
         final boolean withLastVersion = checkLastVersion();
         final boolean withDeleted = checkDeleted();
         final boolean withLocked = checkLocked();
@@ -128,7 +128,8 @@ public final class RetrieveItemsUtil {
 
     }
 
-    public static List<IRepositoryObject> retrieveObjectByIndexWithType(String id, String indexType) throws PersistenceException {
+    public static List<IRepositoryViewObject> retrieveObjectByIndexWithType(String id, String indexType)
+            throws PersistenceException {
         final boolean withLastVersion = checkLastVersion();
         final boolean withDeleted = checkDeleted();
         final boolean withLocked = checkLocked();
@@ -156,12 +157,12 @@ public final class RetrieveItemsUtil {
     @SuppressWarnings("unchecked")
     private static void retrieveItems(final IProxyRepositoryFactory factory, final Project project,
             final ERepositoryObjectType type, final boolean withLastVersion, final boolean withDeleted, final boolean withLocked,
-            final boolean withRefProject, final List<IRepositoryObject> results) throws PersistenceException {
+            final boolean withRefProject, final List<IRepositoryViewObject> results) throws PersistenceException {
         // List<IRepositoryObject> tmpList = new ArrayList<IRepositoryObject>();
 
-        List<IRepositoryObject> list = factory.getAll(project, type, withDeleted, !withLastVersion);
+        List<IRepositoryViewObject> list = factory.getAll(project, type, withDeleted, !withLastVersion);
         if (list == null) {
-            list = new ArrayList<IRepositoryObject>();
+            list = new ArrayList<IRepositoryViewObject>();
         }
         // Don't need this codes, because the argument "allVersions" in "factory.getAll".
 
@@ -188,7 +189,7 @@ public final class RetrieveItemsUtil {
         if (withLocked) {
             results.addAll(list);
         } else {
-            for (IRepositoryObject object : list) {
+            for (IRepositoryViewObject object : list) {
                 if (factory.getStatus(object) != ERepositoryStatus.LOCK_BY_OTHER
                         && factory.getStatus(object) != ERepositoryStatus.LOCK_BY_USER) {
                     results.add(object);

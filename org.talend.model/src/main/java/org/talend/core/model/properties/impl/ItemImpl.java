@@ -8,6 +8,7 @@ package org.talend.core.model.properties.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -23,6 +24,7 @@ import org.talend.core.model.properties.Property;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ItemImpl#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +51,16 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
      * @ordered
      */
     protected ItemState state;
+
+    /**
+     * The cached value of the '{@link #getParent() <em>Parent</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParent()
+     * @generated
+     * @ordered
+     */
+    protected EObject parent;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -161,6 +173,44 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EObject getParent() {
+        if (parent != null && parent.eIsProxy()) {
+            InternalEObject oldParent = (InternalEObject)parent;
+            parent = eResolveProxy(oldParent);
+            if (parent != oldParent) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.ITEM__PARENT, oldParent, parent));
+            }
+        }
+        return parent;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EObject basicGetParent() {
+        return parent;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParent(EObject newParent) {
+        EObject oldParent = parent;
+        parent = newParent;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM__PARENT, oldParent, parent));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -198,6 +248,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__STATE:
                 if (resolve) return getState();
                 return basicGetState();
+            case PropertiesPackage.ITEM__PARENT:
+                if (resolve) return getParent();
+                return basicGetParent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -213,6 +266,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return;
             case PropertiesPackage.ITEM__STATE:
                 setState((ItemState)newValue);
+                return;
+            case PropertiesPackage.ITEM__PARENT:
+                setParent((EObject)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -230,6 +286,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
             case PropertiesPackage.ITEM__STATE:
                 setState((ItemState)null);
                 return;
+            case PropertiesPackage.ITEM__PARENT:
+                setParent((EObject)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -244,6 +303,8 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
                 return property != null;
             case PropertiesPackage.ITEM__STATE:
                 return state != null;
+            case PropertiesPackage.ITEM__PARENT:
+                return parent != null;
         }
         return super.eIsSet(featureID);
     }

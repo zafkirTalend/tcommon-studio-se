@@ -964,7 +964,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      */
     public EList getFolders() {
         if (folders == null) {
-            folders = new EObjectContainmentEList(FolderItem.class, this, PropertiesPackage.PROJECT__FOLDERS);
+            folders = new EObjectResolvingEList(FolderItem.class, this, PropertiesPackage.PROJECT__FOLDERS);
         }
         return folders;
     }
@@ -1054,8 +1054,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getTechnicalStatus()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
                 return ((InternalEList)getDocumentationStatus()).basicRemove(otherEnd, msgs);
-            case PropertiesPackage.PROJECT__FOLDERS:
-                return ((InternalEList)getFolders()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 return ((InternalEList)getUserAuthorization()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:

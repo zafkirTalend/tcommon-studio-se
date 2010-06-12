@@ -37,7 +37,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.designer.core.DesignerPlugin;
 import org.talend.repository.RepositoryPlugin;
@@ -68,7 +68,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
 
     private Property connectionProperty;
 
-    protected IRepositoryObject repositoryObject = null;
+    protected IRepositoryViewObject repositoryObject = null;
 
     private Property property;
 
@@ -201,7 +201,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
             saveMetaData();
             closeLockStrategy();
 
-            List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
+            List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
             list.add(repositoryObject);
             RepositoryPlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
             return true;
@@ -210,7 +210,7 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
             saveMetaData();
             closeLockStrategy();
 
-            List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
+            List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
             list.add(repositoryObject);
             RepositoryPlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
             return true;

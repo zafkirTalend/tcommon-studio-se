@@ -25,7 +25,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.CoreImageProvider;
 
 /**
@@ -54,7 +54,7 @@ public class ItemRecord {
 
     private String label;
 
-    private IRepositoryObject existingItemWithSameId;
+    private IRepositoryViewObject existingItemWithSameId;
 
     private ERepositoryObjectType repositoryType;
 
@@ -197,11 +197,11 @@ public class ItemRecord {
         resourceSet = null;
     }
 
-    public IRepositoryObject getExistingItemWithSameId() {
+    public IRepositoryViewObject getExistingItemWithSameId() {
         return existingItemWithSameId;
     }
 
-    public void setExistingItemWithSameId(IRepositoryObject existingItemWithSameId) {
+    public void setExistingItemWithSameId(IRepositoryViewObject existingItemWithSameId) {
         this.existingItemWithSameId = existingItemWithSameId;
     }
 

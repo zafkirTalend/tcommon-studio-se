@@ -32,7 +32,7 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
@@ -159,22 +159,22 @@ public final class UpdateRunJobComponentContextHelper {
         if (factory == null || refJobId == null) {
             return;
         }
-        List<IRepositoryObject> repositoryObjectList = new ArrayList<IRepositoryObject>();
-        List<IRepositoryObject> allVersionList = new ArrayList<IRepositoryObject>();
+        List<IRepositoryViewObject> repositoryObjectList = new ArrayList<IRepositoryViewObject>();
+        List<IRepositoryViewObject> allVersionList = new ArrayList<IRepositoryViewObject>();
 
         repositoryObjectList = factory.getAll(ERepositoryObjectType.PROCESS, true);
-        List<IRepositoryObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
+        List<IRepositoryViewObject> jobletList = factory.getAll(ERepositoryObjectType.JOBLET, true);
         repositoryObjectList.addAll(jobletList);
         // must match TalendDesignerPrefConstants.CHECK_ONLY_LAST_VERSION
         // gcui:check it is update all version or last version.if the item is locked don't update it also.
         boolean checkOnlyLastVersion = Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore(
                 "checkOnlyLastVersion")); //$NON-NLS-1$
 
-        allVersionList = new ArrayList<IRepositoryObject>((int) (repositoryObjectList.size() * 1.1));
-        for (IRepositoryObject rObject : repositoryObjectList) {
+        allVersionList = new ArrayList<IRepositoryViewObject>((int) (repositoryObjectList.size() * 1.1));
+        for (IRepositoryViewObject rObject : repositoryObjectList) {
             if (!checkOnlyLastVersion) {
-                List<IRepositoryObject> allVersion = factory.getAllVersion(rObject.getId());
-                for (IRepositoryObject object : allVersion) {
+                List<IRepositoryViewObject> allVersion = factory.getAllVersion(rObject.getId());
+                for (IRepositoryViewObject object : allVersion) {
                     ERepositoryStatus status = factory.getStatus(object);
                     if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
                         allVersionList.add(object);
@@ -182,13 +182,13 @@ public final class UpdateRunJobComponentContextHelper {
                     }
                 }
             } else {
-                IRepositoryObject lastVersion = rObject;
+                IRepositoryViewObject lastVersion = rObject;
                 ERepositoryStatus status = factory.getStatus(lastVersion);
                 if (status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER) {
                     allVersionList.add(lastVersion);
                 }
             }
-            for (IRepositoryObject repositoryObj : allVersionList) {
+            for (IRepositoryViewObject repositoryObj : allVersionList) {
                 Item item = repositoryObj.getProperty().getItem();
                 if (item instanceof ProcessItem) {
                     ProcessItem processItem = (ProcessItem) item;

@@ -35,7 +35,7 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.repository.model.ComponentsFactoryProvider;
@@ -191,8 +191,8 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
-            List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
-            for (IRepositoryObject current : routines) {
+            List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+            for (IRepositoryViewObject current : routines) {
                 if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
                     Item item = current.getProperty().getItem();
                     RoutineItem routine = (RoutineItem) item;

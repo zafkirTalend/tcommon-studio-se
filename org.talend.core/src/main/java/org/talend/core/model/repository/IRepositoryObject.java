@@ -13,11 +13,9 @@
 package org.talend.core.model.repository;
 
 import java.util.Date;
-import java.util.List;
 
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
-import org.talend.repository.model.RepositoryNode;
 
 /**
  * Defines a repository object, an object that can be stored in the repository. <br/>
@@ -25,68 +23,28 @@ import org.talend.repository.model.RepositoryNode;
  * $Id$
  * 
  */
-public interface IRepositoryObject {
-
-    /**
-     * Returns the process id. Returns -1 if process id is not set or cannot be retrieve.
-     * 
-     * @return the process id
-     */
-    public String getId();
+public interface IRepositoryObject extends IRepositoryViewObject {
 
     public void setId(String id);
 
-    /**
-     * Returns the process label. Returns null if process label is not set or cannot be retrieve.
-     * 
-     * @return the process id
-     */
-    public String getLabel();
-
     public void setLabel(String label);
-
-    /**
-     * Returns the process version. Returns null if process id is not set or cannot be retrieve.
-     * 
-     * @return the process version
-     */
-    public String getVersion();
 
     public void setVersion(String version);
 
-    public User getAuthor();
-
     public void setAuthor(User author);
-
-    public String getStatusCode();
 
     public void setStatusCode(String statusCode);
 
-    public Date getCreationDate();
-
     public void setCreationDate(Date value);
-
-    public String getDescription();
 
     public void setDescription(String value);
 
-    public Date getModificationDate();
-
     public void setModificationDate(Date value);
 
-    public String getPurpose();
-
     public void setPurpose(String value);
-
-    public ERepositoryObjectType getType();
 
     public Property getProperty();
 
     public void setProperty(Property property);
 
-    public List<IRepositoryObject> getChildren();
-
-    public void setRepositoryNode(RepositoryNode node);
-
-    public RepositoryNode getRepositoryNode();
 }

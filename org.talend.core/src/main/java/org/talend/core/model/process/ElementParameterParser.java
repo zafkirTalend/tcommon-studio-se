@@ -28,7 +28,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.properties.SQLPatternItem;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlVarParserUtils;
 import org.talend.core.model.utils.SQLPatternUtils;
@@ -368,7 +368,7 @@ public final class ElementParameterParser {
                 IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-N$ //$NON-NLS-1$
                 if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) { //$NON-NLS-1$
                     try {
-                        IRepositoryObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+                        IRepositoryViewObject object = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
                                 (String) propertyParam.getValue());
                         if (object != null) {
                             Item item = object.getProperty().getItem();

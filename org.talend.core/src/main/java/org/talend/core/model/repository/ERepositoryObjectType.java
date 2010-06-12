@@ -448,7 +448,6 @@ public enum ERepositoryObjectType {
 
             @Override
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
-                // TODO Auto-generated method stub
                 return SVG_BUSINESS_PROCESS;
             }
 

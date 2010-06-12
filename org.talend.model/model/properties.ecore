@@ -20,7 +20,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="local" unique="false" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="folders" upperBound="-1"
-        eType="#//FolderItem" containment="true"/>
+        eType="#//FolderItem"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleteDate" unique="false"
@@ -105,6 +105,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//Property"
         eOpposite="#//Property/item"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkDocumentationItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
@@ -223,7 +225,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-        eType="#//Item" containment="true"/>
+        eType="#//Item"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" lowerBound="1"
         eType="#//FolderType"/>
   </eClassifiers>

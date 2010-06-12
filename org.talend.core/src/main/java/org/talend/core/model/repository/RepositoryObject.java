@@ -334,8 +334,8 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
         }.doSwitch(property.getItem());
     }
 
-    public List<IRepositoryObject> getChildren() {
-        List<IRepositoryObject> toReturn = new ArrayList<IRepositoryObject>();
+    public List<IRepositoryViewObject> getChildren() {
+        List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
         return toReturn;
     }
 

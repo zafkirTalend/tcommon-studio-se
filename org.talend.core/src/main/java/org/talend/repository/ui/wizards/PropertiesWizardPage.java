@@ -61,7 +61,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -133,7 +133,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
-    private List<IRepositoryObject> listExistingObjects;
+    private List<IRepositoryViewObject> listExistingObjects;
 
     private boolean retrieveNameFinished = false;
 
@@ -156,7 +156,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
         this.destinationPath = destinationPath;
-
         this.readOnly = readOnly;
         this.editPath = editPath;
 
@@ -986,6 +985,10 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public Property getProperty() {
         return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
 }

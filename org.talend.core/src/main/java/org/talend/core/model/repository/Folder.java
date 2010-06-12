@@ -53,8 +53,8 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
     }
 
     @Override
-    public List<IRepositoryObject> getChildren() {
-        List<IRepositoryObject> toReturn = new ArrayList<IRepositoryObject>();
+    public List<IRepositoryViewObject> getChildren() {
+        List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
         FolderItem folderItem = (FolderItem) getProperty().getItem();
 
         for (Object current : folderItem.getChildren()) {

@@ -42,7 +42,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RulesItem;
-import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.ui.IRulesProviderService;
 
@@ -139,7 +139,7 @@ public class CreateRuleDialog extends SelectionDialog {
         name = nameText.getText();
         String itemId = null;
         String index = null;
-        IRepositoryObject obj = null;
+        IRepositoryViewObject obj = null;
         Item item = null;
         if ((Messages.getString("CreateRuleDialog.ruleComponentName")).equals(node.getComponent().getName())) { //$NON-NLS-1$
             if (node.getElementParameter("REPOSITORY_PROPERTY_TYPE") != null) { //$NON-NLS-1$

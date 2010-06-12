@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -107,14 +106,15 @@ public class ExportFileResource {
         Property property = item.getProperty();
         ProjectManager instance = ProjectManager.getInstance();
 
-        if (instance.getCurrentProject().getEmfProject().equals(instance.getProject(item))) {
-            try {
-                // bug 5427 and 5513 : reload property to avoid lazy exception
-                property = proxyRepositoryFactory.getUptodateProperty(property);
-            } catch (PersistenceException e) {
-                // ignore me
-            }
-        }
+        // if (instance.getCurrentProject().getEmfProject().equals(instance.getProject(item))) {
+        // try {
+        // // bug 5427 and 5513 : reload property to avoid lazy exception
+        // // property = proxyRepositoryFactory.getUptodateProperty(property);
+        // property = proxyRepositoryFactory.getLastVersion(property.getId()).getProperty();
+        // } catch (PersistenceException e) {
+        // // ignore me
+        // }
+        // }
         return property.getItem();
     }
 
