@@ -146,6 +146,13 @@ public class ExtractMetaDataFromDataBase {
         if (schema == null || "".equals(schema)) {
             if (EDatabaseTypeName.TERADATA.getProduct().equals(iMetadataConnection.getProduct())) {
                 schema = iMetadataConnection.getDatabase();
+            } else if (EDatabaseTypeName.IBMDB2.getProduct().equals(iMetadataConnection.getProduct())) {
+                // for bug 13592
+                String username = iMetadataConnection.getUsername();
+                if (username != null) {
+                    schema = username.toUpperCase();
+                    iMetadataConnection.setSchema(schema);
+                }
             } else if (as400) {
                 schema = ExtractMetaDataUtils.retrieveSchemaPatternForAS400(iMetadataConnection.getUrl());
             }
