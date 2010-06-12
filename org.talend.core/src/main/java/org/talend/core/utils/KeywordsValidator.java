@@ -15,6 +15,7 @@ package org.talend.core.utils;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,6 +34,12 @@ public class KeywordsValidator {
     private static Map<ECodeLanguage, Set<String>> keywords = new HashMap<ECodeLanguage, Set<String>>();
 
     private static Set<String> sqlKeywords = new HashSet<String>();
+
+    private static KeywordMap tsqlKeyWords;
+    static {
+        Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
+        tsqlKeyWords = mode.getDefaultRuleSet().getKeywords();
+    }
 
     public static boolean isKeyword(String word) {
         return isKeyword(LanguageManager.getCurrentLanguage(), word);
@@ -75,21 +82,7 @@ public class KeywordsValidator {
 
     // hshen
     public static boolean isSqlKeyword(String word) {
-        // added by nma, for AIX commandline NPE, 7950.
-        if (Platform.getOS().equals(Platform.OS_AIX)) {
-            return false;
-        }
-        if (sqlKeywords.isEmpty()) {
-            Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
-            KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
-            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
-            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
-            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
-        }
-        if (word != null) {
-            return sqlKeywords.contains(word.toUpperCase());
-        }
-        return true;
+        return isSqlKeyword(word, null);
     }
 
     /**
@@ -99,22 +92,30 @@ public class KeywordsValidator {
      * @param isOracle
      * @return
      */
-    public static boolean isSqlKeyword(String word, boolean isOracle) {
+    public static boolean isSqlKeyword(String word, String product) {
+        // added by nma, for AIX commandline NPE, 7950.
         if (Platform.getOS().equals(Platform.OS_AIX)) {
             return false;
         }
-        if (sqlKeywords.isEmpty()) {
-            Mode mode = Modes.getMode("tsql.xml"); //$NON-NLS-1$
-            KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
-            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
-            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
-            sqlKeywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
+        List<String> productKeywords = null;
+        if (sqlKeywords.isEmpty() && tsqlKeyWords != null) {
+            sqlKeywords.addAll(Arrays.asList(tsqlKeyWords.get("KEYWORD1"))); //$NON-NLS-1$
+            sqlKeywords.addAll(Arrays.asList(tsqlKeyWords.get("KEYWORD2"))); //$NON-NLS-1$
+            sqlKeywords.addAll(Arrays.asList(tsqlKeyWords.get("KEYWORD3"))); //$NON-NLS-1$
         }
-        if (isOracle) {
-            sqlKeywords.add("COMMENT");
+        if (product != null && tsqlKeyWords != null) {
+            String[] tmp = tsqlKeyWords.get(product);
+            if (tmp != null) {
+                productKeywords = Arrays.asList(tmp);
+
+            }
         }
         if (word != null) {
-            return sqlKeywords.contains(word.toUpperCase());
+            boolean contains = sqlKeywords.contains(word.toUpperCase());
+            if (!contains && productKeywords != null) {
+                return productKeywords.contains(word);
+            }
+            return contains;
         }
         return true;
     }

@@ -344,7 +344,7 @@ public class TalendTextUtils {
             Matcher matcher2 = pattern2.matcher(temp);
 
             // for bug 12092
-            boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, dbType.toUpperCase().startsWith("ORACLE")); //$NON-NLS-1$  
+            boolean isSqlKeyword = KeywordsValidator.isSqlKeyword(temp, name.getProduct()); //$NON-NLS-1$  
 
             if (!matcher.matches() || matcher2.matches() || isSqlKeyword) {
                 isCheck = true; // contain other char

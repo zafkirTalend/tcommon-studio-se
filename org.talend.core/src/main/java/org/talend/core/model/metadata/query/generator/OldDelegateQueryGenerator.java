@@ -26,7 +26,7 @@ public class OldDelegateQueryGenerator extends AbstractQueryGenerator {
     }
 
     @Override
-    public String generateQuery() {
+    public String generateQueryDelegate() {
         return QueryUtil.generateNewQueryDelegate(getElement(), getMetadataTable(), getDBType().getDisplayName(), getSchema(),
                 getRealTableName());
     }

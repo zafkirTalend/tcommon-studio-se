@@ -45,10 +45,12 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
 
     private String realTableName;
 
+    protected final boolean originalSqlQuoteSetting;
+
     public AbstractQueryGenerator(EDatabaseTypeName dbType) {
         super();
         this.dbType = dbType;
-
+        originalSqlQuoteSetting = CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
     }
 
     public void setParameters(Element element, IMetadataTable metadataTable, String schema, String realTableName) {
@@ -237,8 +239,22 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         return '.';
     }
 
+    /**
+     * 
+     * ggu Comment method "setForceAddQuote".
+     * 
+     * if you want to set it, must call this first "true".
+     */
+    public void setForceAddQuote(boolean sqlQuoteFlag) {
+        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.SQL_ADD_QUOTE, sqlQuoteFlag);
+    }
+
     protected boolean forceAddQuote() {
         return CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
+    }
+
+    protected void revertAddQuoteSetting() {
+        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.SQL_ADD_QUOTE, originalSqlQuoteSetting);
     }
 
     /**
@@ -308,13 +324,13 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
                 final String quoteByDBType = getDatabaseFieldQuote(true);
                 fieldSB.append(quoteByDBType);
             }
-            fieldSB.append(TalendTextUtils.getQuoteChar());
+            fieldSB.append(TalendTextUtils.getStringDeclare());
             fieldSB.append(TalendTextUtils.getStringConnect());
 
             fieldSB.append(field);
 
             fieldSB.append(TalendTextUtils.getStringConnect());
-            fieldSB.append(TalendTextUtils.getQuoteChar());
+            fieldSB.append(TalendTextUtils.getStringDeclare());
 
             if (forceAddQuote()) {
                 final String quoteByDBType = getDatabaseFieldQuote(false);
@@ -323,6 +339,7 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         } else {
             fieldSB.append(addQuotesForSQL(field));
         }
+
         return fieldSB.toString();
     }
 
@@ -356,7 +373,19 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
         return sql;
     }
 
-    public String generateQuery() {
+    public final String generateQuery() {
+        try {
+            return generateQueryDelegate();
+        } finally {
+            afterGenerateQuery();
+        }
+    }
+
+    protected void afterGenerateQuery() {
+        revertAddQuoteSetting();
+    }
+
+    protected String generateQueryDelegate() {
         if (getMetadataTable() != null && !getMetadataTable().getListColumns().isEmpty()) {
             final String dbName = getDBName(getElement());
             final String tableName = getDBTableName(getElement());
@@ -367,22 +396,8 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
             sql.append(TalendTextUtils.getQuoteChar());
             sql.append(SQL_SELECT);
             sql.append(SPACE);
-            //
-            List<IMetadataColumn> listColumns = getMetadataTable().getListColumns();
-            for (int i = 0; i < listColumns.size(); i++) {
-                IMetadataColumn column = listColumns.get(i);
-                sql.append(ENTER);
-                sql.append(SPACE);
-                sql.append(SPACE);
-                sql.append(tableNameWithDBAndSchema);
-                sql.append(getSQLFieldConnector());
-
-                sql.append(addQuotesForSQL(column.getOriginalDbColumnName()));
-                if (i < listColumns.size() - 1) {
-                    sql.append(SQL_SPLIT_FIELD);
-                    sql.append(SPACE);
-                }
-            }
+            // columns
+            sql.append(generateColumnFields(tableNameWithDBAndSchema));
             //
             sql.append(ENTER);
             sql.append(SQL_FROM);
@@ -400,4 +415,24 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
 
     }
 
+    protected String generateColumnFields(final String tableNameWithDBAndSchema) {
+        //
+        StringBuffer fieldsSQL = new StringBuffer(100);
+        List<IMetadataColumn> listColumns = getMetadataTable().getListColumns();
+        for (int i = 0; i < listColumns.size(); i++) {
+            IMetadataColumn column = listColumns.get(i);
+            fieldsSQL.append(ENTER);
+            fieldsSQL.append(SPACE);
+            fieldsSQL.append(SPACE);
+            fieldsSQL.append(tableNameWithDBAndSchema);
+            fieldsSQL.append(getSQLFieldConnector());
+
+            fieldsSQL.append(addQuotesForSQL(column.getOriginalDbColumnName()));
+            if (i < listColumns.size() - 1) {
+                fieldsSQL.append(SQL_SPLIT_FIELD);
+                fieldsSQL.append(SPACE);
+            }
+        }
+        return fieldsSQL.toString();
+    }
 }

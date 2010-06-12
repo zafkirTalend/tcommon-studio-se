@@ -106,6 +106,16 @@ public class ModeReader {
         keywords.put(ColoringScanner.OPERATOR, toStringArray(keywordsE.elements("OPERATOR"))); //$NON-NLS-1$
         keywords.put(ColoringScanner.DIGIT, toStringArray(keywordsE.elements("DIGIT"))); //$NON-NLS-1$
         keywords.put(ColoringScanner.INVALID, toStringArray(keywordsE.elements("INVALID"))); //$NON-NLS-1$
+
+        // for special database
+        for (Iterator iter = keywordsE.elementIterator("DATABASE"); iter.hasNext();) { //$NON-NLS-1$
+            Element dbElement = (Element) iter.next();
+            String dbProduct = dbElement.attributeValue("product"); //$NON-NLS-1$
+            if (dbProduct != null && !"".equals(dbProduct)) {
+                keywords.put(dbProduct, toStringArray(dbElement.elements("KEYWORD4"))); //$NON-NLS-1$
+            }
+
+        }
         listener.newKeywords(keywords);
     }
 

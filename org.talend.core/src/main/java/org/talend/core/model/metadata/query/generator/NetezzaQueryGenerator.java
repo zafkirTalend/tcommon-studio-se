@@ -37,13 +37,21 @@ public class NetezzaQueryGenerator extends AbstractQueryGenerator {
 
         //
         if (dbName != null && !EMPTY.equals(dbName)) {
+            /*
+             * should not add quote always.
+             */
+            setForceAddQuote(false);
             tableNameWithDBAndSchema.append(checkContextAndAddQuote(dbName));
+            revertAddQuoteSetting();
+            tableNameWithDBAndSchema.append(getSQLFieldConnector());
+
+            // schema is special empty "."
             tableNameWithDBAndSchema.append(getSQLFieldConnector());
         }
-        // schema is special empty "."
-        tableNameWithDBAndSchema.append(getSQLFieldConnector());
         //
+        // setForceAddQuote(true); //FIXME, if add quote always, should be opened
         tableNameWithDBAndSchema.append(checkContextAndAddQuote(tableName));
+        // revertAddQuoteSetting();
 
         return tableNameWithDBAndSchema.toString();
     }
@@ -52,8 +60,8 @@ public class NetezzaQueryGenerator extends AbstractQueryGenerator {
      * like "SELECT   talend..\"table\".\"column\",talend..\"table\".newColumn1 FROM talend..\"table\"" .
      */
     @Override
-    public String generateQuery() {
-        return super.generateQuery();
+    public String generateQueryDelegate() {
+        return super.generateQueryDelegate();
     }
 
 }
