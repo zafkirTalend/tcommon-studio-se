@@ -42,7 +42,7 @@ public class LabelledCombo {
 
     private Combo combo;
 
-    private static final int MAX_VISIBLE_ITEM_COUNT = 25;
+    public static final int MAX_VISIBLE_ITEM_COUNT = 25;
 
     private static final int DEFAULT_COMBO_STYLE = SWT.READ_ONLY;
 
