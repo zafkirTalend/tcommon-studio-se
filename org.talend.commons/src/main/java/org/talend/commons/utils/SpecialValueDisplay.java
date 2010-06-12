@@ -15,9 +15,9 @@ package org.talend.commons.utils;
  * This class store all the constant of SpecialValue.
  * 
  */
-public class SpecialValueDisplay {
+public final class  SpecialValueDisplay {
 
-	public SpecialValueDisplay() {
+	private SpecialValueDisplay() {
 		// TODO Auto-generated constructor stub
 	}
 	public static final String NULL_FIELD = "Null field"; //$NON-NLS-1$
