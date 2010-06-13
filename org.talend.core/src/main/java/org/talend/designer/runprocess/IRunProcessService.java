@@ -117,4 +117,6 @@ public interface IRunProcessService extends IService {
     public void saveJobBeforeRun(IProcess activeProcess);
 
     public IPreferenceStore getPreferenceStore();
+
+    public IProcess getActiveProcess();
 }
