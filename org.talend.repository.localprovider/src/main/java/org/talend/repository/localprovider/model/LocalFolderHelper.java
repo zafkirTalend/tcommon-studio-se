@@ -46,7 +46,8 @@ public class LocalFolderHelper extends FolderHelper {
             resource.getContents().remove(folder.getState());
         }
         for (Object o : folder.getChildren()) {
-            cleanResource(resource, (FolderItem) o);
+            if (o instanceof FolderItem)
+                cleanResource(resource, (FolderItem) o);
         }
     }
 
