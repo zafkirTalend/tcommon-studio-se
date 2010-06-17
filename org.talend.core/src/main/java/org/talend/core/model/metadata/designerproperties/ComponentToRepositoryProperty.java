@@ -157,6 +157,14 @@ public class ComponentToRepositoryProperty {
      * @return
      */
     private static String getParameterValue(INode node, String paramName) {
+        String originalValue = getParameterOriginalValue(node, paramName);
+        if (originalValue != null) {
+            return TalendTextUtils.removeQuotes(originalValue);
+        }
+        return null;
+    }
+
+    private static String getParameterOriginalValue(INode node, String paramName) {
         if (node != null || paramName != null) {
             IElementParameter param = node.getElementParameter(paramName);
             if (param != null) {
@@ -167,9 +175,7 @@ public class ComponentToRepositoryProperty {
                     if (isConetxtParaMode(value)) {
                         value = getContextOriginalValue(node, value);
                     }
-                    if (value != null) {
-                        return TalendTextUtils.removeQuotes(value);
-                    }
+                    return value;
                 }
             }
         }
@@ -1208,13 +1214,13 @@ public class ComponentToRepositoryProperty {
             }
         }
         if ("ESCAPE_CHAR".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "ESCAPE_CHAR"); //$NON-NLS-1$
+            String value = getParameterOriginalValue(node, "ESCAPE_CHAR"); //$NON-NLS-1$
             if (value != null) {
                 connection.setEscapeChar(value);
             }
         }
         if ("TEXT_ENCLOSURE".equals(repositoryValue)) { //$NON-NLS-1$
-            String value = getParameterValue(node, "TEXT_ENCLOSURE"); //$NON-NLS-1$
+            String value = getParameterOriginalValue(node, "TEXT_ENCLOSURE"); //$NON-NLS-1$
             if (value != null) {
                 connection.setTextEnclosure(value);
             }
