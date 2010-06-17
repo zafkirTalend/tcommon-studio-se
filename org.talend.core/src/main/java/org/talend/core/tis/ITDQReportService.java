@@ -17,7 +17,7 @@ import org.talend.core.IService;
 /**
  * cli class global comment. Detailled comment
  */
-public interface ITDQService extends IService {
+public interface ITDQReportService extends IService {
 
     /**
      * This method is to excute report.
