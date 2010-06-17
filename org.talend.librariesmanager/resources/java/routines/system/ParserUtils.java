@@ -100,6 +100,9 @@ public class ParserUtils {
     }
 
     public static Long parseTo_Long(String s) {
+        if (s == null) {
+            return null;
+        }
         return parseTo_long(s);
     }
 
