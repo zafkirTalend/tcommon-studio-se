@@ -45,6 +45,8 @@ public interface ITalendCorePrefConstants {
     /** Last used project. */
     String LAST_USED_PROJECT = "lastUSedProject"; //$NON-NLS-1$
 
+    String LAST_USED_SVN_BRANCH = "lastUSedSVNBranch"; //$NON-NLS-1$
+
     /** Last used user. */
     String LAST_USED_USER = "lastUSedUser"; //$NON-NLS-1$
 

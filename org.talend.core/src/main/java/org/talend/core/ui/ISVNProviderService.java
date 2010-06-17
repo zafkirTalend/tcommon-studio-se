@@ -15,6 +15,7 @@ package org.talend.core.ui;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -39,4 +40,6 @@ public interface ISVNProviderService extends IService {
     public String getCurrentSVNRevision(Object process);
 
     public String[] getBranchList(Project project);
+
+    public boolean isSVNProject(Project p) throws PersistenceException;
 }

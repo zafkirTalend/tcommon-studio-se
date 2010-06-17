@@ -170,6 +170,20 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
 
+    public String getLastSVNBranch() {
+        String string = store.getString(LAST_USED_SVN_BRANCH);
+        // just unified for null
+        if (string != null && "".equals(string.trim())) { //$NON-NLS-1$
+            return null;
+        }
+        return string;
+    }
+
+    public void setLastSVNBranch(String branch) {
+        store.setValue(LAST_USED_SVN_BRANCH, branch);
+        save();
+    }
+
     public String getLastUser() {
         return store.getString(LAST_USED_USER);
     }
