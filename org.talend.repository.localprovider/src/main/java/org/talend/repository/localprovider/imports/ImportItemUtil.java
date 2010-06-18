@@ -1042,7 +1042,7 @@ public class ImportItemUtil {
 
             resource.load(stream, null);
             resetItemReference(itemRecord, resource);
-            EcoreUtil.resolveAll(itemRecord.getResourceSet());
+            // EcoreUtil.resolveAll(itemRecord.getResourceSet());
         } catch (IOException e) {
             // ignore
         } finally {
