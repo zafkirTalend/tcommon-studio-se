@@ -879,7 +879,7 @@ class ImportItemWizardPage extends WizardPage {
 
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
-            if (!ImportItemUtil.isRoutineItem) {
+            if (repositoryUtil.getRoutineExtModulesMap().isEmpty()) {
                 if (targetException instanceof PersistenceException) {
                     MessageDialog.openWarning(getShell(), Messages.getString("ImportItemWizardPage.ImportSelectedItems"), //$NON-NLS-1$
                             Messages.getString("ImportItemWizardPage.ErrorsOccured")); //$NON-NLS-1$
@@ -893,17 +893,6 @@ class ImportItemWizardPage extends WizardPage {
         if (curManager instanceof ProviderManager)
             curManager.closeResource();
 
-        ImportItemUtil importItemUtil = new ImportItemUtil();
-        if (ImportItemUtil.isRoutineItem) {
-            if (browseArchivesButton.isEnabled()) {
-                String path = archivePathField.getText().replace("\\", "/");
-                importItemUtil.deployJarToDesForArchive(path);
-                IPath rootPath = new Path(path).removeFileExtension().removeFileExtension();
-                ZipToFileUtil.deleteDirectory(rootPath.toString());
-            } else {
-                importItemUtil.deployJarToDes();
-            }
-        }
         selectedItems = null;
         items.clear();
         return true;

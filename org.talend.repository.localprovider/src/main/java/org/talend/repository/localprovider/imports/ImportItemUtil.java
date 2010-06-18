@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.repository.localprovider.imports;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -92,6 +94,7 @@ import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
+import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.ProjectManager;
@@ -137,7 +140,7 @@ public class ImportItemUtil {
 
     private Map<IPath, Project> projects = new HashMap<IPath, Project>();
 
-    public static boolean isRoutineItem = false;
+    private Map<String, Set<String>> routineExtModulesMap = new HashMap<String, Set<String>>();
 
     private boolean initTDQRepository = false;
 
@@ -226,7 +229,15 @@ public class ImportItemUtil {
             if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
                 RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
                 if (itemRecord.getItem() instanceof RoutineItem) {
-                    isRoutineItem = true;
+                    RoutineItem rItem = (RoutineItem) itemRecord.getItem();
+                    Set<String> set = routineExtModulesMap.get(rItem.getProperty().getId());
+                    if (set == null) {
+                        set = new HashSet<String>();
+                        routineExtModulesMap.put(rItem.getProperty().getId(), set);
+                    }
+                    for (IMPORTType type : (List<IMPORTType>) rItem.getImports()) {
+                        set.add(type.getMODULE());
+                    }
                 }
 
                 if (routineItem.isBuiltIn()) {
@@ -602,6 +613,20 @@ public class ImportItemUtil {
                 resource.unload();
             }
         }
+        if (!getRoutineExtModulesMap().isEmpty()) {
+            Set<String> extRoutines = new HashSet<String>();
+            for (String id : getRoutineExtModulesMap().keySet()) {
+                Set<String> set = getRoutineExtModulesMap().get(id);
+                if (set != null) {
+                    extRoutines.addAll(set);
+                }
+            }
+            if (manager instanceof ProviderManager || manager instanceof ZipFileManager) {
+                deployJarToDesForArchive(manager, extRoutines);
+            } else {
+                deployJarToDes(manager, extRoutines);
+            }
+        }
 
     }
 
@@ -933,7 +958,6 @@ public class ImportItemUtil {
                 return null;
             }
         }
-        needJarPath = collector.getPaths();
         return projectFilePath;
     }
 
@@ -1218,14 +1242,16 @@ public class ImportItemUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public void deployJarToDes() {
+    private void deployJarToDes(final ResourcesManager manager, Set<String> extRoutines) {
         File file = null;
-        Set set = this.needJarPath;
+        if (extRoutines.isEmpty()) {
+            return;
+        }
 
-        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = manager.getPaths().iterator(); iterator.hasNext();) {
             String value = iterator.next().toString();
-            if (value.endsWith("jar")) { //$NON-NLS-1$
-                file = new File(value);
+            file = new File(value);
+            if (extRoutines.contains(file.getName())) {
                 try {
                     CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
                 } catch (MalformedURLException e) {
@@ -1239,23 +1265,37 @@ public class ImportItemUtil {
 
     }
 
-    private static Set needJarPath;
+    private void deployJarToDesForArchive(final ResourcesManager manager, Set<String> extRoutines) {
+        if (extRoutines.isEmpty()) {
+            return;
+        }
+        IPath tmpDir = new Path(System.getProperty("user.dir") + File.separatorChar + "tmpJar"); //$NON-NLS-1$  //$NON-NLS-1$
 
-    public void deployJarToDesForArchive(String desPath) {
-        File file = null;
-        Set set = this.needJarPath;
-        ZipToFileUtil zipToFile = new ZipToFileUtil(8);
-        desPath = desPath.replace("\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
-        zipToFile.unZip(desPath);
-        desPath = desPath.substring(0, desPath.lastIndexOf("/")); //$NON-NLS-1$
-        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
-            String value = iterator.next().toString();
-            if (value.endsWith("jar")) { //$NON-NLS-1$
-                value = desPath + "/" + value; //$NON-NLS-1$
-                file = new File(value);
+        File dirFile = tmpDir.toFile();
+        for (Iterator<IPath> iterator = manager.getPaths().iterator(); iterator.hasNext();) {
+            IPath path = iterator.next();
+            String fileName = path.lastSegment();
+            if (extRoutines.contains(fileName)) {
                 try {
+                    InputStream is = manager.getStream(path);
+                    if (!dirFile.exists()) {
+                        dirFile.mkdirs();
+                    }
+                    File temFile = tmpDir.append(fileName).toFile();
+                    if (temFile.exists()) {
+                        temFile.delete();
+                    }
+                    byte[] b = new byte[1024];
+                    int length = 0;
+                    BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(temFile, true));
+                    while ((length = is.read(b)) != -1) {
+                        fos.write(b, 0, length);
+                    }
+                    fos.close();
+                    //
+                    CorePlugin.getDefault().getLibrariesService().deployLibrary(temFile.toURI().toURL());
 
-                    CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+                    temFile.delete();
 
                 } catch (MalformedURLException e) {
                     ExceptionHandler.process(e);
@@ -1263,8 +1303,12 @@ public class ImportItemUtil {
                     ExceptionHandler.process(e);
                 }
             }
-
         }
-
+        dirFile.delete();
     }
+
+    public Map<String, Set<String>> getRoutineExtModulesMap() {
+        return this.routineExtModulesMap;
+    }
+
 }
