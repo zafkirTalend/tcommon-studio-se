@@ -14,6 +14,7 @@ package org.talend.core.tis;
 
 import java.util.List;
 
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Item;
 
@@ -26,5 +27,7 @@ public interface ITDQItemService extends IService {
 
     public void deleteItem(Item item) throws Exception;
 
-    public void changeItemStatus(String newStatus, Item item) throws Exception;
+    public void changeItemStatus(String newStatus, Item item) throws PersistenceException;
+
+    public void changeVersions(String newVersion, Item item) throws Exception;
 }
