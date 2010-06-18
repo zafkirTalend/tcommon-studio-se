@@ -225,9 +225,9 @@ public class FileDirCleaner {
                 boolean isDirectory = fileDirJob.isDirectory();
                 boolean tooManyDirs = (isRootDirectory || !isRootDirectory && recursively) && isDirectory
                         && maxEntriesByDirectoryAndByType != 0 && indexDir < countDirs - maxEntriesByDirectoryAndByType;
-                boolean tooManyFiles = !isDirectory && maxEntriesByDirectoryAndByType != 0
+                boolean tooManyFiles = !isDirectory && maxEntriesByDirectoryAndByType > 0
                         && indexFile < countFiles - maxEntriesByDirectoryAndByType;
-                boolean timeExceeded = maxDurationBeforeCleaning != 0
+                boolean timeExceeded = maxDurationBeforeCleaning > 0
                         && currentTime - fileDirJob.lastModified() > maxDurationBeforeCleaning * 1000;
                 try {
                     if (timeExceeded || tooManyDirs || tooManyFiles) {
