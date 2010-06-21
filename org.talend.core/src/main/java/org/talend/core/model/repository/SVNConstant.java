@@ -31,4 +31,6 @@ public interface SVNConstant {
     public static final String UNDER_LINE_CHAR = "_"; //$NON-NLS-1$
 
     public static final String SEP_CHAR = "/"; //$NON-NLS-1$
+
+    public static final String EMPTY = ""; //$NON-NLS-1$
 }
