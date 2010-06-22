@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#isDeleted <em>Deleted</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#isAllowedToModifyComponents <em>Allowed To Modify Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getComment <em>Comment</em>}</li>
- *   <li>{@link org.talend.core.model.properties.User#getRole <em>Role</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getProjectAuthorization <em>Project Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getModuleAuthorization <em>Module Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}</li>
@@ -309,32 +308,6 @@ public interface User extends EObject {
      * @generated
      */
     void setComment(String value);
-
-    /**
-     * Returns the value of the '<em><b>Role</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Role</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Role</em>' reference.
-     * @see #setRole(UserRole)
-     * @see org.talend.core.model.properties.PropertiesPackage#getUser_Role()
-     * @model required="true"
-     * @generated
-     */
-    UserRole getRole();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.User#getRole <em>Role</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Role</em>' reference.
-     * @see #getRole()
-     * @generated
-     */
-    void setRole(UserRole value);
 
     /**
      * Returns the value of the '<em><b>Project Authorization</b></em>' reference list.

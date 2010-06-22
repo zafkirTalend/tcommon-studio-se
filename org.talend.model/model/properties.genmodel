@@ -172,7 +172,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/deleted"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/allowedToModifyComponents"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/Comment"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/role"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/projectAuthorization"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/moduleAuthorization"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/preferredDashboardConnection"/>
@@ -575,5 +574,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Notification/enabled"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//HL7ConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//UserRoleReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRoleReference/user"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRoleReference/role"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

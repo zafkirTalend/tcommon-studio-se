@@ -780,6 +780,12 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.USER_ROLE_REFERENCE: {
+                UserRoleReference userRoleReference = (UserRoleReference)theEObject;
+                Object result = caseUserRoleReference(userRoleReference);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1930,6 +1936,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>User Role Reference</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>User Role Reference</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseUserRoleReference(UserRoleReference object) {
         return null;
     }
 

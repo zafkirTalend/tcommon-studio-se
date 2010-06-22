@@ -48,7 +48,6 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
-import org.talend.core.model.properties.ITriggerable;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.InformationLevel;
@@ -110,6 +109,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorizationType;
 import org.talend.core.model.properties.UserRight;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.UserRoleReference;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
@@ -376,8 +376,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass dashboardConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass executionTriggerableEClass = null;
@@ -626,32 +625,34 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    private EClass userRoleReferenceEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     private EClass executionPlanEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass executionPlanPartEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass executionPlanPrmEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass executionPlanPartCmdPrmEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass executionPlanPartJobPrmEClass = null;
@@ -1143,8 +1144,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getItem_Parent() {
@@ -1627,7 +1627,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getUser_Role() {
+    public EReference getUser_ProjectAuthorization() {
         return (EReference)userEClass.getEStructuralFeatures().get(10);
     }
 
@@ -1635,7 +1635,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getUser_ProjectAuthorization() {
+    public EReference getUser_ModuleAuthorization() {
         return (EReference)userEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1643,7 +1643,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getUser_ModuleAuthorization() {
+    public EReference getUser_PreferredDashboardConnection() {
         return (EReference)userEClass.getEStructuralFeatures().get(12);
     }
 
@@ -1651,16 +1651,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getUser_PreferredDashboardConnection() {
-        return (EReference)userEClass.getEStructuralFeatures().get(13);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getUser_LastAdminConnectionDate() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -1668,7 +1660,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_LastStudioConnectionDate() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(15);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -1676,7 +1668,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_FirstAdminConnectionDate() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(16);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(15);
     }
 
     /**
@@ -1684,7 +1676,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_FirstStudioConnectionDate() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(17);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(16);
     }
 
     /**
@@ -1692,7 +1684,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_AdminConnexionNumber() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(18);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(17);
     }
 
     /**
@@ -1700,7 +1692,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_StudioConnexionNumber() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(19);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -1708,7 +1700,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_AuthenticationInfo() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(20);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(19);
     }
 
     /**
@@ -1716,7 +1708,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_LdapId() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(21);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(20);
     }
 
     /**
@@ -1724,7 +1716,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getUser_Language() {
-        return (EAttribute)userEClass.getEStructuralFeatures().get(22);
+        return (EAttribute)userEClass.getEStructuralFeatures().get(21);
     }
 
     /**
@@ -2120,8 +2112,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLicense_DateTokenCheck() {
@@ -2289,8 +2280,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getExecutionTriggerable() {
@@ -2298,8 +2288,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTriggerable_Id() {
@@ -2307,8 +2296,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionTriggerable_Triggers() {
@@ -2316,8 +2304,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTriggerable_IdQuartzJob() {
@@ -2325,8 +2312,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTriggerable_Status() {
@@ -2334,8 +2320,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTriggerable_ErrorStatus() {
@@ -2343,8 +2328,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTriggerable_ConcurrentExecution() {
@@ -2352,8 +2336,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTriggerable_ProcessingState() {
@@ -2833,8 +2816,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getTalendTrigger_ExecutionTriggerable() {
@@ -3901,13 +3883,36 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    public EClass getUserRoleReference() {
+        return userRoleReferenceEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getUserRoleReference_User() {
+        return (EReference)userRoleReferenceEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getUserRoleReference_Role() {
+        return (EReference)userRoleReferenceEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionPlan() {
         return executionPlanEClass;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlan_Label() {
@@ -3915,8 +3920,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlan_ExecPlanParts() {
@@ -3924,8 +3928,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlan_ExecPlanPrms() {
@@ -3933,8 +3936,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlan_Description() {
@@ -3942,8 +3944,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getExecutionPlanPart() {
@@ -3951,8 +3952,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPart_Id() {
@@ -3960,8 +3960,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPart_Task() {
@@ -3969,8 +3968,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPart_ExecutionPlan() {
@@ -3978,8 +3976,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPart_Parent() {
@@ -3987,8 +3984,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPart_Type() {
@@ -3996,8 +3992,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPart_JvmPrms() {
@@ -4005,8 +4000,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPart_ContextPrms() {
@@ -4014,8 +4008,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getExecutionPlanPrm() {
@@ -4023,8 +4016,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPrm_Id() {
@@ -4032,8 +4024,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPrm_ExecutionPlan() {
@@ -4041,8 +4032,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPrm_Name() {
@@ -4050,8 +4040,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPrm_Value() {
@@ -4059,8 +4048,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getExecutionPlanPartCmdPrm() {
@@ -4068,8 +4056,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPartCmdPrm_Id() {
@@ -4077,8 +4064,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPartCmdPrm_ExecutionPlanPart() {
@@ -4086,8 +4072,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPartCmdPrm_Name() {
@@ -4095,8 +4080,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPartCmdPrm_Value() {
@@ -4104,8 +4088,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getExecutionPlanPartJobPrm() {
@@ -4113,8 +4096,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPartJobPrm_Id() {
@@ -4122,8 +4104,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getExecutionPlanPartJobPrm_ExecutionPlanPart() {
@@ -4131,8 +4112,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPartJobPrm_Name() {
@@ -4140,8 +4120,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionPlanPartJobPrm_Value() {
@@ -4882,7 +4861,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(userEClass, USER__DELETED);
         createEAttribute(userEClass, USER__ALLOWED_TO_MODIFY_COMPONENTS);
         createEAttribute(userEClass, USER__COMMENT);
-        createEReference(userEClass, USER__ROLE);
         createEReference(userEClass, USER__PROJECT_AUTHORIZATION);
         createEReference(userEClass, USER__MODULE_AUTHORIZATION);
         createEReference(userEClass, USER__PREFERRED_DASHBOARD_CONNECTION);
@@ -5299,6 +5277,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         hl7ConnectionItemEClass = createEClass(HL7_CONNECTION_ITEM);
 
+        userRoleReferenceEClass = createEClass(USER_ROLE_REFERENCE);
+        createEReference(userRoleReferenceEClass, USER_ROLE_REFERENCE__USER);
+        createEReference(userRoleReferenceEClass, USER_ROLE_REFERENCE__ROLE);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5545,7 +5527,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_AllowedToModifyComponents(), ecorePackage.getEBoolean(), "allowedToModifyComponents", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_Comment(), ecorePackage.getEString(), "Comment", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getUser_Role(), this.getUserRole(), null, "role", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getUser_ProjectAuthorization(), this.getUserProjectAuthorization(), this.getUserProjectAuthorization_User(), "projectAuthorization", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getUser_ModuleAuthorization(), this.getUserModuleAuthorization(), this.getUserModuleAuthorization_User(), "moduleAuthorization", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getUser_PreferredDashboardConnection(), this.getDashboardConnection(), null, "preferredDashboardConnection", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5961,6 +5942,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getNotification_Enabled(), theEcorePackage.getEBoolean(), "enabled", null, 0, 1, Notification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(hl7ConnectionItemEClass, HL7ConnectionItem.class, "HL7ConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(userRoleReferenceEClass, UserRoleReference.class, "UserRoleReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getUserRoleReference_User(), this.getUser(), null, "user", null, 1, 1, UserRoleReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getUserRoleReference_Role(), this.getUserRole(), null, "role", null, 1, 1, UserRoleReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

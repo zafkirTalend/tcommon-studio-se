@@ -2032,21 +2032,13 @@ public interface PropertiesPackage extends EPackage {
     int USER__COMMENT = 9;
 
     /**
-     * The feature id for the '<em><b>Role</b></em>' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER__ROLE = 10;
-
-    /**
      * The feature id for the '<em><b>Project Authorization</b></em>' reference list.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER__PROJECT_AUTHORIZATION = 11;
+    int USER__PROJECT_AUTHORIZATION = 10;
 
     /**
      * The feature id for the '<em><b>Module Authorization</b></em>' reference list.
@@ -2055,7 +2047,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__MODULE_AUTHORIZATION = 12;
+    int USER__MODULE_AUTHORIZATION = 11;
 
     /**
      * The feature id for the '<em><b>Preferred Dashboard Connection</b></em>' reference.
@@ -2064,7 +2056,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__PREFERRED_DASHBOARD_CONNECTION = 13;
+    int USER__PREFERRED_DASHBOARD_CONNECTION = 12;
 
     /**
      * The feature id for the '<em><b>Last Admin Connection Date</b></em>' attribute.
@@ -2073,7 +2065,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__LAST_ADMIN_CONNECTION_DATE = 14;
+    int USER__LAST_ADMIN_CONNECTION_DATE = 13;
 
     /**
      * The feature id for the '<em><b>Last Studio Connection Date</b></em>' attribute.
@@ -2082,7 +2074,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__LAST_STUDIO_CONNECTION_DATE = 15;
+    int USER__LAST_STUDIO_CONNECTION_DATE = 14;
 
     /**
      * The feature id for the '<em><b>First Admin Connection Date</b></em>' attribute.
@@ -2091,7 +2083,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__FIRST_ADMIN_CONNECTION_DATE = 16;
+    int USER__FIRST_ADMIN_CONNECTION_DATE = 15;
 
     /**
      * The feature id for the '<em><b>First Studio Connection Date</b></em>' attribute.
@@ -2100,7 +2092,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__FIRST_STUDIO_CONNECTION_DATE = 17;
+    int USER__FIRST_STUDIO_CONNECTION_DATE = 16;
 
     /**
      * The feature id for the '<em><b>Admin Connexion Number</b></em>' attribute.
@@ -2109,7 +2101,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__ADMIN_CONNEXION_NUMBER = 18;
+    int USER__ADMIN_CONNEXION_NUMBER = 17;
 
     /**
      * The feature id for the '<em><b>Studio Connexion Number</b></em>' attribute.
@@ -2118,7 +2110,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__STUDIO_CONNEXION_NUMBER = 19;
+    int USER__STUDIO_CONNEXION_NUMBER = 18;
 
     /**
      * The feature id for the '<em><b>Authentication Info</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2127,7 +2119,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__AUTHENTICATION_INFO = 20;
+    int USER__AUTHENTICATION_INFO = 19;
 
     /**
      * The feature id for the '<em><b>Ldap Id</b></em>' attribute.
@@ -2135,7 +2127,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__LDAP_ID = 21;
+    int USER__LDAP_ID = 20;
 
     /**
      * The feature id for the '<em><b>Language</b></em>' attribute.
@@ -2143,7 +2135,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER__LANGUAGE = 22;
+    int USER__LANGUAGE = 21;
 
     /**
      * The number of structural features of the '<em>User</em>' class.
@@ -2151,7 +2143,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 23;
+    int USER_FEATURE_COUNT = 22;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -6944,6 +6936,43 @@ public interface PropertiesPackage extends EPackage {
     int HL7_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.UserRoleReferenceImpl <em>User Role Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.UserRoleReferenceImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRoleReference()
+     * @generated
+     */
+    int USER_ROLE_REFERENCE = 90;
+
+    /**
+     * The feature id for the '<em><b>User</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE_REFERENCE__USER = 0;
+
+    /**
+     * The feature id for the '<em><b>Role</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE_REFERENCE__ROLE = 1;
+
+    /**
+     * The number of structural features of the '<em>User Role Reference</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_ROLE_REFERENCE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -6951,7 +6980,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 90;
+    int FOLDER_TYPE = 91;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -6960,7 +6989,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 91;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 92;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -6969,7 +6998,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 92;
+    int USER_MODULE_AUTHORIZATION_TYPE = 93;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -6978,7 +7007,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 93;
+    int INFORMATION_LEVEL = 94;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -8079,16 +8108,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getUser_Comment();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.User#getRole <em>Role</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Role</em>'.
-     * @see org.talend.core.model.properties.User#getRole()
-     * @see #getUser()
-     * @generated
-     */
-    EReference getUser_Role();
 
     /**
      * Returns the meta object for the reference list '
@@ -11149,6 +11168,38 @@ public interface PropertiesPackage extends EPackage {
     EClass getHL7ConnectionItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.UserRoleReference <em>User Role Reference</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>User Role Reference</em>'.
+     * @see org.talend.core.model.properties.UserRoleReference
+     * @generated
+     */
+    EClass getUserRoleReference();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.UserRoleReference#getUser <em>User</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>User</em>'.
+     * @see org.talend.core.model.properties.UserRoleReference#getUser()
+     * @see #getUserRoleReference()
+     * @generated
+     */
+    EReference getUserRoleReference_User();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.UserRoleReference#getRole <em>Role</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Role</em>'.
+     * @see org.talend.core.model.properties.UserRoleReference#getRole()
+     * @see #getUserRoleReference()
+     * @generated
+     */
+    EReference getUserRoleReference_Role();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -12938,14 +12989,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER__COMMENT = eINSTANCE.getUser_Comment();
-
-        /**
-         * The meta object literal for the '<em><b>Role</b></em>' reference feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
-         * @generated
-         */
-        EReference USER__ROLE = eINSTANCE.getUser_Role();
 
         /**
          * The meta object literal for the '<em><b>Project Authorization</b></em>' reference list feature. <!--
@@ -15381,6 +15424,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass HL7_CONNECTION_ITEM = eINSTANCE.getHL7ConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserRoleReferenceImpl <em>User Role Reference</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.UserRoleReferenceImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRoleReference()
+         * @generated
+         */
+        EClass USER_ROLE_REFERENCE = eINSTANCE.getUserRoleReference();
+
+        /**
+         * The meta object literal for the '<em><b>User</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference USER_ROLE_REFERENCE__USER = eINSTANCE.getUserRoleReference_User();
+
+        /**
+         * The meta object literal for the '<em><b>Role</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference USER_ROLE_REFERENCE__ROLE = eINSTANCE.getUserRoleReference_Role();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

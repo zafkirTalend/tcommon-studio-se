@@ -673,6 +673,15 @@ public interface PropertiesFactory extends EFactory {
     HL7ConnectionItem createHL7ConnectionItem();
 
     /**
+     * Returns a new object of class '<em>User Role Reference</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>User Role Reference</em>'.
+     * @generated
+     */
+    UserRoleReference createUserRoleReference();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

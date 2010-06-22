@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.properties.impl;
@@ -19,17 +18,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.DashboardConnection;
-import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorization;
-import org.talend.core.model.properties.UserRole;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>User</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>User</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -43,7 +38,6 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#isDeleted <em>Deleted</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#isAllowedToModifyComponents <em>Allowed To Modify Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getComment <em>Comment</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getRole <em>Role</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getProjectAuthorization <em>Project Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getModuleAuthorization <em>Module Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}</li>
@@ -62,10 +56,10 @@ import org.talend.core.model.properties.UserRole;
  * @generated
  */
 public class UserImpl extends EObjectImpl implements User {
+
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -74,8 +68,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -84,8 +77,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getLogin() <em>Login</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLogin()
      * @generated
      * @ordered
@@ -93,9 +86,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected static final String LOGIN_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLogin() <em>Login</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getLogin() <em>Login</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getLogin()
      * @generated
      * @ordered
@@ -104,8 +97,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getPassword()
      * @generated
      * @ordered
@@ -114,8 +107,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getPassword()
      * @generated
      * @ordered
@@ -124,8 +117,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFirstName()
      * @generated
      * @ordered
@@ -134,8 +127,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getFirstName()
      * @generated
      * @ordered
@@ -144,8 +137,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getLastName() <em>Last Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLastName()
      * @generated
      * @ordered
@@ -154,8 +147,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getLastName() <em>Last Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLastName()
      * @generated
      * @ordered
@@ -184,8 +177,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDeleteDate()
      * @generated
      * @ordered
@@ -194,8 +187,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getDeleteDate()
      * @generated
      * @ordered
@@ -204,8 +197,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isDeleted()
      * @generated
      * @ordered
@@ -214,8 +207,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isDeleted()
      * @generated
      * @ordered
@@ -224,8 +217,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isAllowedToModifyComponents()
      * @generated
      * @ordered
@@ -234,8 +226,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #isAllowedToModifyComponents() <em>Allowed To Modify Components</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #isAllowedToModifyComponents()
      * @generated
      * @ordered
@@ -244,8 +235,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getComment()
      * @generated
      * @ordered
@@ -254,8 +245,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getComment()
      * @generated
      * @ordered
@@ -263,19 +254,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected String comment = COMMENT_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getRole() <em>Role</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getRole()
-     * @generated
-     * @ordered
-     */
-    protected UserRole role;
-
-    /**
-     * The cached value of the '{@link #getProjectAuthorization() <em>Project Authorization</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getProjectAuthorization() <em>Project Authorization</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getProjectAuthorization()
      * @generated
      * @ordered
@@ -283,9 +264,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected EList projectAuthorization;
 
     /**
-     * The cached value of the '{@link #getModuleAuthorization() <em>Module Authorization</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getModuleAuthorization() <em>Module Authorization</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getModuleAuthorization()
      * @generated
      * @ordered
@@ -294,8 +275,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getPreferredDashboardConnection() <em>Preferred Dashboard Connection</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getPreferredDashboardConnection()
      * @generated
      * @ordered
@@ -304,8 +284,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastAdminConnectionDate()
      * @generated
      * @ordered
@@ -314,8 +293,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastAdminConnectionDate()
      * @generated
      * @ordered
@@ -324,8 +302,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastStudioConnectionDate()
      * @generated
      * @ordered
@@ -334,8 +311,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getLastStudioConnectionDate()
      * @generated
      * @ordered
@@ -344,8 +320,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFirstAdminConnectionDate()
      * @generated
      * @ordered
@@ -354,8 +329,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFirstAdminConnectionDate()
      * @generated
      * @ordered
@@ -364,8 +338,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFirstStudioConnectionDate()
      * @generated
      * @ordered
@@ -374,8 +347,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getFirstStudioConnectionDate()
      * @generated
      * @ordered
@@ -383,9 +355,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected Date firstStudioConnectionDate = FIRST_STUDIO_CONNECTION_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAdminConnexionNumber()
      * @generated
      * @ordered
@@ -393,9 +365,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected static final int ADMIN_CONNEXION_NUMBER_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAdminConnexionNumber()
      * @generated
      * @ordered
@@ -403,9 +375,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected int adminConnexionNumber = ADMIN_CONNEXION_NUMBER_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getStudioConnexionNumber()
      * @generated
      * @ordered
@@ -413,9 +385,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected static final int STUDIO_CONNEXION_NUMBER_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getStudioConnexionNumber()
      * @generated
      * @ordered
@@ -423,9 +395,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected int studioConnexionNumber = STUDIO_CONNEXION_NUMBER_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAuthenticationInfo()
      * @generated
      * @ordered
@@ -433,9 +405,9 @@ public class UserImpl extends EObjectImpl implements User {
     protected static final String AUTHENTICATION_INFO_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAuthenticationInfo() <em>Authentication Info</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAuthenticationInfo()
      * @generated
      * @ordered
@@ -444,8 +416,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getLdapId() <em>Ldap Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLdapId()
      * @generated
      * @ordered
@@ -454,8 +426,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getLdapId() <em>Ldap Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLdapId()
      * @generated
      * @ordered
@@ -464,8 +436,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -474,8 +446,8 @@ public class UserImpl extends EObjectImpl implements User {
 
     /**
      * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -483,8 +455,7 @@ public class UserImpl extends EObjectImpl implements User {
     protected String language = LANGUAGE_EDEFAULT;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected UserImpl() {
@@ -492,8 +463,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected EClass eStaticClass() {
@@ -501,8 +471,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getId() {
@@ -510,8 +479,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setId(int newId) {
@@ -522,8 +490,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLogin() {
@@ -531,8 +498,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLogin(String newLogin) {
@@ -543,8 +509,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public byte[] getPassword() {
@@ -552,8 +517,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPassword(byte[] newPassword) {
@@ -564,8 +528,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getFirstName() {
@@ -573,8 +536,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFirstName(String newFirstName) {
@@ -585,8 +547,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLastName() {
@@ -594,8 +555,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLastName(String newLastName) {
@@ -606,8 +566,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getCreationDate() {
@@ -615,8 +574,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setCreationDate(Date newCreationDate) {
@@ -627,8 +585,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getDeleteDate() {
@@ -636,8 +593,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDeleteDate(Date newDeleteDate) {
@@ -648,8 +604,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isDeleted() {
@@ -657,8 +612,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDeleted(boolean newDeleted) {
@@ -669,8 +623,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isAllowedToModifyComponents() {
@@ -678,8 +631,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAllowedToModifyComponents(boolean newAllowedToModifyComponents) {
@@ -690,8 +642,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getComment() {
@@ -699,8 +650,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setComment(String newComment) {
@@ -711,46 +661,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public UserRole getRole() {
-        if (role != null && role.eIsProxy()) {
-            InternalEObject oldRole = (InternalEObject)role;
-            role = (UserRole)eResolveProxy(oldRole);
-            if (role != oldRole) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__ROLE, oldRole, role));
-            }
-        }
-        return role;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public UserRole basicGetRole() {
-        return role;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setRole(UserRole newRole) {
-        UserRole oldRole = role;
-        role = newRole;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ROLE, oldRole, role));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getProjectAuthorization() {
@@ -761,8 +672,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getModuleAuthorization() {
@@ -773,8 +683,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DashboardConnection getPreferredDashboardConnection() {
@@ -790,8 +699,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DashboardConnection basicGetPreferredDashboardConnection() {
@@ -799,8 +707,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPreferredDashboardConnection(DashboardConnection newPreferredDashboardConnection) {
@@ -811,8 +718,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getLastAdminConnectionDate() {
@@ -820,8 +726,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLastAdminConnectionDate(Date newLastAdminConnectionDate) {
@@ -832,8 +737,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getLastStudioConnectionDate() {
@@ -841,8 +745,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLastStudioConnectionDate(Date newLastStudioConnectionDate) {
@@ -853,8 +756,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getFirstAdminConnectionDate() {
@@ -862,8 +764,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFirstAdminConnectionDate(Date newFirstAdminConnectionDate) {
@@ -874,8 +775,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Date getFirstStudioConnectionDate() {
@@ -883,8 +783,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFirstStudioConnectionDate(Date newFirstStudioConnectionDate) {
@@ -895,8 +794,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getAdminConnexionNumber() {
@@ -904,8 +802,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAdminConnexionNumber(int newAdminConnexionNumber) {
@@ -916,8 +813,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getStudioConnexionNumber() {
@@ -925,8 +821,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setStudioConnexionNumber(int newStudioConnexionNumber) {
@@ -937,8 +832,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getAuthenticationInfo() {
@@ -946,8 +840,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setAuthenticationInfo(String newAuthenticationInfo) {
@@ -958,8 +851,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLdapId() {
@@ -967,8 +859,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLdapId(String newLdapId) {
@@ -979,8 +870,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLanguage() {
@@ -988,8 +878,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLanguage(String newLanguage) {
@@ -1000,8 +889,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -1015,8 +903,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -1030,8 +917,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
@@ -1056,9 +942,6 @@ public class UserImpl extends EObjectImpl implements User {
                 return isAllowedToModifyComponents() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.USER__COMMENT:
                 return getComment();
-            case PropertiesPackage.USER__ROLE:
-                if (resolve) return getRole();
-                return basicGetRole();
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
                 return getProjectAuthorization();
             case PropertiesPackage.USER__MODULE_AUTHORIZATION:
@@ -1089,8 +972,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
@@ -1124,9 +1006,6 @@ public class UserImpl extends EObjectImpl implements User {
                 return;
             case PropertiesPackage.USER__COMMENT:
                 setComment((String)newValue);
-                return;
-            case PropertiesPackage.USER__ROLE:
-                setRole((UserRole)newValue);
                 return;
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
                 getProjectAuthorization().clear();
@@ -1171,8 +1050,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eUnset(int featureID) {
@@ -1206,9 +1084,6 @@ public class UserImpl extends EObjectImpl implements User {
                 return;
             case PropertiesPackage.USER__COMMENT:
                 setComment(COMMENT_EDEFAULT);
-                return;
-            case PropertiesPackage.USER__ROLE:
-                setRole((UserRole)null);
                 return;
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
                 getProjectAuthorization().clear();
@@ -1251,8 +1126,7 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean eIsSet(int featureID) {
@@ -1277,8 +1151,6 @@ public class UserImpl extends EObjectImpl implements User {
                 return allowedToModifyComponents != ALLOWED_TO_MODIFY_COMPONENTS_EDEFAULT;
             case PropertiesPackage.USER__COMMENT:
                 return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-            case PropertiesPackage.USER__ROLE:
-                return role != null;
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
                 return projectAuthorization != null && !projectAuthorization.isEmpty();
             case PropertiesPackage.USER__MODULE_AUTHORIZATION:
@@ -1314,4 +1186,4 @@ public class UserImpl extends EObjectImpl implements User {
         return login;
     }
 
-} //UserImpl
+} // UserImpl
