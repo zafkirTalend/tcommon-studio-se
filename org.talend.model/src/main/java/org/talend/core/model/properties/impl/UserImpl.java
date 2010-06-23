@@ -22,6 +22,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorization;
+import org.talend.core.model.properties.UserRole;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>User</b></em>'. <!-- end-user-doc -->
@@ -50,6 +51,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAuthenticationInfo <em>Authentication Info</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLdapId <em>Ldap Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLanguage <em>Language</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getRole <em>Role</em>}</li>
  * </ul>
  * </p>
  *
@@ -453,6 +455,16 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected String language = LANGUAGE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getRole() <em>Role</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRole()
+     * @generated
+     * @ordered
+     */
+    protected UserRole role;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -889,6 +901,44 @@ public class UserImpl extends EObjectImpl implements User {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserRole getRole() {
+        if (role != null && role.eIsProxy()) {
+            InternalEObject oldRole = (InternalEObject)role;
+            role = (UserRole)eResolveProxy(oldRole);
+            if (role != oldRole) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__ROLE, oldRole, role));
+            }
+        }
+        return role;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserRole basicGetRole() {
+        return role;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRole(UserRole newRole) {
+        UserRole oldRole = role;
+        role = newRole;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ROLE, oldRole, role));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -967,6 +1017,9 @@ public class UserImpl extends EObjectImpl implements User {
                 return getLdapId();
             case PropertiesPackage.USER__LANGUAGE:
                 return getLanguage();
+            case PropertiesPackage.USER__ROLE:
+                if (resolve) return getRole();
+                return basicGetRole();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1045,6 +1098,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__LANGUAGE:
                 setLanguage((String)newValue);
                 return;
+            case PropertiesPackage.USER__ROLE:
+                setRole((UserRole)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1121,6 +1177,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__LANGUAGE:
                 setLanguage(LANGUAGE_EDEFAULT);
                 return;
+            case PropertiesPackage.USER__ROLE:
+                setRole((UserRole)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1175,6 +1234,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return LDAP_ID_EDEFAULT == null ? ldapId != null : !LDAP_ID_EDEFAULT.equals(ldapId);
             case PropertiesPackage.USER__LANGUAGE:
                 return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+            case PropertiesPackage.USER__ROLE:
+                return role != null;
         }
         return super.eIsSet(featureID);
     }
