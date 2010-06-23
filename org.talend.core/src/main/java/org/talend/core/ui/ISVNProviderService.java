@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
@@ -42,4 +43,7 @@ public interface ISVNProviderService extends IService {
     public String[] getBranchList(Project project);
 
     public boolean isSVNProject(Project p) throws PersistenceException;
+
+    public void svnEclipseHandlerCommit(IProject eclipseProject);
+
 }

@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -38,6 +39,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
@@ -48,6 +50,7 @@ import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.PreferencesUtilities;
+import org.talend.repository.ProjectManager;
 import org.talend.resource.IResourceService;
 
 /**
@@ -209,6 +212,16 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 }
             }
 
+            // 5. check in the /lib directory of the project and add the jar with other ones.
+            // for feature 12877
+            if (PluginChecker.isTIS()) {
+                String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
+                String projectLabel = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+                path = path + File.separatorChar + projectLabel + File.separatorChar + LIBS;
+                File libsTargetFile = new File(path);
+                FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
+                        .getAcceptJARFilesFilter(), false, monitorWrap);
+            }
             checkInstalledLibraries();
 
             log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$

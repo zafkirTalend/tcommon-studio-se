@@ -107,6 +107,7 @@ public enum ERepositoryObjectType {
     JOBS("repository.jobs"), //$NON-NLS-1$
     JOB_DOC("repository.jobdoc"), //$NON-NLS-1$
     JOBLET("repository.joblet"), //$NON-NLS-1$
+    LIBS("repository.libs"), //$NON-NLS-1$
     METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     JOBLETS("repository.joblets"), //$NON-NLS-1$
     JOBLET_DOC("repository.jobletdoc"), //$NON-NLS-1$
@@ -200,6 +201,8 @@ public enum ERepositoryObjectType {
             return "process"; //$NON-NLS-1$
         case JOBLET:
             return "joblets"; //$NON-NLS-1$
+        case LIBS:
+            return "libs";
         case CONTEXT:
             return "context"; //$NON-NLS-1$
         case ROUTINES:
