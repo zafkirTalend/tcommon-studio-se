@@ -221,6 +221,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
             } else {
                 Property property = curItem.getProperty();
+                property.getItem().setParent(currentFolderItem);
                 IRepositoryViewObject currentObject;
                 if (options.length > 0 && options[0] == true) {
                     // called from repository view
@@ -231,68 +232,70 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 nameFounds.add(property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION);
                 addItemToContainer(toReturn, currentObject, onlyLastVersion);
 
-                property.getItem().setParent(currentFolderItem);
                 addToHistory(property.getId(), type, property.getItem().getState().getPath());
             }
         }
 
         // if not logged on project, allow to browse directly the folders.
         // if already logged, project should be up to date.
-        if (objectFolder instanceof IFolder
-                && !loadedFolders.contains(((IFolder) objectFolder).getProjectRelativePath().toPortableString())) {
-            loadedFolders.add(((IFolder) objectFolder).getProjectRelativePath().toPortableString());
-            for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
-                if (current instanceof IFile) {
-                    try {
-                        String fileName = ((IFile) current).getName();
-                        IRepositoryViewObject currentObject = null;
+        if (objectFolder instanceof IFolder) {
+            String projectPath = project.getTechnicalLabel() + ":"
+                    + ((IFolder) objectFolder).getProjectRelativePath().toPortableString();
+            if (!loadedFolders.contains(projectPath)) {
+                loadedFolders.add(projectPath);
+                for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
+                    if (current instanceof IFile) {
+                        try {
+                            String fileName = ((IFile) current).getName();
+                            IRepositoryViewObject currentObject = null;
 
-                        if (xmiResourceManager.isPropertyFile((IFile) current) && !nameFounds.contains(fileName)) {
-                            Property property = null;
-                            try {
-                                property = xmiResourceManager.loadProperty(current);
-                            } catch (RuntimeException e) {
-                                // property will be null
-                                ExceptionHandler.process(e);
-                            }
-                            if (property != null) {
-                                // System.out.println("new propertyLoaded:" + property.getLabel());
-                                if (options.length > 0 && options[0] == true) {
-                                    // called from repository view
-                                    currentObject = new RepositoryViewObject(property);
-                                } else {
-                                    currentObject = new RepositoryObject(property);
+                            if (xmiResourceManager.isPropertyFile((IFile) current) && !nameFounds.contains(fileName)) {
+                                Property property = null;
+                                try {
+                                    property = xmiResourceManager.loadProperty(current);
+                                } catch (RuntimeException e) {
+                                    // property will be null
+                                    ExceptionHandler.process(e);
                                 }
-                                currentFolderItem.getChildren().add(property.getItem());
-                                property.getItem().setParent(currentFolderItem);
-                                projectModified = true;
-                            } else {
-                                log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                if (property != null) {
+                                    // System.out.println("new propertyLoaded:" + property.getLabel());
+                                    if (options.length > 0 && options[0] == true) {
+                                        // called from repository view
+                                        currentObject = new RepositoryViewObject(property);
+                                    } else {
+                                        currentObject = new RepositoryObject(property);
+                                    }
+                                    currentFolderItem.getChildren().add(property.getItem());
+                                    property.getItem().setParent(currentFolderItem);
+                                    projectModified = true;
+                                } else {
+                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                }
                             }
+                            addItemToContainer(toReturn, currentObject, onlyLastVersion);
+                        } catch (IncorrectFileException e) {
+                            ExceptionHandler.process(e);
+                        } catch (PersistenceException e) {
+                            ExceptionHandler.process(e);
                         }
-                        addItemToContainer(toReturn, currentObject, onlyLastVersion);
-                    } catch (IncorrectFileException e) {
-                        ExceptionHandler.process(e);
-                    } catch (PersistenceException e) {
-                        ExceptionHandler.process(e);
-                    }
-                } else if (current instanceof IFolder) {
-                    if (!current.getName().equals(BIN)) {
-                        Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                        FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
+                    } else if (current instanceof IFolder) {
+                        if (!current.getName().equals(BIN)) {
+                            Container<K, T> cont = toReturn.addSubContainer(current.getName());
+                            FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
 
-                        Property property = null;
-                        if (folder == null) {
-                            folder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                            Property property = null;
+                            if (folder == null) {
+                                folder = folderHelper.createFolder(current.getProjectRelativePath().toString());
+                            }
+                            property = folder.getProperty();
+                            folder.setParent(currentFolderItem);
+
+                            cont.setProperty(property);
+                            cont.setId(property.getId());
+                            addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion, options);
+                        } else {
+                            addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion, options);
                         }
-                        property = folder.getProperty();
-                        folder.setParent(currentFolderItem);
-
-                        cont.setProperty(property);
-                        cont.setId(property.getId());
-                        addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion, options);
-                    } else {
-                        addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion, options);
                     }
                 }
             }
@@ -421,41 +424,44 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
             // if not logged on project, allow to browse directly the folders.
             // if already logged, project should be up to date.
-            if (folder instanceof IFolder
-                    && !loadedFolders.contains(((IFolder) folder).getProjectRelativePath().toPortableString())) {
-                loadedFolders.add(((IFolder) folder).getProjectRelativePath().toPortableString());
-                IFolder folder2 = (IFolder) folder;
-                if (folder2.exists()) {
-                    for (IResource current : ResourceUtils.getMembers(folder2)) {
-                        if (current instanceof IFile) {
-                            String fileName = ((IFile) current).getName();
-                            if (xmiResourceManager.isPropertyFile((IFile) current) && !nameFounds.contains(fileName)) {
-                                Property property = null;
-                                try {
-                                    property = xmiResourceManager.loadProperty(current);
-                                    addToHistory(id, type, property.getItem().getState().getPath());
-                                } catch (RuntimeException e) {
-                                    // property will be null
-                                    ExceptionHandler.process(e);
-                                }
-                                if (property != null) {
-                                    // System.out.println("new propertyLoaded:" + property.getLabel());
-                                    if (id == null || property.getId().equals(id)) {
-                                        if (withDeleted || !property.getItem().getState().isDeleted()) {
-                                            toReturn.add(new RepositoryObject(property));
-                                        }
+            if (folder instanceof IFolder) {
+                String projectPath = project.getTechnicalLabel() + ":"
+                        + ((IFolder) folder).getProjectRelativePath().toPortableString();
+                if (!loadedFolders.contains(projectPath)) {
+                    loadedFolders.add(projectPath);
+                    IFolder folder2 = (IFolder) folder;
+                    if (folder2.exists()) {
+                        for (IResource current : ResourceUtils.getMembers(folder2)) {
+                            if (current instanceof IFile) {
+                                String fileName = ((IFile) current).getName();
+                                if (xmiResourceManager.isPropertyFile((IFile) current) && !nameFounds.contains(fileName)) {
+                                    Property property = null;
+                                    try {
+                                        property = xmiResourceManager.loadProperty(current);
+                                        addToHistory(id, type, property.getItem().getState().getPath());
+                                    } catch (RuntimeException e) {
+                                        // property will be null
+                                        ExceptionHandler.process(e);
                                     }
-                                    currentFolderItem.getChildren().add(property.getItem());
-                                    property.getItem().setParent(currentFolderItem);
-                                    projectModified = true;
-                                } else {
-                                    log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                    if (property != null) {
+                                        // System.out.println("new propertyLoaded:" + property.getLabel());
+                                        if (id == null || property.getId().equals(id)) {
+                                            if (withDeleted || !property.getItem().getState().isDeleted()) {
+                                                toReturn.add(new RepositoryObject(property));
+                                            }
+                                        }
+                                        currentFolderItem.getChildren().add(property.getItem());
+                                        property.getItem().setParent(currentFolderItem);
+                                        projectModified = true;
+                                    } else {
+                                        log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                                    }
                                 }
-                            }
-                        } else if (current instanceof IFolder) { // &&
-                            if (!FilesUtils.isSVNFolder(current) && searchInChildren) {
-                                toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion, true,
-                                        withDeleted, true));
+                            } else if (current instanceof IFolder) { // &&
+                                if (!FilesUtils.isSVNFolder(current) && searchInChildren) {
+                                    toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion,
+                                            true, withDeleted, true));
+                                }
                             }
                         }
                     }
