@@ -23,6 +23,10 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public class Version implements Comparable<Version> {
 
+    public static final String LAST_VERSION_NAME = "lastVersion"; //$NON-NLS-1$
+
+    public static final Version LAST_VERSION = new Version(-1, -1);
+
     private static final String LEVEL_SEPARATOR = "."; //$NON-NLS-1$
 
     private int major = 0;
@@ -41,12 +45,21 @@ public class Version implements Comparable<Version> {
     }
 
     public Version(String version) {
-        StringTokenizer stringTokenizer = new StringTokenizer(version, LEVEL_SEPARATOR);
-        try {
-            this.major = Integer.parseInt(stringTokenizer.nextToken());
-            this.minor = Integer.parseInt(stringTokenizer.nextToken());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(Messages.getString("VersionUtils.Version.Error2", version), e); //$NON-NLS-1$
+        this(version, false);
+    }
+
+    public Version(String version, boolean allowedLastVersion) {
+        if (allowedLastVersion && LAST_VERSION_NAME.equals(version)) {
+            this.major = LAST_VERSION.getMajor();
+            this.minor = LAST_VERSION.getMinor();
+        } else {
+            StringTokenizer stringTokenizer = new StringTokenizer(version, LEVEL_SEPARATOR);
+            try {
+                this.major = Integer.parseInt(stringTokenizer.nextToken());
+                this.minor = Integer.parseInt(stringTokenizer.nextToken());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException(Messages.getString("VersionUtils.Version.Error2", version), e); //$NON-NLS-1$
+            }
         }
     }
 
