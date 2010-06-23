@@ -21,9 +21,11 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.i18n.internal.Messages;
 
 /**
- * Utilities class use to hold data in a tree like structure.<br/><br/>
+ * Utilities class use to hold data in a tree like structure.<br/>
+ * <br/>
  * 
- * This structure assure id unicity in the whole structure using the addMember method.<br/><br/>
+ * This structure assure id unicity in the whole structure using the addMember method.<br/>
+ * <br/>
  * 
  * @param <K> - DOC SML
  * @param <V> - type the container manages
@@ -268,6 +270,11 @@ public class Container<K, V> {
      * @return the newly instantiate container
      */
     public Container<K, V> addSubContainer(String name) {
+        for (Container<K, V> existingContainer : subContainer) {
+            if (existingContainer.getLabel().equals(name)) {
+                return existingContainer;
+            }
+        }
         Container<K, V> toReturn = new Container<K, V>(name, this);
         subContainer.add(toReturn);
         return toReturn;

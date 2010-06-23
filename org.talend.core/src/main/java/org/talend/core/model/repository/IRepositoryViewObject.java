@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -66,4 +67,14 @@ public interface IRepositoryViewObject {
     public RepositoryNode getRepositoryNode();
 
     public Property getProperty();
+
+    public boolean isDeleted();
+
+    public String getProjectLabel();
+
+    public String getPath();
+
+    public ERepositoryStatus getRepositoryStatus();
+
+    public ERepositoryStatus getInformationStatus();
 }

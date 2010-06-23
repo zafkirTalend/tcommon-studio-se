@@ -37,6 +37,7 @@ import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
@@ -63,6 +64,9 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -476,5 +480,54 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
     public void setRepositoryNode(RepositoryNode node) {
         this.repositoryNode = node;
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isDeleted()
+     */
+    public boolean isDeleted() {
+        return property.getItem().getState().isDeleted();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getProjectLabel()
+     */
+    public String getProjectLabel() {
+        org.talend.core.model.properties.Project emfproject = ProjectManager.getInstance().getProject(property.getItem());
+        return emfproject.getLabel();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getPath()
+     */
+    public String getPath() {
+        return property.getItem().getState().getPath();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getInformationStatus()
+     */
+    public ERepositoryStatus getInformationStatus() {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        InformationLevel informationLevel = property.getMaxInformationLevel();
+        return factory.getStatus(informationLevel);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryStatus()
+     */
+    public ERepositoryStatus getRepositoryStatus() {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        return factory.getStatus(property.getItem());
     }
 }

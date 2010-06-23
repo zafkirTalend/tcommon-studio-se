@@ -153,8 +153,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @return a structure of all object of type in the project
      * @throws PersistenceException if project, folder or resource cannot be found
      */
-    protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type, boolean onlyLastVersion)
-            throws PersistenceException {
+    protected <K, T> RootContainer<K, T> getObjectFromFolder(Project project, ERepositoryObjectType type,
+            boolean onlyLastVersion, boolean... options) throws PersistenceException {
         long currentTime = System.currentTimeMillis();
 
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
@@ -168,7 +168,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return new RootContainer<K, T>(); // return empty
         }
         projectModified = false;
-        addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion);
+        addFolderMembers(project, type, toReturn, objectFolder, onlyLastVersion, options);
 
         if (projectModified) {
             saveProject(project);
@@ -195,7 +195,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @throws PersistenceException - DOC smallet
      */
     protected <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
-            Object objectFolder, boolean onlyLastVersion) throws PersistenceException {
+            Object objectFolder, boolean onlyLastVersion, boolean... options) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem currentFolderItem;
         if (objectFolder instanceof IFolder) {
@@ -218,10 +218,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                 cont.setProperty(property);
                 cont.setId(property.getId());
-                addFolderMembers(project, type, cont, curItem, onlyLastVersion);
+                addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
             } else {
                 Property property = curItem.getProperty();
-                IRepositoryViewObject currentObject = new RepositoryViewObject(property);
+                IRepositoryViewObject currentObject;
+                if (options.length > 0 && options[0] == true) {
+                    // called from repository view
+                    currentObject = new RepositoryViewObject(property);
+                } else {
+                    currentObject = new RepositoryObject(property);
+                }
                 nameFounds.add(property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION);
                 addItemToContainer(toReturn, currentObject, onlyLastVersion);
 
@@ -232,8 +238,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // if not logged on project, allow to browse directly the folders.
         // if already logged, project should be up to date.
-        if (objectFolder instanceof IFolder && !loadedFolders.contains(((IFolder) objectFolder).getLocation().toOSString())) {
-            loadedFolders.add(((IFolder) objectFolder).getLocation().toOSString());
+        if (objectFolder instanceof IFolder
+                && !loadedFolders.contains(((IFolder) objectFolder).getProjectRelativePath().toPortableString())) {
+            loadedFolders.add(((IFolder) objectFolder).getProjectRelativePath().toPortableString());
             for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
                 if (current instanceof IFile) {
                     try {
@@ -250,7 +257,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             }
                             if (property != null) {
                                 // System.out.println("new propertyLoaded:" + property.getLabel());
-                                currentObject = new RepositoryViewObject(property);
+                                if (options.length > 0 && options[0] == true) {
+                                    // called from repository view
+                                    currentObject = new RepositoryViewObject(property);
+                                } else {
+                                    currentObject = new RepositoryObject(property);
+                                }
                                 currentFolderItem.getChildren().add(property.getItem());
                                 property.getItem().setParent(currentFolderItem);
                                 projectModified = true;
@@ -278,9 +290,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                         cont.setProperty(property);
                         cont.setId(property.getId());
-                        addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion);
+                        addFolderMembers(project, type, cont, (IFolder) current, onlyLastVersion, options);
                     } else {
-                        addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion);
+                        addFolderMembers(project, type, toReturn, (IFolder) current, onlyLastVersion, options);
                     }
                 }
             }
@@ -409,8 +421,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             }
             // if not logged on project, allow to browse directly the folders.
             // if already logged, project should be up to date.
-            if (folder instanceof IFolder && !loadedFolders.contains(((IFolder) folder).getLocation().toOSString())) {
-                loadedFolders.add(((IFolder) folder).getLocation().toOSString());
+            if (folder instanceof IFolder
+                    && !loadedFolders.contains(((IFolder) folder).getProjectRelativePath().toPortableString())) {
+                loadedFolders.add(((IFolder) folder).getProjectRelativePath().toPortableString());
                 IFolder folder2 = (IFolder) folder;
                 if (folder2.exists()) {
                     for (IResource current : ResourceUtils.getMembers(folder2)) {
@@ -1631,21 +1644,25 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void initialize() throws PersistenceException {
+        unloadUnlockedResources();
+    }
+
+    public void unloadUnlockedResources() {
         List<Property> propertiesToUnload = new ArrayList<Property>();
         for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
             for (EObject object : resource.getContents()) {
                 if (object instanceof Property) {
-                    ERepositoryStatus status = getStatus(((Property) object).getItem());
-                    if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
+                    if (((Property) object).getItem() instanceof FolderItem) {
                         continue;
                     }
-                    if (!object.eIsProxy()) {
+                    ERepositoryStatus status = getStatus(((Property) object).getItem());
+                    if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
+                        // System.out.println("locked (don't unload):" + ((Property) object).getLabel());
                         continue;
                     }
                     propertiesToUnload.add((Property) object);
                 }
             }
-            // resource;
         }
 
         for (Property property : propertiesToUnload) {

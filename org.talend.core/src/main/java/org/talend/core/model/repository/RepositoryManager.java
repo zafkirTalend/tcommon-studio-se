@@ -101,14 +101,14 @@ public final class RepositoryManager {
      *for create
      */
     public static void refreshCreatedNode(ERepositoryObjectType type) {
-        if (isRefreshManually() || !isRefreshCreated()) {
-            refresh(type);
-        } else {
-            IRepositoryView repositoryView = getRepositoryView();
-            if (repositoryView != null) {
-                repositoryView.refresh();
-            }
-        }
+        // if (isRefreshManually() || !isRefreshCreated()) {
+        refresh(type);
+        // } else {
+        // IRepositoryView repositoryView = getRepositoryView();
+        // if (repositoryView != null) {
+        // repositoryView.refresh();
+        // }
+        // }
         // qli modified to fix the bug 6659.
         if (type != null) {
             syncRoutineAndJoblet(type);

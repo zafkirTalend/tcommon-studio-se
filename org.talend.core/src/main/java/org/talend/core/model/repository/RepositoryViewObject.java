@@ -27,11 +27,15 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.properties.DatabaseConnectionItem;
+import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -61,6 +65,16 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
 
     private String version;
 
+    private boolean deleted;
+
+    private String projectLabel;
+
+    private String path;
+
+    private ERepositoryStatus repositoryStatus;
+
+    private ERepositoryStatus informationStatus;
+
     public RepositoryViewObject(Property property) {
         this.id = property.getId();
         this.author = property.getAuthor();
@@ -72,6 +86,15 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
         this.statusCode = property.getStatusCode();
         this.version = property.getVersion();
         this.type = ERepositoryObjectType.getItemType(property.getItem());
+        this.deleted = property.getItem().getState().isDeleted();
+        org.talend.core.model.properties.Project emfproject = ProjectManager.getInstance().getProject(property.getItem());
+        this.projectLabel = emfproject.getLabel();
+        this.path = property.getItem().getState().getPath();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        repositoryStatus = factory.getStatus(property.getItem());
+        InformationLevel informationLevel = property.getMaxInformationLevel();
+        informationStatus = factory.getStatus(informationLevel);
+
     }
 
     /*
@@ -135,7 +158,8 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
 
     public Property getProperty() {
         try {
-            Property property = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(id).getProperty();
+            IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+            Property property = factory.getLastVersion(id).getProperty();
             this.id = property.getId();
             this.author = property.getAuthor();
             this.creationDate = property.getCreationDate();
@@ -146,6 +170,11 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
             this.statusCode = property.getStatusCode();
             this.version = property.getVersion();
             this.type = ERepositoryObjectType.getItemType(property.getItem());
+            this.deleted = property.getItem().getState().isDeleted();
+            this.path = property.getItem().getState().getPath();
+            repositoryStatus = factory.getStatus(property.getItem());
+            InformationLevel informationLevel = property.getMaxInformationLevel();
+            informationStatus = factory.getStatus(informationLevel);
             return property;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -297,5 +326,50 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
             // do notbing.
         }
         return object;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#isDeleted()
+     */
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    /**
+     * Getter for projectLabel.
+     * 
+     * @return the projectLabel
+     */
+    public String getProjectLabel() {
+        return this.projectLabel;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getPath()
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getInformationStatus()
+     */
+    public ERepositoryStatus getInformationStatus() {
+        return informationStatus;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryStatus()
+     */
+    public ERepositoryStatus getRepositoryStatus() {
+        return repositoryStatus;
     }
 }

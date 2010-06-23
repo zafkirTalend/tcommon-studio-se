@@ -38,6 +38,7 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.repository.RepositoryWorkUnit;
 
 /**
@@ -147,7 +148,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IBusinessProcessFactory#getBusinessProcess(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getBusinessProcess(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getBusinessProcess(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @return
@@ -162,7 +164,7 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IBusinessProcessFactory#getBusinessProcess(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getSVGBusinessProcess(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getSVGBusinessProcess(Project project, boolean... options)
             throws PersistenceException;
 
     /**
@@ -178,7 +180,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IDocumentationFactory#getDocumentation(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getDocumentation(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getDocumentation(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @return
@@ -193,7 +196,7 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataConnection(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataConnection(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataConnection(Project project, boolean... options)
             throws PersistenceException;
 
     /**
@@ -209,7 +212,7 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataConnection(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataSAPConnection(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataSAPConnection(Project project, boolean... options)
             throws PersistenceException;
 
     /**
@@ -219,12 +222,15 @@ public interface IProxyRepositoryFactory {
      */
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataSAPConnection() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataEBCDIC(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataEBCDIC(Project project, boolean... options)
+            throws PersistenceException;
 
     // feature 0006484
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataRules(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataRules(Project project, boolean... options)
+            throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataHL7(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataHL7(Project project, boolean... options)
+            throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataEBCDIC() throws PersistenceException;
 
@@ -232,7 +238,8 @@ public interface IProxyRepositoryFactory {
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataMDM() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataMDM(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataMDM(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @param project
@@ -240,7 +247,7 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataFileDelimited(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileDelimited(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileDelimited(Project project, boolean... options)
             throws PersistenceException;
 
     /**
@@ -265,7 +272,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IProcessFactory#getProcess(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getProcess(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getProcess(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @param project
@@ -281,7 +289,8 @@ public interface IProxyRepositoryFactory {
      * @return
      * @throws PersistenceException
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getJoblets(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getJoblets(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * DOC qzhang Comment method "getJoblets".
@@ -297,7 +306,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IProcessFactory#getContext(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getContext(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getContext(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @param project
@@ -313,7 +323,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IRoutineFactory#getRoutine(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getRoutine(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getRoutine(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @return
@@ -322,12 +333,13 @@ public interface IProxyRepositoryFactory {
      */
     public abstract RootContainer<String, IRepositoryViewObject> getRoutine() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern(Project project, boolean... options)
             throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataSQLPattern() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getSnippets(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getSnippets(Project project, boolean... options)
+            throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getSnippets() throws PersistenceException;
 
@@ -339,7 +351,8 @@ public interface IProxyRepositoryFactory {
      */
     public abstract List<IRepositoryViewObject> getRecycleBinItems() throws PersistenceException;
 
-    public abstract List<IRepositoryViewObject> getRecycleBinItems(Project project) throws PersistenceException;
+    public abstract List<IRepositoryViewObject> getRecycleBinItems(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @param server
@@ -404,7 +417,7 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataFilePositional(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFilePositional(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFilePositional(Project project, boolean... options)
             throws PersistenceException;
 
     /**
@@ -420,7 +433,7 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataFileRegexp(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileRegexp(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileRegexp(Project project, boolean... options)
             throws PersistenceException;
 
     /**
@@ -436,7 +449,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataFileXml(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileXml(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileXml(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @return
@@ -451,7 +465,8 @@ public interface IProxyRepositoryFactory {
      * @throws PersistenceException
      * @see org.talend.core.model.repository.factories.IMetadataFactory#getMetadataFileLdif(org.talend.core.model.general.Project)
      */
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileLdif(Project project) throws PersistenceException;
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileLdif(Project project, boolean... options)
+            throws PersistenceException;
 
     /**
      * @return
@@ -460,12 +475,12 @@ public interface IProxyRepositoryFactory {
      */
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileLdif() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileExcel(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileExcel(Project project, boolean... options)
             throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataFileExcel() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataSalesforceSchema(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataSalesforceSchema(Project project, boolean... options)
             throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataSalesforceSchema() throws PersistenceException;
@@ -656,17 +671,17 @@ public interface IProxyRepositoryFactory {
 
     public Boolean hasChildren(Object parent);
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataGenericSchema(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataGenericSchema(Project project, boolean... options)
             throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataGenericSchema() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataLDAPSchema(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataLDAPSchema(Project project, boolean... options)
             throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataLDAPSchema() throws PersistenceException;
 
-    public abstract RootContainer<String, IRepositoryViewObject> getMetadataWSDLSchema(Project project)
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataWSDLSchema(Project project, boolean... options)
             throws PersistenceException;
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataWSDLSchema() throws PersistenceException;
@@ -689,6 +704,13 @@ public interface IProxyRepositoryFactory {
     public Property getUptodateProperty(Property property) throws PersistenceException;
 
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit);
+
+    /**
+     * Catch only the next repositoryWorkUnit operation, once workUnit is finished, listener is removed.
+     * 
+     * @param listener
+     */
+    public void addRepositoryWorkUnitListener(IRepositoryWorkUnitListener listener);
 
     public List<IRepositoryViewObject> getAllVersion(String id, String folderPath, ERepositoryObjectType type)
             throws PersistenceException;
