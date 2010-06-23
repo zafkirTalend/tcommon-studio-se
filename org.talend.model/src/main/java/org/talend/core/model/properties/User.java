@@ -617,7 +617,7 @@ public interface User extends EObject {
      * @return the value of the '<em>Role</em>' reference.
      * @see #setRole(UserRole)
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_Role()
-     * @model required="true"
+     * @model
      * @generated
      */
     UserRole getRole();
