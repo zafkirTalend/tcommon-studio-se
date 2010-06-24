@@ -1661,6 +1661,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (((Property) object).getItem() instanceof FolderItem) {
                         continue;
                     }
+                    if (((Property) object).getItem() instanceof RoutineItem) {
+                        RoutineItem item = (RoutineItem) ((Property) object).getItem();
+                        if (item.isBuiltIn()) {
+                            continue;
+                        }
+                    }
+                    if (((Property) object).getItem() instanceof SQLPatternItem) {
+                        SQLPatternItem item = (SQLPatternItem) ((Property) object).getItem();
+                        if (item.isSystem()) {
+                            continue;
+                        }
+                    }
                     ERepositoryStatus status = getStatus(((Property) object).getItem());
                     if ((status == ERepositoryStatus.LOCK_BY_USER) || (status == ERepositoryStatus.NOT_UP_TO_DATE)) {
                         // System.out.println("locked (don't unload):" + ((Property) object).getLabel());

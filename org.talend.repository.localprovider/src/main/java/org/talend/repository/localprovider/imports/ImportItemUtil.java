@@ -749,7 +749,9 @@ public class ImportItemUtil {
                     routineSynchronizer.syncRoutine(routineItem, true);
                     routineSynchronizer.getFile(routineItem);
                 }
-                ProxyRepositoryFactory.getInstance().unloadResources(item.getProperty());
+                if (item.getProperty().eResource() != null) {
+                    ProxyRepositoryFactory.getInstance().unloadResources(item.getProperty());
+                }
             } catch (Exception e) {
                 logError(e);
             }
