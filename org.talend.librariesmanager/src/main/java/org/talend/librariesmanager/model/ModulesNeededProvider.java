@@ -30,14 +30,17 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.librariesmanager.i18n.Messages;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -192,6 +195,7 @@ public class ModulesNeededProvider {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
             List<IRepositoryViewObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject());
             for (IRepositoryViewObject current : routines) {
                 if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
                     Item item = current.getProperty().getItem();
@@ -211,6 +215,22 @@ public class ModulesNeededProvider {
             ExceptionHandler.process(e);
         }
         return importNeedsList;
+    }
+
+    private static void getRefRoutines(List<IRepositoryViewObject> routines, org.talend.core.model.properties.Project mainProject) {
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        try {
+            if (mainProject.getReferencedProjects() != null) {
+                for (ProjectReference reference : (List<ProjectReference>) mainProject.getReferencedProjects()) {
+                    final org.talend.core.model.properties.Project referencedProject = reference.getReferencedProject();
+                    routines.addAll(repositoryFactory
+                            .getAll(new Project(referencedProject), ERepositoryObjectType.ROUTINES, true));
+                    getRefRoutines(routines, referencedProject);
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     private static List<ModuleNeeded> getModulesNeededForApplication() {
