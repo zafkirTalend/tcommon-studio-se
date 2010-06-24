@@ -107,7 +107,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                 ExceptionHandler.process(e1);
             }
 
-            if (PluginChecker.isSVNProviderPluginLoaded()) {
+            if (PluginChecker.isSVNProviderPluginLoaded() && !currentProject.isLocal()) {
                 ISVNProviderService service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(
                         ISVNProviderService.class);
                 try {
