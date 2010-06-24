@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.io.File;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -41,11 +42,16 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -515,55 +521,56 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     protected abstract void doRun();
 
-    @Deprecated
     protected boolean isLastVersion(RepositoryNode repositoryObject) {
-        return true;
-        // try {
-        // if (repositoryObject.getObject() != null) {
-        // Property property = repositoryObject.getObject().getProperty();
-        //
-        // Item item = repositoryObject.getObject().getProperty().getItem();
-        // if (item instanceof ConnectionItem) {
-        // return true;
-        // }
-        //
-        // List<IRepositoryViewObject> allVersion = null;
-        // ItemState state = property.getItem().getState();
-        // boolean pathExist = false;
-        // if (state != null) {
-        // String path = state.getPath();
-        // if (path != null) {
-        // File f = new File(path);
-        // if (f.exists()) {
-        // pathExist = true;
-        // }
-        // }
-        // }
-        // if (pathExist) {
-        // allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
-        // property.getId(), state.getPath(), repositoryObject.getObject().getType());
-        // } else {
-        // allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
-        // property.getId());
-        // }
-        // if (allVersion == null || allVersion.isEmpty()) {
-        // return false;
-        // }
-        // String lastVersion = VersionUtils.DEFAULT_VERSION;
-        //
-        // for (IRepositoryViewObject object : allVersion) {
-        // if (VersionUtils.compareTo(object.getVersion(), lastVersion) > 0) {
-        // lastVersion = object.getVersion();
-        // }
-        // }
-        // if (VersionUtils.compareTo(property.getVersion(), lastVersion) == 0) {
-        // return true;
-        // }
-        // }
-        // } catch (PersistenceException e) {
-        // //
-        // }
-        // return false;
+        if (repositoryObject.getObject() instanceof RepositoryViewObject) {
+            return true;
+        }
+        try {
+            if (repositoryObject.getObject() != null) {
+                Property property = repositoryObject.getObject().getProperty();
+
+                Item item = repositoryObject.getObject().getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    return true;
+                }
+
+                List<IRepositoryViewObject> allVersion = null;
+                ItemState state = property.getItem().getState();
+                boolean pathExist = false;
+                if (state != null) {
+                    String path = state.getPath();
+                    if (path != null) {
+                        File f = new File(path);
+                        if (f.exists()) {
+                            pathExist = true;
+                        }
+                    }
+                }
+                if (pathExist) {
+                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
+                            property.getId(), state.getPath(), repositoryObject.getObject().getType());
+                } else {
+                    allVersion = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().getAllVersion(
+                            property.getId());
+                }
+                if (allVersion == null || allVersion.isEmpty()) {
+                    return false;
+                }
+                String lastVersion = VersionUtils.DEFAULT_VERSION;
+
+                for (IRepositoryViewObject object : allVersion) {
+                    if (VersionUtils.compareTo(object.getVersion(), lastVersion) > 0) {
+                        lastVersion = object.getVersion();
+                    }
+                }
+                if (VersionUtils.compareTo(property.getVersion(), lastVersion) == 0) {
+                    return true;
+                }
+            }
+        } catch (PersistenceException e) {
+            //
+        }
+        return false;
     }
 
     public String getGroupId() {
