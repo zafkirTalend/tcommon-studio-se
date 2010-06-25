@@ -25,6 +25,7 @@ import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnPixelData;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -182,6 +183,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     private CommandStack commandStack;
 
     private boolean keyboardManagementForCellEdition = true;
+
+    private boolean editorActivate = true;
 
     /**
      * 
@@ -536,6 +539,19 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 // table.addListener(SWT.EraseItem, eraseItemListener);
                 // }
                 // refreshTableEditorControls();
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @seeorg.eclipse.jface.viewers.ColumnViewer#triggerEditorActivationEvent(org.eclipse.jface.viewers.
+             * ColumnViewerEditorActivationEvent)
+             */
+            @Override
+            protected void triggerEditorActivationEvent(ColumnViewerEditorActivationEvent event) {
+                if (editorActivate) {
+                    super.triggerEditorActivationEvent(event);
+                }
             }
 
         };
@@ -2174,6 +2190,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             }
         }
 
+    }
+
+    public void setTriggerEditorActivate(boolean editorActivate) {
+        this.editorActivate = editorActivate;
     }
 
 }
