@@ -46,6 +46,18 @@ public class GlobalServiceRegister {
         configurationElements = registry.getConfigurationElementsFor("org.talend.core.service"); //$NON-NLS-1$
     }
 
+    public boolean isServiceRegistered(Class klass) {
+        IService service = services.get(klass);
+        if (service == null) {
+            service = findService(klass);
+            if (service == null) {
+                return false;
+            }
+            services.put(klass, service);
+        }
+        return true;
+    }
+
     /**
      * DOC qian Comment method "getService".Gets the specific IService.
      * 
