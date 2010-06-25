@@ -325,7 +325,9 @@ public class XmiResourceManager {
                 }
             } else if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                 resourceProperty.setLabel(lastVersionProperty.getLabel());
-                moveResource(resource, ResourceFilenameHelper.getExpectedFilePath(fileName, false));
+                if (!ResourceFilenameHelper.hasSameNameButDifferentCase(fileName)) {
+                    moveResource(resource, ResourceFilenameHelper.getExpectedFilePath(fileName, false));
+                }
                 resourcesToSave.add(resource);
             }
         }
@@ -338,7 +340,9 @@ public class XmiResourceManager {
                 if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
                     IPath expectedFilePath = ResourceFilenameHelper.getExpectedFilePath(fileName, true);
                     previousVersionProperty.setLabel(lastVersionProperty.getLabel());
-                    moveResource(resource, expectedFilePath);
+                    if (!ResourceFilenameHelper.hasSameNameButDifferentCase(fileName)) {
+                        moveResource(resource, expectedFilePath);
+                    }
                 }
                 resourcesToSave.add(resource);
             }
