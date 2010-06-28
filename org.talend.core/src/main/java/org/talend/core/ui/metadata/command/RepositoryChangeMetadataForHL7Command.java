@@ -143,7 +143,9 @@ public class RepositoryChangeMetadataForHL7Command extends Command {
             MetadataColumn column = (MetadataColumn) columnList.get(i);
             String original = column.getOriginalField();
             if (original != null && !"".equals(original)) {
-                original = original.substring(0, original.indexOf(TalendTextUtils.LBRACKET));
+                if (original.indexOf(TalendTextUtils.LBRACKET) > 0) {
+                    original = original.substring(0, original.indexOf(TalendTextUtils.LBRACKET));
+                }
             }
             if (i != columnList.size() - 1) {
                 displayName = displayName + TalendTextUtils.QUOTATION_MARK + original + TalendTextUtils.QUOTATION_MARK + ",";
