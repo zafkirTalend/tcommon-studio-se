@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getCONTEXT <em>CONTEXT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNAME <em>NAME</em>}</li>
@@ -29,7 +30,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getVALUE <em>VALUE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}</li>
  * </ul>
  * </p>
  *

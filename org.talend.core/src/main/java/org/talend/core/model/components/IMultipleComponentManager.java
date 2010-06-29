@@ -48,4 +48,6 @@ public interface IMultipleComponentManager {
 
     public void setExistsLinkTo(boolean flag);
 
+    public boolean isLookupMode();
+
 }

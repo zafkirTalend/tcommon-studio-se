@@ -5,8 +5,8 @@
     modelPluginID="org.talend.model" templateDirectory="" modelName="component" editPluginClass="org.talend.designer.core.model.utils.emf.component.provider.componentEditPlugin"
     editorPluginClass="org.talend.designer.core.model.utils.emf.component.presentation.componentEditorPlugin"
     testSuiteClass="org.talend.designer.core.model.utils.emf.component.tests.componentAllTests"
-    importerID="org.eclipse.emf.importer.ecore">
-  <foreignModel>Component.ecore</foreignModel>
+    importerID="org.eclipse.xsd.ecore.importer">
+  <foreignModel>Component.xsd</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
     <genClasses ecoreClass="Component.ecore#//ADVANCEDPARAMETERSType">
@@ -155,6 +155,7 @@
     <genClasses ecoreClass="Component.ecore#//ITEMType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//ITEMType/iTEMS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/cONTEXT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/dISPLAYNAMEASVALUE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/fIELD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/fILTER"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nAME"/>
@@ -166,7 +167,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEPOSITORYITEM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/sHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/vALUE"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/dISPLAYNAMEASVALUE"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//JAVACOMMANDType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//JAVACOMMANDType/aRG"/>
@@ -246,6 +246,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATESType/tEMPLATEPARAM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/cONNECTOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/iNPUT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/lOOKUP"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/oUTPUT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATEType">

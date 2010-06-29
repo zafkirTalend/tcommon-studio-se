@@ -1393,13 +1393,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__CONTEXT = 1;
 
     /**
+     * The feature id for the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__DISPLAYNAMEASVALUE = 2;
+
+    /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int ITEM_TYPE__FIELD = 2;
+	int ITEM_TYPE__FIELD = 3;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -1408,7 +1417,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__FILTER = 3;
+    int ITEM_TYPE__FILTER = 4;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1417,7 +1426,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NAME = 4;
+    int ITEM_TYPE__NAME = 5;
 
     /**
      * The feature id for the '<em><b>NOCONTEXTASSIST</b></em>' attribute.
@@ -1426,7 +1435,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOCONTEXTASSIST = 5;
+    int ITEM_TYPE__NOCONTEXTASSIST = 6;
 
     /**
      * The feature id for the '<em><b>NOTREADONLYIF</b></em>' attribute.
@@ -1435,7 +1444,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTREADONLYIF = 6;
+    int ITEM_TYPE__NOTREADONLYIF = 7;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -1444,7 +1453,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTSHOWIF = 7;
+    int ITEM_TYPE__NOTSHOWIF = 8;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1453,7 +1462,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__READONLY = 8;
+    int ITEM_TYPE__READONLY = 9;
 
     /**
      * The feature id for the '<em><b>READONLYIF</b></em>' attribute.
@@ -1462,7 +1471,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__READONLYIF = 9;
+    int ITEM_TYPE__READONLYIF = 10;
 
     /**
      * The feature id for the '<em><b>REPOSITORYITEM</b></em>' attribute.
@@ -1471,7 +1480,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__REPOSITORYITEM = 10;
+    int ITEM_TYPE__REPOSITORYITEM = 11;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1480,7 +1489,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__SHOWIF = 11;
+    int ITEM_TYPE__SHOWIF = 12;
 
     /**
      * The feature id for the '<em><b>VALUE</b></em>' attribute.
@@ -1489,16 +1498,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__VALUE = 12;
-
-    /**
-     * The feature id for the '<em><b>DISPLAYNAMEASVALUE</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ITEM_TYPE__DISPLAYNAMEASVALUE = 13;
+    int ITEM_TYPE__VALUE = 13;
 
     /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
@@ -2225,13 +2225,22 @@ public interface ComponentPackage extends EPackage {
     int TEMPLATES_TYPE__INPUT = 3;
 
     /**
+     * The feature id for the '<em><b>LOOKUP</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATES_TYPE__LOOKUP = 4;
+
+    /**
      * The feature id for the '<em><b>OUTPUT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATES_TYPE__OUTPUT = 4;
+    int TEMPLATES_TYPE__OUTPUT = 5;
 
     /**
      * The number of structural features of the '<em>TEMPLATES Type</em>' class.
@@ -2240,7 +2249,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATES_TYPE_FEATURE_COUNT = 5;
+    int TEMPLATES_TYPE_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl <em>TEMPLATE Type</em>}' class.
@@ -4536,6 +4545,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getTEMPLATESType_INPUT();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#isLOOKUP <em>LOOKUP</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>LOOKUP</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATESType#isLOOKUP()
+     * @see #getTEMPLATESType()
+     * @generated
+     */
+    EAttribute getTEMPLATESType_LOOKUP();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getOUTPUT <em>OUTPUT</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6328,6 +6348,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TEMPLATES_TYPE__INPUT = eINSTANCE.getTEMPLATESType_INPUT();
+
+        /**
+         * The meta object literal for the '<em><b>LOOKUP</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATES_TYPE__LOOKUP = eINSTANCE.getTEMPLATESType_LOOKUP();
 
         /**
          * The meta object literal for the '<em><b>OUTPUT</b></em>' attribute feature.

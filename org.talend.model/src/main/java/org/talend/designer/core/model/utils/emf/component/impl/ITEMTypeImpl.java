@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
@@ -38,7 +39,6 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isDISPLAYNAMEASVALUE <em>DISPLAYNAMEASVALUE</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +74,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected String cONTEXT = CONTEXT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isDISPLAYNAMEASVALUE() <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDISPLAYNAMEASVALUE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean DISPLAYNAMEASVALUE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isDISPLAYNAMEASVALUE() <em>DISPLAYNAMEASVALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDISPLAYNAMEASVALUE()
+     * @generated
+     * @ordered
+     */
+    protected boolean dISPLAYNAMEASVALUE = DISPLAYNAMEASVALUE_EDEFAULT;
+
+    /**
+     * This is true if the DISPLAYNAMEASVALUE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean dISPLAYNAMEASVALUEESet;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -321,35 +350,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected String vALUE = VALUE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isDISPLAYNAMEASVALUE() <em>DISPLAYNAMEASVALUE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isDISPLAYNAMEASVALUE()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean DISPLAYNAMEASVALUE_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isDISPLAYNAMEASVALUE() <em>DISPLAYNAMEASVALUE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isDISPLAYNAMEASVALUE()
-     * @generated
-     * @ordered
-     */
-    protected boolean dISPLAYNAMEASVALUE = DISPLAYNAMEASVALUE_EDEFAULT;
-
-    /**
-     * This is true if the DISPLAYNAMEASVALUE attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean dISPLAYNAMEASVALUEESet;
 
     /**
      * <!-- begin-user-doc -->
@@ -812,6 +812,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getITEMS();
             case ComponentPackage.ITEM_TYPE__CONTEXT:
                 return getCONTEXT();
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                return isDISPLAYNAMEASVALUE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 return getFIELD();
             case ComponentPackage.ITEM_TYPE__FILTER:
@@ -834,8 +836,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getSHOWIF();
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return getVALUE();
-            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
-                return isDISPLAYNAMEASVALUE() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -853,6 +853,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__CONTEXT:
                 setCONTEXT((String)newValue);
+                return;
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                setDISPLAYNAMEASVALUE(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -887,9 +890,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE((String)newValue);
                 return;
-            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
-                setDISPLAYNAMEASVALUE(((Boolean)newValue).booleanValue());
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -907,6 +907,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__CONTEXT:
                 setCONTEXT(CONTEXT_EDEFAULT);
+                return;
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                unsetDISPLAYNAMEASVALUE();
                 return;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 unsetFIELD();
@@ -941,9 +944,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__VALUE:
                 setVALUE(VALUE_EDEFAULT);
                 return;
-            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
-                unsetDISPLAYNAMEASVALUE();
-                return;
         }
         super.eUnset(featureID);
     }
@@ -960,6 +960,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return iTEMS != null;
             case ComponentPackage.ITEM_TYPE__CONTEXT:
                 return CONTEXT_EDEFAULT == null ? cONTEXT != null : !CONTEXT_EDEFAULT.equals(cONTEXT);
+            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
+                return isSetDISPLAYNAMEASVALUE();
             case ComponentPackage.ITEM_TYPE__FIELD:
                 return isSetFIELD();
             case ComponentPackage.ITEM_TYPE__FILTER:
@@ -982,8 +984,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return SHOWIF_EDEFAULT == null ? sHOWIF != null : !SHOWIF_EDEFAULT.equals(sHOWIF);
             case ComponentPackage.ITEM_TYPE__VALUE:
                 return VALUE_EDEFAULT == null ? vALUE != null : !VALUE_EDEFAULT.equals(vALUE);
-            case ComponentPackage.ITEM_TYPE__DISPLAYNAMEASVALUE:
-                return isSetDISPLAYNAMEASVALUE();
         }
         return super.eIsSet(featureID);
     }
@@ -1000,6 +1000,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (cONTEXT: ");
         result.append(cONTEXT);
+        result.append(", dISPLAYNAMEASVALUE: ");
+        if (dISPLAYNAMEASVALUEESet) result.append(dISPLAYNAMEASVALUE); else result.append("<unset>");
         result.append(", fIELD: ");
         if (fIELDESet) result.append(fIELD); else result.append("<unset>");
         result.append(", fILTER: ");
@@ -1022,8 +1024,6 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(sHOWIF);
         result.append(", vALUE: ");
         result.append(vALUE);
-        result.append(", dISPLAYNAMEASVALUE: ");
-        if (dISPLAYNAMEASVALUEESet) result.append(dISPLAYNAMEASVALUE); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

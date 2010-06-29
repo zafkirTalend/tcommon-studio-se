@@ -33,6 +33,7 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getTEMPLATEPARAM <em>TEMPLATEPARAM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getCONNECTOR <em>CONNECTOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getINPUT <em>INPUT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#isLOOKUP <em>LOOKUP</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl#getOUTPUT <em>OUTPUT</em>}</li>
  * </ul>
  * </p>
@@ -99,6 +100,35 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * @ordered
      */
     protected String iNPUT = INPUT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isLOOKUP() <em>LOOKUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isLOOKUP()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean LOOKUP_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isLOOKUP() <em>LOOKUP</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isLOOKUP()
+     * @generated
+     * @ordered
+     */
+    protected boolean lOOKUP = LOOKUP_EDEFAULT;
+
+    /**
+     * This is true if the LOOKUP attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean lOOKUPESet;
 
     /**
      * The default value of the '{@link #getOUTPUT() <em>OUTPUT</em>}' attribute.
@@ -210,6 +240,52 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isLOOKUP() {
+        return lOOKUP;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLOOKUP(boolean newLOOKUP) {
+        boolean oldLOOKUP = lOOKUP;
+        lOOKUP = newLOOKUP;
+        boolean oldLOOKUPESet = lOOKUPESet;
+        lOOKUPESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATES_TYPE__LOOKUP, oldLOOKUP, lOOKUP, !oldLOOKUPESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetLOOKUP() {
+        boolean oldLOOKUP = lOOKUP;
+        boolean oldLOOKUPESet = lOOKUPESet;
+        lOOKUP = LOOKUP_EDEFAULT;
+        lOOKUPESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TEMPLATES_TYPE__LOOKUP, oldLOOKUP, LOOKUP_EDEFAULT, oldLOOKUPESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetLOOKUP() {
+        return lOOKUPESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getOUTPUT() {
         return oUTPUT;
     }
@@ -258,6 +334,8 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
                 return getCONNECTOR();
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 return getINPUT();
+            case ComponentPackage.TEMPLATES_TYPE__LOOKUP:
+                return isLOOKUP() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
                 return getOUTPUT();
         }
@@ -287,6 +365,9 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 setINPUT((String)newValue);
                 return;
+            case ComponentPackage.TEMPLATES_TYPE__LOOKUP:
+                setLOOKUP(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
                 setOUTPUT((String)newValue);
                 return;
@@ -314,6 +395,9 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 setINPUT(INPUT_EDEFAULT);
                 return;
+            case ComponentPackage.TEMPLATES_TYPE__LOOKUP:
+                unsetLOOKUP();
+                return;
             case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
                 setOUTPUT(OUTPUT_EDEFAULT);
                 return;
@@ -337,6 +421,8 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
                 return CONNECTOR_EDEFAULT == null ? cONNECTOR != null : !CONNECTOR_EDEFAULT.equals(cONNECTOR);
             case ComponentPackage.TEMPLATES_TYPE__INPUT:
                 return INPUT_EDEFAULT == null ? iNPUT != null : !INPUT_EDEFAULT.equals(iNPUT);
+            case ComponentPackage.TEMPLATES_TYPE__LOOKUP:
+                return isSetLOOKUP();
             case ComponentPackage.TEMPLATES_TYPE__OUTPUT:
                 return OUTPUT_EDEFAULT == null ? oUTPUT != null : !OUTPUT_EDEFAULT.equals(oUTPUT);
         }
@@ -357,6 +443,8 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
         result.append(cONNECTOR);
         result.append(", iNPUT: ");
         result.append(iNPUT);
+        result.append(", lOOKUP: ");
+        if (lOOKUPESet) result.append(lOOKUP); else result.append("<unset>");
         result.append(", oUTPUT: ");
         result.append(oUTPUT);
         result.append(')');
