@@ -261,7 +261,7 @@ public class XmiResourceManager {
         EmfHelper.saveResource(resource);
     }
 
-    private URI getItemResourceURI(URI propertyResourceURI) {
+    public URI getItemResourceURI(URI propertyResourceURI) {
         return propertyResourceURI.trimFileExtension().appendFileExtension(FileConstants.ITEM_EXTENSION);
     }
 

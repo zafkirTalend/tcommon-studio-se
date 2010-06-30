@@ -37,6 +37,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -1654,7 +1655,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void unloadUnlockedResources() {
-        List<Property> propertiesToUnload = new ArrayList<Property>();
+        List<Resource> resourceToUnload = new ArrayList<Resource>();
+        List<URI> possibleItemsURItoUnload = new ArrayList<URI>();
         for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
             for (EObject object : resource.getContents()) {
                 if (object instanceof Property) {
@@ -1678,14 +1680,19 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         // System.out.println("locked (don't unload):" + ((Property) object).getLabel());
                         continue;
                     }
-                    propertiesToUnload.add((Property) object);
+                    resourceToUnload.add(resource);
+                    possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
+                } else if (possibleItemsURItoUnload.contains(resource.getURI())) {
+                    resourceToUnload.add(resource);
                 }
             }
         }
 
-        for (Property property : propertiesToUnload) {
-            // System.out.println("unload:" + property.getLabel());
-            xmiResourceManager.unloadResources(property);
+        for (Resource resource : resourceToUnload) {
+            if (resource.isLoaded()) {
+                resource.unload();
+                xmiResourceManager.resourceSet.getResources().remove(resource);
+            }
         }
     }
 
