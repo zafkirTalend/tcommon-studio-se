@@ -49,10 +49,12 @@ public final class ReponsitoryContextBridge {
     public static String getAuthor() {
         // MOD mzhao bug 12646, 2010-04-21, Handle NPE.
         String author = "";
-        if (project != null && project.getAuthor() != null) {
-            author = project.getAuthor().getLogin();
-        } else if (user != null) {
-            author = user.getLogin();
+        //MOD qiongli bug 13824,2010-6-30,change the order of "if...else.. "
+        if(user != null){
+        	author = user.getLogin();
+        }
+        else if(project != null && project.getAuthor() != null){
+        	author = project.getAuthor().getLogin();
         }
         return isDefautProject() ? "" : author;
         // ~
