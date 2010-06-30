@@ -4017,6 +4017,33 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionPlanPart_Status() {
+        return (EAttribute)executionPlanPartEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionPlanPart_StartDate() {
+        return (EAttribute)executionPlanPartEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionPlanPart_EndDate() {
+        return (EAttribute)executionPlanPartEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4976,6 +5003,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__TYPE);
         createEReference(executionPlanPartEClass, EXECUTION_PLAN_PART__JVM_PRMS);
         createEReference(executionPlanPartEClass, EXECUTION_PLAN_PART__CONTEXT_PRMS);
+        createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__STATUS);
+        createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__START_DATE);
+        createEAttribute(executionPlanPartEClass, EXECUTION_PLAN_PART__END_DATE);
 
         executionPlanPrmEClass = createEClass(EXECUTION_PLAN_PRM);
         createEAttribute(executionPlanPrmEClass, EXECUTION_PLAN_PRM__ID);
@@ -5643,6 +5673,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionPlanPart_Type(), theEcorePackage.getEString(), "type", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getExecutionPlanPart_JvmPrms(), this.getExecutionPlanPartCmdPrm(), null, "jvmPrms", null, 0, -1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getExecutionPlanPart_ContextPrms(), this.getExecutionPlanPartJobPrm(), null, "contextPrms", null, 0, -1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEAttribute(getExecutionPlanPart_Status(), theEcorePackage.getEString(), "status", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionPlanPart_StartDate(), theEcorePackage.getEDate(), "startDate", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionPlanPart_EndDate(), theEcorePackage.getEDate(), "endDate", null, 0, 1, ExecutionPlanPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionPlanPrmEClass, ExecutionPlanPrm.class, "ExecutionPlanPrm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionPlanPrm_Id(), theEcorePackage.getEInt(), "id", null, 1, 1, ExecutionPlanPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -5760,7 +5793,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTalendTrigger_Label(), theEcorePackage.getEString(), "label", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_Description(), theEcorePackage.getEString(), "description", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_TriggerType(), theEcorePackage.getEString(), "triggerType", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTalendTrigger_ExecutionTriggerable(), this.getExecutionTriggerable(), this.getExecutionTriggerable_Triggers(), "executionTriggerable", null, 0, 1, TalendTrigger.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTalendTrigger_ExecutionTriggerable(), this.getExecutionTriggerable(), this.getExecutionTriggerable_Triggers(), "executionTriggerable", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_StartTime(), theEcorePackage.getEDate(), "startTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_EndTime(), theEcorePackage.getEDate(), "endTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTalendTrigger_PreviousFireTime(), theEcorePackage.getEDate(), "previousFireTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

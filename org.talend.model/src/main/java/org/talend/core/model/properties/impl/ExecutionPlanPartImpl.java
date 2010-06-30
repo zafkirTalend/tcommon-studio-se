@@ -8,6 +8,7 @@ package org.talend.core.model.properties.impl;
 
 import java.util.Collection;
 
+import java.util.Date;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -43,6 +44,9 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getJvmPrms <em>Jvm Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getContextPrms <em>Context Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getStartDate <em>Start Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartImpl#getEndDate <em>End Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,6 +142,66 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
      * @ordered
      */
     protected EList contextPrms;
+
+    /**
+     * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStatus()
+     * @generated
+     * @ordered
+     */
+    protected static final String STATUS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStatus()
+     * @generated
+     * @ordered
+     */
+    protected String status = STATUS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getStartDate() <em>Start Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStartDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date START_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getStartDate() <em>Start Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStartDate()
+     * @generated
+     * @ordered
+     */
+    protected Date startDate = START_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getEndDate() <em>End Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEndDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date END_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getEndDate() <em>End Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEndDate()
+     * @generated
+     * @ordered
+     */
+    protected Date endDate = END_DATE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -342,6 +406,69 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStatus(String newStatus) {
+        String oldStatus = status;
+        status = newStatus;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART__STATUS, oldStatus, status));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStartDate(Date newStartDate) {
+        Date oldStartDate = startDate;
+        startDate = newStartDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART__START_DATE, oldStartDate, startDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEndDate(Date newEndDate) {
+        Date oldEndDate = endDate;
+        endDate = newEndDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART__END_DATE, oldEndDate, endDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_PLAN_PART__JVM_PRMS:
@@ -376,6 +503,12 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 return getJvmPrms();
             case PropertiesPackage.EXECUTION_PLAN_PART__CONTEXT_PRMS:
                 return getContextPrms();
+            case PropertiesPackage.EXECUTION_PLAN_PART__STATUS:
+                return getStatus();
+            case PropertiesPackage.EXECUTION_PLAN_PART__START_DATE:
+                return getStartDate();
+            case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
+                return getEndDate();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -410,6 +543,15 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 getContextPrms().clear();
                 getContextPrms().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__STATUS:
+                setStatus((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__START_DATE:
+                setStartDate((Date)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
+                setEndDate((Date)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -442,6 +584,15 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
             case PropertiesPackage.EXECUTION_PLAN_PART__CONTEXT_PRMS:
                 getContextPrms().clear();
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__STATUS:
+                setStatus(STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__START_DATE:
+                setStartDate(START_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
+                setEndDate(END_DATE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -467,6 +618,12 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
                 return jvmPrms != null && !jvmPrms.isEmpty();
             case PropertiesPackage.EXECUTION_PLAN_PART__CONTEXT_PRMS:
                 return contextPrms != null && !contextPrms.isEmpty();
+            case PropertiesPackage.EXECUTION_PLAN_PART__STATUS:
+                return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
+            case PropertiesPackage.EXECUTION_PLAN_PART__START_DATE:
+                return START_DATE_EDEFAULT == null ? startDate != null : !START_DATE_EDEFAULT.equals(startDate);
+            case PropertiesPackage.EXECUTION_PLAN_PART__END_DATE:
+                return END_DATE_EDEFAULT == null ? endDate != null : !END_DATE_EDEFAULT.equals(endDate);
         }
         return super.eIsSet(featureID);
     }
@@ -484,6 +641,12 @@ public class ExecutionPlanPartImpl extends EObjectImpl implements ExecutionPlanP
         result.append(id);
         result.append(", type: ");
         result.append(type);
+        result.append(", status: ");
+        result.append(status);
+        result.append(", startDate: ");
+        result.append(startDate);
+        result.append(", endDate: ");
+        result.append(endDate);
         result.append(')');
         return result.toString();
     }

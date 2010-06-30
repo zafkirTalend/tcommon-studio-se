@@ -3509,13 +3509,40 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PART__CONTEXT_PRMS = 6;
 
     /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART__STATUS = 7;
+
+    /**
+     * The feature id for the '<em><b>Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART__START_DATE = 8;
+
+    /**
+     * The feature id for the '<em><b>End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART__END_DATE = 9;
+
+    /**
      * The number of structural features of the '<em>Execution Plan Part</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_PART_FEATURE_COUNT = 7;
+    int EXECUTION_PLAN_PART_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.
@@ -11361,6 +11388,39 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionPlanPart_ContextPrms();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPart#getStatus <em>Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Status</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPart#getStatus()
+     * @see #getExecutionPlanPart()
+     * @generated
+     */
+    EAttribute getExecutionPlanPart_Status();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPart#getStartDate <em>Start Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Start Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPart#getStartDate()
+     * @see #getExecutionPlanPart()
+     * @generated
+     */
+    EAttribute getExecutionPlanPart_StartDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPart#getEndDate <em>End Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>End Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPart#getEndDate()
+     * @see #getExecutionPlanPart()
+     * @generated
+     */
+    EAttribute getExecutionPlanPart_EndDate();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlanPrm <em>Execution Plan Prm</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -15586,6 +15646,30 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_PLAN_PART__CONTEXT_PRMS = eINSTANCE.getExecutionPlanPart_ContextPrms();
+
+        /**
+         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART__STATUS = eINSTANCE.getExecutionPlanPart_Status();
+
+        /**
+         * The meta object literal for the '<em><b>Start Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART__START_DATE = eINSTANCE.getExecutionPlanPart_StartDate();
+
+        /**
+         * The meta object literal for the '<em><b>End Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART__END_DATE = eINSTANCE.getExecutionPlanPart_EndDate();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanPrmImpl <em>Execution Plan Prm</em>}' class.

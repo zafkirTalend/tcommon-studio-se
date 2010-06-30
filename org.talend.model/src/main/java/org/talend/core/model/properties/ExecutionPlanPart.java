@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.properties;
 
+import java.util.Date;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -25,6 +26,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getJvmPrms <em>Jvm Prms</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getContextPrms <em>Context Prms</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getStartDate <em>Start Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPart#getEndDate <em>End Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -194,5 +198,83 @@ public interface ExecutionPlanPart extends EObject {
      * @generated
      */
     EList getContextPrms();
+
+    /**
+     * Returns the value of the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Status</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Status</em>' attribute.
+     * @see #setStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPart_Status()
+     * @model
+     * @generated
+     */
+    String getStatus();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPart#getStatus <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Status</em>' attribute.
+     * @see #getStatus()
+     * @generated
+     */
+    void setStatus(String value);
+
+    /**
+     * Returns the value of the '<em><b>Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Start Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Start Date</em>' attribute.
+     * @see #setStartDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPart_StartDate()
+     * @model
+     * @generated
+     */
+    Date getStartDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPart#getStartDate <em>Start Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Start Date</em>' attribute.
+     * @see #getStartDate()
+     * @generated
+     */
+    void setStartDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>End Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>End Date</em>' attribute.
+     * @see #setEndDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPart_EndDate()
+     * @model
+     * @generated
+     */
+    Date getEndDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPart#getEndDate <em>End Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>End Date</em>' attribute.
+     * @see #getEndDate()
+     * @generated
+     */
+    void setEndDate(Date value);
 
 } // ExecutionPlanPart

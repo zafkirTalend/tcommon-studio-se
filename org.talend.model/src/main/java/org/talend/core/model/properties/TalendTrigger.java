@@ -182,7 +182,7 @@ public interface TalendTrigger extends EObject {
      * @see #setExecutionTriggerable(ExecutionTriggerable)
      * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_ExecutionTriggerable()
      * @see org.talend.core.model.properties.ExecutionTriggerable#getTriggers
-     * @model opposite="triggers"
+     * @model opposite="triggers" transient="false"
      * @generated
      */
     ExecutionTriggerable getExecutionTriggerable();
