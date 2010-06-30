@@ -55,6 +55,8 @@ public class PluginChecker {
 
     private static final String HL7_PLUGIN_ID = "org.talend.repository.hl7"; //$NON-NLS-1$
 
+    private static final String DEBUG_PLUGIN_ID = "org.talend.designer.runprocess.debug";
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -159,5 +161,9 @@ public class PluginChecker {
 
     public static boolean isCoreTISPluginLoaded() {
         return isPluginLoaded(CORE_TIS_PLUGIN_ID);
+    }
+
+    public static boolean isDebugTisPluginLocaed() {
+        return isPluginLoaded(DEBUG_PLUGIN_ID);
     }
 }

@@ -108,6 +108,63 @@ public class RunTrace implements Runnable {
         }
     }
 
+    public boolean isNextRow() {
+        if (!openSocket) {
+            return false;
+        }
+        InputStream in;
+        try {
+            askForStatus();
+            in = s.getInputStream();
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
+            return "NEXT_ROW".equals(reader.readLine()); //$NON-NLS-1$
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isNextBreakpoint() {
+        if (!openSocket) {
+            return false;
+        }
+        InputStream in;
+        try {
+            askForStatus();
+            in = s.getInputStream();
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
+            // setNextRow();
+            return "NEXT_BREAKPOINT".equals(reader.readLine()); //$NON-NLS-1$
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void waitForUserAction() throws InterruptedException {
+        if (!openSocket) {
+            return;
+        }
+        InputStream in;
+        try {
+            boolean action = false;
+            pred.println("UI_STATUS"); //$NON-NLS-1$
+            do {
+                in = s.getInputStream();
+                LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
+                String line = reader.readLine();
+                if ("STATUS_WAITING".equals(line)) {
+                    pred.println("UI_STATUS");
+                    Thread.sleep(100);
+                } else {
+                    action = true;
+                }
+            } while (!action);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean isPause() {
         if (!openSocket) {
             return false;
