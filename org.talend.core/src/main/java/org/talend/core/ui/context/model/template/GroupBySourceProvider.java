@@ -64,19 +64,13 @@ public class GroupBySourceProvider extends ContextProviderProxy {
         // int index = -1;
         // String name=getContextManager().getDefaultContext().getName();
         if (element instanceof ContextParameterSortedParent) {
-            final String sourceId = ((ContextParameterSortedParent) element).getSourceId();
+            ContextParameterSortedParent cpsp = ((ContextParameterSortedParent) element);
+            String sourceId = cpsp.getSourceId();
             String sourceLabel = sourceId;
             if (sourceId != null && !IContextParameter.BUILT_IN.equals(sourceId)) {
-                final ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
-                if (contextItem != null) {
-                    sourceLabel = contextItem.getProperty().getLabel();
-                    final ProjectManager pm = ProjectManager.getInstance();
-                    if (!pm.isInCurrentMainProject(contextItem)) {
-                        final Project project = pm.getProject(contextItem);
-                        if (project != null) {
-                            sourceLabel += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + project.getLabel();
-                        }
-                    }
+                sourceLabel = sourceId;
+                if (cpsp.getProjectLabel() != null) {
+                    sourceLabel += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + cpsp.getProjectLabel();
                 }
             }
             switch (columnIndex) {
@@ -102,38 +96,7 @@ public class GroupBySourceProvider extends ContextProviderProxy {
                 }
             case 1:
                 if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                    if (IContextParameter.BUILT_IN.equals(sourceId)) {
-                        if (((ContextParameterSortedParent) element).getParameter() != null) {
-                            if (getContextManager().getDefaultContext().getContextParameter(
-                                    ((ContextParameterSortedParent) element).getParameter().getName()) != null) {
-                                final String source = getContextManager().getDefaultContext().getContextParameter(
-                                        ((ContextParameterSortedParent) element).getParameter().getName()).getSource();
-                                ContextItem contextItem = ContextUtils.getContextItemById2(source);
-                                if (contextItem != null) {
-                                    String label = contextItem.getProperty().getLabel();
-                                    final ProjectManager pm = ProjectManager.getInstance();
-                                    if (!pm.isInCurrentMainProject(contextItem)) {
-                                        final Project project = pm.getProject(contextItem);
-                                        if (project != null) {
-                                            label += ContextConstant.SPACE_CHAR + ContextConstant.REF_CHAR + project.getLabel();
-                                        }
-                                    }
-                                    return label;
-                                }
-                                return source;
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        if (sourceId != null) {
-                            return sourceLabel;
-                        } else {
-                            break;
-                        }
-                    }
+                    return sourceLabel;
                 } else {
                     if (IContextParameter.BUILT_IN.equals(sourceId)) {
                         if (((ContextParameterSortedParent) element).getParameter() != null) {
@@ -565,22 +528,30 @@ public class GroupBySourceProvider extends ContextProviderProxy {
             for (String sourceId : containers) {
                 builtin = false;
                 ContextParameterSortedParent parent = new ContextParameterSortedParent();
+                String sourceLabel = sourceId;
                 ContextItem contextItem = ContextUtils.getContextItemById2(sourceId);
                 if (contextItem != null) {
-                    sourceId = contextItem.getProperty().getId();
+                    sourceLabel = contextItem.getProperty().getLabel();
+                    final ProjectManager pm = ProjectManager.getInstance();
+                    if (!pm.isInCurrentMainProject(contextItem)) {
+                        final Project project = pm.getProject(contextItem);
+                        if (project != null) {
+                            parent.setProjectLabel(project.getLabel());
+                        }
+                    }
                 }
-                parent.setSourceId(sourceId);
+                parent.setSourceId(sourceLabel);
                 for (String paraName : nameContainers) {
                     IContextParameter contextPara = context.getContextParameter(paraName);
                     if (!(IContextParameter.BUILT_IN.equals(contextPara.getSource()))) {
-                        if (parent.getSourceId().equals(contextPara.getSource())) {
+                        if (sourceId.equals(contextPara.getSource())) {
                             ContextParameterSortedSon son = new ContextParameterSortedSon();
                             son.setParameter(contextPara);
                             son.setParent(parent);
                             parent.getSon().add(son);
                         }
                     } else {
-                        if (IContextParameter.BUILT_IN.equals(parent.getSourceId())) {
+                        if (IContextParameter.BUILT_IN.equals(sourceId)) {
                             if (!builtin) {
                                 b = false;
                                 for (String name : oldBuiltinName) {

@@ -19,6 +19,8 @@ public class ContextParameterSortedParent extends ContextParameterParent {
 
     private String sourceId;
 
+    private String projectLabel;
+
     public ContextParameterSortedParent() {
         super();
     }
@@ -29,6 +31,24 @@ public class ContextParameterSortedParent extends ContextParameterParent {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
+    }
+
+    /**
+     * Getter for projectLabel.
+     * 
+     * @return the projectLabel
+     */
+    public String getProjectLabel() {
+        return this.projectLabel;
+    }
+
+    /**
+     * Sets the projectLabel.
+     * 
+     * @param projectLabel the projectLabel to set
+     */
+    public void setProjectLabel(String projectLabel) {
+        this.projectLabel = projectLabel;
     }
 
 }

@@ -223,6 +223,9 @@ public class ContextUtils {
     }
 
     public static ContextItem getContextItemById2(String contextId) {
+        if (IContextParameter.BUILT_IN.equals(contextId)) {
+            return null;
+        }
         if (checkObject(contextId)) {
             return null;
         }
@@ -243,6 +246,9 @@ public class ContextUtils {
     }
 
     public static ContextItem getContextItemById(List<ContextItem> contextItemList, String contextId) {
+        if (IContextParameter.BUILT_IN.equals(contextId)) {
+            return null;
+        }
         if (checkObject(contextItemList) || checkObject(contextId)) {
             return null;
         }

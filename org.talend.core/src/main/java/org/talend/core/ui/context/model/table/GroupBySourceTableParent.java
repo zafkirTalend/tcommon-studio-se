@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.ui.context.model.table;
 
-
 /**
  * cli class global comment. Detailled comment
  */
@@ -20,12 +19,32 @@ public class GroupBySourceTableParent extends ContextTableParent {
 
     private String sourceId;
 
+    private String projectLabel;
+
     public String getSourceId() {
         return this.sourceId;
     }
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
+    }
+
+    /**
+     * Getter for projectLabel.
+     * 
+     * @return the projectLabel
+     */
+    public String getProjectLabel() {
+        return this.projectLabel;
+    }
+
+    /**
+     * Sets the projectLabel.
+     * 
+     * @param projectLabel the projectLabel to set
+     */
+    public void setProjectLabel(String projectLabel) {
+        this.projectLabel = projectLabel;
     }
 
 }
