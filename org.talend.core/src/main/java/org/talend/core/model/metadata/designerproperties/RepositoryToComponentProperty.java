@@ -570,7 +570,7 @@ public class RepositoryToComponentProperty {
             } else if (databaseType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                 return EDatabaseTypeName.MSSQL.getXMLType(); // for component
             }
-           
+
             else {
                 return typeByProduct;
             }
@@ -731,18 +731,20 @@ public class RepositoryToComponentProperty {
                     String[] jars = jarPath.split(comma.toString());
                     if (jars != null) {
                         for (String jar : jars) {
-                            String fileName = new File(jar).getName();
-                            Map<String, Object> line = new HashMap<String, Object>();
-                            line.put("JAR_NAME", fileName);
-                            value2.add(line);
-                            if (!jar.equals(new File(defaultPath + pathSeparator + fileName))) {
-                                // deploy this library
-                                try {
-                                    CorePlugin.getDefault().getLibrariesService().deployLibrary(
-                                            Path.fromOSString(jar).toFile().toURL());
-                                } catch (IOException e) {
-                                    ExceptionHandler.process(e);
-                                    return null;
+                            File file = Path.fromOSString(jar).toFile();
+                            if (file.exists() && file.isFile()) {
+                                String fileName = file.getName();
+                                Map<String, Object> line = new HashMap<String, Object>();
+                                line.put("JAR_NAME", fileName);
+                                value2.add(line);
+                                if (!jar.equals(new File(defaultPath + pathSeparator + fileName))) {
+                                    // deploy this library
+                                    try {
+                                        CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+                                    } catch (IOException e) {
+                                        ExceptionHandler.process(e);
+                                        return null;
+                                    }
                                 }
                             }
                         }
@@ -768,16 +770,16 @@ public class RepositoryToComponentProperty {
             }
 
         }
-          // add for feature 11674
+        // add for feature 11674
         if (value.equals("RUNNING_MODE")) {//$NON-NLS-1$       
-            String runningMode =  "HSQLDB_IN_MEMORY";//$NON-NLS-1$   
+            String runningMode = "HSQLDB_IN_MEMORY";//$NON-NLS-1$   
             if (EDatabaseTypeName.HSQLDB_IN_PROGRESS.getXmlName().equals(databaseType)) {
                 runningMode = "HSQLDB_INPROGRESS_PERSISTENT";//$NON-NLS-1$   
             } else if (EDatabaseTypeName.HSQLDB_SERVER.getXmlName().equals(databaseType)) {
                 runningMode = "HSQLDB_SERVER";//$NON-NLS-1$   
             } else if (EDatabaseTypeName.HSQLDB_WEBSERVER.getXmlName().equals(databaseType)) {
                 runningMode = "HSQLDB_WEBSERVER";//$NON-NLS-1$   
-            } 
+            }
             return runningMode;
         }
         if (value.equals("DBPATH")) {//$NON-NLS-1$
