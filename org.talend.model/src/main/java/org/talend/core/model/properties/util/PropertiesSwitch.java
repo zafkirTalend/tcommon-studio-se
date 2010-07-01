@@ -747,6 +747,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.TDQ_PATTERN_ITEM: {
+                TDQPatternItem tdqPatternItem = (TDQPatternItem)theEObject;
+                Object result = caseTDQPatternItem(tdqPatternItem);
+                if (result == null) result = caseTDQItem(tdqPatternItem);
+                if (result == null) result = caseItem(tdqPatternItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.LINK_RULES_ITEM: {
                 LinkRulesItem linkRulesItem = (LinkRulesItem)theEObject;
                 Object result = caseLinkRulesItem(linkRulesItem);
@@ -1868,6 +1876,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>TDQ Pattern Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>TDQ Pattern Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTDQPatternItem(TDQPatternItem object) {
         return null;
     }
 

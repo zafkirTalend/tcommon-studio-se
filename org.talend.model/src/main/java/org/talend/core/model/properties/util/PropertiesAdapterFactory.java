@@ -401,6 +401,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
                 return createTDQBusinessRuleItemAdapter();
             }
+            public Object caseTDQPatternItem(TDQPatternItem object) {
+                return createTDQPatternItemAdapter();
+            }
             public Object caseLinkRulesItem(LinkRulesItem object) {
                 return createLinkRulesItemAdapter();
             }
@@ -1471,6 +1474,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTDQBusinessRuleItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQPatternItem <em>TDQ Pattern Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TDQPatternItem
+     * @generated
+     */
+    public Adapter createTDQPatternItemAdapter() {
         return null;
     }
 

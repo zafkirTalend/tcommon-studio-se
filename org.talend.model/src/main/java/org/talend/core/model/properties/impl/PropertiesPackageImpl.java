@@ -99,6 +99,7 @@ import org.talend.core.model.properties.TDQDBConnectionItem;
 import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.TDQMDMConnectionItem;
+import org.talend.core.model.properties.TDQPatternItem;
 import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
@@ -590,6 +591,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass tdqBusinessRuleItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqPatternItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4252,6 +4260,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQPatternItem() {
+        return tdqPatternItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5295,6 +5312,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         tdqBusinessRuleItemEClass = createEClass(TDQ_BUSINESS_RULE_ITEM);
 
+        tdqPatternItemEClass = createEClass(TDQ_PATTERN_ITEM);
+
         linkRulesItemEClass = createEClass(LINK_RULES_ITEM);
         createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__NAME);
         createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__EXTENSION);
@@ -5406,6 +5425,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqmdmConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         tdqIndicatorItemEClass.getESuperTypes().add(this.getTDQItem());
         tdqBusinessRuleItemEClass.getESuperTypes().add(this.getTDQItem());
+        tdqPatternItemEClass.getESuperTypes().add(this.getTDQItem());
         linkRulesItemEClass.getESuperTypes().add(this.getItem());
         hl7ConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
 
@@ -5964,6 +5984,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(tdqIndicatorItemEClass, TDQIndicatorItem.class, "TDQIndicatorItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(tdqBusinessRuleItemEClass, TDQBusinessRuleItem.class, "TDQBusinessRuleItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(tdqPatternItemEClass, TDQPatternItem.class, "TDQPatternItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(linkRulesItemEClass, LinkRulesItem.class, "LinkRulesItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLinkRulesItem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, LinkRulesItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
