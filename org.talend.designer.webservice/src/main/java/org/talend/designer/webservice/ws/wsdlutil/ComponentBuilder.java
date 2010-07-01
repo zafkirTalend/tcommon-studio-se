@@ -636,16 +636,9 @@ public class ComponentBuilder {
                     buildParameterFromCollection(items, parameter, ioOrRecursion);
                 }
             } else if (xmlSchemaObject instanceof XmlSchemaAny) {
-                XmlSchemaAny xmlSchemaAny = (XmlSchemaAny) xmlSchemaObject;
                 ParameterInfo parameterSon = new ParameterInfo();
                 parameterSon.setName("_content_");
                 parameterSon.setParent(parameter);
-                Long min = xmlSchemaAny.getMinOccurs();
-                Long max = xmlSchemaAny.getMaxOccurs();
-                // if (max - min > 1) {
-                // parameterSon.setArraySize(-1);
-                // parameterSon.setIndex("*");
-                // }
                 parameter.getParameterInfos().add(parameterSon);
 
             } else if (xmlSchemaObject instanceof XmlSchemaElement) {
