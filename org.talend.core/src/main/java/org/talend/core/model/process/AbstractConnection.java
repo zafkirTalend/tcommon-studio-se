@@ -15,6 +15,7 @@ package org.talend.core.model.process;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.talend.core.model.metadata.IMetadataTable;
 
@@ -128,7 +129,7 @@ public abstract class AbstractConnection implements IConnection {
         this.elementParameters = elementParameters;
     }
 
-    public void setTraceData(String traceData) {
+    public void setTraceData(Map<String, String> traceData) {
     }
 
     public boolean isReadOnly() {
@@ -247,6 +248,10 @@ public abstract class AbstractConnection implements IConnection {
 
     public INode getTmpNode() {
         // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Map<String, String> getTraceData() {
         return null;
     }
 }

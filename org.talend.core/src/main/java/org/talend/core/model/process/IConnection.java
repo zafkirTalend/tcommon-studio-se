@@ -13,6 +13,7 @@
 package org.talend.core.model.process;
 
 import java.util.List;
+import java.util.Map;
 
 import org.talend.core.model.metadata.IMetadataTable;
 
@@ -70,7 +71,9 @@ public interface IConnection extends IElement {
 
     public boolean isActivate();
 
-    public void setTraceData(String traceData);
+    public void setTraceData(Map<String, String> traceData);
+
+    public Map<String, String> getTraceData();
 
     public String getConnectorName();
 
