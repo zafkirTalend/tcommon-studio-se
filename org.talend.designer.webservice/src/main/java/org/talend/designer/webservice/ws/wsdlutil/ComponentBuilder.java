@@ -28,6 +28,7 @@ import javax.wsdl.factory.WSDLFactory;
 import javax.xml.namespace.QName;
 
 import org.apache.ws.commons.schema.XmlSchema;
+import org.apache.ws.commons.schema.XmlSchemaAny;
 import org.apache.ws.commons.schema.XmlSchemaAttribute;
 import org.apache.ws.commons.schema.XmlSchemaCollection;
 import org.apache.ws.commons.schema.XmlSchemaComplexContentExtension;
@@ -634,6 +635,19 @@ public class ComponentBuilder {
                 if (items != null) {
                     buildParameterFromCollection(items, parameter, ioOrRecursion);
                 }
+            } else if (xmlSchemaObject instanceof XmlSchemaAny) {
+                XmlSchemaAny xmlSchemaAny = (XmlSchemaAny) xmlSchemaObject;
+                ParameterInfo parameterSon = new ParameterInfo();
+                parameterSon.setName("_content_");
+                parameterSon.setParent(parameter);
+                Long min = xmlSchemaAny.getMinOccurs();
+                Long max = xmlSchemaAny.getMaxOccurs();
+                // if (max - min > 1) {
+                // parameterSon.setArraySize(-1);
+                // parameterSon.setIndex("*");
+                // }
+                parameter.getParameterInfos().add(parameterSon);
+
             } else if (xmlSchemaObject instanceof XmlSchemaElement) {
                 XmlSchemaElement xmlSchemaElement = (XmlSchemaElement) xmlSchemaObject;
                 String elementName = xmlSchemaElement.getName();
