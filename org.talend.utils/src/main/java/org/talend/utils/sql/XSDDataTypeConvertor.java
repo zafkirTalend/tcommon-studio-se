@@ -17,7 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DOC yyi class global comment. Detailled comment
+ * DOC yyi 2010-07-02
+ * 
+ * This class contains the data type regisited in XSDTypeRegister and XSDTypeExtendRegister <br>
+ * To convert W3C data types to JDBC types <a>http://www.w3.org/TR/xmlschema-2/#built-in-datatypes</a>
+ * 
+ * @link org.eclipse.xsd.impl.type.XSDTypeRegister
+ * @link org.talend.cwm.management.api.XSDTypeExtendRegister
  */
 public class XSDDataTypeConvertor {
 
