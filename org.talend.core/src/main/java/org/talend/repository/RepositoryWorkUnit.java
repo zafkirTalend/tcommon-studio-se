@@ -35,6 +35,8 @@ public abstract class RepositoryWorkUnit<T> {
 
     private boolean forceTransaction;
 
+    private boolean avoidUnloadResources;
+
     public Object getStartingPoint() {
         return startingPoint;
     }
@@ -103,5 +105,23 @@ public abstract class RepositoryWorkUnit<T> {
 
     public void setForceTransaction(boolean forceTransaction) {
         this.forceTransaction = forceTransaction;
+    }
+
+    /**
+     * Getter for avoidUnloadResources.
+     * 
+     * @return the avoidUnloadResources
+     */
+    public boolean isAvoidUnloadResources() {
+        return this.avoidUnloadResources;
+    }
+
+    /**
+     * Sets the avoidUnloadResources.
+     * 
+     * @param avoidUnloadResources the avoidUnloadResources to set
+     */
+    public void setAvoidUnloadResources(boolean avoidUnloadResources) {
+        this.avoidUnloadResources = avoidUnloadResources;
     }
 }
