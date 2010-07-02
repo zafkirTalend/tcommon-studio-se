@@ -188,6 +188,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseHL7Connection(HL7Connection object) {
                 return createHL7ConnectionAdapter();
             }
+            public Object caseHeaderFooterConnection(HeaderFooterConnection object) {
+                return createHeaderFooterConnectionAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -669,6 +672,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createHL7ConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection <em>Header Footer Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection
+     * @generated
+     */
+    public Adapter createHeaderFooterConnectionAdapter() {
         return null;
     }
 

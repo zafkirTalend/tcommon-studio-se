@@ -37,6 +37,7 @@ import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
@@ -324,6 +325,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             public Object caseLinkDocumentationItem(LinkDocumentationItem object) {
 
                 return ERepositoryObjectType.DOCUMENTATION;
+            }
+
+            public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
+                return ERepositoryObjectType.METADATA_HEADER_FOOTER;
             }
 
             @Override

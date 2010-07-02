@@ -735,4 +735,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="user" lowerBound="1" eType="#//User"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="role" lowerBound="1" eType="#//UserRole"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HeaderFooterConnectionItem" eSuperTypes="#//ConnectionItem"/>
 </ecore:EPackage>

@@ -324,6 +324,7 @@ class ExportItemWizardPage extends WizardPage {
             case METADATA_FILE_RULES:
             case METADATA_SAPCONNECTIONS:
             case METADATA_SAP_FUNCTION:
+            case METADATA_HEADER_FOOTER:
                 objectType = ERepositoryObjectType.METADATA;
                 break;
             case ROUTINES:

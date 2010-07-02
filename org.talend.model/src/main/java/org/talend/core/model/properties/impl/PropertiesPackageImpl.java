@@ -48,6 +48,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.InformationLevel;
@@ -634,6 +635,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass userRoleReferenceEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass headerFooterConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -3921,6 +3929,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getHeaderFooterConnectionItem() {
+        return headerFooterConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5340,6 +5357,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(userRoleReferenceEClass, USER_ROLE_REFERENCE__USER);
         createEReference(userRoleReferenceEClass, USER_ROLE_REFERENCE__ROLE);
 
+        headerFooterConnectionItemEClass = createEClass(HEADER_FOOTER_CONNECTION_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5428,6 +5447,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqPatternItemEClass.getESuperTypes().add(this.getTDQItem());
         linkRulesItemEClass.getESuperTypes().add(this.getItem());
         hl7ConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        headerFooterConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6012,6 +6032,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(userRoleReferenceEClass, UserRoleReference.class, "UserRoleReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getUserRoleReference_User(), this.getUser(), null, "user", null, 1, 1, UserRoleReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getUserRoleReference_Role(), this.getUserRole(), null, "role", null, 1, 1, UserRoleReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(headerFooterConnectionItemEClass, HeaderFooterConnectionItem.class, "HeaderFooterConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

@@ -809,6 +809,8 @@ public abstract class RepositoryUpdateManager {
                 types.add(EUpdateItemType.NODE_PROPERTY);
                 types.add(EUpdateItemType.JOB_PROPERTY_EXTRA);
                 types.add(EUpdateItemType.JOB_PROPERTY_STATS_LOGS);
+                types.add(EUpdateItemType.JOB_PROPERTY_HEADERFOOTER);
+
                 return types;
             }
 
@@ -854,6 +856,7 @@ public abstract class RepositoryUpdateManager {
                 Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
                 types.add(EUpdateItemType.NODE_PROPERTY);
                 types.add(EUpdateItemType.NODE_SCHEMA);
+                types.add(EUpdateItemType.JOB_PROPERTY_HEADERFOOTER);
                 return types;
             }
 

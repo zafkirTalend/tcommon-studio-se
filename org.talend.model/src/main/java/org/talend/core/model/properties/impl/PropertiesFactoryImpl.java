@@ -229,6 +229,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.NOTIFICATION: return createNotification();
             case PropertiesPackage.HL7_CONNECTION_ITEM: return createHL7ConnectionItem();
             case PropertiesPackage.USER_ROLE_REFERENCE: return createUserRoleReference();
+            case PropertiesPackage.HEADER_FOOTER_CONNECTION_ITEM: return createHeaderFooterConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -1012,6 +1013,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public UserRoleReference createUserRoleReference() {
         UserRoleReferenceImpl userRoleReference = new UserRoleReferenceImpl();
         return userRoleReference;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public HeaderFooterConnectionItem createHeaderFooterConnectionItem() {
+        HeaderFooterConnectionItemImpl headerFooterConnectionItem = new HeaderFooterConnectionItemImpl();
+        return headerFooterConnectionItem;
     }
 
     /**

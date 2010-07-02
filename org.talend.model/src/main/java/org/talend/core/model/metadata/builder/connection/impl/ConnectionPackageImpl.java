@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
+import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
@@ -301,6 +302,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass hl7ConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass headerFooterConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2579,6 +2587,51 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getHeaderFooterConnection() {
+        return headerFooterConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHeaderFooterConnection_IsHeader() {
+        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHeaderFooterConnection_Imports() {
+        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHeaderFooterConnection_MainCode() {
+        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHeaderFooterConnection_Libraries() {
+        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2952,6 +3005,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__START_CHAR);
         createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__END_CHAR);
 
+        headerFooterConnectionEClass = createEClass(HEADER_FOOTER_CONNECTION);
+        createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__IS_HEADER);
+        createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__IMPORTS);
+        createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__MAIN_CODE);
+        createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__LIBRARIES);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -3016,6 +3075,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         sapTestInputParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
         conceptEClass.getESuperTypes().add(this.getMetadataTable());
         hl7ConnectionEClass.getESuperTypes().add(this.getFileConnection());
+        headerFooterConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3309,6 +3369,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(hl7ConnectionEClass, HL7Connection.class, "HL7Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getHL7Connection_StartChar(), ecorePackage.getEString(), "StartChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHL7Connection_EndChar(), ecorePackage.getEString(), "EndChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(headerFooterConnectionEClass, HeaderFooterConnection.class, "HeaderFooterConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getHeaderFooterConnection_IsHeader(), ecorePackage.getEBoolean(), "isHeader", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHeaderFooterConnection_Imports(), ecorePackage.getEString(), "imports", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHeaderFooterConnection_MainCode(), ecorePackage.getEString(), "mainCode", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHeaderFooterConnection_Libraries(), ecorePackage.getEString(), "libraries", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

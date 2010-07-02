@@ -691,6 +691,15 @@ public interface PropertiesFactory extends EFactory {
     UserRoleReference createUserRoleReference();
 
     /**
+     * Returns a new object of class '<em>Header Footer Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Header Footer Connection Item</em>'.
+     * @generated
+     */
+    HeaderFooterConnectionItem createHeaderFooterConnectionItem();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

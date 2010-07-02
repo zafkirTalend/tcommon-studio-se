@@ -24,6 +24,7 @@ public enum EUpdateItemType {
     NODE_QUERY(Messages.getString("EUpdateItemType.Query")), //$NON-NLS-1$
     JOB_PROPERTY_EXTRA(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     JOB_PROPERTY_STATS_LOGS(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
+    JOB_PROPERTY_HEADERFOOTER(Messages.getString("EUpdateItemType.Property")), //$NON-NLS-1$
     CONTEXT(Messages.getString("EUpdateItemType.Variable")), //$NON-NLS-1$
     CONTEXT_GROUP(Messages.getString("EUpdateItemType.ContextGroup")), //$NON-NLS-1$
 

@@ -135,6 +135,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.CONCEPT: return createConcept();
             case ConnectionPackage.CONCEPT_TARGET: return createConceptTarget();
             case ConnectionPackage.HL7_CONNECTION: return createHL7Connection();
+            case ConnectionPackage.HEADER_FOOTER_CONNECTION: return createHeaderFooterConnection();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -494,6 +495,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public HL7Connection createHL7Connection() {
         HL7ConnectionImpl hl7Connection = new HL7ConnectionImpl();
         return hl7Connection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public HeaderFooterConnection createHeaderFooterConnection() {
+        HeaderFooterConnectionImpl headerFooterConnection = new HeaderFooterConnectionImpl();
+        return headerFooterConnection;
     }
 
     /**

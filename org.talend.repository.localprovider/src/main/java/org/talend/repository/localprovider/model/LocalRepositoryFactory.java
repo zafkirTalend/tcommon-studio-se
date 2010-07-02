@@ -69,6 +69,7 @@ import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.JobDocumentationItem;
@@ -1332,6 +1333,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
+
+            case PropertiesPackage.HEADER_FOOTER_CONNECTION_ITEM:
+                itemResource = save((HeaderFooterConnectionItem) item);
+                break;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
                 itemResource = save((BusinessProcessItem) item);
                 break;
@@ -1486,6 +1491,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         EClass eClass = item.eClass();
         if (eClass.eContainer() == PropertiesPackage.eINSTANCE) {
             switch (eClass.getClassifierID()) {
+
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
                 itemResource = create(project2, (BusinessProcessItem) item, path);
                 break;
@@ -1536,6 +1542,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.SALESFORCE_SCHEMA_CONNECTION_ITEM:
                 itemResource = create(project2, (ConnectionItem) item, ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA, path);
+                break;
+            case PropertiesPackage.HEADER_FOOTER_CONNECTION_ITEM:
+                itemResource = create(project2, (HeaderFooterConnectionItem) item, ERepositoryObjectType.METADATA_HEADER_FOOTER,
+                        path);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create(project2, (FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);

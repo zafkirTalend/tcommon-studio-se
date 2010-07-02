@@ -7064,6 +7064,61 @@ public interface PropertiesPackage extends EPackage {
     int USER_ROLE_REFERENCE_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl <em>Header Footer Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHeaderFooterConnectionItem()
+     * @generated
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM = 91;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM__PARENT = CONNECTION_ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Header Footer Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -11310,6 +11365,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getUserRoleReference_Role();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.HeaderFooterConnectionItem <em>Header Footer Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Header Footer Connection Item</em>'.
+     * @see org.talend.core.model.properties.HeaderFooterConnectionItem
+     * @generated
+     */
+    EClass getHeaderFooterConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
@@ -15613,6 +15678,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference USER_ROLE_REFERENCE__ROLE = eINSTANCE.getUserRoleReference_Role();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl <em>Header Footer Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.HeaderFooterConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHeaderFooterConnectionItem()
+         * @generated
+         */
+        EClass HEADER_FOOTER_CONNECTION_ITEM = eINSTANCE.getHeaderFooterConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

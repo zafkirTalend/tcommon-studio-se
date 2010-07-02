@@ -322,6 +322,15 @@ public interface ConnectionFactory extends EFactory {
     HL7Connection createHL7Connection();
 
     /**
+     * Returns a new object of class '<em>Header Footer Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Header Footer Connection</em>'.
+     * @generated
+     */
+    HeaderFooterConnection createHeaderFooterConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

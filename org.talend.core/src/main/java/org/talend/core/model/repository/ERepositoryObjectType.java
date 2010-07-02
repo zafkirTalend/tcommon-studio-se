@@ -26,6 +26,7 @@ import org.talend.core.model.properties.ExcelFileConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobDocumentationItem;
 import org.talend.core.model.properties.JobletDocumentationItem;
@@ -120,7 +121,11 @@ public enum ERepositoryObjectType {
     TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern"), //$NON-NLS-1$ //$NON-NLS-2$
     // MOD mzhao feature 9207
-    TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"); //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"), //$NON-NLS-1$ //$NON-NLS-2$
+
+    METADATA_HEADER_FOOTER("repository.headerFooterConnections", "repository.headerFooterConnections.alias"), //$NON-NLS-1$
+
+    ;
 
     private String key;
 
@@ -251,6 +256,8 @@ public enum ERepositoryObjectType {
         case METADATA_FILE_LINKRULES:
             return "metadata/rules"; //$NON-NLS-1$
             // MOD mzhao feature 13114, 2010-05-19
+        case METADATA_HEADER_FOOTER:
+            return "metadata/header_footer";
         case TDQ_ANALYSIS_ELEMENT:
             return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
         case TDQ_BUSINESSRULE_ELEMENT:
@@ -455,6 +462,10 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
                 return SVG_BUSINESS_PROCESS;
+            }
+
+            public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
+                return METADATA_HEADER_FOOTER;
             }
 
             // MOD mzhao feature 13114, 2010-05-19

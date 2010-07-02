@@ -686,6 +686,9 @@ public interface IProxyRepositoryFactory {
 
     public abstract RootContainer<String, IRepositoryViewObject> getMetadataWSDLSchema() throws PersistenceException;
 
+    public abstract RootContainer<String, IRepositoryViewObject> getMetadataHeaderFooter(Project project, boolean... options)
+            throws PersistenceException;
+
     public List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException;
 
     public void forceCreate(Item item, IPath path) throws PersistenceException;

@@ -33,6 +33,7 @@ public enum ERepositoryCategoryType {
     MDM,
     RULE,
     CDC(DATABASE),
+    HEADERFOOTER,
     //
     ;
 

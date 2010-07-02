@@ -368,6 +368,14 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.HEADER_FOOTER_CONNECTION: {
+                HeaderFooterConnection headerFooterConnection = (HeaderFooterConnection)theEObject;
+                Object result = caseHeaderFooterConnection(headerFooterConnection);
+                if (result == null) result = caseConnection(headerFooterConnection);
+                if (result == null) result = caseAbstractMetadataObject(headerFooterConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -889,6 +897,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseHL7Connection(HL7Connection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Header Footer Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Header Footer Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseHeaderFooterConnection(HeaderFooterConnection object) {
         return null;
     }
 

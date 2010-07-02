@@ -794,6 +794,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.HEADER_FOOTER_CONNECTION_ITEM: {
+                HeaderFooterConnectionItem headerFooterConnectionItem = (HeaderFooterConnectionItem)theEObject;
+                Object result = caseHeaderFooterConnectionItem(headerFooterConnectionItem);
+                if (result == null) result = caseConnectionItem(headerFooterConnectionItem);
+                if (result == null) result = caseItem(headerFooterConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1974,6 +1982,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseUserRoleReference(UserRoleReference object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Header Footer Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Header Footer Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
         return null;
     }
 

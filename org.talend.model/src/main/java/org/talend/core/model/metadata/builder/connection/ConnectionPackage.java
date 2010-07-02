@@ -6431,13 +6431,176 @@ public interface ConnectionPackage extends EPackage {
     int HL7_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHeaderFooterConnection()
+     * @generated
+     */
+    int HEADER_FOOTER_CONNECTION = 36;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
+     * The feature id for the '<em><b>Is Header</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__IS_HEADER = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Imports</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__IMPORTS = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Main Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__MAIN_CODE = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Libraries</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION__LIBRARIES = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The number of structural features of the '<em>Header Footer Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_FOOTER_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 36;
+    int DATABASE_PROPERTIES = 37;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -6446,7 +6609,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 37;
+    int FILE_FORMAT = 38;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -6455,7 +6618,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 38;
+    int FIELD_SEPARATOR = 39;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -6464,7 +6627,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 39;
+    int ESCAPE = 40;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -6473,7 +6636,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 40;
+    int ROW_SEPARATOR = 41;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -6482,7 +6645,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 41;
+    int MAP = 42;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -6492,7 +6655,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 42;
+    int LIST = 43;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -9203,6 +9366,60 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7Connection_EndChar();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection <em>Header Footer Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Header Footer Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection
+     * @generated
+     */
+    EClass getHeaderFooterConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#isIsHeader <em>Is Header</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Header</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#isIsHeader()
+     * @see #getHeaderFooterConnection()
+     * @generated
+     */
+    EAttribute getHeaderFooterConnection_IsHeader();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getImports <em>Imports</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Imports</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getImports()
+     * @see #getHeaderFooterConnection()
+     * @generated
+     */
+    EAttribute getHeaderFooterConnection_Imports();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getMainCode <em>Main Code</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Main Code</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getMainCode()
+     * @see #getHeaderFooterConnection()
+     * @generated
+     */
+    EAttribute getHeaderFooterConnection_MainCode();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getLibraries <em>Libraries</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Libraries</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getLibraries()
+     * @see #getHeaderFooterConnection()
+     * @generated
+     */
+    EAttribute getHeaderFooterConnection_Libraries();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -11397,6 +11614,48 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute HL7_CONNECTION__END_CHAR = eINSTANCE.getHL7Connection_EndChar();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHeaderFooterConnection()
+         * @generated
+         */
+        EClass HEADER_FOOTER_CONNECTION = eINSTANCE.getHeaderFooterConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Is Header</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_FOOTER_CONNECTION__IS_HEADER = eINSTANCE.getHeaderFooterConnection_IsHeader();
+
+        /**
+         * The meta object literal for the '<em><b>Imports</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_FOOTER_CONNECTION__IMPORTS = eINSTANCE.getHeaderFooterConnection_Imports();
+
+        /**
+         * The meta object literal for the '<em><b>Main Code</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_FOOTER_CONNECTION__MAIN_CODE = eINSTANCE.getHeaderFooterConnection_MainCode();
+
+        /**
+         * The meta object literal for the '<em><b>Libraries</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_FOOTER_CONNECTION__LIBRARIES = eINSTANCE.getHeaderFooterConnection_Libraries();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

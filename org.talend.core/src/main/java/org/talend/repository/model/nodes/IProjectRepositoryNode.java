@@ -127,6 +127,8 @@ public interface IProjectRepositoryNode {
 
     public RepositoryNode getMetadataSAPConnectionNode();
 
+    public RepositoryNode getMetadataHeaderFooterConnectionNode();
+
     public RepositoryNode getMetadataEbcdicConnectionNode();
 
     public RepositoryNode getMetadataHL7ConnectionNode();

@@ -422,6 +422,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseUserRoleReference(UserRoleReference object) {
                 return createUserRoleReferenceAdapter();
             }
+            public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
+                return createHeaderFooterConnectionItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1570,6 +1573,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createUserRoleReferenceAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.HeaderFooterConnectionItem <em>Header Footer Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.HeaderFooterConnectionItem
+     * @generated
+     */
+    public Adapter createHeaderFooterConnectionItemAdapter() {
         return null;
     }
 

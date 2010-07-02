@@ -175,6 +175,7 @@ public class ImportItemUtil {
             case METADATA_LDAP_SCHEMA:
             case METADATA_CONNECTIONS:
             case METADATA_SAPCONNECTIONS:
+            case METADATA_HEADER_FOOTER:
                 prefix = ERepositoryObjectType.METADATA.toString();
 
             }
