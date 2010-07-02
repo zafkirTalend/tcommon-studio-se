@@ -82,6 +82,8 @@ public abstract class AbstractNode implements INode {
 
     private String uniqueShortName;
 
+    private boolean subProcessContainBreakpoint;
+
     public String getComponentName() {
         return componentName;
     }
@@ -696,5 +698,13 @@ public abstract class AbstractNode implements INode {
      */
     public void setUniqueShortName(String uniqueShortName) {
         this.uniqueShortName = uniqueShortName;
+    }
+
+    public void setSubProcessContainTraceBreakpoint(boolean subProcessContainBreakpoint) {
+        this.subProcessContainBreakpoint = subProcessContainBreakpoint;
+    }
+
+    public boolean isSubProcessContainTraceBreakpoint() {
+        return subProcessContainBreakpoint;
     }
 }

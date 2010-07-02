@@ -75,6 +75,13 @@ public interface INode extends IElement {
     public boolean isSubProcessStart();
 
     /**
+     * To call ONLY from a subprocessStart.
+     * 
+     * @return
+     */
+    public boolean isSubProcessContainTraceBreakpoint();
+
+    /**
      * Gives all incoming connections (only).
      * 
      * @return List of Connection
