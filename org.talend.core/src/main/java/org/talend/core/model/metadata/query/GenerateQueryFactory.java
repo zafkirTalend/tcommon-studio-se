@@ -14,7 +14,7 @@ package org.talend.core.model.metadata.query;
 
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.query.generator.AS400QueryGenerator;
-import org.talend.core.model.metadata.query.generator.DefaultQueryGenerator;
+import org.talend.core.model.metadata.query.generator.OracleQueryGenerator;
 import org.talend.core.model.metadata.query.generator.NetezzaQueryGenerator;
 import org.talend.core.model.metadata.query.generator.NonDatabaseDefaultQueryGenerator;
 import org.talend.core.model.metadata.query.generator.OldDelegateQueryGenerator;
@@ -55,7 +55,7 @@ public final class GenerateQueryFactory {
         case ORACLE_OCI:
         case ORACLEFORSID:
         case ORACLESN:
-            return new DefaultQueryGenerator(dbType);
+            return new OracleQueryGenerator(dbType);
         case EXASOL:
         case FIREBIRD:
         case GENERAL_JDBC:
