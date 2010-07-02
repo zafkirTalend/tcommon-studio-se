@@ -652,7 +652,12 @@ public abstract class AbstractNode implements INode {
             return (Boolean) param.getValue();
         }
         List<IMultipleComponentManager> multipleComponentManagers = getComponent().getMultipleComponentManagers();
-        return multipleComponentManagers.size() > 0;
+        for (IMultipleComponentManager mcm : multipleComponentManagers) {
+            if (!mcm.isLookupMode()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
