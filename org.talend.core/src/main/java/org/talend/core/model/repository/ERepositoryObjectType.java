@@ -118,6 +118,7 @@ public enum ERepositoryObjectType {
     TDQ_MDMCONNECTION_ELEMENT("repository.tdqelement.mdmconnection", "repository.tdqelement.mdmconnection"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
+    TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern"), //$NON-NLS-1$ //$NON-NLS-2$
     // MOD mzhao feature 9207
     TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -258,6 +259,8 @@ public enum ERepositoryObjectType {
             return "DQ_Metadata/DB Connections"; //$NON-NLS-1$
         case TDQ_INDICATOR_ELEMENT:
             return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
+        case TDQ_PATTERN_ELEMENT:
+            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$              
         case TDQ_MDMCONNECTION_ELEMENT:
             return "TDQ_Metadata/MDM Connections"; //$NON-NLS-1$
         case TDQ_REPORT_ELEMENT:
@@ -475,6 +478,10 @@ public enum ERepositoryObjectType {
                 return TDQ_INDICATOR_ELEMENT;
             }
 
+            @Override
+            public Object caseTDQPatternItem(org.talend.core.model.properties.TDQPatternItem object) {
+                return TDQ_PATTERN_ELEMENT;
+            }
             @Override
             public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
                 return TDQ_MDMCONNECTION_ELEMENT;
