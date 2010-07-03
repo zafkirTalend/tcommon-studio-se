@@ -140,6 +140,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                     ((ProcessItem) getItem()).setProcess(processType);
                 }
                 factory.save(getItem());
+                loadedProcess.setProperty(getItem().getProperty());
                 // 9035
                 if (CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore().getBoolean(
                         ITalendCorePrefConstants.ITEM_INDEX)) {

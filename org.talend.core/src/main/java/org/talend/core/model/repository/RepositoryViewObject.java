@@ -14,11 +14,18 @@ package org.talend.core.model.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.utils.image.ImageUtils;
+import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -27,12 +34,17 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.properties.DatabaseConnectionItem;
+import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.JobletProcessItem;
+import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.core.ui.images.ECoreImage;
+import org.talend.core.ui.images.OverlayImageProvider;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -75,6 +87,8 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
 
     private ERepositoryStatus informationStatus;
 
+    private Image customImage;
+
     public RepositoryViewObject(Property property) {
         this.id = property.getId();
         this.author = property.getAuthor();
@@ -94,8 +108,62 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
         repositoryStatus = factory.getStatus(property.getItem());
         InformationLevel informationLevel = property.getMaxInformationLevel();
         informationStatus = factory.getStatus(informationLevel);
-
+        if (type == ERepositoryObjectType.JOBLET) {
+            JobletProcessItem item = (JobletProcessItem) property.getItem();
+            if (item.getIcon() != null && item.getIcon().getInnerContent() != null
+                    && item.getIcon().getInnerContent().length == 0) {
+                customImage = getJobletCustomIcon(property);
+                customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
+            }
+        } else if (type == ERepositoryObjectType.DOCUMENTATION) {
+            Item item = property.getItem();
+            if (item instanceof DocumentationItem) {
+                customImage = OverlayImageProvider.getImageWithDocExt(((DocumentationItem) item).getExtension());
+            } else if (item instanceof LinkDocumentationItem) {
+                customImage = OverlayImageProvider.getImageWithSpecial(customImage).createImage();
+            }
+        }
     }
+
+    /**
+     * DOC bqian Comment method "getJobletCustomIcon".
+     * 
+     * @param property
+     * @return
+     */
+    public static Image getJobletCustomIcon(Property property) {
+        JobletProcessItem item = (JobletProcessItem) property.getItem();
+        Image image = null;
+        if (item.getIcon() == null || item.getIcon().getInnerContent() == null || item.getIcon().getInnerContent().length == 0) {
+            // File image = RepositoryLabelProvider.getDefaultJobletImage();
+            // try {
+            // item.getIcon().setInnerContentFromFile(image);
+            // } catch (Exception e) {
+            // ExceptionHandler.process(e);
+            // }
+
+            image = getDefaultJobletImage();
+        } else {
+
+            ImageDescriptor imageDesc = ImageUtils.createImageFromData(item.getIcon().getInnerContent());
+            imageDesc = ImageUtils.scale(imageDesc, ICON_SIZE.ICON_32);
+
+            image = cachedImages.get(item.getIcon().getInnerContent());
+            if (image == null || image.isDisposed()) {
+                image = imageDesc.createImage();
+                cachedImages.put(item.getIcon().getInnerContent(), image);
+            } else {
+                // image = imageDesc.createImage();
+            }
+        }
+        return image;
+    }
+
+    public static Image getDefaultJobletImage() {
+        return ImageProvider.getImage(ECoreImage.JOBLET_COMPONENT_ICON);
+    }
+
+    private static Map<byte[], Image> cachedImages = new HashMap<byte[], Image>();
 
     /*
      * (non-Javadoc)
@@ -158,6 +226,7 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
 
     public Property getProperty() {
         try {
+            this.customImage = null;
             IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
             Property property = factory.getLastVersion(id).getProperty();
             this.id = property.getId();
@@ -175,6 +244,21 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
             repositoryStatus = factory.getStatus(property.getItem());
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
+            if (type == ERepositoryObjectType.JOBLET) {
+                JobletProcessItem item = (JobletProcessItem) property.getItem();
+                if (item.getIcon() != null && item.getIcon().getInnerContent() != null
+                        && item.getIcon().getInnerContent().length == 0) {
+                    customImage = getJobletCustomIcon(property);
+                    customImage = ImageUtils.propertyLabelScale(property.getId(), customImage, ICON_SIZE.ICON_16);
+                }
+            } else if (type == ERepositoryObjectType.DOCUMENTATION) {
+                Item item = property.getItem();
+                if (item instanceof DocumentationItem) {
+                    customImage = OverlayImageProvider.getImageWithDocExt(((DocumentationItem) item).getExtension());
+                } else if (item instanceof LinkDocumentationItem) {
+                    customImage = OverlayImageProvider.getImageWithSpecial(customImage).createImage();
+                }
+            }
             return property;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -371,5 +455,14 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
      */
     public ERepositoryStatus getRepositoryStatus() {
         return repositoryStatus;
+    }
+
+    /**
+     * Getter for customImage.
+     * 
+     * @return the customImage
+     */
+    public Image getCustomImage() {
+        return this.customImage;
     }
 }

@@ -1701,7 +1701,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (Resource resource : resourceToUnload) {
             if (resource.isLoaded()) {
                 resource.unload();
-                xmiResourceManager.resourceSet.getResources().remove(resource);
+                // xmiResourceManager.resourceSet.getResources().remove(resource);
             }
         }
     }
