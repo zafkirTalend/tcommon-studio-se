@@ -41,11 +41,11 @@ public enum EComponentCategory {
     EXTRA(Messages.getString("EComponentCategory_extra"), 12), //$NON-NLS-1$
     DYNAMICS_SETTINGS(Messages.getString("EComponentCategory_dynamicSetting"), 13), //$NON-NLS-1$
     SQL_PATTERN(Messages.getString("EComponentCategory_sqlTemplate"), 14), //$NON-NLS-1$
-    BREAKPOINT("Breakpoint", 15),
-    BASICRUN("Basic Run", 1),
-    DEBUGRUN("Debug Run", 2),
-    ADVANCESETTING("Advance Setting", 3),
-    TARGET("Target Exec", 4);
+    BREAKPOINT(Messages.getString("EComponentCategory.breakpoint"), 15), //$NON-NLS-1$
+    BASICRUN(Messages.getString("EComponentCategory.basicRun"), 1), //$NON-NLS-1$
+    DEBUGRUN(Messages.getString("EComponentCategory.debugRun"), 2), //$NON-NLS-1$
+    ADVANCESETTING(Messages.getString("EComponentCategory.advancedSettings"), 3), //$NON-NLS-1$
+    TARGET(Messages.getString("EComponentCategory.targetExec"), 4); //$NON-NLS-1$
 
     private String title;
 
