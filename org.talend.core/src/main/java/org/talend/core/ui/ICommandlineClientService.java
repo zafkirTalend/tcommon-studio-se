@@ -10,21 +10,18 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.process;
+package org.talend.core.ui;
+
+import org.talend.core.IService;
+import org.talend.core.model.process.ITargetExecutionConfig;
+import org.talend.designer.runprocess.IProcessor;
+import org.talend.designer.runprocess.ProcessorException;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * ggu class global comment. Detailled comment
  */
-public interface ITargetExecutionConfig extends IServerConfiguration {
+public interface ICommandlineClientService extends IService {
 
-    public boolean isRemote();
-
-    public int getFileTransferPort();
-
-    public void setFileTransferPort(int transferFilePort);
-
-    public IServerConfiguration getCommandlineServerConfig();
-
-    public void setCommandlineServerConfig(IServerConfiguration cmdLineServer);
+    public Process deployAndRunByCommandline(ITargetExecutionConfig config, IProcessor processor, int statisticsPort,
+            int tracePort, String watchParam) throws ProcessorException;
 }
