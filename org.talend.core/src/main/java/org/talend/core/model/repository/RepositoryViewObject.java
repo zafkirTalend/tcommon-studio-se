@@ -226,9 +226,13 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
 
     public Property getProperty() {
         try {
-            this.customImage = null;
             IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-            Property property = factory.getLastVersion(id).getProperty();
+            IRepositoryViewObject object = factory.getLastVersion(id);
+            if (object == null) {
+                throw new PersistenceException("item with name:" + label + " / id:" + id + " not found !");
+            }
+            this.customImage = null;
+            Property property = object.getProperty();
             this.id = property.getId();
             this.author = property.getAuthor();
             this.creationDate = property.getCreationDate();

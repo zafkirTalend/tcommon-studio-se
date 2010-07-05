@@ -211,6 +211,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             currentFolderItem = (FolderItem) objectFolder;
         }
         List<String> nameFounds = new ArrayList<String>();
+        List<Item> invalidItems = new ArrayList<Item>();
         for (Item curItem : (List<Item>) currentFolderItem.getChildren()) {
             if (curItem instanceof FolderItem) {
                 FolderItem subFolder = (FolderItem) curItem;
@@ -223,20 +224,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 addFolderMembers(project, type, cont, curItem, onlyLastVersion, options);
             } else {
                 Property property = curItem.getProperty();
-                property.getItem().setParent(currentFolderItem);
-                IRepositoryViewObject currentObject;
-                if (options.length > 0 && options[0] == true) {
-                    // called from repository view
-                    currentObject = new RepositoryViewObject(property);
-                } else {
-                    currentObject = new RepositoryObject(property);
-                }
-                nameFounds.add(property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION);
-                addItemToContainer(toReturn, currentObject, onlyLastVersion);
+                if (property != null) {
+                    property.getItem().setParent(currentFolderItem);
+                    IRepositoryViewObject currentObject;
+                    if (options.length > 0 && options[0] == true) {
+                        // called from repository view
+                        currentObject = new RepositoryViewObject(property);
+                    } else {
+                        currentObject = new RepositoryObject(property);
+                    }
+                    nameFounds.add(property.getLabel() + "_" + property.getVersion() + "." + FileConstants.PROPERTIES_EXTENSION);
+                    addItemToContainer(toReturn, currentObject, onlyLastVersion);
 
-                addToHistory(property.getId(), type, property.getItem().getState().getPath());
+                    addToHistory(property.getId(), type, property.getItem().getState().getPath());
+                } else {
+                    invalidItems.add(curItem);
+                    projectModified = true;
+                }
             }
         }
+        currentFolderItem.getChildren().removeAll(invalidItems);
 
         // if not logged on project, allow to browse directly the folders.
         // if already logged, project should be up to date.
