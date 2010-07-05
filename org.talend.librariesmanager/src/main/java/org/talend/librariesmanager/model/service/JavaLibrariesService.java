@@ -219,8 +219,10 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 String projectLabel = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
                 path = path + File.separatorChar + projectLabel + File.separatorChar + LIBS;
                 File libsTargetFile = new File(path);
-                FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                        .getAcceptJARFilesFilter(), false, monitorWrap);
+                if (libsTargetFile != null && libsTargetFile.exists()) {
+                    FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
+                            .getAcceptJARFilesFilter(), false, monitorWrap);
+                }
             }
             checkInstalledLibraries();
 

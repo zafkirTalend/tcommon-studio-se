@@ -113,7 +113,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                 try {
                     boolean isSvnProject = service.isSVNProject(currentProject);
                     if (isSvnProject) {
-                        service.svnEclipseHandlerCommit(eclipseProject);
+                        service.svnEclipseHandlerCommit(eclipseProject, currentProject);
                     }
                 } catch (PersistenceException e) {
                     ExceptionHandler.process(e);
