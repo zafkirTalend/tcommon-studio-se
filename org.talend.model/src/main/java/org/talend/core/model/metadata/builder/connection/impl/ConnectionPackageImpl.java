@@ -60,6 +60,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
@@ -309,6 +310,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass headerFooterConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass xmlFileNodeEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1609,6 +1617,51 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getXmlFileConnection_Group() {
+        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getXmlFileConnection_Root() {
+        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getXmlFileConnection_Loop() {
+        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXmlFileConnection_InputModel() {
+        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXmlFileConnection_OutputFilePath() {
+        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2632,6 +2685,69 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getXMLFileNode() {
+        return xmlFileNodeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXMLFileNode_XMLPath() {
+        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXMLFileNode_RelatedColumn() {
+        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXMLFileNode_DefaultValue() {
+        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXMLFileNode_Attribute() {
+        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXMLFileNode_Order() {
+        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXMLFileNode_Type() {
+        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2873,6 +2989,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__MASK_XPATTERN);
         createEReference(xmlFileConnectionEClass, XML_FILE_CONNECTION__SCHEMA);
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__ENCODING);
+        createEReference(xmlFileConnectionEClass, XML_FILE_CONNECTION__GROUP);
+        createEReference(xmlFileConnectionEClass, XML_FILE_CONNECTION__ROOT);
+        createEReference(xmlFileConnectionEClass, XML_FILE_CONNECTION__LOOP);
+        createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__INPUT_MODEL);
+        createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__OUTPUT_FILE_PATH);
 
         schemaTargetEClass = createEClass(SCHEMA_TARGET);
         createEAttribute(schemaTargetEClass, SCHEMA_TARGET__RELATIVE_XPATH_QUERY);
@@ -3010,6 +3131,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__IMPORTS);
         createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__MAIN_CODE);
         createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__LIBRARIES);
+
+        xmlFileNodeEClass = createEClass(XML_FILE_NODE);
+        createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__XML_PATH);
+        createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__RELATED_COLUMN);
+        createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__DEFAULT_VALUE);
+        createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__ATTRIBUTE);
+        createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__ORDER);
+        createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__TYPE);
 
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
@@ -3238,6 +3367,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getXmlFileConnection_MaskXPattern(), ecorePackage.getEString(), "MaskXPattern", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getXmlFileConnection_Schema(), this.getXmlXPathLoopDescriptor(), this.getXmlXPathLoopDescriptor_Connection(), "schema", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXmlFileConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlFileConnection_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlFileConnection_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEReference(getXmlFileConnection_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_InputModel(), ecorePackage.getEBoolean(), "inputModel", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_OutputFilePath(), ecorePackage.getEString(), "outputFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(schemaTargetEClass, SchemaTarget.class, "SchemaTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSchemaTarget_RelativeXPathQuery(), ecorePackage.getEString(), "RelativeXPathQuery", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3375,6 +3509,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getHeaderFooterConnection_Imports(), ecorePackage.getEString(), "imports", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHeaderFooterConnection_MainCode(), ecorePackage.getEString(), "mainCode", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHeaderFooterConnection_Libraries(), ecorePackage.getEString(), "libraries", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(xmlFileNodeEClass, XMLFileNode.class, "XMLFileNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getXMLFileNode_XMLPath(), ecorePackage.getEString(), "XMLPath", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_RelatedColumn(), ecorePackage.getEString(), "RelatedColumn", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_DefaultValue(), ecorePackage.getEString(), "DefaultValue", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_Type(), ecorePackage.getEString(), "Type", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

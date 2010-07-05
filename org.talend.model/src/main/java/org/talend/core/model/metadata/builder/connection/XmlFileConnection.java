@@ -23,6 +23,11 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getMaskXPattern <em>Mask XPattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema <em>Schema</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding <em>Encoding</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop <em>Loop</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel <em>Input Model</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath <em>Output File Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -178,5 +183,105 @@ public interface XmlFileConnection extends Connection {
      * @generated
      */
     void setEncoding(String value);
+
+    /**
+     * Returns the value of the '<em><b>Group</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Group</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Group</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Group()
+     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @generated
+     */
+    EList getGroup();
+
+    /**
+     * Returns the value of the '<em><b>Root</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Root</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Root</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Root()
+     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true" ordered="false"
+     * @generated
+     */
+    EList getRoot();
+
+    /**
+     * Returns the value of the '<em><b>Loop</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Loop</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Loop</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Loop()
+     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @generated
+     */
+    EList getLoop();
+
+    /**
+     * Returns the value of the '<em><b>Input Model</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Input Model</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Input Model</em>' attribute.
+     * @see #setInputModel(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_InputModel()
+     * @model
+     * @generated
+     */
+    boolean isInputModel();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel <em>Input Model</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Input Model</em>' attribute.
+     * @see #isInputModel()
+     * @generated
+     */
+    void setInputModel(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Output File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Output File Path</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Output File Path</em>' attribute.
+     * @see #setOutputFilePath(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_OutputFilePath()
+     * @model
+     * @generated
+     */
+    String getOutputFilePath();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath <em>Output File Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Output File Path</em>' attribute.
+     * @see #getOutputFilePath()
+     * @generated
+     */
+    void setOutputFilePath(String value);
 
 } // XmlFileConnection

@@ -207,6 +207,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/MaskXPattern"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlFileConnection/schema"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/Encoding"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlFileConnection/group"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlFileConnection/root"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlFileConnection/loop"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/inputModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/outputFilePath"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SchemaTarget">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/RelativeXPathQuery"/>
@@ -338,6 +343,20 @@
     <genClasses ecoreClass="metadata.ecore#//HL7Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/StartChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/EndChar"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//HeaderFooterConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/isHeader"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/imports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/mainCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/libraries"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//XMLFileNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/XMLPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/RelatedColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/DefaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Order"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Type"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

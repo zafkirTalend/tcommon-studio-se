@@ -3680,13 +3680,58 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__ENCODING = CONNECTION_FEATURE_COUNT + 5;
 
     /**
+     * The feature id for the '<em><b>Group</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__GROUP = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Root</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__ROOT = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Loop</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__LOOP = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Input Model</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__INPUT_MODEL = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Output File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__OUTPUT_FILE_PATH = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
      * The number of structural features of the '<em>Xml File Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 6;
+    int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
@@ -6594,13 +6639,86 @@ public interface ConnectionPackage extends EPackage {
     int HEADER_FOOTER_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 4;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl <em>XML File Node</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXMLFileNode()
+     * @generated
+     */
+    int XML_FILE_NODE = 37;
+
+    /**
+     * The feature id for the '<em><b>XML Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE__XML_PATH = 0;
+
+    /**
+     * The feature id for the '<em><b>Related Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE__RELATED_COLUMN = 1;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE__DEFAULT_VALUE = 2;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE__ATTRIBUTE = 3;
+
+    /**
+     * The feature id for the '<em><b>Order</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE__ORDER = 4;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE__TYPE = 5;
+
+    /**
+     * The number of structural features of the '<em>XML File Node</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_NODE_FEATURE_COUNT = 6;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 37;
+    int DATABASE_PROPERTIES = 38;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -6609,7 +6727,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 38;
+    int FILE_FORMAT = 39;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -6618,7 +6736,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 39;
+    int FIELD_SEPARATOR = 40;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -6627,7 +6745,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 40;
+    int ESCAPE = 41;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -6636,7 +6754,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 41;
+    int ROW_SEPARATOR = 42;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -6645,7 +6763,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 42;
+    int MAP = 43;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -6655,7 +6773,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 43;
+    int LIST = 44;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -8132,6 +8250,61 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXmlFileConnection_Encoding();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getGroup <em>Group</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Group</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getGroup()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EReference getXmlFileConnection_Group();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getRoot <em>Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Root</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getRoot()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EReference getXmlFileConnection_Root();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop <em>Loop</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Loop</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EReference getXmlFileConnection_Loop();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel <em>Input Model</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Input Model</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EAttribute getXmlFileConnection_InputModel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath <em>Output File Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Output File Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EAttribute getXmlFileConnection_OutputFilePath();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema Target</em>'.
@@ -9420,6 +9593,82 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHeaderFooterConnection_Libraries();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode <em>XML File Node</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>XML File Node</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode
+     * @generated
+     */
+    EClass getXMLFileNode();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getXMLPath <em>XML Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>XML Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getXMLPath()
+     * @see #getXMLFileNode()
+     * @generated
+     */
+    EAttribute getXMLFileNode_XMLPath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getRelatedColumn <em>Related Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Related Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getRelatedColumn()
+     * @see #getXMLFileNode()
+     * @generated
+     */
+    EAttribute getXMLFileNode_RelatedColumn();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getDefaultValue()
+     * @see #getXMLFileNode()
+     * @generated
+     */
+    EAttribute getXMLFileNode_DefaultValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getAttribute <em>Attribute</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Attribute</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getAttribute()
+     * @see #getXMLFileNode()
+     * @generated
+     */
+    EAttribute getXMLFileNode_Attribute();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getOrder <em>Order</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Order</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getOrder()
+     * @see #getXMLFileNode()
+     * @generated
+     */
+    EAttribute getXMLFileNode_Order();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getType()
+     * @see #getXMLFileNode()
+     * @generated
+     */
+    EAttribute getXMLFileNode_Type();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -10671,6 +10920,46 @@ public interface ConnectionPackage extends EPackage {
         EAttribute XML_FILE_CONNECTION__ENCODING = eINSTANCE.getXmlFileConnection_Encoding();
 
         /**
+         * The meta object literal for the '<em><b>Group</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference XML_FILE_CONNECTION__GROUP = eINSTANCE.getXmlFileConnection_Group();
+
+        /**
+         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference XML_FILE_CONNECTION__ROOT = eINSTANCE.getXmlFileConnection_Root();
+
+        /**
+         * The meta object literal for the '<em><b>Loop</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference XML_FILE_CONNECTION__LOOP = eINSTANCE.getXmlFileConnection_Loop();
+
+        /**
+         * The meta object literal for the '<em><b>Input Model</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_CONNECTION__INPUT_MODEL = eINSTANCE.getXmlFileConnection_InputModel();
+
+        /**
+         * The meta object literal for the '<em><b>Output File Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_CONNECTION__OUTPUT_FILE_PATH = eINSTANCE.getXmlFileConnection_OutputFilePath();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl
@@ -11656,6 +11945,64 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_FOOTER_CONNECTION__LIBRARIES = eINSTANCE.getHeaderFooterConnection_Libraries();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl <em>XML File Node</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXMLFileNode()
+         * @generated
+         */
+        EClass XML_FILE_NODE = eINSTANCE.getXMLFileNode();
+
+        /**
+         * The meta object literal for the '<em><b>XML Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_NODE__XML_PATH = eINSTANCE.getXMLFileNode_XMLPath();
+
+        /**
+         * The meta object literal for the '<em><b>Related Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_NODE__RELATED_COLUMN = eINSTANCE.getXMLFileNode_RelatedColumn();
+
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_NODE__DEFAULT_VALUE = eINSTANCE.getXMLFileNode_DefaultValue();
+
+        /**
+         * The meta object literal for the '<em><b>Attribute</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_NODE__ATTRIBUTE = eINSTANCE.getXMLFileNode_Attribute();
+
+        /**
+         * The meta object literal for the '<em><b>Order</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_NODE__ORDER = eINSTANCE.getXMLFileNode_Order();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_NODE__TYPE = eINSTANCE.getXMLFileNode_Type();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

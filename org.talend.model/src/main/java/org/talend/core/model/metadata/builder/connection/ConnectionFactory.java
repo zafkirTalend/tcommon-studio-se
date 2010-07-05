@@ -331,6 +331,15 @@ public interface ConnectionFactory extends EFactory {
     HeaderFooterConnection createHeaderFooterConnection();
 
     /**
+     * Returns a new object of class '<em>XML File Node</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>XML File Node</em>'.
+     * @generated
+     */
+    XMLFileNode createXMLFileNode();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

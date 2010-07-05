@@ -18,6 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -351,6 +352,15 @@ public class LabelledFileField {
      */
     public void addModifyListener(ModifyListener listener) {
         text.addModifyListener(listener);
+    }
+
+    /**
+     * addSelectionListener to Button Object.
+     * 
+     * @param listener
+     */
+    public void addSelectionListener(SelectionListener listener) {
+        button.addSelectionListener(listener);
     }
 
     /**

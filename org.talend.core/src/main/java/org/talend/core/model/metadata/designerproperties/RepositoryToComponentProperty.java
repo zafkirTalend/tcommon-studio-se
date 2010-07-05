@@ -60,6 +60,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.metadata.designerproperties.PropertyConstants.CDCTypeMode;
@@ -1110,13 +1111,29 @@ public class RepositoryToComponentProperty {
     }
 
     private static Object getXmlFileValue(XmlFileConnection connection, String value) {
-        EList list = connection.getSchema();
-        XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
+        boolean isInputModel = connection.isInputModel();
+        EList list;
+        XmlXPathLoopDescriptor xmlDesc = null;
+        if (isInputModel) {
+            list = connection.getSchema();
+            xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
+        }
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getXmlFilePath())) {
                 return connection.getXmlFilePath();
             } else {
                 Path p = new Path(connection.getXmlFilePath());
+                return TalendTextUtils.addQuotes(p.toPortableString());
+            }
+        }
+        if (value.equals("OUT_FILE_PATH")) {
+            if (connection.getOutputFilePath() == null) {
+                return "";
+            }
+            if (isContextMode(connection, connection.getOutputFilePath())) {
+                return connection.getOutputFilePath();
+            } else {
+                Path p = new Path(connection.getOutputFilePath());
                 return TalendTextUtils.addQuotes(p.toPortableString());
             }
         }
@@ -1150,7 +1167,34 @@ public class RepositoryToComponentProperty {
                 }
             }
         }
+        if (value.equals("ROOT")) {
+            return getOutputXmlValue(connection.getRoot());
+        }
+        if (value.equals("GROUP")) {
+            return getOutputXmlValue(connection.getGroup());
+        }
+        if (value.equals("LOOP")) {
+            return getOutputXmlValue(connection.getLoop());
+        }
+
         return null;
+    }
+
+    public static List<Map<String, String>> getOutputXmlValue(EList list) {
+        List<Map<String, String>> newList = new ArrayList<Map<String, String>>();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<String, String>();
+            XMLFileNode node = (XMLFileNode) list.get(i);
+            node.getXMLPath();
+            map.put("VALUE", node.getDefaultValue());
+            map.put("ORDER", String.valueOf(node.getOrder()));
+            map.put("PATH", node.getXMLPath());
+            map.put("ATTRIBUTE", node.getAttribute());
+            map.put("COLUMN", node.getRelatedColumn());
+            newList.add(map);
+        }
+        return newList;
+
     }
 
     /**
@@ -1164,31 +1208,33 @@ public class RepositoryToComponentProperty {
             IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EList objectList = xmlConnection.getSchema();
-            XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
-            List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
-            tableInfo.clear();
-            List<IMetadataColumn> listColumns = metaTable.getListColumns();
-            // for (IMetadataColumn metadataColumn : listColumns) {
-            // for (SchemaTarget schema : schemaTargets) {
-            // // add for bug 12034
-            // String label = metadataColumn.getLabel();
-            // String tagName = schema.getTagName();
-            // if (label.equals(tagName)
-            //                            || (label.length() > 1 && label.startsWith("_") && label.substring(1).equals(tagName) && KeywordsValidator //$NON-NLS-1$
-            // .isKeyword(tagName))) {
-            // Map<String, Object> map = new HashMap<String, Object>();
-            //                        map.put("SCHEMA_COLUMN", tagName); //$NON-NLS-1$
-            //                        map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
-            // tableInfo.add(map);
-            // }
-            // }
-            // }
-            for (SchemaTarget schema : schemaTargets) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("SCHEMA_COLUMN", schema.getTagName()); //$NON-NLS-1$
-                map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
-                tableInfo.add(map);
+            if (xmlConnection.isInputModel()) {
+                EList objectList = xmlConnection.getSchema();
+                XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
+                List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
+                tableInfo.clear();
+                List<IMetadataColumn> listColumns = metaTable.getListColumns();
+                // for (IMetadataColumn metadataColumn : listColumns) {
+                // for (SchemaTarget schema : schemaTargets) {
+                // // add for bug 12034
+                // String label = metadataColumn.getLabel();
+                // String tagName = schema.getTagName();
+                // if (label.equals(tagName)
+                //                            || (label.length() > 1 && label.startsWith("_") && label.substring(1).equals(tagName) && KeywordsValidator //$NON-NLS-1$
+                // .isKeyword(tagName))) {
+                // Map<String, Object> map = new HashMap<String, Object>();
+                //                        map.put("SCHEMA_COLUMN", tagName); //$NON-NLS-1$
+                //                        map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
+                // tableInfo.add(map);
+                // }
+                // }
+                // }
+                for (SchemaTarget schema : schemaTargets) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("SCHEMA_COLUMN", schema.getTagName()); //$NON-NLS-1$
+                    map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery())); //$NON-NLS-1$
+                    tableInfo.add(map);
+                }
             }
         }
         if (connection instanceof MDMConnection) {
