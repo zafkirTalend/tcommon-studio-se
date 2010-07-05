@@ -194,7 +194,7 @@ class ExportItemWizardPage extends WizardPage {
             Set<RepositoryNode> newSelection = new HashSet<RepositoryNode>();
             for (RepositoryNode currentNode : (List<RepositoryNode>) selection.toList()) {
                 List<IRepositoryViewObject> objects = null;
-                if (currentNode.getContentType() == null) {
+                if (currentNode.getContentType() != null) {
                     try {
                         objects = exportItemsTreeViewer.getAll(currentNode.getObjectType());
                     } catch (IllegalArgumentException e) {
