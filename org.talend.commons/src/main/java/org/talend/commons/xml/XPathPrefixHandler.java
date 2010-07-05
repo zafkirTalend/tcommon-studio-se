@@ -328,7 +328,7 @@ public class XPathPrefixHandler {
             } else {
                 List<NodeInfo> nodes = nameNodesMap.get(p.originalPath);
                 // has only one node
-                if (nodes.size() == 1) {
+                if (nodes != null && nodes.size() == 1) {
                     p.resolved = true;
                     p.info = nodes.get(0);
                     p.transformPath = getQualifiedName(namespaceContext.getPrefix(p.info.namespace), p.originalPath);
