@@ -3370,7 +3370,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getXmlFileConnection_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getXmlFileConnection_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEReference(getXmlFileConnection_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_InputModel(), ecorePackage.getEBoolean(), "inputModel", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXmlFileConnection_OutputFilePath(), ecorePackage.getEString(), "outputFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(schemaTargetEClass, SchemaTarget.class, "SchemaTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

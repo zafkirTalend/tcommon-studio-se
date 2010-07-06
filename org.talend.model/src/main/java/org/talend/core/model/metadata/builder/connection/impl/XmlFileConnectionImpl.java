@@ -197,7 +197,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @generated
      * @ordered
      */
-    protected static final boolean INPUT_MODEL_EDEFAULT = false;
+    protected static final boolean INPUT_MODEL_EDEFAULT = true;
 
     /**
      * The cached value of the '{@link #isInputModel() <em>Input Model</em>}' attribute.

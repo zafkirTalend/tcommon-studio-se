@@ -234,6 +234,7 @@ public interface XmlFileConnection extends Connection {
 
     /**
      * Returns the value of the '<em><b>Input Model</b></em>' attribute.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Input Model</em>' attribute isn't clear,
@@ -243,7 +244,7 @@ public interface XmlFileConnection extends Connection {
      * @return the value of the '<em>Input Model</em>' attribute.
      * @see #setInputModel(boolean)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_InputModel()
-     * @model
+     * @model default="true"
      * @generated
      */
     boolean isInputModel();
