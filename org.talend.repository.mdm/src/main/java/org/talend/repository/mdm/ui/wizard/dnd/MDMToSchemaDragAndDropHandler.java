@@ -317,7 +317,7 @@ public class MDMToSchemaDragAndDropHandler {
                 }
 
             }
-            linker.updateLinksStyleAndControlsSelection(control);
+            linker.updateLinksStyleAndControlsSelection(control, true);
         }
 
     }

@@ -366,7 +366,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
 
             public void handle(LineSelectionEvent e) {
-                updateLinksStyleAndControlsSelection(e.source.getTable());
+                updateLinksStyleAndControlsSelection(e.source.getTable(), true);
             }
         };
         selectionHelper.addAfterSelectionListener(afterLineSelectionListener);
@@ -416,7 +416,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
         final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
 
             public void handle(LineSelectionEvent e) {
-                updateLinksStyleAndControlsSelection(e.source.getTable());
+                updateLinksStyleAndControlsSelection(e.source.getTable(), true);
             }
         };
         selectionHelper.addAfterSelectionListener(afterLineSelectionListener);
@@ -537,7 +537,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
         link.setStyleLink(getUnselectedStyleLink());
         getLinksManager().addLink(link);
-        updateLinksStyleAndControlsSelection(table);
+        updateLinksStyleAndControlsSelection(table, true);
         return link;
     }
 
@@ -866,7 +866,7 @@ public class MDMLinker extends TreeToTablesLinker<Object, Object> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void updateLinksStyleAndControlsSelection(Control currentControl) {
+    public void updateLinksStyleAndControlsSelection(Control currentControl, Boolean flag) {
 
         boolean selectedControlIsTable = false;
         if (currentControl instanceof Table) {
