@@ -267,7 +267,7 @@ public class TableToTablesLinker<D1, D2> extends BgDrawableComposite implements 
         return maxWidth;
     }
 
-    public void updateLinksStyleAndControlsSelection(Control currentControl) {
+    public void updateLinksStyleAndControlsSelection(Control currentControl, Boolean flag) {
 
         boolean isTarget = false;
         if (this.getTargets().contains(currentControl)) {

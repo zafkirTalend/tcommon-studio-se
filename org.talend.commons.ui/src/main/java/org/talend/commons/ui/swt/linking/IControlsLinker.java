@@ -22,6 +22,6 @@ import org.eclipse.swt.widgets.Control;
  */
 public interface IControlsLinker {
 
-    public void updateLinksStyleAndControlsSelection(Control currentControl);
+    public void updateLinksStyleAndControlsSelection(Control currentControl, Boolean flag);
 
 }

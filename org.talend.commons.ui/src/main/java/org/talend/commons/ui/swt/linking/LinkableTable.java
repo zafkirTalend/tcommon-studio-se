@@ -28,8 +28,6 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.ws.WindowSystem;
-import org.talend.commons.utils.threading.ExecutionLimiter;
-import org.talend.commons.utils.threading.ExecutionLimiterImproved;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -99,7 +97,7 @@ public class LinkableTable implements ILinkableControl {
             table.addListener(SWT.Paint, new Listener() {
 
                 public void handleEvent(Event event) {
-//                    System.out.println("table Paint");
+                    // System.out.println("table Paint");
                     paintEvent(event);
                 }
 
@@ -122,7 +120,7 @@ public class LinkableTable implements ILinkableControl {
             tableViewerCreator.getSelectionHelper().addAfterSelectionListener(new ILineSelectionListener() {
 
                 public void handle(LineSelectionEvent e) {
-                    controlsLinker.updateLinksStyleAndControlsSelection(table);
+                    controlsLinker.updateLinksStyleAndControlsSelection(table, true);
                 }
 
             });
@@ -134,7 +132,7 @@ public class LinkableTable implements ILinkableControl {
                 }
 
                 public void widgetSelected(SelectionEvent e) {
-                    controlsLinker.updateLinksStyleAndControlsSelection(table);
+                    controlsLinker.updateLinksStyleAndControlsSelection(table, true);
                 }
 
             });
@@ -153,15 +151,14 @@ public class LinkableTable implements ILinkableControl {
     }
 
     private void paintEvent(Event event) {
-//        System.out.println("event.gc=" + event.gc);
+        // System.out.println("event.gc=" + event.gc);
 
-        Point offsetPoint = event.display.map(bgDrawableComposite.getBgDrawableComposite(), table,
-                new Point(0, 0));
+        Point offsetPoint = event.display.map(bgDrawableComposite.getBgDrawableComposite(), table, new Point(0, 0));
         bgDrawableComposite.setOffset(offsetPoint);
-//        System.out.println("paintEvent.gc="+event.gc);
+        // System.out.println("paintEvent.gc="+event.gc);
         bgDrawableComposite.drawBackground(event.gc);
 
-        //        executionLimiter.startIfExecutable(event);
+        // executionLimiter.startIfExecutable(event);
     }
 
 }

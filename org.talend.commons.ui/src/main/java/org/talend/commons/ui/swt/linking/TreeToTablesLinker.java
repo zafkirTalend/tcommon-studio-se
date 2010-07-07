@@ -125,8 +125,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         if (this.drawingLinksComparator == null) {
             this.drawingLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, Table, D2>>() {
 
-                public int compare(LinkDescriptor<TreeItem, D1, Table, D2> link1,
-                        LinkDescriptor<TreeItem, D1, Table, D2> link2) {
+                public int compare(LinkDescriptor<TreeItem, D1, Table, D2> link1, LinkDescriptor<TreeItem, D1, Table, D2> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
                     IStyleLink link2StyleLink = link2.getStyleLink();
                     if (link1StyleLink == link2StyleLink) {
@@ -197,8 +196,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             Rectangle treeItemBounds = firstExpandedAscTreeItem.getBounds();
 
             int yStraight = treeToCommonPoint.y + treeItemHeight / 2 + treeItemBounds.y;
-            Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width,
-                    yStraight);
+            Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width, yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
             TableItem tableItem = TableUtils.getTableItem(table, (Object) extremity2.getDataItem());
@@ -210,9 +208,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             Rectangle tableItemBounds = tableItem.getBounds(1); // FIX for issue 1225 ("1" parameter added)
             Rectangle tableBounds = table.getBounds();
 
-            Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(
-                    tableItemBounds.x - 2, tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()),
-                    table);
+            Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2,
+                    tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()), table);
 
             boolean lineStyleDot = false;
 
@@ -240,8 +237,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
             Point offset = getOffset();
 
-            gc.drawLine(pointStartStraight.x + offset.x, pointStartStraight.y + offset.y,
-                    pointEndStraight.x + offset.x, pointEndStraight.y + offset.y);
+            gc.drawLine(pointStartStraight.x + offset.x, pointStartStraight.y + offset.y, pointEndStraight.x + offset.x,
+                    pointEndStraight.y + offset.y);
 
             pointEndStraight.x += offset.x;
             pointEndStraight.y += offset.y;
@@ -251,8 +248,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
             drawableLink.setPoint1(pointEndStraight);
             drawableLink.setPoint2(pointEndCentralCurve);
-
             drawableLink.draw(gc);
+
         }
 
     }
@@ -278,9 +275,14 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         return maxWidth;
     }
 
-    @SuppressWarnings("unchecked")
-    public void updateLinksStyleAndControlsSelection(Control currentControl) {
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.commons.ui.swt.linking.IControlsLinker#updateLinksStyleAndControlsSelection(org.eclipse.swt.widgets
+     * .Control, java.lang.Boolean)
+     */
+    public void updateLinksStyleAndControlsSelection(Control currentControl, Boolean flag) {
         boolean isTable = false;
         if (currentControl instanceof Table) {
             isTable = true;

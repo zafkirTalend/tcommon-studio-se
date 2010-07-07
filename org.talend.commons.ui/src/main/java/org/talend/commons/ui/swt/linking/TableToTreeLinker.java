@@ -336,7 +336,7 @@ public class TableToTreeLinker<D1, D2> extends BgDrawableComposite implements IB
         return maxWidth;
     }
 
-    public void updateLinksStyleAndControlsSelection(Control currentControl) {
+    public void updateLinksStyleAndControlsSelection(Control currentControl, Boolean flag) {
 
         boolean isSource = false;
         if (currentControl == this.getSource()) {

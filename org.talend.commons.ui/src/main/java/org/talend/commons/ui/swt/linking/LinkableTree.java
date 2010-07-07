@@ -150,7 +150,7 @@ public class LinkableTree implements ILinkableControl {
             }
 
             public void widgetSelected(SelectionEvent e) {
-                controlsLinker.updateLinksStyleAndControlsSelection(tree);
+                controlsLinker.updateLinksStyleAndControlsSelection(tree, true);
             }
 
         };
