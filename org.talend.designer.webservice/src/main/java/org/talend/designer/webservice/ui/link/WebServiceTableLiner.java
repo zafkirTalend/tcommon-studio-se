@@ -135,7 +135,7 @@ public class WebServiceTableLiner extends TableToTablesLinker<Object, Object> {
     }
 
     @Override
-    public void updateLinksStyleAndControlsSelection(Control currentControl) {
+    public void updateLinksStyleAndControlsSelection(Control currentControl, Boolean flag) {
         boolean isTarget = false;
         if (this.getTargets().contains(currentControl)) {
             isTarget = true;

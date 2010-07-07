@@ -2264,7 +2264,7 @@ public class WebServiceUI {
                     OutPutMappingData info = (OutPutMappingData) items[i].getData();
                     // ParameterInfo info = (ParameterInfo) items[i].getData();
                     rowoutPutTableView.getExtendedTableModel().remove(info);
-                    tabTotabLinkForout.updateLinksStyleAndControlsSelection(rowTableForout);
+                    tabTotabLinkForout.updateLinksStyleAndControlsSelection(rowTableForout, true);
                 }
                 items = rowTableForout.getSelection();
                 if (((OutPutMappingData) items[0].getData()).getParameter().getParameterInfos().size() == 0) {
