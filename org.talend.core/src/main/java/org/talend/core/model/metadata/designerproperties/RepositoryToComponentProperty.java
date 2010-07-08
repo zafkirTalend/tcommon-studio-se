@@ -711,6 +711,14 @@ public class RepositoryToComponentProperty {
             }
         }
 
+        // if (value.equals("DRIVER_PATH")) {
+        // if (isContextMode(connection, connection.getDriverJarPath())) {
+        // return connection.getDriverJarPath();
+        // } else {
+        // return TalendTextUtils.addQuotes(connection.getDriverJarPath());
+        // }
+        // }
+
         if (value.equals("DRIVER_JAR")) { //$NON-NLS-1$
             List<Map<String, Object>> value2 = new ArrayList<Map<String, Object>>();
             if (isContextMode(connection, connection.getDriverJarPath())) {
@@ -730,6 +738,7 @@ public class RepositoryToComponentProperty {
                 try {
                     Character comma = ';';
                     String[] jars = jarPath.split(comma.toString());
+                    boolean deployed = false;
                     if (jars != null) {
                         for (String jar : jars) {
                             File file = Path.fromOSString(jar).toFile();
@@ -738,10 +747,11 @@ public class RepositoryToComponentProperty {
                                 Map<String, Object> line = new HashMap<String, Object>();
                                 line.put("JAR_NAME", fileName);
                                 value2.add(line);
-                                if (!jar.equals(new File(defaultPath + pathSeparator + fileName))) {
+                                if (!new File(defaultPath + pathSeparator + fileName).exists()) {
                                     // deploy this library
                                     try {
                                         CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
+                                        deployed = true;
                                     } catch (IOException e) {
                                         ExceptionHandler.process(e);
                                         return null;
@@ -749,7 +759,9 @@ public class RepositoryToComponentProperty {
                                 }
                             }
                         }
-                        CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
+                        if (deployed) {
+                            CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
+                        }
                     }
 
                 } catch (Exception e) {
