@@ -63,6 +63,8 @@ import org.talend.core.model.properties.TaskExecutionHistory;
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#isResumingMode <em>Resuming Mode</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getJvmValues <em>Jvm Values</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getParentTaskExecId <em>Parent Task Exec Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl#getParentPlanExecId <em>Parent Plan Exec Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -922,6 +924,46 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
     protected String jvmValues = JVM_VALUES_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getParentTaskExecId() <em>Parent Task Exec Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParentTaskExecId()
+     * @generated
+     * @ordered
+     */
+    protected static final int PARENT_TASK_EXEC_ID_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getParentTaskExecId() <em>Parent Task Exec Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParentTaskExecId()
+     * @generated
+     * @ordered
+     */
+    protected int parentTaskExecId = PARENT_TASK_EXEC_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getParentPlanExecId() <em>Parent Plan Exec Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParentPlanExecId()
+     * @generated
+     * @ordered
+     */
+    protected static final int PARENT_PLAN_EXEC_ID_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getParentPlanExecId() <em>Parent Plan Exec Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParentPlanExecId()
+     * @generated
+     * @ordered
+     */
+    protected int parentPlanExecId = PARENT_PLAN_EXEC_ID_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1021,6 +1063,10 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return getContextValues();
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 return getJvmValues();
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID:
+                return new Integer(getParentTaskExecId());
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID:
+                return new Integer(getParentPlanExecId());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1117,6 +1163,10 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return CONTEXT_VALUES_EDEFAULT == null ? contextValues != null : !CONTEXT_VALUES_EDEFAULT.equals(contextValues);
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 return JVM_VALUES_EDEFAULT == null ? jvmValues != null : !JVM_VALUES_EDEFAULT.equals(jvmValues);
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID:
+                return parentTaskExecId != PARENT_TASK_EXEC_ID_EDEFAULT;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID:
+                return parentPlanExecId != PARENT_PLAN_EXEC_ID_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1255,6 +1305,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 setJvmValues((String)newValue);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID:
+                setParentTaskExecId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID:
+                setParentPlanExecId(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1402,6 +1458,12 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
                 return;
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
                 setJvmValues(JVM_VALUES_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID:
+                setParentTaskExecId(PARENT_TASK_EXEC_ID_EDEFAULT);
+                return;
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID:
+                setParentPlanExecId(PARENT_PLAN_EXEC_ID_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -1796,6 +1858,48 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         jvmValues = newJvmValues;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES, oldJvmValues, jvmValues));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getParentTaskExecId() {
+        return parentTaskExecId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParentTaskExecId(int newParentTaskExecId) {
+        int oldParentTaskExecId = parentTaskExecId;
+        parentTaskExecId = newParentTaskExecId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID, oldParentTaskExecId, parentTaskExecId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getParentPlanExecId() {
+        return parentPlanExecId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParentPlanExecId(int newParentPlanExecId) {
+        int oldParentPlanExecId = parentPlanExecId;
+        parentPlanExecId = newParentPlanExecId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID, oldParentPlanExecId, parentPlanExecId));
     }
 
     /**
@@ -2320,6 +2424,10 @@ public class TaskExecutionHistoryImpl extends EObjectImpl implements TaskExecuti
         result.append(contextValues);
         result.append(", jvmValues: ");
         result.append(jvmValues);
+        result.append(", parentTaskExecId: ");
+        result.append(parentTaskExecId);
+        result.append(", parentPlanExecId: ");
+        result.append(parentPlanExecId);
         result.append(')');
         return result.toString();
     }

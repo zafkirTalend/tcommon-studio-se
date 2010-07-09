@@ -59,6 +59,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#isResumingMode <em>Resuming Mode</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getContextValues <em>Context Values</em>}</li>
  *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getJvmValues <em>Jvm Values</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getParentTaskExecId <em>Parent Task Exec Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TaskExecutionHistory#getParentPlanExecId <em>Parent Plan Exec Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -367,6 +369,58 @@ public interface TaskExecutionHistory extends EObject {
      * @generated
      */
     void setJvmValues(String value);
+
+    /**
+     * Returns the value of the '<em><b>Parent Task Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Parent Task Exec Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Parent Task Exec Id</em>' attribute.
+     * @see #setParentTaskExecId(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ParentTaskExecId()
+     * @model unique="false"
+     * @generated
+     */
+    int getParentTaskExecId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getParentTaskExecId <em>Parent Task Exec Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Parent Task Exec Id</em>' attribute.
+     * @see #getParentTaskExecId()
+     * @generated
+     */
+    void setParentTaskExecId(int value);
+
+    /**
+     * Returns the value of the '<em><b>Parent Plan Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Parent Plan Exec Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Parent Plan Exec Id</em>' attribute.
+     * @see #setParentPlanExecId(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTaskExecutionHistory_ParentPlanExecId()
+     * @model unique="false"
+     * @generated
+     */
+    int getParentPlanExecId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TaskExecutionHistory#getParentPlanExecId <em>Parent Plan Exec Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Parent Plan Exec Id</em>' attribute.
+     * @see #getParentPlanExecId()
+     * @generated
+     */
+    void setParentPlanExecId(int value);
 
     /**
      * Returns the value of the '<em><b>Virtual Server Name</b></em>' attribute.

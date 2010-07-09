@@ -2947,7 +2947,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServer()
      * @generated
      */
-    int EXECUTION_SERVER = 59;
+    int EXECUTION_SERVER = 60;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
@@ -2985,7 +2985,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
      * @generated
      */
-    int TALEND_TRIGGER = 53;
+    int TALEND_TRIGGER = 54;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
@@ -2994,7 +2994,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
      * @generated
      */
-    int CRON_TALEND_TRIGGER = 54;
+    int CRON_TALEND_TRIGGER = 55;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
@@ -3003,7 +3003,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
      * @generated
      */
-    int CRON_UI_TALEND_TRIGGER = 55;
+    int CRON_UI_TALEND_TRIGGER = 56;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SimpleTalendTriggerImpl <em>Simple Talend Trigger</em>}' class.
@@ -3012,7 +3012,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
      * @generated
      */
-    int SIMPLE_TALEND_TRIGGER = 56;
+    int SIMPLE_TALEND_TRIGGER = 57;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl <em>Execution Virtual Server</em>}' class.
@@ -3021,7 +3021,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
      * @generated
      */
-    int EXECUTION_VIRTUAL_SERVER = 60;
+    int EXECUTION_VIRTUAL_SERVER = 61;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
@@ -3030,7 +3030,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
      * @generated
      */
-    int FILE_TRIGGER = 57;
+    int FILE_TRIGGER = 58;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl <em>File Trigger Mask</em>}' class.
@@ -3039,7 +3039,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
      * @generated
      */
-    int FILE_TRIGGER_MASK = 58;
+    int FILE_TRIGGER_MASK = 59;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.
@@ -3048,7 +3048,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
      * @generated
      */
-    int JOBLET_PROCESS_ITEM = 61;
+    int JOBLET_PROCESS_ITEM = 62;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
@@ -3057,7 +3057,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
      * @generated
      */
-    int JOB_DOCUMENTATION_ITEM = 62;
+    int JOB_DOCUMENTATION_ITEM = 63;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletDocumentationItemImpl <em>Joblet Documentation Item</em>}' class.
@@ -3066,7 +3066,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
      * @generated
      */
-    int JOBLET_DOCUMENTATION_ITEM = 63;
+    int JOBLET_DOCUMENTATION_ITEM = 64;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.WSDLSchemaConnectionItemImpl <em>WSDL Schema Connection Item</em>}' class.
@@ -3075,7 +3075,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getWSDLSchemaConnectionItem()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION_ITEM = 64;
+    int WSDL_SCHEMA_CONNECTION_ITEM = 65;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SchemaInformationImpl <em>Schema Information</em>}' class.
@@ -3084,7 +3084,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSchemaInformation()
      * @generated
      */
-    int SCHEMA_INFORMATION = 65;
+    int SCHEMA_INFORMATION = 66;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.InformationImpl <em>Information</em>}' class.
@@ -3093,7 +3093,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformation()
      * @generated
      */
-    int INFORMATION = 66;
+    int INFORMATION = 67;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SQLPatternItemImpl <em>SQL Pattern Item</em>}' class.
@@ -3102,7 +3102,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSQLPatternItem()
      * @generated
      */
-    int SQL_PATTERN_ITEM = 67;
+    int SQL_PATTERN_ITEM = 68;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ComponentSettingImpl <em>Component Setting</em>}' class.
@@ -3111,7 +3111,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getComponentSetting()
      * @generated
      */
-    int COMPONENT_SETTING = 68;
+    int COMPONENT_SETTING = 69;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TaskExecutionHistoryImpl <em>Task Execution History</em>}' class.
@@ -3129,7 +3129,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getStatAndLogsSettings()
      * @generated
      */
-    int STAT_AND_LOGS_SETTINGS = 69;
+    int STAT_AND_LOGS_SETTINGS = 70;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ImplicitContextSettingsImpl <em>Implicit Context Settings</em>}' class.
@@ -3138,7 +3138,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getImplicitContextSettings()
      * @generated
      */
-    int IMPLICIT_CONTEXT_SETTINGS = 70;
+    int IMPLICIT_CONTEXT_SETTINGS = 71;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaOperationImpl <em>Soa Operation</em>}' class.
@@ -3147,7 +3147,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaOperation()
      * @generated
      */
-    int SOA_OPERATION = 71;
+    int SOA_OPERATION = 72;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaInputParameterImpl <em>Soa Input Parameter</em>}' class.
@@ -3156,7 +3156,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaInputParameter()
      * @generated
      */
-    int SOA_INPUT_PARAMETER = 72;
+    int SOA_INPUT_PARAMETER = 73;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SoaServiceImpl <em>Soa Service</em>}' class.
@@ -3165,7 +3165,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSoaService()
      * @generated
      */
-    int SOA_SERVICE = 73;
+    int SOA_SERVICE = 74;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.RulesItemImpl <em>Rules Item</em>}' class.
@@ -3174,7 +3174,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRulesItem()
      * @generated
      */
-    int RULES_ITEM = 74;
+    int RULES_ITEM = 75;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.UserRightImpl <em>User Right</em>}' class.
@@ -3183,7 +3183,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRight()
      * @generated
      */
-    int USER_RIGHT = 75;
+    int USER_RIGHT = 76;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.RoleRightImpl <em>Role Right</em>}' class.
@@ -3192,7 +3192,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getRoleRight()
      * @generated
      */
-    int ROLE_RIGHT = 76;
+    int ROLE_RIGHT = 77;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.SVGBusinessProcessItemImpl <em>SVG Business Process Item</em>}' class.
@@ -3201,7 +3201,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSVGBusinessProcessItem()
      * @generated
      */
-    int SVG_BUSINESS_PROCESS_ITEM = 77;
+    int SVG_BUSINESS_PROCESS_ITEM = 78;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
@@ -3210,7 +3210,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
      * @generated
      */
-    int TDQ_ITEM = 78;
+    int TDQ_ITEM = 79;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQAnalysisItemImpl <em>TDQ Analysis Item</em>}' class.
@@ -3220,7 +3220,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQAnalysisItem()
      * @generated
      */
-    int TDQ_ANALYSIS_ITEM = 79;
+    int TDQ_ANALYSIS_ITEM = 80;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQReportItemImpl <em>TDQ Report Item</em>}' class.
@@ -3230,7 +3230,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQReportItem()
      * @generated
      */
-    int TDQ_REPORT_ITEM = 80;
+    int TDQ_REPORT_ITEM = 81;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQDBConnectionItemImpl <em>TDQDB Connection Item</em>}' class.
@@ -3240,7 +3240,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQDBConnectionItem()
      * @generated
      */
-    int TDQDB_CONNECTION_ITEM = 81;
+    int TDQDB_CONNECTION_ITEM = 82;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl <em>TDQMDM Connection Item</em>}' class.
@@ -3250,7 +3250,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQMDMConnectionItem()
      * @generated
      */
-    int TDQMDM_CONNECTION_ITEM = 82;
+    int TDQMDM_CONNECTION_ITEM = 83;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQIndicatorItemImpl <em>TDQ Indicator Item</em>}' class.
@@ -3260,7 +3260,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQIndicatorItem()
      * @generated
      */
-    int TDQ_INDICATOR_ITEM = 83;
+    int TDQ_INDICATOR_ITEM = 84;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQBusinessRuleItemImpl <em>TDQ Business Rule Item</em>}' class.
@@ -3270,7 +3270,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQBusinessRuleItem()
      * @generated
      */
-    int TDQ_BUSINESS_RULE_ITEM = 84;
+    int TDQ_BUSINESS_RULE_ITEM = 85;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkRulesItemImpl <em>Link Rules Item</em>}' class.
@@ -3279,7 +3279,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLinkRulesItem()
      * @generated
      */
-    int LINK_RULES_ITEM = 86;
+    int LINK_RULES_ITEM = 87;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ItemRelationsImpl <em>Item Relations</em>}' class.
@@ -3288,7 +3288,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelations()
      * @generated
      */
-    int ITEM_RELATIONS = 87;
+    int ITEM_RELATIONS = 88;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ItemRelationImpl <em>Item Relation</em>}' class.
@@ -3297,7 +3297,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelation()
      * @generated
      */
-    int ITEM_RELATION = 88;
+    int ITEM_RELATION = 89;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.NotificationImpl <em>Notification</em>}' class.
@@ -3306,7 +3306,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotification()
      * @generated
      */
-    int NOTIFICATION = 89;
+    int NOTIFICATION = 90;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.HL7ConnectionItemImpl <em>HL7 Connection Item</em>}' class.
@@ -3315,7 +3315,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHL7ConnectionItem()
      * @generated
      */
-    int HL7_CONNECTION_ITEM = 90;
+    int HL7_CONNECTION_ITEM = 91;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.
@@ -4515,13 +4515,131 @@ public interface PropertiesPackage extends EPackage {
     int TASK_EXECUTION_HISTORY__JVM_VALUES = 42;
 
     /**
+     * The feature id for the '<em><b>Parent Task Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = 43;
+
+    /**
+     * The feature id for the '<em><b>Parent Plan Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID = 44;
+
+    /**
      * The number of structural features of the '<em>Task Execution History</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 43;
+    int TASK_EXECUTION_HISTORY_FEATURE_COUNT = 45;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl <em>Plan Execution History</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.PlanExecutionHistoryImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getPlanExecutionHistory()
+     * @generated
+     */
+    int PLAN_EXECUTION_HISTORY = 53;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Parent Task Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = 1;
+
+    /**
+     * The feature id for the '<em><b>Basic Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__BASIC_STATUS = 2;
+
+    /**
+     * The feature id for the '<em><b>Original Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ORIGINAL_LABEL = 3;
+
+    /**
+     * The feature id for the '<em><b>Current Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__CURRENT_LABEL = 4;
+
+    /**
+     * The feature id for the '<em><b>Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__START_DATE = 5;
+
+    /**
+     * The feature id for the '<em><b>End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__END_DATE = 6;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__PARAMETERS = 7;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = 8;
+
+    /**
+     * The number of structural features of the '<em>Plan Execution History</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY_FEATURE_COUNT = 9;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -6778,7 +6896,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQPatternItem()
      * @generated
      */
-    int TDQ_PATTERN_ITEM = 85;
+    int TDQ_PATTERN_ITEM = 86;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7034,7 +7152,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRoleReference()
      * @generated
      */
-    int USER_ROLE_REFERENCE = 91;
+    int USER_ROLE_REFERENCE = 92;
 
     /**
      * The feature id for the '<em><b>User</b></em>' reference.
@@ -7071,7 +7189,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHeaderFooterConnectionItem()
      * @generated
      */
-    int HEADER_FOOTER_CONNECTION_ITEM = 92;
+    int HEADER_FOOTER_CONNECTION_ITEM = 93;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7126,7 +7244,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 93;
+    int FOLDER_TYPE = 94;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7135,7 +7253,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 94;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 95;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7144,7 +7262,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 95;
+    int USER_MODULE_AUTHORIZATION_TYPE = 96;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7153,7 +7271,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 96;
+    int INFORMATION_LEVEL = 97;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -11871,6 +11989,137 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTaskExecutionHistory_JvmValues();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getParentTaskExecId <em>Parent Task Exec Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Parent Task Exec Id</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getParentTaskExecId()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ParentTaskExecId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getParentPlanExecId <em>Parent Plan Exec Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Parent Plan Exec Id</em>'.
+     * @see org.talend.core.model.properties.TaskExecutionHistory#getParentPlanExecId()
+     * @see #getTaskExecutionHistory()
+     * @generated
+     */
+    EAttribute getTaskExecutionHistory_ParentPlanExecId();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.PlanExecutionHistory <em>Plan Execution History</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Plan Execution History</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory
+     * @generated
+     */
+    EClass getPlanExecutionHistory();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getId()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getParentTaskExecId <em>Parent Task Exec Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Parent Task Exec Id</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getParentTaskExecId()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_ParentTaskExecId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getBasicStatus <em>Basic Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Basic Status</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getBasicStatus()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_BasicStatus();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getOriginalLabel <em>Original Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Original Label</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getOriginalLabel()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_OriginalLabel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getCurrentLabel <em>Current Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Current Label</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getCurrentLabel()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_CurrentLabel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getStartDate <em>Start Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Start Date</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getStartDate()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_StartDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getEndDate <em>End Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>End Date</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getEndDate()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_EndDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Parameters</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getParameters()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_Parameters();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getIdQuartzJob <em>Id Quartz Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Quartz Job</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getIdQuartzJob()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_IdQuartzJob();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName <em>Virtual Server Name</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Virtual Server Name</em>'.
@@ -16059,6 +16308,104 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute TASK_EXECUTION_HISTORY__JVM_VALUES = eINSTANCE.getTaskExecutionHistory_JvmValues();
+
+        /**
+         * The meta object literal for the '<em><b>Parent Task Exec Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = eINSTANCE.getTaskExecutionHistory_ParentTaskExecId();
+
+        /**
+         * The meta object literal for the '<em><b>Parent Plan Exec Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID = eINSTANCE.getTaskExecutionHistory_ParentPlanExecId();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl <em>Plan Execution History</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.PlanExecutionHistoryImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getPlanExecutionHistory()
+         * @generated
+         */
+        EClass PLAN_EXECUTION_HISTORY = eINSTANCE.getPlanExecutionHistory();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__ID = eINSTANCE.getPlanExecutionHistory_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Parent Task Exec Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = eINSTANCE.getPlanExecutionHistory_ParentTaskExecId();
+
+        /**
+         * The meta object literal for the '<em><b>Basic Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__BASIC_STATUS = eINSTANCE.getPlanExecutionHistory_BasicStatus();
+
+        /**
+         * The meta object literal for the '<em><b>Original Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__ORIGINAL_LABEL = eINSTANCE.getPlanExecutionHistory_OriginalLabel();
+
+        /**
+         * The meta object literal for the '<em><b>Current Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__CURRENT_LABEL = eINSTANCE.getPlanExecutionHistory_CurrentLabel();
+
+        /**
+         * The meta object literal for the '<em><b>Start Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__START_DATE = eINSTANCE.getPlanExecutionHistory_StartDate();
+
+        /**
+         * The meta object literal for the '<em><b>End Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__END_DATE = eINSTANCE.getPlanExecutionHistory_EndDate();
+
+        /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__PARAMETERS = eINSTANCE.getPlanExecutionHistory_Parameters();
+
+        /**
+         * The meta object literal for the '<em><b>Id Quartz Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = eINSTANCE.getPlanExecutionHistory_IdQuartzJob();
 
         /**
          * The meta object literal for the '<em><b>Virtual Server Name</b></em>' attribute feature.

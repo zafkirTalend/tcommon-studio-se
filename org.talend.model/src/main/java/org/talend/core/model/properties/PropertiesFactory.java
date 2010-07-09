@@ -753,6 +753,15 @@ public interface PropertiesFactory extends EFactory {
     TaskExecutionHistory createTaskExecutionHistory();
 
     /**
+     * Returns a new object of class '<em>Plan Execution History</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Plan Execution History</em>'.
+     * @generated
+     */
+    PlanExecutionHistory createPlanExecutionHistory();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

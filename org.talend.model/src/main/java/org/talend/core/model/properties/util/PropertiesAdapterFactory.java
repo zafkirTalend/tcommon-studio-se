@@ -305,6 +305,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseTaskExecutionHistory(TaskExecutionHistory object) {
                 return createTaskExecutionHistoryAdapter();
             }
+            public Object casePlanExecutionHistory(PlanExecutionHistory object) {
+                return createPlanExecutionHistoryAdapter();
+            }
             public Object caseTalendTrigger(TalendTrigger object) {
                 return createTalendTriggerAdapter();
             }
@@ -1670,6 +1673,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTaskExecutionHistoryAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.PlanExecutionHistory <em>Plan Execution History</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.PlanExecutionHistory
+     * @generated
+     */
+    public Adapter createPlanExecutionHistoryAdapter() {
         return null;
     }
 

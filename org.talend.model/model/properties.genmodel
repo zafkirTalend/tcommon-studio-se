@@ -388,6 +388,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/resumingMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/contextValues"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/jvmValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/parentTaskExecId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TaskExecutionHistory/parentPlanExecId"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//PlanExecutionHistory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/parentTaskExecId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/basicStatus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/originalLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/currentLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/startDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/endDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//PlanExecutionHistory/idQuartzJob"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//TalendTrigger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/id"/>
@@ -557,6 +570,7 @@
     <genClasses ecoreClass="properties.ecore#//TDQMDMConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//TDQIndicatorItem"/>
     <genClasses ecoreClass="properties.ecore#//TDQBusinessRuleItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQPatternItem"/>
     <genClasses ecoreClass="properties.ecore#//LinkRulesItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/extension"/>
@@ -582,5 +596,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRoleReference/user"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRoleReference/role"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//HeaderFooterConnectionItem"/>
   </genPackages>
 </genmodel:GenModel>

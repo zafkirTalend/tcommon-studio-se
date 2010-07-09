@@ -68,6 +68,7 @@ import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.Notification;
+import org.talend.core.model.properties.PlanExecutionHistory;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -678,6 +679,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass taskExecutionHistoryEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass planExecutionHistoryEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4422,6 +4430,114 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTaskExecutionHistory_ParentTaskExecId() {
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(43);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTaskExecutionHistory_ParentPlanExecId() {
+        return (EAttribute)taskExecutionHistoryEClass.getEStructuralFeatures().get(44);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getPlanExecutionHistory() {
+        return planExecutionHistoryEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_Id() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_ParentTaskExecId() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_BasicStatus() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_OriginalLabel() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_CurrentLabel() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_StartDate() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_EndDate() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_Parameters() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_IdQuartzJob() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5150,6 +5266,19 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__RESUMING_MODE);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__CONTEXT_VALUES);
         createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__JVM_VALUES);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID);
+        createEAttribute(taskExecutionHistoryEClass, TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID);
+
+        planExecutionHistoryEClass = createEClass(PLAN_EXECUTION_HISTORY);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__ID);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__BASIC_STATUS);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__ORIGINAL_LABEL);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__CURRENT_LABEL);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__START_DATE);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__END_DATE);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__PARAMETERS);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB);
 
         talendTriggerEClass = createEClass(TALEND_TRIGGER);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ID);
@@ -5826,6 +5955,19 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTaskExecutionHistory_ResumingMode(), theEcorePackage.getEBoolean(), "resumingMode", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_ContextValues(), theEcorePackage.getEString(), "contextValues", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTaskExecutionHistory_JvmValues(), theEcorePackage.getEString(), "jvmValues", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_ParentTaskExecId(), theEcorePackage.getEInt(), "parentTaskExecId", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTaskExecutionHistory_ParentPlanExecId(), theEcorePackage.getEInt(), "parentPlanExecId", null, 0, 1, TaskExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(planExecutionHistoryEClass, PlanExecutionHistory.class, "PlanExecutionHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getPlanExecutionHistory_Id(), ecorePackage.getEInt(), "id", null, 1, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_ParentTaskExecId(), theEcorePackage.getEInt(), "parentTaskExecId", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_BasicStatus(), theEcorePackage.getEString(), "basicStatus", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_OriginalLabel(), theEcorePackage.getEString(), "originalLabel", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_CurrentLabel(), theEcorePackage.getEString(), "currentLabel", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_StartDate(), theEcorePackage.getEDate(), "startDate", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_EndDate(), theEcorePackage.getEDate(), "endDate", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_Parameters(), theEcorePackage.getEString(), "parameters", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_IdQuartzJob(), theEcorePackage.getEInt(), "idQuartzJob", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(talendTriggerEClass, TalendTrigger.class, "TalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTalendTrigger_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
