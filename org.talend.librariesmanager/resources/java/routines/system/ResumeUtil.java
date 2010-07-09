@@ -82,7 +82,9 @@ public class ResumeUtil {
                     csvWriter.write("type");// type---------------->???
                     csvWriter.write("partName");// partName
                     csvWriter.write("parentPart");// parentPart
-                    csvWriter.write("project");// project
+                    if (genDynamicPart) {
+                        csvWriter.write("project");// project
+                    }
                     csvWriter.write("jobName");// jobName
                     csvWriter.write("jobContext");// jobContext
                     csvWriter.write("jobVersion");// jobVersion
@@ -139,8 +141,9 @@ public class ResumeUtil {
             csvWriter.write(item.partName);// partName
 
             csvWriter.write(item.parentPart);// parentPart
-
-            csvWriter.write(commonInfo.project);// project
+            if (genDynamicPart) {
+                csvWriter.write(commonInfo.project);// project
+            }
             csvWriter.write(commonInfo.jobName);// jobName
             csvWriter.write(commonInfo.jobContext);// jobContext
             csvWriter.write(commonInfo.jobVersion);// jobVersion
