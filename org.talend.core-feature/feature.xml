@@ -23,7 +23,7 @@
    </url>
 
    <requires>
-      <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
       <import plugin="org.talend.libraries"/>
       <import plugin="org.talend.commons.ui"/>
       <import plugin="org.talend.commons"/>
@@ -357,7 +357,7 @@
          id="org.apache.log4j"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.2.15"
          unpack="false"/>
 
    <plugin
