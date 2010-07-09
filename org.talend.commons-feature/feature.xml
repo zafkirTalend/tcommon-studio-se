@@ -41,7 +41,7 @@
       <import plugin="org.talend.libraries.jdbc.ingres"/>
       <import plugin="org.talend.libraries.jdbc.hsql"/>
       <import plugin="org.talend.libraries.jdbc.informix"/>
-      <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
       <import plugin="org.talend.utils"/>
       <import plugin="org.eclipse.core.expressions" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.core.filesystem" version="1.1.0" match="compatible"/>
@@ -224,7 +224,7 @@
          id="org.apache.log4j"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.2.15"
          unpack="false"/>
 
    <plugin
