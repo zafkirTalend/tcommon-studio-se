@@ -24,6 +24,7 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.metadata.designerproperties.RepositoryToComponentProperty;
 import org.talend.core.model.utils.TalendTextUtils;
 
@@ -51,6 +52,27 @@ public final class SAPConnectionUtils {
         for (int i = 0; i < connection.getFuntions().size(); i++) {
             SAPFunctionUnit unit = (SAPFunctionUnit) connection.getFuntions().get(i);
             if (unit.getLabel().equals(functionName)) {
+                return unit;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * DOC zli Comment method "findExistIDocUnit".
+     * 
+     * @param connection
+     * @param iDocName
+     * @return
+     */
+    public static SAPIDocUnit findExistIDocUnit(SAPConnection connection, final String iDocName) {
+        if (connection.getIDocs() == null || connection.getIDocs().isEmpty()) {
+            return null;
+        }
+
+        for (int i = 0; i < connection.getIDocs().size(); i++) {
+            SAPIDocUnit unit = (SAPIDocUnit) connection.getIDocs().get(i);
+            if (unit.getName().equals(iDocName)) {
                 return unit;
             }
         }

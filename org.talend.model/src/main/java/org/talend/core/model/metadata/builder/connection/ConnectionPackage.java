@@ -2587,13 +2587,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_CONNECTION__CURRENT_FUCNTION = CONNECTION_FEATURE_COUNT + 7;
 
     /**
+     * The feature id for the '<em><b>IDocs</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_CONNECTION__IDOCS = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
      * The number of structural features of the '<em>SAP Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 8;
+    int SAP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
@@ -2768,6 +2777,160 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 10;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl <em>SAPI Doc Unit</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPIDocUnit()
+     * @generated
+     */
+    int SAPI_DOC_UNIT = 13;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__PROPERTIES = ABSTRACT_METADATA_OBJECT__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__ID = ABSTRACT_METADATA_OBJECT__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__COMMENT = ABSTRACT_METADATA_OBJECT__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__LABEL = ABSTRACT_METADATA_OBJECT__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Program Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__PROGRAM_ID = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Gateway Service</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__GATEWAY_SERVICE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Use Xml Output</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__USE_XML_OUTPUT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Xml File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__XML_FILE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Use Html Output</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__USE_HTML_OUTPUT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Html File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__HTML_FILE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT__NAME = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 7;
+
+    /**
+     * The number of structural features of the '<em>SAPI Doc Unit</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPI_DOC_UNIT_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2775,7 +2938,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterColumn()
      * @generated
      */
-    int SAP_FUNCTION_PARAMETER_COLUMN = 13;
+    int SAP_FUNCTION_PARAMETER_COLUMN = 14;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2929,7 +3092,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterTable()
      * @generated
      */
-    int SAP_FUNCTION_PARAMETER_TABLE = 14;
+    int SAP_FUNCTION_PARAMETER_TABLE = 15;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3020,7 +3183,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInputSAPFunctionParameterTable()
      * @generated
      */
-    int INPUT_SAP_FUNCTION_PARAMETER_TABLE = 15;
+    int INPUT_SAP_FUNCTION_PARAMETER_TABLE = 16;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3120,7 +3283,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOutputSAPFunctionParameterTable()
      * @generated
      */
-    int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = 16;
+    int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = 17;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3219,7 +3382,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRegexpFileConnection()
      * @generated
      */
-    int REGEXP_FILE_CONNECTION = 17;
+    int REGEXP_FILE_CONNECTION = 18;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3521,7 +3684,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlFileConnection()
      * @generated
      */
-    int XML_FILE_CONNECTION = 18;
+    int XML_FILE_CONNECTION = 19;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3740,7 +3903,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
      * @generated
      */
-    int SCHEMA_TARGET = 19;
+    int SCHEMA_TARGET = 20;
 
     /**
      * The feature id for the '<em><b>Relative XPath Query</b></em>' attribute.
@@ -3785,7 +3948,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
      * @generated
      */
-    int QUERIES_CONNECTION = 20;
+    int QUERIES_CONNECTION = 21;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -3822,7 +3985,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
      * @generated
      */
-    int QUERY = 21;
+    int QUERY = 22;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3931,7 +4094,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
      * @generated
      */
-    int LDIF_FILE_CONNECTION = 22;
+    int LDIF_FILE_CONNECTION = 23;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4103,7 +4266,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
      * @generated
      */
-    int FILE_EXCEL_CONNECTION = 23;
+    int FILE_EXCEL_CONNECTION = 24;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4491,7 +4654,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
      * @generated
      */
-    int XML_XPATH_LOOP_DESCRIPTOR = 24;
+    int XML_XPATH_LOOP_DESCRIPTOR = 25;
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
@@ -4546,7 +4709,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
      * @generated
      */
-    int GENERIC_SCHEMA_CONNECTION = 25;
+    int GENERIC_SCHEMA_CONNECTION = 26;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -4691,7 +4854,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
      * @generated
      */
-    int LDAP_SCHEMA_CONNECTION = 26;
+    int LDAP_SCHEMA_CONNECTION = 27;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5025,7 +5188,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
      * @generated
      */
-    int WSDL_SCHEMA_CONNECTION = 27;
+    int WSDL_SCHEMA_CONNECTION = 28;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5287,7 +5450,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
      * @generated
      */
-    int SALESFORCE_SCHEMA_CONNECTION = 28;
+    int SALESFORCE_SCHEMA_CONNECTION = 29;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5549,7 +5712,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
      * @generated
      */
-    int CDC_CONNECTION = 29;
+    int CDC_CONNECTION = 30;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -5586,7 +5749,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
      * @generated
      */
-    int CDC_TYPE = 30;
+    int CDC_TYPE = 31;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5704,7 +5867,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
      * @generated
      */
-    int SUBSCRIBER_TABLE = 31;
+    int SUBSCRIBER_TABLE = 32;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5849,7 +6012,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTestInputParameterTable()
      * @generated
      */
-    int SAP_TEST_INPUT_PARAMETER_TABLE = 32;
+    int SAP_TEST_INPUT_PARAMETER_TABLE = 33;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -5949,7 +6112,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConcept()
      * @generated
      */
-    int CONCEPT = 33;
+    int CONCEPT = 34;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -6112,7 +6275,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConceptTarget()
      * @generated
      */
-    int CONCEPT_TARGET = 34;
+    int CONCEPT_TARGET = 35;
 
     /**
      * The feature id for the '<em><b>Schema</b></em>' container reference.
@@ -6158,7 +6321,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7Connection()
      * @generated
      */
-    int HL7_CONNECTION = 35;
+    int HL7_CONNECTION = 36;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -6483,7 +6646,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHeaderFooterConnection()
      * @generated
      */
-    int HEADER_FOOTER_CONNECTION = 36;
+    int HEADER_FOOTER_CONNECTION = 37;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -6646,7 +6809,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXMLFileNode()
      * @generated
      */
-    int XML_FILE_NODE = 37;
+    int XML_FILE_NODE = 38;
 
     /**
      * The feature id for the '<em><b>XML Path</b></em>' attribute.
@@ -6718,7 +6881,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 38;
+    int DATABASE_PROPERTIES = 39;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -6727,7 +6890,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 39;
+    int FILE_FORMAT = 40;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -6736,7 +6899,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 40;
+    int FIELD_SEPARATOR = 41;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -6745,7 +6908,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 41;
+    int ESCAPE = 42;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -6754,7 +6917,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 42;
+    int ROW_SEPARATOR = 43;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -6763,7 +6926,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 43;
+    int MAP = 44;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -6773,7 +6936,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 44;
+    int LIST = 45;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -7879,6 +8042,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_CurrentFucntion();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs <em>IDocs</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>IDocs</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs()
+     * @see #getSAPConnection()
+     * @generated
+     */
+    EReference getSAPConnection_IDocs();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit <em>SAP Function Unit</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7997,6 +8171,104 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getSAPFunctionUnit_TestInputParameterTable();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit <em>SAPI Doc Unit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>SAPI Doc Unit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit
+     * @generated
+     */
+    EClass getSAPIDocUnit();
+
+    /**
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getConnection <em>Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getConnection()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EReference getSAPIDocUnit_Connection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getProgramId <em>Program Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Program Id</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getProgramId()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_ProgramId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getGatewayService <em>Gateway Service</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Gateway Service</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getGatewayService()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_GatewayService();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseXmlOutput <em>Use Xml Output</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Xml Output</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseXmlOutput()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_UseXmlOutput();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getXmlFile <em>Xml File</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Xml File</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getXmlFile()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_XmlFile();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseHtmlOutput <em>Use Html Output</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Html Output</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseHtmlOutput()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_UseHtmlOutput();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getHtmlFile <em>Html File</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Html File</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getHtmlFile()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_HtmlFile();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getName()
+     * @see #getSAPIDocUnit()
+     * @generated
+     */
+    EAttribute getSAPIDocUnit_Name();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn <em>SAP Function Parameter Column</em>}'.
@@ -10628,6 +10900,14 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SAP_CONNECTION__CURRENT_FUCNTION = eINSTANCE.getSAPConnection_CurrentFucntion();
 
         /**
+         * The meta object literal for the '<em><b>IDocs</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAP_CONNECTION__IDOCS = eINSTANCE.getSAPConnection_IDocs();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -10716,6 +10996,80 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = eINSTANCE.getSAPFunctionUnit_TestInputParameterTable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl <em>SAPI Doc Unit</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPIDocUnit()
+         * @generated
+         */
+        EClass SAPI_DOC_UNIT = eINSTANCE.getSAPIDocUnit();
+
+        /**
+         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SAPI_DOC_UNIT__CONNECTION = eINSTANCE.getSAPIDocUnit_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Program Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__PROGRAM_ID = eINSTANCE.getSAPIDocUnit_ProgramId();
+
+        /**
+         * The meta object literal for the '<em><b>Gateway Service</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__GATEWAY_SERVICE = eINSTANCE.getSAPIDocUnit_GatewayService();
+
+        /**
+         * The meta object literal for the '<em><b>Use Xml Output</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__USE_XML_OUTPUT = eINSTANCE.getSAPIDocUnit_UseXmlOutput();
+
+        /**
+         * The meta object literal for the '<em><b>Xml File</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__XML_FILE = eINSTANCE.getSAPIDocUnit_XmlFile();
+
+        /**
+         * The meta object literal for the '<em><b>Use Html Output</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__USE_HTML_OUTPUT = eINSTANCE.getSAPIDocUnit_UseHtmlOutput();
+
+        /**
+         * The meta object literal for the '<em><b>Html File</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__HTML_FILE = eINSTANCE.getSAPIDocUnit_HtmlFile();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAPI_DOC_UNIT__NAME = eINSTANCE.getSAPIDocUnit_Name();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.

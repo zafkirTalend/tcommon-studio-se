@@ -28,6 +28,7 @@ public enum ERepositoryCategoryType {
     SALESFORCE,
     DATABASE,
     SAP,
+    SAPIDOC,
     EBCDIC,
     HL7,
     MDM,

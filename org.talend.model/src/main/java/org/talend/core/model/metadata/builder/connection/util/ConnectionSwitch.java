@@ -195,6 +195,13 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.SAPI_DOC_UNIT: {
+                SAPIDocUnit sapiDocUnit = (SAPIDocUnit)theEObject;
+                Object result = caseSAPIDocUnit(sapiDocUnit);
+                if (result == null) result = caseAbstractMetadataObject(sapiDocUnit);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: {
                 SAPFunctionParameterColumn sapFunctionParameterColumn = (SAPFunctionParameterColumn)theEObject;
                 Object result = caseSAPFunctionParameterColumn(sapFunctionParameterColumn);
@@ -568,6 +575,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseSAPFunctionUnit(SAPFunctionUnit object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>SAPI Doc Unit</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>SAPI Doc Unit</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSAPIDocUnit(SAPIDocUnit object) {
         return null;
     }
 

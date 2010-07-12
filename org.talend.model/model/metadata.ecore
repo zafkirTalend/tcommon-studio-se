@@ -192,6 +192,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="Funtions" upperBound="-1"
         eType="#//SAPFunctionUnit" containment="true" eOpposite="#//SAPFunctionUnit/connection"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentFucntion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="IDocs" upperBound="-1"
+        eType="#//SAPIDocUnit" containment="true" eOpposite="#//SAPIDocUnit/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionUnit" eSuperTypes="#//AbstractMetadataObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -210,6 +212,17 @@
         eType="#//MetadataTable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="TestInputParameterTable"
         eType="#//SAPTestInputParameterTable" containment="true" eOpposite="#//SAPTestInputParameterTable/functionUnit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SAPIDocUnit" eSuperTypes="#//AbstractMetadataObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//SAPConnection"
+        eOpposite="#//SAPConnection/IDocs"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="programId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gatewayService" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useXmlOutput" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xmlFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useHtmlOutput" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="htmlFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SAPFunctionParameterColumn" eSuperTypes="#//AbstractMetadataObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

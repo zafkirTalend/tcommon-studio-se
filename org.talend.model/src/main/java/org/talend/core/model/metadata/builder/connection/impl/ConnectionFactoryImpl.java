@@ -112,6 +112,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.DATABASE_CONNECTION: return createDatabaseConnection();
             case ConnectionPackage.SAP_CONNECTION: return createSAPConnection();
             case ConnectionPackage.SAP_FUNCTION_UNIT: return createSAPFunctionUnit();
+            case ConnectionPackage.SAPI_DOC_UNIT: return createSAPIDocUnit();
             case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: return createSAPFunctionParameterColumn();
             case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE: return createSAPFunctionParameterTable();
             case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE: return createInputSAPFunctionParameterTable();
@@ -289,6 +290,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public SAPFunctionUnit createSAPFunctionUnit() {
         SAPFunctionUnitImpl sapFunctionUnit = new SAPFunctionUnitImpl();
         return sapFunctionUnit;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPIDocUnit createSAPIDocUnit() {
+        SAPIDocUnitImpl sapiDocUnit = new SAPIDocUnitImpl();
+        return sapiDocUnit;
     }
 
     /**

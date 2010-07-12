@@ -49,6 +49,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -857,6 +858,7 @@ public abstract class RepositoryUpdateManager {
                 types.add(EUpdateItemType.NODE_PROPERTY);
                 types.add(EUpdateItemType.NODE_SCHEMA);
                 types.add(EUpdateItemType.JOB_PROPERTY_HEADERFOOTER);
+                types.add(EUpdateItemType.NODE_SAP_IDOC);
                 return types;
             }
 
@@ -1124,6 +1126,44 @@ public abstract class RepositoryUpdateManager {
     }
 
     /**
+     * DOC zli Comment method "updateSAPIDoc".
+     * 
+     * @param sapIDoc
+     * @param show
+     * @param onlySimpleShow
+     * @return
+     */
+    public static boolean updateSAPIDoc(final SAPIDocUnit sapIDoc, boolean show, boolean onlySimpleShow) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
+        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(
+                sapIDoc.getId(), ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
+        for (RelationshipItemBuilder.Relation relation : relations) {
+            try {
+                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
+                if (obj != null) {
+                    updateList.add(obj);
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(sapIDoc, updateList) {
+
+            @Override
+            public Set<EUpdateItemType> getTypes() {
+                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
+                types.add(EUpdateItemType.NODE_SAP_IDOC);
+                types.add(EUpdateItemType.NODE_SCHEMA);
+                return types;
+            }
+
+        };
+
+        return repositoryUpdateManager.doWork(show, onlySimpleShow);
+    }
+
+    /**
      * 
      * xye Comment method "updateSAPFunction".
      * 
@@ -1132,6 +1172,16 @@ public abstract class RepositoryUpdateManager {
      */
     public static boolean updateSAPFunction(final SAPFunctionUnit sapFunction) {
         return updateSAPFunction(sapFunction, true, false);
+    }
+
+    /**
+     * DOC zli Comment method "updateSAPIDoc".
+     * 
+     * @param sapIDoc
+     * @return
+     */
+    public static boolean updateSAPIDoc(final SAPIDocUnit sapIDoc) {
+        return updateSAPIDoc(sapIDoc, true, false);
     }
 
     /**

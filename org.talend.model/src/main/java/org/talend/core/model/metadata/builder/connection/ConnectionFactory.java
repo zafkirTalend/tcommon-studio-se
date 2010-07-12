@@ -117,6 +117,15 @@ public interface ConnectionFactory extends EFactory {
     SAPFunctionUnit createSAPFunctionUnit();
 
     /**
+     * Returns a new object of class '<em>SAPI Doc Unit</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>SAPI Doc Unit</em>'.
+     * @generated
+     */
+    SAPIDocUnit createSAPIDocUnit();
+
+    /**
      * Returns a new object of class '<em>SAP Function Parameter Column</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

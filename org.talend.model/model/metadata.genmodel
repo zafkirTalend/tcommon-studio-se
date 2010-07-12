@@ -165,6 +165,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Language"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPConnection/Funtions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/currentFucntion"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPConnection/IDocs"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionUnit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/Name"/>
@@ -177,6 +178,16 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/connection"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/tables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/TestInputParameterTable"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//SAPIDocUnit">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPIDocUnit/connection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/programId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/gatewayService"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/useXmlOutput"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/xmlFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/useHtmlOutput"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/htmlFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/name"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Name"/>

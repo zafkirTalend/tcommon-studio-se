@@ -119,6 +119,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseSAPFunctionUnit(SAPFunctionUnit object) {
                 return createSAPFunctionUnitAdapter();
             }
+            public Object caseSAPIDocUnit(SAPIDocUnit object) {
+                return createSAPIDocUnitAdapter();
+            }
             public Object caseSAPFunctionParameterColumn(SAPFunctionParameterColumn object) {
                 return createSAPFunctionParameterColumnAdapter();
             }
@@ -371,6 +374,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSAPFunctionUnitAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit <em>SAPI Doc Unit</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit
+     * @generated
+     */
+    public Adapter createSAPIDocUnitAdapter() {
         return null;
     }
 

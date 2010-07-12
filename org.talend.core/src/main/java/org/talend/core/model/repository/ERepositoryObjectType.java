@@ -81,6 +81,7 @@ public enum ERepositoryObjectType {
     METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CON_CDC("repository.CDC", true), //$NON-NLS-1$
     METADATA_SAP_FUNCTION("repository.SAPFunction", true), //$NON-NLS-1$
+    METADATA_SAP_IDOC("repository.SAPIDoc", true),
     MDM_CONCEPT("repository.concept", true), //$NON-NLS-1$
 
     // feature 0006484 add
@@ -493,6 +494,7 @@ public enum ERepositoryObjectType {
             public Object caseTDQPatternItem(org.talend.core.model.properties.TDQPatternItem object) {
                 return TDQ_PATTERN_ELEMENT;
             }
+
             @Override
             public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
                 return TDQ_MDMCONNECTION_ELEMENT;

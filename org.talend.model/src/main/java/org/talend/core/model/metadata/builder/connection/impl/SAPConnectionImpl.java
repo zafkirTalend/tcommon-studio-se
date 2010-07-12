@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getLanguage <em>Language</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getFuntions <em>Funtions</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getCurrentFucntion <em>Current Fucntion</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl#getIDocs <em>IDocs</em>}</li>
  * </ul>
  * </p>
  *
@@ -197,6 +199,16 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
 	protected String currentFucntion = CURRENT_FUCNTION_EDEFAULT;
 
 	/**
+     * The cached value of the '{@link #getIDocs() <em>IDocs</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIDocs()
+     * @generated
+     * @ordered
+     */
+    protected EList iDocs;
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -375,6 +387,18 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
 
 	/**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getIDocs() {
+        if (iDocs == null) {
+            iDocs = new EObjectContainmentWithInverseEList(SAPIDocUnit.class, this, ConnectionPackage.SAP_CONNECTION__IDOCS, ConnectionPackage.SAPI_DOC_UNIT__CONNECTION);
+        }
+        return iDocs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -382,6 +406,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
         switch (featureID) {
             case ConnectionPackage.SAP_CONNECTION__FUNTIONS:
                 return ((InternalEList)getFuntions()).basicAdd(otherEnd, msgs);
+            case ConnectionPackage.SAP_CONNECTION__IDOCS:
+                return ((InternalEList)getIDocs()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -395,6 +421,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
         switch (featureID) {
             case ConnectionPackage.SAP_CONNECTION__FUNTIONS:
                 return ((InternalEList)getFuntions()).basicRemove(otherEnd, msgs);
+            case ConnectionPackage.SAP_CONNECTION__IDOCS:
+                return ((InternalEList)getIDocs()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -422,6 +450,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
                 return getFuntions();
             case ConnectionPackage.SAP_CONNECTION__CURRENT_FUCNTION:
                 return getCurrentFucntion();
+            case ConnectionPackage.SAP_CONNECTION__IDOCS:
+                return getIDocs();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -458,6 +488,10 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             case ConnectionPackage.SAP_CONNECTION__CURRENT_FUCNTION:
                 setCurrentFucntion((String)newValue);
                 return;
+            case ConnectionPackage.SAP_CONNECTION__IDOCS:
+                getIDocs().clear();
+                getIDocs().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -493,6 +527,9 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
             case ConnectionPackage.SAP_CONNECTION__CURRENT_FUCNTION:
                 setCurrentFucntion(CURRENT_FUCNTION_EDEFAULT);
                 return;
+            case ConnectionPackage.SAP_CONNECTION__IDOCS:
+                getIDocs().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -520,6 +557,8 @@ public class SAPConnectionImpl extends ConnectionImpl implements SAPConnection {
                 return funtions != null && !funtions.isEmpty();
             case ConnectionPackage.SAP_CONNECTION__CURRENT_FUCNTION:
                 return CURRENT_FUCNTION_EDEFAULT == null ? currentFucntion != null : !CURRENT_FUCNTION_EDEFAULT.equals(currentFucntion);
+            case ConnectionPackage.SAP_CONNECTION__IDOCS:
+                return iDocs != null && !iDocs.isEmpty();
         }
         return super.eIsSet(featureID);
     }
