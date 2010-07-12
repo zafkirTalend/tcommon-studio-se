@@ -109,6 +109,8 @@ public class FileDirCleaner {
         int countExceptions;
 
         int deletedEntries;
+
+        boolean alreadyLogged;
     }
 
     /**
@@ -290,10 +292,11 @@ public class FileDirCleaner {
                     }
                 }
             }
-            if (cleanResult.firstException != null) {
+            if (cleanResult.firstException != null && !cleanResult.alreadyLogged) {
                 log.warn("TempDataCleaner: " + cleanResult.countExceptions
                         + " error(s) have occured when trying to clean the following file or directory '" + dir.getAbsolutePath()
                         + "', the first error is the following : ", cleanResult.firstException);
+                cleanResult.alreadyLogged = true;
             }
 
         } catch (Throwable e) {
