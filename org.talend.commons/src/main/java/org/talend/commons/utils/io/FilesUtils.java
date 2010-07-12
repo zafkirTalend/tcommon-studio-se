@@ -17,12 +17,14 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -477,4 +479,24 @@ public class FilesUtils {
         }
     }
 
+    /**
+     * DOC sgandon Comment method "getAllFilesFromFolder".
+     * 
+     * @param sampleFolder
+     * @param arrayList
+     * @param filenameFilter
+     */
+    public static void getAllFilesFromFolder(File sampleFolder, ArrayList<File> fileList, FilenameFilter filenameFilter) {
+        File[] folderFiles = sampleFolder.listFiles(filenameFilter);
+        Collections.addAll(fileList, folderFiles);
+        File[] allFolders = sampleFolder.listFiles(new FileFilter() {
+
+            public boolean accept(File arg0) {
+                return arg0.isDirectory();
+            }
+        });
+        for (File folder : allFolders) {
+            getAllFilesFromFolder(folder, fileList, filenameFilter);
+        }
+    }
 }
