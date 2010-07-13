@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  * </ul>
  * </p>
  *
@@ -800,5 +801,31 @@ public interface ExecutionTask extends ExecutionTriggerable {
      * @generated
      */
     void setOwnerSchedulerInstanceId(String value);
+
+    /**
+     * Returns the value of the '<em><b>On Unknown State Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>On Unknown State Job</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>On Unknown State Job</em>' attribute.
+     * @see #setOnUnknownStateJob(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_OnUnknownStateJob()
+     * @model
+     * @generated
+     */
+    String getOnUnknownStateJob();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>On Unknown State Job</em>' attribute.
+     * @see #getOnUnknownStateJob()
+     * @generated
+     */
+    void setOnUnknownStateJob(String value);
 
 } // ExecutionTask

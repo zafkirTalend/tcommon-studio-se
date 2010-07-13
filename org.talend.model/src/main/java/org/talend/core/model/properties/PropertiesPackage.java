@@ -4028,13 +4028,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 29;
 
     /**
+     * The feature id for the '<em><b>On Unknown State Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 30;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 30;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 31;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -5519,13 +5528,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__MONITORING_PORT = 7;
 
     /**
+     * The feature id for the '<em><b>Timeout Unknown State</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE = 8;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 8;
+    int EXECUTION_SERVER_FEATURE_COUNT = 9;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -9407,6 +9425,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionServer_MonitoringPort();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getTimeoutUnknownState <em>Timeout Unknown State</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Timeout Unknown State</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getTimeoutUnknownState()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_TimeoutUnknownState();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Execution Task</em>'.
@@ -9732,6 +9761,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionTask_OwnerSchedulerInstanceId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>On Unknown State Job</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_OnUnknownStateJob();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm <em>Execution Task Cmd Prm</em>}'.
@@ -14272,6 +14312,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_SERVER__MONITORING_PORT = eINSTANCE.getExecutionServer_MonitoringPort();
 
         /**
+         * The meta object literal for the '<em><b>Timeout Unknown State</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE = eINSTANCE.getExecutionServer_TimeoutUnknownState();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.ExecutionTaskImpl
@@ -14519,6 +14567,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = eINSTANCE.getExecutionTask_OwnerSchedulerInstanceId();
+
+        /**
+         * The meta object literal for the '<em><b>On Unknown State Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = eINSTANCE.getExecutionTask_OnUnknownStateJob();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.

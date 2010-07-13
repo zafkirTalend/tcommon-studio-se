@@ -69,6 +69,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isExecStatisticsEnabled <em>Exec Statistics Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
  * </ul>
  * </p>
  *
@@ -731,6 +732,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String ownerSchedulerInstanceId = OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getOnUnknownStateJob() <em>On Unknown State Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOnUnknownStateJob()
+     * @generated
+     * @ordered
+     */
+    protected static final String ON_UNKNOWN_STATE_JOB_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOnUnknownStateJob() <em>On Unknown State Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOnUnknownStateJob()
+     * @generated
+     * @ordered
+     */
+    protected String onUnknownStateJob = ON_UNKNOWN_STATE_JOB_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1486,6 +1507,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getOnUnknownStateJob() {
+        return onUnknownStateJob;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOnUnknownStateJob(String newOnUnknownStateJob) {
+        String oldOnUnknownStateJob = onUnknownStateJob;
+        onUnknownStateJob = newOnUnknownStateJob;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB, oldOnUnknownStateJob, onUnknownStateJob));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1600,6 +1642,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return isAddStatisticsCodeEnabled() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
                 return getOwnerSchedulerInstanceId();
+            case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
+                return getOnUnknownStateJob();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1724,6 +1768,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
                 setOwnerSchedulerInstanceId((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
+                setOnUnknownStateJob((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1845,6 +1892,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
                 setOwnerSchedulerInstanceId(OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
+                setOnUnknownStateJob(ON_UNKNOWN_STATE_JOB_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1929,6 +1979,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return addStatisticsCodeEnabled != ADD_STATISTICS_CODE_ENABLED_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
                 return OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT == null ? ownerSchedulerInstanceId != null : !OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT.equals(ownerSchedulerInstanceId);
+            case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
+                return ON_UNKNOWN_STATE_JOB_EDEFAULT == null ? onUnknownStateJob != null : !ON_UNKNOWN_STATE_JOB_EDEFAULT.equals(onUnknownStateJob);
         }
         return super.eIsSet(featureID);
     }
@@ -2003,6 +2055,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(addStatisticsCodeEnabled);
         result.append(", ownerSchedulerInstanceId: ");
         result.append(ownerSchedulerInstanceId);
+        result.append(", onUnknownStateJob: ");
+        result.append(onUnknownStateJob);
         result.append(')');
         return result.toString();
     }

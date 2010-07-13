@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMonitoringPort <em>Monitoring Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getTimeoutUnknownState <em>Timeout Unknown State</em>}</li>
  * </ul>
  * </p>
  *
@@ -244,5 +245,32 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setMonitoringPort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Timeout Unknown State</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Timeout Unknown State</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Timeout Unknown State</em>' attribute.
+     * @see #setTimeoutUnknownState(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_TimeoutUnknownState()
+     * @model default="-1"
+     * @generated
+     */
+    int getTimeoutUnknownState();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getTimeoutUnknownState <em>Timeout Unknown State</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Timeout Unknown State</em>' attribute.
+     * @see #getTimeoutUnknownState()
+     * @generated
+     */
+    void setTimeoutUnknownState(int value);
 
 } // ExecutionServer

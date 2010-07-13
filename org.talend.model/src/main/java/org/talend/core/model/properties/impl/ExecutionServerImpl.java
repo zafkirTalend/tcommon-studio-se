@@ -33,6 +33,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMonitoringPort <em>Monitoring Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getTimeoutUnknownState <em>Timeout Unknown State</em>}</li>
  * </ul>
  * </p>
  *
@@ -198,6 +199,26 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected int monitoringPort = MONITORING_PORT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getTimeoutUnknownState() <em>Timeout Unknown State</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTimeoutUnknownState()
+     * @generated
+     * @ordered
+     */
+    protected static final int TIMEOUT_UNKNOWN_STATE_EDEFAULT = -1;
+
+    /**
+     * The cached value of the '{@link #getTimeoutUnknownState() <em>Timeout Unknown State</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTimeoutUnknownState()
+     * @generated
+     * @ordered
+     */
+    protected int timeoutUnknownState = TIMEOUT_UNKNOWN_STATE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -368,6 +389,27 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getTimeoutUnknownState() {
+        return timeoutUnknownState;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTimeoutUnknownState(int newTimeoutUnknownState) {
+        int oldTimeoutUnknownState = timeoutUnknownState;
+        timeoutUnknownState = newTimeoutUnknownState;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE, oldTimeoutUnknownState, timeoutUnknownState));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -389,6 +431,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 return new Integer(getMonitoringPort());
+            case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
+                return new Integer(getTimeoutUnknownState());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -422,6 +466,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 setMonitoringPort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
+                setTimeoutUnknownState(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -457,6 +504,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 setMonitoringPort(MONITORING_PORT_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
+                setTimeoutUnknownState(TIMEOUT_UNKNOWN_STATE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -483,6 +533,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 return monitoringPort != MONITORING_PORT_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
+                return timeoutUnknownState != TIMEOUT_UNKNOWN_STATE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -511,6 +563,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         result.append(active);
         result.append(", monitoringPort: ");
         result.append(monitoringPort);
+        result.append(", timeoutUnknownState: ");
+        result.append(timeoutUnknownState);
         result.append(')');
         return result.toString();
     }
