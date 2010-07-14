@@ -40,9 +40,11 @@ public class LibrariesService implements ILibrariesService {
     private static ILibrariesService javaService = new JavaLibrariesService();
 
     private static ILibrariesService perlService = new PerlLibrariesService();
-public LibrariesService(){
-	
-}
+
+    public LibrariesService() {
+
+    }
+
     private ILibrariesService getLibrariesService() {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
                 .getLanguage()) {
@@ -169,5 +171,16 @@ public LibrariesService(){
     public void updateModulesNeededForCurrentJob(IProcess2 process) {
         this.getLibrariesService().updateModulesNeededForCurrentJob(process);
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.general.ILibrariesService#syncLibrariesFromLibs(org.eclipse.core.runtime.IProgressMonitor
+     * [])
+     */
+    public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
+        this.getLibrariesService().syncLibrariesFromLibs(monitorWrap);
     }
 }

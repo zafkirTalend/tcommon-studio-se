@@ -44,6 +44,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.librariesmanager.Activator;
@@ -212,18 +213,9 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 }
             }
 
-            // 5. check in the /lib directory of the project and add the jar with other ones.
-            // for feature 12877
-            if (PluginChecker.isTIS()) {
-                String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-                String projectLabel = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
-                path = path + File.separatorChar + projectLabel + File.separatorChar + LIBS;
-                File libsTargetFile = new File(path);
-                if (libsTargetFile != null && libsTargetFile.exists()) {
-                    FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                            .getAcceptJARFilesFilter(), false, monitorWrap);
-                }
-            }
+            // 5. check in the libs directory of the project and add the jar with other ones.
+            syncLibrariesFromLibs(monitorWrap);
+
             checkInstalledLibraries();
 
             log.debug(Messages.getString("JavaLibrariesService.synchronization")); //$NON-NLS-1$
@@ -288,6 +280,34 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public String getPerlLibrariesPath() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.general.ILibrariesService#syncLibrariesFromLibs(org.eclipse.core.runtime.IProgressMonitor
+     * [])
+     */
+    public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
+        // for feature 12877
+        if (PluginChecker.isTIS()) {
+            try {
+                File target = new File(getLibrariesPath());
+
+                String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
+                String projectLabel = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+                path = path + File.separatorChar + projectLabel + File.separatorChar
+                        + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS);
+                File libsTargetFile = new File(path);
+                if (libsTargetFile != null && libsTargetFile.exists()) {
+                    FilesUtils.copyFolder(libsTargetFile, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
+                            .getAcceptJARFilesFilter(), false, monitorWrap);
+                }
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+        }
     }
 
 }

@@ -138,6 +138,8 @@ public class PerlLibrariesService extends AbstractLibrariesService {
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
             SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSystemFilesFilter(),
                     FilesUtils.getAcceptPMFilesFilter(), "modules", monitorWrap); //$NON-NLS-1$
+            // 3.
+            syncLibrariesFromLibs(monitorWrap);
 
             log.debug(Messages.getString("PerlLibrariesService.synchronization")); //$NON-NLS-1$
             this.isLibSynchronized = true;
@@ -283,6 +285,17 @@ public class PerlLibrariesService extends AbstractLibrariesService {
     public String getPerlLibrariesPath() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.general.ILibrariesService#syncLibrariesFromLibs(org.eclipse.core.runtime.IProgressMonitor
+     * [])
+     */
+    public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap) {
+
     }
 
 }

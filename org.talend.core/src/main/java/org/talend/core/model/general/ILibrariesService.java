@@ -69,6 +69,8 @@ public interface ILibrariesService extends IService {
 
     public void syncLibraries(IProgressMonitor... monitorWrap);
 
+    public void syncLibrariesFromLibs(IProgressMonitor... monitorWrap);
+
     public void checkLibraries();
 
     public void addChangeLibrariesListener(IChangedLibrariesListener listener);

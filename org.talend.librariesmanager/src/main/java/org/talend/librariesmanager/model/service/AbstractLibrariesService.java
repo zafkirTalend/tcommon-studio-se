@@ -43,6 +43,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.ISVNProviderService;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
@@ -58,7 +59,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     private final List<IChangedLibrariesListener> listeners = new ArrayList<IChangedLibrariesListener>();
 
-    protected String LIBS = "libs";
+    // protected String LIBS = "libs";
 
     public abstract String getLibrariesPath();
 
@@ -96,8 +97,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         if (PluginChecker.isTIS()) {
 
             String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-            path = path + File.separatorChar + projectLabel + File.separatorChar + LIBS + File.separatorChar
-                    + sourceFile.getName();
+            path = path + File.separatorChar + projectLabel + File.separatorChar
+                    + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + sourceFile.getName();
             File libsTargetFile = new File(path);
 
             FilesUtils.copyFile(sourceFile, libsTargetFile);
