@@ -95,6 +95,8 @@ import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.ProjectManager;
@@ -579,6 +581,22 @@ public class ImportItemUtil {
                         hasJoblets = true;
                     }
 
+                    // for commanline import project setting
+                    if (itemRecord.isRemoveProjectStatslog() && tmpItem instanceof ProcessItem) {
+                        ProcessItem processItem = (ProcessItem) tmpItem;
+                        ParametersType paType = processItem.getProcess().getParameters();
+                        if (paType != null) {
+                            String paramName = "STATANDLOG_USE_PROJECT_SETTINGS";
+                            EList listParamType = paType.getElementParameter();
+                            for (int j = 0; j < listParamType.size(); j++) {
+                                ElementParameterType pType = (ElementParameterType) listParamType.get(j);
+                                if (pType != null && paramName.equals(pType.getName())) {
+                                    pType.setValue(Boolean.FALSE.toString());
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     if (lastVersion == null) {
                         repFactory.create(tmpItem, path, true);
                         itemRecord.setImportPath(path.toPortableString());
@@ -599,6 +617,7 @@ public class ImportItemUtil {
                         itemRecord.addError(e.getMessage());
                         logError(e);
                     }
+
                 } catch (Exception e) {
                     itemRecord.addError(e.getMessage());
                     logError(e);

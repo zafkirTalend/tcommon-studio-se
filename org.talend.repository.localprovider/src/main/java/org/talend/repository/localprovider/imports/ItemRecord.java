@@ -68,6 +68,8 @@ public class ItemRecord {
 
     private String itemProjectVersion;
 
+    private boolean removeProjectStatslog;
+
     public ItemRecord(IPath path) {
         this.path = path;
     }
@@ -259,5 +261,13 @@ public class ItemRecord {
 
     public boolean isTOPItem() {
         return path != null && path.toString().indexOf(ReponsitoryContextBridge.PROJECT_DEFAULT_NAME) > 0;
+    }
+
+    public boolean isRemoveProjectStatslog() {
+        return this.removeProjectStatslog;
+    }
+
+    public void setRemoveProjectStatslog(boolean removeProjectStatslog) {
+        this.removeProjectStatslog = removeProjectStatslog;
     }
 }
