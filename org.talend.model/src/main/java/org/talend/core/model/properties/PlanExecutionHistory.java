@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.PlanExecutionHistory#getEndDate <em>End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.PlanExecutionHistory#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.core.model.properties.PlanExecutionHistory#getIdQuartzJob <em>Id Quartz Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.PlanExecutionHistory#getErrorStackTrace <em>Error Stack Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -268,5 +269,31 @@ public interface PlanExecutionHistory extends EObject {
      * @generated
      */
     void setIdQuartzJob(int value);
+
+    /**
+     * Returns the value of the '<em><b>Error Stack Trace</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Error Stack Trace</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Error Stack Trace</em>' attribute.
+     * @see #setErrorStackTrace(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getPlanExecutionHistory_ErrorStackTrace()
+     * @model
+     * @generated
+     */
+    String getErrorStackTrace();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.PlanExecutionHistory#getErrorStackTrace <em>Error Stack Trace</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Error Stack Trace</em>' attribute.
+     * @see #getErrorStackTrace()
+     * @generated
+     */
+    void setErrorStackTrace(String value);
 
 } // PlanExecutionHistory

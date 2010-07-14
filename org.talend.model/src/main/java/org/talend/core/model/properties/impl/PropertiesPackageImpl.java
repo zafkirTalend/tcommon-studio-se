@@ -4556,6 +4556,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPlanExecutionHistory_ErrorStackTrace() {
+        return (EAttribute)planExecutionHistoryEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5298,6 +5307,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__END_DATE);
         createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__PARAMETERS);
         createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB);
+        createEAttribute(planExecutionHistoryEClass, PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE);
 
         talendTriggerEClass = createEClass(TALEND_TRIGGER);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ID);
@@ -5989,6 +5999,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getPlanExecutionHistory_EndDate(), theEcorePackage.getEDate(), "endDate", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPlanExecutionHistory_Parameters(), theEcorePackage.getEString(), "parameters", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPlanExecutionHistory_IdQuartzJob(), theEcorePackage.getEInt(), "idQuartzJob", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPlanExecutionHistory_ErrorStackTrace(), theEcorePackage.getEString(), "errorStackTrace", null, 0, 1, PlanExecutionHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(talendTriggerEClass, TalendTrigger.class, "TalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTalendTrigger_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

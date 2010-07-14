@@ -34,6 +34,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl#getEndDate <em>End Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl#getIdQuartzJob <em>Id Quartz Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.PlanExecutionHistoryImpl#getErrorStackTrace <em>Error Stack Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -219,6 +220,26 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
      * @ordered
      */
     protected int idQuartzJob = ID_QUARTZ_JOB_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getErrorStackTrace() <em>Error Stack Trace</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getErrorStackTrace()
+     * @generated
+     * @ordered
+     */
+    protected static final String ERROR_STACK_TRACE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getErrorStackTrace() <em>Error Stack Trace</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getErrorStackTrace()
+     * @generated
+     * @ordered
+     */
+    protected String errorStackTrace = ERROR_STACK_TRACE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -432,6 +453,27 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getErrorStackTrace() {
+        return errorStackTrace;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setErrorStackTrace(String newErrorStackTrace) {
+        String oldErrorStackTrace = errorStackTrace;
+        errorStackTrace = newErrorStackTrace;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE, oldErrorStackTrace, errorStackTrace));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.PLAN_EXECUTION_HISTORY__ID:
@@ -452,6 +494,8 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
                 return getParameters();
             case PropertiesPackage.PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB:
                 return new Integer(getIdQuartzJob());
+            case PropertiesPackage.PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE:
+                return getErrorStackTrace();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -489,6 +533,9 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
                 return;
             case PropertiesPackage.PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB:
                 setIdQuartzJob(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE:
+                setErrorStackTrace((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -528,6 +575,9 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
             case PropertiesPackage.PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB:
                 setIdQuartzJob(ID_QUARTZ_JOB_EDEFAULT);
                 return;
+            case PropertiesPackage.PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE:
+                setErrorStackTrace(ERROR_STACK_TRACE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -557,6 +607,8 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
                 return PARAMETERS_EDEFAULT == null ? parameters != null : !PARAMETERS_EDEFAULT.equals(parameters);
             case PropertiesPackage.PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB:
                 return idQuartzJob != ID_QUARTZ_JOB_EDEFAULT;
+            case PropertiesPackage.PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE:
+                return ERROR_STACK_TRACE_EDEFAULT == null ? errorStackTrace != null : !ERROR_STACK_TRACE_EDEFAULT.equals(errorStackTrace);
         }
         return super.eIsSet(featureID);
     }
@@ -588,6 +640,8 @@ public class PlanExecutionHistoryImpl extends EObjectImpl implements PlanExecuti
         result.append(parameters);
         result.append(", idQuartzJob: ");
         result.append(idQuartzJob);
+        result.append(", errorStackTrace: ");
+        result.append(errorStackTrace);
         result.append(')');
         return result.toString();
     }

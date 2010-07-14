@@ -4642,13 +4642,22 @@ public interface PropertiesPackage extends EPackage {
     int PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = 8;
 
     /**
+     * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE = 9;
+
+    /**
      * The number of structural features of the '<em>Plan Execution History</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY_FEATURE_COUNT = 9;
+    int PLAN_EXECUTION_HISTORY_FEATURE_COUNT = 10;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -12160,6 +12169,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getPlanExecutionHistory_IdQuartzJob();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getErrorStackTrace <em>Error Stack Trace</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Error Stack Trace</em>'.
+     * @see org.talend.core.model.properties.PlanExecutionHistory#getErrorStackTrace()
+     * @see #getPlanExecutionHistory()
+     * @generated
+     */
+    EAttribute getPlanExecutionHistory_ErrorStackTrace();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName <em>Virtual Server Name</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Virtual Server Name</em>'.
@@ -16462,6 +16482,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = eINSTANCE.getPlanExecutionHistory_IdQuartzJob();
+
+        /**
+         * The meta object literal for the '<em><b>Error Stack Trace</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE = eINSTANCE.getPlanExecutionHistory_ErrorStackTrace();
 
         /**
          * The meta object literal for the '<em><b>Virtual Server Name</b></em>' attribute feature.
