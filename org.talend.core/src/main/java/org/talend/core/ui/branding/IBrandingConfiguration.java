@@ -68,4 +68,8 @@ public interface IBrandingConfiguration extends IActionBarHelper {
     public void setAdditionalTitle(String title);
 
     public String getInitialWindowPerspectiveId();
+
+    public void setUseMailLoginCheck(boolean useMainLoginCheck);
+
+    public void setUseProductRegistration(boolean useProductRegistration);
 }

@@ -43,6 +43,10 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     private String title = ""; //$NON-NLS-1$
 
+    private boolean useMainLoginCheck = true;
+
+    private boolean useProductRegistration = true;
+
     public IActionBarHelper getHelper() {
         return this.helper;
     }
@@ -233,7 +237,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseMailLoginCheck()
      */
     public boolean isUseMailLoginCheck() {
-        return true;
+        return useMainLoginCheck;
     }
 
     /*
@@ -242,7 +246,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * @see org.talend.core.ui.branding.IBrandingConfiguration#isUseProductRegistration()
      */
     public boolean isUseProductRegistration() {
-        return true;
+        return useProductRegistration;
     }
 
     /*
@@ -296,5 +300,23 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             ICoreTisService service = (ICoreTisService) GlobalServiceRegister.getDefault().getService(ICoreTisService.class);
             service.drawWelcomeLogo(version);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#setUseMailLoginCheck(boolean)
+     */
+    public void setUseMailLoginCheck(boolean useMainLoginCheck) {
+        this.useMainLoginCheck = useMainLoginCheck;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.branding.IBrandingConfiguration#setUseProductRegistration(boolean)
+     */
+    public void setUseProductRegistration(boolean useProductRegistration) {
+        this.useProductRegistration = useProductRegistration;
     }
 }

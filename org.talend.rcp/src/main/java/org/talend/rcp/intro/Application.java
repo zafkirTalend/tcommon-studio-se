@@ -31,8 +31,8 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.rcp.i18n.Messages;
+import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.ui.login.LoginComposite;
-import org.talend.repository.ui.login.LoginDialog;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 
 /**
@@ -176,10 +176,8 @@ public class Application implements IApplication {
     }
 
     private boolean logUserOnProject(Shell shell, boolean inuse) {
-        boolean logged = false;
-        LoginDialog loginDialog = new LoginDialog(shell, inuse);
-        logged = loginDialog.open() == LoginDialog.OK;
-        return logged;
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        return service.openLoginDialog(shell, inuse);
     }
 
     public void stop() {

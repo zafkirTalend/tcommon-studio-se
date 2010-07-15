@@ -82,6 +82,8 @@ public interface IRepositoryService extends IService {
     // for integration with eclipse
     public void openLoginDialog();
 
+    public boolean openLoginDialog(Shell shell, boolean inuse);
+
     /**
      * initialize before running of job that extends the "IStartup" extension.
      */
