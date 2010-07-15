@@ -40,6 +40,8 @@ public interface IHTMLDocConstants {
 
     public static final String MAIN_XSL_ANALYSIS_PATH = "resources/Analysis.xsl"; //$NON-NLS-1$
 
+    public static final String MAIN_XSL_JOBCOMPARE_PATH = "resources/JobCompare.xsl"; //$NON-NLS-1$
+
     public static final String LOGO_FILE_PATH = "icons/logo.jpg"; //$NON-NLS-1$
 
     public static final String WEBSITE_LINK = "http://www.talend.com"; //$NON-NLS-1$
