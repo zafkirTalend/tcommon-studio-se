@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.runprocess;
 
+import java.util.Set;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -256,15 +258,11 @@ public interface IProcessor {
     public void setCodeGenerated(boolean codeGenerated);
 
     /**
-     * Configure the library path for current job/project.
-     * <p>
-     * classpath for Java
-     * <p>
-     * DOC xye Comment method "computeLibrariesPath".
+     * DOC nrousseau Comment method "computeLibrariesPath".
      * 
-     * @param clear if "clear", remove all old library configuration.
+     * @param jobModuleList
      */
-    public void computeLibrariesPath(boolean clear);
+    public void computeLibrariesPath(Set<String> jobModuleList);
 
     public String[] getProxyParameters();
 

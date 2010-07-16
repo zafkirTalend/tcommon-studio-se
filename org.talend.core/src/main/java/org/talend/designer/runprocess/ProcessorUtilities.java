@@ -16,9 +16,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -83,10 +85,20 @@ public class ProcessorUtilities {
 
     private static List<IEditorPart> openedEditors = new ArrayList<IEditorPart>();
 
-    static Set<ProcessItem> processItems = new HashSet<ProcessItem>();
+    private static Set<ProcessItem> processItems = new HashSet<ProcessItem>();
+
+    private static Set<String> neededModules = new HashSet<String>();
+
+    private static boolean codeModified;
 
     private static IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
             .getService(IDesignerCoreService.class);
+
+    private static Map<String, Integer> lastGeneratedWithStatsOrTrace = new HashMap<String, Integer>();
+
+    private static final int GENERATED_WITH_STATS = 1;
+
+    private static final int GENERATED_WITH_TRACES = 2;
 
     public static void addOpenEditor(IEditorPart editor) {
         openedEditors.add(editor);
@@ -176,7 +188,7 @@ public class ProcessorUtilities {
         }
     }
 
-    private static boolean isCodeGenerationNeeded(JobInfo jobInfo) {
+    private static boolean isCodeGenerationNeeded(JobInfo jobInfo, boolean statistics, boolean trace) {
         // if we do any export, the code generation will always be needed.
         if (exportConfig || (!(jobInfo.getProcess() instanceof IProcess2))) {
             return true;
@@ -199,6 +211,17 @@ public class ProcessorUtilities {
             Date modificationDate = jobInfo.getProcess().getProperty().getModificationDate();
             Date originalDate = designerCoreService.getLastGeneratedJobsDateMap().get(jobInfo.getJobId());
             if (originalDate == null || modificationDate.compareTo(originalDate) != 0) {
+                if (jobInfo.getFatherJobInfo() != null) {
+                    jobInfo.getFatherJobInfo().setForceRegenerate(true);
+                }
+                return true;
+            }
+
+            Integer previousInfos = lastGeneratedWithStatsOrTrace.get(jobInfo.getJobId());
+            Integer infos = new Integer(0);
+            infos += statistics ? GENERATED_WITH_STATS : 0;
+            infos += trace ? GENERATED_WITH_TRACES : 0;
+            if (previousInfos != infos) {
                 if (jobInfo.getFatherJobInfo() != null) {
                     jobInfo.getFatherJobInfo().setForceRegenerate(true);
                 }
@@ -268,6 +291,8 @@ public class ProcessorUtilities {
             return false;
         }
         if (jobInfo.getFatherJobInfo() == null) {
+            neededModules.clear();
+            codeModified = false;
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
             ItemCacheManager.clearCache();
@@ -311,6 +336,7 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
+        neededModules.addAll(currentProcess.getNeededLibraries(false));
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
         boolean toReturn = true;
@@ -369,7 +395,8 @@ public class ProcessorUtilities {
         // generate the code of the father after the childrens
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
-        if (isCodeGenerationNeeded(jobInfo)) {
+        if (isCodeGenerationNeeded(jobInfo, statistics, trace)) {
+            codeModified = true;
             if ((currentProcess instanceof IProcess2) && exportConfig) {
                 // to force to regenerate the data nodes
                 ((IProcess2) currentProcess).setProcessModified(true);
@@ -405,6 +432,10 @@ public class ProcessorUtilities {
                 designerCoreService.getLastGeneratedJobsDateMap().put(jobInfo.getJobId(),
                         jobInfo.getProcessItem().getProperty().getModificationDate());
             }
+            Integer infos = new Integer(0);
+            infos += statistics ? GENERATED_WITH_STATS : 0;
+            infos += trace ? GENERATED_WITH_TRACES : 0;
+            lastGeneratedWithStatsOrTrace.put(jobInfo.getJobId(), infos);
 
             if (currentProcess instanceof IProcess2) {
                 ((IProcess2) currentProcess).setNeedRegenerateCode(false);
@@ -421,8 +452,8 @@ public class ProcessorUtilities {
 
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
-            getProcessor(currentProcess).computeLibrariesPath(true);
-            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            getProcessor(currentProcess).computeLibrariesPath(neededModules);
+            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && codeModified) {
                 try {
                     CorePlugin.getDefault().getRunProcessService().getJavaProject().getProject().build(
                             IncrementalProjectBuilder.AUTO_BUILD, null);
@@ -430,6 +461,8 @@ public class ProcessorUtilities {
                     throw new ProcessorException(e);
                 }
             }
+            codeModified = false;
+            neededModules.clear();
         }
         return toReturn;
     }
