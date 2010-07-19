@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getExecutionPlanPart <em>Execution Plan Part</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#isOverride <em>Override</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue <em>Value</em>}</li>
  * </ul>
@@ -79,6 +80,32 @@ public interface ExecutionPlanPartJobPrm extends EObject {
      * @generated
      */
     void setExecutionPlanPart(ExecutionPlanPart value);
+
+    /**
+     * Returns the value of the '<em><b>Override</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Override</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Override</em>' attribute.
+     * @see #setOverride(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_Override()
+     * @model
+     * @generated
+     */
+    boolean isOverride();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#isOverride <em>Override</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Override</em>' attribute.
+     * @see #isOverride()
+     * @generated
+     */
+    void setOverride(boolean value);
 
     /**
      * Returns the value of the '<em><b>Name</b></em>' attribute.

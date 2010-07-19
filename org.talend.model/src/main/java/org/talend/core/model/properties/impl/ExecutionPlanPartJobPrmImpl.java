@@ -27,6 +27,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getExecutionPlanPart <em>Execution Plan Part</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#isOverride <em>Override</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getValue <em>Value</em>}</li>
  * </ul>
@@ -64,6 +65,26 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
      * @ordered
      */
     protected ExecutionPlanPart executionPlanPart;
+
+    /**
+     * The default value of the '{@link #isOverride() <em>Override</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOverride()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean OVERRIDE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isOverride() <em>Override</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isOverride()
+     * @generated
+     * @ordered
+     */
+    protected boolean override = OVERRIDE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -187,6 +208,27 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isOverride() {
+        return override;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOverride(boolean newOverride) {
+        boolean oldOverride = override;
+        override = newOverride;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE, oldOverride, override));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getName() {
         return name;
     }
@@ -236,6 +278,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__EXECUTION_PLAN_PART:
                 if (resolve) return getExecutionPlanPart();
                 return basicGetExecutionPlanPart();
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE:
+                return isOverride() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 return getName();
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
@@ -256,6 +300,9 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__EXECUTION_PLAN_PART:
                 setExecutionPlanPart((ExecutionPlanPart)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE:
+                setOverride(((Boolean)newValue).booleanValue());
                 return;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 setName((String)newValue);
@@ -280,6 +327,9 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__EXECUTION_PLAN_PART:
                 setExecutionPlanPart((ExecutionPlanPart)null);
                 return;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE:
+                setOverride(OVERRIDE_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 setName(NAME_EDEFAULT);
                 return;
@@ -301,6 +351,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return id != ID_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__EXECUTION_PLAN_PART:
                 return executionPlanPart != null;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE:
+                return override != OVERRIDE_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
@@ -320,6 +372,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
         result.append(id);
+        result.append(", override: ");
+        result.append(override);
         result.append(", name: ");
         result.append(name);
         result.append(", value: ");
