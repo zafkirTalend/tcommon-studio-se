@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>tac-assembly</groupId>
+	<artifactId>tac-assembly</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- Variables used in the project -->
+	<properties>
+		<tac.webapp>org.talend.administrator.war</tac.webapp>
+		<tomcat.file>file://c:/apache-tomcat-6.0.28-windows-x86.zip</tomcat.file>
+		<war.file>file://c:/org.talend.administrator.war</war.file>
+	</properties>
+
+	<build>
+		<plugins>
+			<!-- Tomcat container management -->
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<configuration>
+					<container>
+						<containerId>tomcat6x</containerId>
+						<zipUrlInstaller>
+							<url>${tomcat.file}</url>
+							<installDir>${project.build.directory}</installDir>
+						</zipUrlInstaller>
+					</container>
+
+					<!-- Configuration to use with the Container -->
+					<configuration>
+						<type>existing</type>
+						<!--
+							<home>${project.build.directory}/apache-tomcat-6.0.28-windows-x86/apache-tomcat-6.0.28</home>
+						-->
+					</configuration>
+
+					<deployer>
+						<deployables>
+							<deployable>
+								<type>war</type>
+								<location>${war.file}</location>
+							</deployable>
+						</deployables>
+					</deployer>
+
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+</project>

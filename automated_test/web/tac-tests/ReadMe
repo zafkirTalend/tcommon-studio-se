@@ -1,0 +1,33 @@
+Environment building：
+1. Selenium
+   1)Selenium IDE:(firefox plugin;record,generate scripts/languages)
+   
+   Install:http://seleniumhq.org/download/
+    Open this url using firefox,it can be altomatically installed by clicking download
+   2)RC server:
+    download:http://seleniumhq.org/download/,then just unzip the package.
+    cd to the corresponding folder,-> java -jar relenium-server.jar 
+2. 1)Maven 2.2.1 install:
+   Download from official site and unzip it:
+   	MAVEN_HOME: D:\apache-maven221
+   	PATH      : %MAVEN_HOME%\bin
+   	(You can verify the installation by running mvn -v)
+   2) Installing maven plugin(m2eclipse):
+   m2eclipse Core Update Site: http://m2eclipse.sonatype.org/sites/m2e
+//******************************************************************
+To install this plugin in the Eclipse IDE:
+	a.Select Help > Install New Software. This should display the "Install" dialog.
+	b.Paste the Update Site URL into the field named "Work with:" and press Enter. Pressing Enter should cause Eclipse to update list of available plugins and components.
+	c.Choose the component listed under m2eclipse: "Maven Integration for Eclipse (Required)".
+	d.Click Next. Eclipse will then check to see if there are any issues which would prevent a successful installation.
+	e.Click Next and agree to the terms of the Eclipse Public License v1.0.
+	f.Click Finish to begin the installation process. Eclipse will then download and install the necessary components.
+	g.Once the installation process is finished, Eclipse will ask you if you want to restart the IDE. Sonatype strongly recommends that you restart your IDE after installing m2eclipse.
+
+3.About the demo:
+   Checkout the demo,  right click on the project,->maven ->enable depedency management
+   for the demo, the dependecy is alreally added in pom.xml.
+   Cd to the workspace,run mvn -install to get the dependency ,it will be download in this path by default---  C:\Users\YourAdminOSName\.m2\repository
+   You can see this throuth librariy Maven Dependecies.
+   Start seleniumRC server: java -jar selenium-server.jar,then run the testSelenium.
+   

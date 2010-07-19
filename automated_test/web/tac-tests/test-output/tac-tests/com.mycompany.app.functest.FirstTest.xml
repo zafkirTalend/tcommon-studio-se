@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mycompany.app.functest.FirstTest" failures="1" tests="1" time="0.078" errors="0">
+  <properties/>
+  <testcase name="shouldPass on instance null(com.mycompany.app.functest.FirstTest)" time="0.047" classname="com.mycompany.app.functest.FirstTest">
+    <failure type="java.lang.NullPointerException">
+      <![CDATA[java.lang.NullPointerException
+	at com.mycompany.app.functest.FirstTest.shouldPass(FirstTest.java:19)
+... Removed 22 stack frames]]>
+    </failure>
+  </testcase>
+</testsuite>
