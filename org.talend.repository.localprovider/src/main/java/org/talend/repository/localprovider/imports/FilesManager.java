@@ -45,7 +45,7 @@ public class FilesManager extends ResourcesManager {
                     add(file.getAbsolutePath(), file);
                 }
                 if (file.isDirectory()) {
-                    if (!contents[i].getName().equals(WizardProjectsImportPage.METADATA_FOLDER)) {
+                    if (!file.getName().equals(WizardProjectsImportPage.METADATA_FOLDER) && (!file.getName().equals(".svn"))) {
                         collectPath2Object(contents[i]);
                     }
                 }
