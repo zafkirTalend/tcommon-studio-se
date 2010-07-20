@@ -14,6 +14,7 @@ package org.talend.librariesmanager.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
@@ -136,32 +137,35 @@ public class ModulesNeededProvider {
         }
         componentImportNeedsList.removeAll(moduleForCurrentJobList);
 
-        for (String neededLibrary : process.getNeededLibraries(false)) {
-            boolean alreadyInImports = false;
-            for (ModuleNeeded module : componentImportNeedsList) {
-                if (module.getModuleName().equals(neededLibrary)) {
-                    alreadyInImports = true;
+        Set<String> neededLibraries = process.getNeededLibraries(false);
+        if (neededLibraries != null) {
+            for (String neededLibrary : neededLibraries) {
+                boolean alreadyInImports = false;
+                for (ModuleNeeded module : componentImportNeedsList) {
+                    if (module.getModuleName().equals(neededLibrary)) {
+                        alreadyInImports = true;
+                    }
                 }
-            }
-            if (alreadyInImports) {
-                continue;
-            }
-
-            // Step 2: re-add specific modules
-            ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), neededLibrary, //$NON-NLS-1$
-                    "Required for the job " + process.getProperty().getLabel() + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
-
-            componentImportNeedsList.add(toAdd);
-
-            // Step 3: remove added modules from unusedModule list
-            ModuleNeeded unusedModule = null;
-            for (ModuleNeeded module : unUsedModules) {
-                if (module.getModuleName().equals(neededLibrary)) {
-                    unusedModule = module;
+                if (alreadyInImports) {
+                    continue;
                 }
-            }
-            if (unusedModule != null) {
-                unUsedModules.remove(unusedModule);
+
+                // Step 2: re-add specific modules
+                ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getProperty().getLabel(), neededLibrary, //$NON-NLS-1$
+                        "Required for the job " + process.getProperty().getLabel() + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
+
+                componentImportNeedsList.add(toAdd);
+
+                // Step 3: remove added modules from unusedModule list
+                ModuleNeeded unusedModule = null;
+                for (ModuleNeeded module : unUsedModules) {
+                    if (module.getModuleName().equals(neededLibrary)) {
+                        unusedModule = module;
+                    }
+                }
+                if (unusedModule != null) {
+                    unUsedModules.remove(unusedModule);
+                }
             }
         }
     }

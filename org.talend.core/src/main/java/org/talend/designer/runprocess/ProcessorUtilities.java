@@ -336,7 +336,10 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
-        neededModules.addAll(currentProcess.getNeededLibraries(false));
+        Set<String> neededLibraries = currentProcess.getNeededLibraries(false);
+        if (neededLibraries != null) {
+            neededModules.addAll(neededLibraries);
+        }
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
         boolean toReturn = true;
