@@ -31,7 +31,6 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
@@ -1503,8 +1502,9 @@ public abstract class RepositoryUpdateManager {
     }
 
     public boolean isItemIndexChecked() {
-        IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-        IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
-        return preferenceStore.getBoolean(ITalendCorePrefConstants.ITEM_INDEX);
+        // IDesignerCoreService designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        // IPreferenceStore preferenceStore = designerCoreService.getDesignerCorePreferenceStore();
+        // return preferenceStore.getBoolean(ITalendCorePrefConstants.ITEM_INDEX);
+        return true;
     }
 }

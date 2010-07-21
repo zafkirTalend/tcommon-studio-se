@@ -33,7 +33,6 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.ILastVersionChecker;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
@@ -142,10 +141,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                 factory.save(getItem());
                 loadedProcess.setProperty(getItem().getProperty());
                 // 9035
-                if (CorePlugin.getDefault().getDesignerCoreService().getDesignerCorePreferenceStore().getBoolean(
-                        ITalendCorePrefConstants.ITEM_INDEX)) {
-                    RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
-                }
+                RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
                 if (monitor != null) {
                     monitor.worked(50);
                 }

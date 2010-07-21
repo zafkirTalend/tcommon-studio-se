@@ -967,6 +967,12 @@ public class ImportItemUtil {
         // (backwards compatibility)
         // (those that are in the project but not in the item)
         projectMigrationTasks.removeAll(itemMigrationTasks);
+
+        // force to re-calculate the relationship index
+        String relationIndexTask = "org.talend.repository.model.migration.RelationShipIndexMigrationTask"; //$NON-NLS-1$
+        if (!projectMigrationTasks.contains(relationIndexTask)) {
+            projectMigrationTasks.add(relationIndexTask);
+        }
         itemRecord.setMigrationTasksToApply(projectMigrationTasks);
 
         return true;

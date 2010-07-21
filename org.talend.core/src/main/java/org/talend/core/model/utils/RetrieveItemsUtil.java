@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -70,40 +71,42 @@ public final class RetrieveItemsUtil {
      * 
      */
     public static List<IRepositoryViewObject> retrieveObjectByIndexWithType(String relatedId, final boolean withLastVersion,
-            final boolean withDeleted, final boolean withLocked, final boolean withRefProject, String indexType)
-            throws PersistenceException {
+            final boolean withDeleted, final boolean withLocked, final boolean withRefProject, String sourceRelation,
+            String[] targetRelations) throws PersistenceException {
         if (relatedId == null || "".equals(relatedId.trim()) || RepositoryNode.NO_ID.equals(relatedId.trim())) { //$NON-NLS-1$
             return Collections.emptyList();
         }
-        if (indexType == null) {
+        if (targetRelations == null) {
             return Collections.emptyList();
         }
 
         RelationshipItemBuilder relationsBuilder = RelationshipItemBuilder.getInstance();
         final List<Relation> itemsRelated = relationsBuilder.getItemsRelatedTo(relatedId, ItemCacheManager.LATEST_VERSION,
-                indexType);
+                sourceRelation);
         final IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         final Project curProject = ProjectManager.getInstance().getCurrentProject();
 
         List<IRepositoryViewObject> tmpObjects = new ArrayList<IRepositoryViewObject>();
 
         for (Relation r : itemsRelated) {
-            IRepositoryViewObject lastVersion = factory.getLastVersion(curProject, r.getId());
-            ERepositoryStatus status = factory.getStatus(lastVersion);
+            if (ArrayUtils.contains(targetRelations, r.getType())) {
+                IRepositoryViewObject lastVersion = factory.getLastVersion(curProject, r.getId());
+                ERepositoryStatus status = factory.getStatus(lastVersion);
 
-            if ((withDeleted || status != ERepositoryStatus.DELETED)
-                    && (withLocked || status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER)) {
+                if ((withDeleted || status != ERepositoryStatus.DELETED)
+                        && (withLocked || status != ERepositoryStatus.LOCK_BY_OTHER && status != ERepositoryStatus.LOCK_BY_USER)) {
 
-                if (withLastVersion) {
-                    tmpObjects.add(lastVersion);
+                    if (withLastVersion) {
+                        tmpObjects.add(lastVersion);
 
-                } else {
-                    Item item = lastVersion.getProperty().getItem();
-                    ERepositoryObjectType objectType = ERepositoryObjectType.getItemType(item);
-                    List<IRepositoryViewObject> allVersion = factory.getAllVersion(lastVersion.getId(),
-                            item.getState().getPath(), objectType);
+                    } else {
+                        Item item = lastVersion.getProperty().getItem();
+                        ERepositoryObjectType objectType = ERepositoryObjectType.getItemType(item);
+                        List<IRepositoryViewObject> allVersion = factory.getAllVersion(lastVersion.getId(), item.getState()
+                                .getPath(), objectType);
 
-                    tmpObjects.addAll(allVersion);
+                        tmpObjects.addAll(allVersion);
+                    }
                 }
             }
         }
@@ -128,15 +131,15 @@ public final class RetrieveItemsUtil {
 
     }
 
-    public static List<IRepositoryViewObject> retrieveObjectByIndexWithType(String id, String indexType)
-            throws PersistenceException {
-        final boolean withLastVersion = checkLastVersion();
-        final boolean withDeleted = checkDeleted();
-        final boolean withLocked = checkLocked();
-        final boolean withRefProject = checkRefProject();
-
-        return retrieveObjectByIndexWithType(id, withLastVersion, withDeleted, withLocked, withRefProject, indexType);
-    }
+    // public static List<IRepositoryViewObject> retrieveObjectByIndexWithType(String id, String indexType)
+    // throws PersistenceException {
+    // final boolean withLastVersion = checkLastVersion();
+    // final boolean withDeleted = checkDeleted();
+    // final boolean withLocked = checkLocked();
+    // final boolean withRefProject = checkRefProject();
+    //
+    // return retrieveObjectByIndexWithType(id, withLastVersion, withDeleted, withLocked, withRefProject, indexType);
+    // }
 
     private static boolean checkLastVersion() {
         return Boolean.parseBoolean(CorePlugin.getDefault().getDesignerCoreService().getPreferenceStore("checkOnlyLastVersion")); //$NON-NLS-1$
