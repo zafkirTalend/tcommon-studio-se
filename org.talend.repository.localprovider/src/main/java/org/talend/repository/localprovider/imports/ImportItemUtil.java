@@ -361,7 +361,21 @@ public class ImportItemUtil {
                         }
                     }
                 }
-
+                //deploy routines Jar
+                if (!getRoutineExtModulesMap().isEmpty()) {
+                    Set<String> extRoutines = new HashSet<String>();
+                    for (String id : getRoutineExtModulesMap().keySet()) {
+                        Set<String> set = getRoutineExtModulesMap().get(id);
+                        if (set != null) {
+                            extRoutines.addAll(set);
+                        }
+                    }
+                    if (manager instanceof ProviderManager || manager instanceof ZipFileManager) {
+                        deployJarToDesForArchive(manager, extRoutines);
+                    } else {
+                        deployJarToDes(manager, extRoutines);
+                    }
+                }
                 // cannot cancel this part
                 monitor.beginTask(Messages.getString("ImportItemWizardPage.ApplyMigrationTasks"), itemRecords.size() + 1); //$NON-NLS-1$
                 for (ItemRecord itemRecord : itemRecords) {
@@ -633,20 +647,7 @@ public class ImportItemUtil {
                 resource.unload();
             }
         }
-        if (!getRoutineExtModulesMap().isEmpty()) {
-            Set<String> extRoutines = new HashSet<String>();
-            for (String id : getRoutineExtModulesMap().keySet()) {
-                Set<String> set = getRoutineExtModulesMap().get(id);
-                if (set != null) {
-                    extRoutines.addAll(set);
-                }
-            }
-            if (manager instanceof ProviderManager || manager instanceof ZipFileManager) {
-                deployJarToDesForArchive(manager, extRoutines);
-            } else {
-                deployJarToDes(manager, extRoutines);
-            }
-        }
+       
 
     }
 
@@ -820,6 +821,7 @@ public class ImportItemUtil {
         treeBuilder.clear();
         cache.clear();
         projects.clear();
+        routineExtModulesMap.clear();
         initTDQRepository = false;
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
@@ -967,12 +969,6 @@ public class ImportItemUtil {
         // (backwards compatibility)
         // (those that are in the project but not in the item)
         projectMigrationTasks.removeAll(itemMigrationTasks);
-
-        // force to re-calculate the relationship index
-        String relationIndexTask = "org.talend.repository.model.migration.RelationShipIndexMigrationTask"; //$NON-NLS-1$
-        if (!projectMigrationTasks.contains(relationIndexTask)) {
-            projectMigrationTasks.add(relationIndexTask);
-        }
         itemRecord.setMigrationTasksToApply(projectMigrationTasks);
 
         return true;
