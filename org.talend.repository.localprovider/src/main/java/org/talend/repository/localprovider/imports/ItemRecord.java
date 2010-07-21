@@ -256,11 +256,11 @@ public class ItemRecord {
     }
 
     public boolean isTDQItem() {
-        return ERepositoryObjectType.getItemType(getItem()) == ERepositoryObjectType.TDQ_ELEMENT;
+        return ERepositoryObjectType.getItemType(getItem()).getParent() == ERepositoryObjectType.TDQ_ELEMENT;
     }
 
     public boolean isTOPItem() {
-        return path != null && path.toString().indexOf(ReponsitoryContextBridge.PROJECT_DEFAULT_NAME) > 0;
+        return path != null && path.toString().indexOf(ReponsitoryContextBridge.PROJECT_DEFAULT_NAME) == 0;
     }
 
     public boolean isRemoveProjectStatslog() {

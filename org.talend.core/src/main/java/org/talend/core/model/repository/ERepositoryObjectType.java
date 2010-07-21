@@ -528,4 +528,36 @@ public enum ERepositoryObjectType {
                 && !this.equals(ERepositoryObjectType.JOBLETS) && !this.equals(ERepositoryObjectType.JOBLET_DOC)
                 && !this.equals(ERepositoryObjectType.METADATA);
     }
+
+    /**
+     * DOC bZhou Comment method "isDQItemType".
+     * 
+     * This method is to ensure a type is a TDQ item or not.
+     * 
+     * @return
+     */
+    public boolean isDQItemType() {
+        return this.name().indexOf("TDQ") == 0;
+    }
+
+    /**
+     * DOC bZhou Comment method "getParent".
+     * 
+     * @return
+     */
+    public ERepositoryObjectType getParent() {
+        switch (this) {
+        case TDQ_PATTERN_ELEMENT:
+        case TDQ_ANALYSIS_ELEMENT:
+        case TDQ_BUSINESSRULE_ELEMENT:
+        case TDQ_DBCONNECTION_ELEMENT:
+        case TDQ_INDICATOR_ELEMENT:
+        case TDQ_MDMCONNECTION_ELEMENT:
+        case TDQ_REPORT_ELEMENT:
+            return TDQ_ELEMENT;
+        default:
+            return null;
+        }
+    }
+
 }

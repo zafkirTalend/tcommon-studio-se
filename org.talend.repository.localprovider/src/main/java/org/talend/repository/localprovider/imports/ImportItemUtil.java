@@ -485,7 +485,7 @@ public class ImportItemUtil {
             final Set<String> overwriteDeletedItems) {
         resolveItem(manager, itemRecord);
 
-        if (!itemRecord.isTDQItem()) {
+        if (!itemRecord.isTDQItem() && !itemRecord.isTOPItem()) {
             int num = 0;
             for (Object obj : itemRecord.getResourceSet().getResources()) {
                 if (!(obj instanceof PropertiesProjectResourceImpl)) {
