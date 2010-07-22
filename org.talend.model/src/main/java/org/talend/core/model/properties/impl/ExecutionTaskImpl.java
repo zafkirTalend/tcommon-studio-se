@@ -46,6 +46,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getBranch <em>Branch</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobVersion <em>Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isRegenerateJobOnChange <em>Regenerate Job On Change</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedSvnRevision <em>Generated Svn Revision</em>}</li>
@@ -63,6 +64,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedProjectName <em>Generated Project Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedJobName <em>Generated Job Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getGeneratedJobVersion <em>Generated Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStackTrace <em>Error Stack Trace</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
@@ -70,6 +72,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isUseLatestVersion <em>Use Latest Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -324,6 +327,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String jobVersion = JOB_VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isRegenerateJobOnChange() <em>Regenerate Job On Change</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRegenerateJobOnChange()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean REGENERATE_JOB_ON_CHANGE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isRegenerateJobOnChange() <em>Regenerate Job On Change</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isRegenerateJobOnChange()
+     * @generated
+     * @ordered
+     */
+    protected boolean regenerateJobOnChange = REGENERATE_JOB_ON_CHANGE_EDEFAULT;
 
     /**
      * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
@@ -630,6 +653,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected String generatedJobName = GENERATED_JOB_NAME_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getGeneratedJobVersion() <em>Generated Job Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedJobVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final String GENERATED_JOB_VERSION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getGeneratedJobVersion() <em>Generated Job Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getGeneratedJobVersion()
+     * @generated
+     * @ordered
+     */
+    protected String generatedJobVersion = GENERATED_JOB_VERSION_EDEFAULT;
+
+    /**
      * The default value of the '{@link #isApplyContextToChildren() <em>Apply Context To Children</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -752,6 +795,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String onUnknownStateJob = ON_UNKNOWN_STATE_JOB_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseLatestVersion() <em>Use Latest Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseLatestVersion()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_LATEST_VERSION_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseLatestVersion() <em>Use Latest Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseLatestVersion()
+     * @generated
+     * @ordered
+     */
+    protected boolean useLatestVersion = USE_LATEST_VERSION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -953,6 +1016,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         jobVersion = newJobVersion;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_VERSION, oldJobVersion, jobVersion));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isRegenerateJobOnChange() {
+        return regenerateJobOnChange;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRegenerateJobOnChange(boolean newRegenerateJobOnChange) {
+        boolean oldRegenerateJobOnChange = regenerateJobOnChange;
+        regenerateJobOnChange = newRegenerateJobOnChange;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE, oldRegenerateJobOnChange, regenerateJobOnChange));
     }
 
     /**
@@ -1387,6 +1471,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getGeneratedJobVersion() {
+        return generatedJobVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setGeneratedJobVersion(String newGeneratedJobVersion) {
+        String oldGeneratedJobVersion = generatedJobVersion;
+        generatedJobVersion = newGeneratedJobVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_VERSION, oldGeneratedJobVersion, generatedJobVersion));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1528,6 +1633,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isUseLatestVersion() {
+        return useLatestVersion;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseLatestVersion(boolean newUseLatestVersion) {
+        boolean oldUseLatestVersion = useLatestVersion;
+        useLatestVersion = newUseLatestVersion;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION, oldUseLatestVersion, useLatestVersion));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1595,6 +1721,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getContext();
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
                 return getJobVersion();
+            case PropertiesPackage.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE:
+                return isRegenerateJobOnChange() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
@@ -1630,6 +1758,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getGeneratedProjectName();
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 return getGeneratedJobName();
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_VERSION:
+                return getGeneratedJobVersion();
             case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
                 return isApplyContextToChildren() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
@@ -1644,6 +1774,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getOwnerSchedulerInstanceId();
             case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
                 return getOnUnknownStateJob();
+            case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
+                return isUseLatestVersion() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1696,6 +1828,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
                 setJobVersion((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE:
+                setRegenerateJobOnChange(((Boolean)newValue).booleanValue());
                 return;
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 setActive(((Boolean)newValue).booleanValue());
@@ -1750,6 +1885,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 setGeneratedJobName((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_VERSION:
+                setGeneratedJobVersion((String)newValue);
+                return;
             case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
                 setApplyContextToChildren(((Boolean)newValue).booleanValue());
                 return;
@@ -1770,6 +1908,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
                 setOnUnknownStateJob((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
+                setUseLatestVersion(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1823,6 +1964,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
                 setJobVersion(JOB_VERSION_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE:
+                setRegenerateJobOnChange(REGENERATE_JOB_ON_CHANGE_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 setActive(ACTIVE_EDEFAULT);
                 return;
@@ -1874,6 +2018,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 setGeneratedJobName(GENERATED_JOB_NAME_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_VERSION:
+                setGeneratedJobVersion(GENERATED_JOB_VERSION_EDEFAULT);
+                return;
             case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
                 setApplyContextToChildren(APPLY_CONTEXT_TO_CHILDREN_EDEFAULT);
                 return;
@@ -1894,6 +2041,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
                 setOnUnknownStateJob(ON_UNKNOWN_STATE_JOB_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
+                setUseLatestVersion(USE_LATEST_VERSION_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -1933,6 +2083,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
                 return JOB_VERSION_EDEFAULT == null ? jobVersion != null : !JOB_VERSION_EDEFAULT.equals(jobVersion);
+            case PropertiesPackage.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE:
+                return regenerateJobOnChange != REGENERATE_JOB_ON_CHANGE_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
                 return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
@@ -1967,6 +2119,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return GENERATED_PROJECT_NAME_EDEFAULT == null ? generatedProjectName != null : !GENERATED_PROJECT_NAME_EDEFAULT.equals(generatedProjectName);
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
                 return GENERATED_JOB_NAME_EDEFAULT == null ? generatedJobName != null : !GENERATED_JOB_NAME_EDEFAULT.equals(generatedJobName);
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_VERSION:
+                return GENERATED_JOB_VERSION_EDEFAULT == null ? generatedJobVersion != null : !GENERATED_JOB_VERSION_EDEFAULT.equals(generatedJobVersion);
             case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
                 return applyContextToChildren != APPLY_CONTEXT_TO_CHILDREN_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
@@ -1981,6 +2135,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT == null ? ownerSchedulerInstanceId != null : !OWNER_SCHEDULER_INSTANCE_ID_EDEFAULT.equals(ownerSchedulerInstanceId);
             case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
                 return ON_UNKNOWN_STATE_JOB_EDEFAULT == null ? onUnknownStateJob != null : !ON_UNKNOWN_STATE_JOB_EDEFAULT.equals(onUnknownStateJob);
+            case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
+                return useLatestVersion != USE_LATEST_VERSION_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -2015,6 +2171,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(context);
         result.append(", jobVersion: ");
         result.append(jobVersion);
+        result.append(", regenerateJobOnChange: ");
+        result.append(regenerateJobOnChange);
         result.append(", active: ");
         result.append(active);
         result.append(", lastScriptGenerationDate: ");
@@ -2043,6 +2201,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(generatedProjectName);
         result.append(", generatedJobName: ");
         result.append(generatedJobName);
+        result.append(", generatedJobVersion: ");
+        result.append(generatedJobVersion);
         result.append(", applyContextToChildren: ");
         result.append(applyContextToChildren);
         result.append(", errorStackTrace: ");
@@ -2057,6 +2217,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(ownerSchedulerInstanceId);
         result.append(", onUnknownStateJob: ");
         result.append(onUnknownStateJob);
+        result.append(", useLatestVersion: ");
+        result.append(useLatestVersion);
         result.append(')');
         return result.toString();
     }

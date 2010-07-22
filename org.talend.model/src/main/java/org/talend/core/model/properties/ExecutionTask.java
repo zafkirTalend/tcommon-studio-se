@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getBranch <em>Branch</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isRegenerateJobOnChange <em>Regenerate Job On Change</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedSvnRevision <em>Generated Svn Revision</em>}</li>
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedProjectName <em>Generated Project Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobName <em>Generated Job Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobVersion <em>Generated Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren <em>Apply Context To Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStackTrace <em>Error Stack Trace</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastTriggeringDate <em>Last Triggering Date</em>}</li>
@@ -47,6 +49,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isAddStatisticsCodeEnabled <em>Add Statistics Code Enabled</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOwnerSchedulerInstanceId <em>Owner Scheduler Instance Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getOnUnknownStateJob <em>On Unknown State Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}</li>
  * </ul>
  * </p>
  *
@@ -231,6 +234,32 @@ public interface ExecutionTask extends ExecutionTriggerable {
      * @generated
      */
     void setJobVersion(String value);
+
+    /**
+     * Returns the value of the '<em><b>Regenerate Job On Change</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Regenerate Job On Change</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Regenerate Job On Change</em>' attribute.
+     * @see #setRegenerateJobOnChange(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_RegenerateJobOnChange()
+     * @model
+     * @generated
+     */
+    boolean isRegenerateJobOnChange();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isRegenerateJobOnChange <em>Regenerate Job On Change</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Regenerate Job On Change</em>' attribute.
+     * @see #isRegenerateJobOnChange()
+     * @generated
+     */
+    void setRegenerateJobOnChange(boolean value);
 
     /**
      * Returns the value of the '<em><b>Active</b></em>' attribute.
@@ -650,6 +679,32 @@ public interface ExecutionTask extends ExecutionTriggerable {
     void setGeneratedJobName(String value);
 
     /**
+     * Returns the value of the '<em><b>Generated Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Generated Job Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Generated Job Version</em>' attribute.
+     * @see #setGeneratedJobVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_GeneratedJobVersion()
+     * @model
+     * @generated
+     */
+    String getGeneratedJobVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobVersion <em>Generated Job Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Generated Job Version</em>' attribute.
+     * @see #getGeneratedJobVersion()
+     * @generated
+     */
+    void setGeneratedJobVersion(String value);
+
+    /**
      * Returns the value of the '<em><b>Apply Context To Children</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -827,5 +882,31 @@ public interface ExecutionTask extends ExecutionTriggerable {
      * @generated
      */
     void setOnUnknownStateJob(String value);
+
+    /**
+     * Returns the value of the '<em><b>Use Latest Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Use Latest Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Use Latest Version</em>' attribute.
+     * @see #setUseLatestVersion(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_UseLatestVersion()
+     * @model
+     * @generated
+     */
+    boolean isUseLatestVersion();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Use Latest Version</em>' attribute.
+     * @see #isUseLatestVersion()
+     * @generated
+     */
+    void setUseLatestVersion(boolean value);
 
 } // ExecutionTask

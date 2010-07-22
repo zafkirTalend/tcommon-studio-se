@@ -3835,12 +3835,21 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__JOB_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 6;
 
     /**
+     * The feature id for the '<em><b>Regenerate Job On Change</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 7;
+
+    /**
      * The feature id for the '<em><b>Active</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ACTIVE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 7;
+    int EXECUTION_TASK__ACTIVE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 8;
 
     /**
      * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
@@ -3849,7 +3858,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 8;
+    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 9;
 
     /**
      * The feature id for the '<em><b>Generated Svn Revision</b></em>' attribute.
@@ -3858,7 +3867,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_SVN_REVISION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 9;
+    int EXECUTION_TASK__GENERATED_SVN_REVISION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 10;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -3866,7 +3875,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 10;
+    int EXECUTION_TASK__ID_REMOTE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 11;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -3875,7 +3884,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 11;
+    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 12;
 
     /**
      * The feature id for the '<em><b>Checksum Archive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3884,7 +3893,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CHECKSUM_ARCHIVE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 12;
+    int EXECUTION_TASK__CHECKSUM_ARCHIVE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 13;
 
     /**
      * The feature id for the '<em><b>Job Script Archive Filename</b></em>' attribute.
@@ -3893,7 +3902,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 13;
+    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 14;
 
     /**
      * The feature id for the '<em><b>Last Run Date</b></em>' attribute.
@@ -3901,7 +3910,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_RUN_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 14;
+    int EXECUTION_TASK__LAST_RUN_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 15;
 
     /**
      * The feature id for the '<em><b>Last Deployment Date</b></em>' attribute.
@@ -3910,7 +3919,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 15;
+    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 16;
 
     /**
      * The feature id for the '<em><b>Last Ended Run Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3919,7 +3928,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 16;
+    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 17;
 
     /**
      * The feature id for the '<em><b>Cmd Prms</b></em>' containment reference list.
@@ -3928,7 +3937,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CMD_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 17;
+    int EXECUTION_TASK__CMD_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 18;
 
     /**
      * The feature id for the '<em><b>Job Prms</b></em>' containment reference list.
@@ -3937,7 +3946,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 18;
+    int EXECUTION_TASK__JOB_PRMS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 19;
 
     /**
      * The feature id for the '<em><b>Job Id</b></em>' attribute.
@@ -3945,7 +3954,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 19;
+    int EXECUTION_TASK__JOB_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 20;
 
     /**
      * The feature id for the '<em><b>Virtual Server</b></em>' reference.
@@ -3953,7 +3962,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__VIRTUAL_SERVER = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 20;
+    int EXECUTION_TASK__VIRTUAL_SERVER = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 21;
 
     /**
      * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
@@ -3962,7 +3971,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 21;
+    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 22;
 
     /**
      * The feature id for the '<em><b>Generated Project Name</b></em>' attribute.
@@ -3971,7 +3980,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_PROJECT_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 22;
+    int EXECUTION_TASK__GENERATED_PROJECT_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 23;
 
     /**
      * The feature id for the '<em><b>Generated Job Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3980,7 +3989,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__GENERATED_JOB_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 23;
+    int EXECUTION_TASK__GENERATED_JOB_NAME = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 24;
+
+    /**
+     * The feature id for the '<em><b>Generated Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__GENERATED_JOB_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 25;
 
     /**
      * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
@@ -3989,7 +4007,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 24;
+    int EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 26;
 
     /**
      * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -3998,7 +4016,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STACK_TRACE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 25;
+    int EXECUTION_TASK__ERROR_STACK_TRACE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 27;
 
     /**
      * The feature id for the '<em><b>Last Triggering Date</b></em>' attribute.
@@ -4007,7 +4025,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_TRIGGERING_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 26;
+    int EXECUTION_TASK__LAST_TRIGGERING_DATE = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 28;
 
     /**
      * The feature id for the '<em><b>Exec Statistics Enabled</b></em>' attribute.
@@ -4016,7 +4034,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 27;
+    int EXECUTION_TASK__EXEC_STATISTICS_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 29;
 
     /**
      * The feature id for the '<em><b>Add Statistics Code Enabled</b></em>' attribute.
@@ -4025,7 +4043,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 28;
+    int EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 30;
 
     /**
      * The feature id for the '<em><b>Owner Scheduler Instance Id</b></em>' attribute.
@@ -4034,7 +4052,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 29;
+    int EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 31;
 
     /**
      * The feature id for the '<em><b>On Unknown State Job</b></em>' attribute.
@@ -4043,7 +4061,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 30;
+    int EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 32;
+
+    /**
+     * The feature id for the '<em><b>Use Latest Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__USE_LATEST_VERSION = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 33;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -4052,7 +4079,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 31;
+    int EXECUTION_TASK_FEATURE_COUNT = EXECUTION_TRIGGERABLE_FEATURE_COUNT + 34;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -9535,6 +9562,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_JobVersion();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isRegenerateJobOnChange <em>Regenerate Job On Change</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Regenerate Job On Change</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isRegenerateJobOnChange()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_RegenerateJobOnChange();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Active</em>'.
@@ -9717,6 +9755,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_GeneratedJobName();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getGeneratedJobVersion <em>Generated Job Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Generated Job Version</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getGeneratedJobVersion()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_GeneratedJobVersion();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isApplyContextToChildren <em>Apply Context To Children</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Apply Context To Children</em>'.
@@ -9790,6 +9839,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionTask_OnUnknownStateJob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isUseLatestVersion <em>Use Latest Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Latest Version</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isUseLatestVersion()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_UseLatestVersion();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTaskCmdPrm <em>Execution Task Cmd Prm</em>}'.
@@ -14425,6 +14485,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__JOB_VERSION = eINSTANCE.getExecutionTask_JobVersion();
 
         /**
+         * The meta object literal for the '<em><b>Regenerate Job On Change</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE = eINSTANCE.getExecutionTask_RegenerateJobOnChange();
+
+        /**
          * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
          * <!-- begin-user-doc --> <!--
          * end-user-doc -->
@@ -14561,6 +14629,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__GENERATED_JOB_NAME = eINSTANCE.getExecutionTask_GeneratedJobName();
 
         /**
+         * The meta object literal for the '<em><b>Generated Job Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__GENERATED_JOB_VERSION = eINSTANCE.getExecutionTask_GeneratedJobVersion();
+
+        /**
          * The meta object literal for the '<em><b>Apply Context To Children</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
          * 
@@ -14615,6 +14691,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__ON_UNKNOWN_STATE_JOB = eINSTANCE.getExecutionTask_OnUnknownStateJob();
+
+        /**
+         * The meta object literal for the '<em><b>Use Latest Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__USE_LATEST_VERSION = eINSTANCE.getExecutionTask_UseLatestVersion();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskCmdPrmImpl <em>Execution Task Cmd Prm</em>}' class.
