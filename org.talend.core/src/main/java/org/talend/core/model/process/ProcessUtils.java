@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +32,13 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -111,6 +114,11 @@ public final class ProcessUtils {
 
     public static Collection<IRepositoryViewObject> getProcessDependencies(ERepositoryObjectType dependencyType,
             Collection<Item> items) {
+        return getProcessDependencies(dependencyType, items, true);
+    }
+
+    public static Collection<IRepositoryViewObject> getProcessDependencies(ERepositoryObjectType dependencyType,
+            Collection<Item> items, boolean withSystem) {
 
         switch (dependencyType) {
         case CONTEXT:
@@ -122,7 +130,9 @@ public final class ProcessUtils {
         case JOBLET:
             return getJobletDependenciesOfProcess(items);
         case SQLPATTERNS:
-            return getSQLTemplatesDependenciesOfProcess(items);
+            return getSQLTemplatesDependenciesOfProcess(items, withSystem);
+        case ROUTINES:
+            return getRoutineDependenciesOfProcess(items, withSystem);
         default:
             return Collections.emptyList();
         }
@@ -130,6 +140,10 @@ public final class ProcessUtils {
     }
 
     public static Collection<IRepositoryViewObject> getAllProcessDependencies(Collection<Item> items) {
+        return getAllProcessDependencies(items, true);
+    }
+
+    public static Collection<IRepositoryViewObject> getAllProcessDependencies(Collection<Item> items, boolean withSystem) {
         clearFakeProcesses();
         createFakeProcesses(items);
 
@@ -137,7 +151,8 @@ public final class ProcessUtils {
         dependencies.addAll(getMetadataDependenciesOfProcess(items));
         dependencies.addAll(getChildPorcessDependenciesOfProcess(items));
         dependencies.addAll(getJobletDependenciesOfProcess(items));
-        dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items));
+        dependencies.addAll(getSQLTemplatesDependenciesOfProcess(items, withSystem));
+        dependencies.addAll(getRoutineDependenciesOfProcess(items, withSystem));
 
         clearFakeProcesses();
         return dependencies;
@@ -155,7 +170,7 @@ public final class ProcessUtils {
             } else if (item instanceof JobletProcessItem) {
                 process = ((JobletProcessItem) item).getJobletProcess();
             }
-            if (process != null) {
+            if (process != null && !process.getContext().isEmpty()) {
                 ContextType contextType = (ContextType) process.getContext().get(0);
                 for (ContextParameterType param : (List<ContextParameterType>) contextType.getContextParameter()) {
                     String repositoryContextId = param.getRepositoryContextId();
@@ -347,7 +362,8 @@ public final class ProcessUtils {
         return repositoryObjects;
     }
 
-    private static Collection<IRepositoryViewObject> getSQLTemplatesDependenciesOfProcess(Collection<Item> items) {
+    private static Collection<IRepositoryViewObject> getSQLTemplatesDependenciesOfProcess(Collection<Item> items,
+            boolean withSytem) {
         Collection<IRepositoryViewObject> repositoryObjects = new ArrayList<IRepositoryViewObject>();
         for (IProcess process : checkAndGetFakeProcesses(items)) {
             if (process != null) {
@@ -366,8 +382,11 @@ public final class ProcessUtils {
                                                 .getLastVersionRepositoryObjectById(idAndLable[0]);
                                         if (repositoryObject != null && repositoryObject.getLabel().equals(idAndLable[1])) {
                                             Item item2 = repositoryObject.getProperty().getItem();
-                                            if (item2 instanceof SQLPatternItem && !((SQLPatternItem) item2).isSystem()) {
-                                                repositoryObjects.add(repositoryObject);
+                                            if (item2 instanceof SQLPatternItem) {
+                                                if (!((SQLPatternItem) item2).isSystem() || ((SQLPatternItem) item2).isSystem()
+                                                        && withSytem) {
+                                                    repositoryObjects.add(repositoryObject);
+                                                }
                                             }
                                         }
                                     }
@@ -377,6 +396,55 @@ public final class ProcessUtils {
                     }
                 }
             }
+        }
+        return repositoryObjects;
+    }
+
+    private static Collection<IRepositoryViewObject> getRoutineDependenciesOfProcess(Collection<Item> items, boolean withSystem) {
+        Collection<IRepositoryViewObject> repositoryObjects = new HashSet<IRepositoryViewObject>();
+
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+
+        List<IRepositoryViewObject> systemRoutines = null;
+        if (withSystem) {
+            systemRoutines = RoutinesUtil.getCurrentSystemRoutines();
+        }
+        for (Item item : items) {
+            if (item instanceof ProcessItem) {
+                for (ItemInforType infor : (List<ItemInforType>) ((ProcessItem) item).getProcess().getRoutinesDependencies()) {
+                    // no need system item
+                    if (infor.isSystem() && withSystem && systemRoutines != null) {
+                        for (IRepositoryViewObject obj : systemRoutines) {
+                            if (obj.getLabel().equals(infor.getIdOrName())) {
+                                repositoryObjects.add(obj);
+                                break;
+                            }
+                        }
+                    } else {
+                        try {
+                            IRepositoryViewObject lastVersion = factory.getLastVersion(infor.getIdOrName());
+                            if (lastVersion != null) {
+                                repositoryObjects.add(lastVersion);
+                            }
+                        } catch (PersistenceException e) {
+                            ExceptionHandler.process(e);
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+        Collection<IRepositoryViewObject> dependenciesJobs = getChildPorcessDependenciesOfProcess(items);
+        if (!dependenciesJobs.isEmpty()) {
+            List<Item> dependenciesJobItems = new ArrayList<Item>();
+            for (IRepositoryViewObject obj : dependenciesJobs) {
+                dependenciesJobItems.add(obj.getProperty().getItem());
+            }
+            Collection<IRepositoryViewObject> routineDependenciesOfProcess = getRoutineDependenciesOfProcess(
+                    dependenciesJobItems, withSystem);
+            repositoryObjects.addAll(routineDependenciesOfProcess);
         }
         return repositoryObjects;
     }

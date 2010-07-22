@@ -185,7 +185,7 @@ class ExportItemWizardPage extends WizardPage {
         viewer.expandAll();
         viewer.collapseAll();
         // expand to level of metadata connection
-        // viewer.expandToLevel(4);
+        viewer.expandToLevel(2);
 
         addTreeCheckedSelection();
         // if user has select some items in repository view, mark them as checked
@@ -276,6 +276,9 @@ class ExportItemWizardPage extends WizardPage {
     }
 
     private void expandParent(TreeViewer viewer, RepositoryNode node) {
+        if (node.getContentType() == ERepositoryObjectType.SVN_ROOT) {
+            viewer.setExpandedState(node, true);
+        }
         RepositoryNode parent = node.getParent();
         if (parent != null) {
             expandParent(viewer, parent);
@@ -350,9 +353,11 @@ class ExportItemWizardPage extends WizardPage {
                 break;
             case DOCUMENTATION:
                 viewer.expandToLevel(((ProjectRepositoryNode) exportItemsTreeViewer.getRoot()).getDocNode(), 2);
+                break;
             }
 
         }
+
     }
 
     private RepositoryNode getParentNodeNotFolder(RepositoryNode node) {
@@ -619,9 +624,9 @@ class ExportItemWizardPage extends WizardPage {
             public void widgetSelected(SelectionEvent e) {
                 refreshExportDependNodes();
                 viewer.expandAll();
-                viewer.expandToLevel(4);
-                exportDependenciesSelected();
                 viewer.collapseAll();
+                viewer.expandToLevel(3);
+                exportDependenciesSelected();
                 allNode.clear();
                 if (exportDependencies.getSelection()) {
                     allNode.addAll(checkedNodes);
@@ -677,7 +682,7 @@ class ExportItemWizardPage extends WizardPage {
                         }
                     }
                 });
-                monitor.worked(20);
+                monitor.worked(10);
                 // metadata
                 Display.getDefault().syncExec(new Runnable() {
 
@@ -701,7 +706,7 @@ class ExportItemWizardPage extends WizardPage {
                         }
                     }
                 });
-                monitor.worked(20);
+                monitor.worked(10);
 
                 // child joblet
                 Display.getDefault().syncExec(new Runnable() {
@@ -714,13 +719,25 @@ class ExportItemWizardPage extends WizardPage {
                         }
                     }
                 });
-                monitor.worked(20);
-                // child joblet
+                monitor.worked(10);
+                // child sql template
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
                         Collection<IRepositoryViewObject> repJobletObjects = ProcessUtils.getProcessDependencies(
-                                ERepositoryObjectType.SQLPATTERNS, selectedItems);
+                                ERepositoryObjectType.SQLPATTERNS, selectedItems, false);
+                        if (repJobletObjects != null) {
+                            repositoryObjects.addAll(repJobletObjects);
+                        }
+                    }
+                });
+                monitor.worked(10);
+                // child routines
+                Display.getDefault().syncExec(new Runnable() {
+
+                    public void run() {
+                        Collection<IRepositoryViewObject> repJobletObjects = ProcessUtils.getProcessDependencies(
+                                ERepositoryObjectType.ROUTINES, selectedItems, false);
                         if (repJobletObjects != null) {
                             repositoryObjects.addAll(repJobletObjects);
                         }

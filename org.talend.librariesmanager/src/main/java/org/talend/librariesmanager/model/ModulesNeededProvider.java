@@ -13,6 +13,7 @@
 package org.talend.librariesmanager.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,11 +36,14 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
+import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ComponentsFactoryProvider;
@@ -194,6 +198,81 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
+    public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem processItem) {
+        return getModulesNeededForRoutines(new ProcessItem[] { processItem });
+    }
+
+    /**
+     * 
+     * ggu Comment method "getModulesNeededForRoutines".
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem[] processItems) {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+
+        if (processItems != null) {
+            Set<String> systemRoutines = new HashSet<String>();
+            Set<String> userRoutines = new HashSet<String>();
+
+            for (ProcessItem p : processItems) {
+                for (ItemInforType infor : (List<ItemInforType>) p.getProcess().getRoutinesDependencies()) {
+                    if (infor.isSystem()) {
+                        systemRoutines.add(infor.getIdOrName());
+                    } else {
+                        userRoutines.add(infor.getIdOrName());
+                    }
+                }
+            }
+            //
+            if (!systemRoutines.isEmpty()) {
+                List<IRepositoryViewObject> systemRoutineItems = RoutinesUtil.collectRelatedRoutines(systemRoutines, true);
+                importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
+            }
+            //
+            if (!userRoutines.isEmpty()) {
+                List<IRepositoryViewObject> collectUserRoutines = RoutinesUtil.collectRelatedRoutines(userRoutines, false);
+                importNeedsList.addAll(collectModuleNeeded(collectUserRoutines, userRoutines, false));
+            }
+        }
+
+        return importNeedsList;
+    }
+
+    private static List<ModuleNeeded> collectModuleNeeded(List<IRepositoryViewObject> routineItems, Set<String> routineIdOrNames,
+            boolean system) {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        if (!routineItems.isEmpty()) {
+            for (IRepositoryViewObject object : routineItems) {
+                if (routineIdOrNames.contains(object.getLabel()) && system || routineIdOrNames.contains(object.getId())
+                        && !system) {
+                    Item item = object.getProperty().getItem();
+                    if (item instanceof RoutineItem) {
+                        RoutineItem routine = (RoutineItem) item;
+                        importNeedsList.addAll(createModuleNeededFromRoutine(routine));
+                    }
+                }
+            }
+        }
+        return importNeedsList;
+    }
+
+    private static List<ModuleNeeded> createModuleNeededFromRoutine(RoutineItem routine) {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        if (routine != null) {
+            EList imports = routine.getImports();
+            for (Object o : imports) {
+                IMPORTType currentImport = (IMPORTType) o;
+                // FIXME SML i18n
+                ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(), //$NON-NLS-1$
+                        currentImport.getMESSAGE(), currentImport.isREQUIRED());
+                // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
+                importNeedsList.add(toAdd);
+            }
+        }
+        return importNeedsList;
+    }
+
     public static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
@@ -204,15 +283,7 @@ public class ModulesNeededProvider {
                 if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
                     Item item = current.getProperty().getItem();
                     RoutineItem routine = (RoutineItem) item;
-                    EList imports = routine.getImports();
-                    for (Object o : imports) {
-                        IMPORTType currentImport = (IMPORTType) o;
-                        // FIXME SML i18n
-                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(), //$NON-NLS-1$
-                                currentImport.getMESSAGE(), currentImport.isREQUIRED());
-                        // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
-                        importNeedsList.add(toAdd);
-                    }
+                    importNeedsList.addAll(createModuleNeededFromRoutine(routine));
                 }
             }
         } catch (PersistenceException e) {

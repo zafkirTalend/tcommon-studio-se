@@ -149,12 +149,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ProcessType/version"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/subjob"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ProcessType/screenshot"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/routinesDependencies"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//RequiredType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//RequiredType/job"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//SubjobType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//SubjobType/elementParameter"/>
+    </genClasses>
+    <genClasses ecoreClass="TalendFile.ecore#//ItemInforType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ItemInforType/idOrName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ItemInforType/system"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -28,13 +28,16 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.InformationLevel;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.impl.ProjectReferenceImpl;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -110,31 +113,13 @@ public final class CodeGeneratorRoutine {
         }
         Project currentProject = new Project(emfProject);
 
-        ECodeLanguage currentLanguage = currentProject.getLanguage();
-
-        String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + "system" + "::"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + "::" + currentProject.getTechnicalLabel() + "::"; //$NON-NLS-1$ //$NON-NLS-2$
         try {
             List<IRepositoryViewObject> routines = repositoryFactory.getAll(currentProject, ERepositoryObjectType.ROUTINES);
             for (IRepositoryViewObject routine : routines) {
                 RoutineItem item = (RoutineItem) routine.getProperty().getItem();
-                if (currentLanguage.equals(ECodeLanguage.JAVA)) {
-                    InformationLevel level = routine.getProperty().getMaxInformationLevel();
-                    if (level.getValue() == InformationLevel.ERROR) {
-                        continue;
-                    }
-                    if (item.isBuiltIn()) {
-                        toReturn.add(routine.getLabel());
-                    } else {
-                        toReturn.add(routine.getLabel());
-                        // toReturn.add(emfProject.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
-                    }
-                } else {
-                    if (item.isBuiltIn()) {
-                        toReturn.add(builtInPath + routine.getLabel());
-                    } else {
-                        toReturn.add(userPath + routine.getLabel());
-                    }
+                String routineStr = getRoutineStr(currentProject, item);
+                if (routineStr != null) {
+                    toReturn.add(routineStr);
                 }
             }
         } catch (PersistenceException e) {
@@ -144,12 +129,79 @@ public final class CodeGeneratorRoutine {
         return toReturn;
     }
 
+    private static String getRoutineStr(Project currentProject, RoutineItem item) {
+        if (currentProject.getLanguage().equals(ECodeLanguage.JAVA)) {
+            InformationLevel level = item.getProperty().getMaxInformationLevel();
+            if (level.getValue() == InformationLevel.ERROR) {
+                return null;
+            }
+        }
+        return getRoutineStr(currentProject, item.getProperty().getLabel(), item.isBuiltIn());
+    }
+
+    private static String getRoutineStr(Project currentProject, String itemLabel, boolean system) {
+        if (currentProject.getLanguage().equals(ECodeLanguage.JAVA)) {
+            if (system) {
+                return itemLabel;
+            } else {
+                return itemLabel;
+                // toReturn.add(emfProject.getTechnicalLabel().toLowerCase() + "." + routine.getLabel());
+            }
+        } else {
+            String perlConn = "::"; //$NON-NLS-1$
+            if (system) {
+                String builtInPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + perlConn + "system" + perlConn; //$NON-NLS-1$ 
+                return builtInPath + itemLabel;
+            } else {
+                String userPath = ILibrariesService.SOURCE_PERL_ROUTINES_FOLDER + perlConn + currentProject.getTechnicalLabel()
+                        + perlConn;
+                return userPath + itemLabel;
+            }
+        }
+    }
+
     /**
      * initializeRoutinesName must be called first or it might return wrong list name or null.
      */
     public static List<String> getRoutineName() {
         // return routinesName;
         return new ArrayList<String>();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<String> getRequiredRoutineName(IProcess process) {
+        List<String> routines = new ArrayList<String>();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        IProxyRepositoryFactory proxyRepositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
+        try {
+            if (process instanceof IProcess2) { // for process
+                Item processItem = process.getProperty().getItem();
+                if (processItem instanceof ProcessItem) {
+                    EList routinesDependencies = ((ProcessItem) processItem).getProcess().getRoutinesDependencies();
+                    for (ItemInforType infor : (List<ItemInforType>) routinesDependencies) {
+                        if (infor.isSystem()) {
+                            routines.add(getRoutineStr(currentProject, infor.getIdOrName(), true));
+                        } else {
+                            String id = infor.getIdOrName();
+                            IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(id);
+                            if (lastVersion != null) {
+                                Item item = lastVersion.getProperty().getItem();
+                                if (item instanceof RoutineItem) {
+                                    String routineStr = getRoutineStr(currentProject, (RoutineItem) item);
+                                    routines.add(routineStr);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else { // for virtual process
+                return getRoutineName(process); // same as before, add all
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        return routines;
     }
 
     /**

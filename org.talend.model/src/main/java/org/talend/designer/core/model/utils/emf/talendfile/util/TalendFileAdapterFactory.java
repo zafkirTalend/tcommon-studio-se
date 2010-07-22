@@ -140,6 +140,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseSubjobType(SubjobType object) {
                 return createSubjobTypeAdapter();
             }
+            public Object caseItemInforType(ItemInforType object) {
+                return createItemInforTypeAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -421,6 +424,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSubjobTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.ItemInforType <em>Item Infor Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ItemInforType
+     * @generated
+     */
+    public Adapter createItemInforTypeAdapter() {
         return null;
     }
 

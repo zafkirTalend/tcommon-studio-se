@@ -1365,13 +1365,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__SCREENSHOT = 17;
 
     /**
+     * The feature id for the '<em><b>Routines Dependencies</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__ROUTINES_DEPENDENCIES = 18;
+
+    /**
      * The number of structural features of the '<em>Process Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 18;
+    int PROCESS_TYPE_FEATURE_COUNT = 19;
 
 
     /**
@@ -1430,6 +1439,44 @@ public interface TalendFilePackage extends EPackage {
      * @ordered
      */
     int SUBJOB_TYPE_FEATURE_COUNT = 1;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ItemInforTypeImpl <em>Item Infor Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.ItemInforTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getItemInforType()
+     * @generated
+     */
+    int ITEM_INFOR_TYPE = 19;
+
+    /**
+     * The feature id for the '<em><b>Id Or Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_INFOR_TYPE__ID_OR_NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>System</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_INFOR_TYPE__SYSTEM = 1;
+
+    /**
+     * The number of structural features of the '<em>Item Infor Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_INFOR_TYPE_FEATURE_COUNT = 2;
 
 
     /**
@@ -2714,6 +2761,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getProcessType_Screenshot();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRoutinesDependencies <em>Routines Dependencies</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Routines Dependencies</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRoutinesDependencies()
+     * @see #getProcessType()
+     * @generated
+     */
+    EReference getProcessType_RoutinesDependencies();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2853,6 +2911,38 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getSubjobType_ElementParameter();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ItemInforType <em>Item Infor Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Item Infor Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ItemInforType
+     * @generated
+     */
+    EClass getItemInforType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ItemInforType#getIdOrName <em>Id Or Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Or Name</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ItemInforType#getIdOrName()
+     * @see #getItemInforType()
+     * @generated
+     */
+    EAttribute getItemInforType_IdOrName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ItemInforType#isSystem <em>System</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>System</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ItemInforType#isSystem()
+     * @see #getItemInforType()
+     * @generated
+     */
+    EAttribute getItemInforType_System();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -3855,6 +3945,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute PROCESS_TYPE__SCREENSHOT = eINSTANCE.getProcessType_Screenshot();
 
         /**
+         * The meta object literal for the '<em><b>Routines Dependencies</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROCESS_TYPE__ROUTINES_DEPENDENCIES = eINSTANCE.getProcessType_RoutinesDependencies();
+
+        /**
          * The meta object literal for the '<em><b>Logs</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3961,6 +4059,32 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference SUBJOB_TYPE__ELEMENT_PARAMETER = eINSTANCE.getSubjobType_ElementParameter();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ItemInforTypeImpl <em>Item Infor Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.ItemInforTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getItemInforType()
+         * @generated
+         */
+        EClass ITEM_INFOR_TYPE = eINSTANCE.getItemInforType();
+
+        /**
+         * The meta object literal for the '<em><b>Id Or Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_INFOR_TYPE__ID_OR_NAME = eINSTANCE.getItemInforType_IdOrName();
+
+        /**
+         * The meta object literal for the '<em><b>System</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_INFOR_TYPE__SYSTEM = eINSTANCE.getItemInforType_System();
 
     }
 

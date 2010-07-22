@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getSubjob <em>Subjob</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot <em>Screenshot</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRoutinesDependencies <em>Routines Dependencies</em>}</li>
  * </ul>
  * </p>
  *
@@ -234,6 +235,22 @@ public interface ProcessType extends EObject {
      * @generated
      */
     void setScreenshot(byte[] value);
+
+    /**
+     * Returns the value of the '<em><b>Routines Dependencies</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.talendfile.ItemInforType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Routines Dependencies</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Routines Dependencies</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_RoutinesDependencies()
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ItemInforType" containment="true"
+     * @generated
+     */
+    EList getRoutinesDependencies();
 
     /**
      * Returns the value of the '<em><b>Logs</b></em>' containment reference.

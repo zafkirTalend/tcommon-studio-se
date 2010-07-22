@@ -216,6 +216,12 @@ public class TalendFileSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case TalendFilePackage.ITEM_INFOR_TYPE: {
+                ItemInforType itemInforType = (ItemInforType)theEObject;
+                Object result = caseItemInforType(itemInforType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -502,6 +508,21 @@ public class TalendFileSwitch {
      * @generated
      */
     public Object caseSubjobType(SubjobType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Item Infor Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Item Infor Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseItemInforType(ItemInforType object) {
         return null;
     }
 

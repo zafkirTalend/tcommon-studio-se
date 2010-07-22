@@ -91,4 +91,7 @@ public interface ITalendCorePrefConstants {
 
     String DOC_COMPANY_NAME = "company_name";
 
+    String ADD_SYSTEM_ROUTINES = "add_system_routines";
+
+    String ADD_USER_ROUTINES = "add_user_routines";
 }

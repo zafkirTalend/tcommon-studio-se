@@ -197,6 +197,15 @@ public interface TalendFileFactory extends EFactory {
     SubjobType createSubjobType();
 
     /**
+     * Returns a new object of class '<em>Item Infor Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Item Infor Type</em>'.
+     * @generated
+     */
+    ItemInforType createItemInforType();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
