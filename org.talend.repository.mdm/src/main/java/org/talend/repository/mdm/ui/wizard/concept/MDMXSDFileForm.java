@@ -10,17 +10,15 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.mdm.ui.wizard;
+package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +32,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
 import org.eclipse.datatools.enablement.oda.xml.util.ui.XPathPopulationUtil;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -56,7 +55,6 @@ import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
@@ -73,7 +71,6 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
@@ -81,16 +78,6 @@ import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.XmlArray;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.mdm.webservice.WSDataModel;
-import org.talend.mdm.webservice.WSDataModelPK;
-import org.talend.mdm.webservice.WSGetDataModel;
-import org.talend.mdm.webservice.WSGetUniversePKs;
-import org.talend.mdm.webservice.WSPing;
-import org.talend.mdm.webservice.WSRegexDataModelPKs;
-import org.talend.mdm.webservice.WSUniversePK;
-import org.talend.mdm.webservice.XtentisBindingStub;
-import org.talend.mdm.webservice.XtentisPort;
-import org.talend.mdm.webservice.XtentisServiceLocator;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
 import org.talend.repository.mdm.model.MDMXSDExtractorLoopModel;
@@ -156,13 +143,7 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private static Boolean firstTimeWizardOpened = null;
 
-    private String xsdFilePath;
-
-    private String conceptName;
-
     private Group schemaTargetGroup;
-
-    private boolean isTemplateExist = false;
 
     /**
      * Output tab.
@@ -175,6 +156,14 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
     private Composite outputComposite;
 
+    private boolean isTemplateExist;
+
+    private WizardPage wizardPage;
+
+    private String oldSelectedEntity;
+
+    private MetadataTable metadataTable;
+
     /**
      * Constructor to use by RCP Wizard.
      * 
@@ -182,8 +171,12 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      * @param Wizard
      * @param Style
      */
-    public MDMXSDFileForm(Composite parent, ConnectionItem connectionItem) {
+    public MDMXSDFileForm(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable, Concept concept,
+            WizardPage wizardPage) {
         super(parent, connectionItem);
+        this.metadataTable = metadataTable;
+        this.wizardPage = wizardPage;
+        this.concept = concept;
         setupForm(true);
 
     }
@@ -194,30 +187,31 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
      */
     @Override
     protected void initialize() {
-        initConcepts();
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$
+        File tempFile = tempPath.toFile();
+        if (!tempFile.exists()) {
+            tempFile.mkdirs();
+        }
+        xsdFilePath = tempPath.toOSString();
+        File file = new File(xsdFilePath + "\\template.xsd"); //$NON-NLS-1$
+        if (!file.exists()) {
+            try {
+                super.initialize();
+            } catch (Exception e) {
+                isTemplateExist = false;
+            }
+        } else {
+            xsdFilePath = file.getAbsolutePath();
+        }
+        isTemplateExist = true;
         this.treePopulator = new TreePopulator(availableXmlTree);
 
         checkFieldsValue();
 
         if (concept == null) {
-            // not possible to edit concepts actually, so always create a new one.
-
-            // if (getConnection().getSchemas() != null && !getConnection().getSchemas().isEmpty()) {
-            // concept = (Concept) getConnection().getSchemas().get(0);
-            // // xmlFilePath = getConnection().getXmlFilePath();
-            // if (isContextMode()) {
-            // ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(
-            // connectionItem.getConnection(), true);
-            // xsdFilePath = TalendTextUtils
-            // .removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, xsdFilePath));
-            // }
-            // } else {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             concept = ConnectionFactory.eINSTANCE.createConcept();
-            // concept.setLabel(conceptName);
-            // concept.setId(factory.getNextId());
             getConnection().getSchemas().add(concept);
-            // }
         }
 
         loopModel.setConcept(concept);
@@ -844,22 +838,19 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
             if (this.linker != null) {
                 this.linker.removeAllLinks();
             }
-
-            // String pathStr = getConnection().getXmlFilePath();
-            if (isContextMode()) {
-                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
-                        true);
-                // pathStr = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
-                // pathStr));
+            String selectedEntity = null;
+            if (wizardPage != null && wizardPage.getPreviousPage() instanceof SetConceptNamePage) {
+                selectedEntity = ((SetConceptNamePage) wizardPage.getPreviousPage()).getSelectedEntity();
             }
-            this.treePopulator.populateTree(xsdFilePath, treeNode);
+
+            this.treePopulator.populateTree(xsdFilePath, treeNode, selectedEntity);
 
             ScrollBar verticalBar = availableXmlTree.getVerticalBar();
             if (verticalBar != null) {
                 verticalBar.setSelection(0);
             }
             // fix bug: when the xml file is changed, the linker doesn't work.
-            resetStatusIfNecessary();
+            resetStatusIfNecessary(selectedEntity);
 
             if (this.linker == null) {
                 this.linker = new MDMLinker(this.xmlToSchemaSash, isTemplateExist);
@@ -885,27 +876,20 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         }
     }
 
-    private void resetStatusIfNecessary() {
-        // String curXmlPath = getConnection().getXmlFilePath();
+    private void resetStatusIfNecessary(String selectedEntity) {
         String oraginalPath = "";
-        if (xsdFilePath != null) {
-            // change xml file
-            if (isContextMode()) {
-                ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection(),
-                        true);
-                // oraginalPath = TalendTextUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType,
-                // xsdFilePath));
-            }
-            // if (!xsdFilePath.equals(xsdFilePath) && !xsdFilePath.equals(oraginalPath)) {
-            // clear command stack
+        if (xsdFilePath != null && selectedEntity != oldSelectedEntity) {
             CommandStackForComposite commandStack = new CommandStackForComposite(schemaTargetGroup);
             loopTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
             fieldsTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
 
             getConnection().getSchemas().remove(concept);
+            Concept temp = concept;
 
             // IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             concept = ConnectionFactory.eINSTANCE.createConcept();
+            concept.setLabel(temp.getLabel());
+            concept.setInputModel(temp.isInputModel());
             // if (conceptName != null) {
             // concept.setLabel(conceptName);
             // concept.setId(factory.getNextId());
@@ -918,19 +902,13 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
 
             fieldsModel.setConcept(concept.getConceptTargets());
             fieldsTableEditorView.getTableViewerCreator().layout();
-
-            // reset linker
             if (linker != null) {
                 linker.init(treePopulator);
             }
             xmlFilePreview.removePreviewContent();
-            // }
+            oldSelectedEntity = selectedEntity;
         }
-        // if (isContextMode()) {
-        // xmlFilePath = oraginalPath;
-        // } else {
-        // xmlFilePath = curXmlPath;
-        // }
+
     }
 
     /*
@@ -943,16 +921,18 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
     }
 
     protected void createTable() {
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-        MetadataTable metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
-        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-        metadataTable.setLabel(conceptName);
-        metadataTable.setId(factory.getNextId());
-
-        concept.setLabel(conceptName);
-
+        if (concept == null) {
+            return;
+        }
+        if (metadataTable == null) {
+            metadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
+            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+            metadataTable.setId(factory.getNextId());
+        }
+        metadataTable.setLabel(concept.getLabel());
         MappingTypeRetriever retriever = MetadataTalendType.getMappingTypeRetriever("xsd_id"); //$NON-NLS-1$
         List<ConceptTarget> targetList = concept.getConceptTargets();
+        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
         for (ConceptTarget target : targetList) {
             String relativeXpath = target.getRelativeLoopExpression();
@@ -1002,109 +982,6 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
         if (!getConnection().getTables().contains(metadataTable)) {
             getConnection().getTables().add(metadataTable);
         }
-    }
-
-    // private void createColumns() {
-    //
-    // }
-
-    private void initConcepts() {
-        // IPath temp = new Path(System.getProperty("user.dir")).append("temp");
-        // xsdFilePath = temp.toOSString() + "\\template.xsd";
-        MDMConnection mdmConn = (MDMConnection) connectionItem.getConnection();
-        XtentisBindingStub stub = null;
-        String userName = mdmConn.getUsername();
-        String password = mdmConn.getPassword();
-        String server = mdmConn.getServer();
-        String port = mdmConn.getPort();
-        String universe = mdmConn.getUniverse();
-        String datamodel = mdmConn.getDatamodel();
-        WSUniversePK[] universes = null;
-        WSUniversePK universePK = null;
-        WSDataModelPK modelPK = null;
-        XtentisServiceLocator xtentisService = new XtentisServiceLocator();
-        xtentisService.setXtentisPortEndpointAddress("http://" + server + ":" + port + "/talend/TalendPort"); //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
-        try {
-            XtentisPort xtentisWS = xtentisService.getXtentisPort();
-            stub = (XtentisBindingStub) xtentisWS;
-            stub.setUsername(userName);
-            stub.setPassword(password);
-            stub.ping(new WSPing());
-            universes = stub.getUniversePKs(new WSGetUniversePKs("")); //$NON-NLS-1$
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-        if (universes == null) {
-            return;
-        }
-        for (int i = 0; i < universes.length; i++) {
-            if (universes[i].getPk().equals(universe)) {
-                universePK = universes[i];
-                break;
-            }
-        }
-        if (universePK != null && universe != null && !"".equals(universe)) { //$NON-NLS-1$
-            stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
-            stub.setPassword(password);
-        } else {
-            stub.setUsername(userName);
-            stub.setPassword(password);
-        }
-        try {
-            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
-            if (models == null) {
-                return;
-            }
-            for (int i = 0; i < models.length; i++) {
-                if (models[i].getPk().equals(datamodel)) {
-                    modelPK = models[i];
-                    break;
-                }
-            }
-            if (modelPK == null) {
-                return;
-            }
-            IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-1$
-            File tempFile = tempPath.toFile();
-            if (!tempFile.exists()) {
-                tempFile.mkdirs();
-            }
-            xsdFilePath = tempPath.toOSString();
-            WSDataModel model = stub.getDataModel(new WSGetDataModel(modelPK));
-            if (model == null) {
-                return;
-            }
-            writeInFile(model.getXsdSchema(), xsdFilePath);
-            // List<String> list = MDMUtil.getConcepts(MDMUtil.getXSDSchema(model.getXsdSchema()));
-            // concepts.addAll(list);
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-        // return concepts;
-    }
-
-    private void writeInFile(String schema, String path) {
-        File file = new File(path + "\\template.xsd"); //$NON-NLS-1$
-        xsdFilePath = file.getAbsolutePath();
-        StringReader reader = new StringReader(schema);
-
-        try {
-            FileWriter writer = new FileWriter(file);
-            char[] c = new char[1024];
-            int l = 0;
-            while ((l = reader.read(c)) != -1) {
-                writer.write(c, 0, l);
-            }
-            writer.close();
-            reader.close();
-            isTemplateExist = file.exists();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setConceptName(String name) {
-        this.conceptName = name;
     }
 
 }

@@ -10,11 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.mdm.ui.wizard;
+package org.talend.repository.mdm.ui.wizard.concept;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.datatools.connectivity.oda.OdaException;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.ATreeNode;
+import org.eclipse.datatools.enablement.oda.xml.util.ui.SchemaPopulationUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -22,21 +28,31 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.commons.ui.swt.formtools.LabelledText;
+import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.mdm.i18n.Messages;
-import org.talend.repository.ui.swt.utils.AbstractForm;
 
 /**
  * DOC hwang class global comment. Detailled comment
  */
-public class SetNameForm extends AbstractForm {
+public class SetNameForm extends AbstractMDMFileStepForm {
+
+    private LabelledCombo entityCombo;
 
     private LabelledText nameText;
 
     private String conceptName;
 
     private String[] existingNames;
+
+    private String selectedEntity;
+
+    private ATreeNode schemaTree;
+
+    private Concept concept;
 
     /**
      * DOC Administrator SetNameForm constructor comment.
@@ -45,9 +61,10 @@ public class SetNameForm extends AbstractForm {
      * @param style
      * @param existingNames
      */
-    protected SetNameForm(Composite parent, ConnectionItem connectionItem, String[] existingNames) {
+    protected SetNameForm(Composite parent, ConnectionItem connectionItem, Concept concept, String[] existingNames) {
         super(parent, SWT.NONE, existingNames);
         this.connectionItem = connectionItem;
+        this.concept = concept;
         this.existingNames = existingNames;
         setupForm(false);
     }
@@ -78,9 +95,12 @@ public class SetNameForm extends AbstractForm {
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
 
+        entityCombo = new LabelledCombo(mdmParameterGroup, "Entities", "Select the entity", new ArrayList<String>());
+
         nameText = new LabelledText(mdmParameterGroup, Messages.getString("SetNameForm.NAME"), true); //$NON-NLS-1$
         checkFieldsValue();
         nameText.forceFocus();
+
     }
 
     /*
@@ -93,7 +113,11 @@ public class SetNameForm extends AbstractForm {
         nameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
+                if (xsdFilePath == null) {
+                    return;
+                }
                 String textValue = nameText.getText();
+
                 boolean canContinue = true;
                 String pattern = "^[a-zA-Z]+[a-zA-Z0-9\\_]*(\\{CURRENT_TABLE\\})[a-zA-Z0-9\\_]*$";//$NON-NLS-1$
                 String pattern1 = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";//$NON-NLS-1$     
@@ -110,11 +134,19 @@ public class SetNameForm extends AbstractForm {
                         }
                     }
                 }
+                concept.setLabel(textValue);
                 if (canContinue) {
                     checkFieldsValue();
                 }
             }
 
+        });
+
+        entityCombo.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                selectedEntity = entityCombo.getText();
+            }
         });
     }
 
@@ -152,12 +184,58 @@ public class SetNameForm extends AbstractForm {
      */
     @Override
     protected void initialize() {
-        // TODO Auto-generated method stub
-
+        super.initialize();
     }
 
     protected String getName() {
         return conceptName;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            try {
+                if (xsdFilePath != null) {
+                    if (schemaTree == null) {
+                        schemaTree = SchemaPopulationUtil.getSchemaTree(xsdFilePath, true, 0);
+                        if (entityCombo != null && schemaTree != null && schemaTree.getChildren() != null) {
+                            Object[] children = schemaTree.getChildren();
+                            for (int i = 0; i < children.length; i++) {
+                                if (children[i] instanceof ATreeNode) {
+                                    if (((ATreeNode) children[i]).getValue() != null) {
+                                        entityCombo.add(((ATreeNode) children[i]).getValue().toString());
+                                    }
+                                }
+                            }
+                        }
+                        if (entityCombo.getItemCount() > 0) {
+                            entityCombo.select(0);
+                            selectedEntity = entityCombo.getText();
+                        }
+                    } else if (selectedEntity != null) {
+                        entityCombo.setText(selectedEntity);
+                    } else if (entityCombo.getItemCount() > 0) {
+                        entityCombo.select(0);
+                    }
+                    checkFieldsValue();
+                } else {
+                    updateStatus(IStatus.ERROR, "Can't get entities , please check the connection !");
+                }
+
+            } catch (OdaException e) {
+                ExceptionHandler.process(e);
+            } catch (URISyntaxException e) {
+                ExceptionHandler.process(e);
+            } catch (IOException e) {
+                ExceptionHandler.process(e);
+            }
+
+        }
+    }
+
+    public String getSelectedEntity() {
+        return this.selectedEntity;
     }
 
 }

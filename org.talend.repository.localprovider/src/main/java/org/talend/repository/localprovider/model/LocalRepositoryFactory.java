@@ -97,6 +97,7 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
@@ -1699,8 +1700,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     }
                     resourceToUnload.add(resource);
                     possibleItemsURItoUnload.add(xmiResourceManager.getItemResourceURI(resource.getURI()));
-                } else if (possibleItemsURItoUnload.contains(resource.getURI())) {
-                    resourceToUnload.add(resource);
+                }
+                // else if (possibleItemsURItoUnload.contains(resource.getURI())) {
+                // resourceToUnload.add(resource);
+                // }
+            }
+        }
+        for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
+            for (EObject object : resource.getContents()) {
+                if (!(object instanceof Property)) {
+                    if (possibleItemsURItoUnload.contains(resource.getURI()) && !resourceToUnload.contains(resource)) {
+                        resourceToUnload.add(resource);
+                    }
                 }
             }
         }
@@ -1897,5 +1908,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected void reloadProject(Project project) throws PersistenceException {
         IProject pproject = getPhysicalProject(project);
         project.setEmfProject(xmiResourceManager.loadProject(pproject));
+    }
+
+    @Override
+    public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject != null && currentProject.isLocal()) {
+            unloadUnlockedResources();
+        }
+        super.executeRepositoryWorkUnit(workUnit);
     }
 }

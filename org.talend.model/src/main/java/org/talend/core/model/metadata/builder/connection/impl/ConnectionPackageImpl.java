@@ -2679,6 +2679,42 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getConcept_InputModel() {
+        return (EAttribute)conceptEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConcept_Group() {
+        return (EReference)conceptEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConcept_Root() {
+        return (EReference)conceptEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConcept_Loop() {
+        return (EReference)conceptEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getConceptTarget() {
         return conceptTargetEClass;
     }
@@ -3225,6 +3261,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(conceptEClass, CONCEPT__LOOP_EXPRESSION);
         createEAttribute(conceptEClass, CONCEPT__LOOP_LIMIT);
         createEReference(conceptEClass, CONCEPT__CONCEPT_TARGETS);
+        createEAttribute(conceptEClass, CONCEPT__INPUT_MODEL);
+        createEReference(conceptEClass, CONCEPT__GROUP);
+        createEReference(conceptEClass, CONCEPT__ROOT);
+        createEReference(conceptEClass, CONCEPT__LOOP);
 
         conceptTargetEClass = createEClass(CONCEPT_TARGET);
         createEReference(conceptTargetEClass, CONCEPT_TARGET__SCHEMA);
@@ -3615,6 +3655,10 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getConcept_LoopExpression(), ecorePackage.getEString(), "LoopExpression", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConcept_LoopLimit(), ecorePackage.getEIntegerObject(), "LoopLimit", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConcept_ConceptTargets(), this.getConceptTarget(), this.getConceptTarget_Schema(), "conceptTargets", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConcept_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConcept_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConcept_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEReference(getConcept_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(conceptTargetEClass, ConceptTarget.class, "ConceptTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConceptTarget_Schema(), this.getConcept(), this.getConcept_ConceptTargets(), "schema", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

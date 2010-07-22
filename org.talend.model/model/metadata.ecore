@@ -413,6 +413,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="LoopLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conceptTargets" upperBound="-1"
         eType="#//ConceptTarget" containment="true" eOpposite="#//ConceptTarget/schema"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputModel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" upperBound="-1"
+        eType="#//XMLFileNode" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" ordered="false" upperBound="-1"
+        eType="#//XMLFileNode" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loop" upperBound="-1" eType="#//XMLFileNode"
+        containment="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConceptTarget">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//Concept"

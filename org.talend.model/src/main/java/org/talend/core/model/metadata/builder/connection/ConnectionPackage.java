@@ -6259,13 +6259,49 @@ public interface ConnectionPackage extends EPackage {
     int CONCEPT__CONCEPT_TARGETS = METADATA_TABLE_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Input Model</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__INPUT_MODEL = METADATA_TABLE_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Group</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__GROUP = METADATA_TABLE_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Root</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__ROOT = METADATA_TABLE_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Loop</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONCEPT__LOOP = METADATA_TABLE_FEATURE_COUNT + 6;
+
+    /**
      * The number of structural features of the '<em>Concept</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONCEPT_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 3;
+    int CONCEPT_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 7;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
@@ -9736,6 +9772,50 @@ public interface ConnectionPackage extends EPackage {
     EReference getConcept_ConceptTargets();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Input Model</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#isInputModel()
+     * @see #getConcept()
+     * @generated
+     */
+    EAttribute getConcept_InputModel();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Concept#getGroup <em>Group</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Group</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getGroup()
+     * @see #getConcept()
+     * @generated
+     */
+    EReference getConcept_Group();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Concept#getRoot <em>Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Root</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getRoot()
+     * @see #getConcept()
+     * @generated
+     */
+    EReference getConcept_Root();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Concept#getLoop <em>Loop</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Loop</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Concept#getLoop()
+     * @see #getConcept()
+     * @generated
+     */
+    EReference getConcept_Loop();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget <em>Concept Target</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -12197,6 +12277,38 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference CONCEPT__CONCEPT_TARGETS = eINSTANCE.getConcept_ConceptTargets();
+
+        /**
+         * The meta object literal for the '<em><b>Input Model</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONCEPT__INPUT_MODEL = eINSTANCE.getConcept_InputModel();
+
+        /**
+         * The meta object literal for the '<em><b>Group</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONCEPT__GROUP = eINSTANCE.getConcept_Group();
+
+        /**
+         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONCEPT__ROOT = eINSTANCE.getConcept_Root();
+
+        /**
+         * The meta object literal for the '<em><b>Loop</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONCEPT__LOOP = eINSTANCE.getConcept_Loop();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.

@@ -15,6 +15,8 @@ package org.talend.repository.mdm.action;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.model.metadata.builder.connection.Concept;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.TableHelper;
@@ -24,8 +26,10 @@ import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.core.utils.XmlArray;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.mdm.ui.wizard.CreateConceptWizard;
+import org.talend.repository.mdm.ui.wizard.concept.CreateConceptWizard;
+import org.talend.repository.mdm.util.MDMUtil;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -141,6 +145,7 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
         // Define the repositoryObject
         MDMConnection connection = null;
         MetadataTable metadataTable = null;
+        Concept concept = null;
 
         boolean creation = false;
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
@@ -153,13 +158,23 @@ public class RetrieveMDMSchemaAction extends AbstractCreateAction {
                 item = (MDMConnectionItem) node.getObject().getProperty().getItem();
                 connection = (MDMConnection) item.getConnection();
                 metadataTable = TableHelper.findByLabel(connection, metadataTableLabel);
+                concept = MDMUtil.getConcept(connection, metadataTable);
                 creation = false;
                 break;
             case METADATA_MDMCONNECTION:
                 item = (MDMConnectionItem) node.getObject().getProperty().getItem();
                 connection = (MDMConnection) item.getConnection();
-
                 creation = true;
+
+                concept = ConnectionFactory.eINSTANCE.createConcept();
+                connection.getSchemas().add(concept);
+                if (concept.getLoopLimit() == null) {
+                    concept.setLoopLimit(-1);
+                    XmlArray.setLimitToDefault();
+                    concept.setLoopLimit(XmlArray.getRowLimit());
+
+                }
+
                 break;
             default:
                 break;

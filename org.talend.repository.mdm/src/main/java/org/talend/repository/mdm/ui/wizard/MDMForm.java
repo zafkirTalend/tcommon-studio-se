@@ -126,6 +126,7 @@ public class MDMForm extends AbstractForm {
 
         mdmServer = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.SERVER"), true); //$NON-NLS-1$
         mdmServer.setText("localhost");//$NON-NLS-1$
+        getConnection().setServer("localhost");
 
         mdmHostnameText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.PORT"), true); //$NON-NLS-1$
 
@@ -163,6 +164,7 @@ public class MDMForm extends AbstractForm {
         mdmUsernameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
+                getConnection().setUsername(mdmUsernameText.getText());
                 checkFieldsValue();
             }
 
@@ -170,6 +172,7 @@ public class MDMForm extends AbstractForm {
         mdmPasswordText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
+                getConnection().setPassword(mdmPasswordText.getText());
                 checkFieldsValue();
             }
 
@@ -177,6 +180,7 @@ public class MDMForm extends AbstractForm {
         mdmServer.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
+                getConnection().setServer(mdmServer.getText());
                 checkFieldsValue();
             }
 
@@ -184,6 +188,7 @@ public class MDMForm extends AbstractForm {
         mdmHostnameText.addModifyListener(new ModifyListener() {
 
             public void modifyText(ModifyEvent e) {
+                getConnection().setPort(mdmHostnameText.getText());
                 checkFieldsValue();
             }
 
@@ -287,10 +292,6 @@ public class MDMForm extends AbstractForm {
             checkButton.setEnabled(false);
             return false;
         }
-        getConnection().setUsername(mdmUsernameText.getText());
-        getConnection().setPassword(mdmPasswordText.getText());
-        getConnection().setServer(mdmServer.getText());
-        getConnection().setPort(mdmHostnameText.getText());
         checkButton.setEnabled(true);
         updateStatus(IStatus.OK, null);
         if (!verified) {
@@ -324,6 +325,7 @@ public class MDMForm extends AbstractForm {
         mdmPasswordText.setText(pass);
         if (server == null || "".equals(server)) { //$NON-NLS-1$
             mdmServer.setText("localhost"); //$NON-NLS-1$
+            getConnection().setServer("localhost");
         } else
             mdmServer.setText(server);
         mdmHostnameText.setText(port);
@@ -357,6 +359,7 @@ public class MDMForm extends AbstractForm {
         if (isReadOnly() != readOnly) {
             adaptFormToReadOnly();
         }
+
         checkFieldsValue();
     }
 

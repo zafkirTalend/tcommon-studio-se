@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.mdm.ui.wizard;
+package org.talend.repository.mdm.ui.wizard.concept;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.talend.commons.exception.PersistenceException;
@@ -37,14 +39,15 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.update.RepositoryUpdateManager;
 import org.talend.designer.core.DesignerPlugin;
 import org.talend.repository.RepositoryPlugin;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
-import org.talend.repository.model.MetadataTableRepositoryObject;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
@@ -56,7 +59,9 @@ import org.talend.repository.ui.wizards.RepositoryWizard;
  */
 public class CreateConceptWizard extends RepositoryWizard implements INewWizard {
 
-    private MDMSchemaWizardPage schemaPage;
+    private MDMInOutSelectPage inOutSelectPage;
+
+    private MDMInOutSchemaWizardPage schemaPage;
 
     private SetConceptNamePage step0Page;
 
@@ -85,6 +90,8 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     private List<IMetadataTable> oldMetadataTable;
 
     private Map<String, String> oldTableMap;
+
+    private WizardPage currentPage;
 
     /**
      * DOC Administrator CreateConceptWizard constructor comment.
@@ -157,28 +164,23 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     @Override
     public void addPages() {
         if (creation) {
-            step0Page = new SetConceptNamePage(node, connectionItem, isRepositoryObjectEditable(), existNames);
-            schemaPage = new MDMSchemaWizardPage(connectionItem, "");
+            inOutSelectPage = new MDMInOutSelectPage(node, connectionItem, creation);
+            step0Page = new SetConceptNamePage(node, connectionItem, isRepositoryObjectEditable(), creation, existNames);
+            schemaPage = new MDMInOutSchemaWizardPage(node, connectionItem, metadataTable, isRepositoryObjectEditable(), creation);
+            addPage(inOutSelectPage);
             addPage(step0Page);
             addPage(schemaPage);
         } else {
-            if (node.getObject() instanceof MetadataTableRepositoryObject) {
-                MetadataTable table = (MetadataTable) ((MetadataTableRepositoryObject) node.getObject()).getTable();
-                tablePage = new MDMTablePage(connectionItem, table, isRepositoryObjectEditable());
-                addPage(tablePage);
-            }
-
+            tablePage = new MDMTablePage(connectionItem, metadataTable, isRepositoryObjectEditable());
+            addPage(tablePage);
         }
 
     }
 
     @Override
     public IWizardPage getNextPage(IWizardPage page) {
-        if (page instanceof SetConceptNamePage) {
-            String contentName = page.getName();
-            if (schemaPage != null) {
-                schemaPage.setConceptName(contentName);
-            }
+        if (page instanceof MDMInOutSelectPage) {
+
         }
         return super.getNextPage(page);
     }
@@ -256,6 +258,50 @@ public class CreateConceptWizard extends RepositoryWizard implements INewWizard 
     public void init(IWorkbench workbench, IStructuredSelection selection) {
         IRepositoryService service = DesignerPlugin.getDefault().getRepositoryService();
         path = service.getRepositoryPath(node);
+    }
+
+    @Override
+    public void createPageControls(Composite pageContainer) {
+        // do nothing to create pages lazily
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.wizard.Wizard#canFinish()
+     */
+    @Override
+    public boolean canFinish() {
+        if (currentPage instanceof MDMInOutSchemaWizardPage && currentPage.isPageComplete()) {
+            return true;
+        } else if (currentPage instanceof MDMTablePage && currentPage.isPageComplete()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean performCancel() {
+        closeLockStrategy();
+        RepositoryManager.refresh(ERepositoryObjectType.METADATA_MDMCONNECTION);
+        return super.performCancel();
+    }
+
+    //
+    // private void resetMetadata() {
+    // if (creation) {
+    // connection.getTables().remove(metadataTable);
+    // // connection.getSchemas().remove(concept);
+    // for (Object obj : connection.getSchemas()) {
+    // }
+    // }
+    // }
+
+    public WizardPage getCurrentPage() {
+        return this.currentPage;
+    }
+
+    public void setCurrentPage(WizardPage currentPage) {
+        this.currentPage = currentPage;
     }
 
 }

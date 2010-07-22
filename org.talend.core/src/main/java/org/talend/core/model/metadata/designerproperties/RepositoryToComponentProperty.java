@@ -500,8 +500,14 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(connection.getUniverse());
             }
         } else if ("CONCEPT".equals(value)) { //$NON-NLS-1$
-            if (table != null && table.getTableName() != null) {
-                return TalendTextUtils.addQuotes(table.getTableName());
+            Concept concept = getConcept(connection, table);
+            String conceptName = null;
+            if (concept != null) {
+                conceptName = concept.getLoopExpression();
+                if (conceptName != null && conceptName.startsWith("/")) {
+                    conceptName = conceptName.substring(1, conceptName.length());
+                }
+                return TalendTextUtils.addQuotes(conceptName);
             }
         } else if ("DATACLUSTER".equals(value)) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getDatacluster())) {
@@ -510,17 +516,47 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(connection.getDatacluster());
             }
         } else if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
-            if (table != null) {
-                for (Concept concept : (List<Concept>) connection.getSchemas()) {
-                    // test if sourcename is null, this is only for compatibility with first mdm repository
-                    // released.
-                    if (concept != null && (concept.getLabel() == null || concept.getLabel().equals(table.getLabel()))) {
-                        if (isContextMode(connection, concept.getLoopExpression())) {
-                            return concept.getLoopExpression();
-                        } else {
-                            return TalendTextUtils.addQuotes(concept.getLoopExpression());
-                        }
-                    }
+            Concept concept = getConcept(connection, table);
+            if (concept != null) {
+                if (isContextMode(connection, concept.getLoopExpression())) {
+                    return concept.getLoopExpression();
+                } else {
+                    return TalendTextUtils.addQuotes(concept.getLoopExpression());
+                }
+            }
+
+        } else if ("DATAMODEL".equals(value)) {
+            if (isContextMode(connection, connection.getDatamodel())) {
+                return connection.getDatamodel();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getDatamodel());
+            }
+        } else if ("ROOT".equals(value)) {
+            Concept concept = getConcept(connection, table);
+            if (concept != null) {
+                return getOutputXmlValue(concept.getRoot());
+            }
+        } else if ("LOOP".equals(value)) {
+            Concept concept = getConcept(connection, table);
+            if (concept != null) {
+                return getOutputXmlValue(concept.getLoop());
+            }
+        } else if ("GROUP".equals(value)) {
+            Concept concept = getConcept(connection, table);
+            if (concept != null) {
+                return getOutputXmlValue(concept.getGroup());
+            }
+        }
+        return null;
+    }
+
+    private static Concept getConcept(MDMConnection connection, IMetadataTable table) {
+        if (table != null) {
+            for (Concept concept : (List<Concept>) connection.getSchemas()) {
+                // test if sourcename is null, this is only for compatibility with first mdm repository
+                // released.
+                if (concept != null && (concept.getLabel() == null || concept.getLabel().equals(table.getLabel()))) {
+                    return concept;
                 }
             }
         }

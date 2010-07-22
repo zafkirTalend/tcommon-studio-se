@@ -20,6 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getLoopExpression <em>Loop Expression</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getLoopLimit <em>Loop Limit</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptTargets <em>Concept Targets</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Concept#getLoop <em>Loop</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,4 +102,79 @@ public interface Concept extends MetadataTable {
      * @generated
      */
     EList getConceptTargets();
+
+    /**
+     * Returns the value of the '<em><b>Input Model</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Input Model</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Input Model</em>' attribute.
+     * @see #setInputModel(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_InputModel()
+     * @model default="true"
+     * @generated
+     */
+    boolean isInputModel();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Input Model</em>' attribute.
+     * @see #isInputModel()
+     * @generated
+     */
+    void setInputModel(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Group</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Group</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Group</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_Group()
+     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @generated
+     */
+    EList getGroup();
+
+    /**
+     * Returns the value of the '<em><b>Root</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Root</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Root</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_Root()
+     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true" ordered="false"
+     * @generated
+     */
+    EList getRoot();
+
+    /**
+     * Returns the value of the '<em><b>Loop</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Loop</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Loop</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_Loop()
+     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @generated
+     */
+    EList getLoop();
 } // Concept

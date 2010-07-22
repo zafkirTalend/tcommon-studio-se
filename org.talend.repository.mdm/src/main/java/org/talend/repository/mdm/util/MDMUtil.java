@@ -23,6 +23,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xsd.XSDElementDeclaration;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.impl.XSDSchemaImpl;
+import org.talend.core.model.metadata.builder.connection.Concept;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -62,5 +65,26 @@ public class MDMUtil {
         xsdSchema = XSDSchemaImpl.createSchema(document.getDocumentElement());
 
         return xsdSchema;
+    }
+
+    public static Concept getConcept(MDMConnection connection, MetadataTable table) {
+        if (table == null || connection == null) {
+            return null;
+        }
+        for (Object obj : connection.getSchemas()) {
+            if (obj instanceof Concept) {
+                Concept concept = (Concept) obj;
+                String loopExpression = concept.getLoopExpression();
+                if (loopExpression != null && loopExpression.length() > 1) {
+                    String entityName = loopExpression.substring(1, loopExpression.length());
+                    if (entityName.equals(table.getSourceName())) {
+                        return concept;
+                    }
+                }
+            }
+        }
+
+        return null;
+
     }
 }

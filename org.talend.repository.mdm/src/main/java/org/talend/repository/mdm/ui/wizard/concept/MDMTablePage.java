@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.mdm.ui.wizard;
+package org.talend.repository.mdm.ui.wizard.concept;
 
 import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -73,5 +73,13 @@ public class MDMTablePage extends WizardPage {
         };
         tableForm.setListener(listener);
         setControl(tableForm);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            ((CreateConceptWizard) getWizard()).setCurrentPage(this);
+        }
     }
 }
