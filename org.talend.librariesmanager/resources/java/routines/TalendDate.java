@@ -87,7 +87,7 @@ public class TalendDate {
             return false;
         }
 
-        if (!sdf.format(testDate).equals(stringDate)) {
+        if (!sdf.format(testDate).equalsIgnoreCase(stringDate)) {
             return false;
         }
 
