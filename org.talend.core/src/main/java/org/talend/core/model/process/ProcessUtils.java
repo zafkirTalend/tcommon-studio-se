@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
@@ -40,6 +41,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -268,18 +270,36 @@ public final class ProcessUtils {
                 for (INode node : nodes) {
                     IElementParameter processParam = node.getElementParameter("PROCESS"); //$NON-NLS-1$
                     if (processParam != null) {
-                        String repositoryMetadataId = (String) processParam.getChildParameters()
+                        String repositoryProcessId = (String) processParam.getChildParameters()
                                 .get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
-                        if (repositoryMetadataId != null && !repositoryMetadataId.equals("")) { //$NON-NLS-1$
+                        String repositoryProcessVersion = (String) processParam.getChildParameters().get("PROCESS_TYPE_VERSION")
+                                .getValue();
+                        if (repositoryProcessId != null && !repositoryProcessId.equals("")) { //$NON-NLS-1$
                             try {
                                 IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-                                IRepositoryViewObject lastVersion = factory.getLastVersion(repositoryMetadataId);
-                                if (lastVersion != null) {
-                                    if (!returnListObject.contains(lastVersion)) {
-                                        // repositoryObjects.add(lastVersion);
-                                        returnListObject.add(lastVersion);
+                                IRepositoryViewObject foundObject = null;
+                                if (repositoryProcessVersion == null
+                                        || repositoryProcessVersion.equals(ItemCacheManager.LATEST_VERSION)) {
+                                    foundObject = factory.getLastVersion(repositoryProcessId);
+
+                                } else {
+                                    List<IRepositoryViewObject> allVersion = factory.getAllVersion(repositoryProcessId);
+                                    if (allVersion != null && !allVersion.isEmpty()) {
+                                        String lastVersion = VersionUtils.DEFAULT_VERSION;
+                                        for (IRepositoryViewObject object : allVersion) {
+                                            if (VersionUtils.compareTo(object.getVersion(), lastVersion) >= 0) {
+                                                foundObject = object;
+                                            }
+                                        }
+
                                     }
-                                    Item item2 = lastVersion.getProperty().getItem();
+                                }
+                                if (foundObject != null) {
+                                    if (!returnListObject.contains(foundObject)) {
+                                        // repositoryObjects.add(lastVersion);
+                                        returnListObject.add(foundObject);
+                                    }
+                                    Item item2 = foundObject.getProperty().getItem();
                                     if (item2 != null) {
                                         Item foundItem = returnItems.get(item2.getProperty().getId());
                                         if (foundItem == null) {
