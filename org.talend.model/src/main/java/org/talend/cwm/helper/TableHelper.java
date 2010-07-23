@@ -14,8 +14,10 @@ package org.talend.cwm.helper;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
@@ -624,4 +626,13 @@ public final class TableHelper extends SubItemHelper {
         return result.toArray(new String[result.size()]);
     }
 
+    public static Map<String, Integer> getForeignKeysInformation(TdTable table) {
+        Map<String, Integer> info = new HashMap<String, Integer>();
+
+        for (ForeignKey foreign : getForeignKeys(table)) {
+            info.put(foreign.getName(), foreign.getFeature().size());
+
+        }
+        return info;
+    }
 }

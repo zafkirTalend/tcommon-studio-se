@@ -196,7 +196,7 @@ public class ConnectionHelper {
      * @param dataProvider the data provider
      * @return true if the value was not set before.
      */
-    public static boolean setIdentifierQuoteString(String identifierQuoteString, DatabaseConnection dataProvider) {
+    public static boolean setIdentifierQuoteString(String identifierQuoteString, Connection dataProvider) {
         return TaggedValueHelper
                 .setTaggedValue(dataProvider, TaggedValueHelper.DB_IDENTIFIER_QUOTE_STRING, identifierQuoteString);
     }
@@ -313,7 +313,7 @@ public class ConnectionHelper {
         return !resultingCollection.isEmpty();
     }
 
-    public static boolean addCatalogs(Collection<Catalog> catalogs, DatabaseConnection dataProvider) {
+    public static boolean addCatalogs(Collection<Catalog> catalogs, Connection dataProvider) {
         return addPackages(catalogs, dataProvider);
     }
 
@@ -447,6 +447,33 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC xqliu Comment method "getUniverse".
+     * 
+     * @param element
+     * @return
+     */
+    public static String getUniverse(Connection element) {
+        MDMConnection mdmConnection = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(element);
+        if (mdmConnection != null) {
+            return getUniverse(mdmConnection);
+        }
+        return "";
+    }
+
+    /**
+     * DOC xqliu Comment method "setUniverse".
+     * 
+     * @param universe
+     * @param element
+     */
+    public static void setUniverse(String universe, Connection element) {
+        MDMConnection mdmConnection = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(element);
+        if (mdmConnection != null) {
+            setUniverse(universe, mdmConnection);
+        }
+    }
+
+    /**
      * DOC xqliu Comment method "setRetrieveAllMetadata". ADD xqliu 2010-03-03 feature 11412
      * 
      * @param retrieveAllMetadata
@@ -507,20 +534,19 @@ public class ConnectionHelper {
     public static Set<Catalog> getAllCatalogs(Connection connection) {
         return getAllDataPackages(connection, Catalog.class);
     }
-    
-    //hywang
-    public static Package getPackage(String name,Connection connection,Class theClass){
-    	Set<Package> allCatalogs = getAllDataPackages(connection,theClass);
-    	Iterator<Package>  it = allCatalogs.iterator();
-    	while(it.hasNext()){
-    		Package current =it.next();
-    		if(current.getName().equals(name)){
-    			return  current;
-    		}
-    	}
-    	return null;
+
+    // hywang
+    public static Package getPackage(String name, Connection connection, Class theClass) {
+        Set<Package> allCatalogs = getAllDataPackages(connection, theClass);
+        Iterator<Package> it = allCatalogs.iterator();
+        while (it.hasNext()) {
+            Package current = it.next();
+            if (current.getName().equals(name)) {
+                return current;
+            }
+        }
+        return null;
     }
-    
 
     /**
      * get all the packages and their sub(owned) packages of the connection.
@@ -584,6 +610,23 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC xqliu Comment method "setUsername".
+     * 
+     * @param conn
+     * @param username
+     */
+    public static void setUsername(Connection conn, String username) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setUsername(username);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setUsername(username);
+        }
+    }
+
+    /**
      * DOC xqliu Comment method "getPassword".
      * 
      * @param conn
@@ -599,6 +642,23 @@ public class ConnectionHelper {
             return mdmConn.getPassword();
         }
         return null;
+    }
+
+    /**
+     * DOC xqliu Comment method "setPassword".
+     * 
+     * @param conn
+     * @param password
+     */
+    public static void setPassword(Connection conn, String password) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setPassword(getEncryptPassword(password));
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPassword(getEncryptPassword(password));
+        }
     }
 
     /**
@@ -620,6 +680,19 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC xqliu Comment method "setDriverClass".
+     * 
+     * @param conn
+     * @param driverClass
+     */
+    public static void setDriverClass(Connection conn, String driverClass) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setDriverClass(driverClass);
+        }
+    }
+
+    /**
      * DOC xqliu Comment method "getURL".
      * 
      * @param conn
@@ -635,6 +708,23 @@ public class ConnectionHelper {
             return mdmConn.getPathname();
         }
         return null;
+    }
+
+    /**
+     * DOC xqliu Comment method "setURL".
+     * 
+     * @param conn
+     * @param url
+     */
+    public static void setURL(Connection conn, String url) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setURL(url);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPathname(url);
+        }
     }
 
     /**
@@ -656,6 +746,23 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC xqliu Comment method "setServerName".
+     * 
+     * @param conn
+     * @param serverName
+     */
+    public static void setServerName(Connection conn, String serverName) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setServerName(serverName);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setServer(serverName);
+        }
+    }
+
+    /**
      * DOC xqliu Comment method "getPort".
      * 
      * @param conn
@@ -674,6 +781,22 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC xqliu Comment method "setPort".
+     * 
+     * @param conn
+     * @param port
+     */
+    public static void setPort(Connection conn, String port) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setPort(port);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setPort(port);
+        }
+    }
+    /**
      * DOC xqliu Comment method "getSID".
      * 
      * @param conn
@@ -689,5 +812,22 @@ public class ConnectionHelper {
             return mdmConn.getContext();
         }
         return null;
+    }
+
+    /**
+     * DOC xqliu Comment method "setSID".
+     * 
+     * @param conn
+     * @param sid
+     */
+    public static void setSID(Connection conn, String sid) {
+        DatabaseConnection dbConn = SwitchHelpers.DATABASECONNECTION_SWITCH.doSwitch(conn);
+        if (dbConn != null) {
+            dbConn.setSID(sid);
+        }
+        MDMConnection mdmConn = SwitchHelpers.MDMCONNECTION_SWITCH.doSwitch(conn);
+        if (mdmConn != null) {
+            mdmConn.setContext(sid);
+        }
     }
 }
