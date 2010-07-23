@@ -49,8 +49,8 @@ public final class ConnectionUtils {
      * @throws IllegalAccessException
      * @throws ClassNotFoundException
      */
-    public static Connection createConnection(String url, String driverClassName, Properties props)
-            throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static Connection createConnection(String url, String driverClassName, Properties props) throws SQLException,
+            InstantiationException, IllegalAccessException, ClassNotFoundException {
         Driver driver = (Driver) Class.forName(driverClassName).newInstance();
         DriverManager.registerDriver(driver);
         Connection connection = DriverManager.getConnection(url, props);
@@ -90,8 +90,7 @@ public final class ConnectionUtils {
             // if we are here, everything is ok
             return retCode;
         } catch (SQLException sqle) {
-            retCode.setReturnCode("SQLException caught:" + sqle.getMessage() + " SQL error code: "
-                    + sqle.getErrorCode(), false);
+            retCode.setReturnCode("SQLException caught:" + sqle.getMessage() + " SQL error code: " + sqle.getErrorCode(), false);
             return retCode;
         } finally {
             if (ping != null) {
@@ -116,7 +115,9 @@ public final class ConnectionUtils {
         assert connection != null;
         ReturnCode rc = new ReturnCode(true);
         try {
-            connection.close();
+            if (!connection.isClosed()) {
+                connection.close();
+            }
         } catch (SQLException e) {
             rc.setReturnCode("Failed to close connection. Reason: " + e.getMessage(), false);
         }
