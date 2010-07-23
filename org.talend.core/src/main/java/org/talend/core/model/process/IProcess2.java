@@ -100,4 +100,6 @@ public interface IProcess2 extends IProcess {
 
     public List<NodeType> getUnloadedNode();
 
+    public void checkTableParameters();
+
 }

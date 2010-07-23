@@ -349,6 +349,15 @@ public interface ConnectionFactory extends EFactory {
     XMLFileNode createXMLFileNode();
 
     /**
+     * Returns a new object of class '<em>HL7 File Node</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>HL7 File Node</em>'.
+     * @generated
+     */
+    HL7FileNode createHL7FileNode();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

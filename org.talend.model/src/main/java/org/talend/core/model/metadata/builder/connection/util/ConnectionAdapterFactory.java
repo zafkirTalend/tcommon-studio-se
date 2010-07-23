@@ -197,6 +197,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseXMLFileNode(XMLFileNode object) {
                 return createXMLFileNodeAdapter();
             }
+            public Object caseHL7FileNode(HL7FileNode object) {
+                return createHL7FileNodeAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -720,6 +723,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createXMLFileNodeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode <em>HL7 File Node</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode
+     * @generated
+     */
+    public Adapter createHL7FileNodeAdapter() {
         return null;
     }
 

@@ -6666,13 +6666,22 @@ public interface ConnectionPackage extends EPackage {
     int HL7_CONNECTION__END_CHAR = FILE_CONNECTION_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Root</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__ROOT = FILE_CONNECTION_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>HL7 Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HL7_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 2;
+    int HL7_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
@@ -6911,13 +6920,86 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_NODE_FEATURE_COUNT = 6;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl <em>HL7 File Node</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7FileNode()
+     * @generated
+     */
+    int HL7_FILE_NODE = 39;
+
+    /**
+     * The feature id for the '<em><b>File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE__FILE_PATH = 0;
+
+    /**
+     * The feature id for the '<em><b>Order</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE__ORDER = 1;
+
+    /**
+     * The feature id for the '<em><b>Attribute</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE__ATTRIBUTE = 2;
+
+    /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE__DEFAULT_VALUE = 3;
+
+    /**
+     * The feature id for the '<em><b>Related Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE__RELATED_COLUMN = 4;
+
+    /**
+     * The feature id for the '<em><b>Repeatable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE__REPEATABLE = 5;
+
+    /**
+     * The number of structural features of the '<em>HL7 File Node</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_FILE_NODE_FEATURE_COUNT = 6;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 39;
+    int DATABASE_PROPERTIES = 40;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -6926,7 +7008,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 40;
+    int FILE_FORMAT = 41;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -6935,7 +7017,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 41;
+    int FIELD_SEPARATOR = 42;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -6944,7 +7026,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 42;
+    int ESCAPE = 43;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -6953,7 +7035,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 43;
+    int ROW_SEPARATOR = 44;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -6962,7 +7044,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 44;
+    int MAP = 45;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -6972,7 +7054,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 45;
+    int LIST = 46;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -9891,6 +9973,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7Connection_EndChar();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getRoot <em>Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Root</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getRoot()
+     * @see #getHL7Connection()
+     * @generated
+     */
+    EReference getHL7Connection_Root();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection <em>Header Footer Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10019,6 +10112,82 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getXMLFileNode_Type();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode <em>HL7 File Node</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>HL7 File Node</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode
+     * @generated
+     */
+    EClass getHL7FileNode();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getFilePath <em>File Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getFilePath()
+     * @see #getHL7FileNode()
+     * @generated
+     */
+    EAttribute getHL7FileNode_FilePath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getOrder <em>Order</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Order</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getOrder()
+     * @see #getHL7FileNode()
+     * @generated
+     */
+    EAttribute getHL7FileNode_Order();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getAttribute <em>Attribute</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Attribute</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getAttribute()
+     * @see #getHL7FileNode()
+     * @generated
+     */
+    EAttribute getHL7FileNode_Attribute();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getDefaultValue()
+     * @see #getHL7FileNode()
+     * @generated
+     */
+    EAttribute getHL7FileNode_DefaultValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getRelatedColumn <em>Related Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Related Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getRelatedColumn()
+     * @see #getHL7FileNode()
+     * @generated
+     */
+    EAttribute getHL7FileNode_RelatedColumn();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#isRepeatable <em>Repeatable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Repeatable</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#isRepeatable()
+     * @see #getHL7FileNode()
+     * @generated
+     */
+    EAttribute getHL7FileNode_Repeatable();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
@@ -12371,6 +12540,14 @@ public interface ConnectionPackage extends EPackage {
         EAttribute HL7_CONNECTION__END_CHAR = eINSTANCE.getHL7Connection_EndChar();
 
         /**
+         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference HL7_CONNECTION__ROOT = eINSTANCE.getHL7Connection_Root();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -12469,6 +12646,64 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute XML_FILE_NODE__TYPE = eINSTANCE.getXMLFileNode_Type();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl <em>HL7 File Node</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7FileNode()
+         * @generated
+         */
+        EClass HL7_FILE_NODE = eINSTANCE.getHL7FileNode();
+
+        /**
+         * The meta object literal for the '<em><b>File Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_FILE_NODE__FILE_PATH = eINSTANCE.getHL7FileNode_FilePath();
+
+        /**
+         * The meta object literal for the '<em><b>Order</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_FILE_NODE__ORDER = eINSTANCE.getHL7FileNode_Order();
+
+        /**
+         * The meta object literal for the '<em><b>Attribute</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_FILE_NODE__ATTRIBUTE = eINSTANCE.getHL7FileNode_Attribute();
+
+        /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_FILE_NODE__DEFAULT_VALUE = eINSTANCE.getHL7FileNode_DefaultValue();
+
+        /**
+         * The meta object literal for the '<em><b>Related Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_FILE_NODE__RELATED_COLUMN = eINSTANCE.getHL7FileNode_RelatedColumn();
+
+        /**
+         * The meta object literal for the '<em><b>Repeatable</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_FILE_NODE__REPEATABLE = eINSTANCE.getHL7FileNode_Repeatable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

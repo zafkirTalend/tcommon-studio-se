@@ -358,6 +358,7 @@
     <genClasses ecoreClass="metadata.ecore#//HL7Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/StartChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/EndChar"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//HL7Connection/root"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//HeaderFooterConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/isHeader"/>
@@ -372,6 +373,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Attribute"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Order"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Type"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//HL7FileNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/FilePath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Order"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/DefaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/RelatedColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Repeatable"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -6,14 +6,21 @@
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
+import org.talend.core.model.metadata.builder.connection.HL7FileNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.HL7Connection;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getStartChar <em>Start Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getEndChar <em>End Char</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getRoot <em>Root</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +77,16 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
      * @ordered
      */
     protected String endChar = END_CHAR_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRoot()
+     * @generated
+     * @ordered
+     */
+    protected EList root;
 
     /**
      * <!-- begin-user-doc -->
@@ -135,12 +153,39 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getRoot() {
+        if (root == null) {
+            root = new EObjectContainmentEList(HL7FileNode.class, this, ConnectionPackage.HL7_CONNECTION__ROOT);
+        }
+        return root;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ConnectionPackage.HL7_CONNECTION__ROOT:
+                return ((InternalEList)getRoot()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.HL7_CONNECTION__START_CHAR:
                 return getStartChar();
             case ConnectionPackage.HL7_CONNECTION__END_CHAR:
                 return getEndChar();
+            case ConnectionPackage.HL7_CONNECTION__ROOT:
+                return getRoot();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -157,6 +202,10 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
                 return;
             case ConnectionPackage.HL7_CONNECTION__END_CHAR:
                 setEndChar((String)newValue);
+                return;
+            case ConnectionPackage.HL7_CONNECTION__ROOT:
+                getRoot().clear();
+                getRoot().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -175,6 +224,9 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
             case ConnectionPackage.HL7_CONNECTION__END_CHAR:
                 setEndChar(END_CHAR_EDEFAULT);
                 return;
+            case ConnectionPackage.HL7_CONNECTION__ROOT:
+                getRoot().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -190,6 +242,8 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
                 return START_CHAR_EDEFAULT == null ? startChar != null : !START_CHAR_EDEFAULT.equals(startChar);
             case ConnectionPackage.HL7_CONNECTION__END_CHAR:
                 return END_CHAR_EDEFAULT == null ? endChar != null : !END_CHAR_EDEFAULT.equals(endChar);
+            case ConnectionPackage.HL7_CONNECTION__ROOT:
+                return root != null && !root.isEmpty();
         }
         return super.eIsSet(featureID);
     }

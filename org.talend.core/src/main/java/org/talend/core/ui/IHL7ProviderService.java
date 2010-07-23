@@ -30,6 +30,8 @@ public interface IHL7ProviderService extends IService {
 
     public boolean isHL7Node(final INode node);
 
+    public boolean isHL7OutputNode(final INode node);
+
     public HL7ConnectionItem getRepositoryItem(final INode node);
 
     public boolean isRepositorySchemaLine(INode node, Map<String, Object> lineValue);

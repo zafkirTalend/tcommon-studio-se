@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
+import org.talend.core.model.metadata.builder.connection.HL7FileNode;
 import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -325,6 +326,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass xmlFileNodeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass hl7FileNodeEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2778,6 +2786,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getHL7Connection_Root() {
+        return (EReference)hl7ConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getHeaderFooterConnection() {
         return headerFooterConnectionEClass;
     }
@@ -2879,6 +2896,69 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EAttribute getXMLFileNode_Type() {
         return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getHL7FileNode() {
+        return hl7FileNodeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7FileNode_FilePath() {
+        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7FileNode_Order() {
+        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7FileNode_Attribute() {
+        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7FileNode_DefaultValue() {
+        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7FileNode_RelatedColumn() {
+        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7FileNode_Repeatable() {
+        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -3274,6 +3354,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         hl7ConnectionEClass = createEClass(HL7_CONNECTION);
         createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__START_CHAR);
         createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__END_CHAR);
+        createEReference(hl7ConnectionEClass, HL7_CONNECTION__ROOT);
 
         headerFooterConnectionEClass = createEClass(HEADER_FOOTER_CONNECTION);
         createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__IS_HEADER);
@@ -3288,6 +3369,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__ATTRIBUTE);
         createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__ORDER);
         createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__TYPE);
+
+        hl7FileNodeEClass = createEClass(HL7_FILE_NODE);
+        createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__FILE_PATH);
+        createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__ORDER);
+        createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__ATTRIBUTE);
+        createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__DEFAULT_VALUE);
+        createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__RELATED_COLUMN);
+        createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__REPEATABLE);
 
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
@@ -3668,6 +3757,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(hl7ConnectionEClass, HL7Connection.class, "HL7Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getHL7Connection_StartChar(), ecorePackage.getEString(), "StartChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHL7Connection_EndChar(), ecorePackage.getEString(), "EndChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHL7Connection_Root(), this.getHL7FileNode(), null, "root", null, 0, -1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
         initEClass(headerFooterConnectionEClass, HeaderFooterConnection.class, "HeaderFooterConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getHeaderFooterConnection_IsHeader(), ecorePackage.getEBoolean(), "isHeader", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3682,6 +3772,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getXMLFileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXMLFileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXMLFileNode_Type(), ecorePackage.getEString(), "Type", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(hl7FileNodeEClass, HL7FileNode.class, "HL7FileNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getHL7FileNode_FilePath(), ecorePackage.getEString(), "FilePath", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_DefaultValue(), ecorePackage.getEString(), "DefaultValue", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_RelatedColumn(), ecorePackage.getEString(), "RelatedColumn", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_Repeatable(), ecorePackage.getEBoolean(), "Repeatable", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

@@ -41,11 +41,16 @@ import org.talend.core.model.metadata.ISAPConstant;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.ElementParameterParser;
+import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.ui.IEBCDICProviderService;
+import org.talend.core.ui.IHL7ProviderService;
 import org.talend.core.ui.IRulesProviderService;
 import org.talend.core.ui.ISAPProviderService;
 import org.talend.core.ui.metadata.celleditor.SchemaOperationChoiceDialog.EProcessType;
@@ -425,25 +430,28 @@ public class SchemaCellEditor extends DialogCellEditor {
         }
 
         if (tableToEdit != null) {
-            MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
-            dialog.setInputReadOnly(metaReadonly);
-            dialog.setOutputReadOnly(metaReadonly);
-            if (dialog.open() == MetadataDialog.OK && !metaReadonly) {
-                final IMetadataTable oldTable = tableToEdit;
-                final IMetadataTable newTable = dialog.getOutputMetaData();
-                if (!oldTable.sameMetadataAs(newTable, IMetadataColumn.OPTIONS_NONE)) {
-                    executeCommand(new Command() {
+            if (isHL7OutputNode(node) && node.getIncomingConnections().size() > 0) {
+                copyHL7OutputMetadata(node, tableToEdit);
+            } else {
+                MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
+                dialog.setInputReadOnly(metaReadonly);
+                dialog.setOutputReadOnly(metaReadonly);
+                if (dialog.open() == MetadataDialog.OK && !metaReadonly) {
+                    final IMetadataTable oldTable = tableToEdit;
+                    final IMetadataTable newTable = dialog.getOutputMetaData();
+                    if (!oldTable.sameMetadataAs(newTable, IMetadataColumn.OPTIONS_NONE)) {
+                        executeCommand(new Command() {
 
-                        @Override
-                        public void execute() {
-                            oldTable.setListColumns(newTable.getListColumns());
-                        }
+                            @Override
+                            public void execute() {
+                                oldTable.setListColumns(newTable.getListColumns());
+                            }
 
-                    });
+                        });
+                    }
+
                 }
-
             }
-
             return schemaToEdit;
         } else {
             return ""; //$NON-NLS-1$
@@ -456,6 +464,17 @@ public class SchemaCellEditor extends DialogCellEditor {
                     IEBCDICProviderService.class);
             if (service != null) {
                 return service.isEbcdicNode(node);
+            }
+        }
+        return false;
+    }
+
+    private boolean isHL7OutputNode(INode node) {
+        if (PluginChecker.isHL7PluginLoaded()) {
+            IHL7ProviderService service = (IHL7ProviderService) GlobalServiceRegister.getDefault().getService(
+                    IHL7ProviderService.class);
+            if (service != null) {
+                return service.isHL7OutputNode(node);
             }
         }
         return false;
@@ -520,4 +539,106 @@ public class SchemaCellEditor extends DialogCellEditor {
         cmd.execute();
     }
 
+    private void copyHL7OutputMetadata(INode node, IMetadataTable tableToEdit) {
+        List<Map<String, String>> maps = (List<Map<String, String>>) ElementParameterParser.getObjectValue(node, "__SCHEMAS__"); //$NON-NLS-1$
+        String tableName = tableToEdit.getTableName();
+        List<IConnection> connList = (List<IConnection>) node.getIncomingConnections(EConnectionType.FLOW_MERGE);
+        for (Map<String, String> map : maps) {
+            if (map.containsValue(tableName)) {
+                if (map.get("SCHEMA") != null && map.get("SCHEMA").equals(tableName)) {
+                    String rowName = map.get("PARENT_ROW");
+                    for (IConnection conn : connList) {
+                        if (conn.getName().equals(rowName)) {
+                            IMetadataTable originalInputTable = null, originalCurrentOutTable = null, finalOutTable = null, finalInputTable = null;
+                            int index = getTableViewer().getTable().getSelectionIndex();
+                            originalInputTable = conn.getMetadataTable();
+                            INode inputNode = conn.getSource();
+                            List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
+                            // originalCurrentOutTable = new MetadataTable();
+                            // originalCurrentOutTable.setListColumns(listColumns);
+                            // 2.open metadataDialog,set finalOutTable
+                            MetadataDialog metaDialog = new MetadataDialog(new Shell(), originalInputTable, inputNode,
+                                    tableToEdit.clone(), node, tableEditorView.getTableViewerCreator().getCommandStack());
+                            if (metaDialog.open() == Window.OK) {
+                                finalInputTable = metaDialog.getInputMetaData().clone();
+                                finalOutTable = metaDialog.getOutputMetaData().clone();
+                                tableToEdit.setListColumns(finalOutTable.getListColumns());
+                                // 3.ChangeRuleMetadataCommand
+                                // ChangeRuleMetadataCommand changeRuleMetadataCommand = new
+                                // ChangeRuleMetadataCommand(node,
+                                //                                        "SCHEMAS", //$NON-NLS-1$
+                                // tableToEdit.getLabel(), finalOutTable, index);
+                                // changeMetadataCommand changeMetadataCommand = new ChangeMetadataCommand(node, param,
+                                // inputNode,
+                                // inputMetadata, finalInputTable, originaleOutputTable, finalOutTable);
+                                // executeCommand(changeRuleMetadataCommand);
+                                IProcess process = node.getProcess();
+                                if (process instanceof IProcess2) {
+                                    ((IProcess2) process).checkTableParameters();
+                                    ((IProcess2) process).checkProcess();
+                                }
+                                if (getTableViewer() != null) {
+                                    getTableViewer().refresh();
+                                }
+                            }
+                            return;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    // private void updateColumnsOnElement(IElement element, IMetadataTable metadataTable) {
+    // List<Map<String, Object>> paramValues = (List<Map<String, Object>>) param.getValue();
+    // List<Map<String, Object>> newParamValues = new ArrayList<Map<String, Object>>();
+    // for (int j = 0; j < columnNameList.length; j++) {
+    // String columnName = columnNameList[j];
+    // String[] codes = param.getListItemsDisplayCodeName();
+    // Map<String, Object> newLine = null;
+    // boolean found = false;
+    // ColumnNameChanged colChanged = null;
+    // if (columnsChanged != null) {
+    // for (int k = 0; k < columnsChanged.size() && !found; k++) {
+    // colChanged = columnsChanged.get(k);
+    // if (colChanged.getNewName().equals(columnName)) {
+    // found = true;
+    // }
+    // }
+    // }
+    // if (found) {
+    // found = false;
+    // for (int k = 0; k < paramValues.size() && !found; k++) {
+    // Map<String, Object> currentLine = paramValues.get(k);
+    // if (currentLine.get(codes[0]).equals(colChanged.getOldName())) {
+    // currentLine.put(codes[0], colChanged.getNewName());
+    // found = true;
+    // }
+    // }
+    // }
+    // found = false;
+    // for (int k = 0; k < paramValues.size() && !found; k++) {
+    // Map<String, Object> currentLine = paramValues.get(k);
+    // if (currentLine.get(codes[0]) == null) {
+    // currentLine.put(codes[0], columnName);
+    // }
+    // if (currentLine.get(codes[0]).equals(columnName)) {
+    // found = true;
+    // newLine = currentLine;
+    // }
+    // }
+    // if (!found) {
+    // newLine = TableController.createNewLine(param);
+    // newLine.put(codes[0], columnName);
+    // }
+    // if (synWidthWithMetadataColumn) {
+    // setColumnSize(newLine, element, codes, param);
+    // }
+    // newParamValues.add(j, newLine);
+    // }
+    // paramValues.clear();
+    // paramValues.addAll(newParamValues);
+    // }
 }

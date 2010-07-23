@@ -31,6 +31,18 @@ public interface IHL7Constant {
 
     public static final String FIELD_CODE = "CODE"; //$NON-NLS-1$
 
+    public static final String PATH = "PATH"; //$NON-NLS-1$
+
+    public static final String VALUE = "VALUE"; //$NON-NLS-1$
+
+    public static final String COLUMN = "COLUMN"; //$NON-NLS-1$
+
+    public static final String ATTRIBUTE = "ATTRIBUTE"; //$NON-NLS-1$s
+
+    public static final String ORDER = "ORDER"; //$NON-NLS-1$
+
+    public static final String REPEATABLE = "REPEATABLE";//$NON-NLS-1$
+
     /*
      * 
      */
