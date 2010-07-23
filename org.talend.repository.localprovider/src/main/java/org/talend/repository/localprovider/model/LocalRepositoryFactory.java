@@ -469,8 +469,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 }
                             } else if (current instanceof IFolder) { // &&
                                 if (!FilesUtils.isSVNFolder(current) && searchInChildren) {
-                                    toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type, allVersion,
-                                            true, withDeleted, true));
+                                    if (((IFolder) current).getLocation().toPortableString().contains("bin")) {
+                                        // don't do anything for bin directory
+                                    } else {
+                                        toReturn.addAll(getSerializableFromFolder(project, (IFolder) current, id, type,
+                                                allVersion, true, withDeleted, true));
+                                    }
                                 }
                             }
                         }
