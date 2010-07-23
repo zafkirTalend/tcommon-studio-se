@@ -29,6 +29,10 @@
    <includes
          id="org.talend.utils_feature"
          version="0.0.0"/>
+		 
+	<includes
+         id="org.eclipse.m2m.atl"
+         version="0.0.0"/>
 
    <requires>
       <import plugin="org.eclipse.emf"/>
