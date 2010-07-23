@@ -491,6 +491,8 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             progressDialog(selectedItems, contextGoupNameSet, getSelectedContextParameterType());
 
             modelManager.refreshTemplateTab();
+            // 
+            modelManager.refreshTableTab();
         }
 
         super.okPressed();
