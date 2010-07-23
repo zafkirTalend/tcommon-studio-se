@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -45,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.SchemaAttribute;
  * @generated
  */
 public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileConnection {
+
     /**
      * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list.
      * <!-- begin-user-doc -->
@@ -53,7 +53,7 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * @generated
      * @ordered
      */
-    protected EList value;
+    protected EList<String> value;
 
     /**
      * The default value of the '{@link #getFilePath() <em>File Path</em>}' attribute.
@@ -149,6 +149,7 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.LDIF_FILE_CONNECTION;
     }
@@ -158,9 +159,9 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getValue() {
+    public EList<String> getValue() {
         if (value == null) {
-            value = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.LDIF_FILE_CONNECTION__VALUE);
+            value = new EDataTypeUniqueEList<String>(String.class, this, ConnectionPackage.LDIF_FILE_CONNECTION__VALUE);
         }
         return value;
     }
@@ -183,7 +184,8 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         String oldFilePath = filePath;
         filePath = newFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH, oldFilePath, filePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH, oldFilePath,
+                    filePath));
     }
 
     /**
@@ -204,7 +206,8 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         int oldLimitEntry = limitEntry;
         limitEntry = newLimitEntry;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY, oldLimitEntry, limitEntry));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY,
+                    oldLimitEntry, limitEntry));
     }
 
     /**
@@ -225,7 +228,8 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         boolean oldUseLimit = useLimit;
         useLimit = newUseLimit;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT, oldUseLimit, useLimit));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT, oldUseLimit,
+                    useLimit));
     }
 
     /**
@@ -246,7 +250,8 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         String oldServer = server;
         server = newServer;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__SERVER, oldServer, server));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__SERVER, oldServer,
+                    server));
     }
 
     /**
@@ -254,18 +259,19 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
-                return getValue();
-            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
-                return getFilePath();
-            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
-                return new Integer(getLimitEntry());
-            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
-                return isUseLimit() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
-                return getServer();
+        case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
+            return getValue();
+        case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+            return getFilePath();
+        case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+            return getLimitEntry();
+        case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+            return isUseLimit();
+        case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
+            return getServer();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -275,24 +281,26 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
-                getValue().clear();
-                getValue().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
-                setFilePath((String)newValue);
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
-                setLimitEntry(((Integer)newValue).intValue());
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
-                setUseLimit(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
-                setServer((String)newValue);
-                return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
+            getValue().clear();
+            getValue().addAll((Collection<? extends String>) newValue);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+            setFilePath((String) newValue);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+            setLimitEntry((Integer) newValue);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+            setUseLimit((Boolean) newValue);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
+            setServer((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -302,23 +310,24 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
-                getValue().clear();
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
-                setFilePath(FILE_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
-                setLimitEntry(LIMIT_ENTRY_EDEFAULT);
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
-                setUseLimit(USE_LIMIT_EDEFAULT);
-                return;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
-                setServer(SERVER_EDEFAULT);
-                return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
+            getValue().clear();
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+            setFilePath(FILE_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+            setLimitEntry(LIMIT_ENTRY_EDEFAULT);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+            setUseLimit(USE_LIMIT_EDEFAULT);
+            return;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
+            setServer(SERVER_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -328,18 +337,19 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
-                return value != null && !value.isEmpty();
-            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
-                return FILE_PATH_EDEFAULT == null ? filePath != null : !FILE_PATH_EDEFAULT.equals(filePath);
-            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
-                return limitEntry != LIMIT_ENTRY_EDEFAULT;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
-                return useLimit != USE_LIMIT_EDEFAULT;
-            case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
-                return SERVER_EDEFAULT == null ? server != null : !SERVER_EDEFAULT.equals(server);
+        case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
+            return value != null && !value.isEmpty();
+        case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+            return FILE_PATH_EDEFAULT == null ? filePath != null : !FILE_PATH_EDEFAULT.equals(filePath);
+        case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+            return limitEntry != LIMIT_ENTRY_EDEFAULT;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+            return useLimit != USE_LIMIT_EDEFAULT;
+        case ConnectionPackage.LDIF_FILE_CONNECTION__SERVER:
+            return SERVER_EDEFAULT == null ? server != null : !SERVER_EDEFAULT.equals(server);
         }
         return super.eIsSet(featureID);
     }
@@ -349,8 +359,10 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (value: ");

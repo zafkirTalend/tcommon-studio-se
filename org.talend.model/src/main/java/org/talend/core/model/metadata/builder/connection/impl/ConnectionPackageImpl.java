@@ -6,18 +6,18 @@
 package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.ArrayList;
-import static org.talend.core.model.metadata.builder.connection.ConnectionPackage.ESCAPE;
-
 import java.util.HashMap;
 
-import java.util.List;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.CDCType;
@@ -27,7 +27,6 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.DatabaseProperties;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
@@ -35,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
+import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.HL7FileNode;
@@ -43,6 +43,7 @@ import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParamet
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -66,56 +67,138 @@ import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
+import org.talend.cwm.constants.ConstantsPackage;
+
+import org.talend.cwm.constants.impl.ConstantsPackageImpl;
+
+import org.talend.cwm.relational.impl.RelationalPackageImpl;
+
+import org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentPackageImpl;
+
+import org.talend.cwm.xml.impl.XmlPackageImpl;
+
+import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
+
+import orgomg.cwm.analysis.datamining.DataminingPackage;
+
+import orgomg.cwm.analysis.informationvisualization.InformationvisualizationPackage;
+
+import orgomg.cwm.analysis.olap.OlapPackage;
+
+import orgomg.cwm.analysis.transformation.TransformationPackage;
+
+import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
+
+import orgomg.cwm.foundation.datatypes.DatatypesPackage;
+
+import orgomg.cwm.foundation.expressions.ExpressionsPackage;
+
+import orgomg.cwm.foundation.keysindexes.KeysindexesPackage;
+
+import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
+
+import orgomg.cwm.foundation.typemapping.TypemappingPackage;
+
+import orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage;
+
+import orgomg.cwm.management.warehouseprocess.WarehouseprocessPackage;
+
+import orgomg.cwm.objectmodel.behavioral.BehavioralPackage;
+
+import orgomg.cwm.objectmodel.core.CorePackage;
+
+import orgomg.cwm.objectmodel.instance.InstancePackage;
+
+import orgomg.cwm.objectmodel.relationships.RelationshipsPackage;
+
+import orgomg.cwm.resource.multidimensional.MultidimensionalPackage;
+
+import orgomg.cwm.resource.record.RecordPackage;
+
+import orgomg.cwm.resource.relational.RelationalPackage;
+
+import orgomg.cwm.resource.xml.XmlPackage;
+
+import orgomg.cwmmip.CwmmipPackage;
+
+import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
+
+import orgomg.cwmx.analysis.informationset.InformationsetPackage;
+
+import orgomg.cwmx.foundation.er.ErPackage;
+
+import orgomg.cwmx.resource.coboldata.CoboldataPackage;
+
+import orgomg.cwmx.resource.dmsii.DmsiiPackage;
+
+import orgomg.cwmx.resource.essbase.EssbasePackage;
+
+import orgomg.cwmx.resource.express.ExpressPackage;
+
+import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
+
+import orgomg.mof.model.ModelPackage;
+
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
  * @generated
  */
 public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPackage {
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass metadataEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass connectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass metadataTableEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass metadataColumnEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass abstractMetadataObjectEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass metadataTableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass fileConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass delimitedFileConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass positionalFileConnectionEClass = null;
@@ -135,7 +218,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass mdmConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass databaseConnectionEClass = null;
@@ -190,37 +274,43 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass outputSAPFunctionParameterTableEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass regexpFileConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass xmlFileConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass schemaTargetEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass queriesConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass queryEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass ldifFileConnectionEClass = null;
@@ -233,19 +323,22 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass fileExcelConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass xmlXPathLoopDescriptorEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass genericSchemaConnectionEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EClass ldapSchemaConnectionEClass = null;
@@ -332,40 +425,53 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass genericPackageEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass hl7FileNodeEClass = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EEnum databasePropertiesEEnum = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EEnum fileFormatEEnum = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EEnum fieldSeparatorEEnum = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EEnum escapeEEnum = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EEnum rowSeparatorEEnum = null;
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum mdmConnectionProtocolEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private EDataType mapEDataType = null;
@@ -379,12 +485,14 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package package URI value.
-     * <p>
-     * Note: the correct way to create the package is via the static factory method {@link #init init()}, which also
-     * performs initialization of the package, or returns the registered package, if one already exists. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+     * package URI value.
+     * <p>Note: the correct way to create the package is via the static
+     * factory method {@link #init init()}, which also performs
+     * initialization of the package, or returns the registered package,
+     * if one already exists.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#eNS_URI
      * @see #init()
@@ -395,7 +503,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private static boolean isInited = false;
@@ -405,38 +514,98 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * 
      * <p>This method is used to initialize {@link ConnectionPackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #eNS_URI
      * @see #createPackageContents()
      * @see #initializePackageContents()
      * @generated
      */
     public static ConnectionPackage init() {
-        if (isInited) return (ConnectionPackage)EPackage.Registry.INSTANCE.getEPackage(ConnectionPackage.eNS_URI);
+        if (isInited)
+            return (ConnectionPackage) EPackage.Registry.INSTANCE.getEPackage(ConnectionPackage.eNS_URI);
 
         // Obtain or create and register package
-        ConnectionPackageImpl theConnectionPackage = (ConnectionPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ConnectionPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ConnectionPackageImpl());
+        ConnectionPackageImpl theConnectionPackage = (ConnectionPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ConnectionPackageImpl ? EPackage.Registry.INSTANCE
+                .get(eNS_URI)
+                : new ConnectionPackageImpl());
 
         isInited = true;
 
+        // Initialize simple dependencies
+        CorePackage.eINSTANCE.eClass();
+        BehavioralPackage.eINSTANCE.eClass();
+        RelationshipsPackage.eINSTANCE.eClass();
+        InstancePackage.eINSTANCE.eClass();
+        BusinessinformationPackage.eINSTANCE.eClass();
+        DatatypesPackage.eINSTANCE.eClass();
+        ExpressionsPackage.eINSTANCE.eClass();
+        KeysindexesPackage.eINSTANCE.eClass();
+        SoftwaredeploymentPackage.eINSTANCE.eClass();
+        TypemappingPackage.eINSTANCE.eClass();
+        RelationalPackage.eINSTANCE.eClass();
+        RecordPackage.eINSTANCE.eClass();
+        MultidimensionalPackage.eINSTANCE.eClass();
+        XmlPackage.eINSTANCE.eClass();
+        TransformationPackage.eINSTANCE.eClass();
+        OlapPackage.eINSTANCE.eClass();
+        DataminingPackage.eINSTANCE.eClass();
+        InformationvisualizationPackage.eINSTANCE.eClass();
+        BusinessnomenclaturePackage.eINSTANCE.eClass();
+        WarehouseprocessPackage.eINSTANCE.eClass();
+        WarehouseoperationPackage.eINSTANCE.eClass();
+        ErPackage.eINSTANCE.eClass();
+        CoboldataPackage.eINSTANCE.eClass();
+        DmsiiPackage.eINSTANCE.eClass();
+        ImsdatabasePackage.eINSTANCE.eClass();
+        EssbasePackage.eINSTANCE.eClass();
+        ExpressPackage.eINSTANCE.eClass();
+        InformationsetPackage.eINSTANCE.eClass();
+        InformationreportingPackage.eINSTANCE.eClass();
+        CwmmipPackage.eINSTANCE.eClass();
+        ModelPackage.eINSTANCE.eClass();
+
+        // Obtain or create and register interdependencies
+        RelationalPackageImpl theRelationalPackage_1 = (RelationalPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.relational.RelationalPackage.eNS_URI) instanceof RelationalPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.relational.RelationalPackage.eNS_URI)
+                : org.talend.cwm.relational.RelationalPackage.eINSTANCE);
+        SoftwaredeploymentPackageImpl theSoftwaredeploymentPackage_1 = (SoftwaredeploymentPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage.eNS_URI) instanceof SoftwaredeploymentPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage.eNS_URI)
+                : org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage.eINSTANCE);
+        ConstantsPackageImpl theConstantsPackage = (ConstantsPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(ConstantsPackage.eNS_URI) instanceof ConstantsPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(ConstantsPackage.eNS_URI) : ConstantsPackage.eINSTANCE);
+        XmlPackageImpl theXmlPackage_1 = (XmlPackageImpl) (EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.xml.XmlPackage.eNS_URI) instanceof XmlPackageImpl ? EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.xml.XmlPackage.eNS_URI) : org.talend.cwm.xml.XmlPackage.eINSTANCE);
+
         // Create package meta-data objects
         theConnectionPackage.createPackageContents();
+        theRelationalPackage_1.createPackageContents();
+        theSoftwaredeploymentPackage_1.createPackageContents();
+        theConstantsPackage.createPackageContents();
+        theXmlPackage_1.createPackageContents();
 
         // Initialize created meta-data
         theConnectionPackage.initializePackageContents();
+        theRelationalPackage_1.initializePackageContents();
+        theSoftwaredeploymentPackage_1.initializePackageContents();
+        theConstantsPackage.initializePackageContents();
+        theXmlPackage_1.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theConnectionPackage.freeze();
 
-  
         // Update the registry and return the package
         EPackage.Registry.INSTANCE.put(ConnectionPackage.eNS_URI, theConnectionPackage);
         return theConnectionPackage;
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getMetadata() {
@@ -444,15 +613,17 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getMetadata_Connections() {
-        return (EReference)metadataEClass.getEStructuralFeatures().get(0);
+        return (EReference) metadataEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getConnection() {
@@ -460,27 +631,21 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getConnection_Version() {
-        return (EAttribute)connectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) connectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getConnection_Tables() {
-        return (EReference)connectionEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getConnection_Queries() {
-        return (EReference)connectionEClass.getEStructuralFeatures().get(2);
+        return (EReference) connectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -489,7 +654,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConnection_ContextMode() {
-        return (EAttribute)connectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) connectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -498,11 +663,174 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConnection_ContextId() {
-        return (EAttribute)connectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) connectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getMetadataColumn() {
+        return metadataColumnEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_SourceType() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_DefaultValue() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_TalendType() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_Key() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_Nullable() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getMetadataColumn_Table() {
+        return (EReference) metadataColumnEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_OriginalField() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_Pattern() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_DisplayField() {
+        return (EAttribute) metadataColumnEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAbstractMetadataObject() {
+        return abstractMetadataObjectEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Properties() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Id() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Comment() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Label() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_ReadOnly() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Synchronised() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Divergency() {
+        return (EAttribute) abstractMetadataObjectEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getMetadataTable() {
@@ -510,35 +838,21 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMetadataTable_SourceName() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) metadataTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getMetadataTable_Columns() {
-        return (EReference)metadataTableEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getMetadataTable_Connection() {
-        return (EReference)metadataTableEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getMetadataTable_TableType() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) metadataTableEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -547,7 +861,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMetadataTable_AttachedCDC() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) metadataTableEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -556,171 +870,30 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMetadataTable_ActivatedCDC() {
-        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) metadataTableEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getMetadataColumn() {
-        return metadataColumnEClass;
+    public EReference getMetadataTable_Columns() {
+        return (EReference) metadataTableEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getMetadataColumn_SourceType() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(0);
+    public EReference getMetadataTable_Connection() {
+        return (EReference) metadataTableEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_DefaultValue() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_TalendType() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_Key() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_Nullable() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_Length() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_Precision() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getMetadataColumn_Table() {
-        return (EReference)metadataColumnEClass.getEStructuralFeatures().get(7);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_OriginalField() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(8);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_Pattern() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(9);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMetadataColumn_DisplayField() {
-        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(10);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getAbstractMetadataObject() {
-        return abstractMetadataObjectEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_Properties() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_Id() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_Comment() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_Label() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_ReadOnly() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_Synchronised() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getAbstractMetadataObject_Divergency() {
-        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getFileConnection() {
@@ -728,155 +901,174 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_Server() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_FilePath() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_Format() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_Encoding() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_FieldSeparatorValue() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_RowSeparatorType() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_RowSeparatorValue() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_TextIdentifier() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_UseHeader() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(8);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_HeaderValue() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(9);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(9);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_UseFooter() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(10);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_FooterValue() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(11);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(11);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_UseLimit() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(12);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(12);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_LimitValue() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(13);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(13);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_FirstLineCaption() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(14);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(14);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_RemoveEmptyRow() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(15);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(15);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_EscapeType() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(16);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(16);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_EscapeChar() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(17);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(17);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileConnection_TextEnclosure() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(18);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -885,11 +1077,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileConnection_CsvOption() {
-        return (EAttribute)fileConnectionEClass.getEStructuralFeatures().get(19);
+        return (EAttribute) fileConnectionEClass.getEStructuralFeatures().get(19);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getDelimitedFileConnection() {
@@ -897,11 +1090,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDelimitedFileConnection_FieldSeparatorType() {
-        return (EAttribute)delimitedFileConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) delimitedFileConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -910,11 +1104,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDelimitedFileConnection_SplitRecord() {
-        return (EAttribute)delimitedFileConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) delimitedFileConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getPositionalFileConnection() {
@@ -936,7 +1131,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getEbcdicConnection_MidFile() {
-        return (EAttribute)ebcdicConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) ebcdicConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -945,7 +1140,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getEbcdicConnection_DataFile() {
-        return (EAttribute)ebcdicConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) ebcdicConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -963,7 +1158,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Username() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -972,7 +1167,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Password() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -981,7 +1176,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Port() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -990,7 +1185,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Server() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -999,7 +1194,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Universe() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1008,7 +1203,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Datamodel() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1017,7 +1212,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getMDMConnection_Datacluster() {
-        return (EAttribute)mdmConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1026,11 +1221,30 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getMDMConnection_Schemas() {
-        return (EReference)mdmConnectionEClass.getEStructuralFeatures().get(7);
+        return (EReference) mdmConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Protocol() {
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMDMConnection_Context() {
+        return (EAttribute) mdmConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getDatabaseConnection() {
@@ -1038,11 +1252,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_DatabaseType() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1051,23 +1266,25 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_DriverJarPath() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_DriverClass() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_URL() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1076,119 +1293,124 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_DbVersionString() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_Port() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_Username() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_Password() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_ServerName() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(8);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_DatasourceName() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(9);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(9);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_FileFieldName() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(10);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getDatabaseConnection_Schema() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(11);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_SID() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(12);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(11);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_SqlSynthax() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(13);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(12);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_StringQuote() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(14);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(13);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_NullChar() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(15);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(14);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_DbmsId() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(16);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(15);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_ProductId() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(17);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(16);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getDatabaseConnection_DBRootPath() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(18);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(17);
     }
 
     /**
@@ -1197,7 +1419,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_AdditionalParams() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(19);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(18);
     }
 
     /**
@@ -1206,7 +1428,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_StandardSQL() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(20);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(19);
     }
 
     /**
@@ -1215,7 +1437,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_SystemSQL() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(21);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(20);
     }
 
     /**
@@ -1224,7 +1446,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getDatabaseConnection_CdcConns() {
-        return (EReference)databaseConnectionEClass.getEStructuralFeatures().get(22);
+        return (EReference) databaseConnectionEClass.getEStructuralFeatures().get(21);
     }
 
     /**
@@ -1233,7 +1455,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_CdcTypeMode() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(23);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -1242,7 +1464,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getDatabaseConnection_SQLMode() {
-        return (EAttribute)databaseConnectionEClass.getEStructuralFeatures().get(24);
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDatabaseConnection_UiSchema() {
+        return (EAttribute) databaseConnectionEClass.getEStructuralFeatures().get(24);
     }
 
     /**
@@ -1260,7 +1491,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_Host() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1269,7 +1500,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_Username() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1278,7 +1509,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_Password() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1287,7 +1518,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_Client() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1296,7 +1527,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_SystemNumber() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1305,7 +1536,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_Language() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1314,7 +1545,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPConnection_Funtions() {
-        return (EReference)sapConnectionEClass.getEStructuralFeatures().get(6);
+        return (EReference) sapConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1323,7 +1554,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPConnection_CurrentFucntion() {
-        return (EAttribute)sapConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) sapConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1332,7 +1563,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPConnection_IDocs() {
-        return (EReference)sapConnectionEClass.getEStructuralFeatures().get(8);
+        return (EReference) sapConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1349,17 +1580,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSAPFunctionUnit_Name() {
-        return (EAttribute)sapFunctionUnitEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getSAPFunctionUnit_OutputType() {
-        return (EAttribute)sapFunctionUnitEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) sapFunctionUnitEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1368,16 +1590,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPFunctionUnit_OutputTableName() {
-        return (EAttribute)sapFunctionUnitEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getSAPFunctionUnit_Document() {
-        return (EAttribute)sapFunctionUnitEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) sapFunctionUnitEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1386,7 +1599,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionUnit_InputParameterTable() {
-        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(4);
+        return (EReference) sapFunctionUnitEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1395,7 +1608,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionUnit_OutputParameterTable() {
-        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(5);
+        return (EReference) sapFunctionUnitEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1404,7 +1617,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionUnit_MetadataTable() {
-        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(6);
+        return (EReference) sapFunctionUnitEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1413,7 +1626,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionUnit_Connection() {
-        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(7);
+        return (EReference) sapFunctionUnitEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1422,7 +1635,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionUnit_Tables() {
-        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(8);
+        return (EReference) sapFunctionUnitEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1431,7 +1644,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionUnit_TestInputParameterTable() {
-        return (EReference)sapFunctionUnitEClass.getEStructuralFeatures().get(9);
+        return (EReference) sapFunctionUnitEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1449,7 +1662,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPIDocUnit_Connection() {
-        return (EReference)sapiDocUnitEClass.getEStructuralFeatures().get(0);
+        return (EReference) sapiDocUnitEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1458,7 +1671,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPIDocUnit_ProgramId() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) sapiDocUnitEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1467,7 +1680,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPIDocUnit_GatewayService() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) sapiDocUnitEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1476,7 +1689,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPIDocUnit_UseXmlOutput() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) sapiDocUnitEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1485,7 +1698,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPIDocUnit_XmlFile() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) sapiDocUnitEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1494,7 +1707,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPIDocUnit_UseHtmlOutput() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) sapiDocUnitEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1503,16 +1716,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPIDocUnit_HtmlFile() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getSAPIDocUnit_Name() {
-        return (EAttribute)sapiDocUnitEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) sapiDocUnitEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1529,17 +1733,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSAPFunctionParameterColumn_Name() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getSAPFunctionParameterColumn_ParameterType() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) sapFunctionParameterColumnEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1548,7 +1743,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPFunctionParameterColumn_StructureOrTableName() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) sapFunctionParameterColumnEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1557,7 +1752,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPFunctionParameterColumn_DataType() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) sapFunctionParameterColumnEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1566,16 +1761,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPFunctionParameterColumn_Length() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getSAPFunctionParameterColumn_Description() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) sapFunctionParameterColumnEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1584,7 +1770,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSAPFunctionParameterColumn_Value() {
-        return (EAttribute)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) sapFunctionParameterColumnEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1593,7 +1779,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionParameterColumn_ParameterTable() {
-        return (EReference)sapFunctionParameterColumnEClass.getEStructuralFeatures().get(7);
+        return (EReference) sapFunctionParameterColumnEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1611,7 +1797,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPFunctionParameterTable_Columns() {
-        return (EReference)sapFunctionParameterTableEClass.getEStructuralFeatures().get(0);
+        return (EReference) sapFunctionParameterTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1629,7 +1815,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getInputSAPFunctionParameterTable_FunctionUnit() {
-        return (EReference)inputSAPFunctionParameterTableEClass.getEStructuralFeatures().get(0);
+        return (EReference) inputSAPFunctionParameterTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1647,11 +1833,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getOutputSAPFunctionParameterTable_FunctionUnit() {
-        return (EReference)outputSAPFunctionParameterTableEClass.getEStructuralFeatures().get(0);
+        return (EReference) outputSAPFunctionParameterTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getRegexpFileConnection() {
@@ -1659,15 +1846,17 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getRegexpFileConnection_FieldSeparatorType() {
-        return (EAttribute)regexpFileConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) regexpFileConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getXmlFileConnection() {
@@ -1675,51 +1864,57 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlFileConnection_XsdFilePath() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlFileConnection_XmlFilePath() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlFileConnection_Guess() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlFileConnection_MaskXPattern() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getXmlFileConnection_Schema() {
-        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(4);
+        return (EReference) xmlFileConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlFileConnection_Encoding() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1728,7 +1923,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getXmlFileConnection_Group() {
-        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(6);
+        return (EReference) xmlFileConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1737,7 +1932,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getXmlFileConnection_Root() {
-        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(7);
+        return (EReference) xmlFileConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1746,7 +1941,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getXmlFileConnection_Loop() {
-        return (EReference)xmlFileConnectionEClass.getEStructuralFeatures().get(8);
+        return (EReference) xmlFileConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1755,7 +1950,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXmlFileConnection_InputModel() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(9);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1764,11 +1959,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXmlFileConnection_OutputFilePath() {
-        return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(10);
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getSchemaTarget() {
@@ -1776,31 +1972,35 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSchemaTarget_RelativeXPathQuery() {
-        return (EAttribute)schemaTargetEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) schemaTargetEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSchemaTarget_TagName() {
-        return (EAttribute)schemaTargetEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) schemaTargetEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getSchemaTarget_Schema() {
-        return (EReference)schemaTargetEClass.getEStructuralFeatures().get(2);
+        return (EReference) schemaTargetEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getQueriesConnection() {
@@ -1808,23 +2008,26 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getQueriesConnection_Connection() {
-        return (EReference)queriesConnectionEClass.getEStructuralFeatures().get(0);
+        return (EReference) queriesConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getQueriesConnection_Query() {
-        return (EReference)queriesConnectionEClass.getEStructuralFeatures().get(1);
+        return (EReference) queriesConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getQuery() {
@@ -1832,19 +2035,21 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getQuery_Value() {
-        return (EAttribute)queryEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) queryEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getQuery_Queries() {
-        return (EReference)queryEClass.getEStructuralFeatures().get(1);
+        return (EReference) queryEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1853,11 +2058,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getQuery_ContextMode() {
-        return (EAttribute)queryEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) queryEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getLdifFileConnection() {
@@ -1865,43 +2071,48 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLdifFileConnection_Value() {
-        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) ldifFileConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLdifFileConnection_FilePath() {
-        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) ldifFileConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLdifFileConnection_LimitEntry() {
-        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) ldifFileConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLdifFileConnection_UseLimit() {
-        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) ldifFileConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLdifFileConnection_Server() {
-        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) ldifFileConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1919,7 +2130,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_SheetName() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1928,7 +2139,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_SheetColumns() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1937,7 +2148,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_FirstColumn() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1946,7 +2157,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_LastColumn() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1955,7 +2166,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_ThousandSeparator() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1964,7 +2175,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_DecimalSeparator() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1973,7 +2184,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_AdvancedSpearator() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1982,7 +2193,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_SelectAllSheets() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1991,11 +2202,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getFileExcelConnection_SheetList() {
-        return (EAttribute)fileExcelConnectionEClass.getEStructuralFeatures().get(8);
+        return (EAttribute) fileExcelConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getXmlXPathLoopDescriptor() {
@@ -2003,39 +2215,44 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlXPathLoopDescriptor_LimitBoucle() {
-        return (EAttribute)xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getXmlXPathLoopDescriptor_AbsoluteXPathQuery() {
-        return (EAttribute)xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getXmlXPathLoopDescriptor_Connection() {
-        return (EReference)xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(2);
+        return (EReference) xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EReference getXmlXPathLoopDescriptor_SchemaTargets() {
-        return (EReference)xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(3);
+        return (EReference) xmlXPathLoopDescriptorEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getGenericSchemaConnection() {
@@ -2043,23 +2260,26 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getGenericSchemaConnection_MappingTypeUsed() {
-        return (EAttribute)genericSchemaConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) genericSchemaConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getGenericSchemaConnection_MappingTypeId() {
-        return (EAttribute)genericSchemaConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) genericSchemaConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EClass getLDAPSchemaConnection() {
@@ -2067,187 +2287,210 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Host() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Port() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Protocol() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Filter() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Separator() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_UseAdvanced() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_StorePath() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_UseLimit() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_UseAuthen() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(8);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_BindPrincipal() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(9);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(9);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_BindPassword() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(10);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_LimitValue() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(11);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(11);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_EncryptionMethodName() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(12);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(12);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Value() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(13);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(13);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_SavePassword() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(14);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(14);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Aliases() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(15);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(15);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_Referrals() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(16);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(16);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_CountLimit() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(17);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(17);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_TimeOutLimit() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(18);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(18);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_BaseDNs() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(19);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(19);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_GetBaseDNsFromRoot() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(20);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(20);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_ReturnAttributes() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(21);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(21);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getLDAPSchemaConnection_SelectedDN() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(22);
+        return (EAttribute) ldapSchemaConnectionEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -2265,7 +2508,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_WSDL() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2274,7 +2517,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_NeedAuth() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2283,7 +2526,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_MethodName() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2292,7 +2535,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_Parameters() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2301,7 +2544,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_UserName() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -2310,7 +2553,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_Password() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -2319,7 +2562,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_UseProxy() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -2328,7 +2571,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_ProxyHost() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -2337,7 +2580,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_ProxyPort() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(8);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -2346,7 +2589,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_ProxyUser() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(9);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -2355,7 +2598,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_ProxyPassword() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(10);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -2364,7 +2607,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_Value() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(11);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -2373,7 +2616,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_EndpointURI() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(12);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -2382,7 +2625,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_Encoding() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(13);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -2391,7 +2634,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getWSDLSchemaConnection_TimeOut() {
-        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(14);
+        return (EAttribute) wsdlSchemaConnectionEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -2409,7 +2652,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_WebServiceUrl() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2418,7 +2661,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_UserName() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2427,7 +2670,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_Password() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2436,7 +2679,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_ModuleName() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2445,7 +2688,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_QueryCondition() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -2454,7 +2697,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_UseCustomModuleName() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -2463,7 +2706,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_UseProxy() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(6);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -2472,7 +2715,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_ProxyHost() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(7);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -2481,7 +2724,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_ProxyPort() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(8);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -2490,7 +2733,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_ProxyUsername() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(9);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -2499,7 +2742,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_ProxyPassword() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(10);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -2508,7 +2751,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_BatchSize() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(11);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -2517,7 +2760,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_UseHttpProxy() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(12);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -2526,7 +2769,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_UseAlphbet() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(13);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -2535,7 +2778,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSalesforceSchemaConnection_TimeOut() {
-        return (EAttribute)salesforceSchemaConnectionEClass.getEStructuralFeatures().get(14);
+        return (EAttribute) salesforceSchemaConnectionEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -2553,7 +2796,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getCDCConnection_Connection() {
-        return (EReference)cdcConnectionEClass.getEStructuralFeatures().get(0);
+        return (EReference) cdcConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2562,7 +2805,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getCDCConnection_CdcTypes() {
-        return (EReference)cdcConnectionEClass.getEStructuralFeatures().get(1);
+        return (EReference) cdcConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2580,7 +2823,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getCDCType_LinkDB() {
-        return (EAttribute)cdcTypeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) cdcTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2589,7 +2832,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getCDCType_Subscribers() {
-        return (EReference)cdcTypeEClass.getEStructuralFeatures().get(1);
+        return (EReference) cdcTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2598,7 +2841,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getCDCType_CdcConnection() {
-        return (EReference)cdcTypeEClass.getEStructuralFeatures().get(2);
+        return (EReference) cdcTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2607,7 +2850,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getCDCType_JournalName() {
-        return (EAttribute)cdcTypeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) cdcTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2625,7 +2868,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getSubscriberTable_System() {
-        return (EAttribute)subscriberTableEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) subscriberTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2643,7 +2886,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getSAPTestInputParameterTable_FunctionUnit() {
-        return (EReference)sapTestInputParameterTableEClass.getEStructuralFeatures().get(0);
+        return (EReference) sapTestInputParameterTableEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2661,7 +2904,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConcept_LoopExpression() {
-        return (EAttribute)conceptEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) conceptEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2670,7 +2913,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConcept_LoopLimit() {
-        return (EAttribute)conceptEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) conceptEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2679,7 +2922,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getConcept_ConceptTargets() {
-        return (EReference)conceptEClass.getEStructuralFeatures().get(2);
+        return (EReference) conceptEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2688,7 +2931,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConcept_InputModel() {
-        return (EAttribute)conceptEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) conceptEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2697,7 +2940,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getConcept_Group() {
-        return (EReference)conceptEClass.getEStructuralFeatures().get(4);
+        return (EReference) conceptEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -2706,7 +2949,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getConcept_Root() {
-        return (EReference)conceptEClass.getEStructuralFeatures().get(5);
+        return (EReference) conceptEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -2715,7 +2958,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getConcept_Loop() {
-        return (EReference)conceptEClass.getEStructuralFeatures().get(6);
+        return (EReference) conceptEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -2733,7 +2976,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getConceptTarget_Schema() {
-        return (EReference)conceptTargetEClass.getEStructuralFeatures().get(0);
+        return (EReference) conceptTargetEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2742,7 +2985,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConceptTarget_TargetName() {
-        return (EAttribute)conceptTargetEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) conceptTargetEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2751,7 +2994,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getConceptTarget_RelativeLoopExpression() {
-        return (EAttribute)conceptTargetEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) conceptTargetEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2769,7 +3012,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7Connection_StartChar() {
-        return (EAttribute)hl7ConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) hl7ConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2778,7 +3021,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7Connection_EndChar() {
-        return (EAttribute)hl7ConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) hl7ConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2787,7 +3030,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EReference getHL7Connection_Root() {
-        return (EReference)hl7ConnectionEClass.getEStructuralFeatures().get(2);
+        return (EReference) hl7ConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2805,7 +3048,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHeaderFooterConnection_IsHeader() {
-        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) headerFooterConnectionEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2814,7 +3057,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHeaderFooterConnection_Imports() {
-        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) headerFooterConnectionEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2823,7 +3066,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHeaderFooterConnection_MainCode() {
-        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) headerFooterConnectionEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2832,7 +3075,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHeaderFooterConnection_Libraries() {
-        return (EAttribute)headerFooterConnectionEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) headerFooterConnectionEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2850,7 +3093,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXMLFileNode_XMLPath() {
-        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) xmlFileNodeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2859,7 +3102,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXMLFileNode_RelatedColumn() {
-        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) xmlFileNodeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2868,7 +3111,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXMLFileNode_DefaultValue() {
-        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) xmlFileNodeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2877,7 +3120,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXMLFileNode_Attribute() {
-        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) xmlFileNodeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2886,7 +3129,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXMLFileNode_Order() {
-        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) xmlFileNodeEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -2895,7 +3138,16 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getXMLFileNode_Type() {
-        return (EAttribute)xmlFileNodeEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) xmlFileNodeEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getGenericPackage() {
+        return genericPackageEClass;
     }
 
     /**
@@ -2913,7 +3165,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7FileNode_FilePath() {
-        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute) hl7FileNodeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2922,7 +3174,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7FileNode_Order() {
-        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute) hl7FileNodeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2931,7 +3183,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7FileNode_Attribute() {
-        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(2);
+        return (EAttribute) hl7FileNodeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2940,7 +3192,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7FileNode_DefaultValue() {
-        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute) hl7FileNodeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -2949,7 +3201,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7FileNode_RelatedColumn() {
-        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(4);
+        return (EAttribute) hl7FileNodeEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -2958,19 +3210,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     public EAttribute getHL7FileNode_Repeatable() {
-        return (EAttribute)hl7FileNodeEClass.getEStructuralFeatures().get(5);
+        return (EAttribute) hl7FileNodeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EEnum getDatabaseProperties() {
-        return databasePropertiesEEnum;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EEnum getFileFormat() {
@@ -2978,7 +3223,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EEnum getFieldSeparator() {
@@ -2986,7 +3232,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EEnum getEscape() {
@@ -2994,7 +3241,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EEnum getRowSeparator() {
@@ -3002,7 +3250,17 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getMDMConnectionProtocol() {
+        return mdmConnectionProtocolEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public EDataType getMap() {
@@ -3019,15 +3277,17 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ConnectionFactory getConnectionFactory() {
-        return (ConnectionFactory)getEFactoryInstance();
+        return (ConnectionFactory) getEFactoryInstance();
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private boolean isCreated = false;
@@ -3035,11 +3295,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     /**
      * Creates the meta-model objects for the package.  This method is
      * guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void createPackageContents() {
-        if (isCreated) return;
+        if (isCreated)
+            return;
         isCreated = true;
 
         // Create classes and their features
@@ -3048,7 +3310,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         connectionEClass = createEClass(CONNECTION);
         createEAttribute(connectionEClass, CONNECTION__VERSION);
-        createEReference(connectionEClass, CONNECTION__TABLES);
         createEReference(connectionEClass, CONNECTION__QUERIES);
         createEAttribute(connectionEClass, CONNECTION__CONTEXT_MODE);
         createEAttribute(connectionEClass, CONNECTION__CONTEXT_ID);
@@ -3059,8 +3320,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__TALEND_TYPE);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__KEY);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__NULLABLE);
-        createEAttribute(metadataColumnEClass, METADATA_COLUMN__LENGTH);
-        createEAttribute(metadataColumnEClass, METADATA_COLUMN__PRECISION);
         createEReference(metadataColumnEClass, METADATA_COLUMN__TABLE);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__ORIGINAL_FIELD);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__PATTERN);
@@ -3124,6 +3383,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(mdmConnectionEClass, MDM_CONNECTION__DATAMODEL);
         createEAttribute(mdmConnectionEClass, MDM_CONNECTION__DATACLUSTER);
         createEReference(mdmConnectionEClass, MDM_CONNECTION__SCHEMAS);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__PROTOCOL);
+        createEAttribute(mdmConnectionEClass, MDM_CONNECTION__CONTEXT);
 
         databaseConnectionEClass = createEClass(DATABASE_CONNECTION);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATABASE_TYPE);
@@ -3137,7 +3398,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SERVER_NAME);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__DATASOURCE_NAME);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__FILE_FIELD_NAME);
-        createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SCHEMA);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SID);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SQL_SYNTHAX);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__STRING_QUOTE);
@@ -3151,6 +3411,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(databaseConnectionEClass, DATABASE_CONNECTION__CDC_CONNS);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__CDC_TYPE_MODE);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SQL_MODE);
+        createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__UI_SCHEMA);
 
         sapConnectionEClass = createEClass(SAP_CONNECTION);
         createEAttribute(sapConnectionEClass, SAP_CONNECTION__HOST);
@@ -3164,10 +3425,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(sapConnectionEClass, SAP_CONNECTION__IDOCS);
 
         sapFunctionUnitEClass = createEClass(SAP_FUNCTION_UNIT);
-        createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__NAME);
         createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__OUTPUT_TYPE);
         createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME);
-        createEAttribute(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__DOCUMENT);
         createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE);
         createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE);
         createEReference(sapFunctionUnitEClass, SAP_FUNCTION_UNIT__METADATA_TABLE);
@@ -3183,15 +3442,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(sapiDocUnitEClass, SAPI_DOC_UNIT__XML_FILE);
         createEAttribute(sapiDocUnitEClass, SAPI_DOC_UNIT__USE_HTML_OUTPUT);
         createEAttribute(sapiDocUnitEClass, SAPI_DOC_UNIT__HTML_FILE);
-        createEAttribute(sapiDocUnitEClass, SAPI_DOC_UNIT__NAME);
 
         sapFunctionParameterColumnEClass = createEClass(SAP_FUNCTION_PARAMETER_COLUMN);
-        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__NAME);
         createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TYPE);
         createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__STRUCTURE_OR_TABLE_NAME);
         createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__DATA_TYPE);
         createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__LENGTH);
-        createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__DESCRIPTION);
         createEAttribute(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__VALUE);
         createEReference(sapFunctionParameterColumnEClass, SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE);
 
@@ -3370,6 +3626,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__ORDER);
         createEAttribute(xmlFileNodeEClass, XML_FILE_NODE__TYPE);
 
+        genericPackageEClass = createEClass(GENERIC_PACKAGE);
+
         hl7FileNodeEClass = createEClass(HL7_FILE_NODE);
         createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__FILE_PATH);
         createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__ORDER);
@@ -3379,11 +3637,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__REPEATABLE);
 
         // Create enums
-        databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
         escapeEEnum = createEEnum(ESCAPE);
         rowSeparatorEEnum = createEEnum(ROW_SEPARATOR);
+        mdmConnectionProtocolEEnum = createEEnum(MDM_CONNECTION_PROTOCOL);
 
         // Create data types
         mapEDataType = createEDataType(MAP);
@@ -3391,7 +3649,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     private boolean isInitialized = false;
@@ -3399,11 +3658,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     /**
      * Complete the initialization of the package and its meta-model.  This
      * method is guarded to have no affect on any invocation but its first.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void initializePackageContents() {
-        if (isInitialized) return;
+        if (isInitialized)
+            return;
         isInitialized = true;
 
         // Initialize package
@@ -3411,11 +3672,39 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         setNsPrefix(eNS_PREFIX);
         setNsURI(eNS_URI);
 
+        // Obtain other dependent packages
+        org.talend.cwm.relational.RelationalPackage theRelationalPackage_1 = (org.talend.cwm.relational.RelationalPackage) EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.relational.RelationalPackage.eNS_URI);
+        org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage theSoftwaredeploymentPackage_1 = (org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage) EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage.eNS_URI);
+        ConstantsPackage theConstantsPackage = (ConstantsPackage) EPackage.Registry.INSTANCE
+                .getEPackage(ConstantsPackage.eNS_URI);
+        org.talend.cwm.xml.XmlPackage theXmlPackage_1 = (org.talend.cwm.xml.XmlPackage) EPackage.Registry.INSTANCE
+                .getEPackage(org.talend.cwm.xml.XmlPackage.eNS_URI);
+        SoftwaredeploymentPackage theSoftwaredeploymentPackage = (SoftwaredeploymentPackage) EPackage.Registry.INSTANCE
+                .getEPackage(SoftwaredeploymentPackage.eNS_URI);
+        RecordPackage theRecordPackage = (RecordPackage) EPackage.Registry.INSTANCE.getEPackage(RecordPackage.eNS_URI);
+        CorePackage theCorePackage = (CorePackage) EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+
+        // Add subpackages
+        getESubpackages().add(theRelationalPackage_1);
+        getESubpackages().add(theSoftwaredeploymentPackage_1);
+        getESubpackages().add(theConstantsPackage);
+        getESubpackages().add(theXmlPackage_1);
+
+        // Create type parameters
+
+        // Set bounds for type parameters
+
         // Add supertypes to classes
         metadataEClass.getESuperTypes().add(this.getAbstractMetadataObject());
         connectionEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        connectionEClass.getESuperTypes().add(theSoftwaredeploymentPackage.getDataProvider());
         metadataColumnEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        metadataColumnEClass.getESuperTypes().add(theRecordPackage.getField());
+        abstractMetadataObjectEClass.getESuperTypes().add(theCorePackage.getModelElement());
         metadataTableEClass.getESuperTypes().add(this.getAbstractMetadataObject());
+        metadataTableEClass.getESuperTypes().add(theCorePackage.getClass_());
         fileConnectionEClass.getESuperTypes().add(this.getConnection());
         delimitedFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         positionalFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
@@ -3439,365 +3728,818 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         wsdlSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         salesforceSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         cdcTypeEClass.getESuperTypes().add(this.getAbstractMetadataObject());
-        subscriberTableEClass.getESuperTypes().add(this.getMetadataTable());
+        subscriberTableEClass.getESuperTypes().add(theRelationalPackage_1.getTdTable());
         sapTestInputParameterTableEClass.getESuperTypes().add(this.getSAPFunctionParameterTable());
-        conceptEClass.getESuperTypes().add(this.getMetadataTable());
+        conceptEClass.getESuperTypes().add(theRelationalPackage_1.getTdTable());
         hl7ConnectionEClass.getESuperTypes().add(this.getFileConnection());
         headerFooterConnectionEClass.getESuperTypes().add(this.getConnection());
+        genericPackageEClass.getESuperTypes().add(theCorePackage.getPackage());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMetadata_Connections(), this.getConnection(), null, "connections", null, 0, -1, Metadata.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadata_Connections(), this.getConnection(), null, "connections", null, 0, -1, Metadata.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getConnection_Version(), ecorePackage.getEString(), "version", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConnection_Tables(), this.getMetadataTable(), this.getMetadataTable_Connection(), "tables", null, 0, -1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConnection_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Connection(), "queries", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConnection_ContextMode(), ecorePackage.getEBoolean(), "ContextMode", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConnection_ContextId(), ecorePackage.getEString(), "ContextId", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConnection_Version(), ecorePackage.getEString(), "version", null, 0, 1, Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConnection_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Connection(), "queries",
+                null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConnection_ContextMode(), ecorePackage.getEBoolean(), "ContextMode", null, 0, 1, Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConnection_ContextId(), ecorePackage.getEString(), "ContextId", null, 0, 1, Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(metadataColumnEClass, MetadataColumn.class, "MetadataColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMetadataColumn_SourceType(), ecorePackage.getEString(), "sourceType", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_DefaultValue(), ecorePackage.getEString(), "defaultValue", "", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_TalendType(), ecorePackage.getEString(), "talendType", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_Key(), ecorePackage.getEBoolean(), "key", "false", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_Nullable(), ecorePackage.getEBoolean(), "nullable", "true", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_Length(), ecorePackage.getEIntegerObject(), "length", "-1", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_Precision(), ecorePackage.getEIntegerObject(), "precision", "-1", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMetadataColumn_Table(), this.getMetadataTable(), this.getMetadataTable_Columns(), "table", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_OriginalField(), ecorePackage.getEString(), "originalField", "", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_Pattern(), ecorePackage.getEString(), "pattern", "", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataColumn_DisplayField(), ecorePackage.getEString(), "displayField", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(metadataColumnEClass, MetadataColumn.class, "MetadataColumn", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMetadataColumn_SourceType(), ecorePackage.getEString(), "sourceType", null, 0, 1, MetadataColumn.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataColumn_DefaultValue(), ecorePackage.getEString(), "defaultValue", "", 0, 1,
+                MetadataColumn.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getMetadataColumn_TalendType(), ecorePackage.getEString(), "talendType", null, 0, 1, MetadataColumn.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataColumn_Key(), ecorePackage.getEBoolean(), "key", "false", 0, 1, MetadataColumn.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataColumn_Nullable(), ecorePackage.getEBoolean(), "nullable", "true", 0, 1, MetadataColumn.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadataColumn_Table(), this.getMetadataTable(), null, "table", null, 0, 1, MetadataColumn.class,
+                IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataColumn_OriginalField(), ecorePackage.getEString(), "originalField", "", 0, 1,
+                MetadataColumn.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getMetadataColumn_Pattern(), ecorePackage.getEString(), "pattern", "", 0, 1, MetadataColumn.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataColumn_DisplayField(), ecorePackage.getEString(), "displayField", null, 0, 1,
+                MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(abstractMetadataObjectEClass, AbstractMetadataObject.class, "AbstractMetadataObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAbstractMetadataObject_Properties(), this.getMap(), "properties", "", 1, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractMetadataObject_Id(), ecorePackage.getEString(), "id", null, 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractMetadataObject_Comment(), ecorePackage.getEString(), "comment", "", 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractMetadataObject_Label(), ecorePackage.getEString(), "label", null, 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractMetadataObject_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractMetadataObject_Synchronised(), ecorePackage.getEBoolean(), "synchronised", null, 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractMetadataObject_Divergency(), ecorePackage.getEBoolean(), "divergency", null, 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(abstractMetadataObjectEClass, AbstractMetadataObject.class, "AbstractMetadataObject", IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getAbstractMetadataObject_Properties(), this.getMap(), "properties", "", 1, 1,
+                AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Id(), ecorePackage.getEString(), "id", null, 0, 1, AbstractMetadataObject.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Comment(), ecorePackage.getEString(), "comment", "", 0, 1,
+                AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Label(), ecorePackage.getEString(), "label", null, 0, 1,
+                AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1,
+                AbstractMetadataObject.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Synchronised(), ecorePackage.getEBoolean(), "synchronised", null, 0, 1,
+                AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Divergency(), ecorePackage.getEBoolean(), "divergency", null, 0, 1,
+                AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(metadataTableEClass, MetadataTable.class, "MetadataTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMetadataTable_SourceName(), ecorePackage.getEString(), "sourceName", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataTable_TableType(), ecorePackage.getEString(), "tableType", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataTable_AttachedCDC(), ecorePackage.getEBoolean(), "attachedCDC", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMetadataTable_ActivatedCDC(), ecorePackage.getEBoolean(), "activatedCDC", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMetadataTable_Columns(), this.getMetadataColumn(), this.getMetadataColumn_Table(), "columns", null, 0, -1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMetadataTable_Connection(), this.getConnection(), this.getConnection_Tables(), "connection", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(metadataTableEClass, MetadataTable.class, "MetadataTable", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMetadataTable_SourceName(), ecorePackage.getEString(), "sourceName", null, 0, 1, MetadataTable.class,
+                IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataTable_TableType(), ecorePackage.getEString(), "tableType", null, 0, 1, MetadataTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataTable_AttachedCDC(), ecorePackage.getEBoolean(), "attachedCDC", null, 0, 1,
+                MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getMetadataTable_ActivatedCDC(), ecorePackage.getEBoolean(), "activatedCDC", null, 0, 1,
+                MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getMetadataTable_Columns(), this.getMetadataColumn(), null, "columns", null, 0, -1, MetadataTable.class,
+                IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadataTable_Connection(), this.getConnection(), null, "connection", null, 0, 1, MetadataTable.class,
+                IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(fileConnectionEClass, FileConnection.class, "FileConnection", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_FilePath(), ecorePackage.getEString(), "FilePath", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_Format(), this.getFileFormat(), "Format", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_FieldSeparatorValue(), ecorePackage.getEString(), "FieldSeparatorValue", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_RowSeparatorType(), this.getRowSeparator(), "RowSeparatorType", "Standart_EOL = 1", 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_RowSeparatorValue(), ecorePackage.getEString(), "RowSeparatorValue", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_TextIdentifier(), ecorePackage.getEString(), "TextIdentifier", "", 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_UseHeader(), ecorePackage.getEBoolean(), "UseHeader", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_HeaderValue(), ecorePackage.getEString(), "HeaderValue", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_UseFooter(), ecorePackage.getEBoolean(), "UseFooter", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_FooterValue(), ecorePackage.getEString(), "FooterValue", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_LimitValue(), ecorePackage.getEString(), "LimitValue", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_FirstLineCaption(), ecorePackage.getEBoolean(), "FirstLineCaption", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_RemoveEmptyRow(), ecorePackage.getEBoolean(), "RemoveEmptyRow", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_EscapeType(), this.getEscape(), "EscapeType", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_EscapeChar(), ecorePackage.getEString(), "EscapeChar", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_TextEnclosure(), ecorePackage.getEString(), "TextEnclosure", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileConnection_CsvOption(), ecorePackage.getEBoolean(), "CsvOption", null, 0, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(fileConnectionEClass, FileConnection.class, "FileConnection", IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_FilePath(), ecorePackage.getEString(), "FilePath", null, 1, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_Format(), this.getFileFormat(), "Format", null, 1, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 1, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_FieldSeparatorValue(), ecorePackage.getEString(), "FieldSeparatorValue", null, 1, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_RowSeparatorType(), this.getRowSeparator(), "RowSeparatorType", "Standart_EOL = 1", 1,
+                1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_RowSeparatorValue(), ecorePackage.getEString(), "RowSeparatorValue", null, 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_TextIdentifier(), ecorePackage.getEString(), "TextIdentifier", "", 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_UseHeader(), ecorePackage.getEBoolean(), "UseHeader", null, 0, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_HeaderValue(), ecorePackage.getEString(), "HeaderValue", null, 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_UseFooter(), ecorePackage.getEBoolean(), "UseFooter", null, 0, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_FooterValue(), ecorePackage.getEString(), "FooterValue", null, 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_LimitValue(), ecorePackage.getEString(), "LimitValue", null, 0, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_FirstLineCaption(), ecorePackage.getEBoolean(), "FirstLineCaption", null, 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_RemoveEmptyRow(), ecorePackage.getEBoolean(), "RemoveEmptyRow", null, 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_EscapeType(), this.getEscape(), "EscapeType", null, 1, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_EscapeChar(), ecorePackage.getEString(), "EscapeChar", null, 0, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileConnection_TextEnclosure(), ecorePackage.getEString(), "TextEnclosure", null, 0, 1,
+                FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFileConnection_CsvOption(), ecorePackage.getEBoolean(), "CsvOption", null, 0, 1, FileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(delimitedFileConnectionEClass, DelimitedFileConnection.class, "DelimitedFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDelimitedFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType", "Semicolon", 1, 1, DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDelimitedFileConnection_SplitRecord(), ecorePackage.getEBoolean(), "splitRecord", "false", 0, 1, DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(delimitedFileConnectionEClass, DelimitedFileConnection.class, "DelimitedFileConnection", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getDelimitedFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType",
+                "Semicolon", 1, 1, DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+                !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDelimitedFileConnection_SplitRecord(), ecorePackage.getEBoolean(), "splitRecord", "false", 0, 1,
+                DelimitedFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(positionalFileConnectionEClass, PositionalFileConnection.class, "PositionalFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(positionalFileConnectionEClass, PositionalFileConnection.class, "PositionalFileConnection", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-        initEClass(ebcdicConnectionEClass, EbcdicConnection.class, "EbcdicConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getEbcdicConnection_MidFile(), ecorePackage.getEString(), "MidFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getEbcdicConnection_DataFile(), ecorePackage.getEString(), "DataFile", null, 0, 1, EbcdicConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(ebcdicConnectionEClass, EbcdicConnection.class, "EbcdicConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getEbcdicConnection_MidFile(), ecorePackage.getEString(), "MidFile", null, 0, 1, EbcdicConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getEbcdicConnection_DataFile(), ecorePackage.getEString(), "DataFile", null, 0, 1, EbcdicConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(mdmConnectionEClass, MDMConnection.class, "MDMConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMDMConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMDMConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMDMConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMDMConnection_Server(), ecorePackage.getEString(), "Server", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMDMConnection_Universe(), ecorePackage.getEString(), "Universe", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMDMConnection_Datamodel(), ecorePackage.getEString(), "Datamodel", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getMDMConnection_Datacluster(), ecorePackage.getEString(), "Datacluster", null, 0, 1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMDMConnection_Schemas(), this.getConcept(), null, "schemas", null, 0, -1, MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(mdmConnectionEClass, MDMConnection.class, "MDMConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMDMConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Server(), ecorePackage.getEString(), "Server", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Universe(), ecorePackage.getEString(), "Universe", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Datamodel(), ecorePackage.getEString(), "Datamodel", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Datacluster(), ecorePackage.getEString(), "Datacluster", null, 0, 1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMDMConnection_Schemas(), this.getConcept(), null, "schemas", null, 0, -1, MDMConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMDMConnection_Protocol(), this.getMDMConnectionProtocol(), "protocol", "http", 1, 1,
+                MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getMDMConnection_Context(), theCorePackage.getString(), "context", "talend/TalendPort", 1, 1,
+                MDMConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(databaseConnectionEClass, DatabaseConnection.class, "DatabaseConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getDatabaseConnection_DatabaseType(), ecorePackage.getEString(), "DatabaseType", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_DriverJarPath(), ecorePackage.getEString(), "DriverJarPath", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_DriverClass(), ecorePackage.getEString(), "DriverClass", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_URL(), ecorePackage.getEString(), "URL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_DbVersionString(), ecorePackage.getEString(), "dbVersionString", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_ServerName(), ecorePackage.getEString(), "ServerName", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_DatasourceName(), ecorePackage.getEString(), "DatasourceName", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_FileFieldName(), ecorePackage.getEString(), "FileFieldName", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_Schema(), ecorePackage.getEString(), "Schema", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_SID(), ecorePackage.getEString(), "SID", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_SqlSynthax(), ecorePackage.getEString(), "SqlSynthax", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_StringQuote(), ecorePackage.getEString(), "StringQuote", "\"", 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_NullChar(), ecorePackage.getEString(), "NullChar", "000", 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_DbmsId(), ecorePackage.getEString(), "DbmsId", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_ProductId(), ecorePackage.getEString(), "ProductId", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_DBRootPath(), ecorePackage.getEString(), "DBRootPath", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_AdditionalParams(), ecorePackage.getEString(), "AdditionalParams", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_StandardSQL(), ecorePackage.getEBoolean(), "StandardSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_SystemSQL(), ecorePackage.getEBoolean(), "SystemSQL", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDatabaseConnection_CdcConns(), this.getCDCConnection(), this.getCDCConnection_Connection(), "cdcConns", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_CdcTypeMode(), ecorePackage.getEString(), "cdcTypeMode", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getDatabaseConnection_SQLMode(), ecorePackage.getEBoolean(), "SQLMode", "true", 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        addEOperation(mdmConnectionEClass, theCorePackage.getString(), "getConnectionString", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(sapConnectionEClass, SAPConnection.class, "SAPConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSAPConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPConnection_Client(), ecorePackage.getEString(), "Client", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPConnection_SystemNumber(), ecorePackage.getEString(), "SystemNumber", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPConnection_Language(), ecorePackage.getEString(), "Language", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPConnection_Funtions(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_Connection(), "Funtions", null, 0, -1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPConnection_CurrentFucntion(), ecorePackage.getEString(), "currentFucntion", null, 0, 1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPConnection_IDocs(), this.getSAPIDocUnit(), this.getSAPIDocUnit_Connection(), "IDocs", null, 0, -1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(databaseConnectionEClass, DatabaseConnection.class, "DatabaseConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getDatabaseConnection_DatabaseType(), ecorePackage.getEString(), "DatabaseType", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DriverJarPath(), ecorePackage.getEString(), "DriverJarPath", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DriverClass(), ecorePackage.getEString(), "DriverClass", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_URL(), ecorePackage.getEString(), "URL", null, 0, 1, DatabaseConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DbVersionString(), ecorePackage.getEString(), "dbVersionString", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, DatabaseConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_ServerName(), ecorePackage.getEString(), "ServerName", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DatasourceName(), ecorePackage.getEString(), "DatasourceName", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_FileFieldName(), ecorePackage.getEString(), "FileFieldName", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_SID(), ecorePackage.getEString(), "SID", null, 0, 1, DatabaseConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_SqlSynthax(), ecorePackage.getEString(), "SqlSynthax", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_StringQuote(), ecorePackage.getEString(), "StringQuote", "\"", 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_NullChar(), ecorePackage.getEString(), "NullChar", "000", 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DbmsId(), ecorePackage.getEString(), "DbmsId", null, 0, 1, DatabaseConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_ProductId(), ecorePackage.getEString(), "ProductId", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_DBRootPath(), ecorePackage.getEString(), "DBRootPath", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_AdditionalParams(), ecorePackage.getEString(), "AdditionalParams", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_StandardSQL(), ecorePackage.getEBoolean(), "StandardSQL", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_SystemSQL(), ecorePackage.getEBoolean(), "SystemSQL", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getDatabaseConnection_CdcConns(), this.getCDCConnection(), this.getCDCConnection_Connection(), "cdcConns",
+                null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_CdcTypeMode(), ecorePackage.getEString(), "cdcTypeMode", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_SQLMode(), ecorePackage.getEBoolean(), "SQLMode", "true", 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDatabaseConnection_UiSchema(), ecorePackage.getEString(), "UiSchema", null, 0, 1,
+                DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(sapFunctionUnitEClass, SAPFunctionUnit.class, "SAPFunctionUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSAPFunctionUnit_Name(), ecorePackage.getEString(), "Name", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionUnit_OutputType(), ecorePackage.getEString(), "OutputType", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionUnit_OutputTableName(), ecorePackage.getEString(), "OutputTableName", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionUnit_Document(), ecorePackage.getEString(), "Document", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_InputParameterTable(), this.getInputSAPFunctionParameterTable(), this.getInputSAPFunctionParameterTable_FunctionUnit(), "InputParameterTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_OutputParameterTable(), this.getOutputSAPFunctionParameterTable(), this.getOutputSAPFunctionParameterTable_FunctionUnit(), "OutputParameterTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_MetadataTable(), this.getMetadataTable(), null, "MetadataTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_Connection(), this.getSAPConnection(), this.getSAPConnection_Funtions(), "connection", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_Tables(), this.getMetadataTable(), null, "tables", null, 0, -1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionUnit_TestInputParameterTable(), this.getSAPTestInputParameterTable(), this.getSAPTestInputParameterTable_FunctionUnit(), "TestInputParameterTable", null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sapConnectionEClass, SAPConnection.class, "SAPConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, SAPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, SAPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, SAPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_Client(), ecorePackage.getEString(), "Client", null, 0, 1, SAPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_SystemNumber(), ecorePackage.getEString(), "SystemNumber", null, 0, 1,
+                SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getSAPConnection_Language(), ecorePackage.getEString(), "Language", null, 0, 1, SAPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPConnection_Funtions(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_Connection(), "Funtions",
+                null, 0, -1, SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPConnection_CurrentFucntion(), ecorePackage.getEString(), "currentFucntion", null, 0, 1,
+                SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getSAPConnection_IDocs(), this.getSAPIDocUnit(), this.getSAPIDocUnit_Connection(), "IDocs", null, 0, -1,
+                SAPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(sapFunctionUnitEClass, SAPFunctionUnit.class, "SAPFunctionUnit", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPFunctionUnit_OutputType(), ecorePackage.getEString(), "OutputType", null, 0, 1,
+                SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionUnit_OutputTableName(), ecorePackage.getEString(), "OutputTableName", null, 0, 1,
+                SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_InputParameterTable(), this.getInputSAPFunctionParameterTable(), this
+                .getInputSAPFunctionParameterTable_FunctionUnit(), "InputParameterTable", null, 0, 1, SAPFunctionUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_OutputParameterTable(), this.getOutputSAPFunctionParameterTable(), this
+                .getOutputSAPFunctionParameterTable_FunctionUnit(), "OutputParameterTable", null, 0, 1, SAPFunctionUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_MetadataTable(), this.getMetadataTable(), null, "MetadataTable", null, 0, 1,
+                SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_Connection(), this.getSAPConnection(), this.getSAPConnection_Funtions(), "connection",
+                null, 0, 1, SAPFunctionUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_Tables(), this.getMetadataTable(), null, "tables", null, 0, -1, SAPFunctionUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionUnit_TestInputParameterTable(), this.getSAPTestInputParameterTable(), this
+                .getSAPTestInputParameterTable_FunctionUnit(), "TestInputParameterTable", null, 0, 1, SAPFunctionUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+
+        EOperation op = addEOperation(sapFunctionUnitEClass, null, "setDocument", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theCorePackage.getString(), "document", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         initEClass(sapiDocUnitEClass, SAPIDocUnit.class, "SAPIDocUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSAPIDocUnit_Connection(), this.getSAPConnection(), this.getSAPConnection_IDocs(), "connection", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_ProgramId(), ecorePackage.getEString(), "programId", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_GatewayService(), ecorePackage.getEString(), "gatewayService", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_UseXmlOutput(), ecorePackage.getEBoolean(), "useXmlOutput", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_XmlFile(), ecorePackage.getEString(), "xmlFile", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_UseHtmlOutput(), ecorePackage.getEBoolean(), "useHtmlOutput", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_HtmlFile(), ecorePackage.getEString(), "htmlFile", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPIDocUnit_Name(), ecorePackage.getEString(), "name", null, 0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPIDocUnit_Connection(), this.getSAPConnection(), this.getSAPConnection_IDocs(), "connection", null,
+                0, 1, SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPIDocUnit_ProgramId(), ecorePackage.getEString(), "programId", null, 0, 1, SAPIDocUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPIDocUnit_GatewayService(), ecorePackage.getEString(), "gatewayService", null, 0, 1,
+                SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getSAPIDocUnit_UseXmlOutput(), ecorePackage.getEBoolean(), "useXmlOutput", null, 0, 1, SAPIDocUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPIDocUnit_XmlFile(), ecorePackage.getEString(), "xmlFile", null, 0, 1, SAPIDocUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPIDocUnit_UseHtmlOutput(), ecorePackage.getEBoolean(), "useHtmlOutput", null, 0, 1,
+                SAPIDocUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getSAPIDocUnit_HtmlFile(), ecorePackage.getEString(), "htmlFile", null, 0, 1, SAPIDocUnit.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(sapFunctionParameterColumnEClass, SAPFunctionParameterColumn.class, "SAPFunctionParameterColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSAPFunctionParameterColumn_Name(), ecorePackage.getEString(), "Name", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionParameterColumn_ParameterType(), ecorePackage.getEString(), "ParameterType", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionParameterColumn_StructureOrTableName(), ecorePackage.getEString(), "StructureOrTableName", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionParameterColumn_DataType(), ecorePackage.getEString(), "DataType", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionParameterColumn_Length(), ecorePackage.getEString(), "Length", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionParameterColumn_Description(), ecorePackage.getEString(), "Description", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSAPFunctionParameterColumn_Value(), ecorePackage.getEString(), "Value", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSAPFunctionParameterColumn_ParameterTable(), this.getSAPFunctionParameterTable(), this.getSAPFunctionParameterTable_Columns(), "ParameterTable", null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sapFunctionParameterColumnEClass, SAPFunctionParameterColumn.class, "SAPFunctionParameterColumn",
+                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPFunctionParameterColumn_ParameterType(), ecorePackage.getEString(), "ParameterType", null, 0, 1,
+                SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_StructureOrTableName(), ecorePackage.getEString(), "StructureOrTableName",
+                null, 0, 1, SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_DataType(), ecorePackage.getEString(), "DataType", null, 0, 1,
+                SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_Length(), ecorePackage.getEString(), "Length", null, 0, 1,
+                SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameterColumn_Value(), ecorePackage.getEString(), "Value", null, 0, 1,
+                SAPFunctionParameterColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getSAPFunctionParameterColumn_ParameterTable(), this.getSAPFunctionParameterTable(), this
+                .getSAPFunctionParameterTable_Columns(), "ParameterTable", null, 0, 1, SAPFunctionParameterColumn.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(sapFunctionParameterTableEClass, SAPFunctionParameterTable.class, "SAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSAPFunctionParameterTable_Columns(), this.getSAPFunctionParameterColumn(), this.getSAPFunctionParameterColumn_ParameterTable(), "columns", null, 0, -1, SAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        op = addEOperation(sapFunctionParameterColumnEClass, null, "setDescription", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, theCorePackage.getString(), "description", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(inputSAPFunctionParameterTableEClass, InputSAPFunctionParameterTable.class, "InputSAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getInputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_InputParameterTable(), "functionUnit", null, 0, 1, InputSAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sapFunctionParameterTableEClass, SAPFunctionParameterTable.class, "SAPFunctionParameterTable", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSAPFunctionParameterTable_Columns(), this.getSAPFunctionParameterColumn(), this
+                .getSAPFunctionParameterColumn_ParameterTable(), "columns", null, 0, -1, SAPFunctionParameterTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(outputSAPFunctionParameterTableEClass, OutputSAPFunctionParameterTable.class, "OutputSAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getOutputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_OutputParameterTable(), "functionUnit", null, 0, 1, OutputSAPFunctionParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(inputSAPFunctionParameterTableEClass, InputSAPFunctionParameterTable.class, "InputSAPFunctionParameterTable",
+                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getInputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this
+                .getSAPFunctionUnit_InputParameterTable(), "functionUnit", null, 0, 1, InputSAPFunctionParameterTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(regexpFileConnectionEClass, RegexpFileConnection.class, "RegexpFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getRegexpFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType", null, 1, 1, RegexpFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(outputSAPFunctionParameterTableEClass, OutputSAPFunctionParameterTable.class,
+                "OutputSAPFunctionParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getOutputSAPFunctionParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this
+                .getSAPFunctionUnit_OutputParameterTable(), "functionUnit", null, 0, 1, OutputSAPFunctionParameterTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(xmlFileConnectionEClass, XmlFileConnection.class, "XmlFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getXmlFileConnection_XsdFilePath(), ecorePackage.getEString(), "XsdFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_XmlFilePath(), ecorePackage.getEString(), "XmlFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_Guess(), ecorePackage.getEBoolean(), "Guess", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_MaskXPattern(), ecorePackage.getEString(), "MaskXPattern", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getXmlFileConnection_Schema(), this.getXmlXPathLoopDescriptor(), this.getXmlXPathLoopDescriptor_Connection(), "schema", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getXmlFileConnection_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getXmlFileConnection_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-        initEReference(getXmlFileConnection_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_OutputFilePath(), ecorePackage.getEString(), "outputFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(regexpFileConnectionEClass, RegexpFileConnection.class, "RegexpFileConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getRegexpFileConnection_FieldSeparatorType(), this.getFieldSeparator(), "FieldSeparatorType", null, 1, 1,
+                RegexpFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(schemaTargetEClass, SchemaTarget.class, "SchemaTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSchemaTarget_RelativeXPathQuery(), ecorePackage.getEString(), "RelativeXPathQuery", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSchemaTarget_TagName(), ecorePackage.getEString(), "TagName", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getSchemaTarget_Schema(), this.getXmlXPathLoopDescriptor(), this.getXmlXPathLoopDescriptor_SchemaTargets(), "schema", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(xmlFileConnectionEClass, XmlFileConnection.class, "XmlFileConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getXmlFileConnection_XsdFilePath(), ecorePackage.getEString(), "XsdFilePath", null, 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_XmlFilePath(), ecorePackage.getEString(), "XmlFilePath", null, 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_Guess(), ecorePackage.getEBoolean(), "Guess", null, 0, 1, XmlFileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_MaskXPattern(), ecorePackage.getEString(), "MaskXPattern", null, 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlFileConnection_Schema(), this.getXmlXPathLoopDescriptor(), this
+                .getXmlXPathLoopDescriptor_Connection(), "schema", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlFileConnection_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, XmlFileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlFileConnection_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, XmlFileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, !IS_ORDERED);
+        initEReference(getXmlFileConnection_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, XmlFileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_OutputFilePath(), ecorePackage.getEString(), "outputFilePath", null, 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(queriesConnectionEClass, QueriesConnection.class, "QueriesConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getQueriesConnection_Connection(), this.getConnection(), this.getConnection_Queries(), "connection", null, 0, 1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getQueriesConnection_Query(), this.getQuery(), this.getQuery_Queries(), "query", null, 0, -1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(schemaTargetEClass, SchemaTarget.class, "SchemaTarget", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSchemaTarget_RelativeXPathQuery(), ecorePackage.getEString(), "RelativeXPathQuery", null, 0, 1,
+                SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getSchemaTarget_TagName(), ecorePackage.getEString(), "TagName", null, 0, 1, SchemaTarget.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSchemaTarget_Schema(), this.getXmlXPathLoopDescriptor(),
+                this.getXmlXPathLoopDescriptor_SchemaTargets(), "schema", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+
+        initEClass(queriesConnectionEClass, QueriesConnection.class, "QueriesConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getQueriesConnection_Connection(), this.getConnection(), this.getConnection_Queries(), "connection", null,
+                0, 1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getQueriesConnection_Query(), this.getQuery(), this.getQuery_Queries(), "query", null, 0, -1,
+                QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getQuery_Value(), ecorePackage.getEString(), "value", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getQuery_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Query(), "queries", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getQuery_ContextMode(), ecorePackage.getEBoolean(), "contextMode", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getQuery_Value(), ecorePackage.getEString(), "value", null, 0, 1, Query.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getQuery_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Query(), "queries", null, 0, 1,
+                Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getQuery_ContextMode(), ecorePackage.getEBoolean(), "contextMode", null, 0, 1, Query.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(ldifFileConnectionEClass, LdifFileConnection.class, "LdifFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getLdifFileConnection_Value(), ecorePackage.getEString(), "value", null, 0, -1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLdifFileConnection_FilePath(), ecorePackage.getEString(), "FilePath", null, 1, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLdifFileConnection_LimitEntry(), ecorePackage.getEInt(), "LimitEntry", null, 0, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLdifFileConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLdifFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(ldifFileConnectionEClass, LdifFileConnection.class, "LdifFileConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLdifFileConnection_Value(), ecorePackage.getEString(), "value", null, 0, -1, LdifFileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_FilePath(), ecorePackage.getEString(), "FilePath", null, 1, 1,
+                LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_LimitEntry(), ecorePackage.getEInt(), "LimitEntry", null, 0, 1,
+                LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1,
+                LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, LdifFileConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(fileExcelConnectionEClass, FileExcelConnection.class, "FileExcelConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getFileExcelConnection_SheetName(), ecorePackage.getEString(), "SheetName", null, 1, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_SheetColumns(), ecorePackage.getEString(), "sheetColumns", null, 0, -1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_FirstColumn(), ecorePackage.getEString(), "firstColumn", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_LastColumn(), ecorePackage.getEString(), "lastColumn", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_ThousandSeparator(), ecorePackage.getEString(), "thousandSeparator", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_DecimalSeparator(), ecorePackage.getEString(), "decimalSeparator", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_AdvancedSpearator(), ecorePackage.getEBoolean(), "advancedSpearator", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_SelectAllSheets(), ecorePackage.getEBoolean(), "selectAllSheets", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getFileExcelConnection_SheetList(), this.getList(), "sheetList", null, 0, 1, FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(fileExcelConnectionEClass, FileExcelConnection.class, "FileExcelConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFileExcelConnection_SheetName(), ecorePackage.getEString(), "SheetName", null, 1, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_SheetColumns(), ecorePackage.getEString(), "sheetColumns", null, 0, -1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_FirstColumn(), ecorePackage.getEString(), "firstColumn", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_LastColumn(), ecorePackage.getEString(), "lastColumn", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_ThousandSeparator(), ecorePackage.getEString(), "thousandSeparator", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_DecimalSeparator(), ecorePackage.getEString(), "decimalSeparator", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_AdvancedSpearator(), ecorePackage.getEBoolean(), "advancedSpearator", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_SelectAllSheets(), ecorePackage.getEBoolean(), "selectAllSheets", null, 0, 1,
+                FileExcelConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileExcelConnection_SheetList(), this.getList(), "sheetList", null, 0, 1, FileExcelConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(xmlXPathLoopDescriptorEClass, XmlXPathLoopDescriptor.class, "XmlXPathLoopDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getXmlXPathLoopDescriptor_LimitBoucle(), ecorePackage.getEIntegerObject(), "LimitBoucle", null, 0, 1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlXPathLoopDescriptor_AbsoluteXPathQuery(), ecorePackage.getEString(), "AbsoluteXPathQuery", null, 0, 1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getXmlXPathLoopDescriptor_Connection(), this.getXmlFileConnection(), this.getXmlFileConnection_Schema(), "connection", null, 0, 1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getXmlXPathLoopDescriptor_SchemaTargets(), this.getSchemaTarget(), this.getSchemaTarget_Schema(), "schemaTargets", null, 0, -1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(xmlXPathLoopDescriptorEClass, XmlXPathLoopDescriptor.class, "XmlXPathLoopDescriptor", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getXmlXPathLoopDescriptor_LimitBoucle(), ecorePackage.getEIntegerObject(), "LimitBoucle", null, 0, 1,
+                XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlXPathLoopDescriptor_AbsoluteXPathQuery(), ecorePackage.getEString(), "AbsoluteXPathQuery", null, 0,
+                1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlXPathLoopDescriptor_Connection(), this.getXmlFileConnection(), this.getXmlFileConnection_Schema(),
+                "connection", null, 0, 1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getXmlXPathLoopDescriptor_SchemaTargets(), this.getSchemaTarget(), this.getSchemaTarget_Schema(),
+                "schemaTargets", null, 0, -1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(genericSchemaConnectionEClass, GenericSchemaConnection.class, "GenericSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getGenericSchemaConnection_MappingTypeUsed(), ecorePackage.getEBoolean(), "mappingTypeUsed", null, 0, 1, GenericSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getGenericSchemaConnection_MappingTypeId(), ecorePackage.getEString(), "mappingTypeId", null, 0, 1, GenericSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(genericSchemaConnectionEClass, GenericSchemaConnection.class, "GenericSchemaConnection", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getGenericSchemaConnection_MappingTypeUsed(), ecorePackage.getEBoolean(), "mappingTypeUsed", null, 0, 1,
+                GenericSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGenericSchemaConnection_MappingTypeId(), ecorePackage.getEString(), "mappingTypeId", null, 0, 1,
+                GenericSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(ldapSchemaConnectionEClass, LDAPSchemaConnection.class, "LDAPSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getLDAPSchemaConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Protocol(), ecorePackage.getEString(), "Protocol", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Filter(), ecorePackage.getEString(), "Filter", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Separator(), ecorePackage.getEString(), "Separator", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_UseAdvanced(), ecorePackage.getEBoolean(), "UseAdvanced", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_StorePath(), ecorePackage.getEString(), "StorePath", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_UseAuthen(), ecorePackage.getEBoolean(), "UseAuthen", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_BindPrincipal(), ecorePackage.getEString(), "BindPrincipal", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_BindPassword(), ecorePackage.getEString(), "BindPassword", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_LimitValue(), ecorePackage.getEInt(), "LimitValue", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_EncryptionMethodName(), ecorePackage.getEString(), "EncryptionMethodName", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_SavePassword(), ecorePackage.getEBoolean(), "SavePassword", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Aliases(), ecorePackage.getEString(), "Aliases", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_Referrals(), ecorePackage.getEString(), "Referrals", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_CountLimit(), ecorePackage.getEString(), "CountLimit", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_TimeOutLimit(), ecorePackage.getEString(), "TimeOutLimit", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_BaseDNs(), ecorePackage.getEString(), "BaseDNs", null, 0, -1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_GetBaseDNsFromRoot(), ecorePackage.getEBoolean(), "GetBaseDNsFromRoot", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_ReturnAttributes(), ecorePackage.getEString(), "ReturnAttributes", null, 0, -1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_SelectedDN(), ecorePackage.getEString(), "SelectedDN", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(ldapSchemaConnectionEClass, LDAPSchemaConnection.class, "LDAPSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLDAPSchemaConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, LDAPSchemaConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, LDAPSchemaConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Protocol(), ecorePackage.getEString(), "Protocol", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Filter(), ecorePackage.getEString(), "Filter", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Separator(), ecorePackage.getEString(), "Separator", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_UseAdvanced(), ecorePackage.getEBoolean(), "UseAdvanced", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_StorePath(), ecorePackage.getEString(), "StorePath", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_UseAuthen(), ecorePackage.getEBoolean(), "UseAuthen", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_BindPrincipal(), ecorePackage.getEString(), "BindPrincipal", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_BindPassword(), ecorePackage.getEString(), "BindPassword", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_LimitValue(), ecorePackage.getEInt(), "LimitValue", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_EncryptionMethodName(), ecorePackage.getEString(), "EncryptionMethodName", null,
+                0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_SavePassword(), ecorePackage.getEBoolean(), "SavePassword", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Aliases(), ecorePackage.getEString(), "Aliases", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_Referrals(), ecorePackage.getEString(), "Referrals", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_CountLimit(), ecorePackage.getEString(), "CountLimit", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_TimeOutLimit(), ecorePackage.getEString(), "TimeOutLimit", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_BaseDNs(), ecorePackage.getEString(), "BaseDNs", null, 0, -1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_GetBaseDNsFromRoot(), ecorePackage.getEBoolean(), "GetBaseDNsFromRoot", null, 0,
+                1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_ReturnAttributes(), ecorePackage.getEString(), "ReturnAttributes", null, 0, -1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLDAPSchemaConnection_SelectedDN(), ecorePackage.getEString(), "SelectedDN", null, 0, 1,
+                LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(wsdlSchemaConnectionEClass, WSDLSchemaConnection.class, "WSDLSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getWSDLSchemaConnection_WSDL(), ecorePackage.getEString(), "WSDL", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_NeedAuth(), ecorePackage.getEBoolean(), "needAuth", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_Parameters(), this.getList(), "parameters", "", 1, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_UserName(), ecorePackage.getEString(), "UserName", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_UseProxy(), ecorePackage.getEBoolean(), "useProxy", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_ProxyHost(), ecorePackage.getEString(), "proxyHost", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_ProxyPort(), ecorePackage.getEString(), "proxyPort", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_ProxyUser(), ecorePackage.getEString(), "proxyUser", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_ProxyPassword(), ecorePackage.getEString(), "proxyPassword", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_EndpointURI(), ecorePackage.getEString(), "EndpointURI", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getWSDLSchemaConnection_TimeOut(), ecorePackage.getEInt(), "timeOut", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(wsdlSchemaConnectionEClass, WSDLSchemaConnection.class, "WSDLSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getWSDLSchemaConnection_WSDL(), ecorePackage.getEString(), "WSDL", null, 0, 1, WSDLSchemaConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_NeedAuth(), ecorePackage.getEBoolean(), "needAuth", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Parameters(), this.getList(), "parameters", "", 1, 1, WSDLSchemaConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_UserName(), ecorePackage.getEString(), "UserName", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_UseProxy(), ecorePackage.getEBoolean(), "useProxy", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyHost(), ecorePackage.getEString(), "proxyHost", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyPort(), ecorePackage.getEString(), "proxyPort", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyUser(), ecorePackage.getEString(), "proxyUser", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyPassword(), ecorePackage.getEString(), "proxyPassword", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_EndpointURI(), ecorePackage.getEString(), "EndpointURI", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_TimeOut(), ecorePackage.getEInt(), "timeOut", null, 0, 1,
+                WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(salesforceSchemaConnectionEClass, SalesforceSchemaConnection.class, "SalesforceSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSalesforceSchemaConnection_WebServiceUrl(), ecorePackage.getEString(), "webServiceUrl", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_UserName(), ecorePackage.getEString(), "userName", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_Password(), ecorePackage.getEString(), "password", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_ModuleName(), ecorePackage.getEString(), "moduleName", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_QueryCondition(), ecorePackage.getEString(), "queryCondition", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_UseCustomModuleName(), ecorePackage.getEBoolean(), "useCustomModuleName", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_UseProxy(), ecorePackage.getEBoolean(), "useProxy", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_ProxyHost(), ecorePackage.getEString(), "proxyHost", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_ProxyPort(), ecorePackage.getEString(), "proxyPort", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_ProxyUsername(), ecorePackage.getEString(), "proxyUsername", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_ProxyPassword(), ecorePackage.getEString(), "proxyPassword", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_BatchSize(), ecorePackage.getEString(), "batchSize", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_UseHttpProxy(), ecorePackage.getEBoolean(), "useHttpProxy", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_UseAlphbet(), ecorePackage.getEBoolean(), "useAlphbet", "true", 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSalesforceSchemaConnection_TimeOut(), ecorePackage.getEString(), "timeOut", null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(salesforceSchemaConnectionEClass, SalesforceSchemaConnection.class, "SalesforceSchemaConnection",
+                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSalesforceSchemaConnection_WebServiceUrl(), ecorePackage.getEString(), "webServiceUrl", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_UserName(), ecorePackage.getEString(), "userName", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_Password(), ecorePackage.getEString(), "password", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ModuleName(), ecorePackage.getEString(), "moduleName", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_QueryCondition(), ecorePackage.getEString(), "queryCondition", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_UseCustomModuleName(), ecorePackage.getEBoolean(), "useCustomModuleName",
+                null, 0, 1, SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_UseProxy(), ecorePackage.getEBoolean(), "useProxy", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ProxyHost(), ecorePackage.getEString(), "proxyHost", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ProxyPort(), ecorePackage.getEString(), "proxyPort", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ProxyUsername(), ecorePackage.getEString(), "proxyUsername", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_ProxyPassword(), ecorePackage.getEString(), "proxyPassword", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_BatchSize(), ecorePackage.getEString(), "batchSize", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_UseHttpProxy(), ecorePackage.getEBoolean(), "useHttpProxy", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_UseAlphbet(), ecorePackage.getEBoolean(), "useAlphbet", "true", 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSalesforceSchemaConnection_TimeOut(), ecorePackage.getEString(), "timeOut", null, 0, 1,
+                SalesforceSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(cdcConnectionEClass, CDCConnection.class, "CDCConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCDCConnection_Connection(), this.getDatabaseConnection(), this.getDatabaseConnection_CdcConns(), "connection", null, 0, 1, CDCConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCDCConnection_CdcTypes(), this.getCDCType(), null, "cdcTypes", null, 0, -1, CDCConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(cdcConnectionEClass, CDCConnection.class, "CDCConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getCDCConnection_Connection(), this.getDatabaseConnection(), this.getDatabaseConnection_CdcConns(),
+                "connection", null, 0, 1, CDCConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCDCConnection_CdcTypes(), this.getCDCType(), null, "cdcTypes", null, 0, -1, CDCConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(cdcTypeEClass, CDCType.class, "CDCType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getCDCType_LinkDB(), ecorePackage.getEString(), "linkDB", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCDCType_Subscribers(), this.getSubscriberTable(), null, "subscribers", null, 0, -1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getCDCType_CdcConnection(), this.getCDCConnection(), null, "cdcConnection", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCDCType_JournalName(), ecorePackage.getEString(), "journalName", null, 0, 1, CDCType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCDCType_LinkDB(), ecorePackage.getEString(), "linkDB", null, 0, 1, CDCType.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCDCType_Subscribers(), this.getSubscriberTable(), null, "subscribers", null, 0, -1, CDCType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEReference(getCDCType_CdcConnection(), this.getCDCConnection(), null, "cdcConnection", null, 0, 1, CDCType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCDCType_JournalName(), ecorePackage.getEString(), "journalName", null, 0, 1, CDCType.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(subscriberTableEClass, SubscriberTable.class, "SubscriberTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getSubscriberTable_System(), ecorePackage.getEBoolean(), "system", null, 0, 1, SubscriberTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(subscriberTableEClass, SubscriberTable.class, "SubscriberTable", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSubscriberTable_System(), ecorePackage.getEBoolean(), "system", null, 0, 1, SubscriberTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(sapTestInputParameterTableEClass, SAPTestInputParameterTable.class, "SAPTestInputParameterTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getSAPTestInputParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this.getSAPFunctionUnit_TestInputParameterTable(), "functionUnit", null, 0, 1, SAPTestInputParameterTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(sapTestInputParameterTableEClass, SAPTestInputParameterTable.class, "SAPTestInputParameterTable",
+                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getSAPTestInputParameterTable_FunctionUnit(), this.getSAPFunctionUnit(), this
+                .getSAPFunctionUnit_TestInputParameterTable(), "functionUnit", null, 0, 1, SAPTestInputParameterTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(conceptEClass, Concept.class, "Concept", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getConcept_LoopExpression(), ecorePackage.getEString(), "LoopExpression", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConcept_LoopLimit(), ecorePackage.getEIntegerObject(), "LoopLimit", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConcept_ConceptTargets(), this.getConceptTarget(), this.getConceptTarget_Schema(), "conceptTargets", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConcept_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConcept_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConcept_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-        initEReference(getConcept_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConcept_LoopExpression(), ecorePackage.getEString(), "LoopExpression", null, 0, 1, Concept.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConcept_LoopLimit(), ecorePackage.getEIntegerObject(), "LoopLimit", null, 0, 1, Concept.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConcept_ConceptTargets(), this.getConceptTarget(), this.getConceptTarget_Schema(), "conceptTargets",
+                null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConcept_InputModel(), ecorePackage.getEBoolean(), "inputModel", "true", 0, 1, Concept.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConcept_Group(), this.getXMLFileNode(), null, "group", null, 0, -1, Concept.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEReference(getConcept_Root(), this.getXMLFileNode(), null, "root", null, 0, -1, Concept.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                !IS_ORDERED);
+        initEReference(getConcept_Loop(), this.getXMLFileNode(), null, "loop", null, 0, -1, Concept.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
-        initEClass(conceptTargetEClass, ConceptTarget.class, "ConceptTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getConceptTarget_Schema(), this.getConcept(), this.getConcept_ConceptTargets(), "schema", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConceptTarget_TargetName(), ecorePackage.getEString(), "targetName", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getConceptTarget_RelativeLoopExpression(), ecorePackage.getEString(), "RelativeLoopExpression", null, 0, 1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(conceptTargetEClass, ConceptTarget.class, "ConceptTarget", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getConceptTarget_Schema(), this.getConcept(), this.getConcept_ConceptTargets(), "schema", null, 0, 1,
+                ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConceptTarget_TargetName(), ecorePackage.getEString(), "targetName", null, 0, 1, ConceptTarget.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConceptTarget_RelativeLoopExpression(), ecorePackage.getEString(), "RelativeLoopExpression", null, 0,
+                1, ConceptTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
-        initEClass(hl7ConnectionEClass, HL7Connection.class, "HL7Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getHL7Connection_StartChar(), ecorePackage.getEString(), "StartChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHL7Connection_EndChar(), ecorePackage.getEString(), "EndChar", null, 0, 1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getHL7Connection_Root(), this.getHL7FileNode(), null, "root", null, 0, -1, HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+        initEClass(hl7ConnectionEClass, HL7Connection.class, "HL7Connection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getHL7Connection_StartChar(), ecorePackage.getEString(), "StartChar", null, 0, 1, HL7Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7Connection_EndChar(), ecorePackage.getEString(), "EndChar", null, 0, 1, HL7Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getHL7Connection_Root(), this.getHL7FileNode(), null, "root", null, 0, -1, HL7Connection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_DERIVED, !IS_ORDERED);
 
-        initEClass(headerFooterConnectionEClass, HeaderFooterConnection.class, "HeaderFooterConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getHeaderFooterConnection_IsHeader(), ecorePackage.getEBoolean(), "isHeader", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHeaderFooterConnection_Imports(), ecorePackage.getEString(), "imports", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHeaderFooterConnection_MainCode(), ecorePackage.getEString(), "mainCode", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHeaderFooterConnection_Libraries(), ecorePackage.getEString(), "libraries", null, 0, 1, HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(headerFooterConnectionEClass, HeaderFooterConnection.class, "HeaderFooterConnection", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getHeaderFooterConnection_IsHeader(), ecorePackage.getEBoolean(), "isHeader", null, 0, 1,
+                HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHeaderFooterConnection_Imports(), ecorePackage.getEString(), "imports", null, 0, 1,
+                HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHeaderFooterConnection_MainCode(), ecorePackage.getEString(), "mainCode", null, 0, 1,
+                HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHeaderFooterConnection_Libraries(), ecorePackage.getEString(), "libraries", null, 0, 1,
+                HeaderFooterConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(xmlFileNodeEClass, XMLFileNode.class, "XMLFileNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getXMLFileNode_XMLPath(), ecorePackage.getEString(), "XMLPath", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXMLFileNode_RelatedColumn(), ecorePackage.getEString(), "RelatedColumn", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXMLFileNode_DefaultValue(), ecorePackage.getEString(), "DefaultValue", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXMLFileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXMLFileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXMLFileNode_Type(), ecorePackage.getEString(), "Type", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_XMLPath(), ecorePackage.getEString(), "XMLPath", null, 0, 1, XMLFileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_RelatedColumn(), ecorePackage.getEString(), "RelatedColumn", null, 0, 1, XMLFileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_DefaultValue(), ecorePackage.getEString(), "DefaultValue", null, 0, 1, XMLFileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, XMLFileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXMLFileNode_Type(), ecorePackage.getEString(), "Type", null, 0, 1, XMLFileNode.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(genericPackageEClass, GenericPackage.class, "GenericPackage", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(hl7FileNodeEClass, HL7FileNode.class, "HL7FileNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getHL7FileNode_FilePath(), ecorePackage.getEString(), "FilePath", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHL7FileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHL7FileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHL7FileNode_DefaultValue(), ecorePackage.getEString(), "DefaultValue", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHL7FileNode_RelatedColumn(), ecorePackage.getEString(), "RelatedColumn", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHL7FileNode_Repeatable(), ecorePackage.getEBoolean(), "Repeatable", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_FilePath(), ecorePackage.getEString(), "FilePath", null, 0, 1, HL7FileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_Order(), ecorePackage.getEInt(), "Order", null, 0, 1, HL7FileNode.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_Attribute(), ecorePackage.getEString(), "Attribute", null, 0, 1, HL7FileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_DefaultValue(), ecorePackage.getEString(), "DefaultValue", null, 0, 1, HL7FileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_RelatedColumn(), ecorePackage.getEString(), "RelatedColumn", null, 0, 1, HL7FileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHL7FileNode_Repeatable(), ecorePackage.getEBoolean(), "Repeatable", null, 0, 1, HL7FileNode.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
-        initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.DATABASE_TYPE_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.DRIVER_CLASS_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.URL_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.PORT_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.USERNAME_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.PASSWORD_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.SERVER_NAME_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.DATASOURCE_NAME_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.FILE_FIELD_NAME_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.SCHEMA_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.SID_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.SQL_SYNTHAX_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.STRING_QUOTE_LITERAL);
-        addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.NULL_CHAR_LITERAL);
-
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");
         addEEnumLiteral(fileFormatEEnum, FileFormat.UNIX_LITERAL);
         addEEnumLiteral(fileFormatEEnum, FileFormat.MAC_LITERAL);
@@ -3814,12 +4556,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         addEEnumLiteral(fieldSeparatorEEnum, FieldSeparator.CUSTOM_REG_EXP_LITERAL);
 
         initEEnum(escapeEEnum, Escape.class, "Escape");
-        addEEnumLiteral(escapeEEnum, Escape.DELIMITED_LITERAL);
-        addEEnumLiteral(escapeEEnum, Escape.CSV_LITERAL);
+        addEEnumLiteral(escapeEEnum, Escape.DELIMITED);
+        addEEnumLiteral(escapeEEnum, Escape.CSV);
 
         initEEnum(rowSeparatorEEnum, RowSeparator.class, "RowSeparator");
         addEEnumLiteral(rowSeparatorEEnum, RowSeparator.CUSTOM_STRING_LITERAL);
         addEEnumLiteral(rowSeparatorEEnum, RowSeparator.STANDART_EOL_LITERAL);
+
+        initEEnum(mdmConnectionProtocolEEnum, MDMConnectionProtocol.class, "MDMConnectionProtocol");
+        addEEnumLiteral(mdmConnectionProtocolEEnum, MDMConnectionProtocol.HTTP);
 
         // Initialize data types
         initEDataType(mapEDataType, HashMap.class, "Map", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -3827,6 +4572,147 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         // Create resource
         createResource(eNS_URI);
+
+        // Create annotations
+        // http://www.eclipse.org/emf/2002/GenModel
+        createGenModelAnnotations();
     }
 
-} // ConnectionPackageImpl
+    /**
+     * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/GenModel</b>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void createGenModelAnnotations() {
+        String source = "http://www.eclipse.org/emf/2002/GenModel";
+        addAnnotation(connectionEClass, source, new String[] { "documentation",
+                "base class tha represent a connection, may be to a database or a file or else" });
+        addAnnotation(getConnection_Queries(), source, new String[] { "documentation",
+                "This defines the SQL queries related to this connection" });
+        addAnnotation(getConnection_ContextMode(), source, new String[] { "documentation",
+                "whether this connection is defined using a context or is standalone" });
+        addAnnotation(getConnection_ContextId(), source, new String[] { "documentation",
+                "Id of the context this connection is linked to, only used when ContextMode attribute is true" });
+        addAnnotation(metadataColumnEClass, source, new String[] { "documentation",
+                "represents a metada column which contains source (such as DB) definitions as weel as Talend mappings" });
+        addAnnotation(
+                getMetadataColumn_SourceType(),
+                source,
+                new String[] {
+                        "documentation",
+                        "Schema DB type (VARCHAR for example ), can be initialised from DB  column type and modified by the user.)\r\nThis is maintained in synch with the TalendType (at least in the Table schema editor).\r\n" });
+        addAnnotation(
+                getMetadataColumn_DefaultValue(),
+                source,
+                new String[] {
+                        "documentation",
+                        "@deprecated Use initialValue  instead\r\n(This represents the default value for column. This may be changed by the user.)\r\n\r\n" });
+        addAnnotation(
+                getMetadataColumn_TalendType(),
+                source,
+                new String[] {
+                        "documentation",
+                        "java type used by Talend for handling this column elements; This seems to be synched with the sourceType.\r\nThis must be the case for schema used for Table creation." });
+        addAnnotation(
+                getMetadataColumn_Key(),
+                source,
+                new String[] {
+                        "documentation",
+                        "Whether this column is a considered a key, in a business meaning (This is not technical).\r\nThis may apply to file, xml or dB columns.\r\nMay be changed by the user.\r\nWhen retrieving Metadata from DB this will be set to true if the column belong to the primary key." });
+        addAnnotation(getMetadataColumn_Nullable(), source, new String[] { "documentation",
+                "whether this column supports null values. May be changed by the user." });
+        addAnnotation(getMetadataColumn_Table(), source, new String[] { "documentation",
+                "reference to the containing table or view" });
+        addAnnotation(getMetadataColumn_OriginalField(), source, new String[] { "documentation",
+                "@deprecated use g(s)etName\r\nLogical name of the column" });
+        addAnnotation(getMetadataColumn_Pattern(), source,
+                new String[] { "documentation", "pattern mainly used for date parsing" });
+        addAnnotation(abstractMetadataObjectEClass, source, new String[] { "documentation",
+                "base class for all the metadata model" });
+        addAnnotation(
+                getAbstractMetadataObject_Properties(),
+                source,
+                new String[] {
+                        "documentation",
+                        "@deprecated Use taggedValue instead\r\n(map of general purpose key/value that is available to all classes of the metamodel.)\r\n" });
+        addAnnotation(getAbstractMetadataObject_Id(), source, new String[] { "documentation", "logical identifier" });
+        addAnnotation(getAbstractMetadataObject_Comment(), source, new String[] { "documentation",
+                "free comment of this element, may be displayed to the user." });
+        addAnnotation(getAbstractMetadataObject_Label(), source, new String[] { "documentation",
+                "name to be displayed for the current object" });
+        addAnnotation(metadataTableEClass, source, new String[] { "documentation", "representation of a of set of columns" });
+        addAnnotation(getMetadataTable_SourceName(), source, new String[] { "documentation",
+                "@deprecated use g(s)etName()\r\nname of the table, that is actual DB table name for DB tables" });
+        addAnnotation(getMetadataTable_TableType(), source, new String[] { "documentation",
+                "of value of TABLE, VIEW, SYNONYM, ALL_SYNONYM" });
+        addAnnotation(getMetadataTable_AttachedCDC(), source, new String[] { "documentation",
+                "whether a CDC table is attached to this table" });
+        addAnnotation(getMetadataTable_ActivatedCDC(), source, new String[] { "documentation",
+                "whether CDC is activated, that is the trigger are set to record the changes" });
+        addAnnotation(
+                getMetadataTable_Columns(),
+                source,
+                new String[] { "documentation",
+                        "List of columns related to this table, this is a derived attribute from the feature attribute, thus volatile and transiant" });
+        addAnnotation(getMetadataTable_Connection(), source, new String[] { "documentation",
+                "@deprecated use MetadataTableHelper.getFirstconnection()\r\nref to the connection that contains this table" });
+        addAnnotation(
+                mdmConnectionEClass.getEOperations().get(0),
+                source,
+                new String[] {
+                        "documentation",
+                        "return the connection string to connect to the MDM server,\r\nit is a concatenation of protocol, server, port and context.\r\nthe connection string returned may not be a valid URL if some of the concatenated elements are not properly set.\r\nNo checking is done." });
+        addAnnotation(getMDMConnection_Protocol(), source, new String[] { "documentation",
+                "protocol used for connecting to MDM server, initial protocol is HTTP" });
+        addAnnotation(getMDMConnection_Context(), source, new String[] { "documentation",
+                "part of the url for connecting to the server, \r\nthe last part that defined the MDM web app context" });
+        addAnnotation(databaseConnectionEClass, source, new String[] { "documentation", "Defines a connection to a Database" });
+        addAnnotation(getDatabaseConnection_DatabaseType(), source, new String[] { "documentation",
+                "logical type of the DB (for instance MySQL)" });
+        addAnnotation(getDatabaseConnection_DriverJarPath(), source, new String[] { "documentation",
+                "absolute path to the jar that may be used for Generic JDBC connection" });
+        addAnnotation(getDatabaseConnection_DriverClass(), source, new String[] { "documentation",
+                "initial class for generic JDBC connection" });
+        addAnnotation(
+                getDatabaseConnection_URL(),
+                source,
+                new String[] {
+                        "documentation",
+                        "the connection base URL for JDBC protocol.\r\nIt is a concatenation of DatabaseType, ServerName, Port and other attributes of this class" });
+        addAnnotation(getDatabaseConnection_DbVersionString(), source, new String[] { "documentation",
+                "may hold the version of the Database for a given Database type (for instance MySQL_4 or MySQL_5)" });
+        addAnnotation(getDatabaseConnection_Port(), source, new String[] { "documentation",
+                "port used for the Database Connection" });
+        addAnnotation(getDatabaseConnection_Username(), source, new String[] { "documentation",
+                "user name used for DB connection authentification" });
+        addAnnotation(getDatabaseConnection_Password(), source, new String[] { "documentation",
+                "password used for DB connection authentification" });
+        addAnnotation(getDatabaseConnection_ServerName(), source, new String[] { "documentation",
+                "IP adress or machine name of the DB server to connect to." });
+        addAnnotation(getDatabaseConnection_FileFieldName(), source, new String[] { "documentation",
+                "Database file used for DB such as SqlLite" });
+        addAnnotation(getDatabaseConnection_SID(), source, new String[] { "documentation", "Logical name of the Database" });
+        addAnnotation(getDatabaseConnection_AdditionalParams(), source, new String[] { "documentation",
+                "parameters that are to be added to the connection URL" });
+        addAnnotation(getDatabaseConnection_CdcConns(), source, new String[] { "documentation",
+                "reference to CDC definition for this connection" });
+        addAnnotation(sapFunctionUnitEClass.getEOperations().get(0), source, new String[] { "documentation",
+                "@deprecated use SAPFunctionHelper.getFirstDocument().g(s)etReference()" });
+        addAnnotation(sapFunctionParameterColumnEClass.getEOperations().get(0), source, new String[] { "documentation",
+                "@deprecated use ModelElementHelper.getFirstDescription().setBody()" });
+        addAnnotation(cdcConnectionEClass, source, new String[] { "documentation",
+                "defining Change Data Capture for a given connection" });
+        addAnnotation(getCDCConnection_Connection(), source,
+                new String[] { "documentation", "the connection this CDC relates to" });
+        addAnnotation(getCDCType_LinkDB(), source, new String[] { "documentation",
+                "ID of the .properties file related to the CDC database" });
+        addAnnotation(
+                genericPackageEClass,
+                source,
+                new String[] {
+                        "documentation",
+                        "Default CWM package to use when none of the existing cwm packages fit the metadata to describe.\r\nThis is a container between Connection and MetadataTable" });
+    }
+
+} //ConnectionPackageImpl

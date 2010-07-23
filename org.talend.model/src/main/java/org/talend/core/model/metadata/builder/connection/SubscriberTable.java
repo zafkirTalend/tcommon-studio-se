@@ -1,11 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import org.talend.cwm.relational.TdTable;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +23,8 @@ package org.talend.core.model.metadata.builder.connection;
  * @model
  * @generated
  */
-public interface SubscriberTable extends MetadataTable {
+public interface SubscriberTable extends TdTable {
+
     /**
      * Returns the value of the '<em><b>System</b></em>' attribute.
      * <!-- begin-user-doc -->

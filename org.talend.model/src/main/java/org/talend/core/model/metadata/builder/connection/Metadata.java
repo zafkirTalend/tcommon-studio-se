@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 import org.eclipse.emf.common.util.EList;
 
@@ -26,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Metadata extends AbstractMetadataObject {
+
     /**
      * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.Connection}.
@@ -37,9 +36,9 @@ public interface Metadata extends AbstractMetadataObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Connections</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadata_Connections()
-     * @model type="org.talend.core.model.metadata.builder.connection.Connection" containment="true"
+     * @model containment="true" resolveProxies="true"
      * @generated
      */
-    EList getConnections();
+    EList<Connection> getConnections();
 
 } // Metadata

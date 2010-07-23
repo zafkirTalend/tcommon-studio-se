@@ -62,10 +62,15 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
+import org.talend.cwm.xml.TdXMLDocument;
+import org.talend.cwm.xml.XmlFactory;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMSchema2TreeLinker;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -482,8 +487,9 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
 
     public IMetadataTable getIMetadataTable() {
         IMetadataTable metadataTable = null;
-        if (getConnection().getTables() != null && !getConnection().getTables().isEmpty()) {
-            metadataTable = ConvertionHelper.convert((MetadataTable) getConnection().getTables().get(0));
+        if (ConnectionHelper.getTables(getConnection()) != null && !ConnectionHelper.getTables(getConnection()).isEmpty()) {
+            metadataTable = ConvertionHelper
+                    .convert(ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0]);
         } else {
             metadataTable = new org.talend.core.model.metadata.MetadataTable();
         }
@@ -528,7 +534,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     }
 
     private IMetadataColumn getColumn(String columnName) {
-        EList columns = ((MetadataTable) getConnection().getTables().get(0)).getColumns();
+        EList columns = ConnectionHelper.getTables(getConnection()).toArray(new MetadataTable[0])[0].getColumns();
         for (int i = 0; i < columns.size(); i++) {
             MetadataColumn column = (MetadataColumn) columns.get(i);
             if (column.getLabel().equals(columnName)) {
@@ -555,7 +561,7 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     }
 
     public void updateConnection() {
-        getConnection().getTables();
+        ConnectionHelper.getTables(getConnection());
         EList root = concept.getRoot();
         EList loop = concept.getLoop();
         EList group = concept.getGroup();
@@ -835,8 +841,21 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
     @Override
     protected void createTable() {
         this.metadataTable = tempMetadataTable;
-        if (!getConnection().getTables().contains(metadataTable)) {
-            getConnection().getTables().add(metadataTable);
+        // if (!getConnection().getTables().contains(metadataTable)) {
+        // getConnection().getTables().add(metadataTable);
+        // }
+        if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
+            TdXMLDocument d = (TdXMLDocument) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
+                    .getDatacluster(), connectionItem.getConnection(), TdXMLDocument.class);
+            if (d != null) {
+                d.getOwnedElement().add(metadataTable);
+            } else {
+                TdXMLDocument newXmlDoc = XmlFactory.eINSTANCE.createTdXMLDocument();
+                newXmlDoc.setName(((MDMConnection) connectionItem.getConnection()).getDatacluster());
+                ConnectionHelper.addPackage(newXmlDoc, connectionItem.getConnection());
+                PackageHelper.addMetadataTable(metadataTable, newXmlDoc);
+            }
+            // ConnectionHelper.getTables(getConnection()).add(metadataTable);
         }
     }
 

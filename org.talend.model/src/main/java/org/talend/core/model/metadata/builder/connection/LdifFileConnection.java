@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -29,6 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface LdifFileConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>Value</b></em>' attribute list.
      * The list contents are of type {@link java.lang.String}.
@@ -43,7 +43,7 @@ public interface LdifFileConnection extends Connection {
      * @model
      * @generated
      */
-    EList getValue();
+    EList<String> getValue();
 
     /**
      * Returns the value of the '<em><b>File Path</b></em>' attribute.

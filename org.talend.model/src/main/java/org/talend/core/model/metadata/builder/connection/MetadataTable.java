@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -9,9 +8,11 @@ package org.talend.core.model.metadata.builder.connection;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Metadata Table</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Metadata Table</b></em>'. <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * representation of a of set of columns
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -29,27 +30,28 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface MetadataTable extends AbstractMetadataObject {
+public interface MetadataTable extends AbstractMetadataObject, orgomg.cwm.objectmodel.core.Class {
+
     /**
-     * Returns the value of the '<em><b>Source Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Source Name</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Source Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Source Name</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
-     * <!-- end-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc -->
+     * 
+     * @deprecated use g(s)etName() name of the table, that is actual DB table name for DB tables <!-- end-model-doc -->
      * @return the value of the '<em>Source Name</em>' attribute.
      * @see #setSourceName(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_SourceName()
-     * @model
+     * @model transient="true" volatile="true"
      * @generated
      */
     String getSourceName();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName <em>Source Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Source Name</em>' attribute.
      * @see #getSourceName()
      * @generated
@@ -57,59 +59,47 @@ public interface MetadataTable extends AbstractMetadataObject {
     void setSourceName(String value);
 
     /**
-     * Returns the value of the '<em><b>Columns</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataColumn}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}'.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Columns</b></em>' reference list. The list contents are of type
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataColumn}. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Columns</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Columns</em>' containment reference list isn't clear, there really should be more of a
+     * description here...
      * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Columns</em>' containment reference list.
+     * <!-- end-user-doc --> <!-- begin-model-doc --> List of columns related to this table <!-- end-model-doc -->
+     * 
+     * @return the value of the '<em>Columns</em>' reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Columns()
-     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable
-     * @model type="org.talend.core.model.metadata.builder.connection.MetadataColumn" opposite="table" containment="true"
+     * @model transient="true" volatile="true"
      * @generated
      */
-    EList getColumns();
+    EList<MetadataColumn> getColumns();
 
     /**
-     * Returns the value of the '<em><b>Connection</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.Connection#getTables <em>Tables</em>}'.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Connection</b></em>' reference. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Connection</em>' container reference isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Connection</em>' container reference isn't clear, there really should be more of a
+     * description here...
      * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Connection</em>' container reference.
-     * @see #setConnection(Connection)
+     * <!-- end-user-doc --> <!-- begin-model-doc -->
+     * 
+     * @deprecated use MetadataTableHelper.getFirstconnection() ref to the connection that contains this table <!--
+     * end-model-doc -->
+     * @return the value of the '<em>Connection</em>' reference.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Connection()
-     * @see org.talend.core.model.metadata.builder.connection.Connection#getTables
-     * @model opposite="tables" transient="false"
+     * @model transient="true" changeable="false" volatile="true"
      * @generated
      */
     Connection getConnection();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Connection</em>' container reference.
-     * @see #getConnection()
-     * @generated
-     */
-    void setConnection(Connection value);
-
-    /**
-     * Returns the value of the '<em><b>Table Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Table Type</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Table Type</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Table Type</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
-     * <!-- end-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> of value of TABLE, VIEW, SYNONYM, ALL_SYNONYM <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Table Type</em>' attribute.
      * @see #setTableType(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_TableType()
@@ -120,8 +110,7 @@ public interface MetadataTable extends AbstractMetadataObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Table Type</em>' attribute.
      * @see #getTableType()
      * @generated
@@ -129,13 +118,14 @@ public interface MetadataTable extends AbstractMetadataObject {
     void setTableType(String value);
 
     /**
-     * Returns the value of the '<em><b>Attached CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Attached CDC</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Attached CDC</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Attached CDC</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
-     * <!-- end-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> whether a CDC table is attached to this table <!-- end-model-doc
+     * -->
+     * 
      * @return the value of the '<em>Attached CDC</em>' attribute.
      * @see #setAttachedCDC(boolean)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_AttachedCDC()
@@ -146,8 +136,7 @@ public interface MetadataTable extends AbstractMetadataObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC <em>Attached CDC</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Attached CDC</em>' attribute.
      * @see #isAttachedCDC()
      * @generated
@@ -155,13 +144,14 @@ public interface MetadataTable extends AbstractMetadataObject {
     void setAttachedCDC(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Activated CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Activated CDC</b></em>' attribute. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Activated CDC</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Activated CDC</em>' attribute isn't clear, there really should be more of a
+     * description here...
      * </p>
-     * <!-- end-user-doc -->
+     * <!-- end-user-doc --> <!-- begin-model-doc --> whether CDC is activated, that is the trigger are set to record
+     * the changes <!-- end-model-doc -->
+     * 
      * @return the value of the '<em>Activated CDC</em>' attribute.
      * @see #setActivatedCDC(boolean)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_ActivatedCDC()
@@ -172,8 +162,7 @@ public interface MetadataTable extends AbstractMetadataObject {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC <em>Activated CDC</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Activated CDC</em>' attribute.
      * @see #isActivatedCDC()
      * @generated

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -30,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface XmlXPathLoopDescriptor extends EObject {
+
     /**
      * Returns the value of the '<em><b>Limit Boucle</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -123,9 +123,9 @@ public interface XmlXPathLoopDescriptor extends EObject {
      * @return the value of the '<em>Schema Targets</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlXPathLoopDescriptor_SchemaTargets()
      * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getSchema
-     * @model type="org.talend.core.model.metadata.builder.connection.SchemaTarget" opposite="schema" containment="true"
+     * @model opposite="schema" containment="true" resolveProxies="true"
      * @generated
      */
-    EList getSchemaTargets();
+    EList<SchemaTarget> getSchemaTargets();
 
 } // XmlXPathLoopDescriptor

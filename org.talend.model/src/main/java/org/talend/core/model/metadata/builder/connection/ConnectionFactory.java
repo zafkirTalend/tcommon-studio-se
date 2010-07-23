@@ -39,14 +39,6 @@ public interface ConnectionFactory extends EFactory {
     Connection createConnection();
 
     /**
-     * Returns a new object of class '<em>Metadata Table</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Metadata Table</em>'.
-     * @generated
-     */
-    MetadataTable createMetadataTable();
-
-    /**
      * Returns a new object of class '<em>Metadata Column</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Metadata Column</em>'.
@@ -55,18 +47,25 @@ public interface ConnectionFactory extends EFactory {
     MetadataColumn createMetadataColumn();
 
     /**
-     * Returns a new object of class '<em>Delimited File Connection</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>Metadata Table</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @return a new object of class '<em>Metadata Table</em>'.
+     * @generated
+     */
+    MetadataTable createMetadataTable();
+
+    /**
+     * Returns a new object of class '<em>Delimited File Connection</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Delimited File Connection</em>'.
      * @generated
      */
     DelimitedFileConnection createDelimitedFileConnection();
 
     /**
-     * Returns a new object of class '<em>Positional File Connection</em>'.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * Returns a new object of class '<em>Positional File Connection</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>Positional File Connection</em>'.
      * @generated
      */
@@ -74,8 +73,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Ebcdic Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Ebcdic Connection</em>'.
      * @generated
      */
@@ -83,8 +81,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>MDM Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>MDM Connection</em>'.
      * @generated
      */
@@ -100,8 +97,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SAP Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>SAP Connection</em>'.
      * @generated
      */
@@ -109,8 +105,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SAP Function Unit</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>SAP Function Unit</em>'.
      * @generated
      */
@@ -118,26 +113,25 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SAPI Doc Unit</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>SAPI Doc Unit</em>'.
      * @generated
      */
     SAPIDocUnit createSAPIDocUnit();
 
     /**
-     * Returns a new object of class '<em>SAP Function Parameter Column</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>SAP Function Parameter Column</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>SAP Function Parameter Column</em>'.
      * @generated
      */
     SAPFunctionParameterColumn createSAPFunctionParameterColumn();
 
     /**
-     * Returns a new object of class '<em>SAP Function Parameter Table</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>SAP Function Parameter Table</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>SAP Function Parameter Table</em>'.
      * @generated
      */
@@ -145,8 +139,8 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Input SAP Function Parameter Table</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>Input SAP Function Parameter Table</em>'.
      * @generated
      */
@@ -154,17 +148,16 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Output SAP Function Parameter Table</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>Output SAP Function Parameter Table</em>'.
      * @generated
      */
     OutputSAPFunctionParameterTable createOutputSAPFunctionParameterTable();
 
     /**
-     * Returns a new object of class '<em>Regexp File Connection</em>'. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * Returns a new object of class '<em>Regexp File Connection</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Regexp File Connection</em>'.
      * @generated
      */
@@ -188,8 +181,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Queries Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Queries Connection</em>'.
      * @generated
      */
@@ -197,8 +189,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Query</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Query</em>'.
      * @generated
      */
@@ -206,8 +197,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Ldif File Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Ldif File Connection</em>'.
      * @generated
      */
@@ -215,8 +205,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>File Excel Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>File Excel Connection</em>'.
      * @generated
      */
@@ -224,8 +213,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Xml XPath Loop Descriptor</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Xml XPath Loop Descriptor</em>'.
      * @generated
      */
@@ -233,8 +221,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Generic Schema Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Generic Schema Connection</em>'.
      * @generated
      */
@@ -242,8 +229,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>LDAP Schema Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>LDAP Schema Connection</em>'.
      * @generated
      */
@@ -251,17 +237,16 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>WSDL Schema Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>WSDL Schema Connection</em>'.
      * @generated
      */
     WSDLSchemaConnection createWSDLSchemaConnection();
 
     /**
-     * Returns a new object of class '<em>Salesforce Schema Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Salesforce Schema Connection</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>Salesforce Schema Connection</em>'.
      * @generated
      */
@@ -269,8 +254,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>CDC Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>CDC Connection</em>'.
      * @generated
      */
@@ -278,8 +262,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>CDC Type</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>CDC Type</em>'.
      * @generated
      */
@@ -287,8 +270,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Subscriber Table</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Subscriber Table</em>'.
      * @generated
      */
@@ -296,8 +278,8 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>SAP Test Input Parameter Table</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>SAP Test Input Parameter Table</em>'.
      * @generated
      */
@@ -305,8 +287,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Concept</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Concept</em>'.
      * @generated
      */
@@ -314,8 +295,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Concept Target</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Concept Target</em>'.
      * @generated
      */
@@ -323,8 +303,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>HL7 Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>HL7 Connection</em>'.
      * @generated
      */
@@ -332,8 +311,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Header Footer Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Header Footer Connection</em>'.
      * @generated
      */
@@ -341,12 +319,19 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>XML File Node</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>XML File Node</em>'.
      * @generated
      */
     XMLFileNode createXMLFileNode();
+
+    /**
+     * Returns a new object of class '<em>Generic Package</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @return a new object of class '<em>Generic Package</em>'.
+     * @generated
+     */
+    GenericPackage createGenericPackage();
 
     /**
      * Returns a new object of class '<em>HL7 File Node</em>'.
@@ -371,5 +356,4 @@ public interface ConnectionFactory extends EFactory {
      * @return
      */
     MetadataColumn copy(MetadataColumn column, String newId);
-
 } // ConnectionFactory

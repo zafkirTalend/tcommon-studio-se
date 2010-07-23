@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -27,8 +26,8 @@ import org.talend.core.model.metadata.builder.connection.FieldSeparator;
  *
  * @generated
  */
-public class DelimitedFileConnectionImpl extends FileConnectionImpl implements DelimitedFileConnection 
-{
+public class DelimitedFileConnectionImpl extends FileConnectionImpl implements DelimitedFileConnection {
+
     /**
      * The default value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -83,6 +82,7 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION;
     }
@@ -105,7 +105,8 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
         FieldSeparator oldFieldSeparatorType = fieldSeparatorType;
         fieldSeparatorType = newFieldSeparatorType == null ? FIELD_SEPARATOR_TYPE_EDEFAULT : newFieldSeparatorType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, oldFieldSeparatorType, fieldSeparatorType));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, oldFieldSeparatorType, fieldSeparatorType));
     }
 
     /**
@@ -126,7 +127,8 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
         boolean oldSplitRecord = splitRecord;
         splitRecord = newSplitRecord;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD, oldSplitRecord, splitRecord));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD,
+                    oldSplitRecord, splitRecord));
     }
 
     /**
@@ -134,12 +136,13 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                return getFieldSeparatorType();
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
-                return isSplitRecord() ? Boolean.TRUE : Boolean.FALSE;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            return getFieldSeparatorType();
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+            return isSplitRecord();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -149,14 +152,15 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                setFieldSeparatorType((FieldSeparator)newValue);
-                return;
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
-                setSplitRecord(((Boolean)newValue).booleanValue());
-                return;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            setFieldSeparatorType((FieldSeparator) newValue);
+            return;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+            setSplitRecord((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -166,14 +170,15 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
-                return;
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
-                setSplitRecord(SPLIT_RECORD_EDEFAULT);
-                return;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
+            return;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+            setSplitRecord(SPLIT_RECORD_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -183,12 +188,13 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
-                return splitRecord != SPLIT_RECORD_EDEFAULT;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+            return splitRecord != SPLIT_RECORD_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -198,8 +204,10 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (FieldSeparatorType: ");

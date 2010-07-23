@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
@@ -68,6 +69,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -694,10 +696,10 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("SCHEMA")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getSchema())) {
-                return connection.getSchema();
+            if (isContextMode(connection, connection.getUiSchema())) {
+                return connection.getUiSchema();
             } else {
-                return TalendTextUtils.addQuotes(connection.getSchema());
+                return TalendTextUtils.addQuotes(connection.getUiSchema());
             }
         }
         if (value.equals("FILE")) { //$NON-NLS-1$
@@ -1317,7 +1319,7 @@ public class RepositoryToComponentProperty {
             List<IMetadataTable> newMetaTables = new ArrayList<IMetadataTable>(metaTables);
             HL7Connection hl7Connection = (HL7Connection) connection;
             tableInfo.clear();
-            for (MetadataTable repTable : (List<MetadataTable>) connection.getTables()) {
+            for (MetadataTable repTable : (Set<MetadataTable>) ConnectionHelper.getTables(connection)) {
                 IMetadataTable metaTable = null;
                 Iterator<IMetadataTable> iterator = newMetaTables.iterator();
                 while (iterator.hasNext()) {
@@ -1624,11 +1626,11 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof HL7Connection) {
             HL7Connection hl7Connection = (HL7Connection) connection;
-            EList objectList = hl7Connection.getTables();
+            Set objectList = ConnectionHelper.getTables(hl7Connection);
             List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
             for (IMetadataTable tableOfNode : metadataTables) {
                 Map<String, Object> map = new HashMap<String, Object>();
-                for (MetadataTable table : (List<MetadataTable>) objectList) {
+                for (MetadataTable table : (Set<MetadataTable>) objectList) {
                     if (table != null && (table.getLabel() == null || table.getLabel().equals(tableOfNode.getLabel()))) {
                         String xpathValue = "";
                         for (MetadataColumn col : (List<MetadataColumn>) table.getColumns()) {

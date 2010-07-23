@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -37,6 +36,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
  * @generated
  */
 public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
+
     /**
      * The default value of the '{@link #getTargetName() <em>Target Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -91,6 +91,7 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.CONCEPT_TARGET;
     }
@@ -101,8 +102,20 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * @generated
      */
     public Concept getSchema() {
-        if (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA) return null;
-        return (Concept)eContainer();
+        if (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA)
+            return null;
+        return (Concept) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Concept basicGetSchema() {
+        if (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA)
+            return null;
+        return (Concept) eInternalContainer();
     }
 
     /**
@@ -111,7 +124,7 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * @generated
      */
     public NotificationChain basicSetSchema(Concept newSchema, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newSchema, ConnectionPackage.CONCEPT_TARGET__SCHEMA, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newSchema, ConnectionPackage.CONCEPT_TARGET__SCHEMA, msgs);
         return msgs;
     }
 
@@ -121,18 +134,20 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * @generated
      */
     public void setSchema(Concept newSchema) {
-        if (newSchema != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA && newSchema != null)) {
+        if (newSchema != eInternalContainer()
+                || (eContainerFeatureID() != ConnectionPackage.CONCEPT_TARGET__SCHEMA && newSchema != null)) {
             if (EcoreUtil.isAncestor(this, newSchema))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newSchema != null)
-                msgs = ((InternalEObject)newSchema).eInverseAdd(this, ConnectionPackage.CONCEPT__CONCEPT_TARGETS, Concept.class, msgs);
+                msgs = ((InternalEObject) newSchema).eInverseAdd(this, ConnectionPackage.CONCEPT__CONCEPT_TARGETS, Concept.class,
+                        msgs);
             msgs = basicSetSchema(newSchema, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT_TARGET__SCHEMA, newSchema, newSchema));
     }
 
@@ -154,7 +169,8 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
         String oldTargetName = targetName;
         targetName = newTargetName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT_TARGET__TARGET_NAME, oldTargetName, targetName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT_TARGET__TARGET_NAME, oldTargetName,
+                    targetName));
     }
 
     /**
@@ -175,7 +191,8 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
         String oldRelativeLoopExpression = relativeLoopExpression;
         relativeLoopExpression = newRelativeLoopExpression;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION, oldRelativeLoopExpression, relativeLoopExpression));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION,
+                    oldRelativeLoopExpression, relativeLoopExpression));
     }
 
     /**
@@ -183,12 +200,13 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetSchema((Concept)otherEnd, msgs);
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetSchema((Concept) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -198,10 +216,11 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
-                return basicSetSchema(null, msgs);
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            return basicSetSchema(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -211,10 +230,11 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONCEPT__CONCEPT_TARGETS, Concept.class, msgs);
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONCEPT__CONCEPT_TARGETS, Concept.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -224,14 +244,17 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            if (resolve)
                 return getSchema();
-            case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
-                return getTargetName();
-            case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
-                return getRelativeLoopExpression();
+            return basicGetSchema();
+        case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
+            return getTargetName();
+        case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
+            return getRelativeLoopExpression();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -241,17 +264,18 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
-                setSchema((Concept)newValue);
-                return;
-            case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
-                setTargetName((String)newValue);
-                return;
-            case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
-                setRelativeLoopExpression((String)newValue);
-                return;
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            setSchema((Concept) newValue);
+            return;
+        case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
+            setTargetName((String) newValue);
+            return;
+        case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
+            setRelativeLoopExpression((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -261,17 +285,18 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
-                setSchema((Concept)null);
-                return;
-            case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
-                setTargetName(TARGET_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
-                setRelativeLoopExpression(RELATIVE_LOOP_EXPRESSION_EDEFAULT);
-                return;
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            setSchema((Concept) null);
+            return;
+        case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
+            setTargetName(TARGET_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
+            setRelativeLoopExpression(RELATIVE_LOOP_EXPRESSION_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -281,14 +306,16 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
-                return getSchema() != null;
-            case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
-                return TARGET_NAME_EDEFAULT == null ? targetName != null : !TARGET_NAME_EDEFAULT.equals(targetName);
-            case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
-                return RELATIVE_LOOP_EXPRESSION_EDEFAULT == null ? relativeLoopExpression != null : !RELATIVE_LOOP_EXPRESSION_EDEFAULT.equals(relativeLoopExpression);
+        case ConnectionPackage.CONCEPT_TARGET__SCHEMA:
+            return basicGetSchema() != null;
+        case ConnectionPackage.CONCEPT_TARGET__TARGET_NAME:
+            return TARGET_NAME_EDEFAULT == null ? targetName != null : !TARGET_NAME_EDEFAULT.equals(targetName);
+        case ConnectionPackage.CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION:
+            return RELATIVE_LOOP_EXPRESSION_EDEFAULT == null ? relativeLoopExpression != null
+                    : !RELATIVE_LOOP_EXPRESSION_EDEFAULT.equals(relativeLoopExpression);
         }
         return super.eIsSet(featureID);
     }
@@ -298,8 +325,10 @@ public class ConceptTargetImpl extends EObjectImpl implements ConceptTarget {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (targetName: ");

@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -28,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface SchemaTarget extends EObject {
+
     /**
      * Returns the value of the '<em><b>Relative XPath Query</b></em>' attribute.
      * <!-- begin-user-doc -->

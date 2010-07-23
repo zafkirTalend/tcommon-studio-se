@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -35,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.XMLFileNode;
  * @generated
  */
 public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
+
     /**
      * The default value of the '{@link #getXMLPath() <em>XML Path</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -169,6 +169,7 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.XML_FILE_NODE;
     }
@@ -212,7 +213,8 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
         String oldRelatedColumn = relatedColumn;
         relatedColumn = newRelatedColumn;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN, oldRelatedColumn, relatedColumn));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN,
+                    oldRelatedColumn, relatedColumn));
     }
 
     /**
@@ -233,7 +235,8 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
         String oldDefaultValue = defaultValue;
         defaultValue = newDefaultValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE, oldDefaultValue, defaultValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE,
+                    oldDefaultValue, defaultValue));
     }
 
     /**
@@ -254,7 +257,8 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
         String oldAttribute = attribute;
         attribute = newAttribute;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_NODE__ATTRIBUTE, oldAttribute, attribute));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_NODE__ATTRIBUTE, oldAttribute,
+                    attribute));
     }
 
     /**
@@ -304,20 +308,21 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_NODE__XML_PATH:
-                return getXMLPath();
-            case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
-                return getRelatedColumn();
-            case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
-                return getDefaultValue();
-            case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
-                return getAttribute();
-            case ConnectionPackage.XML_FILE_NODE__ORDER:
-                return new Integer(getOrder());
-            case ConnectionPackage.XML_FILE_NODE__TYPE:
-                return getType();
+        case ConnectionPackage.XML_FILE_NODE__XML_PATH:
+            return getXMLPath();
+        case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
+            return getRelatedColumn();
+        case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
+            return getDefaultValue();
+        case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
+            return getAttribute();
+        case ConnectionPackage.XML_FILE_NODE__ORDER:
+            return getOrder();
+        case ConnectionPackage.XML_FILE_NODE__TYPE:
+            return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -327,26 +332,27 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_NODE__XML_PATH:
-                setXMLPath((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
-                setRelatedColumn((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
-                setDefaultValue((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
-                setAttribute((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__ORDER:
-                setOrder(((Integer)newValue).intValue());
-                return;
-            case ConnectionPackage.XML_FILE_NODE__TYPE:
-                setType((String)newValue);
-                return;
+        case ConnectionPackage.XML_FILE_NODE__XML_PATH:
+            setXMLPath((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
+            setRelatedColumn((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
+            setDefaultValue((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
+            setAttribute((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__ORDER:
+            setOrder((Integer) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__TYPE:
+            setType((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -356,26 +362,27 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_NODE__XML_PATH:
-                setXMLPath(XML_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
-                setRelatedColumn(RELATED_COLUMN_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
-                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
-                setAttribute(ATTRIBUTE_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__ORDER:
-                setOrder(ORDER_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_NODE__TYPE:
-                setType(TYPE_EDEFAULT);
-                return;
+        case ConnectionPackage.XML_FILE_NODE__XML_PATH:
+            setXMLPath(XML_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
+            setRelatedColumn(RELATED_COLUMN_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
+            setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
+            setAttribute(ATTRIBUTE_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__ORDER:
+            setOrder(ORDER_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_NODE__TYPE:
+            setType(TYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -385,20 +392,21 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_NODE__XML_PATH:
-                return XML_PATH_EDEFAULT == null ? xmlPath != null : !XML_PATH_EDEFAULT.equals(xmlPath);
-            case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
-                return RELATED_COLUMN_EDEFAULT == null ? relatedColumn != null : !RELATED_COLUMN_EDEFAULT.equals(relatedColumn);
-            case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
-                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
-            case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
-                return ATTRIBUTE_EDEFAULT == null ? attribute != null : !ATTRIBUTE_EDEFAULT.equals(attribute);
-            case ConnectionPackage.XML_FILE_NODE__ORDER:
-                return order != ORDER_EDEFAULT;
-            case ConnectionPackage.XML_FILE_NODE__TYPE:
-                return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        case ConnectionPackage.XML_FILE_NODE__XML_PATH:
+            return XML_PATH_EDEFAULT == null ? xmlPath != null : !XML_PATH_EDEFAULT.equals(xmlPath);
+        case ConnectionPackage.XML_FILE_NODE__RELATED_COLUMN:
+            return RELATED_COLUMN_EDEFAULT == null ? relatedColumn != null : !RELATED_COLUMN_EDEFAULT.equals(relatedColumn);
+        case ConnectionPackage.XML_FILE_NODE__DEFAULT_VALUE:
+            return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+        case ConnectionPackage.XML_FILE_NODE__ATTRIBUTE:
+            return ATTRIBUTE_EDEFAULT == null ? attribute != null : !ATTRIBUTE_EDEFAULT.equals(attribute);
+        case ConnectionPackage.XML_FILE_NODE__ORDER:
+            return order != ORDER_EDEFAULT;
+        case ConnectionPackage.XML_FILE_NODE__TYPE:
+            return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
         return super.eIsSet(featureID);
     }
@@ -408,8 +416,10 @@ public class XMLFileNodeImpl extends EObjectImpl implements XMLFileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (XMLPath: ");

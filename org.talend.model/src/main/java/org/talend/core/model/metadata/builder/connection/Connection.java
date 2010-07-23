@@ -1,11 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
+import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -13,11 +13,14 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Connection</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * base class tha represent a connection, may be to a database or a file or else
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getTables <em>Tables</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}</li>
@@ -28,7 +31,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Connection extends AbstractMetadataObject {
+public interface Connection extends AbstractMetadataObject, DataProvider {
+
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -56,24 +60,6 @@ public interface Connection extends AbstractMetadataObject {
     void setVersion(String value);
 
     /**
-     * Returns the value of the '<em><b>Tables</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataTable}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Tables</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Tables</em>' containment reference list.
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Tables()
-     * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection
-     * @model type="org.talend.core.model.metadata.builder.connection.MetadataTable" opposite="connection" containment="true"
-     * @generated
-     */
-    EList getTables();
-
-    /**
      * Returns the value of the '<em><b>Queries</b></em>' containment reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
@@ -82,11 +68,14 @@ public interface Connection extends AbstractMetadataObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * This defines the SQL queries related to this connection
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Queries</em>' containment reference.
      * @see #setQueries(QueriesConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Queries()
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection
-     * @model opposite="connection" containment="true"
+     * @model opposite="connection" containment="true" resolveProxies="true"
      * @generated
      */
     QueriesConnection getQueries();
@@ -109,6 +98,9 @@ public interface Connection extends AbstractMetadataObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * whether this connection is defined using a context or is standalone
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Context Mode</em>' attribute.
      * @see #setContextMode(boolean)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextMode()
@@ -135,6 +127,9 @@ public interface Connection extends AbstractMetadataObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Id of the context this connection is linked to, only used when ContextMode attribute is true
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Context Id</em>' attribute.
      * @see #setContextId(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_ContextId()

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -19,8 +18,8 @@ import org.talend.core.model.metadata.builder.connection.PositionalFileConnectio
  *
  * @generated
  */
-public class PositionalFileConnectionImpl extends FileConnectionImpl implements PositionalFileConnection 
-{
+public class PositionalFileConnectionImpl extends FileConnectionImpl implements PositionalFileConnection {
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -35,6 +34,7 @@ public class PositionalFileConnectionImpl extends FileConnectionImpl implements 
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.POSITIONAL_FILE_CONNECTION;
     }

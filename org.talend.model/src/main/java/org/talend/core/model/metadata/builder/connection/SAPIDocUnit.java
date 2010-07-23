@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +20,6 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getXmlFile <em>Xml File</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseHtmlOutput <em>Use Html Output</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getHtmlFile <em>Html File</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,6 +28,7 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface SAPIDocUnit extends AbstractMetadataObject {
+
     /**
      * Returns the value of the '<em><b>Connection</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs <em>IDocs</em>}'.
@@ -214,31 +212,5 @@ public interface SAPIDocUnit extends AbstractMetadataObject {
      * @generated
      */
     void setHtmlFile(String value);
-
-    /**
-     * Returns the value of the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Name</em>' attribute.
-     * @see #setName(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPIDocUnit_Name()
-     * @model
-     * @generated
-     */
-    String getName();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getName <em>Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Name</em>' attribute.
-     * @see #getName()
-     * @generated
-     */
-    void setName(String value);
 
 } // SAPIDocUnit

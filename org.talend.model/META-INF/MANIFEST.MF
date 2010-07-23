@@ -6,6 +6,7 @@ Bundle-Version: 2.2.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.talend.commons.bridge,
  org.talend.core.model,
  org.talend.core.model.expression,
@@ -18,6 +19,15 @@ Export-Package: org.talend.commons.bridge,
  org.talend.core.model.properties.helper,
  org.talend.core.model.properties.impl,
  org.talend.core.model.properties.util,
+ org.talend.cwm.constants,
+ org.talend.cwm.helper,
+ org.talend.cwm.i18n,
+ org.talend.cwm.relational,
+ org.talend.cwm.relational.util,
+ org.talend.cwm.softwaredeployment,
+ org.talend.cwm.softwaredeployment.util,
+ org.talend.cwm.xml,
+ org.talend.cwm.xml.util,
  org.talend.designer.business.model.business,
  org.talend.designer.business.model.business.impl,
  org.talend.designer.business.model.business.util,
@@ -34,6 +44,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.gmf.runtime.notation;visibility:=reexport,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.talend.cwm.mip;visibility:=reexport,
+ org.talend.commons,
+ org.eclipse.xsd,
+ org.talend.utils;bundle-version="2.1.0"
 Eclipse-LazyStart: true
 Bundle-Activator: org.talend.core.model.ModelPlugin

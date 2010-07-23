@@ -14,10 +14,10 @@ package org.talend.core.model.metadata.query;
 
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.query.generator.AS400QueryGenerator;
-import org.talend.core.model.metadata.query.generator.OracleQueryGenerator;
 import org.talend.core.model.metadata.query.generator.NetezzaQueryGenerator;
 import org.talend.core.model.metadata.query.generator.NonDatabaseDefaultQueryGenerator;
 import org.talend.core.model.metadata.query.generator.OldDelegateQueryGenerator;
+import org.talend.core.model.metadata.query.generator.OracleQueryGenerator;
 import org.talend.core.model.metadata.query.generator.PostgreQueryGenerator;
 
 /**

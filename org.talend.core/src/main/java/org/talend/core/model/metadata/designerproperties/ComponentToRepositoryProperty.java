@@ -470,9 +470,9 @@ public class ComponentToRepositoryProperty {
             String value = getValueFromRepositoryName(node, "SCHEMA"); //$NON-NLS-1$
             if (value != null) {
                 if (connection.getDatabaseType().equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
-                    connection.setSchema(TalendTextUtils.removeQuotes(value.toUpperCase()));
+                    connection.setUiSchema(TalendTextUtils.removeQuotes(value.toUpperCase()));
                 } else {
-                    connection.setSchema(TalendTextUtils.removeQuotes(value));
+                    connection.setUiSchema(TalendTextUtils.removeQuotes(value));
                 }
             }
         }
@@ -1208,9 +1208,9 @@ public class ComponentToRepositoryProperty {
                 connection.setCsvOption(Boolean.valueOf(value).booleanValue());
             }
             if (connection.isCsvOption()) {
-                connection.setEscapeType(Escape.CSV_LITERAL);
+                connection.setEscapeType(Escape.CSV);
             } else {
-                connection.setEscapeType(Escape.DELIMITED_LITERAL);
+                connection.setEscapeType(Escape.DELIMITED);
             }
         }
         if ("ESCAPE_CHAR".equals(repositoryValue)) { //$NON-NLS-1$

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -35,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.HL7FileNode;
  * @generated
  */
 public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
+
     /**
      * The default value of the '{@link #getFilePath() <em>File Path</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -169,6 +169,7 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.HL7_FILE_NODE;
     }
@@ -191,7 +192,8 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
         String oldFilePath = filePath;
         filePath = newFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__FILE_PATH, oldFilePath, filePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__FILE_PATH, oldFilePath,
+                    filePath));
     }
 
     /**
@@ -233,7 +235,8 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
         String oldAttribute = attribute;
         attribute = newAttribute;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE, oldAttribute, attribute));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE, oldAttribute,
+                    attribute));
     }
 
     /**
@@ -254,7 +257,8 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
         String oldDefaultValue = defaultValue;
         defaultValue = newDefaultValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE, oldDefaultValue, defaultValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE,
+                    oldDefaultValue, defaultValue));
     }
 
     /**
@@ -275,7 +279,8 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
         String oldRelatedColumn = relatedColumn;
         relatedColumn = newRelatedColumn;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN, oldRelatedColumn, relatedColumn));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN,
+                    oldRelatedColumn, relatedColumn));
     }
 
     /**
@@ -296,7 +301,8 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
         boolean oldRepeatable = repeatable;
         repeatable = newRepeatable;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__REPEATABLE, oldRepeatable, repeatable));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_FILE_NODE__REPEATABLE, oldRepeatable,
+                    repeatable));
     }
 
     /**
@@ -304,20 +310,21 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
-                return getFilePath();
-            case ConnectionPackage.HL7_FILE_NODE__ORDER:
-                return new Integer(getOrder());
-            case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
-                return getAttribute();
-            case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
-                return getDefaultValue();
-            case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
-                return getRelatedColumn();
-            case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
-                return isRepeatable() ? Boolean.TRUE : Boolean.FALSE;
+        case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
+            return getFilePath();
+        case ConnectionPackage.HL7_FILE_NODE__ORDER:
+            return getOrder();
+        case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
+            return getAttribute();
+        case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
+            return getDefaultValue();
+        case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
+            return getRelatedColumn();
+        case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
+            return isRepeatable();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -327,26 +334,27 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
-                setFilePath((String)newValue);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__ORDER:
-                setOrder(((Integer)newValue).intValue());
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
-                setAttribute((String)newValue);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
-                setDefaultValue((String)newValue);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
-                setRelatedColumn((String)newValue);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
-                setRepeatable(((Boolean)newValue).booleanValue());
-                return;
+        case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
+            setFilePath((String) newValue);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__ORDER:
+            setOrder((Integer) newValue);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
+            setAttribute((String) newValue);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
+            setDefaultValue((String) newValue);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
+            setRelatedColumn((String) newValue);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
+            setRepeatable((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -356,26 +364,27 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
-                setFilePath(FILE_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__ORDER:
-                setOrder(ORDER_EDEFAULT);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
-                setAttribute(ATTRIBUTE_EDEFAULT);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
-                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
-                setRelatedColumn(RELATED_COLUMN_EDEFAULT);
-                return;
-            case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
-                setRepeatable(REPEATABLE_EDEFAULT);
-                return;
+        case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
+            setFilePath(FILE_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__ORDER:
+            setOrder(ORDER_EDEFAULT);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
+            setAttribute(ATTRIBUTE_EDEFAULT);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
+            setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
+            setRelatedColumn(RELATED_COLUMN_EDEFAULT);
+            return;
+        case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
+            setRepeatable(REPEATABLE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -385,20 +394,21 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
-                return FILE_PATH_EDEFAULT == null ? filePath != null : !FILE_PATH_EDEFAULT.equals(filePath);
-            case ConnectionPackage.HL7_FILE_NODE__ORDER:
-                return order != ORDER_EDEFAULT;
-            case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
-                return ATTRIBUTE_EDEFAULT == null ? attribute != null : !ATTRIBUTE_EDEFAULT.equals(attribute);
-            case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
-                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
-            case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
-                return RELATED_COLUMN_EDEFAULT == null ? relatedColumn != null : !RELATED_COLUMN_EDEFAULT.equals(relatedColumn);
-            case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
-                return repeatable != REPEATABLE_EDEFAULT;
+        case ConnectionPackage.HL7_FILE_NODE__FILE_PATH:
+            return FILE_PATH_EDEFAULT == null ? filePath != null : !FILE_PATH_EDEFAULT.equals(filePath);
+        case ConnectionPackage.HL7_FILE_NODE__ORDER:
+            return order != ORDER_EDEFAULT;
+        case ConnectionPackage.HL7_FILE_NODE__ATTRIBUTE:
+            return ATTRIBUTE_EDEFAULT == null ? attribute != null : !ATTRIBUTE_EDEFAULT.equals(attribute);
+        case ConnectionPackage.HL7_FILE_NODE__DEFAULT_VALUE:
+            return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
+        case ConnectionPackage.HL7_FILE_NODE__RELATED_COLUMN:
+            return RELATED_COLUMN_EDEFAULT == null ? relatedColumn != null : !RELATED_COLUMN_EDEFAULT.equals(relatedColumn);
+        case ConnectionPackage.HL7_FILE_NODE__REPEATABLE:
+            return repeatable != REPEATABLE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -408,8 +418,10 @@ public class HL7FileNodeImpl extends EObjectImpl implements HL7FileNode {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (FilePath: ");

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -43,6 +42,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
  * @generated
  */
 public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
+
     /**
      * The cached value of the '{@link #getCdcTypes() <em>Cdc Types</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -51,7 +51,7 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      * @ordered
      */
-    protected EList cdcTypes;
+    protected EList<CDCType> cdcTypes;
 
     /**
      * <!-- begin-user-doc -->
@@ -67,6 +67,7 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.CDC_CONNECTION;
     }
@@ -77,8 +78,20 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      */
     public DatabaseConnection getConnection() {
-        if (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION) return null;
-        return (DatabaseConnection)eContainer();
+        if (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION)
+            return null;
+        return (DatabaseConnection) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DatabaseConnection basicGetConnection() {
+        if (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION)
+            return null;
+        return (DatabaseConnection) eInternalContainer();
     }
 
     /**
@@ -87,7 +100,7 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      */
     public NotificationChain basicSetConnection(DatabaseConnection newConnection, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newConnection, ConnectionPackage.CDC_CONNECTION__CONNECTION, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newConnection, ConnectionPackage.CDC_CONNECTION__CONNECTION, msgs);
         return msgs;
     }
 
@@ -97,19 +110,22 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * @generated
      */
     public void setConnection(DatabaseConnection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer()
+                || (eContainerFeatureID() != ConnectionPackage.CDC_CONNECTION__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newConnection != null)
-                msgs = ((InternalEObject)newConnection).eInverseAdd(this, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, DatabaseConnection.class, msgs);
+                msgs = ((InternalEObject) newConnection).eInverseAdd(this, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS,
+                        DatabaseConnection.class, msgs);
             msgs = basicSetConnection(newConnection, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CDC_CONNECTION__CONNECTION, newConnection, newConnection));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CDC_CONNECTION__CONNECTION, newConnection,
+                    newConnection));
     }
 
     /**
@@ -117,9 +133,10 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getCdcTypes() {
+    public EList<CDCType> getCdcTypes() {
         if (cdcTypes == null) {
-            cdcTypes = new EObjectContainmentEList(CDCType.class, this, ConnectionPackage.CDC_CONNECTION__CDC_TYPES);
+            cdcTypes = new EObjectContainmentEList.Resolving<CDCType>(CDCType.class, this,
+                    ConnectionPackage.CDC_CONNECTION__CDC_TYPES);
         }
         return cdcTypes;
     }
@@ -129,12 +146,13 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetConnection((DatabaseConnection)otherEnd, msgs);
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetConnection((DatabaseConnection) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -144,12 +162,13 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
-                return basicSetConnection(null, msgs);
-            case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
-                return ((InternalEList)getCdcTypes()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            return basicSetConnection(null, msgs);
+        case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
+            return ((InternalEList<?>) getCdcTypes()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -159,10 +178,12 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, DatabaseConnection.class, msgs);
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            return eInternalContainer().eInverseRemove(this, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS,
+                    DatabaseConnection.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -172,12 +193,15 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            if (resolve)
                 return getConnection();
-            case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
-                return getCdcTypes();
+            return basicGetConnection();
+        case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
+            return getCdcTypes();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -187,15 +211,17 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
-                setConnection((DatabaseConnection)newValue);
-                return;
-            case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
-                getCdcTypes().clear();
-                getCdcTypes().addAll((Collection)newValue);
-                return;
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            setConnection((DatabaseConnection) newValue);
+            return;
+        case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
+            getCdcTypes().clear();
+            getCdcTypes().addAll((Collection<? extends CDCType>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -205,14 +231,15 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
-                setConnection((DatabaseConnection)null);
-                return;
-            case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
-                getCdcTypes().clear();
-                return;
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            setConnection((DatabaseConnection) null);
+            return;
+        case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
+            getCdcTypes().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -222,12 +249,13 @@ public class CDCConnectionImpl extends EObjectImpl implements CDCConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.CDC_CONNECTION__CONNECTION:
-                return getConnection() != null;
-            case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
-                return cdcTypes != null && !cdcTypes.isEmpty();
+        case ConnectionPackage.CDC_CONNECTION__CONNECTION:
+            return basicGetConnection() != null;
+        case ConnectionPackage.CDC_CONNECTION__CDC_TYPES:
+            return cdcTypes != null && !cdcTypes.isEmpty();
         }
         return super.eIsSet(featureID);
     }

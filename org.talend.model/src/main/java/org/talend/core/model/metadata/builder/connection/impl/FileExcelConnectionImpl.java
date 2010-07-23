@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -41,6 +40,7 @@ import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
  * @generated
  */
 public class FileExcelConnectionImpl extends FileConnectionImpl implements FileExcelConnection {
+
     /**
      * The default value of the '{@link #getSheetName() <em>Sheet Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -69,7 +69,7 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * @generated
      * @ordered
      */
-    protected EList sheetColumns;
+    protected EList<String> sheetColumns;
 
     /**
      * The default value of the '{@link #getFirstColumn() <em>First Column</em>}' attribute.
@@ -225,6 +225,7 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.FILE_EXCEL_CONNECTION;
     }
@@ -247,7 +248,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         String oldSheetName = sheetName;
         sheetName = newSheetName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME, oldSheetName, sheetName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME,
+                    oldSheetName, sheetName));
     }
 
     /**
@@ -255,9 +257,10 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getSheetColumns() {
+    public EList<String> getSheetColumns() {
         if (sheetColumns == null) {
-            sheetColumns = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS);
+            sheetColumns = new EDataTypeUniqueEList<String>(String.class, this,
+                    ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS);
         }
         return sheetColumns;
     }
@@ -280,7 +283,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         String oldFirstColumn = firstColumn;
         firstColumn = newFirstColumn;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN, oldFirstColumn, firstColumn));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN,
+                    oldFirstColumn, firstColumn));
     }
 
     /**
@@ -301,7 +305,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         String oldLastColumn = lastColumn;
         lastColumn = newLastColumn;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN, oldLastColumn, lastColumn));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN,
+                    oldLastColumn, lastColumn));
     }
 
     /**
@@ -322,7 +327,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         String oldThousandSeparator = thousandSeparator;
         thousandSeparator = newThousandSeparator;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR, oldThousandSeparator, thousandSeparator));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR,
+                    oldThousandSeparator, thousandSeparator));
     }
 
     /**
@@ -343,7 +349,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         String oldDecimalSeparator = decimalSeparator;
         decimalSeparator = newDecimalSeparator;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR, oldDecimalSeparator, decimalSeparator));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR,
+                    oldDecimalSeparator, decimalSeparator));
     }
 
     /**
@@ -364,7 +371,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         boolean oldAdvancedSpearator = advancedSpearator;
         advancedSpearator = newAdvancedSpearator;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR, oldAdvancedSpearator, advancedSpearator));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR,
+                    oldAdvancedSpearator, advancedSpearator));
     }
 
     /**
@@ -385,7 +393,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         boolean oldSelectAllSheets = selectAllSheets;
         selectAllSheets = newSelectAllSheets;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS, oldSelectAllSheets, selectAllSheets));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS,
+                    oldSelectAllSheets, selectAllSheets));
     }
 
     /**
@@ -406,7 +415,8 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
         ArrayList oldSheetList = sheetList;
         sheetList = newSheetList;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST, oldSheetList, sheetList));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST,
+                    oldSheetList, sheetList));
     }
 
     /**
@@ -414,26 +424,27 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
-                return getSheetName();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
-                return getSheetColumns();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
-                return getFirstColumn();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
-                return getLastColumn();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
-                return getThousandSeparator();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
-                return getDecimalSeparator();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
-                return isAdvancedSpearator() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
-                return isSelectAllSheets() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
-                return getSheetList();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
+            return getSheetName();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
+            return getSheetColumns();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
+            return getFirstColumn();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
+            return getLastColumn();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
+            return getThousandSeparator();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
+            return getDecimalSeparator();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
+            return isAdvancedSpearator();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+            return isSelectAllSheets();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+            return getSheetList();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -443,36 +454,38 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
-                setSheetName((String)newValue);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
-                getSheetColumns().clear();
-                getSheetColumns().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
-                setFirstColumn((String)newValue);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
-                setLastColumn((String)newValue);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
-                setThousandSeparator((String)newValue);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
-                setDecimalSeparator((String)newValue);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
-                setAdvancedSpearator(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
-                setSelectAllSheets(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
-                setSheetList((ArrayList)newValue);
-                return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
+            setSheetName((String) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
+            getSheetColumns().clear();
+            getSheetColumns().addAll((Collection<? extends String>) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
+            setFirstColumn((String) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
+            setLastColumn((String) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
+            setThousandSeparator((String) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
+            setDecimalSeparator((String) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
+            setAdvancedSpearator((Boolean) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+            setSelectAllSheets((Boolean) newValue);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+            setSheetList((ArrayList) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -482,35 +495,36 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
-                setSheetName(SHEET_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
-                getSheetColumns().clear();
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
-                setFirstColumn(FIRST_COLUMN_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
-                setLastColumn(LAST_COLUMN_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
-                setThousandSeparator(THOUSAND_SEPARATOR_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
-                setDecimalSeparator(DECIMAL_SEPARATOR_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
-                setAdvancedSpearator(ADVANCED_SPEARATOR_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
-                setSelectAllSheets(SELECT_ALL_SHEETS_EDEFAULT);
-                return;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
-                setSheetList(SHEET_LIST_EDEFAULT);
-                return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
+            setSheetName(SHEET_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
+            getSheetColumns().clear();
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
+            setFirstColumn(FIRST_COLUMN_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
+            setLastColumn(LAST_COLUMN_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
+            setThousandSeparator(THOUSAND_SEPARATOR_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
+            setDecimalSeparator(DECIMAL_SEPARATOR_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
+            setAdvancedSpearator(ADVANCED_SPEARATOR_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+            setSelectAllSheets(SELECT_ALL_SHEETS_EDEFAULT);
+            return;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+            setSheetList(SHEET_LIST_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -520,26 +534,29 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
-                return SHEET_NAME_EDEFAULT == null ? sheetName != null : !SHEET_NAME_EDEFAULT.equals(sheetName);
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
-                return sheetColumns != null && !sheetColumns.isEmpty();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
-                return FIRST_COLUMN_EDEFAULT == null ? firstColumn != null : !FIRST_COLUMN_EDEFAULT.equals(firstColumn);
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
-                return LAST_COLUMN_EDEFAULT == null ? lastColumn != null : !LAST_COLUMN_EDEFAULT.equals(lastColumn);
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
-                return THOUSAND_SEPARATOR_EDEFAULT == null ? thousandSeparator != null : !THOUSAND_SEPARATOR_EDEFAULT.equals(thousandSeparator);
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
-                return DECIMAL_SEPARATOR_EDEFAULT == null ? decimalSeparator != null : !DECIMAL_SEPARATOR_EDEFAULT.equals(decimalSeparator);
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
-                return advancedSpearator != ADVANCED_SPEARATOR_EDEFAULT;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
-                return selectAllSheets != SELECT_ALL_SHEETS_EDEFAULT;
-            case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
-                return SHEET_LIST_EDEFAULT == null ? sheetList != null : !SHEET_LIST_EDEFAULT.equals(sheetList);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_NAME:
+            return SHEET_NAME_EDEFAULT == null ? sheetName != null : !SHEET_NAME_EDEFAULT.equals(sheetName);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_COLUMNS:
+            return sheetColumns != null && !sheetColumns.isEmpty();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__FIRST_COLUMN:
+            return FIRST_COLUMN_EDEFAULT == null ? firstColumn != null : !FIRST_COLUMN_EDEFAULT.equals(firstColumn);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__LAST_COLUMN:
+            return LAST_COLUMN_EDEFAULT == null ? lastColumn != null : !LAST_COLUMN_EDEFAULT.equals(lastColumn);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR:
+            return THOUSAND_SEPARATOR_EDEFAULT == null ? thousandSeparator != null : !THOUSAND_SEPARATOR_EDEFAULT
+                    .equals(thousandSeparator);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR:
+            return DECIMAL_SEPARATOR_EDEFAULT == null ? decimalSeparator != null : !DECIMAL_SEPARATOR_EDEFAULT
+                    .equals(decimalSeparator);
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR:
+            return advancedSpearator != ADVANCED_SPEARATOR_EDEFAULT;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS:
+            return selectAllSheets != SELECT_ALL_SHEETS_EDEFAULT;
+        case ConnectionPackage.FILE_EXCEL_CONNECTION__SHEET_LIST:
+            return SHEET_LIST_EDEFAULT == null ? sheetList != null : !SHEET_LIST_EDEFAULT.equals(sheetList);
         }
         return super.eIsSet(featureID);
     }
@@ -549,8 +566,10 @@ public class FileExcelConnectionImpl extends FileConnectionImpl implements FileE
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (SheetName: ");

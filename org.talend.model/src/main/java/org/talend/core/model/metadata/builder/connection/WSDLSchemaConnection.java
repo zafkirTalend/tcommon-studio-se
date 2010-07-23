@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -42,6 +41,7 @@ import java.util.List;
  * @generated
  */
 public interface WSDLSchemaConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>WSDL</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -343,7 +343,7 @@ public interface WSDLSchemaConnection extends Connection {
      * @model
      * @generated
      */
-    EList getValue();
+    EList<String> getValue();
 
     /**
      * Returns the value of the '<em><b>Endpoint URI</b></em>' attribute.

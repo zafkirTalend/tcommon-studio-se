@@ -336,7 +336,7 @@ public class MetadataSchema {
                     try {
                         metadataColumn.setPrecision(Integer.parseInt(precision.getNodeValue()));
                     } catch (final NumberFormatException e) {
-                        metadataColumn.setPrecision(null);
+                        metadataColumn.setPrecision(0);
                     }
                 } else {
                     metadataColumn.setPrecision(0);

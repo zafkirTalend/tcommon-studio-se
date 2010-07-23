@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -27,6 +25,7 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface HeaderFooterConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>Is Header</b></em>' attribute.
      * <!-- begin-user-doc -->

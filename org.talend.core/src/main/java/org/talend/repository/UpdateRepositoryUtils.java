@@ -14,6 +14,7 @@ package org.talend.repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -37,6 +38,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.UpdatesConstants;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
@@ -130,9 +132,9 @@ public final class UpdateRepositoryUtils {
             ConnectionItem connItem = (ConnectionItem) item;
             final Connection connection = connItem.getConnection();
             if (connection != null) {
-                final EList tables = connection.getTables();
+                final Set tables = ConnectionHelper.getTables(connection);
                 if (tables != null) {
-                    for (MetadataTable table : (List<MetadataTable>) tables) {
+                    for (MetadataTable table : (Set<MetadataTable>) tables) {
                         Object object = table.getProperties().get("deleted"); //$NON-NLS-1$
                         if (object == null || (object != null && !object.equals(Boolean.TRUE.toString()))) {
                             if (table.getId().equals(tableId)) {
@@ -313,8 +315,10 @@ public final class UpdateRepositoryUtils {
         if (item != null) {
             final Connection connection = item.getConnection();
             if (connection != null) {
-                final EList tables = connection.getTables();
-                if (tables != null) {
+                final Set<MetadataTable> tableset = ConnectionHelper.getTables(connection);
+                if (tableset != null) {
+                    EList<MetadataTable> tables = new BasicEList<MetadataTable>();
+                    tables.addAll(tableset);
                     return tables;
                 }
             }
@@ -340,8 +344,10 @@ public final class UpdateRepositoryUtils {
                         return tables;
                     }
                 }
-                final EList tables = connection.getTables();
-                if (tables != null) {
+                final Set<MetadataTable> tableset = ConnectionHelper.getTables(connection);
+                if (tableset != null) {
+                    EList<MetadataTable> tables = new BasicEList<MetadataTable>();
+                    tables.addAll(tableset);
                     return tables;
                 }
             }

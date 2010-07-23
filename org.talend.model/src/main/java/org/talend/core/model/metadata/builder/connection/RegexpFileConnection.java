@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +22,7 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface RegexpFileConnection extends FileConnection {
+
     /**
      * Returns the value of the '<em><b>Field Separator Type</b></em>' attribute.
      * The literals are from the enumeration {@link org.talend.core.model.metadata.builder.connection.FieldSeparator}.

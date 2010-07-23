@@ -7,10 +7,10 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
+import java.util.HashMap;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
@@ -48,8 +48,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getWSDL() <em>WSDL</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getWSDL()
      * @generated
      * @ordered
@@ -57,9 +57,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String WSDL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getWSDL() <em>WSDL</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The cached value of the '{@link #getWSDL() <em>WSDL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getWSDL()
      * @generated
      * @ordered
@@ -68,8 +68,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #isNeedAuth() <em>Need Auth</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isNeedAuth()
      * @generated
      * @ordered
@@ -78,8 +78,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #isNeedAuth() <em>Need Auth</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isNeedAuth()
      * @generated
      * @ordered
@@ -98,8 +98,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getMethodName() <em>Method Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getMethodName()
      * @generated
      * @ordered
@@ -108,28 +108,29 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getParameters() <em>Parameters</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getParameters()
      * @generated
      * @ordered
      */
-    protected static final ArrayList PARAMETERS_EDEFAULT = (ArrayList)ConnectionFactory.eINSTANCE.createFromString(ConnectionPackage.eINSTANCE.getList(), "");
+    protected static final ArrayList PARAMETERS_EDEFAULT = (ArrayList) ConnectionFactory.eINSTANCE.createFromString(
+            ConnectionPackage.eINSTANCE.getList(), "");
 
     /**
-     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * 
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getParameters()
+     * @generated
+     * @ordered
      */
-    protected ArrayList parameters = (ArrayList) PARAMETERS_EDEFAULT.clone();
-
-    protected HashMap properties = (HashMap) PROPERTIES_EDEFAULT.clone();
+    protected ArrayList parameters = PARAMETERS_EDEFAULT;
 
     /**
      * The default value of the '{@link #getUserName() <em>User Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getUserName()
      * @generated
      * @ordered
@@ -138,8 +139,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getUserName() <em>User Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getUserName()
      * @generated
      * @ordered
@@ -148,8 +149,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getPassword()
      * @generated
      * @ordered
@@ -158,8 +159,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getPassword()
      * @generated
      * @ordered
@@ -168,8 +169,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isUseProxy()
      * @generated
      * @ordered
@@ -178,8 +179,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #isUseProxy()
      * @generated
      * @ordered
@@ -188,8 +189,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyHost()
      * @generated
      * @ordered
@@ -198,8 +199,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyHost()
      * @generated
      * @ordered
@@ -208,8 +209,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyPort()
      * @generated
      * @ordered
@@ -218,8 +219,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyPort()
      * @generated
      * @ordered
@@ -228,8 +229,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getProxyUser() <em>Proxy User</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyUser()
      * @generated
      * @ordered
@@ -238,8 +239,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getProxyUser() <em>Proxy User</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyUser()
      * @generated
      * @ordered
@@ -248,8 +249,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The default value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyPassword()
      * @generated
      * @ordered
@@ -258,8 +259,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getProxyPassword()
      * @generated
      * @ordered
@@ -268,13 +269,13 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getValue()
      * @generated
      * @ordered
      */
-    protected EList value;
+    protected EList<String> value;
 
     /**
      * The default value of the '{@link #getEndpointURI() <em>Endpoint URI</em>}' attribute.
@@ -337,6 +338,16 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected int timeOut = TIME_OUT_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @see #getParameters()
+     */
+    // protected ArrayList parameters = (ArrayList) PARAMETERS_EDEFAULT.clone();
+
+    protected HashMap properties = (HashMap) PROPERTIES_EDEFAULT.clone();
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -348,12 +359,14 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.WSDL_SCHEMA_CONNECTION;
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getWSDL() {
@@ -361,7 +374,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setWSDL(String newWSDL) {
@@ -372,7 +386,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public boolean isNeedAuth() {
@@ -380,18 +395,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setNeedAuth(boolean newNeedAuth) {
         boolean oldNeedAuth = needAuth;
         needAuth = newNeedAuth;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH, oldNeedAuth, needAuth));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH,
+                    oldNeedAuth, needAuth));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getMethodName() {
@@ -399,18 +417,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setMethodName(String newMethodName) {
         String oldMethodName = methodName;
         methodName = newMethodName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME, oldMethodName, methodName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME,
+                    oldMethodName, methodName));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ArrayList getParameters() {
@@ -418,18 +439,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setParameters(ArrayList newParameters) {
         ArrayList oldParameters = parameters;
         parameters = newParameters;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS, oldParameters, parameters));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS,
+                    oldParameters, parameters));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getUserName() {
@@ -437,18 +461,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setUserName(String newUserName) {
         String oldUserName = userName;
         userName = newUserName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME, oldUserName, userName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME,
+                    oldUserName, userName));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getPassword() {
@@ -456,18 +483,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setPassword(String newPassword) {
         String oldPassword = password;
         password = newPassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD, oldPassword, password));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD,
+                    oldPassword, password));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public boolean isUseProxy() {
@@ -475,18 +505,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setUseProxy(boolean newUseProxy) {
         boolean oldUseProxy = useProxy;
         useProxy = newUseProxy;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY, oldUseProxy, useProxy));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY,
+                    oldUseProxy, useProxy));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getProxyHost() {
@@ -494,18 +527,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setProxyHost(String newProxyHost) {
         String oldProxyHost = proxyHost;
         proxyHost = newProxyHost;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST, oldProxyHost, proxyHost));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST,
+                    oldProxyHost, proxyHost));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getProxyPort() {
@@ -513,18 +549,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setProxyPort(String newProxyPort) {
         String oldProxyPort = proxyPort;
         proxyPort = newProxyPort;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT, oldProxyPort, proxyPort));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT,
+                    oldProxyPort, proxyPort));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getProxyUser() {
@@ -532,18 +571,21 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setProxyUser(String newProxyUser) {
         String oldProxyUser = proxyUser;
         proxyUser = newProxyUser;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER, oldProxyUser, proxyUser));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER,
+                    oldProxyUser, proxyUser));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public String getProxyPassword() {
@@ -551,23 +593,26 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public void setProxyPassword(String newProxyPassword) {
         String oldProxyPassword = proxyPassword;
         proxyPassword = newProxyPassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD, oldProxyPassword, proxyPassword));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD,
+                    oldProxyPassword, proxyPassword));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EList getValue() {
+    public EList<String> getValue() {
         if (value == null) {
-            value = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE);
+            value = new EDataTypeUniqueEList<String>(String.class, this, ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE);
         }
         return value;
     }
@@ -590,7 +635,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         String oldEndpointURI = endpointURI;
         endpointURI = newEndpointURI;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI, oldEndpointURI, endpointURI));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI,
+                    oldEndpointURI, endpointURI));
     }
 
     /**
@@ -611,7 +657,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         String oldEncoding = encoding;
         encoding = newEncoding;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING, oldEncoding, encoding));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING,
+                    oldEncoding, encoding));
     }
 
     /**
@@ -632,206 +679,219 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         int oldTimeOut = timeOut;
         timeOut = newTimeOut;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT, oldTimeOut, timeOut));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT, oldTimeOut,
+                    timeOut));
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
-                return getWSDL();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
-                return isNeedAuth() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
-                return getMethodName();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
-                return getParameters();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
-                return getUserName();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
-                return getPassword();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
-                return isUseProxy() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
-                return getProxyHost();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
-                return getProxyPort();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
-                return getProxyUser();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                return getProxyPassword();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
-                return getValue();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
-                return getEndpointURI();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
-                return getEncoding();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
-                return new Integer(getTimeOut());
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
+            return getWSDL();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
+            return isNeedAuth();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
+            return getMethodName();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
+            return getParameters();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
+            return getUserName();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
+            return getPassword();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
+            return isUseProxy();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
+            return getProxyHost();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
+            return getProxyPort();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
+            return getProxyUser();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            return getProxyPassword();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
+            return getValue();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
+            return getEndpointURI();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
+            return getEncoding();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+            return getTimeOut();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
-                setWSDL((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
-                setNeedAuth(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
-                setMethodName((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
-                setParameters((ArrayList)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
-                setUserName((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
-                setPassword((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
-                setUseProxy(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
-                setProxyHost((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
-                setProxyPort((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
-                setProxyUser((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                setProxyPassword((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
-                getValue().clear();
-                getValue().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
-                setEndpointURI((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
-                setEncoding((String)newValue);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
-                setTimeOut(((Integer)newValue).intValue());
-                return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
+            setWSDL((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
+            setNeedAuth((Boolean) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
+            setMethodName((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
+            setParameters((ArrayList) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
+            setUserName((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
+            setPassword((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
+            setUseProxy((Boolean) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
+            setProxyHost((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
+            setProxyPort((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
+            setProxyUser((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            setProxyPassword((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
+            getValue().clear();
+            getValue().addAll((Collection<? extends String>) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
+            setEndpointURI((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
+            setEncoding((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+            setTimeOut((Integer) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
-                setWSDL(WSDL_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
-                setNeedAuth(NEED_AUTH_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
-                setMethodName(METHOD_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
-                setParameters(PARAMETERS_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
-                setUserName(USER_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
-                setPassword(PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
-                setUseProxy(USE_PROXY_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
-                setProxyHost(PROXY_HOST_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
-                setProxyPort(PROXY_PORT_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
-                setProxyUser(PROXY_USER_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                setProxyPassword(PROXY_PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
-                getValue().clear();
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
-                setEndpointURI(ENDPOINT_URI_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
-                setEncoding(ENCODING_EDEFAULT);
-                return;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
-                setTimeOut(TIME_OUT_EDEFAULT);
-                return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
+            setWSDL(WSDL_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
+            setNeedAuth(NEED_AUTH_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
+            setMethodName(METHOD_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
+            setParameters(PARAMETERS_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
+            setUserName(USER_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
+            setPassword(PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
+            setUseProxy(USE_PROXY_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
+            setProxyHost(PROXY_HOST_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
+            setProxyPort(PROXY_PORT_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
+            setProxyUser(PROXY_USER_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            setProxyPassword(PROXY_PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
+            getValue().clear();
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
+            setEndpointURI(ENDPOINT_URI_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
+            setEncoding(ENCODING_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+            setTimeOut(TIME_OUT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
-                return WSDL_EDEFAULT == null ? wsdl != null : !WSDL_EDEFAULT.equals(wsdl);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
-                return needAuth != NEED_AUTH_EDEFAULT;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
-                return METHOD_NAME_EDEFAULT == null ? methodName != null : !METHOD_NAME_EDEFAULT.equals(methodName);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
-                return PARAMETERS_EDEFAULT == null ? parameters != null : !PARAMETERS_EDEFAULT.equals(parameters);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
-                return USER_NAME_EDEFAULT == null ? userName != null : !USER_NAME_EDEFAULT.equals(userName);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
-                return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
-                return useProxy != USE_PROXY_EDEFAULT;
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
-                return PROXY_HOST_EDEFAULT == null ? proxyHost != null : !PROXY_HOST_EDEFAULT.equals(proxyHost);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
-                return PROXY_PORT_EDEFAULT == null ? proxyPort != null : !PROXY_PORT_EDEFAULT.equals(proxyPort);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
-                return PROXY_USER_EDEFAULT == null ? proxyUser != null : !PROXY_USER_EDEFAULT.equals(proxyUser);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
-                return value != null && !value.isEmpty();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
-                return ENDPOINT_URI_EDEFAULT == null ? endpointURI != null : !ENDPOINT_URI_EDEFAULT.equals(endpointURI);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
-                return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
-                return timeOut != TIME_OUT_EDEFAULT;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__WSDL:
+            return WSDL_EDEFAULT == null ? wsdl != null : !WSDL_EDEFAULT.equals(wsdl);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__NEED_AUTH:
+            return needAuth != NEED_AUTH_EDEFAULT;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__METHOD_NAME:
+            return METHOD_NAME_EDEFAULT == null ? methodName != null : !METHOD_NAME_EDEFAULT.equals(methodName);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETERS:
+            return PARAMETERS_EDEFAULT == null ? parameters != null : !PARAMETERS_EDEFAULT.equals(parameters);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USER_NAME:
+            return USER_NAME_EDEFAULT == null ? userName != null : !USER_NAME_EDEFAULT.equals(userName);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PASSWORD:
+            return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__USE_PROXY:
+            return useProxy != USE_PROXY_EDEFAULT;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_HOST:
+            return PROXY_HOST_EDEFAULT == null ? proxyHost != null : !PROXY_HOST_EDEFAULT.equals(proxyHost);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PORT:
+            return PROXY_PORT_EDEFAULT == null ? proxyPort != null : !PROXY_PORT_EDEFAULT.equals(proxyPort);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_USER:
+            return PROXY_USER_EDEFAULT == null ? proxyUser != null : !PROXY_USER_EDEFAULT.equals(proxyUser);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__VALUE:
+            return value != null && !value.isEmpty();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENDPOINT_URI:
+            return ENDPOINT_URI_EDEFAULT == null ? endpointURI != null : !ENDPOINT_URI_EDEFAULT.equals(endpointURI);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__ENCODING:
+            return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
+            return timeOut != TIME_OUT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (WSDL: ");

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -26,8 +25,8 @@ import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
  *
  * @generated
  */
-public class RegexpFileConnectionImpl extends FileConnectionImpl implements RegexpFileConnection 
-{
+public class RegexpFileConnectionImpl extends FileConnectionImpl implements RegexpFileConnection {
+
     /**
      * The default value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -62,6 +61,7 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.REGEXP_FILE_CONNECTION;
     }
@@ -84,7 +84,8 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
         FieldSeparator oldFieldSeparatorType = fieldSeparatorType;
         fieldSeparatorType = newFieldSeparatorType == null ? FIELD_SEPARATOR_TYPE_EDEFAULT : newFieldSeparatorType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, oldFieldSeparatorType, fieldSeparatorType));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE,
+                    oldFieldSeparatorType, fieldSeparatorType));
     }
 
     /**
@@ -92,10 +93,11 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                return getFieldSeparatorType();
+        case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            return getFieldSeparatorType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -105,11 +107,12 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                setFieldSeparatorType((FieldSeparator)newValue);
-                return;
+        case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            setFieldSeparatorType((FieldSeparator) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -119,11 +122,12 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
-                return;
+        case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -133,10 +137,11 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
+        case ConnectionPackage.REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+            return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -146,8 +151,10 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (FieldSeparatorType: ");

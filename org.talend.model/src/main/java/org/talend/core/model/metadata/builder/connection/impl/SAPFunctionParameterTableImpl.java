@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -36,123 +35,135 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTab
  * @generated
  */
 public class SAPFunctionParameterTableImpl extends AbstractMetadataObjectImpl implements SAPFunctionParameterTable {
-	/**
+
+    /**
      * The cached value of the '{@link #getColumns() <em>Columns</em>}' containment reference list.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @see #getColumns()
      * @generated
      * @ordered
      */
-	protected EList columns;
+    protected EList<SAPFunctionParameterColumn> columns;
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	protected SAPFunctionParameterTableImpl() {
+    protected SAPFunctionParameterTableImpl() {
         super();
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	protected EClass eStaticClass() {
+    @Override
+    protected EClass eStaticClass() {
         return ConnectionPackage.Literals.SAP_FUNCTION_PARAMETER_TABLE;
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public EList getColumns() {
+    public EList<SAPFunctionParameterColumn> getColumns() {
         if (columns == null) {
-            columns = new EObjectContainmentWithInverseEList(SAPFunctionParameterColumn.class, this, ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS, ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE);
+            columns = new EObjectContainmentWithInverseEList.Resolving<SAPFunctionParameterColumn>(
+                    SAPFunctionParameterColumn.class, this, ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS,
+                    ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE);
         }
         return columns;
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
-                return ((InternalEList)getColumns()).basicAdd(otherEnd, msgs);
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getColumns()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
-                return ((InternalEList)getColumns()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
+            return ((InternalEList<?>) getColumns()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+    @Override
+    public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
-                return getColumns();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
+            return getColumns();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void eSet(int featureID, Object newValue) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
-                getColumns().clear();
-                getColumns().addAll((Collection)newValue);
-                return;
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
+            getColumns().clear();
+            getColumns().addAll((Collection<? extends SAPFunctionParameterColumn>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public void eUnset(int featureID) {
+    @Override
+    public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
-                getColumns().clear();
-                return;
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
+            getColumns().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
-	/**
+    /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public boolean eIsSet(int featureID) {
+    @Override
+    public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
-                return columns != null && !columns.isEmpty();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE__COLUMNS:
+            return columns != null && !columns.isEmpty();
         }
         return super.eIsSet(featureID);
     }

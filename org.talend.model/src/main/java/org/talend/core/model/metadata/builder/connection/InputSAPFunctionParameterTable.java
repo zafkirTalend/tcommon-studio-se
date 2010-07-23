@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -24,15 +22,16 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface InputSAPFunctionParameterTable extends SAPFunctionParameterTable {
-	/**
+
+    /**
      * Returns the value of the '<em><b>Function Unit</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputParameterTable <em>Input Parameter Table</em>}'.
      * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Function Unit</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Function Unit</em>' container reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
      * @return the value of the '<em>Function Unit</em>' container reference.
      * @see #setFunctionUnit(SAPFunctionUnit)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getInputSAPFunctionParameterTable_FunctionUnit()
@@ -40,16 +39,16 @@ public interface InputSAPFunctionParameterTable extends SAPFunctionParameterTabl
      * @model opposite="InputParameterTable" transient="false"
      * @generated
      */
-	SAPFunctionUnit getFunctionUnit();
+    SAPFunctionUnit getFunctionUnit();
 
-	/**
+    /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable#getFunctionUnit <em>Function Unit</em>}' container reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @param value the new value of the '<em>Function Unit</em>' container reference.
      * @see #getFunctionUnit()
      * @generated
      */
-	void setFunctionUnit(SAPFunctionUnit value);
+    void setFunctionUnit(SAPFunctionUnit value);
 
 } // InputSAPFunctionParameterTable

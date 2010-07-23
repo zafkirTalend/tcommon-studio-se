@@ -70,7 +70,7 @@ public final class ConvertionHelper {
         result.setNullChar(connection.getNullChar());
         result.setPassword(connection.getPassword());
         result.setPort(connection.getPort());
-        result.setSchema(connection.getSchema());
+        result.setSchema(connection.getUiSchema());
         result.setServerName(connection.getServerName());
         result.setSqlSyntax(connection.getSqlSynthax());
         result.setStringQuote(connection.getStringQuote());
@@ -108,16 +108,16 @@ public final class ConvertionHelper {
             }
             newColumn.setLabel(label2);
             newColumn.setPattern(column.getPattern());
-            if (column.getLength() != null && column.getLength() < 0) {
+            if (column.getLength() < 0) {
                 newColumn.setLength(null);
             } else {
-                newColumn.setLength(column.getLength());
+                newColumn.setLength(Long.valueOf(column.getLength()).intValue());
             }
             newColumn.setNullable(column.isNullable());
-            if (column.getPrecision() != null && column.getPrecision() < 0) {
+            if (column.getPrecision() < 0) {
                 newColumn.setPrecision(null);
             } else {
-                newColumn.setPrecision(column.getPrecision());
+                newColumn.setPrecision(Long.valueOf(column.getPrecision()).intValue());
             }
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
@@ -147,13 +147,13 @@ public final class ConvertionHelper {
         newColumn.setLabel(column.getLabel());
         newColumn.setPattern(column.getPattern());
         if (column.getLength() == null || column.getLength() < 0) {
-            newColumn.setLength(null);
+            newColumn.setLength(0);
         } else {
             newColumn.setLength(column.getLength());
         }
         newColumn.setNullable(column.isNullable());
         if (column.getPrecision() == null || column.getPrecision() < 0) {
-            newColumn.setPrecision(null);
+            newColumn.setPrecision(0);
         } else {
             newColumn.setPrecision(column.getPrecision());
         }
@@ -174,16 +174,16 @@ public final class ConvertionHelper {
         newColumn.setKey(column.isKey());
         newColumn.setLabel(column.getLabel());
         newColumn.setPattern(column.getPattern());
-        if (column.getLength() != null && column.getLength() < 0) {
+        if (column.getLength() < 0) {
             newColumn.setLength(null);
         } else {
-            newColumn.setLength(column.getLength());
+            newColumn.setLength(Long.valueOf(column.getLength()).intValue());
         }
         newColumn.setNullable(column.isNullable());
-        if (column.getPrecision() != null && column.getPrecision() < 0) {
+        if (column.getPrecision() < 0) {
             newColumn.setPrecision(null);
         } else {
-            newColumn.setPrecision(column.getPrecision());
+            newColumn.setPrecision(Long.valueOf(column.getPrecision()).intValue());
         }
         newColumn.setTalendType(column.getTalendType());
         newColumn.setType(column.getSourceType());
@@ -220,13 +220,13 @@ public final class ConvertionHelper {
             newColumn.setLabel(column.getLabel());
             newColumn.setPattern(column.getPattern());
             if (column.getLength() == null || column.getLength() < 0) {
-                newColumn.setLength(null);
+                newColumn.setLength(0);
             } else {
                 newColumn.setLength(column.getLength());
             }
             newColumn.setNullable(column.isNullable());
             if (column.getPrecision() == null || column.getPrecision() < 0) {
-                newColumn.setPrecision(null);
+                newColumn.setPrecision(0);
             } else {
                 newColumn.setPrecision(column.getPrecision());
             }

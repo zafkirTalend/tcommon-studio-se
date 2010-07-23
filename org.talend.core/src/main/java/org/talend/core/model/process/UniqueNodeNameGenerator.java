@@ -12,11 +12,7 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.talend.core.model.properties.ProcessItem;
-import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

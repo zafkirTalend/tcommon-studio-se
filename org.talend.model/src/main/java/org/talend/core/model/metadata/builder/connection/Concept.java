@@ -1,12 +1,12 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.cwm.relational.TdTable;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Concept extends MetadataTable {
+public interface Concept extends TdTable {
 
     /**
      * Returns the value of the '<em><b>Loop Expression</b></em>' attribute.
@@ -98,10 +98,10 @@ public interface Concept extends MetadataTable {
      * @return the value of the '<em>Concept Targets</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_ConceptTargets()
      * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getSchema
-     * @model type="org.talend.core.model.metadata.builder.connection.ConceptTarget" opposite="schema" containment="true"
+     * @model opposite="schema" containment="true" resolveProxies="true"
      * @generated
      */
-    EList getConceptTargets();
+    EList<ConceptTarget> getConceptTargets();
 
     /**
      * Returns the value of the '<em><b>Input Model</b></em>' attribute.
@@ -141,10 +141,10 @@ public interface Concept extends MetadataTable {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Group</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_Group()
-     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @model containment="true"
      * @generated
      */
-    EList getGroup();
+    EList<XMLFileNode> getGroup();
 
     /**
      * Returns the value of the '<em><b>Root</b></em>' containment reference list.
@@ -157,10 +157,10 @@ public interface Concept extends MetadataTable {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Root</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_Root()
-     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true" ordered="false"
+     * @model containment="true" resolveProxies="true" ordered="false"
      * @generated
      */
-    EList getRoot();
+    EList<XMLFileNode> getRoot();
 
     /**
      * Returns the value of the '<em><b>Loop</b></em>' containment reference list.
@@ -173,8 +173,8 @@ public interface Concept extends MetadataTable {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Loop</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConcept_Loop()
-     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @model containment="true"
      * @generated
      */
-    EList getLoop();
+    EList<XMLFileNode> getLoop();
 } // Concept

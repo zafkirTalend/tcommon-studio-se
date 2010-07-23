@@ -12,14 +12,8 @@
 // ============================================================================
 package org.talend.core.model.components.conversions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.talend.core.model.components.ComponentUtilities;
-import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
-import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

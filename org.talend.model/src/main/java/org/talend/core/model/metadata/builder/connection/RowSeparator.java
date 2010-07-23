@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +20,24 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @model
  * @generated
  */
-public final class RowSeparator extends AbstractEnumerator {
+public enum RowSeparator implements Enumerator {
+    /**
+     * The '<em><b>Custom String</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #CUSTOM_STRING
+     * @ordered
+     */
+    CUSTOM_STRING_LITERAL(0, "Custom String", "Custom String"),
+    /**
+     * The '<em><b>Standart EOL</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #STANDART_EOL
+     * @ordered
+     */
+    STANDART_EOL_LITERAL(1, "Standart EOL", "Standard EOL");
+
     /**
      * The '<em><b>Custom String</b></em>' literal value.
      * <!-- begin-user-doc -->
@@ -53,34 +69,12 @@ public final class RowSeparator extends AbstractEnumerator {
     public static final int STANDART_EOL = 1;
 
     /**
-     * The '<em><b>Custom String</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #CUSTOM_STRING
-     * @ordered
-     */
-    public static final RowSeparator CUSTOM_STRING_LITERAL = new RowSeparator(CUSTOM_STRING, "Custom String", "Custom String"); //$NON-NLS-1$ //$NON-NLS-2$
-
-    /**
-     * The '<em><b>Standart EOL</b></em>' literal object.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #STANDART_EOL
-     * @ordered
-     */
-    public static final RowSeparator STANDART_EOL_LITERAL = new RowSeparator(STANDART_EOL, "Standart EOL", "Standard EOL"); //$NON-NLS-1$ //$NON-NLS-2$
-
-    /**
      * An array of all the '<em><b>Row Separator</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private static final RowSeparator[] VALUES_ARRAY =
-        new RowSeparator[] {
-            CUSTOM_STRING_LITERAL,
-            STANDART_EOL_LITERAL,
-        };
+    private static final RowSeparator[] VALUES_ARRAY = new RowSeparator[] { CUSTOM_STRING_LITERAL, STANDART_EOL_LITERAL, };
 
     /**
      * A public read-only list of all the '<em><b>Row Separator</b></em>' enumerators.
@@ -88,7 +82,7 @@ public final class RowSeparator extends AbstractEnumerator {
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+    public static final List<RowSeparator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
      * Returns the '<em><b>Row Separator</b></em>' literal with the specified literal value.
@@ -130,11 +124,34 @@ public final class RowSeparator extends AbstractEnumerator {
      */
     public static RowSeparator get(int value) {
         switch (value) {
-            case CUSTOM_STRING: return CUSTOM_STRING_LITERAL;
-            case STANDART_EOL: return STANDART_EOL_LITERAL;
+        case CUSTOM_STRING:
+            return CUSTOM_STRING_LITERAL;
+        case STANDART_EOL:
+            return STANDART_EOL_LITERAL;
         }
         return null;
     }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private final int value;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private final String name;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private final String literal;
 
     /**
      * Only this class can construct instances.
@@ -143,7 +160,46 @@ public final class RowSeparator extends AbstractEnumerator {
      * @generated
      */
     private RowSeparator(int value, String name, String literal) {
-        super(value, name, literal);
+        this.value = value;
+        this.name = name;
+        this.literal = literal;
     }
 
-} //RowSeparator
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLiteral() {
+        return literal;
+    }
+
+    /**
+     * Returns the literal value of the enumerator, which is its string representation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        return literal;
+    }
+}

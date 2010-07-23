@@ -1,13 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
 import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface HL7Connection extends FileConnection {
+
     /**
      * Returns the value of the '<em><b>Start Char</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -81,19 +80,19 @@ public interface HL7Connection extends FileConnection {
     void setEndChar(String value);
 
     /**
-     * Returns the value of the '<em><b>Root</b></em>' containment reference list.
+     * Returns the value of the '<em><b>Root</b></em>' reference list.
      * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.HL7FileNode}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Root</em>' containment reference list isn't clear,
+     * If the meaning of the '<em>Root</em>' reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Root</em>' containment reference list.
+     * @return the value of the '<em>Root</em>' reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getHL7Connection_Root()
-     * @model type="org.talend.core.model.metadata.builder.connection.HL7FileNode" containment="true" ordered="false"
+     * @model ordered="false"
      * @generated
      */
-    EList getRoot();
+    EList<HL7FileNode> getRoot();
 
 } // HL7Connection

@@ -1,14 +1,12 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
 import java.util.ArrayList;
 import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -35,6 +33,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface FileExcelConnection extends FileConnection {
+
     /**
      * Returns the value of the '<em><b>Sheet Name</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -75,7 +74,7 @@ public interface FileExcelConnection extends FileConnection {
      * @model
      * @generated
      */
-    EList getSheetColumns();
+    EList<String> getSheetColumns();
 
     /**
      * Returns the value of the '<em><b>First Column</b></em>' attribute.

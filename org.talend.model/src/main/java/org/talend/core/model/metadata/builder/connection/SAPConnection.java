@@ -193,10 +193,10 @@ public interface SAPConnection extends Connection {
      * @return the value of the '<em>Funtions</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPConnection_Funtions()
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection
-     * @model type="org.talend.core.model.metadata.builder.connection.SAPFunctionUnit" opposite="connection" containment="true"
+     * @model opposite="connection" containment="true" resolveProxies="true"
      * @generated
      */
-    EList getFuntions();
+    EList<SAPFunctionUnit> getFuntions();
 
     /**
      * Returns the value of the '<em><b>Current Fucntion</b></em>' attribute.
@@ -241,6 +241,6 @@ public interface SAPConnection extends Connection {
      * containment="true"
      * @generated
      */
-    EList getIDocs();
+    EList<SAPIDocUnit> getIDocs();
 
 } // SAPConnection

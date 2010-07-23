@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -45,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  * @generated
  */
 public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathLoopDescriptor {
+
     /**
      * The default value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -53,7 +53,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      * @ordered
      */
-    protected static final Integer LIMIT_BOUCLE_EDEFAULT= null;
+    protected static final Integer LIMIT_BOUCLE_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.
@@ -93,7 +93,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      * @ordered
      */
-    protected EList schemaTargets;
+    protected EList<SchemaTarget> schemaTargets;
 
     /**
      * <!-- begin-user-doc -->
@@ -109,6 +109,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.XML_XPATH_LOOP_DESCRIPTOR;
     }
@@ -131,7 +132,8 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
         Integer oldLimitBoucle = limitBoucle;
         limitBoucle = newLimitBoucle;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE, oldLimitBoucle, limitBoucle));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE,
+                    oldLimitBoucle, limitBoucle));
     }
 
     /**
@@ -152,7 +154,8 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
         String oldAbsoluteXPathQuery = absoluteXPathQuery;
         absoluteXPathQuery = newAbsoluteXPathQuery;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY, oldAbsoluteXPathQuery, absoluteXPathQuery));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY, oldAbsoluteXPathQuery, absoluteXPathQuery));
     }
 
     /**
@@ -161,8 +164,20 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      */
     public XmlFileConnection getConnection() {
-        if (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION) return null;
-        return (XmlFileConnection)eContainer();
+        if (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION)
+            return null;
+        return (XmlFileConnection) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public XmlFileConnection basicGetConnection() {
+        if (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION)
+            return null;
+        return (XmlFileConnection) eInternalContainer();
     }
 
     /**
@@ -171,7 +186,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      */
     public NotificationChain basicSetConnection(XmlFileConnection newConnection, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newConnection, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newConnection, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION, msgs);
         return msgs;
     }
 
@@ -181,19 +196,22 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      */
     public void setConnection(XmlFileConnection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer()
+                || (eContainerFeatureID() != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newConnection != null)
-                msgs = ((InternalEObject)newConnection).eInverseAdd(this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, XmlFileConnection.class, msgs);
+                msgs = ((InternalEObject) newConnection).eInverseAdd(this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA,
+                        XmlFileConnection.class, msgs);
             msgs = basicSetConnection(newConnection, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION, newConnection, newConnection));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION,
+                    newConnection, newConnection));
     }
 
     /**
@@ -201,9 +219,10 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getSchemaTargets() {
+    public EList<SchemaTarget> getSchemaTargets() {
         if (schemaTargets == null) {
-            schemaTargets = new EObjectContainmentWithInverseEList(SchemaTarget.class, this, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS, ConnectionPackage.SCHEMA_TARGET__SCHEMA);
+            schemaTargets = new EObjectContainmentWithInverseEList.Resolving<SchemaTarget>(SchemaTarget.class, this,
+                    ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS, ConnectionPackage.SCHEMA_TARGET__SCHEMA);
         }
         return schemaTargets;
     }
@@ -213,14 +232,16 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetConnection((XmlFileConnection)otherEnd, msgs);
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
-                return ((InternalEList)getSchemaTargets()).basicAdd(otherEnd, msgs);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetConnection((XmlFileConnection) otherEnd, msgs);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSchemaTargets()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -230,12 +251,13 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
-                return basicSetConnection(null, msgs);
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
-                return ((InternalEList)getSchemaTargets()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            return basicSetConnection(null, msgs);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
+            return ((InternalEList<?>) getSchemaTargets()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -245,10 +267,12 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, XmlFileConnection.class, msgs);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            return eInternalContainer().eInverseRemove(this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA,
+                    XmlFileConnection.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -258,16 +282,19 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                return getLimitBoucle();
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
-                return getAbsoluteXPathQuery();
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
+            return getLimitBoucle();
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
+            return getAbsoluteXPathQuery();
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            if (resolve)
                 return getConnection();
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
-                return getSchemaTargets();
+            return basicGetConnection();
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
+            return getSchemaTargets();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -277,21 +304,23 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                setLimitBoucle((Integer)newValue);
-                return;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
-                setAbsoluteXPathQuery((String)newValue);
-                return;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
-                setConnection((XmlFileConnection)newValue);
-                return;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
-                getSchemaTargets().clear();
-                getSchemaTargets().addAll((Collection)newValue);
-                return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
+            setLimitBoucle((Integer) newValue);
+            return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
+            setAbsoluteXPathQuery((String) newValue);
+            return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            setConnection((XmlFileConnection) newValue);
+            return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
+            getSchemaTargets().clear();
+            getSchemaTargets().addAll((Collection<? extends SchemaTarget>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -301,20 +330,21 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                setLimitBoucle(LIMIT_BOUCLE_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
-                setAbsoluteXPathQuery(ABSOLUTE_XPATH_QUERY_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
-                setConnection((XmlFileConnection)null);
-                return;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
-                getSchemaTargets().clear();
-                return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
+            setLimitBoucle(LIMIT_BOUCLE_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
+            setAbsoluteXPathQuery(ABSOLUTE_XPATH_QUERY_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            setConnection((XmlFileConnection) null);
+            return;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
+            getSchemaTargets().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -324,16 +354,18 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                return LIMIT_BOUCLE_EDEFAULT == null ? limitBoucle != null : !LIMIT_BOUCLE_EDEFAULT.equals(limitBoucle);
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
-                return ABSOLUTE_XPATH_QUERY_EDEFAULT == null ? absoluteXPathQuery != null : !ABSOLUTE_XPATH_QUERY_EDEFAULT.equals(absoluteXPathQuery);
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
-                return getConnection() != null;
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
-                return schemaTargets != null && !schemaTargets.isEmpty();
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
+            return LIMIT_BOUCLE_EDEFAULT == null ? limitBoucle != null : !LIMIT_BOUCLE_EDEFAULT.equals(limitBoucle);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
+            return ABSOLUTE_XPATH_QUERY_EDEFAULT == null ? absoluteXPathQuery != null : !ABSOLUTE_XPATH_QUERY_EDEFAULT
+                    .equals(absoluteXPathQuery);
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
+            return basicGetConnection() != null;
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS:
+            return schemaTargets != null && !schemaTargets.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -343,8 +375,10 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (LimitBoucle: ");

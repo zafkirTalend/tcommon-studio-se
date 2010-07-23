@@ -2,27 +2,15 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
-    editDirectory="/org.talend.model.edit/src" editorDirectory="/org.talend.model.editor/src"
-    modelPluginID="org.talend.model" modelName="Metadata" importerID="org.eclipse.emf.importer.ecore">
+    editDirectory="/org.talend.model.edit/src/main/java" editorDirectory="" modelPluginID="org.talend.model"
+    templateDirectory="" redirection="" forceOverwrite="true" modelName="Metadata"
+    codeFormatting="true" testsDirectory="" booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore"
+    containmentProxies="true" complianceLevel="5.0" suppressGenModelAnnotations="false"
+    providerRootExtendsClass="" testsPluginID="org.talend.model.editor" runtimeVersion="2.5"
+    language="" usedGenPackages="../../org.talend.cwm.mip/model/cwm_mip.genmodel#//orgomg">
   <foreignModel>metadata.ecore</foreignModel>
   <genPackages prefix="Connection" basePackage="org.talend.core.model.metadata.builder"
-      disposableProviderFactory="true" ecorePackage="metadata.ecore#/">
-    <genEnums ecoreEnum="metadata.ecore#//DatabaseProperties">
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/DatabaseType"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/DriverClass"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/URL"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/Port"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/Username"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/Password"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/ServerName"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/DatasourceName"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/FileFieldName"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/Schema"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/SID"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/SqlSynthax"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/StringQuote"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//DatabaseProperties/NullChar"/>
-    </genEnums>
+      disposableProviderFactory="true" extensibleProviderFactory="true" ecorePackage="metadata.ecore#/">
     <genEnums ecoreEnum="metadata.ecore#//FileFormat">
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//FileFormat/UNIX"/>
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//FileFormat/MAC"/>
@@ -46,6 +34,9 @@
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RowSeparator/Custom_String"/>
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RowSeparator/Standart_EOL"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//MDMConnectionProtocol">
+      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//MDMConnectionProtocol/HTTP"/>
+    </genEnums>
     <genDataTypes ecoreDataType="metadata.ecore#//Map"/>
     <genDataTypes ecoreDataType="metadata.ecore#//List"/>
     <genClasses ecoreClass="metadata.ecore#//Metadata">
@@ -53,7 +44,6 @@
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/version"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Connection/tables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Connection/queries"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/ContextMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/ContextId"/>
@@ -64,8 +54,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/talendType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/nullable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/length"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/precision"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataColumn/table"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/originalField"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/pattern"/>
@@ -128,6 +116,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Datamodel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Datacluster"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//MDMConnection/schemas"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/protocol"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/connectionString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/context"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DatabaseConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DatabaseType"/>
@@ -141,7 +132,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/ServerName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DatasourceName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/FileFieldName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/Schema"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SqlSynthax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/StringQuote"/>
@@ -155,6 +145,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//DatabaseConnection/cdcConns"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/cdcTypeMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SQLMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/UiSchema"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPConnection/Host"/>
@@ -168,16 +159,17 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPConnection/IDocs"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionUnit">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/Name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/OutputType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/OutputTableName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionUnit/Document"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/InputParameterTable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/OutputParameterTable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/MetadataTable"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/connection"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/tables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionUnit/TestInputParameterTable"/>
+      <genOperations ecoreOperation="metadata.ecore#//SAPFunctionUnit/setDocument">
+        <genParameters ecoreParameter="metadata.ecore#//SAPFunctionUnit/setDocument/document"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPIDocUnit">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPIDocUnit/connection"/>
@@ -190,14 +182,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/name"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterColumn">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/ParameterType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/StructureOrTableName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/DataType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Length"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/Value"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionParameterColumn/ParameterTable"/>
+      <genOperations ecoreOperation="metadata.ecore#//SAPFunctionParameterColumn/setDescription">
+        <genParameters ecoreParameter="metadata.ecore#//SAPFunctionParameterColumn/setDescription/description"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterTable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//SAPFunctionParameterTable/columns"/>
@@ -358,7 +351,6 @@
     <genClasses ecoreClass="metadata.ecore#//HL7Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/StartChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/EndChar"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//HL7Connection/root"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//HeaderFooterConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/isHeader"/>
@@ -374,13 +366,67 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Order"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Type"/>
     </genClasses>
-    <genClasses ecoreClass="metadata.ecore#//HL7FileNode">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/FilePath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Order"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Attribute"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/DefaultValue"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/RelatedColumn"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Repeatable"/>
-    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//GenericPackage"/>
+    <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
+        ecorePackage="metadata.ecore#//cwm">
+      <nestedGenPackages prefix="Relational" basePackage="org.talend.cwm" disposableProviderFactory="true"
+          ecorePackage="metadata.ecore#//cwm/relational">
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdTable"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdView"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdColumn">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/relational/TdColumn/sqlDataType"/>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/relational/TdColumn/setContentType">
+            <genParameters ecoreParameter="metadata.ecore#//cwm/relational/TdColumn/setContentType/contentType"/>
+          </genOperations>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/relational/TdColumn/getContentType"/>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/relational/TdColumn/getJavaType"/>
+        </genClasses>
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdSqlDataType">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/javaDataType"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/nullable"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/unsignedAttribute"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/caseSensitive"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/autoIncrement"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/localTypeName"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/relational/TdSqlDataType/searchable"/>
+        </genClasses>
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdTrigger"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/relational/TdProcedure"/>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Softwaredeployment" basePackage="org.talend.cwm"
+          disposableProviderFactory="true" ecorePackage="metadata.ecore#//cwm/softwaredeployment">
+        <genClasses ecoreClass="metadata.ecore#//cwm/softwaredeployment/TdDataManager"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/softwaredeployment/TdSoftwareSystem"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/softwaredeployment/TdMachine"/>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Constants" basePackage="org.talend.cwm" disposableProviderFactory="true"
+          ecorePackage="metadata.ecore#//cwm/constants">
+        <genEnums typeSafeEnumCompatible="false" ecoreEnum="metadata.ecore#//cwm/constants/DevelopmentStatus">
+          <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//cwm/constants/DevelopmentStatus/DRAFT"/>
+          <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//cwm/constants/DevelopmentStatus/PROD"/>
+        </genEnums>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Xml" basePackage="org.talend.cwm" disposableProviderFactory="true"
+          ecorePackage="metadata.ecore#//cwm/xml">
+        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXMLElement">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLElement/xsdElementDeclaration"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLElement/ownedDocument"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/xml/TdXMLElement/javaType"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLElement/xmlContent"/>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/xml/TdXMLElement/setContentType">
+            <genParameters ecoreParameter="metadata.ecore#//cwm/xml/TdXMLElement/setContentType/contentType"/>
+          </genOperations>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/xml/TdXMLElement/getContentType"/>
+        </genClasses>
+        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXMLContent">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLContent/xmlElements"/>
+        </genClasses>
+        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXMLDocument">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/xml/TdXMLDocument/xsdFilePath"/>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

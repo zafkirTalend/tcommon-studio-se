@@ -64,6 +64,7 @@ import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.UpdateRepositoryUtils;
@@ -418,10 +419,10 @@ public abstract class RepositoryUpdateManager {
                 IMetadataTable table1 = ((IMetadataTable) object);
                 return table1.getId().equals(((SAPFunctionUnit) parameter).getMetadataTable().getId());
             } else if (parameter instanceof Connection) {
-                EList tables = ((Connection) parameter).getTables();
+                Set<MetadataTable> tables = ConnectionHelper.getTables((Connection) parameter);
                 if (tables.size() == 1) {
                     IMetadataTable table1 = ((IMetadataTable) object);
-                    MetadataTable table2 = (MetadataTable) tables.get(0);
+                    MetadataTable table2 = (MetadataTable) tables.toArray(new MetadataTable[0])[0];
                     return table1.getId().equals(table2.getId());
                 }
             }
@@ -871,9 +872,9 @@ public abstract class RepositoryUpdateManager {
             return Collections.emptyMap();
         }
         Map<String, String> idAndNameMap = new HashMap<String, String>();
-        EList tables = connItem.getConnection().getTables();
+        Set<MetadataTable> tables = ConnectionHelper.getTables(connItem.getConnection());
         if (tables != null) {
-            for (MetadataTable table : (List<MetadataTable>) tables) {
+            for (MetadataTable table : (Set<MetadataTable>) tables) {
                 idAndNameMap.put(table.getId(), table.getLabel());
             }
         }
@@ -922,9 +923,9 @@ public abstract class RepositoryUpdateManager {
         Map<String, String> schemaRenamedMap = new HashMap<String, String>();
 
         final String prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
-        EList tables = connItem.getConnection().getTables();
+        Set<MetadataTable> tables = ConnectionHelper.getTables(connItem.getConnection());
         if (tables != null) {
-            for (MetadataTable table : (List<MetadataTable>) tables) {
+            for (MetadataTable table : (Set<MetadataTable>) tables) {
                 String oldName = oldTableMap.get(table.getId());
                 String newName = table.getLabel();
                 if (oldName != null && !oldName.equals(newName)) {
@@ -1442,9 +1443,9 @@ public abstract class RepositoryUpdateManager {
         }
         List<IMetadataTable> tables = new ArrayList<IMetadataTable>();
 
-        EList tables2 = conn.getTables();
+        Set tables2 = ConnectionHelper.getTables(conn);
         if (tables2 != null) {
-            for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (List<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
+            for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (Set<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
                 IMetadataTable conversionTable = ConvertionHelper.convert(originalTable);
                 tables.add(conversionTable);
             }

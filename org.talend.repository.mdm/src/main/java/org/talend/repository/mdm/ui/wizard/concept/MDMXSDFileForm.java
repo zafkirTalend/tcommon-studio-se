@@ -71,12 +71,17 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.utils.CsvArray;
 import org.talend.core.utils.XmlArray;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
+import org.talend.cwm.xml.TdXMLDocument;
+import org.talend.cwm.xml.XmlFactory;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.mdm.model.MDMXSDExtractorFieldModel;
@@ -979,9 +984,22 @@ public class MDMXSDFileForm extends AbstractMDMFileStepForm implements IRefresha
                 metadataColumns.add(metadataColumn);
             }
         }
-        if (!getConnection().getTables().contains(metadataTable)) {
-            getConnection().getTables().add(metadataTable);
+        if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
+            TdXMLDocument d = (TdXMLDocument) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
+                    .getDatacluster(), connectionItem.getConnection(), TdXMLDocument.class);
+            if (d != null) {
+                d.getOwnedElement().add(metadataTable);
+            } else {
+                TdXMLDocument newXmlDoc = XmlFactory.eINSTANCE.createTdXMLDocument();
+                newXmlDoc.setName(((MDMConnection) connectionItem.getConnection()).getDatacluster());
+                ConnectionHelper.addPackage(newXmlDoc, connectionItem.getConnection());
+                PackageHelper.addMetadataTable(metadataTable, newXmlDoc);
+            }
+            // ConnectionHelper.getTables(getConnection()).add(metadataTable);
         }
+        // if (!getConnection().getTables().contains(metadataTable)) {
+        // getConnection().getTables().add(metadataTable);
+        // }
     }
 
 }

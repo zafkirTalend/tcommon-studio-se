@@ -1,13 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
 import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -48,6 +46,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface LDAPSchemaConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>Host</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -400,7 +399,7 @@ public interface LDAPSchemaConnection extends Connection {
      * @model
      * @generated
      */
-    EList getValue();
+    EList<String> getValue();
 
     /**
      * Returns the value of the '<em><b>Save Password</b></em>' attribute.
@@ -546,7 +545,7 @@ public interface LDAPSchemaConnection extends Connection {
      * @model
      * @generated
      */
-    EList getBaseDNs();
+    EList<String> getBaseDNs();
 
     /**
      * Returns the value of the '<em><b>Get Base DNs From Root</b></em>' attribute.
@@ -588,7 +587,7 @@ public interface LDAPSchemaConnection extends Connection {
      * @model
      * @generated
      */
-    EList getReturnAttributes();
+    EList<String> getReturnAttributes();
 
     /**
      * Returns the value of the '<em><b>Selected DN</b></em>' attribute.

@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +22,7 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface SAPTestInputParameterTable extends SAPFunctionParameterTable {
+
     /**
      * Returns the value of the '<em><b>Function Unit</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}'.

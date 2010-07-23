@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
@@ -53,6 +54,7 @@ import org.talend.core.model.properties.impl.ConnectionItemImpl;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.utils.KeywordsValidator;
+import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
@@ -284,7 +286,7 @@ public class MetadataTool {
             if (connection instanceof SAPConnection) {
                 return getMetadataTableFromSAPFunction((SAPConnection) connection, name2);
             }
-            EList tables = connection.getTables();
+            Set tables = ConnectionHelper.getTables(connection);
             for (Object tableObj : tables) {
                 MetadataTable table = (MetadataTable) tableObj;
                 if (table.getLabel().equals(name2)) {
@@ -353,7 +355,9 @@ public class MetadataTool {
                 return tables;
             }
         } else {
-            return conn.getTables();
+            EList tables = new BasicEList();
+            tables.addAll(ConnectionHelper.getTables(conn));
+            return tables;
         }
         return null;
     }

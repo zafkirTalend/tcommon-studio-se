@@ -14,7 +14,6 @@ package org.talend.designer.runprocess;
 
 import java.beans.PropertyChangeListener;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

@@ -7,32 +7,38 @@ package org.talend.core.model.metadata.builder.connection.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.talend.core.model.metadata.builder.connection.*;
-import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
-import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
-import org.talend.core.model.metadata.builder.connection.FileConnection;
-import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
-import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
-import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
-import org.talend.core.model.metadata.builder.connection.Metadata;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
-import org.talend.core.model.metadata.builder.connection.QueriesConnection;
-import org.talend.core.model.metadata.builder.connection.Query;
-import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
-import org.talend.core.model.metadata.builder.connection.SchemaTarget;
-import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
-import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+
+import org.talend.cwm.relational.TdTable;
+
+import orgomg.cwm.foundation.softwaredeployment.DataManager;
+import orgomg.cwm.foundation.softwaredeployment.DataProvider;
+import orgomg.cwm.foundation.softwaredeployment.DeployedComponent;
+
+import orgomg.cwm.objectmodel.core.Attribute;
+import orgomg.cwm.objectmodel.core.Classifier;
+import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.Feature;
+import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.Namespace;
+import orgomg.cwm.objectmodel.core.StructuralFeature;
+
+import orgomg.cwm.resource.record.Field;
+
+import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.NamedColumnSet;
+import orgomg.cwm.resource.relational.Table;
 
 /**
- * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
- * method for each class of the model. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * The <b>Adapter Factory</b> for the model.
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
  * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage
  * @generated
  */
@@ -40,14 +46,16 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * The cached model package.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     protected static ConnectionPackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
     public ConnectionAdapterFactory() {
@@ -58,168 +66,346 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Returns whether this factory is applicable for the type of the object.
-     * <!-- begin-user-doc --> This
-     * implementation returns <code>true</code> if the object is either the model's package or is an instance object
-     * of the model. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
+     * <!-- end-user-doc -->
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
+    @Override
     public boolean isFactoryForType(Object object) {
         if (object == modelPackage) {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject)object).eClass().getEPackage() == modelPackage;
+            return ((EObject) object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
      * The switch that delegates to the <code>createXXX</code> methods.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    protected ConnectionSwitch modelSwitch = new ConnectionSwitch() {
-            public Object caseMetadata(Metadata object) {
-                return createMetadataAdapter();
-            }
-            public Object caseConnection(Connection object) {
-                return createConnectionAdapter();
-            }
-            public Object caseMetadataColumn(MetadataColumn object) {
-                return createMetadataColumnAdapter();
-            }
-            public Object caseAbstractMetadataObject(AbstractMetadataObject object) {
-                return createAbstractMetadataObjectAdapter();
-            }
-            public Object caseMetadataTable(MetadataTable object) {
-                return createMetadataTableAdapter();
-            }
-            public Object caseFileConnection(FileConnection object) {
-                return createFileConnectionAdapter();
-            }
-            public Object caseDelimitedFileConnection(DelimitedFileConnection object) {
-                return createDelimitedFileConnectionAdapter();
-            }
-            public Object casePositionalFileConnection(PositionalFileConnection object) {
-                return createPositionalFileConnectionAdapter();
-            }
-            public Object caseEbcdicConnection(EbcdicConnection object) {
-                return createEbcdicConnectionAdapter();
-            }
-            public Object caseMDMConnection(MDMConnection object) {
-                return createMDMConnectionAdapter();
-            }
-            public Object caseDatabaseConnection(DatabaseConnection object) {
-                return createDatabaseConnectionAdapter();
-            }
-            public Object caseSAPConnection(SAPConnection object) {
-                return createSAPConnectionAdapter();
-            }
-            public Object caseSAPFunctionUnit(SAPFunctionUnit object) {
-                return createSAPFunctionUnitAdapter();
-            }
-            public Object caseSAPIDocUnit(SAPIDocUnit object) {
-                return createSAPIDocUnitAdapter();
-            }
-            public Object caseSAPFunctionParameterColumn(SAPFunctionParameterColumn object) {
-                return createSAPFunctionParameterColumnAdapter();
-            }
-            public Object caseSAPFunctionParameterTable(SAPFunctionParameterTable object) {
-                return createSAPFunctionParameterTableAdapter();
-            }
-            public Object caseInputSAPFunctionParameterTable(InputSAPFunctionParameterTable object) {
-                return createInputSAPFunctionParameterTableAdapter();
-            }
-            public Object caseOutputSAPFunctionParameterTable(OutputSAPFunctionParameterTable object) {
-                return createOutputSAPFunctionParameterTableAdapter();
-            }
-            public Object caseRegexpFileConnection(RegexpFileConnection object) {
-                return createRegexpFileConnectionAdapter();
-            }
-            public Object caseXmlFileConnection(XmlFileConnection object) {
-                return createXmlFileConnectionAdapter();
-            }
-            public Object caseSchemaTarget(SchemaTarget object) {
-                return createSchemaTargetAdapter();
-            }
-            public Object caseQueriesConnection(QueriesConnection object) {
-                return createQueriesConnectionAdapter();
-            }
-            public Object caseQuery(Query object) {
-                return createQueryAdapter();
-            }
-            public Object caseLdifFileConnection(LdifFileConnection object) {
-                return createLdifFileConnectionAdapter();
-            }
-            public Object caseFileExcelConnection(FileExcelConnection object) {
-                return createFileExcelConnectionAdapter();
-            }
-            public Object caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
-                return createXmlXPathLoopDescriptorAdapter();
-            }
-            public Object caseGenericSchemaConnection(GenericSchemaConnection object) {
-                return createGenericSchemaConnectionAdapter();
-            }
-            public Object caseLDAPSchemaConnection(LDAPSchemaConnection object) {
-                return createLDAPSchemaConnectionAdapter();
-            }
-            public Object caseWSDLSchemaConnection(WSDLSchemaConnection object) {
-                return createWSDLSchemaConnectionAdapter();
-            }
-            public Object caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
-                return createSalesforceSchemaConnectionAdapter();
-            }
-            public Object caseCDCConnection(CDCConnection object) {
-                return createCDCConnectionAdapter();
-            }
-            public Object caseCDCType(CDCType object) {
-                return createCDCTypeAdapter();
-            }
-            public Object caseSubscriberTable(SubscriberTable object) {
-                return createSubscriberTableAdapter();
-            }
-            public Object caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
-                return createSAPTestInputParameterTableAdapter();
-            }
-            public Object caseConcept(Concept object) {
-                return createConceptAdapter();
-            }
-            public Object caseConceptTarget(ConceptTarget object) {
-                return createConceptTargetAdapter();
-            }
-            public Object caseHL7Connection(HL7Connection object) {
-                return createHL7ConnectionAdapter();
-            }
-            public Object caseHeaderFooterConnection(HeaderFooterConnection object) {
-                return createHeaderFooterConnectionAdapter();
-            }
-            public Object caseXMLFileNode(XMLFileNode object) {
-                return createXMLFileNodeAdapter();
-            }
-            public Object caseHL7FileNode(HL7FileNode object) {
-                return createHL7FileNodeAdapter();
-            }
-            public Object defaultCase(EObject object) {
-                return createEObjectAdapter();
-            }
-        };
+    protected ConnectionSwitch<Adapter> modelSwitch = new ConnectionSwitch<Adapter>() {
+
+        @Override
+        public Adapter caseMetadata(Metadata object) {
+            return createMetadataAdapter();
+        }
+
+        @Override
+        public Adapter caseConnection(Connection object) {
+            return createConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseMetadataColumn(MetadataColumn object) {
+            return createMetadataColumnAdapter();
+        }
+
+        @Override
+        public Adapter caseAbstractMetadataObject(AbstractMetadataObject object) {
+            return createAbstractMetadataObjectAdapter();
+        }
+
+        @Override
+        public Adapter caseMetadataTable(MetadataTable object) {
+            return createMetadataTableAdapter();
+        }
+
+        @Override
+        public Adapter caseFileConnection(FileConnection object) {
+            return createFileConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseDelimitedFileConnection(DelimitedFileConnection object) {
+            return createDelimitedFileConnectionAdapter();
+        }
+
+        @Override
+        public Adapter casePositionalFileConnection(PositionalFileConnection object) {
+            return createPositionalFileConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseEbcdicConnection(EbcdicConnection object) {
+            return createEbcdicConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseMDMConnection(MDMConnection object) {
+            return createMDMConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseDatabaseConnection(DatabaseConnection object) {
+            return createDatabaseConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPConnection(SAPConnection object) {
+            return createSAPConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPFunctionUnit(SAPFunctionUnit object) {
+            return createSAPFunctionUnitAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPIDocUnit(SAPIDocUnit object) {
+            return createSAPIDocUnitAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPFunctionParameterColumn(SAPFunctionParameterColumn object) {
+            return createSAPFunctionParameterColumnAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPFunctionParameterTable(SAPFunctionParameterTable object) {
+            return createSAPFunctionParameterTableAdapter();
+        }
+
+        @Override
+        public Adapter caseInputSAPFunctionParameterTable(InputSAPFunctionParameterTable object) {
+            return createInputSAPFunctionParameterTableAdapter();
+        }
+
+        @Override
+        public Adapter caseOutputSAPFunctionParameterTable(OutputSAPFunctionParameterTable object) {
+            return createOutputSAPFunctionParameterTableAdapter();
+        }
+
+        @Override
+        public Adapter caseRegexpFileConnection(RegexpFileConnection object) {
+            return createRegexpFileConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseXmlFileConnection(XmlFileConnection object) {
+            return createXmlFileConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseSchemaTarget(SchemaTarget object) {
+            return createSchemaTargetAdapter();
+        }
+
+        @Override
+        public Adapter caseQueriesConnection(QueriesConnection object) {
+            return createQueriesConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseQuery(Query object) {
+            return createQueryAdapter();
+        }
+
+        @Override
+        public Adapter caseLdifFileConnection(LdifFileConnection object) {
+            return createLdifFileConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseFileExcelConnection(FileExcelConnection object) {
+            return createFileExcelConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
+            return createXmlXPathLoopDescriptorAdapter();
+        }
+
+        @Override
+        public Adapter caseGenericSchemaConnection(GenericSchemaConnection object) {
+            return createGenericSchemaConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseLDAPSchemaConnection(LDAPSchemaConnection object) {
+            return createLDAPSchemaConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseWSDLSchemaConnection(WSDLSchemaConnection object) {
+            return createWSDLSchemaConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
+            return createSalesforceSchemaConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseCDCConnection(CDCConnection object) {
+            return createCDCConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseCDCType(CDCType object) {
+            return createCDCTypeAdapter();
+        }
+
+        @Override
+        public Adapter caseSubscriberTable(SubscriberTable object) {
+            return createSubscriberTableAdapter();
+        }
+
+        @Override
+        public Adapter caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
+            return createSAPTestInputParameterTableAdapter();
+        }
+
+        @Override
+        public Adapter caseConcept(Concept object) {
+            return createConceptAdapter();
+        }
+
+        @Override
+        public Adapter caseConceptTarget(ConceptTarget object) {
+            return createConceptTargetAdapter();
+        }
+
+        @Override
+        public Adapter caseHL7Connection(HL7Connection object) {
+            return createHL7ConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseHeaderFooterConnection(HeaderFooterConnection object) {
+            return createHeaderFooterConnectionAdapter();
+        }
+
+        @Override
+        public Adapter caseXMLFileNode(XMLFileNode object) {
+            return createXMLFileNodeAdapter();
+        }
+
+        @Override
+        public Adapter caseGenericPackage(GenericPackage object) {
+            return createGenericPackageAdapter();
+        }
+
+        @Override
+        public Adapter caseHL7FileNode(HL7FileNode object) {
+            return createHL7FileNodeAdapter();
+        }
+
+        @Override
+        public Adapter caseElement(Element object) {
+            return createElementAdapter();
+        }
+
+        @Override
+        public Adapter caseModelElement(ModelElement object) {
+            return createModelElementAdapter();
+        }
+
+        @Override
+        public Adapter caseNamespace(Namespace object) {
+            return createNamespaceAdapter();
+        }
+
+        @Override
+        public Adapter casePackage(orgomg.cwm.objectmodel.core.Package object) {
+            return createPackageAdapter();
+        }
+
+        @Override
+        public Adapter caseDeployedComponent(DeployedComponent object) {
+            return createDeployedComponentAdapter();
+        }
+
+        @Override
+        public Adapter caseDataManager(DataManager object) {
+            return createDataManagerAdapter();
+        }
+
+        @Override
+        public Adapter caseDataProvider(DataProvider object) {
+            return createDataProviderAdapter();
+        }
+
+        @Override
+        public Adapter caseFeature(Feature object) {
+            return createFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseStructuralFeature(StructuralFeature object) {
+            return createStructuralFeatureAdapter();
+        }
+
+        @Override
+        public Adapter caseAttribute(Attribute object) {
+            return createAttributeAdapter();
+        }
+
+        @Override
+        public Adapter caseField(Field object) {
+            return createFieldAdapter();
+        }
+
+        @Override
+        public Adapter caseClassifier(Classifier object) {
+            return createClassifierAdapter();
+        }
+
+        @Override
+        public Adapter caseClass(orgomg.cwm.objectmodel.core.Class object) {
+            return createClassAdapter();
+        }
+
+        @Override
+        public Adapter caseColumnSet(ColumnSet object) {
+            return createColumnSetAdapter();
+        }
+
+        @Override
+        public Adapter caseNamedColumnSet(NamedColumnSet object) {
+            return createNamedColumnSetAdapter();
+        }
+
+        @Override
+        public Adapter caseTable(Table object) {
+            return createTableAdapter();
+        }
+
+        @Override
+        public Adapter caseTdTable(TdTable object) {
+            return createTdTableAdapter();
+        }
+
+        @Override
+        public Adapter defaultCase(EObject object) {
+            return createEObjectAdapter();
+        }
+    };
 
     /**
      * Creates an adapter for the <code>target</code>.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @param target the object to adapt.
      * @return the adapter for the <code>target</code>.
      * @generated
      */
+    @Override
     public Adapter createAdapter(Notifier target) {
-        return (Adapter)modelSwitch.doSwitch((EObject)target);
+        return modelSwitch.doSwitch((EObject) target);
     }
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.Metadata
      * @generated
@@ -230,8 +416,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Connection <em>Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.Connection
      * @generated
@@ -241,21 +429,11 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.metadata.builder.connection.MetadataTable
-     * @generated
-     */
-    public Adapter createMetadataTableAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn <em>Metadata Column</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn
      * @generated
@@ -266,8 +444,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject
      * @generated
@@ -277,9 +457,25 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataTable
+     * @generated
+     */
+    public Adapter createMetadataTableAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.FileConnection <em>File Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection
      * @generated
@@ -290,8 +486,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
      * @generated
@@ -302,8 +500,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection <em>Positional File Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.PositionalFileConnection
      * @generated
@@ -342,8 +542,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection
      * @generated
@@ -452,8 +654,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.RegexpFileConnection
      * @generated
@@ -464,8 +668,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection <em>Xml File Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection
      * @generated
@@ -476,8 +682,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.SchemaTarget
      * @generated
@@ -488,8 +696,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection <em>Queries Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection
      * @generated
@@ -500,8 +710,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Query <em>Query</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.Query
      * @generated
@@ -512,8 +724,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection <em>Ldif File Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection
      * @generated
@@ -538,8 +752,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor
      * @generated
@@ -550,8 +766,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection <em>Generic Schema Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
      * @generated
@@ -562,8 +780,10 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection <em>LDAP Schema Connection</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
      * @return the new adapter.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection
      * @generated
@@ -727,6 +947,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.GenericPackage <em>Generic Package</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.GenericPackage
+     * @generated
+     */
+    public Adapter createGenericPackageAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode <em>HL7 File Node</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -741,8 +975,247 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Element <em>Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Element
+     * @generated
+     */
+    public Adapter createElementAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.ModelElement <em>Model Element</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.ModelElement
+     * @generated
+     */
+    public Adapter createModelElementAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Namespace <em>Namespace</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Namespace
+     * @generated
+     */
+    public Adapter createNamespaceAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Package
+     * @generated
+     */
+    public Adapter createPackageAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.softwaredeployment.DeployedComponent <em>Deployed Component</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.foundation.softwaredeployment.DeployedComponent
+     * @generated
+     */
+    public Adapter createDeployedComponentAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.softwaredeployment.DataManager <em>Data Manager</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.foundation.softwaredeployment.DataManager
+     * @generated
+     */
+    public Adapter createDataManagerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.foundation.softwaredeployment.DataProvider <em>Data Provider</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.foundation.softwaredeployment.DataProvider
+     * @generated
+     */
+    public Adapter createDataProviderAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Feature <em>Feature</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Feature
+     * @generated
+     */
+    public Adapter createFeatureAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.StructuralFeature <em>Structural Feature</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.StructuralFeature
+     * @generated
+     */
+    public Adapter createStructuralFeatureAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Attribute <em>Attribute</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Attribute
+     * @generated
+     */
+    public Adapter createAttributeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.record.Field <em>Field</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.record.Field
+     * @generated
+     */
+    public Adapter createFieldAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Classifier
+     * @generated
+     */
+    public Adapter createClassifierAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Class
+     * @generated
+     */
+    public Adapter createClassAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.ColumnSet <em>Column Set</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.relational.ColumnSet
+     * @generated
+     */
+    public Adapter createColumnSetAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.NamedColumnSet <em>Named Column Set</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.relational.NamedColumnSet
+     * @generated
+     */
+    public Adapter createNamedColumnSetAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.relational.Table <em>Table</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.relational.Table
+     * @generated
+     */
+    public Adapter createTableAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.relational.TdTable <em>Td Table</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.cwm.relational.TdTable
+     * @generated
+     */
+    public Adapter createTdTableAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for the default case.
-     * <!-- begin-user-doc --> This default implementation returns null.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null.
      * <!-- end-user-doc -->
      * @return the new adapter.
      * @generated
@@ -751,4 +1224,4 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         return null;
     }
 
-} // ConnectionAdapterFactory
+} //ConnectionAdapterFactory

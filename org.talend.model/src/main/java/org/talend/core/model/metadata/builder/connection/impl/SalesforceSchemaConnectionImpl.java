@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -43,6 +42,7 @@ import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnect
  * @generated
  */
 public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements SalesforceSchemaConnection {
+
     /**
      * The default value of the '{@link #getWebServiceUrl() <em>Web Service Url</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -357,6 +357,7 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.SALESFORCE_SCHEMA_CONNECTION;
     }
@@ -379,7 +380,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldWebServiceUrl = webServiceUrl;
         webServiceUrl = newWebServiceUrl;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL, oldWebServiceUrl, webServiceUrl));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL, oldWebServiceUrl, webServiceUrl));
     }
 
     /**
@@ -400,7 +402,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldUserName = userName;
         userName = newUserName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME, oldUserName, userName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME,
+                    oldUserName, userName));
     }
 
     /**
@@ -421,7 +424,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldPassword = password;
         password = newPassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD, oldPassword, password));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD,
+                    oldPassword, password));
     }
 
     /**
@@ -442,7 +446,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldModuleName = moduleName;
         moduleName = newModuleName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME, oldModuleName, moduleName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME,
+                    oldModuleName, moduleName));
     }
 
     /**
@@ -463,7 +468,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldQueryCondition = queryCondition;
         queryCondition = newQueryCondition;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION, oldQueryCondition, queryCondition));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION, oldQueryCondition, queryCondition));
     }
 
     /**
@@ -484,7 +490,9 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         boolean oldUseCustomModuleName = useCustomModuleName;
         useCustomModuleName = newUseCustomModuleName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME, oldUseCustomModuleName, useCustomModuleName));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME, oldUseCustomModuleName,
+                    useCustomModuleName));
     }
 
     /**
@@ -505,7 +513,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         boolean oldUseProxy = useProxy;
         useProxy = newUseProxy;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY, oldUseProxy, useProxy));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY,
+                    oldUseProxy, useProxy));
     }
 
     /**
@@ -526,7 +535,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldProxyHost = proxyHost;
         proxyHost = newProxyHost;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST, oldProxyHost, proxyHost));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST,
+                    oldProxyHost, proxyHost));
     }
 
     /**
@@ -547,7 +557,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldProxyPort = proxyPort;
         proxyPort = newProxyPort;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT, oldProxyPort, proxyPort));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT,
+                    oldProxyPort, proxyPort));
     }
 
     /**
@@ -568,7 +579,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldProxyUsername = proxyUsername;
         proxyUsername = newProxyUsername;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME, oldProxyUsername, proxyUsername));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME,
+                    oldProxyUsername, proxyUsername));
     }
 
     /**
@@ -589,7 +601,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldProxyPassword = proxyPassword;
         proxyPassword = newProxyPassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD, oldProxyPassword, proxyPassword));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD,
+                    oldProxyPassword, proxyPassword));
     }
 
     /**
@@ -610,7 +623,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldBatchSize = batchSize;
         batchSize = newBatchSize;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE, oldBatchSize, batchSize));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE,
+                    oldBatchSize, batchSize));
     }
 
     /**
@@ -631,7 +645,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         boolean oldUseHttpProxy = useHttpProxy;
         useHttpProxy = newUseHttpProxy;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY, oldUseHttpProxy, useHttpProxy));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY,
+                    oldUseHttpProxy, useHttpProxy));
     }
 
     /**
@@ -652,7 +667,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         boolean oldUseAlphbet = useAlphbet;
         useAlphbet = newUseAlphbet;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET, oldUseAlphbet, useAlphbet));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET,
+                    oldUseAlphbet, useAlphbet));
     }
 
     /**
@@ -673,7 +689,8 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
         String oldTimeOut = timeOut;
         timeOut = newTimeOut;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT, oldTimeOut, timeOut));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT,
+                    oldTimeOut, timeOut));
     }
 
     /**
@@ -681,38 +698,39 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
-                return getWebServiceUrl();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
-                return getUserName();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
-                return getPassword();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
-                return getModuleName();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
-                return getQueryCondition();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
-                return isUseCustomModuleName() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
-                return isUseProxy() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
-                return getProxyHost();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
-                return getProxyPort();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
-                return getProxyUsername();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                return getProxyPassword();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
-                return getBatchSize();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
-                return isUseHttpProxy() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
-                return isUseAlphbet() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
-                return getTimeOut();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
+            return getWebServiceUrl();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
+            return getUserName();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
+            return getPassword();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
+            return getModuleName();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
+            return getQueryCondition();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+            return isUseCustomModuleName();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+            return isUseProxy();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+            return getProxyHost();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+            return getProxyPort();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+            return getProxyUsername();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            return getProxyPassword();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+            return getBatchSize();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+            return isUseHttpProxy();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+            return isUseAlphbet();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+            return getTimeOut();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -722,53 +740,54 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
-                setWebServiceUrl((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
-                setUserName((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
-                setPassword((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
-                setModuleName((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
-                setQueryCondition((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
-                setUseCustomModuleName(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
-                setUseProxy(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
-                setProxyHost((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
-                setProxyPort((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
-                setProxyUsername((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                setProxyPassword((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
-                setBatchSize((String)newValue);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
-                setUseHttpProxy(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
-                setUseAlphbet(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
-                setTimeOut((String)newValue);
-                return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
+            setWebServiceUrl((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
+            setUserName((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
+            setPassword((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
+            setModuleName((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
+            setQueryCondition((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+            setUseCustomModuleName((Boolean) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+            setUseProxy((Boolean) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+            setProxyHost((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+            setProxyPort((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+            setProxyUsername((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            setProxyPassword((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+            setBatchSize((String) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+            setUseHttpProxy((Boolean) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+            setUseAlphbet((Boolean) newValue);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+            setTimeOut((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -778,53 +797,54 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
-                setWebServiceUrl(WEB_SERVICE_URL_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
-                setUserName(USER_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
-                setPassword(PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
-                setModuleName(MODULE_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
-                setQueryCondition(QUERY_CONDITION_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
-                setUseCustomModuleName(USE_CUSTOM_MODULE_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
-                setUseProxy(USE_PROXY_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
-                setProxyHost(PROXY_HOST_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
-                setProxyPort(PROXY_PORT_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
-                setProxyUsername(PROXY_USERNAME_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                setProxyPassword(PROXY_PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
-                setBatchSize(BATCH_SIZE_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
-                setUseHttpProxy(USE_HTTP_PROXY_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
-                setUseAlphbet(USE_ALPHBET_EDEFAULT);
-                return;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
-                setTimeOut(TIME_OUT_EDEFAULT);
-                return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
+            setWebServiceUrl(WEB_SERVICE_URL_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
+            setUserName(USER_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
+            setPassword(PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
+            setModuleName(MODULE_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
+            setQueryCondition(QUERY_CONDITION_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+            setUseCustomModuleName(USE_CUSTOM_MODULE_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+            setUseProxy(USE_PROXY_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+            setProxyHost(PROXY_HOST_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+            setProxyPort(PROXY_PORT_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+            setProxyUsername(PROXY_USERNAME_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            setProxyPassword(PROXY_PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+            setBatchSize(BATCH_SIZE_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+            setUseHttpProxy(USE_HTTP_PROXY_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+            setUseAlphbet(USE_ALPHBET_EDEFAULT);
+            return;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+            setTimeOut(TIME_OUT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -834,38 +854,39 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
-                return WEB_SERVICE_URL_EDEFAULT == null ? webServiceUrl != null : !WEB_SERVICE_URL_EDEFAULT.equals(webServiceUrl);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
-                return USER_NAME_EDEFAULT == null ? userName != null : !USER_NAME_EDEFAULT.equals(userName);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
-                return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
-                return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
-                return QUERY_CONDITION_EDEFAULT == null ? queryCondition != null : !QUERY_CONDITION_EDEFAULT.equals(queryCondition);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
-                return useCustomModuleName != USE_CUSTOM_MODULE_NAME_EDEFAULT;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
-                return useProxy != USE_PROXY_EDEFAULT;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
-                return PROXY_HOST_EDEFAULT == null ? proxyHost != null : !PROXY_HOST_EDEFAULT.equals(proxyHost);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
-                return PROXY_PORT_EDEFAULT == null ? proxyPort != null : !PROXY_PORT_EDEFAULT.equals(proxyPort);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
-                return PROXY_USERNAME_EDEFAULT == null ? proxyUsername != null : !PROXY_USERNAME_EDEFAULT.equals(proxyUsername);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
-                return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
-                return BATCH_SIZE_EDEFAULT == null ? batchSize != null : !BATCH_SIZE_EDEFAULT.equals(batchSize);
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
-                return useHttpProxy != USE_HTTP_PROXY_EDEFAULT;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
-                return useAlphbet != USE_ALPHBET_EDEFAULT;
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
-                return TIME_OUT_EDEFAULT == null ? timeOut != null : !TIME_OUT_EDEFAULT.equals(timeOut);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__WEB_SERVICE_URL:
+            return WEB_SERVICE_URL_EDEFAULT == null ? webServiceUrl != null : !WEB_SERVICE_URL_EDEFAULT.equals(webServiceUrl);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USER_NAME:
+            return USER_NAME_EDEFAULT == null ? userName != null : !USER_NAME_EDEFAULT.equals(userName);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PASSWORD:
+            return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME:
+            return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION:
+            return QUERY_CONDITION_EDEFAULT == null ? queryCondition != null : !QUERY_CONDITION_EDEFAULT.equals(queryCondition);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME:
+            return useCustomModuleName != USE_CUSTOM_MODULE_NAME_EDEFAULT;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_PROXY:
+            return useProxy != USE_PROXY_EDEFAULT;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST:
+            return PROXY_HOST_EDEFAULT == null ? proxyHost != null : !PROXY_HOST_EDEFAULT.equals(proxyHost);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT:
+            return PROXY_PORT_EDEFAULT == null ? proxyPort != null : !PROXY_PORT_EDEFAULT.equals(proxyPort);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_USERNAME:
+            return PROXY_USERNAME_EDEFAULT == null ? proxyUsername != null : !PROXY_USERNAME_EDEFAULT.equals(proxyUsername);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__PROXY_PASSWORD:
+            return PROXY_PASSWORD_EDEFAULT == null ? proxyPassword != null : !PROXY_PASSWORD_EDEFAULT.equals(proxyPassword);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE:
+            return BATCH_SIZE_EDEFAULT == null ? batchSize != null : !BATCH_SIZE_EDEFAULT.equals(batchSize);
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_HTTP_PROXY:
+            return useHttpProxy != USE_HTTP_PROXY_EDEFAULT;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET:
+            return useAlphbet != USE_ALPHBET_EDEFAULT;
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION__TIME_OUT:
+            return TIME_OUT_EDEFAULT == null ? timeOut != null : !TIME_OUT_EDEFAULT.equals(timeOut);
         }
         return super.eIsSet(featureID);
     }
@@ -875,8 +896,10 @@ public class SalesforceSchemaConnectionImpl extends ConnectionImpl implements Sa
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (webServiceUrl: ");

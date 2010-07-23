@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
@@ -40,6 +41,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -60,6 +62,7 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
+import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
@@ -112,6 +115,7 @@ import org.talend.repository.model.ResourceModelUtils;
 import org.talend.repository.model.URIHelper;
 import org.talend.repository.model.VersionList;
 import org.talend.repository.ui.views.RepositoryLabelProvider;
+import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -1180,6 +1184,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
 
         itemResource.getContents().add(item.getConnection());
+        MetadataManager.addPackges(item, itemResource); // hywang 13221
 
         return itemResource;
     }
@@ -1207,7 +1212,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     private Resource save(ConnectionItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
-        itemResource.getContents().add(item.getConnection());
+        MetadataManager.addPackges(item, itemResource); // 13221
+
+        // add to the current resource all Document and Description instances because they are not reference in
+        // containment references.
+        Map<EObject, Collection<Setting>> externalCrossref = EcoreUtil.ExternalCrossReferencer.find(item.getConnection());
+        Collection<Object> documents = EcoreUtil.getObjectsByType(externalCrossref.keySet(),
+                BusinessinformationPackage.Literals.DOCUMENT);
+        for (Object doc : documents) {
+            itemResource.getContents().add((EObject) doc);
+        }
+        Collection<Object> descriptions = EcoreUtil.getObjectsByType(externalCrossref.keySet(),
+                BusinessinformationPackage.Literals.DESCRIPTION);
+        for (Object doc : descriptions) {
+            itemResource.getContents().add((EObject) doc);
+        }
+        // itemResource.getContents().add(item.getConnection());
 
         return itemResource;
     }

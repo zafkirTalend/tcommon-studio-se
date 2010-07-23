@@ -28,7 +28,6 @@ import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl#getXmlFile <em>Xml File</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl#isUseHtmlOutput <em>Use Html Output</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl#getHtmlFile <em>Html File</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,26 +156,6 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
     protected String htmlFile = HTML_FILE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @see #getName()
-     * @generated
-     * @ordered
-     */
-    protected static final String NAME_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @see #getName()
-     * @generated
-     * @ordered
-     */
-    protected String name = NAME_EDEFAULT;
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -188,6 +167,7 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.SAPI_DOC_UNIT;
     }
@@ -197,8 +177,20 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * @generated
      */
     public SAPConnection getConnection() {
-        if (eContainerFeatureID() != ConnectionPackage.SAPI_DOC_UNIT__CONNECTION) return null;
-        return (SAPConnection)eContainer();
+        if (eContainerFeatureID() != ConnectionPackage.SAPI_DOC_UNIT__CONNECTION)
+            return null;
+        return (SAPConnection) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPConnection basicGetConnection() {
+        if (eContainerFeatureID() != ConnectionPackage.SAPI_DOC_UNIT__CONNECTION)
+            return null;
+        return (SAPConnection) eInternalContainer();
     }
 
     /**
@@ -206,7 +198,7 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * @generated
      */
     public NotificationChain basicSetConnection(SAPConnection newConnection, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newConnection, ConnectionPackage.SAPI_DOC_UNIT__CONNECTION, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newConnection, ConnectionPackage.SAPI_DOC_UNIT__CONNECTION, msgs);
         return msgs;
     }
 
@@ -215,19 +207,22 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * @generated
      */
     public void setConnection(SAPConnection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.SAPI_DOC_UNIT__CONNECTION && newConnection != null)) {
+        if (newConnection != eInternalContainer()
+                || (eContainerFeatureID() != ConnectionPackage.SAPI_DOC_UNIT__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newConnection != null)
-                msgs = ((InternalEObject)newConnection).eInverseAdd(this, ConnectionPackage.SAP_CONNECTION__IDOCS, SAPConnection.class, msgs);
+                msgs = ((InternalEObject) newConnection).eInverseAdd(this, ConnectionPackage.SAP_CONNECTION__IDOCS,
+                        SAPConnection.class, msgs);
             msgs = basicSetConnection(newConnection, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__CONNECTION, newConnection, newConnection));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__CONNECTION, newConnection,
+                    newConnection));
     }
 
     /**
@@ -246,7 +241,8 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
         String oldProgramId = programId;
         programId = newProgramId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID, oldProgramId, programId));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID, oldProgramId,
+                    programId));
     }
 
     /**
@@ -265,7 +261,8 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
         String oldGatewayService = gatewayService;
         gatewayService = newGatewayService;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE, oldGatewayService, gatewayService));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE,
+                    oldGatewayService, gatewayService));
     }
 
     /**
@@ -284,7 +281,8 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
         boolean oldUseXmlOutput = useXmlOutput;
         useXmlOutput = newUseXmlOutput;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT, oldUseXmlOutput, useXmlOutput));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT,
+                    oldUseXmlOutput, useXmlOutput));
     }
 
     /**
@@ -322,7 +320,8 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
         boolean oldUseHtmlOutput = useHtmlOutput;
         useHtmlOutput = newUseHtmlOutput;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT, oldUseHtmlOutput, useHtmlOutput));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT,
+                    oldUseHtmlOutput, useHtmlOutput));
     }
 
     /**
@@ -341,38 +340,21 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
         String oldHtmlFile = htmlFile;
         htmlFile = newHtmlFile;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE, oldHtmlFile, htmlFile));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE, oldHtmlFile,
+                    htmlFile));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setName(String newName) {
-        String oldName = name;
-        name = newName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAPI_DOC_UNIT__NAME, oldName, name));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetConnection((SAPConnection)otherEnd, msgs);
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetConnection((SAPConnection) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -381,10 +363,11 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
-                return basicSetConnection(null, msgs);
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            return basicSetConnection(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -393,10 +376,11 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_CONNECTION__IDOCS, SAPConnection.class, msgs);
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_CONNECTION__IDOCS, SAPConnection.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -405,24 +389,25 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            if (resolve)
                 return getConnection();
-            case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
-                return getProgramId();
-            case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
-                return getGatewayService();
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
-                return isUseXmlOutput() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
-                return getXmlFile();
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
-                return isUseHtmlOutput() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
-                return getHtmlFile();
-            case ConnectionPackage.SAPI_DOC_UNIT__NAME:
-                return getName();
+            return basicGetConnection();
+        case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
+            return getProgramId();
+        case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
+            return getGatewayService();
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
+            return isUseXmlOutput();
+        case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
+            return getXmlFile();
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
+            return isUseHtmlOutput();
+        case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
+            return getHtmlFile();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -431,32 +416,30 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
-                setConnection((SAPConnection)newValue);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
-                setProgramId((String)newValue);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
-                setGatewayService((String)newValue);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
-                setUseXmlOutput(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
-                setXmlFile((String)newValue);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
-                setUseHtmlOutput(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
-                setHtmlFile((String)newValue);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__NAME:
-                setName((String)newValue);
-                return;
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            setConnection((SAPConnection) newValue);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
+            setProgramId((String) newValue);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
+            setGatewayService((String) newValue);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
+            setUseXmlOutput((Boolean) newValue);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
+            setXmlFile((String) newValue);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
+            setUseHtmlOutput((Boolean) newValue);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
+            setHtmlFile((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -465,32 +448,30 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
-                setConnection((SAPConnection)null);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
-                setProgramId(PROGRAM_ID_EDEFAULT);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
-                setGatewayService(GATEWAY_SERVICE_EDEFAULT);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
-                setUseXmlOutput(USE_XML_OUTPUT_EDEFAULT);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
-                setXmlFile(XML_FILE_EDEFAULT);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
-                setUseHtmlOutput(USE_HTML_OUTPUT_EDEFAULT);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
-                setHtmlFile(HTML_FILE_EDEFAULT);
-                return;
-            case ConnectionPackage.SAPI_DOC_UNIT__NAME:
-                setName(NAME_EDEFAULT);
-                return;
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            setConnection((SAPConnection) null);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
+            setProgramId(PROGRAM_ID_EDEFAULT);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
+            setGatewayService(GATEWAY_SERVICE_EDEFAULT);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
+            setUseXmlOutput(USE_XML_OUTPUT_EDEFAULT);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
+            setXmlFile(XML_FILE_EDEFAULT);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
+            setUseHtmlOutput(USE_HTML_OUTPUT_EDEFAULT);
+            return;
+        case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
+            setHtmlFile(HTML_FILE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -499,24 +480,23 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
-                return getConnection() != null;
-            case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
-                return PROGRAM_ID_EDEFAULT == null ? programId != null : !PROGRAM_ID_EDEFAULT.equals(programId);
-            case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
-                return GATEWAY_SERVICE_EDEFAULT == null ? gatewayService != null : !GATEWAY_SERVICE_EDEFAULT.equals(gatewayService);
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
-                return useXmlOutput != USE_XML_OUTPUT_EDEFAULT;
-            case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
-                return XML_FILE_EDEFAULT == null ? xmlFile != null : !XML_FILE_EDEFAULT.equals(xmlFile);
-            case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
-                return useHtmlOutput != USE_HTML_OUTPUT_EDEFAULT;
-            case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
-                return HTML_FILE_EDEFAULT == null ? htmlFile != null : !HTML_FILE_EDEFAULT.equals(htmlFile);
-            case ConnectionPackage.SAPI_DOC_UNIT__NAME:
-                return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+        case ConnectionPackage.SAPI_DOC_UNIT__CONNECTION:
+            return basicGetConnection() != null;
+        case ConnectionPackage.SAPI_DOC_UNIT__PROGRAM_ID:
+            return PROGRAM_ID_EDEFAULT == null ? programId != null : !PROGRAM_ID_EDEFAULT.equals(programId);
+        case ConnectionPackage.SAPI_DOC_UNIT__GATEWAY_SERVICE:
+            return GATEWAY_SERVICE_EDEFAULT == null ? gatewayService != null : !GATEWAY_SERVICE_EDEFAULT.equals(gatewayService);
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_XML_OUTPUT:
+            return useXmlOutput != USE_XML_OUTPUT_EDEFAULT;
+        case ConnectionPackage.SAPI_DOC_UNIT__XML_FILE:
+            return XML_FILE_EDEFAULT == null ? xmlFile != null : !XML_FILE_EDEFAULT.equals(xmlFile);
+        case ConnectionPackage.SAPI_DOC_UNIT__USE_HTML_OUTPUT:
+            return useHtmlOutput != USE_HTML_OUTPUT_EDEFAULT;
+        case ConnectionPackage.SAPI_DOC_UNIT__HTML_FILE:
+            return HTML_FILE_EDEFAULT == null ? htmlFile != null : !HTML_FILE_EDEFAULT.equals(htmlFile);
         }
         return super.eIsSet(featureID);
     }
@@ -525,8 +505,10 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (programId: ");
@@ -541,8 +523,6 @@ public class SAPIDocUnitImpl extends AbstractMetadataObjectImpl implements SAPID
         result.append(useHtmlOutput);
         result.append(", htmlFile: ");
         result.append(htmlFile);
-        result.append(", name: ");
-        result.append(name);
         result.append(')');
         return result.toString();
     }

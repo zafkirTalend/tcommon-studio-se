@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -32,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
  * @generated
  */
 public class HeaderFooterConnectionImpl extends ConnectionImpl implements HeaderFooterConnection {
+
     /**
      * The default value of the '{@link #isIsHeader() <em>Is Header</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -126,6 +126,7 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION;
     }
@@ -148,7 +149,8 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
         boolean oldIsHeader = isHeader;
         isHeader = newIsHeader;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER, oldIsHeader, isHeader));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER,
+                    oldIsHeader, isHeader));
     }
 
     /**
@@ -169,7 +171,8 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
         String oldImports = imports;
         imports = newImports;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS, oldImports, imports));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS,
+                    oldImports, imports));
     }
 
     /**
@@ -190,7 +193,8 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
         String oldMainCode = mainCode;
         mainCode = newMainCode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE, oldMainCode, mainCode));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE,
+                    oldMainCode, mainCode));
     }
 
     /**
@@ -211,7 +215,8 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
         String oldLibraries = libraries;
         libraries = newLibraries;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES, oldLibraries, libraries));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES,
+                    oldLibraries, libraries));
     }
 
     /**
@@ -219,16 +224,17 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
-                return isIsHeader() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
-                return getImports();
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
-                return getMainCode();
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
-                return getLibraries();
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
+            return isIsHeader();
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
+            return getImports();
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
+            return getMainCode();
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
+            return getLibraries();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -238,20 +244,21 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
-                setIsHeader(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
-                setImports((String)newValue);
-                return;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
-                setMainCode((String)newValue);
-                return;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
-                setLibraries((String)newValue);
-                return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
+            setIsHeader((Boolean) newValue);
+            return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
+            setImports((String) newValue);
+            return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
+            setMainCode((String) newValue);
+            return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
+            setLibraries((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -261,20 +268,21 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
-                setIsHeader(IS_HEADER_EDEFAULT);
-                return;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
-                setImports(IMPORTS_EDEFAULT);
-                return;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
-                setMainCode(MAIN_CODE_EDEFAULT);
-                return;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
-                setLibraries(LIBRARIES_EDEFAULT);
-                return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
+            setIsHeader(IS_HEADER_EDEFAULT);
+            return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
+            setImports(IMPORTS_EDEFAULT);
+            return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
+            setMainCode(MAIN_CODE_EDEFAULT);
+            return;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
+            setLibraries(LIBRARIES_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -284,16 +292,17 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
-                return isHeader != IS_HEADER_EDEFAULT;
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
-                return IMPORTS_EDEFAULT == null ? imports != null : !IMPORTS_EDEFAULT.equals(imports);
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
-                return MAIN_CODE_EDEFAULT == null ? mainCode != null : !MAIN_CODE_EDEFAULT.equals(mainCode);
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
-                return LIBRARIES_EDEFAULT == null ? libraries != null : !LIBRARIES_EDEFAULT.equals(libraries);
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
+            return isHeader != IS_HEADER_EDEFAULT;
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
+            return IMPORTS_EDEFAULT == null ? imports != null : !IMPORTS_EDEFAULT.equals(imports);
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
+            return MAIN_CODE_EDEFAULT == null ? mainCode != null : !MAIN_CODE_EDEFAULT.equals(mainCode);
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
+            return LIBRARIES_EDEFAULT == null ? libraries != null : !LIBRARIES_EDEFAULT.equals(libraries);
         }
         return super.eIsSet(featureID);
     }
@@ -303,8 +312,10 @@ public class HeaderFooterConnectionImpl extends ConnectionImpl implements Header
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (isHeader: ");

@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 import org.eclipse.emf.common.util.EList;
 
@@ -36,6 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface XmlFileConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>Xsd File Path</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -153,10 +152,10 @@ public interface XmlFileConnection extends Connection {
      * @return the value of the '<em>Schema</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Schema()
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection
-     * @model type="org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor" opposite="connection" containment="true"
+     * @model opposite="connection" containment="true" resolveProxies="true"
      * @generated
      */
-    EList getSchema();
+    EList<XmlXPathLoopDescriptor> getSchema();
 
     /**
      * Returns the value of the '<em><b>Encoding</b></em>' attribute.
@@ -195,10 +194,10 @@ public interface XmlFileConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Group</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Group()
-     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @model containment="true"
      * @generated
      */
-    EList getGroup();
+    EList<XMLFileNode> getGroup();
 
     /**
      * Returns the value of the '<em><b>Root</b></em>' containment reference list.
@@ -211,10 +210,10 @@ public interface XmlFileConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Root</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Root()
-     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true" ordered="false"
+     * @model containment="true" resolveProxies="true" ordered="false"
      * @generated
      */
-    EList getRoot();
+    EList<XMLFileNode> getRoot();
 
     /**
      * Returns the value of the '<em><b>Loop</b></em>' containment reference list.
@@ -227,10 +226,10 @@ public interface XmlFileConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Loop</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Loop()
-     * @model type="org.talend.core.model.metadata.builder.connection.XMLFileNode" containment="true"
+     * @model containment="true"
      * @generated
      */
-    EList getLoop();
+    EList<XMLFileNode> getLoop();
 
     /**
      * Returns the value of the '<em><b>Input Model</b></em>' attribute.

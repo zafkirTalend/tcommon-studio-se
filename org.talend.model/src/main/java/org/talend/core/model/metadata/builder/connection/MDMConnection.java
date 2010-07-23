@@ -1,13 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
 import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -25,6 +23,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatamodel <em>Datamodel</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatacluster <em>Datacluster</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas <em>Schemas</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getProtocol <em>Protocol</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface MDMConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>Username</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -226,9 +227,83 @@ public interface MDMConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Schemas</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMDMConnection_Schemas()
-     * @model type="org.talend.core.model.metadata.builder.connection.Concept" containment="true"
+     * @model containment="true" resolveProxies="true"
      * @generated
      */
-    EList getSchemas();
+    EList<Concept> getSchemas();
+
+    /**
+     * Returns the value of the '<em><b>Protocol</b></em>' attribute.
+     * The default value is <code>"http"</code>.
+     * The literals are from the enumeration {@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * protocol used for connecting to MDM server, initial protocol is HTTP
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>Protocol</em>' attribute.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol
+     * @see #setProtocol(MDMConnectionProtocol)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMDMConnection_Protocol()
+     * @model default="http" required="true"
+     * @generated
+     */
+    MDMConnectionProtocol getProtocol();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getProtocol <em>Protocol</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Protocol</em>' attribute.
+     * @see org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol
+     * @see #getProtocol()
+     * @generated
+     */
+    void setProtocol(MDMConnectionProtocol value);
+
+    /**
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Connection String</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * return the connection string to connect to the MDM server,
+     * it is a concatenation of protocol, server, port and context.
+     * the connection string returned may not be a valid URL if some of the concatenated elements are not properly set.
+     * No checking is done.
+     * <!-- end-model-doc -->
+     * @model kind="operation" dataType="orgomg.cwm.objectmodel.core.String"
+     * @generated
+     */
+    String getConnectionString();
+
+    /**
+     * Returns the value of the '<em><b>Context</b></em>' attribute.
+     * The default value is <code>"talend/TalendPort"</code>.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * part of the url for connecting to the server, 
+     * the last part that defined the MDM web app context
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>Context</em>' attribute.
+     * @see #setContext(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMDMConnection_Context()
+     * @model default="talend/TalendPort" dataType="orgomg.cwm.objectmodel.core.String" required="true"
+     * @generated
+     */
+    String getContext();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getContext <em>Context</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Context</em>' attribute.
+     * @see #getContext()
+     * @generated
+     */
+    void setContext(String value);
 
 } // MDMConnection

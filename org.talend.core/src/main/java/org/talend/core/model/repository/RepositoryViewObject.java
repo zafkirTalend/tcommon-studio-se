@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -27,6 +28,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.image.ImageUtils;
 import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -45,10 +47,14 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.images.OverlayImageProvider;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
+import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.resource.relational.Catalog;
 
 /**
  * DOC Administrator class global comment. Detailled comment
@@ -359,7 +365,7 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
                     newQ.getQuery().addAll(queries2);
                 }
 
-                final List<MetadataTable> tables = connection.getTables();
+                final Set<MetadataTable> tables = ConnectionHelper.getTables(connection);
                 List<MetadataTable> newTs = null;
                 if (tables != null) {
                     newTs = new ArrayList<MetadataTable>();
@@ -367,7 +373,13 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
                         MetadataTable table2 = ConnectionFactory.eINSTANCE.createMetadataTable();
                         table2.setProperties(table.getProperties());
                         table2.setComment(table.getComment());
-                        table2.setConnection(conn);
+                        if (table2.getNamespace() instanceof Package) { // hywang
+                            // remove
+                            // setconn
+                            Package pkg = (Package) table2.getNamespace();
+                            pkg.getDataManager().add(conn);
+                        }
+                        // table2.setConnection(conn);
                         table2.setDivergency(table.isDivergency());
                         table2.setId(table.getId());
                         table2.setLabel(table.getLabel());
@@ -401,9 +413,13 @@ public class RepositoryViewObject implements IRepositoryViewObject, IAdaptable {
                         newTs.add(table2);
                     }
                 }
-
+                Catalog c = (Catalog) ConnectionHelper.getPackage(conn.getSID(), (Connection) conn, Catalog.class);
+                if (c != null) {
+                    PackageHelper.addMetadataTable(newTs, c);
+                    c.getOwnedElement().addAll(newTs);
+                }
                 conn.setQueries(newQ);
-                conn.getTables().addAll(newTs);
+                // conn.getTables().addAll(newTs);
                 newItem.setConnection(conn);
             }
             connectionProperty.setItem(newItem);

@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.model.components;
 
-import org.talend.core.model.process.EConnectionType;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>

@@ -14,6 +14,7 @@ import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.metadata.builder.connection.CDCConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Database Connection</b></em>'. <!--
@@ -32,7 +33,6 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getServerName <em>Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDatasourceName <em>Datasource Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getFileFieldName <em>File Field Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSchema <em>Schema</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSID <em>SID</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSqlSynthax <em>Sql Synthax</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getStringQuote <em>String Quote</em>}</li>
@@ -46,6 +46,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcConns <em>Cdc Conns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSQLMode <em>SQL Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getUiSchema <em>Ui Schema</em>}</li>
  * </ul>
  * </p>
  *
@@ -271,26 +272,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String fileFieldName = FILE_FIELD_NAME_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getSchema() <em>Schema</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getSchema()
-     * @generated
-     * @ordered
-     */
-    protected static final String SCHEMA_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getSchema() <em>Schema</em>}' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getSchema()
-     * @generated
-     * @ordered
-     */
-    protected String schema = SCHEMA_EDEFAULT;
 
     /**
      * The default value of the '{@link #getSID() <em>SID</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -550,6 +531,26 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     protected boolean sqlModeESet;
 
     /**
+     * The default value of the '{@link #getUiSchema() <em>Ui Schema</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUiSchema()
+     * @generated
+     * @ordered
+     */
+    protected static final String UI_SCHEMA_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getUiSchema() <em>Ui Schema</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUiSchema()
+     * @generated
+     * @ordered
+     */
+    protected String uiSchema = UI_SCHEMA_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -582,7 +583,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDatabaseType = databaseType;
         databaseType = newDatabaseType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE, oldDatabaseType, databaseType));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE,
+                    oldDatabaseType, databaseType));
     }
 
     /**
@@ -601,7 +603,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDriverJarPath = driverJarPath;
         driverJarPath = newDriverJarPath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH, oldDriverJarPath, driverJarPath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH,
+                    oldDriverJarPath, driverJarPath));
     }
 
     /**
@@ -620,7 +623,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDriverClass = driverClass;
         driverClass = newDriverClass;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS, oldDriverClass, driverClass));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS,
+                    oldDriverClass, driverClass));
     }
 
     /**
@@ -658,7 +662,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDbVersionString = dbVersionString;
         dbVersionString = newDbVersionString;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING, oldDbVersionString, dbVersionString));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING,
+                    oldDbVersionString, dbVersionString));
     }
 
     /**
@@ -696,7 +701,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldUsername = username;
         username = newUsername;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__USERNAME, oldUsername, username));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__USERNAME, oldUsername,
+                    username));
     }
 
     /**
@@ -709,7 +715,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             try {
                 return PasswordEncryptUtil.decryptPassword(password);
             } catch (Exception e) {
-                return password; // not encrypted password
+                // MOD xqliu 2010-07-07 bug 13826
+                String pwd = ConnectionHelper.getDecryptPassword(password);
+                return pwd == null ? password : pwd;
+                // ~ 13826
             }
         }
         return password;
@@ -734,7 +743,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldPassword = password;
         password = newPassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PASSWORD, oldPassword, password));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PASSWORD, oldPassword,
+                    password));
     }
 
     /**
@@ -753,7 +763,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldServerName = serverName;
         serverName = newServerName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME, oldServerName, serverName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME,
+                    oldServerName, serverName));
     }
 
     /**
@@ -772,7 +783,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDatasourceName = datasourceName;
         datasourceName = newDatasourceName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME, oldDatasourceName, datasourceName));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME,
+                    oldDatasourceName, datasourceName));
     }
 
     /**
@@ -791,26 +803,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldFileFieldName = fileFieldName;
         fileFieldName = newFileFieldName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME, oldFileFieldName, fileFieldName));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public String getSchema() {
-        return schema;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public void setSchema(String newSchema) {
-        String oldSchema = schema;
-        schema = newSchema;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SCHEMA, oldSchema, schema));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME,
+                    oldFileFieldName, fileFieldName));
     }
 
     /**
@@ -848,7 +842,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldSqlSynthax = sqlSynthax;
         sqlSynthax = newSqlSynthax;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX, oldSqlSynthax, sqlSynthax));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX,
+                    oldSqlSynthax, sqlSynthax));
     }
 
     /**
@@ -867,7 +862,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldStringQuote = stringQuote;
         stringQuote = newStringQuote;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE, oldStringQuote, stringQuote));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE,
+                    oldStringQuote, stringQuote));
     }
 
     /**
@@ -886,7 +882,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldNullChar = nullChar;
         nullChar = newNullChar;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR, oldNullChar, nullChar));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR, oldNullChar,
+                    nullChar));
     }
 
     /**
@@ -905,7 +902,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDbmsId = dbmsId;
         dbmsId = newDbmsId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DBMS_ID, oldDbmsId, dbmsId));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DBMS_ID, oldDbmsId,
+                    dbmsId));
     }
 
     /**
@@ -924,7 +922,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldProductId = productId;
         productId = newProductId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID, oldProductId, productId));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID,
+                    oldProductId, productId));
     }
 
     /**
@@ -943,7 +942,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldDBRootPath = dbRootPath;
         dbRootPath = newDBRootPath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH, oldDBRootPath, dbRootPath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH,
+                    oldDBRootPath, dbRootPath));
     }
 
     /**
@@ -962,7 +962,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldAdditionalParams = additionalParams;
         additionalParams = newAdditionalParams;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS, oldAdditionalParams, additionalParams));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS,
+                    oldAdditionalParams, additionalParams));
     }
 
     /**
@@ -981,7 +982,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         boolean oldStandardSQL = standardSQL;
         standardSQL = newStandardSQL;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL, oldStandardSQL, standardSQL));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL,
+                    oldStandardSQL, standardSQL));
     }
 
     /**
@@ -1000,7 +1002,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         boolean oldSystemSQL = systemSQL;
         systemSQL = newSystemSQL;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL, oldSystemSQL, systemSQL));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL,
+                    oldSystemSQL, systemSQL));
     }
 
     /**
@@ -1008,6 +1011,31 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @generated
      */
     public CDCConnection getCdcConns() {
+        if (cdcConns != null && cdcConns.eIsProxy()) {
+            InternalEObject oldCdcConns = (InternalEObject) cdcConns;
+            cdcConns = (CDCConnection) eResolveProxy(oldCdcConns);
+            if (cdcConns != oldCdcConns) {
+                InternalEObject newCdcConns = (InternalEObject) cdcConns;
+                NotificationChain msgs = oldCdcConns.eInverseRemove(this, ConnectionPackage.CDC_CONNECTION__CONNECTION,
+                        CDCConnection.class, null);
+                if (newCdcConns.eInternalContainer() == null) {
+                    msgs = newCdcConns.eInverseAdd(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
+                }
+                if (msgs != null)
+                    msgs.dispatch();
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS,
+                            oldCdcConns, cdcConns));
+            }
+        }
+        return cdcConns;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public CDCConnection basicGetCdcConns() {
         return cdcConns;
     }
 
@@ -1019,8 +1047,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         CDCConnection oldCdcConns = cdcConns;
         cdcConns = newCdcConns;
         if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, oldCdcConns, newCdcConns);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, oldCdcConns, newCdcConns);
+            if (msgs == null)
+                msgs = notification;
+            else
+                msgs.add(notification);
         }
         return msgs;
     }
@@ -1033,14 +1065,17 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         if (newCdcConns != cdcConns) {
             NotificationChain msgs = null;
             if (cdcConns != null)
-                msgs = ((InternalEObject)cdcConns).eInverseRemove(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
+                msgs = ((InternalEObject) cdcConns).eInverseRemove(this, ConnectionPackage.CDC_CONNECTION__CONNECTION,
+                        CDCConnection.class, msgs);
             if (newCdcConns != null)
-                msgs = ((InternalEObject)newCdcConns).eInverseAdd(this, ConnectionPackage.CDC_CONNECTION__CONNECTION, CDCConnection.class, msgs);
+                msgs = ((InternalEObject) newCdcConns).eInverseAdd(this, ConnectionPackage.CDC_CONNECTION__CONNECTION,
+                        CDCConnection.class, msgs);
             msgs = basicSetCdcConns(newCdcConns, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, newCdcConns, newCdcConns));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, newCdcConns,
+                    newCdcConns));
     }
 
     /**
@@ -1059,7 +1094,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         String oldCdcTypeMode = cdcTypeMode;
         cdcTypeMode = newCdcTypeMode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE, oldCdcTypeMode, cdcTypeMode));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE,
+                    oldCdcTypeMode, cdcTypeMode));
     }
 
     /**
@@ -1080,7 +1116,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         boolean oldSQLModeESet = sqlModeESet;
         sqlModeESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_MODE, oldSQLMode, sqlMode, !oldSQLModeESet));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SQL_MODE, oldSQLMode,
+                    sqlMode, !oldSQLModeESet));
     }
 
     /**
@@ -1093,7 +1130,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         sqlMode = SQL_MODE_EDEFAULT;
         sqlModeESet = false;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ConnectionPackage.DATABASE_CONNECTION__SQL_MODE, oldSQLMode, SQL_MODE_EDEFAULT, oldSQLModeESet));
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ConnectionPackage.DATABASE_CONNECTION__SQL_MODE, oldSQLMode,
+                    SQL_MODE_EDEFAULT, oldSQLModeESet));
     }
 
     /**
@@ -1105,16 +1143,39 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getUiSchema() {
+        return uiSchema;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUiSchema(String newUiSchema) {
+        String oldUiSchema = uiSchema;
+        uiSchema = newUiSchema;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA, oldUiSchema,
+                    uiSchema));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-                if (cdcConns != null)
-                    msgs = ((InternalEObject)cdcConns).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, null, msgs);
-                return basicSetCdcConns((CDCConnection)otherEnd, msgs);
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+            if (cdcConns != null)
+                msgs = ((InternalEObject) cdcConns).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+                        - ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS, null, msgs);
+            return basicSetCdcConns((CDCConnection) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -1126,19 +1187,17 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-                return basicSetCdcConns(null, msgs);
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+            return basicSetCdcConns(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @not generated
+     * @generated
      */
-    @Override
-    public Object eGet(int featureID, boolean resolve, boolean coreType) {
+    public Object eGetGen(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
             return getDatabaseType();
@@ -1155,15 +1214,13 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
             return getUsername();
         case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
-            return getRawPassword();
+            return getPassword();
         case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
             return getServerName();
         case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
             return getDatasourceName();
         case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
             return getFileFieldName();
-        case ConnectionPackage.DATABASE_CONNECTION__SCHEMA:
-            return getSchema();
         case ConnectionPackage.DATABASE_CONNECTION__SID:
             return getSID();
         case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
@@ -1181,17 +1238,37 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
             return getAdditionalParams();
         case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
-            return isStandardSQL() ? Boolean.TRUE : Boolean.FALSE;
+            return isStandardSQL();
         case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
-            return isSystemSQL() ? Boolean.TRUE : Boolean.FALSE;
-        case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
-            return isSQLMode() ? Boolean.TRUE : Boolean.FALSE;
+            return isSystemSQL();
         case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-            return getCdcConns();
+            if (resolve)
+                return getCdcConns();
+            return basicGetCdcConns();
         case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
             return getCdcTypeMode();
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+            return isSQLMode();
+        case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
+            return getUiSchema();
         }
         return super.eGet(featureID, resolve, coreType);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    @Override
+    public Object eGet(int featureID, boolean resolve, boolean coreType) {
+        switch (featureID) {
+        case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
+            return getPassword();
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+            return getCdcConns();
+        }
+        return eGetGen(featureID, resolve, coreType);
     }
 
     /**
@@ -1201,81 +1278,81 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
-                setDatabaseType((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
-                setDriverJarPath((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
-                setDriverClass((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__URL:
-                setURL((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
-                setDbVersionString((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__PORT:
-                setPort((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
-                setUsername((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
-                setPassword((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
-                setServerName((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
-                setDatasourceName((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
-                setFileFieldName((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SCHEMA:
-                setSchema((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SID:
-                setSID((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
-                setSqlSynthax((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE:
-                setStringQuote((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
-                setNullChar((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
-                setDbmsId((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
-                setProductId((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
-                setDBRootPath((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
-                setAdditionalParams((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
-                setStandardSQL(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
-                setSystemSQL(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-                setCdcConns((CDCConnection)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
-                setCdcTypeMode((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
-                setSQLMode(((Boolean)newValue).booleanValue());
-                return;
+        case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
+            setDatabaseType((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+            setDriverJarPath((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
+            setDriverClass((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__URL:
+            setURL((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+            setDbVersionString((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__PORT:
+            setPort((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
+            setUsername((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
+            setPassword((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
+            setServerName((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
+            setDatasourceName((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
+            setFileFieldName((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SID:
+            setSID((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
+            setSqlSynthax((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE:
+            setStringQuote((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
+            setNullChar((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+            setDbmsId((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+            setProductId((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
+            setDBRootPath((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+            setAdditionalParams((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+            setStandardSQL((Boolean) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+            setSystemSQL((Boolean) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+            setCdcConns((CDCConnection) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
+            setCdcTypeMode((String) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+            setSQLMode((Boolean) newValue);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
+            setUiSchema((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1287,81 +1364,81 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
-                setDatabaseType(DATABASE_TYPE_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
-                setDriverJarPath(DRIVER_JAR_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
-                setDriverClass(DRIVER_CLASS_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__URL:
-                setURL(URL_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
-                setDbVersionString(DB_VERSION_STRING_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__PORT:
-                setPort(PORT_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
-                setUsername(USERNAME_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
-                setPassword(PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
-                setServerName(SERVER_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
-                setDatasourceName(DATASOURCE_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
-                setFileFieldName(FILE_FIELD_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SCHEMA:
-                setSchema(SCHEMA_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SID:
-                setSID(SID_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
-                setSqlSynthax(SQL_SYNTHAX_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE:
-                setStringQuote(STRING_QUOTE_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
-                setNullChar(NULL_CHAR_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
-                setDbmsId(DBMS_ID_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
-                setProductId(PRODUCT_ID_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
-                setDBRootPath(DB_ROOT_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
-                setAdditionalParams(ADDITIONAL_PARAMS_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
-                setStandardSQL(STANDARD_SQL_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
-                setSystemSQL(SYSTEM_SQL_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-                setCdcConns((CDCConnection)null);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
-                setCdcTypeMode(CDC_TYPE_MODE_EDEFAULT);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
-                unsetSQLMode();
-                return;
+        case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
+            setDatabaseType(DATABASE_TYPE_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+            setDriverJarPath(DRIVER_JAR_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
+            setDriverClass(DRIVER_CLASS_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__URL:
+            setURL(URL_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+            setDbVersionString(DB_VERSION_STRING_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__PORT:
+            setPort(PORT_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
+            setUsername(USERNAME_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
+            setPassword(PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
+            setServerName(SERVER_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
+            setDatasourceName(DATASOURCE_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
+            setFileFieldName(FILE_FIELD_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SID:
+            setSID(SID_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
+            setSqlSynthax(SQL_SYNTHAX_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE:
+            setStringQuote(STRING_QUOTE_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
+            setNullChar(NULL_CHAR_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+            setDbmsId(DBMS_ID_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+            setProductId(PRODUCT_ID_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
+            setDBRootPath(DB_ROOT_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+            setAdditionalParams(ADDITIONAL_PARAMS_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+            setStandardSQL(STANDARD_SQL_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+            setSystemSQL(SYSTEM_SQL_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+            setCdcConns((CDCConnection) null);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
+            setCdcTypeMode(CDC_TYPE_MODE_EDEFAULT);
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+            unsetSQLMode();
+            return;
+        case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
+            setUiSchema(UI_SCHEMA_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -1373,56 +1450,58 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
-                return DATABASE_TYPE_EDEFAULT == null ? databaseType != null : !DATABASE_TYPE_EDEFAULT.equals(databaseType);
-            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
-                return DRIVER_JAR_PATH_EDEFAULT == null ? driverJarPath != null : !DRIVER_JAR_PATH_EDEFAULT.equals(driverJarPath);
-            case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
-                return DRIVER_CLASS_EDEFAULT == null ? driverClass != null : !DRIVER_CLASS_EDEFAULT.equals(driverClass);
-            case ConnectionPackage.DATABASE_CONNECTION__URL:
-                return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
-            case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
-                return DB_VERSION_STRING_EDEFAULT == null ? dbVersionString != null : !DB_VERSION_STRING_EDEFAULT.equals(dbVersionString);
-            case ConnectionPackage.DATABASE_CONNECTION__PORT:
-                return PORT_EDEFAULT == null ? port != null : !PORT_EDEFAULT.equals(port);
-            case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
-                return USERNAME_EDEFAULT == null ? username != null : !USERNAME_EDEFAULT.equals(username);
-            case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
-                return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
-            case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
-                return SERVER_NAME_EDEFAULT == null ? serverName != null : !SERVER_NAME_EDEFAULT.equals(serverName);
-            case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
-                return DATASOURCE_NAME_EDEFAULT == null ? datasourceName != null : !DATASOURCE_NAME_EDEFAULT.equals(datasourceName);
-            case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
-                return FILE_FIELD_NAME_EDEFAULT == null ? fileFieldName != null : !FILE_FIELD_NAME_EDEFAULT.equals(fileFieldName);
-            case ConnectionPackage.DATABASE_CONNECTION__SCHEMA:
-                return SCHEMA_EDEFAULT == null ? schema != null : !SCHEMA_EDEFAULT.equals(schema);
-            case ConnectionPackage.DATABASE_CONNECTION__SID:
-                return SID_EDEFAULT == null ? sid != null : !SID_EDEFAULT.equals(sid);
-            case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
-                return SQL_SYNTHAX_EDEFAULT == null ? sqlSynthax != null : !SQL_SYNTHAX_EDEFAULT.equals(sqlSynthax);
-            case ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE:
-                return STRING_QUOTE_EDEFAULT == null ? stringQuote != null : !STRING_QUOTE_EDEFAULT.equals(stringQuote);
-            case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
-                return NULL_CHAR_EDEFAULT == null ? nullChar != null : !NULL_CHAR_EDEFAULT.equals(nullChar);
-            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
-                return DBMS_ID_EDEFAULT == null ? dbmsId != null : !DBMS_ID_EDEFAULT.equals(dbmsId);
-            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
-                return PRODUCT_ID_EDEFAULT == null ? productId != null : !PRODUCT_ID_EDEFAULT.equals(productId);
-            case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
-                return DB_ROOT_PATH_EDEFAULT == null ? dbRootPath != null : !DB_ROOT_PATH_EDEFAULT.equals(dbRootPath);
-            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
-                return ADDITIONAL_PARAMS_EDEFAULT == null ? additionalParams != null : !ADDITIONAL_PARAMS_EDEFAULT.equals(additionalParams);
-            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
-                return standardSQL != STANDARD_SQL_EDEFAULT;
-            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
-                return systemSQL != SYSTEM_SQL_EDEFAULT;
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
-                return cdcConns != null;
-            case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
-                return CDC_TYPE_MODE_EDEFAULT == null ? cdcTypeMode != null : !CDC_TYPE_MODE_EDEFAULT.equals(cdcTypeMode);
-            case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
-                return isSetSQLMode();
+        case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
+            return DATABASE_TYPE_EDEFAULT == null ? databaseType != null : !DATABASE_TYPE_EDEFAULT.equals(databaseType);
+        case ConnectionPackage.DATABASE_CONNECTION__DRIVER_JAR_PATH:
+            return DRIVER_JAR_PATH_EDEFAULT == null ? driverJarPath != null : !DRIVER_JAR_PATH_EDEFAULT.equals(driverJarPath);
+        case ConnectionPackage.DATABASE_CONNECTION__DRIVER_CLASS:
+            return DRIVER_CLASS_EDEFAULT == null ? driverClass != null : !DRIVER_CLASS_EDEFAULT.equals(driverClass);
+        case ConnectionPackage.DATABASE_CONNECTION__URL:
+            return URL_EDEFAULT == null ? url != null : !URL_EDEFAULT.equals(url);
+        case ConnectionPackage.DATABASE_CONNECTION__DB_VERSION_STRING:
+            return DB_VERSION_STRING_EDEFAULT == null ? dbVersionString != null : !DB_VERSION_STRING_EDEFAULT
+                    .equals(dbVersionString);
+        case ConnectionPackage.DATABASE_CONNECTION__PORT:
+            return PORT_EDEFAULT == null ? port != null : !PORT_EDEFAULT.equals(port);
+        case ConnectionPackage.DATABASE_CONNECTION__USERNAME:
+            return USERNAME_EDEFAULT == null ? username != null : !USERNAME_EDEFAULT.equals(username);
+        case ConnectionPackage.DATABASE_CONNECTION__PASSWORD:
+            return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
+        case ConnectionPackage.DATABASE_CONNECTION__SERVER_NAME:
+            return SERVER_NAME_EDEFAULT == null ? serverName != null : !SERVER_NAME_EDEFAULT.equals(serverName);
+        case ConnectionPackage.DATABASE_CONNECTION__DATASOURCE_NAME:
+            return DATASOURCE_NAME_EDEFAULT == null ? datasourceName != null : !DATASOURCE_NAME_EDEFAULT.equals(datasourceName);
+        case ConnectionPackage.DATABASE_CONNECTION__FILE_FIELD_NAME:
+            return FILE_FIELD_NAME_EDEFAULT == null ? fileFieldName != null : !FILE_FIELD_NAME_EDEFAULT.equals(fileFieldName);
+        case ConnectionPackage.DATABASE_CONNECTION__SID:
+            return SID_EDEFAULT == null ? sid != null : !SID_EDEFAULT.equals(sid);
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_SYNTHAX:
+            return SQL_SYNTHAX_EDEFAULT == null ? sqlSynthax != null : !SQL_SYNTHAX_EDEFAULT.equals(sqlSynthax);
+        case ConnectionPackage.DATABASE_CONNECTION__STRING_QUOTE:
+            return STRING_QUOTE_EDEFAULT == null ? stringQuote != null : !STRING_QUOTE_EDEFAULT.equals(stringQuote);
+        case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
+            return NULL_CHAR_EDEFAULT == null ? nullChar != null : !NULL_CHAR_EDEFAULT.equals(nullChar);
+        case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+            return DBMS_ID_EDEFAULT == null ? dbmsId != null : !DBMS_ID_EDEFAULT.equals(dbmsId);
+        case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+            return PRODUCT_ID_EDEFAULT == null ? productId != null : !PRODUCT_ID_EDEFAULT.equals(productId);
+        case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
+            return DB_ROOT_PATH_EDEFAULT == null ? dbRootPath != null : !DB_ROOT_PATH_EDEFAULT.equals(dbRootPath);
+        case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+            return ADDITIONAL_PARAMS_EDEFAULT == null ? additionalParams != null : !ADDITIONAL_PARAMS_EDEFAULT
+                    .equals(additionalParams);
+        case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+            return standardSQL != STANDARD_SQL_EDEFAULT;
+        case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+            return systemSQL != SYSTEM_SQL_EDEFAULT;
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_CONNS:
+            return cdcConns != null;
+        case ConnectionPackage.DATABASE_CONNECTION__CDC_TYPE_MODE:
+            return CDC_TYPE_MODE_EDEFAULT == null ? cdcTypeMode != null : !CDC_TYPE_MODE_EDEFAULT.equals(cdcTypeMode);
+        case ConnectionPackage.DATABASE_CONNECTION__SQL_MODE:
+            return isSetSQLMode();
+        case ConnectionPackage.DATABASE_CONNECTION__UI_SCHEMA:
+            return UI_SCHEMA_EDEFAULT == null ? uiSchema != null : !UI_SCHEMA_EDEFAULT.equals(uiSchema);
         }
         return super.eIsSet(featureID);
     }
@@ -1433,7 +1512,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      */
     @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (DatabaseType: ");
@@ -1458,8 +1538,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(datasourceName);
         result.append(", FileFieldName: ");
         result.append(fileFieldName);
-        result.append(", Schema: ");
-        result.append(schema);
         result.append(", SID: ");
         result.append(sid);
         result.append(", SqlSynthax: ");
@@ -1483,7 +1561,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(", cdcTypeMode: ");
         result.append(cdcTypeMode);
         result.append(", SQLMode: ");
-        if (sqlModeESet) result.append(sqlMode); else result.append("<unset>");
+        if (sqlModeESet)
+            result.append(sqlMode);
+        else
+            result.append("<unset>");
+        result.append(", UiSchema: ");
+        result.append(uiSchema);
         result.append(')');
         return result.toString();
     }

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -54,6 +53,7 @@ import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
  * @generated
  */
 public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSchemaConnection {
+
     /**
      * The default value of the '{@link #getHost() <em>Host</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -322,7 +322,7 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * @generated
      * @ordered
      */
-    protected EList value;
+    protected EList<String> value;
 
     /**
      * The default value of the '{@link #isSavePassword() <em>Save Password</em>}' attribute.
@@ -432,7 +432,7 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * @generated
      * @ordered
      */
-    protected EList baseDNs;
+    protected EList<String> baseDNs;
 
     /**
      * The default value of the '{@link #isGetBaseDNsFromRoot() <em>Get Base DNs From Root</em>}' attribute.
@@ -462,7 +462,7 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * @generated
      * @ordered
      */
-    protected EList returnAttributes;
+    protected EList<String> returnAttributes;
 
     /**
      * The default value of the '{@link #getSelectedDN() <em>Selected DN</em>}' attribute.
@@ -498,6 +498,7 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.LDAP_SCHEMA_CONNECTION;
     }
@@ -562,7 +563,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldProtocol = protocol;
         protocol = newProtocol;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL, oldProtocol, protocol));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL,
+                    oldProtocol, protocol));
     }
 
     /**
@@ -583,7 +585,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldFilter = filter;
         filter = newFilter;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER, oldFilter, filter));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER, oldFilter,
+                    filter));
     }
 
     /**
@@ -604,7 +607,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldSeparator = separator;
         separator = newSeparator;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR, oldSeparator, separator));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR,
+                    oldSeparator, separator));
     }
 
     /**
@@ -625,7 +629,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         boolean oldUseAdvanced = useAdvanced;
         useAdvanced = newUseAdvanced;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED, oldUseAdvanced, useAdvanced));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED,
+                    oldUseAdvanced, useAdvanced));
     }
 
     /**
@@ -646,7 +651,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldStorePath = storePath;
         storePath = newStorePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH, oldStorePath, storePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH,
+                    oldStorePath, storePath));
     }
 
     /**
@@ -667,7 +673,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         boolean oldUseLimit = useLimit;
         useLimit = newUseLimit;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT, oldUseLimit, useLimit));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT,
+                    oldUseLimit, useLimit));
     }
 
     /**
@@ -688,7 +695,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         boolean oldUseAuthen = useAuthen;
         useAuthen = newUseAuthen;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN, oldUseAuthen, useAuthen));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN,
+                    oldUseAuthen, useAuthen));
     }
 
     /**
@@ -709,7 +717,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldBindPrincipal = bindPrincipal;
         bindPrincipal = newBindPrincipal;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL, oldBindPrincipal, bindPrincipal));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL,
+                    oldBindPrincipal, bindPrincipal));
     }
 
     /**
@@ -730,7 +739,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldBindPassword = bindPassword;
         bindPassword = newBindPassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD, oldBindPassword, bindPassword));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD,
+                    oldBindPassword, bindPassword));
     }
 
     /**
@@ -751,7 +761,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         int oldLimitValue = limitValue;
         limitValue = newLimitValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE, oldLimitValue, limitValue));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE,
+                    oldLimitValue, limitValue));
     }
 
     /**
@@ -772,7 +783,9 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldEncryptionMethodName = encryptionMethodName;
         encryptionMethodName = newEncryptionMethodName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME, oldEncryptionMethodName, encryptionMethodName));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME, oldEncryptionMethodName,
+                    encryptionMethodName));
     }
 
     /**
@@ -780,9 +793,9 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getValue() {
+    public EList<String> getValue() {
         if (value == null) {
-            value = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE);
+            value = new EDataTypeUniqueEList<String>(String.class, this, ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE);
         }
         return value;
     }
@@ -805,7 +818,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         boolean oldSavePassword = savePassword;
         savePassword = newSavePassword;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD, oldSavePassword, savePassword));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD,
+                    oldSavePassword, savePassword));
     }
 
     /**
@@ -826,7 +840,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldAliases = aliases;
         aliases = newAliases;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES, oldAliases, aliases));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES, oldAliases,
+                    aliases));
     }
 
     /**
@@ -847,7 +862,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldReferrals = referrals;
         referrals = newReferrals;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS, oldReferrals, referrals));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS,
+                    oldReferrals, referrals));
     }
 
     /**
@@ -868,7 +884,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldCountLimit = countLimit;
         countLimit = newCountLimit;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT, oldCountLimit, countLimit));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT,
+                    oldCountLimit, countLimit));
     }
 
     /**
@@ -889,7 +906,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldTimeOutLimit = timeOutLimit;
         timeOutLimit = newTimeOutLimit;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT, oldTimeOutLimit, timeOutLimit));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT,
+                    oldTimeOutLimit, timeOutLimit));
     }
 
     /**
@@ -897,9 +915,9 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getBaseDNs() {
+    public EList<String> getBaseDNs() {
         if (baseDNs == null) {
-            baseDNs = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS);
+            baseDNs = new EDataTypeUniqueEList<String>(String.class, this, ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS);
         }
         return baseDNs;
     }
@@ -922,7 +940,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         boolean oldGetBaseDNsFromRoot = getBaseDNsFromRoot;
         getBaseDNsFromRoot = newGetBaseDNsFromRoot;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT, oldGetBaseDNsFromRoot, getBaseDNsFromRoot));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT, oldGetBaseDNsFromRoot, getBaseDNsFromRoot));
     }
 
     /**
@@ -930,9 +949,10 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getReturnAttributes() {
+    public EList<String> getReturnAttributes() {
         if (returnAttributes == null) {
-            returnAttributes = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES);
+            returnAttributes = new EDataTypeUniqueEList<String>(String.class, this,
+                    ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES);
         }
         return returnAttributes;
     }
@@ -955,7 +975,8 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         String oldSelectedDN = selectedDN;
         selectedDN = newSelectedDN;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN, oldSelectedDN, selectedDN));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN,
+                    oldSelectedDN, selectedDN));
     }
 
     /**
@@ -963,54 +984,55 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
-                return getHost();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
-                return getPort();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
-                return getProtocol();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
-                return getFilter();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
-                return getSeparator();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
-                return isUseAdvanced() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
-                return getStorePath();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
-                return isUseLimit() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
-                return isUseAuthen() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
-                return getBindPrincipal();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
-                return getBindPassword();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
-                return new Integer(getLimitValue());
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
-                return getEncryptionMethodName();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
-                return getValue();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
-                return isSavePassword() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
-                return getAliases();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
-                return getReferrals();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
-                return getCountLimit();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
-                return getTimeOutLimit();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
-                return getBaseDNs();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
-                return isGetBaseDNsFromRoot() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
-                return getReturnAttributes();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
-                return getSelectedDN();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
+            return getHost();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
+            return getPort();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
+            return getProtocol();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
+            return getFilter();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
+            return getSeparator();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
+            return isUseAdvanced();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
+            return getStorePath();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
+            return isUseLimit();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
+            return isUseAuthen();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
+            return getBindPrincipal();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
+            return getBindPassword();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
+            return getLimitValue();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
+            return getEncryptionMethodName();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
+            return getValue();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
+            return isSavePassword();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
+            return getAliases();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
+            return getReferrals();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
+            return getCountLimit();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
+            return getTimeOutLimit();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
+            return getBaseDNs();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
+            return isGetBaseDNsFromRoot();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
+            return getReturnAttributes();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
+            return getSelectedDN();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1020,80 +1042,82 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
-                setHost((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
-                setPort((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
-                setProtocol((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
-                setFilter((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
-                setSeparator((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
-                setUseAdvanced(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
-                setStorePath((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
-                setUseLimit(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
-                setUseAuthen(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
-                setBindPrincipal((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
-                setBindPassword((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
-                setLimitValue(((Integer)newValue).intValue());
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
-                setEncryptionMethodName((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
-                getValue().clear();
-                getValue().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
-                setSavePassword(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
-                setAliases((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
-                setReferrals((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
-                setCountLimit((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
-                setTimeOutLimit((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
-                getBaseDNs().clear();
-                getBaseDNs().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
-                setGetBaseDNsFromRoot(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
-                getReturnAttributes().clear();
-                getReturnAttributes().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
-                setSelectedDN((String)newValue);
-                return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
+            setHost((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
+            setPort((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
+            setProtocol((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
+            setFilter((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
+            setSeparator((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
+            setUseAdvanced((Boolean) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
+            setStorePath((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
+            setUseLimit((Boolean) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
+            setUseAuthen((Boolean) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
+            setBindPrincipal((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
+            setBindPassword((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
+            setLimitValue((Integer) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
+            setEncryptionMethodName((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
+            getValue().clear();
+            getValue().addAll((Collection<? extends String>) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
+            setSavePassword((Boolean) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
+            setAliases((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
+            setReferrals((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
+            setCountLimit((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
+            setTimeOutLimit((String) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
+            getBaseDNs().clear();
+            getBaseDNs().addAll((Collection<? extends String>) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
+            setGetBaseDNsFromRoot((Boolean) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
+            getReturnAttributes().clear();
+            getReturnAttributes().addAll((Collection<? extends String>) newValue);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
+            setSelectedDN((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1103,77 +1127,78 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
-                setHost(HOST_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
-                setPort(PORT_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
-                setProtocol(PROTOCOL_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
-                setFilter(FILTER_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
-                setSeparator(SEPARATOR_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
-                setUseAdvanced(USE_ADVANCED_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
-                setStorePath(STORE_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
-                setUseLimit(USE_LIMIT_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
-                setUseAuthen(USE_AUTHEN_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
-                setBindPrincipal(BIND_PRINCIPAL_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
-                setBindPassword(BIND_PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
-                setLimitValue(LIMIT_VALUE_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
-                setEncryptionMethodName(ENCRYPTION_METHOD_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
-                getValue().clear();
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
-                setSavePassword(SAVE_PASSWORD_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
-                setAliases(ALIASES_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
-                setReferrals(REFERRALS_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
-                setCountLimit(COUNT_LIMIT_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
-                setTimeOutLimit(TIME_OUT_LIMIT_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
-                getBaseDNs().clear();
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
-                setGetBaseDNsFromRoot(GET_BASE_DNS_FROM_ROOT_EDEFAULT);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
-                getReturnAttributes().clear();
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
-                setSelectedDN(SELECTED_DN_EDEFAULT);
-                return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
+            setHost(HOST_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
+            setPort(PORT_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
+            setProtocol(PROTOCOL_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
+            setFilter(FILTER_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
+            setSeparator(SEPARATOR_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
+            setUseAdvanced(USE_ADVANCED_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
+            setStorePath(STORE_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
+            setUseLimit(USE_LIMIT_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
+            setUseAuthen(USE_AUTHEN_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
+            setBindPrincipal(BIND_PRINCIPAL_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
+            setBindPassword(BIND_PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
+            setLimitValue(LIMIT_VALUE_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
+            setEncryptionMethodName(ENCRYPTION_METHOD_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
+            getValue().clear();
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
+            setSavePassword(SAVE_PASSWORD_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
+            setAliases(ALIASES_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
+            setReferrals(REFERRALS_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
+            setCountLimit(COUNT_LIMIT_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
+            setTimeOutLimit(TIME_OUT_LIMIT_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
+            getBaseDNs().clear();
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
+            setGetBaseDNsFromRoot(GET_BASE_DNS_FROM_ROOT_EDEFAULT);
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
+            getReturnAttributes().clear();
+            return;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
+            setSelectedDN(SELECTED_DN_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -1183,54 +1208,56 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
-                return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
-                return PORT_EDEFAULT == null ? port != null : !PORT_EDEFAULT.equals(port);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
-                return PROTOCOL_EDEFAULT == null ? protocol != null : !PROTOCOL_EDEFAULT.equals(protocol);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
-                return FILTER_EDEFAULT == null ? filter != null : !FILTER_EDEFAULT.equals(filter);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
-                return SEPARATOR_EDEFAULT == null ? separator != null : !SEPARATOR_EDEFAULT.equals(separator);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
-                return useAdvanced != USE_ADVANCED_EDEFAULT;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
-                return STORE_PATH_EDEFAULT == null ? storePath != null : !STORE_PATH_EDEFAULT.equals(storePath);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
-                return useLimit != USE_LIMIT_EDEFAULT;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
-                return useAuthen != USE_AUTHEN_EDEFAULT;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
-                return BIND_PRINCIPAL_EDEFAULT == null ? bindPrincipal != null : !BIND_PRINCIPAL_EDEFAULT.equals(bindPrincipal);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
-                return BIND_PASSWORD_EDEFAULT == null ? bindPassword != null : !BIND_PASSWORD_EDEFAULT.equals(bindPassword);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
-                return limitValue != LIMIT_VALUE_EDEFAULT;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
-                return ENCRYPTION_METHOD_NAME_EDEFAULT == null ? encryptionMethodName != null : !ENCRYPTION_METHOD_NAME_EDEFAULT.equals(encryptionMethodName);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
-                return value != null && !value.isEmpty();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
-                return savePassword != SAVE_PASSWORD_EDEFAULT;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
-                return ALIASES_EDEFAULT == null ? aliases != null : !ALIASES_EDEFAULT.equals(aliases);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
-                return REFERRALS_EDEFAULT == null ? referrals != null : !REFERRALS_EDEFAULT.equals(referrals);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
-                return COUNT_LIMIT_EDEFAULT == null ? countLimit != null : !COUNT_LIMIT_EDEFAULT.equals(countLimit);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
-                return TIME_OUT_LIMIT_EDEFAULT == null ? timeOutLimit != null : !TIME_OUT_LIMIT_EDEFAULT.equals(timeOutLimit);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
-                return baseDNs != null && !baseDNs.isEmpty();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
-                return getBaseDNsFromRoot != GET_BASE_DNS_FROM_ROOT_EDEFAULT;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
-                return returnAttributes != null && !returnAttributes.isEmpty();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
-                return SELECTED_DN_EDEFAULT == null ? selectedDN != null : !SELECTED_DN_EDEFAULT.equals(selectedDN);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__HOST:
+            return HOST_EDEFAULT == null ? host != null : !HOST_EDEFAULT.equals(host);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PORT:
+            return PORT_EDEFAULT == null ? port != null : !PORT_EDEFAULT.equals(port);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__PROTOCOL:
+            return PROTOCOL_EDEFAULT == null ? protocol != null : !PROTOCOL_EDEFAULT.equals(protocol);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__FILTER:
+            return FILTER_EDEFAULT == null ? filter != null : !FILTER_EDEFAULT.equals(filter);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SEPARATOR:
+            return SEPARATOR_EDEFAULT == null ? separator != null : !SEPARATOR_EDEFAULT.equals(separator);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_ADVANCED:
+            return useAdvanced != USE_ADVANCED_EDEFAULT;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__STORE_PATH:
+            return STORE_PATH_EDEFAULT == null ? storePath != null : !STORE_PATH_EDEFAULT.equals(storePath);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_LIMIT:
+            return useLimit != USE_LIMIT_EDEFAULT;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__USE_AUTHEN:
+            return useAuthen != USE_AUTHEN_EDEFAULT;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL:
+            return BIND_PRINCIPAL_EDEFAULT == null ? bindPrincipal != null : !BIND_PRINCIPAL_EDEFAULT.equals(bindPrincipal);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BIND_PASSWORD:
+            return BIND_PASSWORD_EDEFAULT == null ? bindPassword != null : !BIND_PASSWORD_EDEFAULT.equals(bindPassword);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__LIMIT_VALUE:
+            return limitValue != LIMIT_VALUE_EDEFAULT;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
+            return ENCRYPTION_METHOD_NAME_EDEFAULT == null ? encryptionMethodName != null : !ENCRYPTION_METHOD_NAME_EDEFAULT
+                    .equals(encryptionMethodName);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
+            return value != null && !value.isEmpty();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
+            return savePassword != SAVE_PASSWORD_EDEFAULT;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ALIASES:
+            return ALIASES_EDEFAULT == null ? aliases != null : !ALIASES_EDEFAULT.equals(aliases);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__REFERRALS:
+            return REFERRALS_EDEFAULT == null ? referrals != null : !REFERRALS_EDEFAULT.equals(referrals);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__COUNT_LIMIT:
+            return COUNT_LIMIT_EDEFAULT == null ? countLimit != null : !COUNT_LIMIT_EDEFAULT.equals(countLimit);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT:
+            return TIME_OUT_LIMIT_EDEFAULT == null ? timeOutLimit != null : !TIME_OUT_LIMIT_EDEFAULT.equals(timeOutLimit);
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__BASE_DNS:
+            return baseDNs != null && !baseDNs.isEmpty();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT:
+            return getBaseDNsFromRoot != GET_BASE_DNS_FROM_ROOT_EDEFAULT;
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES:
+            return returnAttributes != null && !returnAttributes.isEmpty();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SELECTED_DN:
+            return SELECTED_DN_EDEFAULT == null ? selectedDN != null : !SELECTED_DN_EDEFAULT.equals(selectedDN);
         }
         return super.eIsSet(featureID);
     }
@@ -1240,8 +1267,10 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (Host: ");

@@ -14,6 +14,7 @@ package org.talend.core.ui.metadata.celleditor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -42,6 +43,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.SAPConnectionItem;
+import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * nrousseau class global comment. Detailled comment
@@ -273,8 +275,8 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
             }
         } else {
             if (item != null) {
-                EList tables = item.getConnection().getTables();
-                for (MetadataTable table : (List<MetadataTable>) tables) {
+                Set tables = ConnectionHelper.getTables(item.getConnection());
+                for (MetadataTable table : (Set<MetadataTable>) tables) {
                     schemaCombo.add(table.getLabel());
                 }
                 if (schemaCombo.getItemCount() > 0) {
@@ -347,8 +349,8 @@ public class SchemaOperationChoiceDialog extends SelectionDialog {
                     }
                 }
             } else {
-                EList tables = item.getConnection().getTables();
-                for (MetadataTable table : (List<MetadataTable>) tables) {
+                Set tables = ConnectionHelper.getTables(item.getConnection());
+                for (MetadataTable table : (Set<MetadataTable>) tables) {
                     if (table.getLabel().equals(schemaCombo.getText())) {
                         this.selectedTable = table;
                         break;

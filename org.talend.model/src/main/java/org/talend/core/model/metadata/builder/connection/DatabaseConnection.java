@@ -1,17 +1,18 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
-
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Database Connection</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * Defines a connection to a Database
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -27,7 +28,6 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getServerName <em>Server Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDatasourceName <em>Datasource Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getFileFieldName <em>File Field Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSchema <em>Schema</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSID <em>SID</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSqlSynthax <em>Sql Synthax</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getStringQuote <em>String Quote</em>}</li>
@@ -41,6 +41,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUiSchema <em>Ui Schema</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +50,7 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface DatabaseConnection extends Connection {
+
     /**
      * Returns the value of the '<em><b>Database Type</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -57,6 +59,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * logical type of the DB (for instance MySQL)
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Database Type</em>' attribute.
      * @see #setDatabaseType(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DatabaseType()
@@ -83,6 +88,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * absolute path to the jar that may be used for Generic JDBC connection
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Driver Jar Path</em>' attribute.
      * @see #setDriverJarPath(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DriverJarPath()
@@ -109,6 +117,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * initial class for generic JDBC connection
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Driver Class</em>' attribute.
      * @see #setDriverClass(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DriverClass()
@@ -135,6 +146,10 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * the connection base URL for JDBC protocol.
+     * It is a concatenation of DatabaseType, ServerName, Port and other attributes of this class
+     * <!-- end-model-doc -->
      * @return the value of the '<em>URL</em>' attribute.
      * @see #setURL(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_URL()
@@ -161,6 +176,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * may hold the version of the Database for a given Database type (for instance MySQL_4 or MySQL_5)
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Db Version String</em>' attribute.
      * @see #setDbVersionString(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DbVersionString()
@@ -187,6 +205,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * port used for the Database Connection
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Port</em>' attribute.
      * @see #setPort(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_Port()
@@ -213,6 +234,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * user name used for DB connection authentification
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Username</em>' attribute.
      * @see #setUsername(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_Username()
@@ -239,6 +263,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * password used for DB connection authentification
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Password</em>' attribute.
      * @see #setPassword(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_Password()
@@ -246,15 +273,15 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     String getPassword();
-    
+
     /**
-	 * 
-	 * Get the password directly without decryption.
-	 * 
-	 * @not generated
-	 * @return
-	 */
-	String getRawPassword();
+     * 
+     * Get the password directly without decryption.
+     * 
+     * @not generated
+     * @return
+     */
+    String getRawPassword();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPassword <em>Password</em>}' attribute.
@@ -274,6 +301,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * IP adress or machine name of the DB server to connect to.
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Server Name</em>' attribute.
      * @see #setServerName(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_ServerName()
@@ -326,6 +356,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Database file used for DB such as SqlLite
+     * <!-- end-model-doc -->
      * @return the value of the '<em>File Field Name</em>' attribute.
      * @see #setFileFieldName(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_FileFieldName()
@@ -345,32 +378,6 @@ public interface DatabaseConnection extends Connection {
     void setFileFieldName(String value);
 
     /**
-     * Returns the value of the '<em><b>Schema</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Schema</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Schema</em>' attribute.
-     * @see #setSchema(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_Schema()
-     * @model
-     * @generated
-     */
-    String getSchema();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSchema <em>Schema</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Schema</em>' attribute.
-     * @see #getSchema()
-     * @generated
-     */
-    void setSchema(String value);
-
-    /**
      * Returns the value of the '<em><b>SID</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -378,6 +385,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Logical name of the Database
+     * <!-- end-model-doc -->
      * @return the value of the '<em>SID</em>' attribute.
      * @see #setSID(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_SID()
@@ -562,6 +572,9 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * parameters that are to be added to the connection URL
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Additional Params</em>' attribute.
      * @see #setAdditionalParams(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_AdditionalParams()
@@ -641,11 +654,14 @@ public interface DatabaseConnection extends Connection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * reference to CDC definition for this connection
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Cdc Conns</em>' containment reference.
      * @see #setCdcConns(CDCConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_CdcConns()
      * @see org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection
-     * @model opposite="connection" containment="true"
+     * @model opposite="connection" containment="true" resolveProxies="true"
      * @generated
      */
     CDCConnection getCdcConns();
@@ -739,5 +755,31 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     boolean isSetSQLMode();
+
+    /**
+     * Returns the value of the '<em><b>Ui Schema</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Ui Schema</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Ui Schema</em>' attribute.
+     * @see #setUiSchema(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_UiSchema()
+     * @model
+     * @generated
+     */
+    String getUiSchema();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUiSchema <em>Ui Schema</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Ui Schema</em>' attribute.
+     * @see #getUiSchema()
+     * @generated
+     */
+    void setUiSchema(String value);
 
 } // DatabaseConnection

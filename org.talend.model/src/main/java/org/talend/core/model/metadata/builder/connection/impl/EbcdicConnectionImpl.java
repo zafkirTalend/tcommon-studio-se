@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -28,6 +27,7 @@ import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
  * @generated
  */
 public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicConnection {
+
     /**
      * The default value of the '{@link #getMidFile() <em>Mid File</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -37,6 +37,7 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * @ordered
      */
     protected static final String MID_FILE_EDEFAULT = null;
+
     /**
      * The cached value of the '{@link #getMidFile() <em>Mid File</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -56,6 +57,7 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * @ordered
      */
     protected static final String DATA_FILE_EDEFAULT = null;
+
     /**
      * The cached value of the '{@link #getDataFile() <em>Data File</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -80,6 +82,7 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.EBCDIC_CONNECTION;
     }
@@ -102,7 +105,8 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
         String oldMidFile = midFile;
         midFile = newMidFile;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__MID_FILE, oldMidFile, midFile));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__MID_FILE, oldMidFile,
+                    midFile));
     }
 
     /**
@@ -123,7 +127,8 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
         String oldDataFile = dataFile;
         dataFile = newDataFile;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE, oldDataFile, dataFile));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE, oldDataFile,
+                    dataFile));
     }
 
     /**
@@ -131,12 +136,13 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
-                return getMidFile();
-            case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
-                return getDataFile();
+        case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
+            return getMidFile();
+        case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
+            return getDataFile();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -146,14 +152,15 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
-                setMidFile((String)newValue);
-                return;
-            case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
-                setDataFile((String)newValue);
-                return;
+        case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
+            setMidFile((String) newValue);
+            return;
+        case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
+            setDataFile((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -163,14 +170,15 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
-                setMidFile(MID_FILE_EDEFAULT);
-                return;
-            case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
-                setDataFile(DATA_FILE_EDEFAULT);
-                return;
+        case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
+            setMidFile(MID_FILE_EDEFAULT);
+            return;
+        case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
+            setDataFile(DATA_FILE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -180,12 +188,13 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
-                return MID_FILE_EDEFAULT == null ? midFile != null : !MID_FILE_EDEFAULT.equals(midFile);
-            case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
-                return DATA_FILE_EDEFAULT == null ? dataFile != null : !DATA_FILE_EDEFAULT.equals(dataFile);
+        case ConnectionPackage.EBCDIC_CONNECTION__MID_FILE:
+            return MID_FILE_EDEFAULT == null ? midFile != null : !MID_FILE_EDEFAULT.equals(midFile);
+        case ConnectionPackage.EBCDIC_CONNECTION__DATA_FILE:
+            return DATA_FILE_EDEFAULT == null ? dataFile != null : !DATA_FILE_EDEFAULT.equals(dataFile);
         }
         return super.eIsSet(featureID);
     }
@@ -195,8 +204,10 @@ public class EbcdicConnectionImpl extends FileConnectionImpl implements EbcdicCo
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (MidFile: ");

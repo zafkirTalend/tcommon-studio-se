@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -27,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface QueriesConnection extends EObject {
+
     /**
      * Returns the value of the '<em><b>Connection</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}'.
@@ -68,9 +68,9 @@ public interface QueriesConnection extends EObject {
      * @return the value of the '<em>Query</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getQueriesConnection_Query()
      * @see org.talend.core.model.metadata.builder.connection.Query#getQueries
-     * @model type="org.talend.core.model.metadata.builder.connection.Query" opposite="queries" containment="true"
+     * @model opposite="queries" containment="true" resolveProxies="true"
      * @generated
      */
-    EList getQuery();
+    EList<Query> getQuery();
 
 } // QueriesConnection

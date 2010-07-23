@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.utils;
 
-import org.eclipse.core.runtime.Path;
 import org.talend.commons.utils.StringUtils;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;

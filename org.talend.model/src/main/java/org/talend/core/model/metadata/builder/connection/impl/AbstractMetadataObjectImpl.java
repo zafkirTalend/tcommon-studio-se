@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import orgomg.cwm.objectmodel.core.impl.ModelElementImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Abstract Metadata Object</b></em>'. <!--
@@ -33,7 +34,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
  *
  * @generated
  */
-public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements AbstractMetadataObject {
+public abstract class AbstractMetadataObjectImpl extends ModelElementImpl implements AbstractMetadataObject {
 
     /**
      * The default value of the '{@link #getProperties() <em>Properties</em>}' attribute.
@@ -43,7 +44,8 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * @generated
      * @ordered
      */
-    protected static final HashMap PROPERTIES_EDEFAULT = (HashMap)ConnectionFactory.eINSTANCE.createFromString(ConnectionPackage.eINSTANCE.getMap(), ""); //$NON-NLS-1$
+    protected static final HashMap PROPERTIES_EDEFAULT = (HashMap) ConnectionFactory.eINSTANCE.createFromString(
+            ConnectionPackage.eINSTANCE.getMap(), ""); //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getProperties() <em>Properties</em>}' attribute. <!-- begin-user-doc --> <!--
@@ -175,6 +177,7 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.ABSTRACT_METADATA_OBJECT;
     }
@@ -195,7 +198,8 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         HashMap oldProperties = properties;
         properties = newProperties;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES, oldProperties, properties));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES,
+                    oldProperties, properties));
     }
 
     /**
@@ -233,7 +237,8 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         String oldComment = comment;
         comment = newComment;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT, oldComment, comment));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT,
+                    oldComment, comment));
     }
 
     /**
@@ -252,7 +257,8 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         String oldLabel = label;
         label = newLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL, oldLabel, label));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL, oldLabel,
+                    label));
     }
 
     /**
@@ -293,7 +299,8 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         boolean oldSynchronised = synchronised;
         synchronised = newSynchronised;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED, oldSynchronised, synchronised));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED,
+                    oldSynchronised, synchronised));
     }
 
     /**
@@ -314,29 +321,31 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         boolean oldDivergency = divergency;
         divergency = newDivergency;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY, oldDivergency, divergency));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY,
+                    oldDivergency, divergency));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
-                return getProperties();
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
-                return getId();
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
-                return getComment();
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
-                return getLabel();
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
-                return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
-                return isSynchronised() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
-                return isDivergency() ? Boolean.TRUE : Boolean.FALSE;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
+            return getProperties();
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
+            return getId();
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
+            return getComment();
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
+            return getLabel();
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
+            return isReadOnly();
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+            return isSynchronised();
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+            return isDivergency();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -345,29 +354,30 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
-                setProperties((HashMap)newValue);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
-                setId((String)newValue);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
-                setComment((String)newValue);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
-                setLabel((String)newValue);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
-                setReadOnly(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
-                setSynchronised(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
-                setDivergency(((Boolean)newValue).booleanValue());
-                return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
+            setProperties((HashMap) newValue);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
+            setId((String) newValue);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
+            setComment((String) newValue);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
+            setLabel((String) newValue);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
+            setReadOnly((Boolean) newValue);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+            setSynchronised((Boolean) newValue);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+            setDivergency((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -376,29 +386,30 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
-                setProperties(PROPERTIES_EDEFAULT);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
-                setComment(COMMENT_EDEFAULT);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
-                setLabel(LABEL_EDEFAULT);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
-                setReadOnly(READ_ONLY_EDEFAULT);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
-                setSynchronised(SYNCHRONISED_EDEFAULT);
-                return;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
-                setDivergency(DIVERGENCY_EDEFAULT);
-                return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
+            setProperties(PROPERTIES_EDEFAULT);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
+            setId(ID_EDEFAULT);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
+            setComment(COMMENT_EDEFAULT);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
+            setLabel(LABEL_EDEFAULT);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
+            setReadOnly(READ_ONLY_EDEFAULT);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+            setSynchronised(SYNCHRONISED_EDEFAULT);
+            return;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+            setDivergency(DIVERGENCY_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -407,22 +418,23 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
-                return PROPERTIES_EDEFAULT == null ? properties != null : !PROPERTIES_EDEFAULT.equals(properties);
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
-                return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
-                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
-                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
-                return isReadOnly() != READ_ONLY_EDEFAULT;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
-                return synchronised != SYNCHRONISED_EDEFAULT;
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
-                return divergency != DIVERGENCY_EDEFAULT;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__PROPERTIES:
+            return PROPERTIES_EDEFAULT == null ? properties != null : !PROPERTIES_EDEFAULT.equals(properties);
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__ID:
+            return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__COMMENT:
+            return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__LABEL:
+            return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
+            return isReadOnly() != READ_ONLY_EDEFAULT;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+            return synchronised != SYNCHRONISED_EDEFAULT;
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+            return divergency != DIVERGENCY_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -431,8 +443,10 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (properties: ");

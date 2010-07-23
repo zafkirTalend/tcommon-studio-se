@@ -20,7 +20,6 @@ import java.util.Map;
 
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
-import org.talend.core.model.process.IProcess2;
 
 /**
  * Session context of execution. <br/>

@@ -24,19 +24,21 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.DatabaseProperties;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
+import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
+import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -50,13 +52,16 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
+import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.cwm.helper.ColumnHelper;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -75,12 +80,12 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public static ConnectionFactory init() {
         try {
-            ConnectionFactory theConnectionFactory = (ConnectionFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.org"); 
+            ConnectionFactory theConnectionFactory = (ConnectionFactory) EPackage.Registry.INSTANCE
+                    .getEFactory("http://www.talend.org/metadata/connection/2010");
             if (theConnectionFactory != null) {
                 return theConnectionFactory;
             }
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new ConnectionFactoryImpl();
@@ -99,48 +104,89 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case ConnectionPackage.METADATA: return createMetadata();
-            case ConnectionPackage.CONNECTION: return createConnection();
-            case ConnectionPackage.METADATA_COLUMN: return createMetadataColumn();
-            case ConnectionPackage.METADATA_TABLE: return createMetadataTable();
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION: return createDelimitedFileConnection();
-            case ConnectionPackage.POSITIONAL_FILE_CONNECTION: return createPositionalFileConnection();
-            case ConnectionPackage.EBCDIC_CONNECTION: return createEbcdicConnection();
-            case ConnectionPackage.MDM_CONNECTION: return createMDMConnection();
-            case ConnectionPackage.DATABASE_CONNECTION: return createDatabaseConnection();
-            case ConnectionPackage.SAP_CONNECTION: return createSAPConnection();
-            case ConnectionPackage.SAP_FUNCTION_UNIT: return createSAPFunctionUnit();
-            case ConnectionPackage.SAPI_DOC_UNIT: return createSAPIDocUnit();
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: return createSAPFunctionParameterColumn();
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE: return createSAPFunctionParameterTable();
-            case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE: return createInputSAPFunctionParameterTable();
-            case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE: return createOutputSAPFunctionParameterTable();
-            case ConnectionPackage.REGEXP_FILE_CONNECTION: return createRegexpFileConnection();
-            case ConnectionPackage.XML_FILE_CONNECTION: return createXmlFileConnection();
-            case ConnectionPackage.SCHEMA_TARGET: return createSchemaTarget();
-            case ConnectionPackage.QUERIES_CONNECTION: return createQueriesConnection();
-            case ConnectionPackage.QUERY: return createQuery();
-            case ConnectionPackage.LDIF_FILE_CONNECTION: return createLdifFileConnection();
-            case ConnectionPackage.FILE_EXCEL_CONNECTION: return createFileExcelConnection();
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: return createXmlXPathLoopDescriptor();
-            case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: return createGenericSchemaConnection();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION: return createLDAPSchemaConnection();
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION: return createWSDLSchemaConnection();
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION: return createSalesforceSchemaConnection();
-            case ConnectionPackage.CDC_CONNECTION: return createCDCConnection();
-            case ConnectionPackage.CDC_TYPE: return createCDCType();
-            case ConnectionPackage.SUBSCRIBER_TABLE: return createSubscriberTable();
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE: return createSAPTestInputParameterTable();
-            case ConnectionPackage.CONCEPT: return createConcept();
-            case ConnectionPackage.CONCEPT_TARGET: return createConceptTarget();
-            case ConnectionPackage.HL7_CONNECTION: return createHL7Connection();
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION: return createHeaderFooterConnection();
-            case ConnectionPackage.XML_FILE_NODE: return createXMLFileNode();
-            case ConnectionPackage.HL7_FILE_NODE: return createHL7FileNode();
-            default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+        case ConnectionPackage.METADATA:
+            return createMetadata();
+        case ConnectionPackage.CONNECTION:
+            return createConnection();
+        case ConnectionPackage.METADATA_COLUMN:
+            return createMetadataColumn();
+        case ConnectionPackage.METADATA_TABLE:
+            return createMetadataTable();
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION:
+            return createDelimitedFileConnection();
+        case ConnectionPackage.POSITIONAL_FILE_CONNECTION:
+            return createPositionalFileConnection();
+        case ConnectionPackage.EBCDIC_CONNECTION:
+            return createEbcdicConnection();
+        case ConnectionPackage.MDM_CONNECTION:
+            return createMDMConnection();
+        case ConnectionPackage.DATABASE_CONNECTION:
+            return createDatabaseConnection();
+        case ConnectionPackage.SAP_CONNECTION:
+            return createSAPConnection();
+        case ConnectionPackage.SAP_FUNCTION_UNIT:
+            return createSAPFunctionUnit();
+        case ConnectionPackage.SAPI_DOC_UNIT:
+            return createSAPIDocUnit();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN:
+            return createSAPFunctionParameterColumn();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE:
+            return createSAPFunctionParameterTable();
+        case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE:
+            return createInputSAPFunctionParameterTable();
+        case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE:
+            return createOutputSAPFunctionParameterTable();
+        case ConnectionPackage.REGEXP_FILE_CONNECTION:
+            return createRegexpFileConnection();
+        case ConnectionPackage.XML_FILE_CONNECTION:
+            return createXmlFileConnection();
+        case ConnectionPackage.SCHEMA_TARGET:
+            return createSchemaTarget();
+        case ConnectionPackage.QUERIES_CONNECTION:
+            return createQueriesConnection();
+        case ConnectionPackage.QUERY:
+            return createQuery();
+        case ConnectionPackage.LDIF_FILE_CONNECTION:
+            return createLdifFileConnection();
+        case ConnectionPackage.FILE_EXCEL_CONNECTION:
+            return createFileExcelConnection();
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR:
+            return createXmlXPathLoopDescriptor();
+        case ConnectionPackage.GENERIC_SCHEMA_CONNECTION:
+            return createGenericSchemaConnection();
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION:
+            return createLDAPSchemaConnection();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION:
+            return createWSDLSchemaConnection();
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION:
+            return createSalesforceSchemaConnection();
+        case ConnectionPackage.CDC_CONNECTION:
+            return createCDCConnection();
+        case ConnectionPackage.CDC_TYPE:
+            return createCDCType();
+        case ConnectionPackage.SUBSCRIBER_TABLE:
+            return createSubscriberTable();
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE:
+            return createSAPTestInputParameterTable();
+        case ConnectionPackage.CONCEPT:
+            return createConcept();
+        case ConnectionPackage.CONCEPT_TARGET:
+            return createConceptTarget();
+        case ConnectionPackage.HL7_CONNECTION:
+            return createHL7Connection();
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION:
+            return createHeaderFooterConnection();
+        case ConnectionPackage.XML_FILE_NODE:
+            return createXMLFileNode();
+        case ConnectionPackage.GENERIC_PACKAGE:
+            return createGenericPackage();
+        case ConnectionPackage.HL7_FILE_NODE:
+            return createHL7FileNode();
+        default:
+            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
@@ -148,24 +194,25 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-            case ConnectionPackage.DATABASE_PROPERTIES:
-                return createDatabasePropertiesFromString(eDataType, initialValue);
-            case ConnectionPackage.FILE_FORMAT:
-                return createFileFormatFromString(eDataType, initialValue);
-            case ConnectionPackage.FIELD_SEPARATOR:
-                return createFieldSeparatorFromString(eDataType, initialValue);
-            case ConnectionPackage.ESCAPE:
-                return createEscapeFromString(eDataType, initialValue);
-            case ConnectionPackage.ROW_SEPARATOR:
-                return createRowSeparatorFromString(eDataType, initialValue);
-            case ConnectionPackage.MAP:
-                return createMapFromString(eDataType, initialValue);
-            case ConnectionPackage.LIST:
-                return createListFromString(eDataType, initialValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case ConnectionPackage.FILE_FORMAT:
+            return createFileFormatFromString(eDataType, initialValue);
+        case ConnectionPackage.FIELD_SEPARATOR:
+            return createFieldSeparatorFromString(eDataType, initialValue);
+        case ConnectionPackage.ESCAPE:
+            return createEscapeFromString(eDataType, initialValue);
+        case ConnectionPackage.ROW_SEPARATOR:
+            return createRowSeparatorFromString(eDataType, initialValue);
+        case ConnectionPackage.MDM_CONNECTION_PROTOCOL:
+            return createMDMConnectionProtocolFromString(eDataType, initialValue);
+        case ConnectionPackage.MAP:
+            return createMapFromString(eDataType, initialValue);
+        case ConnectionPackage.LIST:
+            return createListFromString(eDataType, initialValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
@@ -173,24 +220,25 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-            case ConnectionPackage.DATABASE_PROPERTIES:
-                return convertDatabasePropertiesToString(eDataType, instanceValue);
-            case ConnectionPackage.FILE_FORMAT:
-                return convertFileFormatToString(eDataType, instanceValue);
-            case ConnectionPackage.FIELD_SEPARATOR:
-                return convertFieldSeparatorToString(eDataType, instanceValue);
-            case ConnectionPackage.ESCAPE:
-                return convertEscapeToString(eDataType, instanceValue);
-            case ConnectionPackage.ROW_SEPARATOR:
-                return convertRowSeparatorToString(eDataType, instanceValue);
-            case ConnectionPackage.MAP:
-                return convertMapToString(eDataType, instanceValue);
-            case ConnectionPackage.LIST:
-                return convertListToString(eDataType, instanceValue);
-            default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+        case ConnectionPackage.FILE_FORMAT:
+            return convertFileFormatToString(eDataType, instanceValue);
+        case ConnectionPackage.FIELD_SEPARATOR:
+            return convertFieldSeparatorToString(eDataType, instanceValue);
+        case ConnectionPackage.ESCAPE:
+            return convertEscapeToString(eDataType, instanceValue);
+        case ConnectionPackage.ROW_SEPARATOR:
+            return convertRowSeparatorToString(eDataType, instanceValue);
+        case ConnectionPackage.MDM_CONNECTION_PROTOCOL:
+            return convertMDMConnectionProtocolToString(eDataType, instanceValue);
+        case ConnectionPackage.MAP:
+            return convertMapToString(eDataType, instanceValue);
+        case ConnectionPackage.LIST:
+            return convertListToString(eDataType, instanceValue);
+        default:
+            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
@@ -214,20 +262,21 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     */
-    public MetadataTable createMetadataTable() {
-        MetadataTableImpl metadataTable = new MetadataTableImpl();
-        metadataTable.setLabel("metadata"); //$NON-NLS-1$
-        return metadataTable;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public MetadataColumn createMetadataColumn() {
         MetadataColumnImpl metadataColumn = new MetadataColumnImpl();
         return metadataColumn;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     */
+    public MetadataTable createMetadataTable() {
+        MetadataTableImpl metadataTable = new MetadataTableImpl();
+        metadataTable.setLabel("metadata"); //$NON-NLS-1$
+        return metadataTable;
     }
 
     /**
@@ -241,10 +290,10 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
      */
     public PositionalFileConnection createPositionalFileConnection() {
         PositionalFileConnectionImpl positionalFileConnection = new PositionalFileConnectionImpl();
-        positionalFileConnection.setFieldSeparatorValue("*"); //$NON-NLS-1$
         return positionalFileConnection;
     }
 
@@ -294,8 +343,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SAPIDocUnit createSAPIDocUnit() {
@@ -511,8 +559,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public HeaderFooterConnection createHeaderFooterConnection() {
@@ -521,13 +568,21 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public XMLFileNode createXMLFileNode() {
         XMLFileNodeImpl xmlFileNode = new XMLFileNodeImpl();
         return xmlFileNode;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public GenericPackage createGenericPackage() {
+        GenericPackageImpl genericPackage = new GenericPackageImpl();
+        return genericPackage;
     }
 
     /**
@@ -544,27 +599,11 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public DatabaseProperties createDatabasePropertiesFromString(EDataType eDataType, String initialValue) {
-        DatabaseProperties result = DatabaseProperties.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-        return result;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public String convertDatabasePropertiesToString(EDataType eDataType, Object instanceValue) {
-        return instanceValue == null ? null : instanceValue.toString();
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public FileFormat createFileFormatFromString(EDataType eDataType, String initialValue) {
         FileFormat result = FileFormat.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
@@ -582,7 +621,9 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public FieldSeparator createFieldSeparatorFromString(EDataType eDataType, String initialValue) {
         FieldSeparator result = FieldSeparator.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
@@ -600,7 +641,9 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public Escape createEscapeFromString(EDataType eDataType, String initialValue) {
         Escape result = Escape.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
@@ -618,7 +661,9 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public RowSeparator createRowSeparatorFromString(EDataType eDataType, String initialValue) {
         RowSeparator result = RowSeparator.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
         return result;
     }
 
@@ -627,6 +672,26 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * @generated
      */
     public String convertRowSeparatorToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public MDMConnectionProtocol createMDMConnectionProtocolFromString(EDataType eDataType, String initialValue) {
+        MDMConnectionProtocol result = MDMConnectionProtocol.get(initialValue);
+        if (result == null)
+            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+                    + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertMDMConnectionProtocolToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 
@@ -695,7 +760,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * @generated
      */
     public ConnectionPackage getConnectionPackage() {
-        return (ConnectionPackage)getEPackage();
+        return (ConnectionPackage) getEPackage();
     }
 
     /**
@@ -703,6 +768,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * @deprecated
      * @generated
      */
+    @Deprecated
     public static ConnectionPackage getPackage() {
         return ConnectionPackage.eINSTANCE;
     }
@@ -713,19 +779,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#copy()
      */
     public MetadataColumn copy(MetadataColumn column, String newId) {
-        MetadataColumn newColumn = new MetadataColumnImpl();
-        newColumn.setId(newId);
-        newColumn.setLabel(column.getLabel());
-        newColumn.setKey(column.isKey());
-        newColumn.setLength(column.getLength());
-        newColumn.setDefaultValue(column.getDefaultValue());
-        newColumn.setPrecision(column.getPrecision());
-        newColumn.setSourceType(column.getSourceType());
-        newColumn.setTalendType(column.getTalendType());
-        newColumn.setNullable(column.isNullable());
-        newColumn.setComment(column.getComment());
-        newColumn.setPattern(column.getPattern());
-        return newColumn;
+        return ColumnHelper.copyColumn(column, newId);
     }
 
     /*
@@ -739,5 +793,4 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
         newColumn.setTagName(column.getTagName());
         return newColumn;
     }
-
 } // ConnectionFactoryImpl

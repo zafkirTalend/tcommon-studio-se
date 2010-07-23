@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -27,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ConceptTarget extends EObject {
+
     /**
      * Returns the value of the '<em><b>Schema</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptTargets <em>Concept Targets</em>}'.

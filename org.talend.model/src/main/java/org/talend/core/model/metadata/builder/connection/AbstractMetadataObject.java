@@ -7,11 +7,16 @@ package org.talend.core.model.metadata.builder.connection;
 
 import java.util.HashMap;
 
+import orgomg.cwm.objectmodel.core.ModelElement;
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Abstract Metadata Object</b></em>'. <!--
  * end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * base class for all the metadata model
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -30,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractMetadataObject extends EObject {
+public interface AbstractMetadataObject extends ModelElement {
 
     /**
      * Returns the value of the '<em><b>Properties</b></em>' attribute.
@@ -41,6 +46,11 @@ public interface AbstractMetadataObject extends EObject {
      * description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * @deprecated Use taggedValue instead
+     * (map of general purpose key/value that is available to all classes of the metamodel.)
+     * 
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Properties</em>' attribute.
      * @see #setProperties(HashMap)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Properties()
@@ -66,6 +76,9 @@ public interface AbstractMetadataObject extends EObject {
      * here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * logical identifier
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Id()
@@ -117,6 +130,9 @@ public interface AbstractMetadataObject extends EObject {
      * here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * name to be displayed for the current object
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Label()

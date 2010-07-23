@@ -1,11 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -25,6 +23,7 @@ package org.talend.core.model.metadata.builder.connection;
  * @generated
  */
 public interface DelimitedFileConnection extends FileConnection {
+
     /**
      * Returns the value of the '<em><b>Field Separator Type</b></em>' attribute.
      * The default value is <code>"Semicolon"</code>.

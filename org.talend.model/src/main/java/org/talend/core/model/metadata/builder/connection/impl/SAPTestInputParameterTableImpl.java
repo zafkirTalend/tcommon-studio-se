@@ -42,6 +42,7 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.SAP_TEST_INPUT_PARAMETER_TABLE;
     }
@@ -51,8 +52,20 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * @generated
      */
     public SAPFunctionUnit getFunctionUnit() {
-        if (eContainerFeatureID() != ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT) return null;
-        return (SAPFunctionUnit)eContainer();
+        if (eContainerFeatureID() != ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT)
+            return null;
+        return (SAPFunctionUnit) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SAPFunctionUnit basicGetFunctionUnit() {
+        if (eContainerFeatureID() != ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT)
+            return null;
+        return (SAPFunctionUnit) eInternalContainer();
     }
 
     /**
@@ -60,7 +73,8 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * @generated
      */
     public NotificationChain basicSetFunctionUnit(SAPFunctionUnit newFunctionUnit, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newFunctionUnit, ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newFunctionUnit,
+                ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT, msgs);
         return msgs;
     }
 
@@ -69,31 +83,35 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * @generated
      */
     public void setFunctionUnit(SAPFunctionUnit newFunctionUnit) {
-        if (newFunctionUnit != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT && newFunctionUnit != null)) {
+        if (newFunctionUnit != eInternalContainer()
+                || (eContainerFeatureID() != ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT && newFunctionUnit != null)) {
             if (EcoreUtil.isAncestor(this, newFunctionUnit))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newFunctionUnit != null)
-                msgs = ((InternalEObject)newFunctionUnit).eInverseAdd(this, ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE, SAPFunctionUnit.class, msgs);
+                msgs = ((InternalEObject) newFunctionUnit).eInverseAdd(this,
+                        ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE, SAPFunctionUnit.class, msgs);
             msgs = basicSetFunctionUnit(newFunctionUnit, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT, newFunctionUnit, newFunctionUnit));
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT, newFunctionUnit, newFunctionUnit));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetFunctionUnit((SAPFunctionUnit)otherEnd, msgs);
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetFunctionUnit((SAPFunctionUnit) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -102,10 +120,11 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
-                return basicSetFunctionUnit(null, msgs);
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            return basicSetFunctionUnit(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -114,10 +133,12 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE, SAPFunctionUnit.class, msgs);
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            return eInternalContainer().eInverseRemove(this, ConnectionPackage.SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE,
+                    SAPFunctionUnit.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -126,10 +147,13 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            if (resolve)
                 return getFunctionUnit();
+            return basicGetFunctionUnit();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -138,11 +162,12 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
-                setFunctionUnit((SAPFunctionUnit)newValue);
-                return;
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            setFunctionUnit((SAPFunctionUnit) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -151,11 +176,12 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
-                setFunctionUnit((SAPFunctionUnit)null);
-                return;
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            setFunctionUnit((SAPFunctionUnit) null);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -164,10 +190,11 @@ public class SAPTestInputParameterTableImpl extends SAPFunctionParameterTableImp
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
-                return getFunctionUnit() != null;
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT:
+            return basicGetFunctionUnit() != null;
         }
         return super.eIsSet(featureID);
     }

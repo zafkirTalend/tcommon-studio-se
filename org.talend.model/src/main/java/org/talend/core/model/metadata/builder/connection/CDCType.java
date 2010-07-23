@@ -1,13 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
 
 import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +36,9 @@ public interface CDCType extends AbstractMetadataObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * ID of the .properties file related to the CDC database
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Link DB</em>' attribute.
      * @see #setLinkDB(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getCDCType_LinkDB()
@@ -67,10 +68,10 @@ public interface CDCType extends AbstractMetadataObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Subscribers</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getCDCType_Subscribers()
-     * @model type="org.talend.core.model.metadata.builder.connection.SubscriberTable" containment="true"
+     * @model containment="true" resolveProxies="true"
      * @generated
      */
-    EList getSubscribers();
+    EList<SubscriberTable> getSubscribers();
 
     /**
      * Returns the value of the '<em><b>Cdc Connection</b></em>' reference.

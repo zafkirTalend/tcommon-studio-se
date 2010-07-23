@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.designer.components.preference.labelformat;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.gef.internal.InternalImages;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;

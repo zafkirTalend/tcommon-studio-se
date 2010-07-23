@@ -83,6 +83,7 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.QUERY;
     }
@@ -111,8 +112,20 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * @generated
      */
     public QueriesConnection getQueries() {
-        if (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES) return null;
-        return (QueriesConnection)eContainer();
+        if (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES)
+            return null;
+        return (QueriesConnection) eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public QueriesConnection basicGetQueries() {
+        if (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES)
+            return null;
+        return (QueriesConnection) eInternalContainer();
     }
 
     /**
@@ -120,7 +133,7 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * @generated
      */
     public NotificationChain basicSetQueries(QueriesConnection newQueries, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newQueries, ConnectionPackage.QUERY__QUERIES, msgs);
+        msgs = eBasicSetContainer((InternalEObject) newQueries, ConnectionPackage.QUERY__QUERIES, msgs);
         return msgs;
     }
 
@@ -129,18 +142,20 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * @generated
      */
     public void setQueries(QueriesConnection newQueries) {
-        if (newQueries != eInternalContainer() || (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES && newQueries != null)) {
+        if (newQueries != eInternalContainer()
+                || (eContainerFeatureID() != ConnectionPackage.QUERY__QUERIES && newQueries != null)) {
             if (EcoreUtil.isAncestor(this, newQueries))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newQueries != null)
-                msgs = ((InternalEObject)newQueries).eInverseAdd(this, ConnectionPackage.QUERIES_CONNECTION__QUERY, QueriesConnection.class, msgs);
+                msgs = ((InternalEObject) newQueries).eInverseAdd(this, ConnectionPackage.QUERIES_CONNECTION__QUERY,
+                        QueriesConnection.class, msgs);
             msgs = basicSetQueries(newQueries, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
+            if (msgs != null)
+                msgs.dispatch();
+        } else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERY__QUERIES, newQueries, newQueries));
     }
 
@@ -160,19 +175,21 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
         boolean oldContextMode = contextMode;
         contextMode = newContextMode;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERY__CONTEXT_MODE, oldContextMode, contextMode));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERY__CONTEXT_MODE, oldContextMode,
+                    contextMode));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__QUERIES:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetQueries((QueriesConnection)otherEnd, msgs);
+        case ConnectionPackage.QUERY__QUERIES:
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            return basicSetQueries((QueriesConnection) otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -181,10 +198,11 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__QUERIES:
-                return basicSetQueries(null, msgs);
+        case ConnectionPackage.QUERY__QUERIES:
+            return basicSetQueries(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -193,10 +211,12 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-            case ConnectionPackage.QUERY__QUERIES:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.QUERIES_CONNECTION__QUERY, QueriesConnection.class, msgs);
+        case ConnectionPackage.QUERY__QUERIES:
+            return eInternalContainer().eInverseRemove(this, ConnectionPackage.QUERIES_CONNECTION__QUERY,
+                    QueriesConnection.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -205,14 +225,17 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__VALUE:
-                return getValue();
-            case ConnectionPackage.QUERY__QUERIES:
+        case ConnectionPackage.QUERY__VALUE:
+            return getValue();
+        case ConnectionPackage.QUERY__QUERIES:
+            if (resolve)
                 return getQueries();
-            case ConnectionPackage.QUERY__CONTEXT_MODE:
-                return isContextMode() ? Boolean.TRUE : Boolean.FALSE;
+            return basicGetQueries();
+        case ConnectionPackage.QUERY__CONTEXT_MODE:
+            return isContextMode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -221,17 +244,18 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__VALUE:
-                setValue((String)newValue);
-                return;
-            case ConnectionPackage.QUERY__QUERIES:
-                setQueries((QueriesConnection)newValue);
-                return;
-            case ConnectionPackage.QUERY__CONTEXT_MODE:
-                setContextMode(((Boolean)newValue).booleanValue());
-                return;
+        case ConnectionPackage.QUERY__VALUE:
+            setValue((String) newValue);
+            return;
+        case ConnectionPackage.QUERY__QUERIES:
+            setQueries((QueriesConnection) newValue);
+            return;
+        case ConnectionPackage.QUERY__CONTEXT_MODE:
+            setContextMode((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -240,17 +264,18 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__VALUE:
-                setValue(VALUE_EDEFAULT);
-                return;
-            case ConnectionPackage.QUERY__QUERIES:
-                setQueries((QueriesConnection)null);
-                return;
-            case ConnectionPackage.QUERY__CONTEXT_MODE:
-                setContextMode(CONTEXT_MODE_EDEFAULT);
-                return;
+        case ConnectionPackage.QUERY__VALUE:
+            setValue(VALUE_EDEFAULT);
+            return;
+        case ConnectionPackage.QUERY__QUERIES:
+            setQueries((QueriesConnection) null);
+            return;
+        case ConnectionPackage.QUERY__CONTEXT_MODE:
+            setContextMode(CONTEXT_MODE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -259,14 +284,15 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__VALUE:
-                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-            case ConnectionPackage.QUERY__QUERIES:
-                return getQueries() != null;
-            case ConnectionPackage.QUERY__CONTEXT_MODE:
-                return contextMode != CONTEXT_MODE_EDEFAULT;
+        case ConnectionPackage.QUERY__VALUE:
+            return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+        case ConnectionPackage.QUERY__QUERIES:
+            return basicGetQueries() != null;
+        case ConnectionPackage.QUERY__CONTEXT_MODE:
+            return contextMode != CONTEXT_MODE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -275,8 +301,10 @@ public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (value: ");

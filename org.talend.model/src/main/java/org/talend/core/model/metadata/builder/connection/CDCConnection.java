@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection;
@@ -14,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>CDC Connection</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * defining Change Data Capture for a given connection
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -28,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface CDCConnection extends EObject {
+
     /**
      * Returns the value of the '<em><b>Connection</b></em>' container reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}'.
@@ -37,6 +41,9 @@ public interface CDCConnection extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * the connection this CDC relates to
+     * <!-- end-model-doc -->
      * @return the value of the '<em>Connection</em>' container reference.
      * @see #setConnection(DatabaseConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getCDCConnection_Connection()
@@ -67,9 +74,9 @@ public interface CDCConnection extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Cdc Types</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getCDCConnection_CdcTypes()
-     * @model type="org.talend.core.model.metadata.builder.connection.CDCType" containment="true"
+     * @model containment="true" resolveProxies="true"
      * @generated
      */
-    EList getCdcTypes();
+    EList<CDCType> getCdcTypes();
 
 } // CDCConnection

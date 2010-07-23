@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -31,8 +30,8 @@ import org.talend.core.model.metadata.builder.connection.Metadata;
  *
  * @generated
  */
-public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata 
-{
+public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata {
+
     /**
      * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -41,7 +40,7 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * @generated
      * @ordered
      */
-    protected EList connections;
+    protected EList<Connection> connections;
 
     /**
      * <!-- begin-user-doc -->
@@ -57,6 +56,7 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.METADATA;
     }
@@ -66,9 +66,10 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getConnections() {
+    public EList<Connection> getConnections() {
         if (connections == null) {
-            connections = new EObjectContainmentEList(Connection.class, this, ConnectionPackage.METADATA__CONNECTIONS);
+            connections = new EObjectContainmentEList.Resolving<Connection>(Connection.class, this,
+                    ConnectionPackage.METADATA__CONNECTIONS);
         }
         return connections;
     }
@@ -78,10 +79,11 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                return ((InternalEList)getConnections()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.METADATA__CONNECTIONS:
+            return ((InternalEList<?>) getConnections()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -91,10 +93,11 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                return getConnections();
+        case ConnectionPackage.METADATA__CONNECTIONS:
+            return getConnections();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -104,12 +107,14 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                getConnections().clear();
-                getConnections().addAll((Collection)newValue);
-                return;
+        case ConnectionPackage.METADATA__CONNECTIONS:
+            getConnections().clear();
+            getConnections().addAll((Collection<? extends Connection>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -119,11 +124,12 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                getConnections().clear();
-                return;
+        case ConnectionPackage.METADATA__CONNECTIONS:
+            getConnections().clear();
+            return;
         }
         super.eUnset(featureID);
     }
@@ -133,10 +139,11 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                return connections != null && !connections.isEmpty();
+        case ConnectionPackage.METADATA__CONNECTIONS:
+            return connections != null && !connections.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -1,7 +1,6 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.metadata.builder.connection.impl;
@@ -47,8 +46,8 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  *
  * @generated
  */
-public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConnection 
-{
+public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConnection {
+
     /**
      * The default value of the '{@link #getXsdFilePath() <em>Xsd File Path</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -137,7 +136,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @generated
      * @ordered
      */
-    protected EList schema;
+    protected EList<XmlXPathLoopDescriptor> schema;
 
     /**
      * The default value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
@@ -167,7 +166,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @generated
      * @ordered
      */
-    protected EList group;
+    protected EList<XMLFileNode> group;
 
     /**
      * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference list.
@@ -177,7 +176,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @generated
      * @ordered
      */
-    protected EList root;
+    protected EList<XMLFileNode> root;
 
     /**
      * The cached value of the '{@link #getLoop() <em>Loop</em>}' containment reference list.
@@ -187,7 +186,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @generated
      * @ordered
      */
-    protected EList loop;
+    protected EList<XMLFileNode> loop;
 
     /**
      * The default value of the '{@link #isInputModel() <em>Input Model</em>}' attribute.
@@ -243,6 +242,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.XML_FILE_CONNECTION;
     }
@@ -265,7 +265,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         String oldXsdFilePath = xsdFilePath;
         xsdFilePath = newXsdFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH, oldXsdFilePath, xsdFilePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH,
+                    oldXsdFilePath, xsdFilePath));
     }
 
     /**
@@ -286,7 +287,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         String oldXmlFilePath = xmlFilePath;
         xmlFilePath = newXmlFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH, oldXmlFilePath, xmlFilePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH,
+                    oldXmlFilePath, xmlFilePath));
     }
 
     /**
@@ -328,7 +330,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         String oldMaskXPattern = maskXPattern;
         maskXPattern = newMaskXPattern;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN, oldMaskXPattern, maskXPattern));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN,
+                    oldMaskXPattern, maskXPattern));
     }
 
     /**
@@ -336,9 +339,10 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getSchema() {
+    public EList<XmlXPathLoopDescriptor> getSchema() {
         if (schema == null) {
-            schema = new EObjectContainmentWithInverseEList(XmlXPathLoopDescriptor.class, this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION);
+            schema = new EObjectContainmentWithInverseEList.Resolving<XmlXPathLoopDescriptor>(XmlXPathLoopDescriptor.class, this,
+                    ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION);
         }
         return schema;
     }
@@ -361,7 +365,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         String oldEncoding = encoding;
         encoding = newEncoding;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__ENCODING, oldEncoding, encoding));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__ENCODING, oldEncoding,
+                    encoding));
     }
 
     /**
@@ -369,9 +374,10 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getGroup() {
+    public EList<XMLFileNode> getGroup() {
         if (group == null) {
-            group = new EObjectContainmentEList(XMLFileNode.class, this, ConnectionPackage.XML_FILE_CONNECTION__GROUP);
+            group = new EObjectContainmentEList<XMLFileNode>(XMLFileNode.class, this,
+                    ConnectionPackage.XML_FILE_CONNECTION__GROUP);
         }
         return group;
     }
@@ -381,9 +387,10 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getRoot() {
+    public EList<XMLFileNode> getRoot() {
         if (root == null) {
-            root = new EObjectContainmentEList(XMLFileNode.class, this, ConnectionPackage.XML_FILE_CONNECTION__ROOT);
+            root = new EObjectContainmentEList.Resolving<XMLFileNode>(XMLFileNode.class, this,
+                    ConnectionPackage.XML_FILE_CONNECTION__ROOT);
         }
         return root;
     }
@@ -393,9 +400,9 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getLoop() {
+    public EList<XMLFileNode> getLoop() {
         if (loop == null) {
-            loop = new EObjectContainmentEList(XMLFileNode.class, this, ConnectionPackage.XML_FILE_CONNECTION__LOOP);
+            loop = new EObjectContainmentEList<XMLFileNode>(XMLFileNode.class, this, ConnectionPackage.XML_FILE_CONNECTION__LOOP);
         }
         return loop;
     }
@@ -418,7 +425,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         boolean oldInputModel = inputModel;
         inputModel = newInputModel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL, oldInputModel, inputModel));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL,
+                    oldInputModel, inputModel));
     }
 
     /**
@@ -439,7 +447,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         String oldOutputFilePath = outputFilePath;
         outputFilePath = newOutputFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH, oldOutputFilePath, outputFilePath));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH,
+                    oldOutputFilePath, outputFilePath));
     }
 
     /**
@@ -447,10 +456,12 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
-                return ((InternalEList)getSchema()).basicAdd(otherEnd, msgs);
+        case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getSchema()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -460,16 +471,17 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
-                return ((InternalEList)getSchema()).basicRemove(otherEnd, msgs);
-            case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
-                return ((InternalEList)getGroup()).basicRemove(otherEnd, msgs);
-            case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
-                return ((InternalEList)getRoot()).basicRemove(otherEnd, msgs);
-            case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
-                return ((InternalEList)getLoop()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+            return ((InternalEList<?>) getSchema()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
+            return ((InternalEList<?>) getGroup()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
+            return ((InternalEList<?>) getRoot()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
+            return ((InternalEList<?>) getLoop()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -479,30 +491,31 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
-                return getXsdFilePath();
-            case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
-                return getXmlFilePath();
-            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
-                return isGuess() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
-                return getMaskXPattern();
-            case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
-                return getSchema();
-            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
-                return getEncoding();
-            case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
-                return getGroup();
-            case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
-                return getRoot();
-            case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
-                return getLoop();
-            case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
-                return isInputModel() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
-                return getOutputFilePath();
+        case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
+            return getXsdFilePath();
+        case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
+            return getXmlFilePath();
+        case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+            return isGuess();
+        case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
+            return getMaskXPattern();
+        case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+            return getSchema();
+        case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+            return getEncoding();
+        case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
+            return getGroup();
+        case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
+            return getRoot();
+        case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
+            return getLoop();
+        case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
+            return isInputModel();
+        case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
+            return getOutputFilePath();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -512,45 +525,47 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
+    @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
-                setXsdFilePath((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
-                setXmlFilePath((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
-                setGuess(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
-                setMaskXPattern((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
-                getSchema().clear();
-                getSchema().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
-                setEncoding((String)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
-                getGroup().clear();
-                getGroup().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
-                getRoot().clear();
-                getRoot().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
-                getLoop().clear();
-                getLoop().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
-                setInputModel(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
-                setOutputFilePath((String)newValue);
-                return;
+        case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
+            setXsdFilePath((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
+            setXmlFilePath((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+            setGuess((Boolean) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
+            setMaskXPattern((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+            getSchema().clear();
+            getSchema().addAll((Collection<? extends XmlXPathLoopDescriptor>) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+            setEncoding((String) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
+            getGroup().clear();
+            getGroup().addAll((Collection<? extends XMLFileNode>) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
+            getRoot().clear();
+            getRoot().addAll((Collection<? extends XMLFileNode>) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
+            getLoop().clear();
+            getLoop().addAll((Collection<? extends XMLFileNode>) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
+            setInputModel((Boolean) newValue);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
+            setOutputFilePath((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -560,41 +575,42 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
-                setXsdFilePath(XSD_FILE_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
-                setXmlFilePath(XML_FILE_PATH_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
-                setGuess(GUESS_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
-                setMaskXPattern(MASK_XPATTERN_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
-                getSchema().clear();
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
-                setEncoding(ENCODING_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
-                getGroup().clear();
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
-                getRoot().clear();
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
-                getLoop().clear();
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
-                setInputModel(INPUT_MODEL_EDEFAULT);
-                return;
-            case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
-                setOutputFilePath(OUTPUT_FILE_PATH_EDEFAULT);
-                return;
+        case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
+            setXsdFilePath(XSD_FILE_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
+            setXmlFilePath(XML_FILE_PATH_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+            setGuess(GUESS_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
+            setMaskXPattern(MASK_XPATTERN_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+            getSchema().clear();
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+            setEncoding(ENCODING_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
+            getGroup().clear();
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
+            getRoot().clear();
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
+            getLoop().clear();
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
+            setInputModel(INPUT_MODEL_EDEFAULT);
+            return;
+        case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
+            setOutputFilePath(OUTPUT_FILE_PATH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -604,30 +620,31 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
-                return XSD_FILE_PATH_EDEFAULT == null ? xsdFilePath != null : !XSD_FILE_PATH_EDEFAULT.equals(xsdFilePath);
-            case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
-                return XML_FILE_PATH_EDEFAULT == null ? xmlFilePath != null : !XML_FILE_PATH_EDEFAULT.equals(xmlFilePath);
-            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
-                return guess != GUESS_EDEFAULT;
-            case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
-                return MASK_XPATTERN_EDEFAULT == null ? maskXPattern != null : !MASK_XPATTERN_EDEFAULT.equals(maskXPattern);
-            case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
-                return schema != null && !schema.isEmpty();
-            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
-                return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
-            case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
-                return group != null && !group.isEmpty();
-            case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
-                return root != null && !root.isEmpty();
-            case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
-                return loop != null && !loop.isEmpty();
-            case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
-                return inputModel != INPUT_MODEL_EDEFAULT;
-            case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
-                return OUTPUT_FILE_PATH_EDEFAULT == null ? outputFilePath != null : !OUTPUT_FILE_PATH_EDEFAULT.equals(outputFilePath);
+        case ConnectionPackage.XML_FILE_CONNECTION__XSD_FILE_PATH:
+            return XSD_FILE_PATH_EDEFAULT == null ? xsdFilePath != null : !XSD_FILE_PATH_EDEFAULT.equals(xsdFilePath);
+        case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
+            return XML_FILE_PATH_EDEFAULT == null ? xmlFilePath != null : !XML_FILE_PATH_EDEFAULT.equals(xmlFilePath);
+        case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+            return guess != GUESS_EDEFAULT;
+        case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
+            return MASK_XPATTERN_EDEFAULT == null ? maskXPattern != null : !MASK_XPATTERN_EDEFAULT.equals(maskXPattern);
+        case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+            return schema != null && !schema.isEmpty();
+        case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+            return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
+        case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
+            return group != null && !group.isEmpty();
+        case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
+            return root != null && !root.isEmpty();
+        case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
+            return loop != null && !loop.isEmpty();
+        case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
+            return inputModel != INPUT_MODEL_EDEFAULT;
+        case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
+            return OUTPUT_FILE_PATH_EDEFAULT == null ? outputFilePath != null : !OUTPUT_FILE_PATH_EDEFAULT.equals(outputFilePath);
         }
         return super.eIsSet(featureID);
     }
@@ -637,8 +654,10 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    @Override
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (XsdFilePath: ");

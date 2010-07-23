@@ -10,6 +10,21 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.metadata.builder.connection.*;
+import org.talend.cwm.relational.TdTable;
+import orgomg.cwm.foundation.softwaredeployment.DataManager;
+import orgomg.cwm.foundation.softwaredeployment.DataProvider;
+import orgomg.cwm.foundation.softwaredeployment.DeployedComponent;
+import orgomg.cwm.objectmodel.core.Attribute;
+import orgomg.cwm.objectmodel.core.Classifier;
+import orgomg.cwm.objectmodel.core.Element;
+import orgomg.cwm.objectmodel.core.Feature;
+import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.Namespace;
+import orgomg.cwm.objectmodel.core.StructuralFeature;
+import orgomg.cwm.resource.record.Field;
+import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.NamedColumnSet;
+import orgomg.cwm.resource.relational.Table;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -38,7 +53,7 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage
  * @generated
  */
-public class ConnectionSwitch {
+public class ConnectionSwitch<T> {
 
     /**
      * The cached model package
@@ -64,7 +79,7 @@ public class ConnectionSwitch {
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
-    public Object doSwitch(EObject theEObject) {
+    public T doSwitch(EObject theEObject) {
         return doSwitch(theEObject.eClass(), theEObject);
     }
 
@@ -74,16 +89,12 @@ public class ConnectionSwitch {
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
-    protected Object doSwitch(EClass theEClass, EObject theEObject) {
+    protected T doSwitch(EClass theEClass, EObject theEObject) {
         if (theEClass.eContainer() == modelPackage) {
             return doSwitch(theEClass.getClassifierID(), theEObject);
-        }
-        else {
-            List eSuperTypes = theEClass.getESuperTypes();
-            return
-                eSuperTypes.isEmpty() ?
-                    defaultCase(theEObject) :
-                    doSwitch((EClass)eSuperTypes.get(0), theEObject);
+        } else {
+            List<EClass> eSuperTypes = theEClass.getESuperTypes();
+            return eSuperTypes.isEmpty() ? defaultCase(theEObject) : doSwitch(eSuperTypes.get(0), theEObject);
         }
     }
 
@@ -93,309 +104,779 @@ public class ConnectionSwitch {
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
-    protected Object doSwitch(int classifierID, EObject theEObject) {
+    protected T doSwitch(int classifierID, EObject theEObject) {
         switch (classifierID) {
-            case ConnectionPackage.METADATA: {
-                Metadata metadata = (Metadata)theEObject;
-                Object result = caseMetadata(metadata);
-                if (result == null) result = caseAbstractMetadataObject(metadata);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.CONNECTION: {
-                Connection connection = (Connection)theEObject;
-                Object result = caseConnection(connection);
-                if (result == null) result = caseAbstractMetadataObject(connection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.METADATA_COLUMN: {
-                MetadataColumn metadataColumn = (MetadataColumn)theEObject;
-                Object result = caseMetadataColumn(metadataColumn);
-                if (result == null) result = caseAbstractMetadataObject(metadataColumn);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.ABSTRACT_METADATA_OBJECT: {
-                AbstractMetadataObject abstractMetadataObject = (AbstractMetadataObject)theEObject;
-                Object result = caseAbstractMetadataObject(abstractMetadataObject);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.METADATA_TABLE: {
-                MetadataTable metadataTable = (MetadataTable)theEObject;
-                Object result = caseMetadataTable(metadataTable);
-                if (result == null) result = caseAbstractMetadataObject(metadataTable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.FILE_CONNECTION: {
-                FileConnection fileConnection = (FileConnection)theEObject;
-                Object result = caseFileConnection(fileConnection);
-                if (result == null) result = caseConnection(fileConnection);
-                if (result == null) result = caseAbstractMetadataObject(fileConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION: {
-                DelimitedFileConnection delimitedFileConnection = (DelimitedFileConnection)theEObject;
-                Object result = caseDelimitedFileConnection(delimitedFileConnection);
-                if (result == null) result = caseFileConnection(delimitedFileConnection);
-                if (result == null) result = caseConnection(delimitedFileConnection);
-                if (result == null) result = caseAbstractMetadataObject(delimitedFileConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.POSITIONAL_FILE_CONNECTION: {
-                PositionalFileConnection positionalFileConnection = (PositionalFileConnection)theEObject;
-                Object result = casePositionalFileConnection(positionalFileConnection);
-                if (result == null) result = caseFileConnection(positionalFileConnection);
-                if (result == null) result = caseConnection(positionalFileConnection);
-                if (result == null) result = caseAbstractMetadataObject(positionalFileConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.EBCDIC_CONNECTION: {
-                EbcdicConnection ebcdicConnection = (EbcdicConnection)theEObject;
-                Object result = caseEbcdicConnection(ebcdicConnection);
-                if (result == null) result = caseFileConnection(ebcdicConnection);
-                if (result == null) result = caseConnection(ebcdicConnection);
-                if (result == null) result = caseAbstractMetadataObject(ebcdicConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.MDM_CONNECTION: {
-                MDMConnection mdmConnection = (MDMConnection)theEObject;
-                Object result = caseMDMConnection(mdmConnection);
-                if (result == null) result = caseConnection(mdmConnection);
-                if (result == null) result = caseAbstractMetadataObject(mdmConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.DATABASE_CONNECTION: {
-                DatabaseConnection databaseConnection = (DatabaseConnection)theEObject;
-                Object result = caseDatabaseConnection(databaseConnection);
-                if (result == null) result = caseConnection(databaseConnection);
-                if (result == null) result = caseAbstractMetadataObject(databaseConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SAP_CONNECTION: {
-                SAPConnection sapConnection = (SAPConnection)theEObject;
-                Object result = caseSAPConnection(sapConnection);
-                if (result == null) result = caseConnection(sapConnection);
-                if (result == null) result = caseAbstractMetadataObject(sapConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SAP_FUNCTION_UNIT: {
-                SAPFunctionUnit sapFunctionUnit = (SAPFunctionUnit)theEObject;
-                Object result = caseSAPFunctionUnit(sapFunctionUnit);
-                if (result == null) result = caseAbstractMetadataObject(sapFunctionUnit);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SAPI_DOC_UNIT: {
-                SAPIDocUnit sapiDocUnit = (SAPIDocUnit)theEObject;
-                Object result = caseSAPIDocUnit(sapiDocUnit);
-                if (result == null) result = caseAbstractMetadataObject(sapiDocUnit);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: {
-                SAPFunctionParameterColumn sapFunctionParameterColumn = (SAPFunctionParameterColumn)theEObject;
-                Object result = caseSAPFunctionParameterColumn(sapFunctionParameterColumn);
-                if (result == null) result = caseAbstractMetadataObject(sapFunctionParameterColumn);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE: {
-                SAPFunctionParameterTable sapFunctionParameterTable = (SAPFunctionParameterTable)theEObject;
-                Object result = caseSAPFunctionParameterTable(sapFunctionParameterTable);
-                if (result == null) result = caseAbstractMetadataObject(sapFunctionParameterTable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE: {
-                InputSAPFunctionParameterTable inputSAPFunctionParameterTable = (InputSAPFunctionParameterTable)theEObject;
-                Object result = caseInputSAPFunctionParameterTable(inputSAPFunctionParameterTable);
-                if (result == null) result = caseSAPFunctionParameterTable(inputSAPFunctionParameterTable);
-                if (result == null) result = caseAbstractMetadataObject(inputSAPFunctionParameterTable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE: {
-                OutputSAPFunctionParameterTable outputSAPFunctionParameterTable = (OutputSAPFunctionParameterTable)theEObject;
-                Object result = caseOutputSAPFunctionParameterTable(outputSAPFunctionParameterTable);
-                if (result == null) result = caseSAPFunctionParameterTable(outputSAPFunctionParameterTable);
-                if (result == null) result = caseAbstractMetadataObject(outputSAPFunctionParameterTable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.REGEXP_FILE_CONNECTION: {
-                RegexpFileConnection regexpFileConnection = (RegexpFileConnection)theEObject;
-                Object result = caseRegexpFileConnection(regexpFileConnection);
-                if (result == null) result = caseFileConnection(regexpFileConnection);
-                if (result == null) result = caseConnection(regexpFileConnection);
-                if (result == null) result = caseAbstractMetadataObject(regexpFileConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.XML_FILE_CONNECTION: {
-                XmlFileConnection xmlFileConnection = (XmlFileConnection)theEObject;
-                Object result = caseXmlFileConnection(xmlFileConnection);
-                if (result == null) result = caseConnection(xmlFileConnection);
-                if (result == null) result = caseAbstractMetadataObject(xmlFileConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SCHEMA_TARGET: {
-                SchemaTarget schemaTarget = (SchemaTarget)theEObject;
-                Object result = caseSchemaTarget(schemaTarget);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.QUERIES_CONNECTION: {
-                QueriesConnection queriesConnection = (QueriesConnection)theEObject;
-                Object result = caseQueriesConnection(queriesConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.QUERY: {
-                Query query = (Query)theEObject;
-                Object result = caseQuery(query);
-                if (result == null) result = caseAbstractMetadataObject(query);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.LDIF_FILE_CONNECTION: {
-                LdifFileConnection ldifFileConnection = (LdifFileConnection)theEObject;
-                Object result = caseLdifFileConnection(ldifFileConnection);
-                if (result == null) result = caseConnection(ldifFileConnection);
-                if (result == null) result = caseAbstractMetadataObject(ldifFileConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.FILE_EXCEL_CONNECTION: {
-                FileExcelConnection fileExcelConnection = (FileExcelConnection)theEObject;
-                Object result = caseFileExcelConnection(fileExcelConnection);
-                if (result == null) result = caseFileConnection(fileExcelConnection);
-                if (result == null) result = caseConnection(fileExcelConnection);
-                if (result == null) result = caseAbstractMetadataObject(fileExcelConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: {
-                XmlXPathLoopDescriptor xmlXPathLoopDescriptor = (XmlXPathLoopDescriptor)theEObject;
-                Object result = caseXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: {
-                GenericSchemaConnection genericSchemaConnection = (GenericSchemaConnection)theEObject;
-                Object result = caseGenericSchemaConnection(genericSchemaConnection);
-                if (result == null) result = caseConnection(genericSchemaConnection);
-                if (result == null) result = caseAbstractMetadataObject(genericSchemaConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION: {
-                LDAPSchemaConnection ldapSchemaConnection = (LDAPSchemaConnection)theEObject;
-                Object result = caseLDAPSchemaConnection(ldapSchemaConnection);
-                if (result == null) result = caseConnection(ldapSchemaConnection);
-                if (result == null) result = caseAbstractMetadataObject(ldapSchemaConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.WSDL_SCHEMA_CONNECTION: {
-                WSDLSchemaConnection wsdlSchemaConnection = (WSDLSchemaConnection)theEObject;
-                Object result = caseWSDLSchemaConnection(wsdlSchemaConnection);
-                if (result == null) result = caseConnection(wsdlSchemaConnection);
-                if (result == null) result = caseAbstractMetadataObject(wsdlSchemaConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION: {
-                SalesforceSchemaConnection salesforceSchemaConnection = (SalesforceSchemaConnection)theEObject;
-                Object result = caseSalesforceSchemaConnection(salesforceSchemaConnection);
-                if (result == null) result = caseConnection(salesforceSchemaConnection);
-                if (result == null) result = caseAbstractMetadataObject(salesforceSchemaConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.CDC_CONNECTION: {
-                CDCConnection cdcConnection = (CDCConnection)theEObject;
-                Object result = caseCDCConnection(cdcConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.CDC_TYPE: {
-                CDCType cdcType = (CDCType)theEObject;
-                Object result = caseCDCType(cdcType);
-                if (result == null) result = caseAbstractMetadataObject(cdcType);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SUBSCRIBER_TABLE: {
-                SubscriberTable subscriberTable = (SubscriberTable)theEObject;
-                Object result = caseSubscriberTable(subscriberTable);
-                if (result == null) result = caseMetadataTable(subscriberTable);
-                if (result == null) result = caseAbstractMetadataObject(subscriberTable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE: {
-                SAPTestInputParameterTable sapTestInputParameterTable = (SAPTestInputParameterTable)theEObject;
-                Object result = caseSAPTestInputParameterTable(sapTestInputParameterTable);
-                if (result == null) result = caseSAPFunctionParameterTable(sapTestInputParameterTable);
-                if (result == null) result = caseAbstractMetadataObject(sapTestInputParameterTable);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.CONCEPT: {
-                Concept concept = (Concept)theEObject;
-                Object result = caseConcept(concept);
-                if (result == null) result = caseMetadataTable(concept);
-                if (result == null) result = caseAbstractMetadataObject(concept);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.CONCEPT_TARGET: {
-                ConceptTarget conceptTarget = (ConceptTarget)theEObject;
-                Object result = caseConceptTarget(conceptTarget);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.HL7_CONNECTION: {
-                HL7Connection hl7Connection = (HL7Connection)theEObject;
-                Object result = caseHL7Connection(hl7Connection);
-                if (result == null) result = caseFileConnection(hl7Connection);
-                if (result == null) result = caseConnection(hl7Connection);
-                if (result == null) result = caseAbstractMetadataObject(hl7Connection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.HEADER_FOOTER_CONNECTION: {
-                HeaderFooterConnection headerFooterConnection = (HeaderFooterConnection)theEObject;
-                Object result = caseHeaderFooterConnection(headerFooterConnection);
-                if (result == null) result = caseConnection(headerFooterConnection);
-                if (result == null) result = caseAbstractMetadataObject(headerFooterConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.XML_FILE_NODE: {
-                XMLFileNode xmlFileNode = (XMLFileNode)theEObject;
-                Object result = caseXMLFileNode(xmlFileNode);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case ConnectionPackage.HL7_FILE_NODE: {
-                HL7FileNode hl7FileNode = (HL7FileNode)theEObject;
-                Object result = caseHL7FileNode(hl7FileNode);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            default: return defaultCase(theEObject);
+        case ConnectionPackage.METADATA: {
+            Metadata metadata = (Metadata) theEObject;
+            T result = caseMetadata(metadata);
+            if (result == null)
+                result = caseAbstractMetadataObject(metadata);
+            if (result == null)
+                result = caseModelElement(metadata);
+            if (result == null)
+                result = caseElement(metadata);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.CONNECTION: {
+            Connection connection = (Connection) theEObject;
+            T result = caseConnection(connection);
+            if (result == null)
+                result = caseAbstractMetadataObject(connection);
+            if (result == null)
+                result = caseDataProvider(connection);
+            if (result == null)
+                result = caseDataManager(connection);
+            if (result == null)
+                result = caseElement(connection);
+            if (result == null)
+                result = caseDeployedComponent(connection);
+            if (result == null)
+                result = casePackage(connection);
+            if (result == null)
+                result = caseNamespace(connection);
+            if (result == null)
+                result = caseModelElement(connection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.METADATA_COLUMN: {
+            MetadataColumn metadataColumn = (MetadataColumn) theEObject;
+            T result = caseMetadataColumn(metadataColumn);
+            if (result == null)
+                result = caseAbstractMetadataObject(metadataColumn);
+            if (result == null)
+                result = caseField(metadataColumn);
+            if (result == null)
+                result = caseAttribute(metadataColumn);
+            if (result == null)
+                result = caseElement(metadataColumn);
+            if (result == null)
+                result = caseStructuralFeature(metadataColumn);
+            if (result == null)
+                result = caseFeature(metadataColumn);
+            if (result == null)
+                result = caseModelElement(metadataColumn);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.ABSTRACT_METADATA_OBJECT: {
+            AbstractMetadataObject abstractMetadataObject = (AbstractMetadataObject) theEObject;
+            T result = caseAbstractMetadataObject(abstractMetadataObject);
+            if (result == null)
+                result = caseModelElement(abstractMetadataObject);
+            if (result == null)
+                result = caseElement(abstractMetadataObject);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.METADATA_TABLE: {
+            MetadataTable metadataTable = (MetadataTable) theEObject;
+            T result = caseMetadataTable(metadataTable);
+            if (result == null)
+                result = caseAbstractMetadataObject(metadataTable);
+            if (result == null)
+                result = caseClass(metadataTable);
+            if (result == null)
+                result = caseClassifier(metadataTable);
+            if (result == null)
+                result = caseElement(metadataTable);
+            if (result == null)
+                result = caseNamespace(metadataTable);
+            if (result == null)
+                result = caseModelElement(metadataTable);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.FILE_CONNECTION: {
+            FileConnection fileConnection = (FileConnection) theEObject;
+            T result = caseFileConnection(fileConnection);
+            if (result == null)
+                result = caseConnection(fileConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(fileConnection);
+            if (result == null)
+                result = caseDataProvider(fileConnection);
+            if (result == null)
+                result = caseDataManager(fileConnection);
+            if (result == null)
+                result = caseElement(fileConnection);
+            if (result == null)
+                result = caseDeployedComponent(fileConnection);
+            if (result == null)
+                result = casePackage(fileConnection);
+            if (result == null)
+                result = caseNamespace(fileConnection);
+            if (result == null)
+                result = caseModelElement(fileConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.DELIMITED_FILE_CONNECTION: {
+            DelimitedFileConnection delimitedFileConnection = (DelimitedFileConnection) theEObject;
+            T result = caseDelimitedFileConnection(delimitedFileConnection);
+            if (result == null)
+                result = caseFileConnection(delimitedFileConnection);
+            if (result == null)
+                result = caseConnection(delimitedFileConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(delimitedFileConnection);
+            if (result == null)
+                result = caseDataProvider(delimitedFileConnection);
+            if (result == null)
+                result = caseDataManager(delimitedFileConnection);
+            if (result == null)
+                result = caseElement(delimitedFileConnection);
+            if (result == null)
+                result = caseDeployedComponent(delimitedFileConnection);
+            if (result == null)
+                result = casePackage(delimitedFileConnection);
+            if (result == null)
+                result = caseNamespace(delimitedFileConnection);
+            if (result == null)
+                result = caseModelElement(delimitedFileConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.POSITIONAL_FILE_CONNECTION: {
+            PositionalFileConnection positionalFileConnection = (PositionalFileConnection) theEObject;
+            T result = casePositionalFileConnection(positionalFileConnection);
+            if (result == null)
+                result = caseFileConnection(positionalFileConnection);
+            if (result == null)
+                result = caseConnection(positionalFileConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(positionalFileConnection);
+            if (result == null)
+                result = caseDataProvider(positionalFileConnection);
+            if (result == null)
+                result = caseDataManager(positionalFileConnection);
+            if (result == null)
+                result = caseElement(positionalFileConnection);
+            if (result == null)
+                result = caseDeployedComponent(positionalFileConnection);
+            if (result == null)
+                result = casePackage(positionalFileConnection);
+            if (result == null)
+                result = caseNamespace(positionalFileConnection);
+            if (result == null)
+                result = caseModelElement(positionalFileConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.EBCDIC_CONNECTION: {
+            EbcdicConnection ebcdicConnection = (EbcdicConnection) theEObject;
+            T result = caseEbcdicConnection(ebcdicConnection);
+            if (result == null)
+                result = caseFileConnection(ebcdicConnection);
+            if (result == null)
+                result = caseConnection(ebcdicConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(ebcdicConnection);
+            if (result == null)
+                result = caseDataProvider(ebcdicConnection);
+            if (result == null)
+                result = caseDataManager(ebcdicConnection);
+            if (result == null)
+                result = caseElement(ebcdicConnection);
+            if (result == null)
+                result = caseDeployedComponent(ebcdicConnection);
+            if (result == null)
+                result = casePackage(ebcdicConnection);
+            if (result == null)
+                result = caseNamespace(ebcdicConnection);
+            if (result == null)
+                result = caseModelElement(ebcdicConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.MDM_CONNECTION: {
+            MDMConnection mdmConnection = (MDMConnection) theEObject;
+            T result = caseMDMConnection(mdmConnection);
+            if (result == null)
+                result = caseConnection(mdmConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(mdmConnection);
+            if (result == null)
+                result = caseDataProvider(mdmConnection);
+            if (result == null)
+                result = caseDataManager(mdmConnection);
+            if (result == null)
+                result = caseElement(mdmConnection);
+            if (result == null)
+                result = caseDeployedComponent(mdmConnection);
+            if (result == null)
+                result = casePackage(mdmConnection);
+            if (result == null)
+                result = caseNamespace(mdmConnection);
+            if (result == null)
+                result = caseModelElement(mdmConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.DATABASE_CONNECTION: {
+            DatabaseConnection databaseConnection = (DatabaseConnection) theEObject;
+            T result = caseDatabaseConnection(databaseConnection);
+            if (result == null)
+                result = caseConnection(databaseConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(databaseConnection);
+            if (result == null)
+                result = caseDataProvider(databaseConnection);
+            if (result == null)
+                result = caseDataManager(databaseConnection);
+            if (result == null)
+                result = caseElement(databaseConnection);
+            if (result == null)
+                result = caseDeployedComponent(databaseConnection);
+            if (result == null)
+                result = casePackage(databaseConnection);
+            if (result == null)
+                result = caseNamespace(databaseConnection);
+            if (result == null)
+                result = caseModelElement(databaseConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SAP_CONNECTION: {
+            SAPConnection sapConnection = (SAPConnection) theEObject;
+            T result = caseSAPConnection(sapConnection);
+            if (result == null)
+                result = caseConnection(sapConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(sapConnection);
+            if (result == null)
+                result = caseDataProvider(sapConnection);
+            if (result == null)
+                result = caseDataManager(sapConnection);
+            if (result == null)
+                result = caseElement(sapConnection);
+            if (result == null)
+                result = caseDeployedComponent(sapConnection);
+            if (result == null)
+                result = casePackage(sapConnection);
+            if (result == null)
+                result = caseNamespace(sapConnection);
+            if (result == null)
+                result = caseModelElement(sapConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SAP_FUNCTION_UNIT: {
+            SAPFunctionUnit sapFunctionUnit = (SAPFunctionUnit) theEObject;
+            T result = caseSAPFunctionUnit(sapFunctionUnit);
+            if (result == null)
+                result = caseAbstractMetadataObject(sapFunctionUnit);
+            if (result == null)
+                result = caseModelElement(sapFunctionUnit);
+            if (result == null)
+                result = caseElement(sapFunctionUnit);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SAPI_DOC_UNIT: {
+            SAPIDocUnit sapiDocUnit = (SAPIDocUnit) theEObject;
+            T result = caseSAPIDocUnit(sapiDocUnit);
+            if (result == null)
+                result = caseAbstractMetadataObject(sapiDocUnit);
+            if (result == null)
+                result = caseModelElement(sapiDocUnit);
+            if (result == null)
+                result = caseElement(sapiDocUnit);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_COLUMN: {
+            SAPFunctionParameterColumn sapFunctionParameterColumn = (SAPFunctionParameterColumn) theEObject;
+            T result = caseSAPFunctionParameterColumn(sapFunctionParameterColumn);
+            if (result == null)
+                result = caseAbstractMetadataObject(sapFunctionParameterColumn);
+            if (result == null)
+                result = caseModelElement(sapFunctionParameterColumn);
+            if (result == null)
+                result = caseElement(sapFunctionParameterColumn);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER_TABLE: {
+            SAPFunctionParameterTable sapFunctionParameterTable = (SAPFunctionParameterTable) theEObject;
+            T result = caseSAPFunctionParameterTable(sapFunctionParameterTable);
+            if (result == null)
+                result = caseAbstractMetadataObject(sapFunctionParameterTable);
+            if (result == null)
+                result = caseModelElement(sapFunctionParameterTable);
+            if (result == null)
+                result = caseElement(sapFunctionParameterTable);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.INPUT_SAP_FUNCTION_PARAMETER_TABLE: {
+            InputSAPFunctionParameterTable inputSAPFunctionParameterTable = (InputSAPFunctionParameterTable) theEObject;
+            T result = caseInputSAPFunctionParameterTable(inputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseSAPFunctionParameterTable(inputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseAbstractMetadataObject(inputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseModelElement(inputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseElement(inputSAPFunctionParameterTable);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.OUTPUT_SAP_FUNCTION_PARAMETER_TABLE: {
+            OutputSAPFunctionParameterTable outputSAPFunctionParameterTable = (OutputSAPFunctionParameterTable) theEObject;
+            T result = caseOutputSAPFunctionParameterTable(outputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseSAPFunctionParameterTable(outputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseAbstractMetadataObject(outputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseModelElement(outputSAPFunctionParameterTable);
+            if (result == null)
+                result = caseElement(outputSAPFunctionParameterTable);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.REGEXP_FILE_CONNECTION: {
+            RegexpFileConnection regexpFileConnection = (RegexpFileConnection) theEObject;
+            T result = caseRegexpFileConnection(regexpFileConnection);
+            if (result == null)
+                result = caseFileConnection(regexpFileConnection);
+            if (result == null)
+                result = caseConnection(regexpFileConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(regexpFileConnection);
+            if (result == null)
+                result = caseDataProvider(regexpFileConnection);
+            if (result == null)
+                result = caseDataManager(regexpFileConnection);
+            if (result == null)
+                result = caseElement(regexpFileConnection);
+            if (result == null)
+                result = caseDeployedComponent(regexpFileConnection);
+            if (result == null)
+                result = casePackage(regexpFileConnection);
+            if (result == null)
+                result = caseNamespace(regexpFileConnection);
+            if (result == null)
+                result = caseModelElement(regexpFileConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.XML_FILE_CONNECTION: {
+            XmlFileConnection xmlFileConnection = (XmlFileConnection) theEObject;
+            T result = caseXmlFileConnection(xmlFileConnection);
+            if (result == null)
+                result = caseConnection(xmlFileConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(xmlFileConnection);
+            if (result == null)
+                result = caseDataProvider(xmlFileConnection);
+            if (result == null)
+                result = caseDataManager(xmlFileConnection);
+            if (result == null)
+                result = caseElement(xmlFileConnection);
+            if (result == null)
+                result = caseDeployedComponent(xmlFileConnection);
+            if (result == null)
+                result = casePackage(xmlFileConnection);
+            if (result == null)
+                result = caseNamespace(xmlFileConnection);
+            if (result == null)
+                result = caseModelElement(xmlFileConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SCHEMA_TARGET: {
+            SchemaTarget schemaTarget = (SchemaTarget) theEObject;
+            T result = caseSchemaTarget(schemaTarget);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.QUERIES_CONNECTION: {
+            QueriesConnection queriesConnection = (QueriesConnection) theEObject;
+            T result = caseQueriesConnection(queriesConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.QUERY: {
+            Query query = (Query) theEObject;
+            T result = caseQuery(query);
+            if (result == null)
+                result = caseAbstractMetadataObject(query);
+            if (result == null)
+                result = caseModelElement(query);
+            if (result == null)
+                result = caseElement(query);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.LDIF_FILE_CONNECTION: {
+            LdifFileConnection ldifFileConnection = (LdifFileConnection) theEObject;
+            T result = caseLdifFileConnection(ldifFileConnection);
+            if (result == null)
+                result = caseConnection(ldifFileConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(ldifFileConnection);
+            if (result == null)
+                result = caseDataProvider(ldifFileConnection);
+            if (result == null)
+                result = caseDataManager(ldifFileConnection);
+            if (result == null)
+                result = caseElement(ldifFileConnection);
+            if (result == null)
+                result = caseDeployedComponent(ldifFileConnection);
+            if (result == null)
+                result = casePackage(ldifFileConnection);
+            if (result == null)
+                result = caseNamespace(ldifFileConnection);
+            if (result == null)
+                result = caseModelElement(ldifFileConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.FILE_EXCEL_CONNECTION: {
+            FileExcelConnection fileExcelConnection = (FileExcelConnection) theEObject;
+            T result = caseFileExcelConnection(fileExcelConnection);
+            if (result == null)
+                result = caseFileConnection(fileExcelConnection);
+            if (result == null)
+                result = caseConnection(fileExcelConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(fileExcelConnection);
+            if (result == null)
+                result = caseDataProvider(fileExcelConnection);
+            if (result == null)
+                result = caseDataManager(fileExcelConnection);
+            if (result == null)
+                result = caseElement(fileExcelConnection);
+            if (result == null)
+                result = caseDeployedComponent(fileExcelConnection);
+            if (result == null)
+                result = casePackage(fileExcelConnection);
+            if (result == null)
+                result = caseNamespace(fileExcelConnection);
+            if (result == null)
+                result = caseModelElement(fileExcelConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: {
+            XmlXPathLoopDescriptor xmlXPathLoopDescriptor = (XmlXPathLoopDescriptor) theEObject;
+            T result = caseXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: {
+            GenericSchemaConnection genericSchemaConnection = (GenericSchemaConnection) theEObject;
+            T result = caseGenericSchemaConnection(genericSchemaConnection);
+            if (result == null)
+                result = caseConnection(genericSchemaConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(genericSchemaConnection);
+            if (result == null)
+                result = caseDataProvider(genericSchemaConnection);
+            if (result == null)
+                result = caseDataManager(genericSchemaConnection);
+            if (result == null)
+                result = caseElement(genericSchemaConnection);
+            if (result == null)
+                result = caseDeployedComponent(genericSchemaConnection);
+            if (result == null)
+                result = casePackage(genericSchemaConnection);
+            if (result == null)
+                result = caseNamespace(genericSchemaConnection);
+            if (result == null)
+                result = caseModelElement(genericSchemaConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.LDAP_SCHEMA_CONNECTION: {
+            LDAPSchemaConnection ldapSchemaConnection = (LDAPSchemaConnection) theEObject;
+            T result = caseLDAPSchemaConnection(ldapSchemaConnection);
+            if (result == null)
+                result = caseConnection(ldapSchemaConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(ldapSchemaConnection);
+            if (result == null)
+                result = caseDataProvider(ldapSchemaConnection);
+            if (result == null)
+                result = caseDataManager(ldapSchemaConnection);
+            if (result == null)
+                result = caseElement(ldapSchemaConnection);
+            if (result == null)
+                result = caseDeployedComponent(ldapSchemaConnection);
+            if (result == null)
+                result = casePackage(ldapSchemaConnection);
+            if (result == null)
+                result = caseNamespace(ldapSchemaConnection);
+            if (result == null)
+                result = caseModelElement(ldapSchemaConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION: {
+            WSDLSchemaConnection wsdlSchemaConnection = (WSDLSchemaConnection) theEObject;
+            T result = caseWSDLSchemaConnection(wsdlSchemaConnection);
+            if (result == null)
+                result = caseConnection(wsdlSchemaConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(wsdlSchemaConnection);
+            if (result == null)
+                result = caseDataProvider(wsdlSchemaConnection);
+            if (result == null)
+                result = caseDataManager(wsdlSchemaConnection);
+            if (result == null)
+                result = caseElement(wsdlSchemaConnection);
+            if (result == null)
+                result = caseDeployedComponent(wsdlSchemaConnection);
+            if (result == null)
+                result = casePackage(wsdlSchemaConnection);
+            if (result == null)
+                result = caseNamespace(wsdlSchemaConnection);
+            if (result == null)
+                result = caseModelElement(wsdlSchemaConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SALESFORCE_SCHEMA_CONNECTION: {
+            SalesforceSchemaConnection salesforceSchemaConnection = (SalesforceSchemaConnection) theEObject;
+            T result = caseSalesforceSchemaConnection(salesforceSchemaConnection);
+            if (result == null)
+                result = caseConnection(salesforceSchemaConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(salesforceSchemaConnection);
+            if (result == null)
+                result = caseDataProvider(salesforceSchemaConnection);
+            if (result == null)
+                result = caseDataManager(salesforceSchemaConnection);
+            if (result == null)
+                result = caseElement(salesforceSchemaConnection);
+            if (result == null)
+                result = caseDeployedComponent(salesforceSchemaConnection);
+            if (result == null)
+                result = casePackage(salesforceSchemaConnection);
+            if (result == null)
+                result = caseNamespace(salesforceSchemaConnection);
+            if (result == null)
+                result = caseModelElement(salesforceSchemaConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.CDC_CONNECTION: {
+            CDCConnection cdcConnection = (CDCConnection) theEObject;
+            T result = caseCDCConnection(cdcConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.CDC_TYPE: {
+            CDCType cdcType = (CDCType) theEObject;
+            T result = caseCDCType(cdcType);
+            if (result == null)
+                result = caseAbstractMetadataObject(cdcType);
+            if (result == null)
+                result = caseModelElement(cdcType);
+            if (result == null)
+                result = caseElement(cdcType);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SUBSCRIBER_TABLE: {
+            SubscriberTable subscriberTable = (SubscriberTable) theEObject;
+            T result = caseSubscriberTable(subscriberTable);
+            if (result == null)
+                result = caseTdTable(subscriberTable);
+            if (result == null)
+                result = caseMetadataTable(subscriberTable);
+            if (result == null)
+                result = caseTable(subscriberTable);
+            if (result == null)
+                result = caseAbstractMetadataObject(subscriberTable);
+            if (result == null)
+                result = caseNamedColumnSet(subscriberTable);
+            if (result == null)
+                result = caseClassifier(subscriberTable);
+            if (result == null)
+                result = caseColumnSet(subscriberTable);
+            if (result == null)
+                result = caseElement(subscriberTable);
+            if (result == null)
+                result = caseClass(subscriberTable);
+            if (result == null)
+                result = caseNamespace(subscriberTable);
+            if (result == null)
+                result = caseModelElement(subscriberTable);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.SAP_TEST_INPUT_PARAMETER_TABLE: {
+            SAPTestInputParameterTable sapTestInputParameterTable = (SAPTestInputParameterTable) theEObject;
+            T result = caseSAPTestInputParameterTable(sapTestInputParameterTable);
+            if (result == null)
+                result = caseSAPFunctionParameterTable(sapTestInputParameterTable);
+            if (result == null)
+                result = caseAbstractMetadataObject(sapTestInputParameterTable);
+            if (result == null)
+                result = caseModelElement(sapTestInputParameterTable);
+            if (result == null)
+                result = caseElement(sapTestInputParameterTable);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.CONCEPT: {
+            Concept concept = (Concept) theEObject;
+            T result = caseConcept(concept);
+            if (result == null)
+                result = caseTdTable(concept);
+            if (result == null)
+                result = caseMetadataTable(concept);
+            if (result == null)
+                result = caseTable(concept);
+            if (result == null)
+                result = caseAbstractMetadataObject(concept);
+            if (result == null)
+                result = caseNamedColumnSet(concept);
+            if (result == null)
+                result = caseClassifier(concept);
+            if (result == null)
+                result = caseColumnSet(concept);
+            if (result == null)
+                result = caseElement(concept);
+            if (result == null)
+                result = caseClass(concept);
+            if (result == null)
+                result = caseNamespace(concept);
+            if (result == null)
+                result = caseModelElement(concept);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.CONCEPT_TARGET: {
+            ConceptTarget conceptTarget = (ConceptTarget) theEObject;
+            T result = caseConceptTarget(conceptTarget);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.HL7_CONNECTION: {
+            HL7Connection hl7Connection = (HL7Connection) theEObject;
+            T result = caseHL7Connection(hl7Connection);
+            if (result == null)
+                result = caseFileConnection(hl7Connection);
+            if (result == null)
+                result = caseConnection(hl7Connection);
+            if (result == null)
+                result = caseAbstractMetadataObject(hl7Connection);
+            if (result == null)
+                result = caseDataProvider(hl7Connection);
+            if (result == null)
+                result = caseDataManager(hl7Connection);
+            if (result == null)
+                result = caseElement(hl7Connection);
+            if (result == null)
+                result = caseDeployedComponent(hl7Connection);
+            if (result == null)
+                result = casePackage(hl7Connection);
+            if (result == null)
+                result = caseNamespace(hl7Connection);
+            if (result == null)
+                result = caseModelElement(hl7Connection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION: {
+            HeaderFooterConnection headerFooterConnection = (HeaderFooterConnection) theEObject;
+            T result = caseHeaderFooterConnection(headerFooterConnection);
+            if (result == null)
+                result = caseConnection(headerFooterConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(headerFooterConnection);
+            if (result == null)
+                result = caseDataProvider(headerFooterConnection);
+            if (result == null)
+                result = caseDataManager(headerFooterConnection);
+            if (result == null)
+                result = caseElement(headerFooterConnection);
+            if (result == null)
+                result = caseDeployedComponent(headerFooterConnection);
+            if (result == null)
+                result = casePackage(headerFooterConnection);
+            if (result == null)
+                result = caseNamespace(headerFooterConnection);
+            if (result == null)
+                result = caseModelElement(headerFooterConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.XML_FILE_NODE: {
+            XMLFileNode xmlFileNode = (XMLFileNode) theEObject;
+            T result = caseXMLFileNode(xmlFileNode);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.GENERIC_PACKAGE: {
+            GenericPackage genericPackage = (GenericPackage) theEObject;
+            T result = caseGenericPackage(genericPackage);
+            if (result == null)
+                result = casePackage(genericPackage);
+            if (result == null)
+                result = caseNamespace(genericPackage);
+            if (result == null)
+                result = caseModelElement(genericPackage);
+            if (result == null)
+                result = caseElement(genericPackage);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case ConnectionPackage.HL7_FILE_NODE: {
+            HL7FileNode hl7FileNode = (HL7FileNode) theEObject;
+            T result = caseHL7FileNode(hl7FileNode);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        default:
+            return defaultCase(theEObject);
         }
     }
 
@@ -408,7 +889,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseMetadata(Metadata object) {
+    public T caseMetadata(Metadata object) {
         return null;
     }
 
@@ -422,7 +903,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseConnection(Connection object) {
+    public T caseConnection(Connection object) {
         return null;
     }
 
@@ -436,7 +917,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseMetadataTable(MetadataTable object) {
+    public T caseMetadataTable(MetadataTable object) {
         return null;
     }
 
@@ -450,7 +931,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseMetadataColumn(MetadataColumn object) {
+    public T caseMetadataColumn(MetadataColumn object) {
         return null;
     }
 
@@ -464,7 +945,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseAbstractMetadataObject(AbstractMetadataObject object) {
+    public T caseAbstractMetadataObject(AbstractMetadataObject object) {
         return null;
     }
 
@@ -478,7 +959,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseFileConnection(FileConnection object) {
+    public T caseFileConnection(FileConnection object) {
         return null;
     }
 
@@ -492,7 +973,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseDelimitedFileConnection(DelimitedFileConnection object) {
+    public T caseDelimitedFileConnection(DelimitedFileConnection object) {
         return null;
     }
 
@@ -506,7 +987,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object casePositionalFileConnection(PositionalFileConnection object) {
+    public T casePositionalFileConnection(PositionalFileConnection object) {
         return null;
     }
 
@@ -521,7 +1002,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseEbcdicConnection(EbcdicConnection object) {
+    public T caseEbcdicConnection(EbcdicConnection object) {
         return null;
     }
 
@@ -536,7 +1017,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseMDMConnection(MDMConnection object) {
+    public T caseMDMConnection(MDMConnection object) {
         return null;
     }
 
@@ -550,7 +1031,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseDatabaseConnection(DatabaseConnection object) {
+    public T caseDatabaseConnection(DatabaseConnection object) {
         return null;
     }
 
@@ -565,7 +1046,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSAPConnection(SAPConnection object) {
+    public T caseSAPConnection(SAPConnection object) {
         return null;
     }
 
@@ -580,7 +1061,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSAPFunctionUnit(SAPFunctionUnit object) {
+    public T caseSAPFunctionUnit(SAPFunctionUnit object) {
         return null;
     }
 
@@ -595,7 +1076,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSAPIDocUnit(SAPIDocUnit object) {
+    public T caseSAPIDocUnit(SAPIDocUnit object) {
         return null;
     }
 
@@ -610,7 +1091,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSAPFunctionParameterColumn(SAPFunctionParameterColumn object) {
+    public T caseSAPFunctionParameterColumn(SAPFunctionParameterColumn object) {
         return null;
     }
 
@@ -625,7 +1106,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSAPFunctionParameterTable(SAPFunctionParameterTable object) {
+    public T caseSAPFunctionParameterTable(SAPFunctionParameterTable object) {
         return null;
     }
 
@@ -640,7 +1121,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseInputSAPFunctionParameterTable(InputSAPFunctionParameterTable object) {
+    public T caseInputSAPFunctionParameterTable(InputSAPFunctionParameterTable object) {
         return null;
     }
 
@@ -655,7 +1136,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseOutputSAPFunctionParameterTable(OutputSAPFunctionParameterTable object) {
+    public T caseOutputSAPFunctionParameterTable(OutputSAPFunctionParameterTable object) {
         return null;
     }
 
@@ -669,7 +1150,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseRegexpFileConnection(RegexpFileConnection object) {
+    public T caseRegexpFileConnection(RegexpFileConnection object) {
         return null;
     }
 
@@ -683,7 +1164,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseXmlFileConnection(XmlFileConnection object) {
+    public T caseXmlFileConnection(XmlFileConnection object) {
         return null;
     }
 
@@ -697,7 +1178,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSchemaTarget(SchemaTarget object) {
+    public T caseSchemaTarget(SchemaTarget object) {
         return null;
     }
 
@@ -711,7 +1192,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseQueriesConnection(QueriesConnection object) {
+    public T caseQueriesConnection(QueriesConnection object) {
         return null;
     }
 
@@ -724,7 +1205,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseQuery(Query object) {
+    public T caseQuery(Query object) {
         return null;
     }
 
@@ -738,7 +1219,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseLdifFileConnection(LdifFileConnection object) {
+    public T caseLdifFileConnection(LdifFileConnection object) {
         return null;
     }
 
@@ -753,7 +1234,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseFileExcelConnection(FileExcelConnection object) {
+    public T caseFileExcelConnection(FileExcelConnection object) {
         return null;
     }
 
@@ -767,7 +1248,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
+    public T caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
         return null;
     }
 
@@ -781,7 +1262,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseGenericSchemaConnection(GenericSchemaConnection object) {
+    public T caseGenericSchemaConnection(GenericSchemaConnection object) {
         return null;
     }
 
@@ -795,7 +1276,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseLDAPSchemaConnection(LDAPSchemaConnection object) {
+    public T caseLDAPSchemaConnection(LDAPSchemaConnection object) {
         return null;
     }
 
@@ -810,7 +1291,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseWSDLSchemaConnection(WSDLSchemaConnection object) {
+    public T caseWSDLSchemaConnection(WSDLSchemaConnection object) {
         return null;
     }
 
@@ -825,7 +1306,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
+    public T caseSalesforceSchemaConnection(SalesforceSchemaConnection object) {
         return null;
     }
 
@@ -840,7 +1321,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseCDCConnection(CDCConnection object) {
+    public T caseCDCConnection(CDCConnection object) {
         return null;
     }
 
@@ -855,7 +1336,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseCDCType(CDCType object) {
+    public T caseCDCType(CDCType object) {
         return null;
     }
 
@@ -870,7 +1351,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSubscriberTable(SubscriberTable object) {
+    public T caseSubscriberTable(SubscriberTable object) {
         return null;
     }
 
@@ -885,7 +1366,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
+    public T caseSAPTestInputParameterTable(SAPTestInputParameterTable object) {
         return null;
     }
 
@@ -900,7 +1381,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseConcept(Concept object) {
+    public T caseConcept(Concept object) {
         return null;
     }
 
@@ -915,7 +1396,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseConceptTarget(ConceptTarget object) {
+    public T caseConceptTarget(ConceptTarget object) {
         return null;
     }
 
@@ -930,37 +1411,22 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseHL7Connection(HL7Connection object) {
+    public T caseHL7Connection(HL7Connection object) {
         return null;
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Header Footer Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Generic Package</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Header Footer Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Generic Package</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseHeaderFooterConnection(HeaderFooterConnection object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>XML File Node</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>XML File Node</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseXMLFileNode(XMLFileNode object) {
+    public T caseGenericPackage(GenericPackage object) {
         return null;
     }
 
@@ -975,7 +1441,292 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public Object caseHL7FileNode(HL7FileNode object) {
+    public T caseHL7FileNode(HL7FileNode object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseElement(Element object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Model Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Model Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseModelElement(ModelElement object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Namespace</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Namespace</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseNamespace(Namespace object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Package</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Package</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T casePackage(orgomg.cwm.objectmodel.core.Package object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Deployed Component</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Deployed Component</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDeployedComponent(DeployedComponent object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Data Manager</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Data Manager</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDataManager(DataManager object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Data Provider</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Data Provider</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDataProvider(DataProvider object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseFeature(Feature object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Structural Feature</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Structural Feature</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseStructuralFeature(StructuralFeature object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Attribute</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseAttribute(Attribute object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Field</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Field</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseField(Field object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Classifier</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Classifier</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseClassifier(Classifier object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Class</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseClass(orgomg.cwm.objectmodel.core.Class object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Column Set</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Column Set</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseColumnSet(ColumnSet object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Named Column Set</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Named Column Set</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseNamedColumnSet(NamedColumnSet object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTable(Table object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Td Table</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Td Table</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseTdTable(TdTable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Header Footer Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Header Footer Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseHeaderFooterConnection(HeaderFooterConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>XML File Node</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>XML File Node</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseXMLFileNode(XMLFileNode object) {
         return null;
     }
 
@@ -989,7 +1740,7 @@ public class ConnectionSwitch {
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
      * @generated
      */
-    public Object defaultCase(EObject object) {
+    public T defaultCase(EObject object) {
         return null;
     }
 

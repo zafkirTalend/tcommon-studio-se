@@ -26,7 +26,9 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -38,11 +40,14 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
+import orgomg.cwm.objectmodel.core.Package;
 
 /**
  * Administrator class global comment. Detailed comment <br/>
@@ -127,7 +132,11 @@ public class SaveAsGenericSchemaCommand extends Command {
             MetadataTable createMetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             CorePlugin.getDefault().getProxyRepositoryFactory().getNextId();
             metadataTable.setId(nextId);
-            createMetadataTable.setConnection(connection);
+            // createMetadataTable.setConnection(connection);
+            if (createMetadataTable.getNamespace() instanceof Package) {
+                Package pkg = (Package) createMetadataTable.getNamespace();
+                pkg.getDataManager().add(connection);
+            }
             createMetadataTable.setLabel("metadata"); //$NON-NLS-1$
             for (IMetadataColumn column : listColumns) {
                 MetadataColumn createMetadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
@@ -136,7 +145,7 @@ public class SaveAsGenericSchemaCommand extends Command {
                 createMetadataColumn.setDefaultValue(column.getDefault());
                 createMetadataColumn.setId(column.getId() + ""); //$NON-NLS-1$
                 createMetadataColumn.setKey(column.isKey());
-                    createMetadataColumn.setLength(column.getLength());
+                createMetadataColumn.setLength(column.getLength());
                 createMetadataColumn.setPrecision(column.getPrecision());
                 createMetadataColumn.setPattern(column.getPattern());
                 createMetadataColumn.setNullable(column.isNullable());
@@ -146,7 +155,17 @@ public class SaveAsGenericSchemaCommand extends Command {
 
                 createMetadataTable.getColumns().add(createMetadataColumn);
             }
-            connection.getTables().add(createMetadataTable);
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+                    GenericPackage.class);
+            if (g != null) {
+                g.getOwnedElement().add(createMetadataTable);
+            } else {
+                GenericPackage gpkg = ConnectionFactory.eINSTANCE.createGenericPackage();
+                PackageHelper.addMetadataTable(createMetadataTable, gpkg);
+                ConnectionHelper.addPackage(gpkg, connection);
+
+            }
+            // connection.getTables().add(createMetadataTable);
             item.setProperty(property);
             item.setConnection(connection);
 
