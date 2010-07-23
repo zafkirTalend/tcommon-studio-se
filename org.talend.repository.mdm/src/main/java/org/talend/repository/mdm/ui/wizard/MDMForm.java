@@ -125,8 +125,6 @@ public class MDMForm extends AbstractForm {
                 Messages.getString("MDMForm.PASSWORD"), 1, SWT.BORDER | SWT.PASSWORD); //$NON-NLS-1$
 
         mdmServer = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.SERVER"), true); //$NON-NLS-1$
-        mdmServer.setText("localhost");//$NON-NLS-1$
-        getConnection().setServer("localhost");
 
         mdmHostnameText = new LabelledText(mdmParameterGroup, Messages.getString("MDMForm.PORT"), true); //$NON-NLS-1$
 

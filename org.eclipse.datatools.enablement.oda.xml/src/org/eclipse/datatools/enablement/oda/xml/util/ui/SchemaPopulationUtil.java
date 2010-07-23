@@ -468,13 +468,19 @@ final class XSDFileSchemaTreePopulator {
             }
             ATreeNode childNode = new ATreeNode();
             childNode.setValue(((XSParticleDecl) list.item(j)).getTerm().getName());
-            String dataType = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition().getName();
+            XSElementDecl term = null;
+            if (((XSParticleDecl) list.item(j)).getTerm() instanceof XSElementDecl) {
+                term = (XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm();
+            } else {
+                continue;
+            }
+            String dataType = term.getTypeDefinition().getName();
             if (dataType == null || dataType.length() == 0) {
                 dataType = childNode.getValue().toString();
             }
             childNode.setDataType(dataType);
             childNode.setType(ATreeNode.ELEMENT_TYPE);
-            XSTypeDefinition xstype = ((XSElementDecl) ((XSParticleDecl) list.item(j)).getTerm()).getTypeDefinition();
+            XSTypeDefinition xstype = term.getTypeDefinition();
             // Populate the complex data types under node.
             if ((!dataType.equals("anyType")) && xstype instanceof XSComplexTypeDecl) {
                 // First do a recursive call to populate all child complex type of current node.
