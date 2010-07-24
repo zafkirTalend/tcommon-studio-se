@@ -7,18 +7,16 @@ package org.talend.cwm.xml.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.xml.TdXMLContent;
 import org.talend.cwm.xml.TdXMLDocument;
 import org.talend.cwm.xml.TdXMLElement;
 import org.talend.cwm.xml.XmlPackage;
-
+import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.xml.impl.ElementImpl;
 
 /**
@@ -287,25 +285,25 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public void setContentType(String contentType) {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        TaggedValueHelper.setTaggedValue(this, TaggedValueHelper.DATA_CONTENT_TYPE_TAGGED_VAL, contentType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public String getContentType() {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DATA_CONTENT_TYPE_TAGGED_VAL, this.getTaggedValue());
+        if (tv == null) {
+            return "";
+        }
+        return tv.getValue();
     }
 
     /**
