@@ -7,5 +7,12 @@
             class="org.talend.designer.webservice.WebServiceComponent">
       </ExternalComponent>
    </extension>
+   <extension
+         point="org.talend.core.service">
+      <Service
+            class="org.talend.designer.webservice.ui.WebServiceHelper"
+            serviceId="IWebService">
+      </Service>
+   </extension>
 
 </plugin>

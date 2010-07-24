@@ -60,14 +60,19 @@ public class DropTargetListenerForWebService implements TransferDropTargetListen
         String inRowName = new String();
         List<? extends IConnection> inConnList = connector.getIncomingConnections();
         // List<IMetadataTable> metaList = connector.getMetadataList();
-        for (int i = 0; i < inConnList.size(); i++) {
-            IConnection conn = inConnList.get(i);
-            if (conn == null) {
-                continue;
+        if (!inConnList.isEmpty()) {
+            for (int i = 0; i < inConnList.size(); i++) {
+                IConnection conn = inConnList.get(i);
+                if (conn == null) {
+                    continue;
+                }
+                inRowName = conn.getUniqueName();
             }
-            inRowName = conn.getUniqueName();
+            return inRowName;
+        } else {
+            inRowName = "input";
+            return inRowName;
         }
-        return inRowName;
     }
 
     /*

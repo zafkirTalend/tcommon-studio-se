@@ -14,6 +14,7 @@ package org.talend.designer.webservice.ui;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -29,6 +31,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
@@ -64,16 +68,25 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.WSDLParameter;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.AbstractWebService;
 import org.talend.core.ui.metadata.dialog.MetadataDialog;
 import org.talend.core.ui.proposal.TalendProposalUtils;
+import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.WebServiceComponentMain;
 import org.talend.designer.webservice.data.ExternalWebServiceUIProperties;
@@ -84,6 +97,7 @@ import org.talend.designer.webservice.managers.UIManager;
 import org.talend.designer.webservice.managers.WebServiceManager;
 import org.talend.designer.webservice.ui.dialog.AddListDialog;
 import org.talend.designer.webservice.ui.dialog.InputIndexValidator;
+import org.talend.designer.webservice.ui.dialog.WSDLSchemaDialog;
 import org.talend.designer.webservice.ui.dialog.WebServiceDialog;
 import org.talend.designer.webservice.ui.dialog.WebServiceEventListener;
 import org.talend.designer.webservice.ui.dnd.DragAndDropForWebService;
@@ -98,7 +112,7 @@ import org.talend.ws.helper.conf.ServiceHelperConfiguration;
 /**
  * gcui class global comment. Detailled comment
  */
-public class WebServiceUI {
+public class WebServiceUI extends AbstractWebService {
 
     protected int maximumRowsToPreview = CorePlugin.getDefault().getPreferenceStore().getInt(
             ITalendCorePrefConstants.PREVIEW_LIMIT);
@@ -176,6 +190,8 @@ public class WebServiceUI {
     private Button denorButForOut;
 
     private Button schemaButton;
+
+    private Button inputschemaButton;
 
     private Table expressTableForIn;
 
@@ -257,12 +273,32 @@ public class WebServiceUI {
 
     private Boolean isFirst = true;
 
+    private WSDLSchemaConnection connection = null;
+
     public WebServiceUI(Composite uiParent, WebServiceComponentMain webServiceMain) {
         super();
         this.uiParent = uiParent;
         this.webServiceDialog = webServiceMain.getDialog();
         this.webServiceManager = webServiceMain.getWebServiceManager();
         this.connector = webServiceMain.getWebServiceComponent();
+        URLValue = new String();
+        // getInConnList();
+        // getOutConnList();
+        // getLastFunction();
+        initWebserviceUI();
+        // getInputElementList();
+        // getOutputElementList();
+        initInputMetaCopy();
+        initOutputMetaCopy();
+    }
+
+    public WebServiceUI(Composite uiParent, WebServiceComponentMain webServiceMain, ConnectionItem connectionItem) {
+        super();
+        this.uiParent = uiParent;
+        this.webServiceDialog = webServiceMain.getDialog();
+        this.webServiceManager = webServiceMain.getWebServiceManager();
+        this.connector = webServiceMain.getWebServiceComponent();
+        this.connection = (WSDLSchemaConnection) connectionItem.getConnection();
         URLValue = new String();
         // getInConnList();
         // getOutConnList();
@@ -295,6 +331,74 @@ public class WebServiceUI {
             if (fun != null) {
                 currentFunction = fun;
             }
+            initwebServiceMappingData(currentURL);
+        }
+    }
+
+    private void initwebServiceMappingData(String currentURL) {
+        if (currentURL != null && !currentURL.equals("")) {
+            isFirst = false;
+            // getLastFunction();
+            ParameterInfo para = new ParameterInfo();
+            IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS"); //$NON-NLS-1$
+            List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
+            for (Map<String, String> map : outputMap) {
+                if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) {
+                    String ele = (String) map.get("ELEMENT"); //$NON-NLS-1$
+                    if (!ele.equals("")) {
+                        OutPutMappingData data = new OutPutMappingData();
+                        if (para.getName() == null) {
+                            para.setName(ele);
+                            para.getParameterInfos().add(new ParameterInfo());
+                            data.setParameter(para);
+                            data.setParameterName(ele);
+                        } else {
+                            ParameterInfo para2 = new ParameterInfo();
+                            para2.setParent(para);
+                            para2.setName(ele);
+                            if (para.getParameterInfos().get(0).getName() == null) {
+                                para.getParameterInfos().clear();
+                            }
+                            para.getParameterInfos().add(para2);
+                            data.setParameter(para2);
+                            data.setParameterName(ele);
+                        }
+                        outParaList.add(data);
+                    }
+                }
+            }
+            ParameterInfo inpara = new ParameterInfo();
+            IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS"); //$NON-NLS-1$
+            List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
+            for (Map<String, String> map : inputparaValue) {
+                InputMappingData data = new InputMappingData();
+                if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) {
+                    String expr = (String) map.get("EXPRESSION");
+                    data.setInputColumnValue(expr);
+                }
+                if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String && !map.get("ELEMENT").equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
+                    String paraName = map.get("ELEMENT");
+                    if (inpara.getName() == null) {
+                        inpara.setName(paraName);
+                        inpara.getParameterInfos().add(new ParameterInfo());
+                        data.setParameter(inpara);
+                        data.setParameterName(paraName);
+                    } else {
+                        ParameterInfo para2 = new ParameterInfo();
+                        para2.setParent(inpara);
+                        para2.setName(paraName);
+                        if (inpara.getParameterInfos().get(0).getName() == null) {
+                            inpara.getParameterInfos().clear();
+                        }
+                        inpara.getParameterInfos().add(para2);
+                        data.setParameter(para2);
+                        data.setParameterName(paraName);
+                    }
+                    inputMappingList.add(data);
+                }
+            }
+            getInputElementList();
+            getOutputElementList();
         }
     }
 
@@ -372,11 +476,13 @@ public class WebServiceUI {
             if (conn == null) {
                 continue;
             }
-            IMetadataTable metaTable = this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
-            if (metaTable == null) {
-                continue;
+            if (this.getWebServiceManager().getWebServiceComponent().getMetadataList().size() > 1) {
+                IMetadataTable metaTable = this.connector.getMetadataFromConnector("OUTPUT");// this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
+                if (metaTable == null) {
+                    continue;
+                }
+                list.addAll(metaTable.getListColumns());
             }
-            list.addAll(metaTable.getListColumns());
         }
 
         for (int i = 0; i < list.size(); i++) {
@@ -385,7 +491,7 @@ public class WebServiceUI {
             OutPutMappingData outData = new OutPutMappingData();
             outData.setOutputColumnValue(col.getLabel());
             outData.setMetadataColumn(col);
-            outPutcolumnList.add(outData);
+            // outPutcolumnList.add(outData);
         }
         expressoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
 
@@ -462,97 +568,109 @@ public class WebServiceUI {
         List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
         WebServiceExpressionParser webParser = new WebServiceExpressionParser("\\s*(\\w+)\\s*\\.\\s*(\\w+)\\s*"); //$NON-NLS-1$
         List<ParameterInfo> childList = new ArrayList<ParameterInfo>();
+        if (connector.getIncomingConnections().isEmpty()) {
+            if (inPutcolumnList.isEmpty()) {
+                IMetadataTable inputMetadataTable = this.connector.getMetadataFromConnector("FLOW");
+                inPutcolumnList.addAll(inputMetadataTable.getListColumns());
+            }
+        }
         for (Map<String, String> map : inputparaValue) {
             boolean mark = true;
             InputMappingData data = new InputMappingData();
-            if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
-                String expr = (String) map.get("EXPRESSION"); //$NON-NLS-1$
-                if (inPutcolumnList == null || inPutcolumnList.size() <= 0) {
-                    Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
-                    data.setInputColumnValue(expr);
+            Function fun = allfunList.get(0);
+            List<ParameterInfo> list = fun.getInputParameters();
+            if (list != null) {
+                if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
+                    String expr = (String) map.get("EXPRESSION"); //$NON-NLS-1$
 
-                } else {
+                    if (inPutcolumnList == null || inPutcolumnList.size() <= 0) {
+                        Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
+                        data.setInputColumnValue(expr);
 
-                    Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
-                    data.setInputColumnValue(expr);
-                    for (IMetadataColumn column : inPutcolumnList) {
-                        Set<Entry<String, String>> set = exPmap.entrySet();
-                        Iterator<Entry<String, String>> ite = set.iterator();
-                        while (ite.hasNext()) {
-                            if (ite.next().getKey().equals(column.getLabel())) {// (expr.contains(column.getLabel())) {
-                                List<IMetadataColumn> columnList = data.getMetadataColumnList();
-                                columnList.add(column);
+                    } else {
+
+                        Map<String, String> exPmap = webParser.parseInTableEntryLocations(expr);
+                        data.setInputColumnValue(expr);
+                        for (IMetadataColumn column : inPutcolumnList) {
+                            Set<Entry<String, String>> set = exPmap.entrySet();
+                            Iterator<Entry<String, String>> ite = set.iterator();
+                            while (ite.hasNext()) {
+                                if (ite.next().getKey().equals(column.getLabel())) {// (expr.contains(column.getLabel()))
+                                    // {
+                                    List<IMetadataColumn> columnList = data.getMetadataColumnList();
+                                    columnList.add(column);
+                                }
                             }
                         }
                     }
                 }
-            }
-            if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
-                String paraName = map.get("ELEMENT"); //$NON-NLS-1$
-                String reArrayParaName = paraName;
-                // if (paraName.endsWith("]")) {
-                // int lastArray = paraName.lastIndexOf("[");
-                // reArrayParaName = paraName.substring(0, lastArray);
-                // }
-                if (reArrayParaName.contains("[")) {
-                    reArrayParaName = paraName.replaceAll("\\[\\S+\\]", "");
-                }
-                if (allfunList == null || allfunList.size() <= 0) {
-                    return;
-                }
-                Function fun = allfunList.get(0);
-                List<ParameterInfo> list = fun.getInputParameters();
-                goin: for (ParameterInfo para : list) {
-                    String firstParaName = para.getName();
-                    if (para.getName().equals(reArrayParaName)) {
-                        // paraName = para.getName();
-                        mark = false;
-                        childList.clear();
-                        data.setParameter(para);
-                        data.setParameterName(paraName);
-                        if (para.getParameterInfos().size() > 0) {
-                            childList.addAll(new ParameterInfoUtil().getAllChildren(para));
-                        }
-                        break goin;
+                if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
+                    String paraName = map.get("ELEMENT"); //$NON-NLS-1$
+                    String reArrayParaName = paraName;
+                    // if (paraName.endsWith("]")) {
+                    // int lastArray = paraName.lastIndexOf("[");
+                    // reArrayParaName = paraName.substring(0, lastArray);
+                    // }
+                    if (reArrayParaName.contains("[")) {
+                        reArrayParaName = paraName.replaceAll("\\[\\S+\\]", "");
                     }
-                    // else if (!para.getParameterInfos().isEmpty()) {
-                    // List<ParameterInfo> nexChildlist = para.getParameterInfos();
-                    // for (ParameterInfo nexPara : nexChildlist) {
-                    // String nextParaName = firstParaName + "." + nexPara.getName();
-                    // if (nextParaName.equals(reArrayParaName)) {
-                    // mark = false;
-                    // childList.clear();
-                    // data.setParameter(para);
-                    // data.setParameterName(paraName);
-                    // if (para.getParameterInfos().size() > 0) {
-                    // childList.addAll(new ParameterInfoUtil().getAllChildren(para));
-                    // }
-                    // break goin;
-                    //
-                    // }
-                    // }
-                    // }
-                }
-                if (mark) {
-                    goout: for (ParameterInfo para : childList) {
-                        if (para.getName().equals(paraName) || paraName.endsWith(para.getName())
-                                || reArrayParaName.endsWith(para.getName())) {
+                    if (allfunList == null || allfunList.size() <= 0) {
+                        return;
+                    }
+
+                    goin: for (ParameterInfo para : list) {
+                        String firstParaName = para.getName();
+                        if (para.getName().equals(reArrayParaName)) {
                             // paraName = para.getName();
+                            mark = false;
+                            childList.clear();
                             data.setParameter(para);
                             data.setParameterName(paraName);
-                            // if (para.getParameterInfos().size() > 0) {
-                            // childList.addAll(para.getParameterInfos());
-                            // }
-                            break goout;
+                            if (para.getParameterInfos().size() > 0) {
+                                childList.addAll(new ParameterInfoUtil().getAllChildren(para));
+                            }
+                            break goin;
+                        }
+                        // else if (!para.getParameterInfos().isEmpty()) {
+                        // List<ParameterInfo> nexChildlist = para.getParameterInfos();
+                        // for (ParameterInfo nexPara : nexChildlist) {
+                        // String nextParaName = firstParaName + "." + nexPara.getName();
+                        // if (nextParaName.equals(reArrayParaName)) {
+                        // mark = false;
+                        // childList.clear();
+                        // data.setParameter(para);
+                        // data.setParameterName(paraName);
+                        // if (para.getParameterInfos().size() > 0) {
+                        // childList.addAll(new ParameterInfoUtil().getAllChildren(para));
+                        // }
+                        // break goin;
+                        //
+                        // }
+                        // }
+                        // }
+                    }
+                    if (mark) {
+                        goout: for (ParameterInfo para : childList) {
+                            if (para.getName().equals(paraName) || paraName.endsWith(para.getName())
+                                    || reArrayParaName.endsWith(para.getName())) {
+                                // paraName = para.getName();
+                                data.setParameter(para);
+                                data.setParameterName(paraName);
+                                // if (para.getParameterInfos().size() > 0) {
+                                // childList.addAll(para.getParameterInfos());
+                                // }
+                                break goout;
+                            }
                         }
                     }
+
                 }
-            }
-            if (("".equals(data.getInputColumnValue()) || data.getInputColumnValue() == null) //$NON-NLS-1$
-                    && ("".equals(data.getParameterName()) || data.getParameterName() == null)) { //$NON-NLS-1$
-                continue;
-            } else {
-                inputMappingList.add(data);
+                if (("".equals(data.getInputColumnValue()) || data.getInputColumnValue() == null) //$NON-NLS-1$
+                        && ("".equals(data.getParameterName()) || data.getParameterName() == null)) { //$NON-NLS-1$
+                    continue;
+                } else {
+                    inputMappingList.add(data);
+                }
             }
         }
     }
@@ -579,47 +697,49 @@ public class WebServiceUI {
                 }
                 Function fun = allfunList.get(0);
                 List<ParameterInfo> outPaList = fun.getOutputParameters();
-                goin: for (ParameterInfo para : outPaList) {
-                    if (para.getName().equals(ele)) {
-                        childList.clear();
-                        mark = false;
-                        data.setParameter(para);
-                        data.setParameterName(ele);
-                        outParaList.add(data);
-                        if (para.getParameterInfos().size() > 0) {
-                            childList.addAll(new ParameterInfoUtil().getAllChildren(para));
-                        }
-                        // if (para != null) {
-                        // OutPutMappingData outData = new OutPutMappingData();
-                        // outData.setParameter(para);
-                        // outData.setParameterName(ele);
-                        // outParaList.add(outData);
-                        // }
-                        break goin;
-                    }
-                }
-
-                if (mark) {
-                    goout: for (ParameterInfo para : childList) {
-                        if (para.getName().equals(ele) || ele.endsWith(para.getName()) || reArrayOutEle.endsWith(para.getName())) {
+                if (outPaList != null) {
+                    goin: for (ParameterInfo para : outPaList) {
+                        if (para.getName().equals(ele)) {
+                            childList.clear();
+                            mark = false;
                             data.setParameter(para);
                             data.setParameterName(ele);
                             outParaList.add(data);
-                            // if (para.getParameterInfos().size() > 0) {
-                            // childList.addAll(para.getParameterInfos());
-                            // }
+                            if (para.getParameterInfos().size() > 0) {
+                                childList.addAll(new ParameterInfoUtil().getAllChildren(para));
+                            }
                             // if (para != null) {
                             // OutPutMappingData outData = new OutPutMappingData();
                             // outData.setParameter(para);
+                            // outData.setParameterName(ele);
                             // outParaList.add(outData);
                             // }
-                            break goout;
+                            break goin;
                         }
                     }
+
+                    if (mark) {
+                        goout: for (ParameterInfo para : childList) {
+                            if (para.getName().equals(ele) || ele.endsWith(para.getName())
+                                    || reArrayOutEle.endsWith(para.getName())) {
+                                data.setParameter(para);
+                                data.setParameterName(ele);
+                                outParaList.add(data);
+                                // if (para.getParameterInfos().size() > 0) {
+                                // childList.addAll(para.getParameterInfos());
+                                // }
+                                // if (para != null) {
+                                // OutPutMappingData outData = new OutPutMappingData();
+                                // outData.setParameter(para);
+                                // outParaList.add(outData);
+                                // }
+                                break goout;
+                            }
+                        }
+                    }
+
                 }
-
             }
-
             if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) { //$NON-NLS-1$ //$NON-NLS-2$
                 String exp = (String) map.get("EXPRESSION"); //$NON-NLS-1$
                 String reArrayOutExp = "";
@@ -631,6 +751,14 @@ public class WebServiceUI {
                     continue;
                 }
                 data.setParameterName(exp);
+                // org.talend.core.model.metadata.MetadataColumn
+                if (outPutcolumnList.isEmpty()) {
+                    String columnName = map.get("COLUMN");
+                    org.talend.core.model.metadata.MetadataColumn column = new org.talend.core.model.metadata.MetadataColumn();
+                    column.setLabel(columnName);
+                    data.setMetadataColumn(column);
+                    data.setOutputColumnValue(columnName);
+                }
                 // Set<String> expList = webParser.parseOutTableEntryLocations(exp);
                 for (OutPutMappingData outMappingData : outParaList) {
                     ParameterInfo outInfo = outMappingData.getParameter();
@@ -873,19 +1001,25 @@ public class WebServiceUI {
 
                 // set dialog back button and next button can use or not.
                 int crruenSelect = tabFolder.getSelectionIndex();
-                if (crruenSelect == 0) {
-                    webServiceDialog.setBackButtonUnuse();
-                    webServiceDialog.setNextButtonCanuse();
-                }
-                if (crruenSelect == 2) {
-                    webServiceDialog.setBackButtonCanuse();
-                    webServiceDialog.setNextButtonUnuse();
-                }
-                if (crruenSelect == 1) {
-                    webServiceDialog.setBackButtonCanuse();
-                    webServiceDialog.setNextButtonCanuse();
+                if (webServiceDialog != null) {
+                    if (crruenSelect == 0) {
+                        webServiceDialog.setBackButtonUnuse();
+                        webServiceDialog.setNextButtonCanuse();
+                    }
+                    if (crruenSelect == 2) {
+                        webServiceDialog.setBackButtonCanuse();
+                        webServiceDialog.setNextButtonUnuse();
+                    }
+                    if (crruenSelect == 1) {
+                        webServiceDialog.setBackButtonCanuse();
+                        webServiceDialog.setNextButtonCanuse();
+                    }
                 }
 
+                if (connection != null) {
+                    saveInputValue();
+                    saveOutPutValue();
+                }
                 ExtendedTableModel<InputMappingData> inputModel = expressinPutTableView.getExtendedTableModel();
                 boolean removeLinksIn = true;
                 goin: for (InputMappingData indata : inputModel.getBeansList()) {
@@ -943,6 +1077,16 @@ public class WebServiceUI {
             }
 
         };
+        wsdlField.addModifyListener(new ModifyListener() {
+
+            public void modifyText(ModifyEvent e) {
+                // TODO Auto-generated method stub
+                URLValue = wsdlField.getText();
+                if (connection != null)
+                    connection.setWSDL(URLValue);
+            }
+        });
+
         // add a listener for ctrl+space.
         TalendProposalUtils.installOn(wsdlField.getTextControl(), connector.getProcess(), connector);
         String wsdlUrl = (String) connector.getElementParameter("ENDPOINT").getValue(); //$NON-NLS-1$
@@ -956,6 +1100,10 @@ public class WebServiceUI {
         butData.verticalSpan = 1;
         refreshbut.setLayoutData(butData);
 
+        if (wsdlUrl != null && !wsdlUrl.contains("\"")) {
+            wsdlField.setReadOnly(true);
+            refreshbut.setEnabled(false);
+        }
         // add port name UI
         Composite wsdlPortcomposite = new Composite(wsdlComposite, SWT.NONE);
         GridData portlayoutData = new GridData(GridData.FILL_HORIZONTAL);
@@ -1097,6 +1245,30 @@ public class WebServiceUI {
                 } catch (WebServiceCancelException e1) {
                     return;
                 }
+                if (connection != null) {
+                    listTable.setSelection(listTable.getItem(0));
+                    if (currentFunction != null) {
+                        if (currentFunction.getName() != null) {
+                            connection.setMethodName(currentFunction.getName());
+                        }
+                        if (currentFunction.getServerNameSpace() != null) {
+                            connection.setServerNameSpace(currentFunction.getServerNameSpace());
+                        }
+                        if (currentFunction.getServerName() != null) {
+                            connection.setServerName(currentFunction.getServerName());
+                        }
+                        if (currentFunction.getServerNameSpace() != null) {
+                            connection.setPortNameSpace(currentFunction.getServerNameSpace());
+                        }
+                    }
+                    if (currentPortName != null) {
+                        connection.setPortName(currentPortName.getPortName());
+
+                    } else if (currentPortName == null && allPortNames != null) {
+                        currentPortName = allPortNames.get(0);
+                        connection.setPortName(currentPortName.getPortName());
+                    }
+                }
                 // listTable.setSelection(listTable.getItem(0));
                 // listTable.select(0);
                 isFirst = false;
@@ -1174,6 +1346,33 @@ public class WebServiceUI {
                     exforoutput.add(outData);
                 }
                 rowTableForout.setSelection(0);
+                if (connection != null) {
+                    if (currentPortName != null) {
+                        connection.setPortName(currentPortName.getPortName());
+
+                    } else if (currentPortName == null && allPortNames != null) {
+                        currentPortName = allPortNames.get(0);
+                        connection.setPortName(currentPortName.getPortName());
+                    } else {
+                        connection.setPortName("");
+                    }
+
+                    listTable.setSelection(listTable.getItem(0));
+                    if (currentFunction != null) {
+                        if (currentFunction.getName() != null) {
+                            connection.setMethodName(currentFunction.getName());
+                        }
+                        if (currentFunction.getServerNameSpace() != null) {
+                            connection.setServerNameSpace(currentFunction.getServerNameSpace());
+                        }
+                        if (currentFunction.getServerName() != null) {
+                            connection.setServerName(currentFunction.getServerName());
+                        }
+                        if (currentFunction.getServerNameSpace() != null) {
+                            connection.setPortNameSpace(currentFunction.getServerNameSpace());
+                        }
+                    }
+                }
             }
         });
 
@@ -1182,6 +1381,18 @@ public class WebServiceUI {
             public void widgetSelected(SelectionEvent e) {
                 TableItem[] item = portListTable.getSelection();
                 currentPortName = (PortNames) item[0].getData();
+                if (connection != null) {
+                    if (currentPortName != null) {
+                        connection.setPortName(currentPortName.getPortName());
+
+                    } else if (currentPortName == null && allPortNames != null) {
+                        currentPortName = allPortNames.get(0);
+                        connection.setPortName(currentPortName.getPortName());
+                    } else {
+                        connection.setPortName("");
+                    }
+
+                }
             }
         });
     }
@@ -1253,6 +1464,10 @@ public class WebServiceUI {
         ExtendedTableModel<PortNames> portListModel = portListTableView.getExtendedTableModel();
         listModel.removeAll();
         listModel.addAll(funList);
+        // allfunList.clear();
+        // allfunList.addAll(funList);
+        // getInputElementList();
+        // getOutputElementList();
         portListModel.removeAll();
         portListModel.addAll(portNameList);
     }
@@ -1260,17 +1475,24 @@ public class WebServiceUI {
     private String parseContextParameter(String contextValue) {
         String url = "";
         Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-        IContextManager contextManager = connector.getProcess().getContextManager();
-        String currentDefaultName = contextManager.getDefaultContext().getName();
-        List contextList = contextManager.getListContext();
-        if (!contextList.isEmpty() && contextList.size() > 1) {
-            currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+        IContextManager contextManager = null;
+        if (connector.getProcess() == null) {
+            // contextManager = contextModeManager.getSelectedContextType().getContextParameter(); // connection.get
+            // IContextManager contextManager
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection);
+            url = ConnectionContextHelper.getOriginalValue(contextType, contextValue);
+        } else {
+            contextManager = connector.getProcess().getContextManager();
+            String currentDefaultName = contextManager.getDefaultContext().getName();
+            List contextList = contextManager.getListContext();
+            if (!contextList.isEmpty() && contextList.size() > 1) {
+                currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+            }
+            // ContextSetsSelectionDialog cssd=new ContextSetsSelectionDialog(shell,,false);
+            // ContextType contextType=ConnectionContextHelper.getContextTypeForContextMode(connector);
+            IContext context = contextManager.getContext(currentDefaultName);
+            url = ContextParameterUtils.parseScriptContextCode(contextValue, context);
         }
-        // ContextSetsSelectionDialog cssd=new ContextSetsSelectionDialog(shell,,false);
-        // ContextType contextType=ConnectionContextHelper.getContextTypeForContextMode(connector);
-        IContext context = contextManager.getContext(currentDefaultName);
-        url = ContextParameterUtils.parseScriptContextCode(contextValue, context);
-
         return url;
     }
 
@@ -1295,7 +1517,61 @@ public class WebServiceUI {
         comforRow.setLayout(new FillLayout());
         tabTotabLinkForin = new WebServiceTableLiner(inputComposite);
         ExtendedTableModel<IMetadataColumn> model = new ExtendedTableModel<IMetadataColumn>("INPUTCOLUMN", inPutcolumnList); //$NON-NLS-1$
-        columnInPutTableView = new AbstractDataTableEditorView<IMetadataColumn>(comforRow, SWT.BORDER, model, false, true, false) {
+
+        Composite columnComposite = new Composite(comforRow, SWT.NONE);
+        data = new GridData(GridData.FILL_BOTH);
+        data.horizontalSpan = 5;
+        // data.widthHint = 420;
+        // data.heightHint = 350;
+        columnComposite.setLayoutData(data);
+        columnComposite.setLayout(new GridLayout());
+        Composite buttonCompsoite = new Composite(columnComposite, SWT.NONE);
+        buttonCompsoite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        buttonCompsoite.pack();
+        GridLayout buttonCompsoiteLayout = new GridLayout();
+        buttonCompsoiteLayout.numColumns = 6;
+        buttonCompsoiteLayout.verticalSpacing = 6;
+        buttonCompsoite.setLayout(buttonCompsoiteLayout);
+        GridData butComData3 = new GridData(GridData.FILL_BOTH);
+        butComData3.horizontalSpan = 1;
+        GridData butComData4 = new GridData(GridData.FILL_BOTH);
+        butComData4.horizontalSpan = 2;
+        // Button addButton = new Button(buttonCompsoite, SWT.PUSH);
+        // addButton.setEnabled(true);
+        // addButton.setImage(ImageProvider.getImage(EImage.ADD_ICON));
+        //        addButton.setToolTipText(Messages.getString("WebServiceUI.Add_list_element")); //$NON-NLS-1$
+        // addButton.setLayoutData(butComData3);
+        // addButton.pack();
+        // Button removeBut = new Button(buttonCompsoite, SWT.PUSH);
+        // removeBut.setEnabled(false);
+        // removeBut.setImage(ImageProvider.getImage(EImage.DELETE_ICON));
+        //        removeBut.setToolTipText(Messages.getString("WebServiceUI.Remove_element")); //$NON-NLS-1$
+        // removeBut.setLayoutData(butComData3);
+        // removeBut.pack();
+        //
+        // Button upButton = new Button(buttonCompsoite, SWT.PUSH);
+        // upButton.setEnabled(false);
+        // upButton.setImage(ImageProvider.getImage(EImage.UP_ICON));
+        // upButton.setLayoutData(butComData4);
+        // upButton.pack();
+        //
+        // // input mapping Denormalize button.
+        // Button downButton = new Button(buttonCompsoite, SWT.PUSH);
+        // downButton.setEnabled(false);
+        // downButton.setImage(ImageProvider.getImage(EImage.DOWN_ICON));
+        // downButton.setLayoutData(butComData4);
+        // downButton.pack();
+        inputschemaButton = new Button(buttonCompsoite, SWT.PUSH);
+        inputschemaButton.setText("Schema Management");
+        inputschemaButton.setToolTipText("You can add or edit schema and save in 'Schema List' viewer");
+        if (connection == null) {
+            inputschemaButton.setEnabled(true);
+        }
+        Composite viewComposite = new Composite(columnComposite, SWT.NONE);
+        viewComposite.setLayout(new FillLayout());
+        viewComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        columnInPutTableView = new AbstractDataTableEditorView<IMetadataColumn>(viewComposite, SWT.BORDER, model, false, true,
+                false) {
 
             protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
                 super.setTableViewerCreatorOptions(newTableViewerCreator);
@@ -1304,6 +1580,7 @@ public class WebServiceUI {
                 newTableViewerCreator.setReadOnly(true);
             }
 
+            @SuppressWarnings("unchecked")
             protected void createColumns(TableViewerCreator<IMetadataColumn> tableViewerCreator, Table table) {
                 TableViewerCreatorColumn rowColumn = new TableViewerCreatorColumn(tableViewerCreator);
                 rowColumn.setTitle(Messages.getString("WebServiceUI.COLUMN")); //$NON-NLS-1$
@@ -1594,7 +1871,55 @@ public class WebServiceUI {
             }
 
         });
+        inputschemaButton.addSelectionListener(new SelectionAdapter() {
 
+            public void widgetSelected(SelectionEvent e) {
+
+                Shell shell = uiParent.getShell();
+                MetadataTable inmetadataTable = null;
+                if (connection != null) {
+                    inmetadataTable = ConnectionHelper.getTables(connection).toArray(new MetadataTable[0])[1];
+                } else {
+                    inmetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
+                    EList schemaMetadataColumn = inmetadataTable.getColumns();
+                    for (int i = 0; i < inPutcolumnList.size(); i++) {
+                        org.talend.core.model.metadata.MetadataColumn metadatacolumn = (org.talend.core.model.metadata.MetadataColumn) inPutcolumnList
+                                .get(i);
+                        MetadataColumn column = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                        column.setLabel(metadatacolumn.getLabel());
+                        column.setTalendType(metadatacolumn.getTalendType());
+                        column.setOriginalField(metadatacolumn.getLabel());
+                        schemaMetadataColumn.add(column);
+                    }
+                }
+                WSDLSchemaDialog dialog = new WSDLSchemaDialog(shell, inmetadataTable);
+                EList columnList = inmetadataTable.getColumns();
+                if (dialog != null && dialog.open() == WSDLSchemaDialog.OK) {
+                    IMetadataTable inputMetadataTable = connector.getMetadataFromConnector("FLOW");
+                    inputMetadataTable.getListColumns().clear();
+                    MetadataTable metadataTable = dialog.getMetadataTable();
+                    EList columns = metadataTable.getColumns();
+                    List<MetadataColumn> inputList = new ArrayList<MetadataColumn>();
+                    List<org.talend.core.model.metadata.IMetadataColumn> llist = new ArrayList<org.talend.core.model.metadata.IMetadataColumn>();
+                    for (int i = 0; i < columns.size(); i++) {
+                        MetadataColumn column = (MetadataColumn) columns.get(i);
+                        org.talend.core.model.metadata.MetadataColumn metadatacolumn = new org.talend.core.model.metadata.MetadataColumn();
+                        metadatacolumn.setLabel(column.getLabel());
+                        metadatacolumn.setTalendType(column.getTalendType());
+                        metadatacolumn.setOriginalDbColumnName(column.getLabel());
+                        llist.add(metadatacolumn);
+                    }
+                    inPutcolumnList.clear();
+                    inPutcolumnList.addAll(llist);
+                    if (inputMetaCopy != null) {
+                        inputMetaCopy.getListColumns().clear();
+                        inputMetaCopy.setListColumns(llist);
+                    }
+                    inputMetadataTable.setListColumns(llist);
+                    columnInPutTableView.getTableViewerCreator().getTableViewer().refresh();
+                }
+            }
+        });
         addListButForIn.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
@@ -1686,7 +2011,6 @@ public class WebServiceUI {
                             expressTableForIn.select(currentElementIndexForIn);
                             expressinPutTableView.getTableViewerCreator().getTableViewer().refresh();
                         } else {
-
                             currentSelectedInChildren = dialogInputList.getSelectedParaInfo();
                             if (currentSelectedInChildren == null || currentSelectedInChildren.getName() == null) {
                                 return;
@@ -1702,7 +2026,13 @@ public class WebServiceUI {
                                 // }
                                 if (currentSelectedInChildren.getParent() != null) {
                                     String name = dialogInputList.getParaUtil().getArrayFullName(currentSelectedInChildren);
+                                    String element = name.substring(name.lastIndexOf("."), name.length());
                                     data.setParameterName(name);
+                                    // if (connection != null) {
+                                    // data.setInputColumnValue("input" + element.toLowerCase());
+                                    // } else {
+                                    // data.setInputColumnValue("row1" + element.toLowerCase());
+                                    // }
                                 } else {
                                     data.setParameterName(currentSelectedInChildren.getName());
 
@@ -1720,6 +2050,7 @@ public class WebServiceUI {
                     }
 
                 }
+
             }
 
         });
@@ -1883,7 +2214,6 @@ public class WebServiceUI {
                             value.replace(" |-- ", ""); //$NON-NLS-1$ //$NON-NLS-2$
                         }
                         bean.setParameterName(value);
-
                     }
 
                 });
@@ -2040,7 +2370,6 @@ public class WebServiceUI {
                 elementColumn.setModifiable(false);
                 elementColumn.setMinimumWidth(40);
                 elementColumn.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
-
             }
 
         };
@@ -2249,6 +2578,7 @@ public class WebServiceUI {
 
                             }
                         }
+
                     }
 
                 }
@@ -2315,7 +2645,7 @@ public class WebServiceUI {
                 // create the Schema MetadataDialog
                 MetadataDialog metaDialog = null;
 
-                if (inputMetaCopy != null) {
+                if (inputMetaCopy != null && inputNode != null) {
                     metaDialog = new MetadataDialog(uiParent.getShell(), inputMetaCopy, inputNode, outputMetaCopy, outputNode,
                             null);
                 } else {
@@ -2345,11 +2675,26 @@ public class WebServiceUI {
                         if (outNewColumn.isEmpty()) {
                             outPutcolumnList.clear();
                         } else {
+                            EList schemaMetadataColumn = null;
+                            if (connection != null) {
+                                schemaMetadataColumn = ConnectionHelper.getTables(connection).toArray(new MetadataTable[0])[0]
+                                        .getColumns();
+                            }
                             // modify schema name.
                             for (int i = 0; i < outPutcolumnList.size(); i++) {
                                 OutPutMappingData outcol = outPutcolumnList.get(i);
                                 IMetadataColumn oldCol = outcol.getMetadataColumn();
                                 if (!outcol.getOutputColumnValue().equals(oldCol.getLabel())) {
+                                    if (connection != null) {
+                                        for (int j = 0; j < schemaMetadataColumn.size(); j++) {
+                                            MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
+                                            if (mcolumn.getLabel().equals(outcol.getOutputColumnValue())) {
+                                                mcolumn.setLabel(oldCol.getLabel());
+                                                mcolumn.setOriginalField(oldCol.getLabel());
+                                                mcolumn.setTalendType(oldCol.getTalendType());
+                                            }
+                                        }
+                                    }
                                     outcol.setOutputColumnValue(oldCol.getLabel());
                                 }
                             }
@@ -2362,7 +2707,15 @@ public class WebServiceUI {
                                     outData.setOutputColumnValue(newCol.getLabel());
                                     outData.setMetadataColumn(newCol);
                                     outPutcolumnList.add(outData);
+                                    if (connection != null) {
+                                        MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+                                        metadataColumn.setLabel(newCol.getLabel());
+                                        metadataColumn.setOriginalField(newCol.getLabel());
+                                        metadataColumn.setTalendType(newCol.getTalendType());
+                                        schemaMetadataColumn.add(metadataColumn);
+                                    }
                                 }
+
                             }
                             // delete schema.
                             for (int i = 0; i < outPutcolumnList.size(); i++) {
@@ -2373,9 +2726,17 @@ public class WebServiceUI {
                                 // }
                                 if (isDelete(oldCol, outNewColumn)) {
                                     // forOutColumnList.remove(oldCol);
+                                    for (int j = 0; j < schemaMetadataColumn.size(); j++) {
+                                        MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
+                                        if (mcolumn.getLabel().equals(oldCol.getLabel())) {
+                                            schemaMetadataColumn.remove(mcolumn);
+                                            j--;
+                                        }
+                                    }
                                     outPutcolumnList.remove(outcol);
                                     i--;
                                 }
+
                             }
                         }
                         temOutputMetadata = outputMetaCopy.clone();
@@ -2435,25 +2796,32 @@ public class WebServiceUI {
 
     private void initInputMetaCopy() {
         List<? extends IConnection> inConnList = connector.getIncomingConnections();
-        for (int i = 0; i < inConnList.size(); i++) {
-            IConnection inConn = inConnList.get(i);
-            if (inConn == null) {
-                continue;
+        if (!inConnList.isEmpty()) {
+            for (int i = 0; i < inConnList.size(); i++) {
+                IConnection inConn = inConnList.get(i);
+                if (inConn == null) {
+                    continue;
+                }
+                inputNode = (inConn.getSource());
+                inputMetadata = inConn.getMetadataTable();
             }
-            inputNode = (inConn.getSource());
-            inputMetadata = inConn.getMetadataTable();
-        }
-        if (inputMetadata != null) {
-            inputMetaCopy = inputMetadata.clone();
-            temInputMetadata = inputMetadata.clone();
+            if (inputMetadata != null) {
+                inputMetaCopy = inputMetadata.clone();
+                temInputMetadata = inputMetadata.clone();
+            }
         }
     }
 
     private void initOutputMetaCopy() {
         outputNode = this.getWebServiceManager().getWebServiceComponent();
-        outputMetadata = this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
-        outputMetaCopy = outputMetadata.clone();
-        temOutputMetadata = outputMetadata.clone();
+        if (outputNode.getComponent() == null) {
+            outputNode.setComponent(this.getWebServiceManager().getWebServiceComponent().getComponent());
+        }
+        if (this.getWebServiceManager().getWebServiceComponent().getMetadataList().size() > 1) {
+            outputMetadata = this.connector.getMetadataFromConnector("OUTPUT");// this.getWebServiceManager().getWebServiceComponent().getMetadataList().get(0);
+            outputMetaCopy = outputMetadata.clone();
+            temOutputMetadata = outputMetadata.clone();
+        }
     }
 
     private UIManager getUIManager() {
@@ -2484,6 +2852,7 @@ public class WebServiceUI {
         return this.wsdlComposite;
     }
 
+    // bug 14067
     public String getURL() {
         return URLValue;
     }
@@ -2494,6 +2863,10 @@ public class WebServiceUI {
 
     public List<InputMappingData> getInputParams() {
         return expressinPutTableView.getExtendedTableModel().getBeansList();
+    }
+
+    public List<IMetadataColumn> getInputValue() {
+        return columnInPutTableView.getExtendedTableModel().getBeansList();
     }
 
     public List<OutPutMappingData> getOutputParams() {
@@ -2815,4 +3188,140 @@ public class WebServiceUI {
         return flag;
     }
 
+    public Table getTable() {
+        // TODO Auto-generated method stub
+        return listTable;// webServiceUI.getTable();
+    }
+
+    public LabelledFileField getWSDLLabel(Boolean b) {
+        refreshbut.setEnabled(!b);
+        return wsdlField;
+    }
+
+    public void saveInputValue() {
+        if (connection != null) {
+            if (currentFunction != null) {
+                if (currentFunction.getName() != null) {
+                    connection.setMethodName(currentFunction.getName());
+                }
+                if (currentFunction.getServerNameSpace() != null) {
+                    connection.setServerNameSpace(currentFunction.getServerNameSpace());
+                }
+                if (currentFunction.getServerName() != null) {
+                    connection.setServerName(currentFunction.getServerName());
+                }
+                if (currentFunction.getServerNameSpace() != null) {
+                    connection.setPortNameSpace(currentFunction.getServerNameSpace());
+                }
+            }
+            if (currentPortName != null) {
+                connection.setPortName(currentPortName.getPortName());
+            } else if (currentPortName == null && allPortNames != null) {
+                currentPortName = allPortNames.get(0);
+                connection.setPortName(currentPortName.getPortName());
+            } else {
+                connection.setPortName("");
+            }
+        }
+        EList inputValue = connection.getParameterValue();
+        IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS");
+        List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
+        if (inputparaValue != null) {
+            inputValue.clear();
+
+            for (InputMappingData inputData : getInputParams()) {
+                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                Map<String, String> inputMap = new HashMap<String, String>(2);
+                if (inputData.getInputColumnValue() != null) {
+                    parameter.setExpression(inputData.getInputColumnValue());
+                }
+
+                if (inputData.getParameterName() != null) {
+                    String name = inputData.getParameterName();
+                    if (!name.equals(""))
+                        parameter.setElement(name);
+                } else if (inputData.getParameterName() == null && inputData.getParameter() != null) {
+                    if (inputData.getParameter().getParent() != null) {
+                        String name = new ParameterInfoUtil().getParentName(inputData.getParameter());
+                        parameter.setElement(name);
+                    } else {
+                        parameter.setElement(inputData.getParameter().getName());
+                    }
+                }
+
+                inputValue.add(parameter);
+            }
+            for (IMetadataColumn column : getInputValue()) {
+                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                if (column.getLabel() != null) {
+                    parameter.setColumn(column.getLabel());
+                    inputValue.add(parameter);
+                }
+            }
+            for (String insource : getInSourceList()) {
+                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                if (insource == null || "".equals(insource)) {
+                    continue;
+                }
+                // Map<String, String> sourceMap = new HashMap<String, String>(1);
+                parameter.setSource(insource);
+                inputValue.add(parameter);
+            }
+        }
+    }
+
+    public void saveOutPutValue() {
+        // save output
+        EList outPutValue = connection.getOutputParameter();
+
+        IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS");
+        List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
+        if (outputMap != null) {
+            outPutValue.clear();
+            for (OutPutMappingData outData : getOutputElement()) {
+                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                ParameterInfo para = outData.getParameter();
+                if (para.getName() == null || "".equals(para.getName())) {
+                    continue;
+                }
+
+                Map<String, String> eleMap = new HashMap<String, String>(3);
+                if (outData.getParameterName() != null) {
+                    String name = outData.getParameterName();
+                    if (!name.equals(""))
+                        parameter.setElement(name);
+                } else {
+                    parameter.setElement(para.getName());
+                }
+                outPutValue.add(parameter);
+            }
+
+            for (OutPutMappingData data : getOutputParams()) {
+                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                Map<String, String> dataMap = new HashMap<String, String>(2);
+                if (data.getParameterName() != null) {
+                    parameter.setExpression(data.getParameterName());
+
+                } else if (data.getParameterName() == null) {
+                    // warningDialog("Please Select a Output Item.");
+                    // return;
+                }
+
+                if (data.getMetadataColumn() != null) {
+                    parameter.setColumn(data.getMetadataColumn().getLabel());
+                }
+                outPutValue.add(parameter);
+            }
+
+            for (String outsource : getOutSourceList()) {
+                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                if (outsource == null || "".equals(outsource)) {
+                    continue;
+                }
+                Map<String, String> sourceMap = new HashMap<String, String>(1);
+                parameter.setSource(outsource);
+                outPutValue.add(parameter);
+            }
+        }
+    }
 }

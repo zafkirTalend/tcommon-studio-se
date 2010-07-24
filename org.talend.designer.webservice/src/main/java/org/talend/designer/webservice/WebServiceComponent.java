@@ -174,7 +174,7 @@ public class WebServiceComponent extends AbstractExternalNode {
         List<IODataComponent> outputs = inAndOut.getOuputs();
         for (IConnection currentConnection : getOutgoingConnections()) {
             if (currentConnection.getLineStyle().hasConnectionCategory(IConnectionCategory.DATA)) {
-                IODataComponent component = new IODataComponent(currentConnection, getMetadataList().get(0));
+                IODataComponent component = new IODataComponent(currentConnection, getMetadataList().get(1));
                 outputs.add(component);
             }
         }

@@ -189,14 +189,14 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
     }
 
     protected void okPressed() {
-        if (getWebServiceUI().getIsFirst()) {
-            super.cancelPressed();
-        } else {
-            getWebServiceUI().saveProperties();
-            // getWebServiceUI().prepareClosing(SWT.OK);
-            saveValue();
-            getUIManager().setDialogResponse(SWT.OK);
-        }
+        // if (getWebServiceUI().getIsFirst()) {
+        // super.cancelPressed();
+        // } else {
+        getWebServiceUI().saveProperties();
+        // getWebServiceUI().prepareClosing(SWT.OK);
+        saveValue();
+        getUIManager().setDialogResponse(SWT.OK);
+        // }
     }
 
     private void saveValue() {
@@ -214,7 +214,7 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         IMetadataTable outputMetaCopy = webServiceUI.getOutputMetaCopy();
         IMetadataTable inputMetadata = webServiceUI.getInputMetadata();
         IMetadataTable outputMetadata = webServiceUI.getOutputMetadata();
-
+        List<IMetadataColumn> inputmetadata = webServiceUI.getInputValue();
         WebServiceComponent wenCom = webServiceComponentMain.getWebServiceComponent();
 
         // save schema.
@@ -240,25 +240,32 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
         if (currePortName != null) {
             IElementParameter Port_Name = wenCom.getElementParameter("PORT_NAME");
             Port_Name.setValue(currePortName.getPortName());
-        } else if (currePortName == null && allPortNames != null) {
+        } else if (currePortName == null && !allPortNames.isEmpty()) {
             currePortName = allPortNames.get(0);
             IElementParameter Port_Name = wenCom.getElementParameter("PORT_NAME");
             Port_Name.setValue(currePortName.getPortName());
+        } else {
+            IElementParameter Port_Name = wenCom.getElementParameter("PORT_NAME");
+            Port_Name.setValue("");
         }
 
         if (function != null) {
-            IElementParameter METHODPara = wenCom.getElementParameter("METHOD");
-            METHODPara.setValue(function.getName());
-
-            IElementParameter Service_NS = wenCom.getElementParameter("SERVICE_NS");
-            Service_NS.setValue(function.getServerNameSpace());
-
-            IElementParameter Service_Name = wenCom.getElementParameter("SERVICE_NAME");
-            Service_Name.setValue(function.getServerName());
-
-            IElementParameter Port_NS = wenCom.getElementParameter("PORT_NS");
-            Port_NS.setValue(function.getServerNameSpace());
-
+            if (function.getName() != null) {
+                IElementParameter METHODPara = wenCom.getElementParameter("METHOD");
+                METHODPara.setValue(function.getName());
+            }
+            if (function.getServerNameSpace() != null) {
+                IElementParameter Service_NS = wenCom.getElementParameter("SERVICE_NS");
+                Service_NS.setValue(function.getServerNameSpace());
+            }
+            if (function.getServerName() != null) {
+                IElementParameter Service_Name = wenCom.getElementParameter("SERVICE_NAME");
+                Service_Name.setValue(function.getServerName());
+            }
+            if (function.getServerNameSpace() != null) {
+                IElementParameter Port_NS = wenCom.getElementParameter("PORT_NS");
+                Port_NS.setValue(function.getServerNameSpace());
+            }
             // IElementParameter ADDRESSLocation = wenCom.getElementParameter("ADDRESS_LOCATION");
             // ADDRESSLocation.setValue(function.getAddressLocation());
 
@@ -282,7 +289,8 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
 
             if (inputData.getParameterName() != null) {
                 String name = inputData.getParameterName();
-                inputMap.put("ELEMENT", name);
+                if (!name.equals(""))
+                    inputMap.put("ELEMENT", name);
             } else if (inputData.getParameterName() == null && inputData.getParameter() != null) {
                 if (inputData.getParameter().getParent() != null) {
                     String name = new ParameterInfoUtil().getParentName(inputData.getParameter());
@@ -297,7 +305,13 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
 
             inputparaValue.add(inputMap);
         }
-
+        for (IMetadataColumn column : inputmetadata) {
+            Map<String, String> columnMap = new HashMap<String, String>(1);
+            if (column.getLabel() != null) {
+                columnMap.put("COLUMN", column.getLabel());
+                inputparaValue.add(columnMap);
+            }
+        }
         for (String insource : insourceList) {
             if (insource == null || "".equals(insource)) {
                 continue;
