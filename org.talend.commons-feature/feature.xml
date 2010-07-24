@@ -29,8 +29,8 @@
    <includes
          id="org.talend.utils_feature"
          version="0.0.0"/>
-		 
-	<includes
+
+   <includes
          id="org.eclipse.m2m.atl"
          version="0.0.0"/>
 
@@ -863,5 +863,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.talend.migration"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
