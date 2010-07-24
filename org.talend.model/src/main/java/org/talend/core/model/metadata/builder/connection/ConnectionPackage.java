@@ -11,20 +11,16 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.talend.cwm.relational.RelationalPackage;
-
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
  * @see org.talend.core.model.metadata.builder.connection.ConnectionFactory
@@ -35,40 +31,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The package name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNAME = "connection";
 
     /**
      * The package namespace URI.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_URI = "http://www.talend.org/metadata/connection/2010";
 
     /**
      * The package namespace name.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     String eNS_PREFIX = "TalendMetadata";
 
     /**
      * The singleton instance of the package.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     ConnectionPackage eINSTANCE = org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl.init();
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl <em>Abstract Metadata Object</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getAbstractMetadataObject()
      * @generated
@@ -77,8 +68,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -86,8 +76,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -95,8 +84,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -104,8 +93,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -113,17 +102,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ABSTRACT_METADATA_OBJECT__CONSTRAINT = CorePackage.MODEL_ELEMENT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -131,8 +119,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -140,8 +127,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -149,8 +135,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -158,17 +144,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int ABSTRACT_METADATA_OBJECT__DOCUMENT = CorePackage.MODEL_ELEMENT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -176,17 +161,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY = CorePackage.MODEL_ELEMENT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -194,8 +179,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -203,8 +187,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -212,35 +196,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT = CorePackage.MODEL_ELEMENT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int ABSTRACT_METADATA_OBJECT__MEASUREMENT = CorePackage.MODEL_ELEMENT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST = CorePackage.MODEL_ELEMENT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -248,8 +232,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -257,8 +240,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -266,8 +248,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -275,8 +256,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -284,8 +264,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -293,8 +272,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -302,8 +280,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -311,8 +288,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Abstract Metadata Object</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -320,8 +297,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataImpl <em>Metadata</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.MetadataImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadata()
      * @generated
@@ -330,8 +306,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -339,8 +314,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -348,8 +322,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -357,8 +331,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -366,17 +340,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -384,8 +357,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -393,8 +365,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -402,8 +373,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -411,17 +382,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -429,17 +399,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -447,8 +417,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -456,8 +425,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -465,35 +434,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -501,8 +470,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -510,8 +478,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -519,8 +486,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -528,8 +494,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -537,8 +502,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -546,8 +510,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -555,8 +518,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -564,8 +526,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connections</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -573,8 +535,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Metadata</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -582,8 +543,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl <em>Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConnection()
      * @generated
@@ -592,8 +552,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -601,8 +560,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -610,8 +568,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -619,8 +577,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -628,17 +586,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -646,8 +603,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -655,8 +611,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -664,8 +619,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -673,17 +628,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -691,17 +645,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -709,8 +663,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -718,8 +671,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -727,35 +680,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CONNECTION__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CONNECTION__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -763,8 +716,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -772,8 +724,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -781,8 +732,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -790,8 +740,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -799,8 +748,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -808,8 +756,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -817,8 +764,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -826,8 +772,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -835,17 +781,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__IMPORTED_ELEMENT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -853,17 +799,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__PATHNAME = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -871,8 +816,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -880,17 +825,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__COMPONENT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 6;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -898,17 +842,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__CLIENT_CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -925,17 +869,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__VERSION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 11;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -943,8 +886,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -952,17 +894,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONNECTION__CONTEXT_ID = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 14;
 
     /**
-     * The number of structural features of the '<em>Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Connection</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -970,8 +911,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl <em>Metadata Column</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadataColumn()
      * @generated
@@ -980,8 +920,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -989,8 +928,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -998,8 +936,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1007,8 +945,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1016,17 +954,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1034,8 +971,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1043,8 +979,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1052,8 +987,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1061,17 +996,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1079,17 +1013,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1097,8 +1031,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1106,8 +1039,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1115,35 +1048,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1151,8 +1084,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1160,8 +1092,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1169,8 +1100,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1178,8 +1108,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1187,8 +1116,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1196,8 +1124,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1205,8 +1132,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1214,8 +1140,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owner Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1223,26 +1148,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owner</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__OWNER = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Feature Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA_COLUMN__FEATURE_NODE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Feature Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Feature Map</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1250,8 +1174,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1259,8 +1182,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Changeability</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1268,8 +1190,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1277,8 +1199,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Ordering</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1286,8 +1207,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Target Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1295,8 +1215,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1304,8 +1223,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Slot</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1313,8 +1231,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Discriminated Union</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1322,8 +1240,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Indexed Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1331,8 +1249,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key Relationship</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1340,8 +1258,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Unique Key</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1349,8 +1266,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Item</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1358,8 +1274,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Remap</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1367,8 +1282,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1376,8 +1291,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1385,8 +1299,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Precision</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1394,8 +1307,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Scale</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1403,8 +1315,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Source Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1412,8 +1323,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Default Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1421,8 +1331,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Talend Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1430,8 +1339,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Key</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1439,8 +1347,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Nullable</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1448,8 +1355,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Table</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1457,8 +1363,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Original Field</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1466,8 +1371,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pattern</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1475,8 +1379,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Display Field</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1484,8 +1387,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Metadata Column</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1493,8 +1396,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadataTable()
      * @generated
@@ -1503,8 +1405,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1512,8 +1413,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1521,8 +1421,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1530,8 +1430,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1539,17 +1439,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1557,8 +1456,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1566,8 +1464,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1575,8 +1472,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1584,17 +1481,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1602,17 +1498,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1620,8 +1516,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1629,8 +1524,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1638,35 +1533,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA_TABLE__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA_TABLE__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1674,8 +1569,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1683,8 +1577,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1692,8 +1585,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1701,8 +1593,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1710,8 +1601,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1719,8 +1609,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1728,8 +1617,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1737,8 +1625,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1746,8 +1634,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1755,8 +1642,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1764,8 +1651,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1773,26 +1660,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__PARAMETER = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Generalization</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int METADATA_TABLE__GENERALIZATION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Specialization</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1800,8 +1686,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1809,8 +1694,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1818,17 +1702,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__EXPRESSION_NODE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
 
     /**
-     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping From</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1836,17 +1720,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int METADATA_TABLE__MAPPING_TO = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 11;
 
     /**
-     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier Map</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -1854,8 +1737,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1863,8 +1745,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1872,8 +1753,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1881,8 +1762,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1890,8 +1770,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Source Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1899,8 +1778,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Table Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1908,8 +1786,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1917,8 +1794,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1926,8 +1802,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1935,8 +1810,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1944,8 +1818,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Metadata Table</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1953,8 +1827,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileConnection()
      * @generated
@@ -1963,8 +1836,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1972,8 +1844,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1981,8 +1852,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1990,8 +1861,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -1999,17 +1870,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2017,8 +1887,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2026,8 +1895,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2035,8 +1903,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2044,17 +1912,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2062,17 +1929,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2080,8 +1947,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2089,8 +1955,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2098,35 +1964,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2134,8 +2000,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2143,8 +2008,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2152,8 +2016,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2161,8 +2024,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2170,8 +2032,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2179,8 +2040,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2188,8 +2048,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2197,8 +2056,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2206,17 +2065,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2224,17 +2083,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2242,8 +2100,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2251,17 +2109,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2269,17 +2126,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2296,17 +2153,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2314,8 +2170,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2323,8 +2178,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2332,8 +2186,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2341,8 +2194,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2350,8 +2202,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2359,8 +2210,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2368,26 +2218,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__FIELD_SEPARATOR_VALUE = CONNECTION_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__ROW_SEPARATOR_TYPE = CONNECTION_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2395,8 +2245,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2404,8 +2253,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2413,8 +2261,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2422,8 +2269,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2431,8 +2277,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2440,8 +2285,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2449,26 +2293,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__LIMIT_VALUE = CONNECTION_FEATURE_COUNT + 13;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_CONNECTION__FIRST_LINE_CAPTION = CONNECTION_FEATURE_COUNT + 14;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2476,8 +2319,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2485,8 +2327,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2494,8 +2335,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2503,8 +2343,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2512,8 +2351,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>File Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2521,8 +2360,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl <em>Delimited File Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDelimitedFileConnection()
      * @generated
@@ -2531,8 +2369,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2540,8 +2377,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2549,8 +2385,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2558,8 +2394,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2567,17 +2403,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__CONSTRAINT = FILE_CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2585,8 +2420,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2594,8 +2428,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2603,8 +2436,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2612,17 +2445,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__DOCUMENT = FILE_CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2630,17 +2462,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__RESPONSIBLE_PARTY = FILE_CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2648,8 +2480,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2657,8 +2488,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2666,35 +2497,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__VOCABULARY_ELEMENT = FILE_CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__MEASUREMENT = FILE_CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__CHANGE_REQUEST = FILE_CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2702,8 +2533,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2711,8 +2541,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2720,8 +2549,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2729,8 +2557,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2738,8 +2565,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2747,8 +2573,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2756,8 +2581,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2765,8 +2589,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2774,17 +2598,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__IMPORTED_ELEMENT = FILE_CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2792,17 +2616,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__PATHNAME = FILE_CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2810,8 +2633,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2819,17 +2642,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__COMPONENT = FILE_CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2837,17 +2659,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__CLIENT_CONNECTION = FILE_CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2864,17 +2686,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2882,8 +2703,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2891,8 +2711,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2900,8 +2719,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2909,8 +2727,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2918,8 +2735,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2927,8 +2743,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2936,26 +2751,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -2963,8 +2778,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2972,8 +2786,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2981,8 +2794,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2990,8 +2802,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -2999,8 +2810,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3008,8 +2818,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3017,26 +2826,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3044,8 +2852,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3053,8 +2860,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3062,8 +2868,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3071,8 +2876,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3080,8 +2884,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3089,8 +2893,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Split Record</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3098,8 +2901,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Delimited File Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3107,8 +2910,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.PositionalFileConnectionImpl <em>Positional File Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.PositionalFileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getPositionalFileConnection()
      * @generated
@@ -3117,8 +2919,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3126,8 +2927,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3135,8 +2935,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3144,8 +2944,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3153,17 +2953,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__CONSTRAINT = FILE_CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3171,8 +2970,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3180,8 +2978,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3189,8 +2986,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3198,17 +2995,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__DOCUMENT = FILE_CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3216,17 +3012,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__RESPONSIBLE_PARTY = FILE_CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3234,8 +3030,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3243,8 +3038,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3252,35 +3047,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__VOCABULARY_ELEMENT = FILE_CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__MEASUREMENT = FILE_CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__CHANGE_REQUEST = FILE_CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3288,8 +3083,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3297,8 +3091,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3306,8 +3099,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3315,8 +3107,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3324,8 +3115,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3333,8 +3123,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3342,8 +3131,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3351,8 +3139,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3360,17 +3148,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__IMPORTED_ELEMENT = FILE_CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3378,17 +3166,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__PATHNAME = FILE_CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3396,8 +3183,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3405,17 +3192,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__COMPONENT = FILE_CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3423,17 +3209,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__CLIENT_CONNECTION = FILE_CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3450,17 +3236,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3468,8 +3253,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3477,8 +3261,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3486,8 +3269,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3495,8 +3277,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3504,8 +3285,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3513,8 +3293,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3522,26 +3301,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3549,8 +3328,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3558,8 +3336,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3567,8 +3344,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3576,8 +3352,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3585,8 +3360,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3594,8 +3368,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3603,26 +3376,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3630,8 +3402,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3639,8 +3410,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3648,8 +3418,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3657,8 +3426,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3675,8 +3443,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl <em>Ebcdic Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEbcdicConnection()
      * @generated
@@ -3685,8 +3452,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3694,8 +3460,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3703,8 +3468,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3712,8 +3477,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3721,17 +3486,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__CONSTRAINT = FILE_CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3739,8 +3503,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3748,8 +3511,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3757,8 +3519,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3766,17 +3528,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__DOCUMENT = FILE_CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3784,17 +3545,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__RESPONSIBLE_PARTY = FILE_CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3802,8 +3563,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3811,8 +3571,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3820,35 +3580,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__VOCABULARY_ELEMENT = FILE_CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__MEASUREMENT = FILE_CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__CHANGE_REQUEST = FILE_CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3856,8 +3616,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3865,8 +3624,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3874,8 +3632,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3883,8 +3640,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3892,8 +3648,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3901,8 +3656,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3910,8 +3664,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3919,8 +3672,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3928,17 +3681,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__IMPORTED_ELEMENT = FILE_CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3946,17 +3699,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__PATHNAME = FILE_CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3964,8 +3716,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -3973,17 +3725,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__COMPONENT = FILE_CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -3991,17 +3742,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__CLIENT_CONNECTION = FILE_CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4018,17 +3769,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4036,8 +3786,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4045,8 +3794,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4054,8 +3802,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4063,8 +3810,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4072,8 +3818,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4081,8 +3826,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4090,26 +3834,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4117,8 +3861,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4126,8 +3869,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4135,8 +3877,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4144,8 +3885,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4153,8 +3893,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4162,8 +3901,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4171,26 +3909,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int EBCDIC_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4198,8 +3935,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4207,8 +3943,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4216,8 +3951,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4225,8 +3959,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4234,8 +3967,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mid File</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4243,8 +3975,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data File</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4252,8 +3983,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Ebcdic Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4261,8 +3992,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnection()
      * @generated
@@ -4271,8 +4001,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4280,8 +4009,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4289,8 +4017,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4298,8 +4026,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4307,17 +4035,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4325,8 +4052,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4334,8 +4060,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4343,8 +4068,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4352,17 +4077,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4370,17 +4094,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4388,8 +4112,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4397,8 +4120,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4406,35 +4129,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4442,8 +4165,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4451,8 +4173,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4460,8 +4181,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4469,8 +4189,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4478,8 +4197,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4487,8 +4205,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4496,8 +4213,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4505,8 +4221,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4514,17 +4230,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4532,17 +4248,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4550,8 +4265,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4559,17 +4274,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4577,17 +4291,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4604,17 +4318,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int MDM_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4622,8 +4335,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4631,8 +4343,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4640,8 +4351,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Username</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4649,8 +4359,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4658,8 +4367,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Port</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4667,8 +4375,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4676,8 +4383,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Universe</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4685,8 +4391,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Datamodel</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4694,8 +4399,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Datacluster</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4703,8 +4407,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Schemas</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4712,8 +4416,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Protocol</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4721,8 +4424,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4730,8 +4432,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>MDM Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4739,8 +4441,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseConnection()
      * @generated
@@ -4749,8 +4450,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4758,8 +4458,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4767,8 +4466,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4776,8 +4475,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4785,17 +4484,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4803,8 +4501,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4812,8 +4509,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4821,8 +4517,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4830,17 +4526,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4848,17 +4543,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4866,8 +4561,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4875,8 +4569,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4884,35 +4578,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -4920,8 +4614,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4929,8 +4622,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4938,8 +4630,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4947,8 +4638,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4956,8 +4646,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4965,8 +4654,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4974,8 +4662,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4983,8 +4670,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -4992,17 +4679,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5010,17 +4697,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5028,8 +4714,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5037,17 +4723,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5055,17 +4740,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5082,17 +4767,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5100,8 +4784,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5109,8 +4792,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5118,8 +4800,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Database Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5127,8 +4808,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Driver Jar Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5136,8 +4816,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Driver Class</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5145,17 +4824,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>URL</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__URL = CONNECTION_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Db Version String</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Db Version String</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5163,8 +4841,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Port</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5172,8 +4849,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Username</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5181,8 +4857,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5190,8 +4865,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5199,8 +4873,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Datasource Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5208,8 +4881,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Field Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5217,8 +4889,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>SID</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5226,8 +4897,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Sql Synthax</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5235,8 +4905,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>String Quote</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5244,8 +4913,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Null Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5253,8 +4921,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Dbms Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5262,8 +4929,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Product Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5271,17 +4937,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>DB Root Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int DATABASE_CONNECTION__DB_ROOT_PATH = CONNECTION_FEATURE_COUNT + 17;
 
     /**
-     * The feature id for the '<em><b>Additional Params</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Additional Params</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5289,8 +4954,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Standard SQL</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5298,8 +4962,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>System SQL</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5307,8 +4970,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cdc Conns</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5316,8 +4979,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cdc Type Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5325,8 +4987,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>SQL Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5334,8 +4995,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Ui Schema</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5343,8 +5003,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Database Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5352,8 +5012,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPConnection()
      * @generated
@@ -5362,8 +5021,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5371,8 +5029,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5380,8 +5037,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5389,8 +5046,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5398,17 +5055,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5416,8 +5072,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5425,8 +5080,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5434,8 +5088,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5443,17 +5097,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5461,17 +5114,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5479,8 +5132,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5488,8 +5140,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5497,35 +5149,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5533,8 +5185,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5542,8 +5193,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5551,8 +5201,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5560,8 +5209,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5569,8 +5217,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5578,8 +5225,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5587,8 +5233,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5596,8 +5241,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5605,17 +5250,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5623,17 +5268,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5641,8 +5285,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5650,17 +5294,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5668,17 +5311,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5695,17 +5338,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5713,8 +5355,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5722,8 +5363,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5731,8 +5371,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Host</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5740,8 +5379,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Username</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5749,8 +5387,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5758,8 +5395,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5767,8 +5403,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>System Number</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5776,8 +5411,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Language</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5785,17 +5419,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Funtions</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_CONNECTION__FUNTIONS = CONNECTION_FEATURE_COUNT + 6;
 
     /**
-     * The feature id for the '<em><b>Current Fucntion</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Current Fucntion</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5803,8 +5437,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>IDocs</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5812,8 +5446,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SAP Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5821,8 +5455,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionUnit()
      * @generated
@@ -5831,8 +5464,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5840,8 +5472,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5849,8 +5480,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5858,8 +5489,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5867,17 +5498,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5885,8 +5515,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5894,8 +5523,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5903,8 +5531,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5912,17 +5540,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5930,17 +5557,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -5948,8 +5575,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5957,8 +5583,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -5966,35 +5592,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6002,8 +5628,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6011,8 +5636,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6020,8 +5644,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6029,8 +5652,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6038,8 +5660,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6047,8 +5668,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6056,8 +5676,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6065,17 +5684,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Output Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_UNIT__OUTPUT_TYPE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Output Table Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Output Table Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6101,8 +5719,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Metadata Table</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6110,8 +5728,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6119,8 +5737,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tables</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6128,8 +5746,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Test Input Parameter Table</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6137,8 +5755,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SAP Function Unit</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6146,8 +5764,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl <em>SAPI Doc Unit</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPIDocUnit()
      * @generated
@@ -6156,8 +5773,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6165,8 +5781,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6174,8 +5789,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6183,8 +5798,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6192,17 +5807,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAPI_DOC_UNIT__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6210,8 +5824,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6219,8 +5832,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6228,8 +5840,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6237,17 +5849,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAPI_DOC_UNIT__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6255,17 +5866,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAPI_DOC_UNIT__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6273,8 +5884,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6282,8 +5892,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6291,35 +5901,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAPI_DOC_UNIT__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAPI_DOC_UNIT__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAPI_DOC_UNIT__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6327,8 +5937,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6336,8 +5945,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6345,8 +5953,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6354,8 +5961,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6363,8 +5969,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6372,8 +5977,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6381,8 +5985,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6390,8 +5993,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6399,8 +6002,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Program Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6408,8 +6010,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Gateway Service</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6417,8 +6018,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Xml Output</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6426,8 +6026,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Xml File</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6435,8 +6034,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Html Output</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6444,8 +6042,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Html File</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6453,8 +6050,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>SAPI Doc Unit</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6462,8 +6059,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterColumn()
      * @generated
@@ -6472,8 +6068,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6481,8 +6076,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6490,8 +6084,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6499,8 +6093,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6508,17 +6102,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_COLUMN__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6526,8 +6119,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6535,8 +6127,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6544,8 +6135,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6553,17 +6144,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_COLUMN__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6571,17 +6161,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_COLUMN__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6589,8 +6179,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6598,8 +6187,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6607,35 +6196,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_COLUMN__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_COLUMN__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_COLUMN__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6643,8 +6232,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6652,8 +6240,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6661,8 +6248,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6670,8 +6256,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6679,8 +6264,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6688,8 +6272,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6697,8 +6280,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6706,8 +6288,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6715,8 +6296,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structure Or Table Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6724,8 +6305,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Data Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6733,8 +6313,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6742,8 +6321,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6751,8 +6329,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter Table</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6769,8 +6347,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterTableImpl <em>SAP Function Parameter Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterTableImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterTable()
      * @generated
@@ -6779,8 +6356,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6788,8 +6364,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6797,8 +6372,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6806,8 +6381,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6815,17 +6390,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_TABLE__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6833,8 +6407,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6842,8 +6415,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6851,8 +6423,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6860,17 +6432,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_TABLE__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6878,17 +6449,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_TABLE__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6896,8 +6467,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6905,8 +6475,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6914,35 +6484,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_TABLE__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_TABLE__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_FUNCTION_PARAMETER_TABLE__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -6950,8 +6520,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6959,8 +6528,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6968,8 +6536,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6977,8 +6544,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6986,8 +6552,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -6995,8 +6560,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7004,8 +6568,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7013,8 +6576,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7031,8 +6594,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.InputSAPFunctionParameterTableImpl <em>Input SAP Function Parameter Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.InputSAPFunctionParameterTableImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInputSAPFunctionParameterTable()
      * @generated
@@ -7041,8 +6603,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7050,8 +6611,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7059,8 +6619,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7068,8 +6628,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7077,17 +6637,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INPUT_SAP_FUNCTION_PARAMETER_TABLE__CONSTRAINT = SAP_FUNCTION_PARAMETER_TABLE__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7095,8 +6654,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7104,8 +6662,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7113,8 +6670,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7122,17 +6679,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int INPUT_SAP_FUNCTION_PARAMETER_TABLE__DOCUMENT = SAP_FUNCTION_PARAMETER_TABLE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7140,17 +6696,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int INPUT_SAP_FUNCTION_PARAMETER_TABLE__RESPONSIBLE_PARTY = SAP_FUNCTION_PARAMETER_TABLE__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7158,8 +6714,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7167,8 +6722,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7176,35 +6731,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int INPUT_SAP_FUNCTION_PARAMETER_TABLE__VOCABULARY_ELEMENT = SAP_FUNCTION_PARAMETER_TABLE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int INPUT_SAP_FUNCTION_PARAMETER_TABLE__MEASUREMENT = SAP_FUNCTION_PARAMETER_TABLE__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int INPUT_SAP_FUNCTION_PARAMETER_TABLE__CHANGE_REQUEST = SAP_FUNCTION_PARAMETER_TABLE__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7212,8 +6767,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7221,8 +6775,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7230,8 +6783,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7239,8 +6791,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7248,8 +6799,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7257,8 +6807,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7266,8 +6815,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7275,8 +6823,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7284,8 +6832,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Function Unit</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7293,8 +6841,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Input SAP Function Parameter Table</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7302,8 +6850,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.OutputSAPFunctionParameterTableImpl <em>Output SAP Function Parameter Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.OutputSAPFunctionParameterTableImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOutputSAPFunctionParameterTable()
      * @generated
@@ -7312,8 +6859,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7321,8 +6867,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7330,8 +6875,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7339,8 +6884,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7348,17 +6893,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__CONSTRAINT = SAP_FUNCTION_PARAMETER_TABLE__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7366,8 +6910,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7375,8 +6918,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7384,8 +6926,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7393,17 +6935,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__DOCUMENT = SAP_FUNCTION_PARAMETER_TABLE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7411,17 +6952,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__RESPONSIBLE_PARTY = SAP_FUNCTION_PARAMETER_TABLE__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7429,8 +6970,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7438,8 +6978,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7447,35 +6987,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__VOCABULARY_ELEMENT = SAP_FUNCTION_PARAMETER_TABLE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__MEASUREMENT = SAP_FUNCTION_PARAMETER_TABLE__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__CHANGE_REQUEST = SAP_FUNCTION_PARAMETER_TABLE__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7483,8 +7023,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7492,8 +7031,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7501,8 +7039,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7510,8 +7047,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7519,8 +7055,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7528,8 +7063,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7537,8 +7071,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7546,8 +7079,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7555,17 +7088,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Function Unit</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT = SAP_FUNCTION_PARAMETER_TABLE_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Output SAP Function Parameter Table</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The number of structural features of the '<em>Output SAP Function Parameter Table</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      * @ordered
      */
@@ -7573,8 +7106,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRegexpFileConnection()
      * @generated
@@ -7583,8 +7115,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7592,8 +7123,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7601,8 +7131,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7610,8 +7140,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7619,17 +7149,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__CONSTRAINT = FILE_CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7637,8 +7166,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7646,8 +7174,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7655,8 +7182,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7664,17 +7191,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__DOCUMENT = FILE_CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7682,17 +7208,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__RESPONSIBLE_PARTY = FILE_CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7700,8 +7226,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7709,8 +7234,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7718,35 +7243,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__VOCABULARY_ELEMENT = FILE_CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__MEASUREMENT = FILE_CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__CHANGE_REQUEST = FILE_CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7754,8 +7279,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7763,8 +7287,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7772,8 +7295,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7781,8 +7303,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7790,8 +7311,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7799,8 +7319,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7808,8 +7327,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7817,8 +7335,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7826,17 +7344,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__IMPORTED_ELEMENT = FILE_CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7844,17 +7362,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__PATHNAME = FILE_CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7862,8 +7379,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7871,17 +7388,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__COMPONENT = FILE_CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7889,17 +7405,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__CLIENT_CONNECTION = FILE_CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7916,17 +7432,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -7934,8 +7449,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7943,8 +7457,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7952,8 +7465,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7961,8 +7473,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7970,8 +7481,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7979,8 +7489,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -7988,26 +7497,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8015,8 +7524,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8024,8 +7532,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8033,8 +7540,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8042,8 +7548,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8051,8 +7556,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8060,8 +7564,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8069,26 +7572,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8096,8 +7598,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8105,8 +7606,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8114,8 +7614,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8123,8 +7622,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8132,8 +7630,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8141,8 +7639,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Regexp File Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8150,8 +7648,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl <em>Xml File Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlFileConnection()
      * @generated
@@ -8160,8 +7657,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8169,8 +7665,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8178,8 +7673,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8187,8 +7682,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8196,17 +7691,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8214,8 +7708,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8223,8 +7716,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8232,8 +7724,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8241,17 +7733,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8259,17 +7750,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8277,8 +7768,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8286,8 +7776,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8295,35 +7785,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8331,8 +7821,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8340,8 +7829,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8349,8 +7837,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8358,8 +7845,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8367,8 +7853,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8376,8 +7861,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8385,8 +7869,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8394,8 +7877,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8403,17 +7886,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8421,17 +7904,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8439,8 +7921,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8448,17 +7930,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8466,17 +7947,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8493,17 +7974,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8511,8 +7991,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8520,8 +7999,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8529,8 +8007,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Xsd File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8538,8 +8015,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Xml File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8547,8 +8023,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Guess</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8556,8 +8031,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mask XPattern</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8565,8 +8039,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Schema</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8574,8 +8048,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8583,8 +8056,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Group</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8592,8 +8065,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Root</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8601,8 +8074,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Loop</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8610,17 +8083,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Input Model</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_CONNECTION__INPUT_MODEL = CONNECTION_FEATURE_COUNT + 9;
 
     /**
-     * The feature id for the '<em><b>Output File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Output File Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8628,8 +8100,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Xml File Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8637,8 +8109,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
      * @generated
@@ -8647,8 +8118,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Relative XPath Query</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8656,17 +8127,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tag Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SCHEMA_TARGET__TAG_NAME = 1;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8674,8 +8144,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Schema Target</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8683,8 +8153,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.QueriesConnectionImpl <em>Queries Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.QueriesConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
      * @generated
@@ -8693,8 +8162,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8702,8 +8171,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Query</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8711,8 +8180,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Queries Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8720,8 +8189,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl <em>Query</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.QueryImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
      * @generated
@@ -8730,8 +8198,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8739,8 +8206,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8748,8 +8214,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8757,8 +8223,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8766,17 +8232,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8784,8 +8249,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8793,8 +8257,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8802,8 +8265,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8811,17 +8274,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8829,17 +8291,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8847,8 +8309,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8856,8 +8317,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8865,35 +8326,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int QUERY__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8901,8 +8362,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8910,8 +8370,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8919,8 +8378,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8928,8 +8386,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8937,8 +8394,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8946,8 +8402,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8955,8 +8410,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8964,17 +8418,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int QUERY__VALUE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -8982,8 +8435,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -8991,8 +8443,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Query</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9000,8 +8451,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
      * @generated
@@ -9010,8 +8460,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9019,8 +8468,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9028,8 +8476,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9037,8 +8485,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9046,17 +8494,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9064,8 +8511,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9073,8 +8519,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9082,8 +8527,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9091,17 +8536,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9109,17 +8553,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9127,8 +8571,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9136,8 +8579,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9145,35 +8588,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9181,8 +8624,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9190,8 +8632,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9199,8 +8640,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9208,8 +8648,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9217,8 +8656,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9226,8 +8664,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9235,8 +8672,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9244,8 +8680,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9253,17 +8689,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9271,17 +8707,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9289,8 +8724,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9298,17 +8733,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9316,17 +8750,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9343,17 +8777,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDIF_FILE_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9361,8 +8794,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9370,8 +8802,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9379,8 +8810,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9388,8 +8818,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9397,8 +8826,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Entry</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9406,8 +8834,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9415,8 +8842,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9424,8 +8850,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Ldif File Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9433,8 +8859,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl <em>File Excel Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
      * @generated
@@ -9443,8 +8868,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9452,8 +8876,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9461,8 +8884,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9470,8 +8893,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9479,17 +8902,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__CONSTRAINT = FILE_CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9497,8 +8919,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9506,8 +8927,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9515,8 +8935,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9524,17 +8944,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__DOCUMENT = FILE_CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9542,17 +8961,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__RESPONSIBLE_PARTY = FILE_CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9560,8 +8979,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9569,8 +8987,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9578,35 +8996,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__VOCABULARY_ELEMENT = FILE_CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__MEASUREMENT = FILE_CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__CHANGE_REQUEST = FILE_CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9614,8 +9032,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9623,8 +9040,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9632,8 +9048,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9641,8 +9056,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9650,8 +9064,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9659,8 +9072,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9668,8 +9080,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9677,8 +9088,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9686,17 +9097,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__IMPORTED_ELEMENT = FILE_CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9704,17 +9115,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__PATHNAME = FILE_CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9722,8 +9132,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9731,17 +9141,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__COMPONENT = FILE_CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9749,17 +9158,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__CLIENT_CONNECTION = FILE_CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9776,17 +9185,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9794,8 +9202,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9803,8 +9210,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9812,8 +9218,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9821,8 +9226,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9830,8 +9234,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9839,8 +9242,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9848,26 +9250,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9875,8 +9277,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9884,8 +9285,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9893,8 +9293,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9902,8 +9301,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9911,8 +9309,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9920,8 +9317,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9929,26 +9325,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -9956,8 +9351,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9965,8 +9359,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9974,8 +9367,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9983,8 +9375,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -9992,17 +9383,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Sheet Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__SHEET_NAME = FILE_CONNECTION_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Sheet Columns</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Sheet Columns</b></em>' attribute list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10010,8 +9400,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>First Column</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10019,44 +9408,43 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Last Column</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__LAST_COLUMN = FILE_CONNECTION_FEATURE_COUNT + 3;
 
     /**
-     * The feature id for the '<em><b>Thousand Separator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Thousand Separator</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR = FILE_CONNECTION_FEATURE_COUNT + 4;
 
     /**
-     * The feature id for the '<em><b>Decimal Separator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Decimal Separator</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR = FILE_CONNECTION_FEATURE_COUNT + 5;
 
     /**
-     * The feature id for the '<em><b>Advanced Spearator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Advanced Spearator</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR = FILE_CONNECTION_FEATURE_COUNT + 6;
 
     /**
-     * The feature id for the '<em><b>Select All Sheets</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Select All Sheets</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10064,8 +9452,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Sheet List</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10073,8 +9460,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>File Excel Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10082,8 +9469,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
      * @generated
@@ -10092,8 +9478,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10101,8 +9486,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Absolute XPath Query</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10110,8 +9495,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10119,8 +9504,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Schema Targets</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10128,8 +9513,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Xml XPath Loop Descriptor</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10137,8 +9522,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.GenericSchemaConnectionImpl <em>Generic Schema Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.GenericSchemaConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
      * @generated
@@ -10147,8 +9531,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10156,8 +9539,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10165,8 +9547,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10174,8 +9556,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10183,17 +9565,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10201,8 +9582,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10210,8 +9590,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10219,8 +9598,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10228,17 +9607,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10246,17 +9624,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10264,8 +9642,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10273,8 +9650,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10282,35 +9659,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10318,8 +9695,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10327,8 +9703,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10336,8 +9711,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10345,8 +9719,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10354,8 +9727,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10363,8 +9735,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10372,8 +9743,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10381,8 +9751,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10390,17 +9760,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10408,17 +9778,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10426,8 +9795,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10435,17 +9804,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10453,17 +9821,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10480,17 +9848,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10498,8 +9865,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10507,17 +9873,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_SCHEMA_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
 
     /**
-     * The feature id for the '<em><b>Mapping Type Used</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping Type Used</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10525,8 +9890,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping Type Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10534,8 +9898,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Generic Schema Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10543,8 +9907,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl <em>LDAP Schema Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
      * @generated
@@ -10553,8 +9916,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10562,8 +9924,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10571,8 +9932,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10580,8 +9941,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10589,17 +9950,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10607,8 +9967,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10616,8 +9975,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10625,8 +9983,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10634,17 +9992,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10652,17 +10009,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10670,8 +10027,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10679,8 +10035,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10688,35 +10044,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10724,8 +10080,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10733,8 +10088,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10742,8 +10096,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10751,8 +10104,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10760,8 +10112,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10769,8 +10120,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10778,8 +10128,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10787,8 +10136,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10796,17 +10145,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10814,17 +10163,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10832,8 +10180,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10841,17 +10189,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10859,17 +10206,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10886,17 +10233,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int LDAP_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -10904,8 +10250,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10913,8 +10258,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10922,8 +10266,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Host</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10931,8 +10274,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Port</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10940,8 +10282,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Protocol</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10949,8 +10290,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Filter</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10958,8 +10298,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Separator</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10967,8 +10306,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Advanced</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10976,8 +10314,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Store Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10985,8 +10322,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -10994,8 +10330,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Authen</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11003,8 +10338,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Bind Principal</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11012,8 +10346,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Bind Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11021,8 +10354,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11030,8 +10362,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encryption Method Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11039,8 +10371,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11048,8 +10379,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Save Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11057,8 +10387,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Aliases</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11066,8 +10395,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Referrals</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11075,8 +10403,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Count Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11084,8 +10411,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Time Out Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11093,8 +10419,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Base DNs</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11102,8 +10427,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Get Base DNs From Root</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11111,8 +10436,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Return Attributes</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11120,8 +10445,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Selected DN</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11129,8 +10453,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>LDAP Schema Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11138,8 +10462,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl <em>WSDL Schema Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
      * @generated
@@ -11148,8 +10471,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11157,8 +10479,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11166,8 +10487,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11175,8 +10496,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11184,17 +10505,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11202,8 +10522,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11211,8 +10530,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11220,8 +10538,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11229,17 +10547,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11247,17 +10564,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11265,8 +10582,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11274,8 +10590,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11283,35 +10599,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11319,8 +10635,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11328,8 +10643,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11337,8 +10651,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11346,8 +10659,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11355,8 +10667,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11364,8 +10675,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11373,8 +10683,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11382,8 +10691,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11391,17 +10700,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11409,17 +10718,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11427,8 +10735,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11436,17 +10744,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11454,17 +10761,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11481,17 +10788,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11499,8 +10805,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11508,8 +10813,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11517,8 +10821,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>WSDL</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11526,8 +10829,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Need Auth</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11535,8 +10837,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Method Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11544,8 +10845,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameters</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11553,8 +10853,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>User Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11562,8 +10861,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11571,8 +10869,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Proxy</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11580,8 +10877,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Host</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11589,8 +10885,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Port</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11598,8 +10893,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy User</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11607,8 +10901,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11616,8 +10909,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11625,8 +10917,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Endpoint URI</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11634,8 +10925,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11643,26 +10933,38 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Time Out</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int WSDL_SCHEMA_CONNECTION__TIME_OUT = CONNECTION_FEATURE_COUNT + 14;
 
+    int WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL = CONNECTION_FEATURE_COUNT + 16;
+
+    int WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE = CONNECTION_FEATURE_COUNT + 17;
+
+    int WSDL_SCHEMA_CONNECTION__SERVER_NAME = CONNECTION_FEATURE_COUNT + 18;
+
+    int WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE = CONNECTION_FEATURE_COUNT + 19;
+
+    int WSDL_SCHEMA_CONNECTION__PORT_NAME = CONNECTION_FEATURE_COUNT + 20;
+
+    int WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE = CONNECTION_FEATURE_COUNT + 21;
+
+    int WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER = CONNECTION_FEATURE_COUNT + 22;
+
     /**
      * The number of structural features of the '<em>WSDL Schema Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
-    int WSDL_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 15;
+    int WSDL_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl <em>Salesforce Schema Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
      * @generated
@@ -11671,8 +10973,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11680,8 +10981,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11689,8 +10989,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11698,8 +10998,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11707,17 +11007,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11725,8 +11024,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11734,8 +11032,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11743,8 +11040,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11752,17 +11049,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11770,17 +11066,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11788,8 +11084,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11797,8 +11092,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11806,35 +11101,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11842,8 +11137,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11851,8 +11145,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11860,8 +11153,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11869,8 +11161,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11878,8 +11169,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11887,8 +11177,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11896,8 +11185,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11905,8 +11193,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11914,17 +11202,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11932,17 +11220,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11950,8 +11237,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -11959,17 +11246,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -11977,17 +11263,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12004,17 +11290,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SALESFORCE_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12022,8 +11307,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12031,8 +11315,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12040,8 +11323,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Web Service Url</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12049,8 +11331,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>User Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12058,8 +11339,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12067,8 +11347,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Module Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12076,8 +11355,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Query Condition</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12085,8 +11363,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Custom Module Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12094,8 +11372,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Proxy</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12103,8 +11380,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Host</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12112,8 +11388,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Port</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12121,8 +11396,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Username</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12130,8 +11404,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12139,8 +11412,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Batch Size</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12148,8 +11420,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Http Proxy</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12157,8 +11428,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Alphbet</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12166,8 +11436,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Time Out</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12184,8 +11453,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
      * @generated
@@ -12194,8 +11462,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12203,8 +11471,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cdc Types</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12212,8 +11480,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>CDC Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12221,8 +11489,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl <em>CDC Type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
      * @generated
@@ -12231,8 +11498,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12240,8 +11506,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12249,8 +11514,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12258,8 +11523,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12267,17 +11532,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CDC_TYPE__CONSTRAINT = ABSTRACT_METADATA_OBJECT__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12285,8 +11549,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12294,8 +11557,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12303,8 +11565,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12312,17 +11574,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CDC_TYPE__DOCUMENT = ABSTRACT_METADATA_OBJECT__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12330,17 +11591,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CDC_TYPE__RESPONSIBLE_PARTY = ABSTRACT_METADATA_OBJECT__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12348,8 +11609,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12357,8 +11617,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12366,35 +11626,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CDC_TYPE__VOCABULARY_ELEMENT = ABSTRACT_METADATA_OBJECT__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CDC_TYPE__MEASUREMENT = ABSTRACT_METADATA_OBJECT__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CDC_TYPE__CHANGE_REQUEST = ABSTRACT_METADATA_OBJECT__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12402,8 +11662,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12411,8 +11670,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12420,8 +11678,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12429,8 +11686,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12438,8 +11694,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12447,8 +11702,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12456,8 +11710,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12465,8 +11718,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Link DB</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12474,8 +11726,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Subscribers</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12483,8 +11735,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cdc Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12492,8 +11743,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Journal Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12501,8 +11751,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>CDC Type</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12510,8 +11759,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl <em>Subscriber Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
      * @generated
@@ -12520,8 +11768,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12529,8 +11776,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12538,8 +11784,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12547,8 +11793,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12556,17 +11802,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__CONSTRAINT = RelationalPackage.TD_TABLE__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12574,8 +11819,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12583,8 +11827,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12592,8 +11835,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12601,17 +11844,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__DOCUMENT = RelationalPackage.TD_TABLE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12619,17 +11861,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__RESPONSIBLE_PARTY = RelationalPackage.TD_TABLE__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12637,8 +11879,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12646,8 +11887,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12655,35 +11896,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__VOCABULARY_ELEMENT = RelationalPackage.TD_TABLE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__MEASUREMENT = RelationalPackage.TD_TABLE__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__CHANGE_REQUEST = RelationalPackage.TD_TABLE__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12691,8 +11932,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12700,8 +11940,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12709,8 +11948,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12718,8 +11956,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12727,8 +11964,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12736,8 +11972,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12745,8 +11980,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12754,8 +11988,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12763,8 +11997,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12772,8 +12005,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12781,8 +12014,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12790,26 +12023,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__PARAMETER = RelationalPackage.TD_TABLE__PARAMETER;
 
     /**
-     * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Generalization</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__GENERALIZATION = RelationalPackage.TD_TABLE__GENERALIZATION;
 
     /**
-     * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Specialization</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12817,8 +12049,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12826,8 +12057,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12835,17 +12065,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__EXPRESSION_NODE = RelationalPackage.TD_TABLE__EXPRESSION_NODE;
 
     /**
-     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping From</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12853,17 +12083,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__MAPPING_TO = RelationalPackage.TD_TABLE__MAPPING_TO;
 
     /**
-     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier Map</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12871,8 +12100,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12880,8 +12108,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12889,8 +12116,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12898,8 +12125,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12907,8 +12133,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Source Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12916,8 +12141,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Table Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12925,8 +12149,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12934,8 +12157,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12943,8 +12165,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12952,17 +12173,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SUBSCRIBER_TABLE__CONNECTION = RelationalPackage.TD_TABLE__CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Using Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Using Trigger</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -12970,8 +12190,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12979,8 +12198,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Option Scope Column</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12988,8 +12207,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is Temporary</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -12997,8 +12215,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Temporary Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13006,8 +12223,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is System</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13015,8 +12231,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13024,8 +12239,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>System</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13033,8 +12247,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Subscriber Table</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13042,8 +12256,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl <em>SAP Test Input Parameter Table</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTestInputParameterTable()
      * @generated
@@ -13052,8 +12265,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13061,8 +12273,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13070,8 +12281,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13079,8 +12290,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13088,17 +12299,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_TEST_INPUT_PARAMETER_TABLE__CONSTRAINT = SAP_FUNCTION_PARAMETER_TABLE__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13106,8 +12316,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13115,8 +12324,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13124,8 +12332,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13133,17 +12341,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_TEST_INPUT_PARAMETER_TABLE__DOCUMENT = SAP_FUNCTION_PARAMETER_TABLE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13151,17 +12358,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_TEST_INPUT_PARAMETER_TABLE__RESPONSIBLE_PARTY = SAP_FUNCTION_PARAMETER_TABLE__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13169,8 +12376,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13178,8 +12384,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13187,35 +12393,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int SAP_TEST_INPUT_PARAMETER_TABLE__VOCABULARY_ELEMENT = SAP_FUNCTION_PARAMETER_TABLE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_TEST_INPUT_PARAMETER_TABLE__MEASUREMENT = SAP_FUNCTION_PARAMETER_TABLE__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int SAP_TEST_INPUT_PARAMETER_TABLE__CHANGE_REQUEST = SAP_FUNCTION_PARAMETER_TABLE__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13223,8 +12429,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13232,8 +12437,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13241,8 +12445,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13250,8 +12453,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13259,8 +12461,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13268,8 +12469,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13277,8 +12477,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13286,8 +12485,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13295,8 +12494,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Function Unit</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13313,8 +12512,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl <em>Concept</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.ConceptImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConcept()
      * @generated
@@ -13323,8 +12521,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13332,8 +12529,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13341,8 +12537,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13350,8 +12546,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13359,17 +12555,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__CONSTRAINT = RelationalPackage.TD_TABLE__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13377,8 +12572,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13386,8 +12580,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13395,8 +12588,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13404,17 +12597,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__DOCUMENT = RelationalPackage.TD_TABLE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13422,17 +12614,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__RESPONSIBLE_PARTY = RelationalPackage.TD_TABLE__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13440,8 +12632,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13449,8 +12640,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13458,35 +12649,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__VOCABULARY_ELEMENT = RelationalPackage.TD_TABLE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CONCEPT__MEASUREMENT = RelationalPackage.TD_TABLE__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CONCEPT__CHANGE_REQUEST = RelationalPackage.TD_TABLE__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13494,8 +12685,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13503,8 +12693,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13512,8 +12701,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13521,8 +12709,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13530,8 +12717,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13539,8 +12725,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13548,8 +12733,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13557,8 +12741,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13566,8 +12750,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13575,8 +12758,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Feature</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13584,8 +12767,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13593,26 +12776,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Parameter</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__PARAMETER = RelationalPackage.TD_TABLE__PARAMETER;
 
     /**
-     * The feature id for the '<em><b>Generalization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Generalization</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int CONCEPT__GENERALIZATION = RelationalPackage.TD_TABLE__GENERALIZATION;
 
     /**
-     * The feature id for the '<em><b>Specialization</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Specialization</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13620,8 +12802,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Instance</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13629,8 +12810,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Alias</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13638,17 +12818,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Expression Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__EXPRESSION_NODE = RelationalPackage.TD_TABLE__EXPRESSION_NODE;
 
     /**
-     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Mapping From</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13656,17 +12836,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Mapping To</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__MAPPING_TO = RelationalPackage.TD_TABLE__MAPPING_TO;
 
     /**
-     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Classifier Map</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13674,8 +12853,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Cf Map</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13683,8 +12861,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Domain</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13692,8 +12869,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13701,8 +12878,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Index</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13710,8 +12886,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Source Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13719,8 +12894,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Table Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13728,8 +12902,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Attached CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13737,8 +12910,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Activated CDC</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13746,8 +12918,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Columns</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13755,17 +12926,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int CONCEPT__CONNECTION = RelationalPackage.TD_TABLE__CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Using Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Using Trigger</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13773,8 +12943,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Type</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13782,8 +12951,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Option Scope Column</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13791,8 +12960,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is Temporary</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13800,8 +12968,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Temporary Scope</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13809,8 +12976,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is System</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13818,8 +12984,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Trigger</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13827,8 +12992,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Loop Expression</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13836,8 +13000,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Loop Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13845,8 +13008,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Concept Targets</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13854,8 +13017,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Input Model</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13863,8 +13025,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Group</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13872,8 +13034,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Root</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13881,8 +13043,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Loop</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13890,8 +13052,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Concept</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13899,8 +13060,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConceptTarget()
      * @generated
@@ -13908,9 +13068,9 @@ public interface ConnectionPackage extends EPackage {
     int CONCEPT_TARGET = 35;
 
     /**
-     * The feature id for the '<em><b>Schema</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Schema</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -13918,8 +13078,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Target Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13927,8 +13086,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Relative Loop Expression</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13936,8 +13095,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Concept Target</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13945,8 +13104,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl <em>HL7 Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7Connection()
      * @generated
@@ -13955,8 +13113,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13964,8 +13121,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13973,8 +13129,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13982,8 +13138,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -13991,17 +13147,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__CONSTRAINT = FILE_CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14009,8 +13164,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14018,8 +13172,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14027,8 +13180,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14036,17 +13189,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__DOCUMENT = FILE_CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14054,17 +13206,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__RESPONSIBLE_PARTY = FILE_CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14072,8 +13224,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14081,8 +13232,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14090,35 +13241,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__VOCABULARY_ELEMENT = FILE_CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__MEASUREMENT = FILE_CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__CHANGE_REQUEST = FILE_CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14126,8 +13277,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14135,8 +13285,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14144,8 +13293,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14153,8 +13301,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14162,8 +13309,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14171,8 +13317,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14180,8 +13325,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14189,8 +13333,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14198,17 +13342,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__IMPORTED_ELEMENT = FILE_CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14216,17 +13360,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__PATHNAME = FILE_CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14234,8 +13377,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14243,17 +13386,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__COMPONENT = FILE_CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14261,17 +13403,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__CLIENT_CONNECTION = FILE_CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14288,17 +13430,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__VERSION = FILE_CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14306,8 +13447,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14315,8 +13455,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14324,8 +13463,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14333,8 +13471,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14342,8 +13479,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14351,8 +13487,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14360,26 +13495,26 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__FIELD_SEPARATOR_VALUE = FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__ROW_SEPARATOR_TYPE = FILE_CONNECTION__ROW_SEPARATOR_TYPE;
 
     /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14387,8 +13522,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14396,8 +13530,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14405,8 +13538,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Header Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14414,8 +13546,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14423,8 +13554,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Footer Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14432,8 +13562,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14441,26 +13570,25 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Limit Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__LIMIT_VALUE = FILE_CONNECTION__LIMIT_VALUE;
 
     /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>First Line Caption</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int HL7_CONNECTION__FIRST_LINE_CAPTION = FILE_CONNECTION__FIRST_LINE_CAPTION;
 
     /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14468,8 +13596,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14477,8 +13604,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Escape Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14486,8 +13612,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Text Enclosure</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14495,8 +13620,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Csv Option</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14504,8 +13628,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Start Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14513,8 +13636,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>End Char</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14522,8 +13644,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Root</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14531,8 +13652,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>HL7 Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14540,8 +13661,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHeaderFooterConnection()
      * @generated
@@ -14550,8 +13670,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14559,8 +13678,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14568,8 +13686,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14577,8 +13695,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14586,17 +13704,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14604,8 +13721,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14613,8 +13729,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14622,8 +13737,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14631,17 +13746,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14649,17 +13763,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14667,8 +13781,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14676,8 +13789,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14685,35 +13798,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14721,8 +13834,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14730,8 +13842,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14739,8 +13850,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14748,8 +13858,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14757,8 +13866,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14766,8 +13874,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14775,8 +13882,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14784,8 +13890,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14793,17 +13899,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14811,17 +13917,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Pathname</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
 
     /**
-     * The feature id for the '<em><b>Machine</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Machine</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14829,8 +13934,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14838,17 +13943,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Component</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
 
     /**
-     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14856,17 +13960,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Connection</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
 
     /**
-     * The feature id for the '<em><b>Data Package</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Package</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14883,17 +13987,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int HEADER_FOOTER_CONNECTION__VERSION = CONNECTION__VERSION;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Queries</b></em>' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -14901,8 +14004,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Mode</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14910,8 +14012,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14919,8 +14020,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Is Header</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14928,8 +14028,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imports</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14937,8 +14036,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Main Code</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14946,8 +14044,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Libraries</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14955,8 +14052,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Header Footer Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14964,8 +14061,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl <em>XML File Node</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXMLFileNode()
      * @generated
@@ -14974,8 +14070,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>XML Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14983,8 +14078,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Related Column</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -14992,8 +14086,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Default Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15001,8 +14094,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Attribute</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15010,8 +14102,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Order</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15019,8 +14110,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15028,27 +14118,80 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>XML File Node</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int XML_FILE_NODE_FEATURE_COUNT = 6;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.GenericPackageImpl <em>Generic Package</em>}' class.
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl <em>WSDL Parameter</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLParameter()
+     * @generated
+     */
+    int WSDL_PARAMETER = 39;
+
+    /**
+     * The feature id for the '<em><b>Element</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_PARAMETER__ELEMENT = 0;
+
+    /**
+     * The feature id for the '<em><b>Source</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_PARAMETER__SOURCE = 1;
+
+    /**
+     * The feature id for the '<em><b>Column</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_PARAMETER__COLUMN = 2;
+
+    /**
+     * The feature id for the '<em><b>Expression</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_PARAMETER__EXPRESSION = 3;
+
+    /**
+     * The number of structural features of the '<em>WSDL Parameter</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_PARAMETER_FEATURE_COUNT = 4;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.GenericPackageImpl <em>Generic Package</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.GenericPackageImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericPackage()
      * @generated
      */
-    int GENERIC_PACKAGE = 39;
+    int GENERIC_PACKAGE = 40;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15056,8 +14199,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15065,8 +14207,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15074,8 +14216,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15083,17 +14225,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__CONSTRAINT = CorePackage.PACKAGE__CONSTRAINT;
 
     /**
-     * The feature id for the '<em><b>Namespace</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Namespace</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -15101,8 +14242,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15110,8 +14250,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15119,8 +14258,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15128,17 +14267,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__DOCUMENT = CorePackage.PACKAGE__DOCUMENT;
 
     /**
-     * The feature id for the '<em><b>Description</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Description</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -15146,17 +14284,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__RESPONSIBLE_PARTY = CorePackage.PACKAGE__RESPONSIBLE_PARTY;
 
     /**
-     * The feature id for the '<em><b>Element Node</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Element Node</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -15164,8 +14302,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15173,8 +14310,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15182,35 +14319,35 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__VOCABULARY_ELEMENT = CorePackage.PACKAGE__VOCABULARY_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Measurement</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Measurement</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__MEASUREMENT = CorePackage.PACKAGE__MEASUREMENT;
 
     /**
-     * The feature id for the '<em><b>Change Request</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Change Request</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__CHANGE_REQUEST = CorePackage.PACKAGE__CHANGE_REQUEST;
 
     /**
-     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -15218,8 +14355,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15227,17 +14364,17 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
     int GENERIC_PACKAGE__IMPORTED_ELEMENT = CorePackage.PACKAGE__IMPORTED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @generated
      * @ordered
      */
@@ -15245,8 +14382,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>Generic Package</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15254,18 +14391,16 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl <em>HL7 File Node</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7FileNode()
      * @generated
      */
-    int HL7_FILE_NODE = 40;
+    int HL7_FILE_NODE = 41;
 
     /**
      * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15273,8 +14408,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Order</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15282,8 +14416,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Attribute</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15291,8 +14424,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Default Value</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15300,8 +14432,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Related Column</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15309,8 +14440,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The feature id for the '<em><b>Repeatable</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15318,8 +14448,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The number of structural features of the '<em>HL7 File Node</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @generated
      * @ordered
      */
@@ -15327,78 +14457,70 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 41;
+    int FILE_FORMAT = 42;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FieldSeparator
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 42;
+    int FIELD_SEPARATOR = 43;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.Escape
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 43;
+    int ESCAPE = 44;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.RowSeparator
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 44;
+    int ROW_SEPARATOR = 45;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 45;
+    int MDM_CONNECTION_PROTOCOL = 46;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see java.util.HashMap
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 46;
+    int MAP = 47;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see java.util.ArrayList
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 47;
+    int LIST = 48;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Metadata</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Metadata
      * @generated
@@ -15406,9 +14528,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getMetadata();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Metadata#getConnections <em>Connections</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.Metadata#getConnections <em>Connections</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Connections</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Metadata#getConnections()
      * @see #getMetadata()
@@ -15418,8 +14541,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Connection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Connection
      * @generated
@@ -15427,9 +14549,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Version</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Connection#getVersion()
      * @see #getConnection()
@@ -15438,9 +14561,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getConnection_Version();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference '
+     * {@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference '<em>Queries</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Connection#getQueries()
      * @see #getConnection()
@@ -15449,9 +14573,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getConnection_Queries();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.Connection#isContextMode <em>Context Mode</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Context Mode</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Connection#isContextMode()
      * @see #getConnection()
@@ -15460,9 +14585,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getConnection_ContextMode();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.Connection#getContextId <em>Context Id</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Context Id</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Connection#getContextId()
      * @see #getConnection()
@@ -15472,8 +14598,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn <em>Metadata Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Metadata Column</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn
      * @generated
@@ -15482,8 +14607,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getSourceType <em>Source Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Source Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getSourceType()
      * @see #getMetadataColumn()
@@ -15493,8 +14617,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDefaultValue <em>Default Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Default Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getDefaultValue()
      * @see #getMetadataColumn()
@@ -15504,8 +14627,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTalendType <em>Talend Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Talend Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getTalendType()
      * @see #getMetadataColumn()
@@ -15515,8 +14637,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isKey <em>Key</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Key</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#isKey()
      * @see #getMetadataColumn()
@@ -15525,9 +14647,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataColumn_Key();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isNullable <em>Nullable</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isNullable <em>Nullable</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Nullable</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#isNullable()
      * @see #getMetadataColumn()
@@ -15536,9 +14659,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataColumn_Nullable();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the reference '<em>Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable()
      * @see #getMetadataColumn()
@@ -15548,8 +14672,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField <em>Original Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Original Field</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField()
      * @see #getMetadataColumn()
@@ -15558,9 +14681,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataColumn_OriginalField();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Pattern</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern()
      * @see #getMetadataColumn()
@@ -15570,8 +14694,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Display Field</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField()
      * @see #getMetadataColumn()
@@ -15581,8 +14704,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Abstract Metadata Object</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject
      * @generated
@@ -15591,8 +14713,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getProperties <em>Properties</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Properties</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getProperties()
      * @see #getAbstractMetadataObject()
@@ -15601,9 +14722,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getAbstractMetadataObject_Properties();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getId <em>Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getId <em>Id</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Id</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getId()
      * @see #getAbstractMetadataObject()
@@ -15613,8 +14735,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getComment <em>Comment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Comment</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getComment()
      * @see #getAbstractMetadataObject()
@@ -15623,9 +14744,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getAbstractMetadataObject_Comment();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getLabel <em>Label</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getLabel <em>Label</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Label</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getLabel()
      * @see #getAbstractMetadataObject()
@@ -15635,8 +14757,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isReadOnly <em>Read Only</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Read Only</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isReadOnly()
      * @see #getAbstractMetadataObject()
@@ -15646,8 +14767,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isSynchronised <em>Synchronised</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Synchronised</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isSynchronised()
      * @see #getAbstractMetadataObject()
@@ -15657,8 +14777,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isDivergency <em>Divergency</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Divergency</em>'.
      * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isDivergency()
      * @see #getAbstractMetadataObject()
@@ -15668,8 +14787,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Metadata Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable
      * @generated
@@ -15677,9 +14795,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getMetadataTable();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName <em>Source Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName <em>Source Name</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Source Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName()
      * @see #getMetadataTable()
@@ -15688,9 +14807,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataTable_SourceName();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Table Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType()
      * @see #getMetadataTable()
@@ -15700,8 +14820,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC <em>Attached CDC</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Attached CDC</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#isAttachedCDC()
      * @see #getMetadataTable()
@@ -15711,8 +14830,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC <em>Activated CDC</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Activated CDC</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#isActivatedCDC()
      * @see #getMetadataTable()
@@ -15721,9 +14839,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataTable_ActivatedCDC();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the reference list '<em>Columns</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns()
      * @see #getMetadataTable()
@@ -15732,9 +14851,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getMetadataTable_Columns();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference '
+     * {@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection()
      * @see #getMetadataTable()
@@ -15744,8 +14864,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.FileConnection <em>File Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>File Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection
      * @generated
@@ -15753,9 +14872,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getFileConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getServer <em>Server</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#getServer <em>Server</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Server</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getServer()
      * @see #getFileConnection()
@@ -15764,9 +14884,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_Server();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getFilePath <em>File Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#getFilePath <em>File Path</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>File Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getFilePath()
      * @see #getFileConnection()
@@ -15775,9 +14896,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_FilePath();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getFormat <em>Format</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#getFormat <em>Format</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Format</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getFormat()
      * @see #getFileConnection()
@@ -15786,9 +14908,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_Format();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getEncoding <em>Encoding</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#getEncoding <em>Encoding</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Encoding</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getEncoding()
      * @see #getFileConnection()
@@ -15798,8 +14921,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getFieldSeparatorValue <em>Field Separator Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Field Separator Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getFieldSeparatorValue()
      * @see #getFileConnection()
@@ -15809,8 +14931,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorType <em>Row Separator Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Row Separator Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorType()
      * @see #getFileConnection()
@@ -15820,8 +14941,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorValue <em>Row Separator Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Row Separator Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getRowSeparatorValue()
      * @see #getFileConnection()
@@ -15831,8 +14951,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getTextIdentifier <em>Text Identifier</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Text Identifier</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getTextIdentifier()
      * @see #getFileConnection()
@@ -15841,9 +14960,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_TextIdentifier();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isUseHeader <em>Use Header</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#isUseHeader <em>Use Header</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Use Header</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#isUseHeader()
      * @see #getFileConnection()
@@ -15853,8 +14973,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getHeaderValue <em>Header Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Header Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getHeaderValue()
      * @see #getFileConnection()
@@ -15863,9 +14982,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_HeaderValue();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isUseFooter <em>Use Footer</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#isUseFooter <em>Use Footer</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Use Footer</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#isUseFooter()
      * @see #getFileConnection()
@@ -15875,8 +14995,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getFooterValue <em>Footer Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Footer Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getFooterValue()
      * @see #getFileConnection()
@@ -15885,9 +15004,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_FooterValue();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isUseLimit <em>Use Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#isUseLimit <em>Use Limit</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Use Limit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#isUseLimit()
      * @see #getFileConnection()
@@ -15897,8 +15017,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getLimitValue <em>Limit Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Limit Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getLimitValue()
      * @see #getFileConnection()
@@ -15908,8 +15027,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isFirstLineCaption <em>First Line Caption</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>First Line Caption</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#isFirstLineCaption()
      * @see #getFileConnection()
@@ -15919,8 +15037,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isRemoveEmptyRow <em>Remove Empty Row</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Remove Empty Row</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#isRemoveEmptyRow()
      * @see #getFileConnection()
@@ -15930,8 +15047,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeType <em>Escape Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Escape Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeType()
      * @see #getFileConnection()
@@ -15941,8 +15057,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeChar <em>Escape Char</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Escape Char</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeChar()
      * @see #getFileConnection()
@@ -15952,8 +15067,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#getTextEnclosure <em>Text Enclosure</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Text Enclosure</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#getTextEnclosure()
      * @see #getFileConnection()
@@ -15962,9 +15076,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_TextEnclosure();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption <em>Csv Option</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption <em>Csv Option</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Csv Option</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption()
      * @see #getFileConnection()
@@ -15974,8 +15089,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Delimited File Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
      * @generated
@@ -15984,8 +15098,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#getFieldSeparatorType <em>Field Separator Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Field Separator Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#getFieldSeparatorType()
      * @see #getDelimitedFileConnection()
@@ -15995,8 +15108,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#isSplitRecord <em>Split Record</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Split Record</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection#isSplitRecord()
      * @see #getDelimitedFileConnection()
@@ -16006,8 +15118,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection <em>Positional File Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Positional File Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.PositionalFileConnection
      * @generated
@@ -16016,8 +15127,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection <em>Ebcdic Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Ebcdic Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection
      * @generated
@@ -16025,9 +15135,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getEbcdicConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getMidFile <em>Mid File</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getMidFile <em>Mid File</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Mid File</em>'.
      * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getMidFile()
      * @see #getEbcdicConnection()
@@ -16036,9 +15147,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getEbcdicConnection_MidFile();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getDataFile <em>Data File</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.EbcdicConnection#getDataFile <em>Data File</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Data File</em>'.
      * @see org.talend.core.model.metadata.builder.connection.EbcdicConnection#getDataFile()
      * @see #getEbcdicConnection()
@@ -16048,8 +15160,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MDMConnection <em>MDM Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>MDM Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection
      * @generated
@@ -16057,9 +15168,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getMDMConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getUsername <em>Username</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getUsername <em>Username</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Username</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getUsername()
      * @see #getMDMConnection()
@@ -16068,9 +15180,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Username();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getPassword <em>Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getPassword <em>Password</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getPassword()
      * @see #getMDMConnection()
@@ -16079,9 +15192,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Password();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getPort <em>Port</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getPort <em>Port</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Port</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getPort()
      * @see #getMDMConnection()
@@ -16090,9 +15204,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Port();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getServer <em>Server</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getServer <em>Server</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Server</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getServer()
      * @see #getMDMConnection()
@@ -16101,9 +15216,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Server();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getUniverse <em>Universe</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getUniverse <em>Universe</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Universe</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getUniverse()
      * @see #getMDMConnection()
@@ -16112,9 +15228,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Universe();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatamodel <em>Datamodel</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatamodel <em>Datamodel</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Datamodel</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getDatamodel()
      * @see #getMDMConnection()
@@ -16124,8 +15241,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getDatacluster <em>Datacluster</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Datacluster</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getDatacluster()
      * @see #getMDMConnection()
@@ -16134,9 +15250,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Datacluster();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas <em>Schemas</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas <em>Schemas</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Schemas</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getSchemas()
      * @see #getMDMConnection()
@@ -16145,9 +15262,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getMDMConnection_Schemas();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getProtocol <em>Protocol</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getProtocol <em>Protocol</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Protocol</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getProtocol()
      * @see #getMDMConnection()
@@ -16156,9 +15274,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMDMConnection_Protocol();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MDMConnection#getContext <em>Context</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.MDMConnection#getContext <em>Context</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Context</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnection#getContext()
      * @see #getMDMConnection()
@@ -16168,8 +15287,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Database Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection
      * @generated
@@ -16178,8 +15296,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDatabaseType <em>Database Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Database Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDatabaseType()
      * @see #getDatabaseConnection()
@@ -16189,8 +15306,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath <em>Driver Jar Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Driver Jar Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverJarPath()
      * @see #getDatabaseConnection()
@@ -16200,8 +15316,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverClass <em>Driver Class</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Driver Class</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDriverClass()
      * @see #getDatabaseConnection()
@@ -16210,9 +15325,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_DriverClass();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getURL <em>URL</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getURL <em>URL</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>URL</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getURL()
      * @see #getDatabaseConnection()
@@ -16222,8 +15338,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbVersionString <em>Db Version String</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Db Version String</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbVersionString()
      * @see #getDatabaseConnection()
@@ -16232,9 +15347,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_DbVersionString();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPort <em>Port</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPort <em>Port</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Port</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPort()
      * @see #getDatabaseConnection()
@@ -16243,9 +15359,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_Port();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUsername <em>Username</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUsername <em>Username</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Username</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUsername()
      * @see #getDatabaseConnection()
@@ -16254,9 +15371,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_Username();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPassword <em>Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPassword <em>Password</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getPassword()
      * @see #getDatabaseConnection()
@@ -16266,8 +15384,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getServerName <em>Server Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Server Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getServerName()
      * @see #getDatabaseConnection()
@@ -16277,8 +15394,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDatasourceName <em>Datasource Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Datasource Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDatasourceName()
      * @see #getDatabaseConnection()
@@ -16288,8 +15404,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getFileFieldName <em>File Field Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>File Field Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getFileFieldName()
      * @see #getDatabaseConnection()
@@ -16298,9 +15413,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_FileFieldName();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSID <em>SID</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSID <em>SID</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>SID</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSID()
      * @see #getDatabaseConnection()
@@ -16310,8 +15426,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSqlSynthax <em>Sql Synthax</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Sql Synthax</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSqlSynthax()
      * @see #getDatabaseConnection()
@@ -16321,8 +15436,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getStringQuote <em>String Quote</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>String Quote</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getStringQuote()
      * @see #getDatabaseConnection()
@@ -16332,8 +15446,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getNullChar <em>Null Char</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Null Char</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getNullChar()
      * @see #getDatabaseConnection()
@@ -16342,9 +15455,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_NullChar();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId <em>Dbms Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId <em>Dbms Id</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Dbms Id</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId()
      * @see #getDatabaseConnection()
@@ -16354,8 +15468,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId <em>Product Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Product Id</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId()
      * @see #getDatabaseConnection()
@@ -16365,8 +15478,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDBRootPath <em>DB Root Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>DB Root Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDBRootPath()
      * @see #getDatabaseConnection()
@@ -16376,8 +15488,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams <em>Additional Params</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Additional Params</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams()
      * @see #getDatabaseConnection()
@@ -16387,8 +15498,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL <em>Standard SQL</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Standard SQL</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL()
      * @see #getDatabaseConnection()
@@ -16398,8 +15508,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>System SQL</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL()
      * @see #getDatabaseConnection()
@@ -16409,8 +15518,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns <em>Cdc Conns</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Cdc Conns</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcConns()
      * @see #getDatabaseConnection()
@@ -16420,8 +15528,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode <em>Cdc Type Mode</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Cdc Type Mode</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getCdcTypeMode()
      * @see #getDatabaseConnection()
@@ -16430,9 +15537,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_CdcTypeMode();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode <em>SQL Mode</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>SQL Mode</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSQLMode()
      * @see #getDatabaseConnection()
@@ -16442,8 +15550,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUiSchema <em>Ui Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Ui Schema</em>'.
      * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getUiSchema()
      * @see #getDatabaseConnection()
@@ -16453,8 +15560,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPConnection <em>SAP Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection
      * @generated
@@ -16462,9 +15568,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getSAPConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getHost <em>Host</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getHost <em>Host</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Host</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getHost()
      * @see #getSAPConnection()
@@ -16473,9 +15580,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_Host();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getUsername <em>Username</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getUsername <em>Username</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Username</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getUsername()
      * @see #getSAPConnection()
@@ -16484,9 +15592,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_Username();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getPassword <em>Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getPassword <em>Password</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getPassword()
      * @see #getSAPConnection()
@@ -16495,9 +15604,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_Password();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getClient <em>Client</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getClient <em>Client</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Client</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getClient()
      * @see #getSAPConnection()
@@ -16507,8 +15617,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getSystemNumber <em>System Number</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>System Number</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getSystemNumber()
      * @see #getSAPConnection()
@@ -16517,9 +15626,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_SystemNumber();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getLanguage <em>Language</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getLanguage <em>Language</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Language</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getLanguage()
      * @see #getSAPConnection()
@@ -16528,9 +15638,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_Language();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getFuntions <em>Funtions</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getFuntions <em>Funtions</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Funtions</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getFuntions()
      * @see #getSAPConnection()
@@ -16540,8 +15651,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getCurrentFucntion <em>Current Fucntion</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Current Fucntion</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getCurrentFucntion()
      * @see #getSAPConnection()
@@ -16550,9 +15660,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPConnection_CurrentFucntion();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs <em>IDocs</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs <em>IDocs</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>IDocs</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPConnection#getIDocs()
      * @see #getSAPConnection()
@@ -16562,8 +15673,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit <em>SAP Function Unit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Function Unit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit
      * @generated
@@ -16572,8 +15682,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputType <em>Output Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Output Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputType()
      * @see #getSAPFunctionUnit()
@@ -16583,8 +15692,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputTableName <em>Output Table Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Output Table Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputTableName()
      * @see #getSAPFunctionUnit()
@@ -16594,8 +15702,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputParameterTable <em>Input Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Input Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getInputParameterTable()
      * @see #getSAPFunctionUnit()
@@ -16605,8 +15712,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputParameterTable <em>Output Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Output Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getOutputParameterTable()
      * @see #getSAPFunctionUnit()
@@ -16616,8 +15722,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getMetadataTable <em>Metadata Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Metadata Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getMetadataTable()
      * @see #getSAPFunctionUnit()
@@ -16627,8 +15732,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getConnection()
      * @see #getSAPFunctionUnit()
@@ -16637,9 +15741,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPFunctionUnit_Connection();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables <em>Tables</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables <em>Tables</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Tables</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTables()
      * @see #getSAPFunctionUnit()
@@ -16649,8 +15754,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable <em>Test Input Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Test Input Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionUnit#getTestInputParameterTable()
      * @see #getSAPFunctionUnit()
@@ -16660,8 +15764,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit <em>SAPI Doc Unit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAPI Doc Unit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit
      * @generated
@@ -16669,9 +15772,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getSAPIDocUnit();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the container reference '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getConnection <em>Connection</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the container reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getConnection()
      * @see #getSAPIDocUnit()
@@ -16680,9 +15784,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPIDocUnit_Connection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getProgramId <em>Program Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getProgramId <em>Program Id</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Program Id</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getProgramId()
      * @see #getSAPIDocUnit()
@@ -16692,8 +15797,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getGatewayService <em>Gateway Service</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Gateway Service</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getGatewayService()
      * @see #getSAPIDocUnit()
@@ -16703,8 +15807,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseXmlOutput <em>Use Xml Output</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Xml Output</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseXmlOutput()
      * @see #getSAPIDocUnit()
@@ -16713,9 +15816,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPIDocUnit_UseXmlOutput();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getXmlFile <em>Xml File</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getXmlFile <em>Xml File</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Xml File</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getXmlFile()
      * @see #getSAPIDocUnit()
@@ -16725,8 +15829,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseHtmlOutput <em>Use Html Output</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Html Output</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#isUseHtmlOutput()
      * @see #getSAPIDocUnit()
@@ -16735,9 +15838,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSAPIDocUnit_UseHtmlOutput();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getHtmlFile <em>Html File</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getHtmlFile <em>Html File</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Html File</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPIDocUnit#getHtmlFile()
      * @see #getSAPIDocUnit()
@@ -16747,8 +15851,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn <em>SAP Function Parameter Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Function Parameter Column</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn
      * @generated
@@ -16757,8 +15860,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getParameterType <em>Parameter Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Parameter Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getParameterType()
      * @see #getSAPFunctionParameterColumn()
@@ -16768,8 +15870,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getStructureOrTableName <em>Structure Or Table Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Structure Or Table Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getStructureOrTableName()
      * @see #getSAPFunctionParameterColumn()
@@ -16779,8 +15880,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getDataType <em>Data Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Data Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getDataType()
      * @see #getSAPFunctionParameterColumn()
@@ -16790,8 +15890,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getLength <em>Length</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Length</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getLength()
      * @see #getSAPFunctionParameterColumn()
@@ -16801,8 +15900,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getValue <em>Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getValue()
      * @see #getSAPFunctionParameterColumn()
@@ -16812,8 +15910,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getParameterTable <em>Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn#getParameterTable()
      * @see #getSAPFunctionParameterColumn()
@@ -16823,8 +15920,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable <em>SAP Function Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Function Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable
      * @generated
@@ -16833,8 +15929,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable#getColumns <em>Columns</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Columns</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTable#getColumns()
      * @see #getSAPFunctionParameterTable()
@@ -16844,8 +15939,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable <em>Input SAP Function Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Input SAP Function Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable
      * @generated
@@ -16854,8 +15948,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable#getFunctionUnit <em>Function Unit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Function Unit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable#getFunctionUnit()
      * @see #getInputSAPFunctionParameterTable()
@@ -16865,8 +15958,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable <em>Output SAP Function Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Output SAP Function Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable
      * @generated
@@ -16875,8 +15967,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable#getFunctionUnit <em>Function Unit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Function Unit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.OutputSAPFunctionParameterTable#getFunctionUnit()
      * @see #getOutputSAPFunctionParameterTable()
@@ -16886,8 +15977,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Regexp File Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.RegexpFileConnection
      * @generated
@@ -16896,8 +15986,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection#getFieldSeparatorType <em>Field Separator Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Field Separator Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.RegexpFileConnection#getFieldSeparatorType()
      * @see #getRegexpFileConnection()
@@ -16907,8 +15996,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection <em>Xml File Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Xml File Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection
      * @generated
@@ -16917,8 +16005,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getXsdFilePath <em>Xsd File Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Xsd File Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getXsdFilePath()
      * @see #getXmlFileConnection()
@@ -16928,8 +16015,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getXmlFilePath <em>Xml File Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Xml File Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getXmlFilePath()
      * @see #getXmlFileConnection()
@@ -16938,9 +16024,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXmlFileConnection_XmlFilePath();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess <em>Guess</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess <em>Guess</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Guess</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess()
      * @see #getXmlFileConnection()
@@ -16950,8 +16037,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getMaskXPattern <em>Mask XPattern</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Mask XPattern</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getMaskXPattern()
      * @see #getXmlFileConnection()
@@ -16960,9 +16046,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXmlFileConnection_MaskXPattern();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema <em>Schema</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Schema</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema()
      * @see #getXmlFileConnection()
@@ -16971,9 +16058,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getXmlFileConnection_Schema();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding <em>Encoding</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding <em>Encoding</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Encoding</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding()
      * @see #getXmlFileConnection()
@@ -16982,9 +16070,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXmlFileConnection_Encoding();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getGroup <em>Group</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getGroup <em>Group</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Group</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getGroup()
      * @see #getXmlFileConnection()
@@ -16993,9 +16082,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getXmlFileConnection_Group();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getRoot <em>Root</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getRoot <em>Root</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Root</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getRoot()
      * @see #getXmlFileConnection()
@@ -17004,9 +16094,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getXmlFileConnection_Root();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop <em>Loop</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop <em>Loop</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Loop</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop()
      * @see #getXmlFileConnection()
@@ -17016,8 +16107,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel <em>Input Model</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Input Model</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel()
      * @see #getXmlFileConnection()
@@ -17027,8 +16117,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath <em>Output File Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Output File Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath()
      * @see #getXmlFileConnection()
@@ -17038,8 +16127,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema Target</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SchemaTarget
      * @generated
@@ -17048,8 +16136,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getRelativeXPathQuery <em>Relative XPath Query</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Relative XPath Query</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getRelativeXPathQuery()
      * @see #getSchemaTarget()
@@ -17058,9 +16145,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSchemaTarget_RelativeXPathQuery();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getTagName <em>Tag Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getTagName <em>Tag Name</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Tag Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getTagName()
      * @see #getSchemaTarget()
@@ -17069,9 +16157,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSchemaTarget_TagName();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getSchema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the container reference '
+     * {@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getSchema <em>Schema</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the container reference '<em>Schema</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getSchema()
      * @see #getSchemaTarget()
@@ -17081,8 +16170,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection <em>Queries Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Queries Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection
      * @generated
@@ -17091,8 +16179,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection()
      * @see #getQueriesConnection()
@@ -17101,9 +16188,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getQueriesConnection_Connection();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getQuery <em>Query</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getQuery <em>Query</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Query</em>'.
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getQuery()
      * @see #getQueriesConnection()
@@ -17113,8 +16201,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Query <em>Query</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Query</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Query
      * @generated
@@ -17134,8 +16221,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.Query#getQueries <em>Queries</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Queries</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Query#getQueries()
      * @see #getQuery()
@@ -17144,9 +16231,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getQuery_Queries();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Query#isContextMode <em>Context Mode</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.Query#isContextMode <em>Context Mode</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Context Mode</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Query#isContextMode()
      * @see #getQuery()
@@ -17156,8 +16244,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection <em>Ldif File Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Ldif File Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection
      * @generated
@@ -17165,9 +16252,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getLdifFileConnection();
 
     /**
-     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getValue <em>Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute list '
+     * {@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getValue <em>Value</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute list '<em>Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getValue()
      * @see #getLdifFileConnection()
@@ -17177,8 +16265,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getFilePath <em>File Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>File Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getFilePath()
      * @see #getLdifFileConnection()
@@ -17188,8 +16275,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getLimitEntry <em>Limit Entry</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Limit Entry</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getLimitEntry()
      * @see #getLdifFileConnection()
@@ -17198,9 +16284,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLdifFileConnection_LimitEntry();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#isUseLimit <em>Use Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#isUseLimit <em>Use Limit</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Use Limit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#isUseLimit()
      * @see #getLdifFileConnection()
@@ -17209,9 +16296,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLdifFileConnection_UseLimit();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer <em>Server</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer <em>Server</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Server</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer()
      * @see #getLdifFileConnection()
@@ -17221,8 +16309,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection <em>File Excel Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>File Excel Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection
      * @generated
@@ -17231,8 +16318,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetName <em>Sheet Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Sheet Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetName()
      * @see #getFileExcelConnection()
@@ -17242,8 +16328,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetColumns <em>Sheet Columns</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute list '<em>Sheet Columns</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetColumns()
      * @see #getFileExcelConnection()
@@ -17253,8 +16338,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getFirstColumn <em>First Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>First Column</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getFirstColumn()
      * @see #getFileExcelConnection()
@@ -17264,8 +16348,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getLastColumn <em>Last Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Last Column</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getLastColumn()
      * @see #getFileExcelConnection()
@@ -17275,8 +16358,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator <em>Thousand Separator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Thousand Separator</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getThousandSeparator()
      * @see #getFileExcelConnection()
@@ -17286,8 +16368,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator <em>Decimal Separator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Decimal Separator</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getDecimalSeparator()
      * @see #getFileExcelConnection()
@@ -17297,8 +16378,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator <em>Advanced Spearator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Advanced Spearator</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#isAdvancedSpearator()
      * @see #getFileExcelConnection()
@@ -17308,8 +16388,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets <em>Select All Sheets</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Select All Sheets</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#isSelectAllSheets()
      * @see #getFileExcelConnection()
@@ -17319,8 +16398,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList <em>Sheet List</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Sheet List</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileExcelConnection#getSheetList()
      * @see #getFileExcelConnection()
@@ -17330,8 +16408,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Xml XPath Loop Descriptor</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor
      * @generated
@@ -17340,8 +16417,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getLimitBoucle <em>Limit Boucle</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Limit Boucle</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getLimitBoucle()
      * @see #getXmlXPathLoopDescriptor()
@@ -17351,8 +16427,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getAbsoluteXPathQuery <em>Absolute XPath Query</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Absolute XPath Query</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getAbsoluteXPathQuery()
      * @see #getXmlXPathLoopDescriptor()
@@ -17362,8 +16437,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection()
      * @see #getXmlXPathLoopDescriptor()
@@ -17373,8 +16447,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getSchemaTargets <em>Schema Targets</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Schema Targets</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getSchemaTargets()
      * @see #getXmlXPathLoopDescriptor()
@@ -17384,8 +16457,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection <em>Generic Schema Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Generic Schema Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
      * @generated
@@ -17394,8 +16466,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#isMappingTypeUsed <em>Mapping Type Used</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Mapping Type Used</em>'.
      * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#isMappingTypeUsed()
      * @see #getGenericSchemaConnection()
@@ -17405,8 +16476,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#getMappingTypeId <em>Mapping Type Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Mapping Type Id</em>'.
      * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#getMappingTypeId()
      * @see #getGenericSchemaConnection()
@@ -17416,8 +16486,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection <em>LDAP Schema Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>LDAP Schema Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection
      * @generated
@@ -17425,9 +16494,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getLDAPSchemaConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getHost <em>Host</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getHost <em>Host</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Host</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getHost()
      * @see #getLDAPSchemaConnection()
@@ -17436,9 +16506,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLDAPSchemaConnection_Host();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getPort <em>Port</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getPort <em>Port</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Port</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getPort()
      * @see #getLDAPSchemaConnection()
@@ -17448,8 +16519,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getProtocol <em>Protocol</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Protocol</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getProtocol()
      * @see #getLDAPSchemaConnection()
@@ -17458,9 +16528,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLDAPSchemaConnection_Protocol();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getFilter <em>Filter</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getFilter <em>Filter</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Filter</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getFilter()
      * @see #getLDAPSchemaConnection()
@@ -17470,8 +16541,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSeparator <em>Separator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Separator</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSeparator()
      * @see #getLDAPSchemaConnection()
@@ -17481,8 +16551,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAdvanced <em>Use Advanced</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Advanced</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAdvanced()
      * @see #getLDAPSchemaConnection()
@@ -17492,8 +16561,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getStorePath <em>Store Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Store Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getStorePath()
      * @see #getLDAPSchemaConnection()
@@ -17503,8 +16571,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseLimit <em>Use Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Limit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseLimit()
      * @see #getLDAPSchemaConnection()
@@ -17514,8 +16581,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAuthen <em>Use Authen</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Authen</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAuthen()
      * @see #getLDAPSchemaConnection()
@@ -17525,8 +16591,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPrincipal <em>Bind Principal</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Bind Principal</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPrincipal()
      * @see #getLDAPSchemaConnection()
@@ -17536,8 +16601,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPassword <em>Bind Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Bind Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPassword()
      * @see #getLDAPSchemaConnection()
@@ -17547,8 +16611,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getLimitValue <em>Limit Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Limit Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getLimitValue()
      * @see #getLDAPSchemaConnection()
@@ -17558,8 +16621,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getEncryptionMethodName <em>Encryption Method Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Encryption Method Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getEncryptionMethodName()
      * @see #getLDAPSchemaConnection()
@@ -17568,9 +16630,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLDAPSchemaConnection_EncryptionMethodName();
 
     /**
-     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue <em>Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute list '
+     * {@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue <em>Value</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute list '<em>Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue()
      * @see #getLDAPSchemaConnection()
@@ -17580,8 +16643,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isSavePassword <em>Save Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Save Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isSavePassword()
      * @see #getLDAPSchemaConnection()
@@ -17590,9 +16652,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLDAPSchemaConnection_SavePassword();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getAliases <em>Aliases</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getAliases <em>Aliases</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Aliases</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getAliases()
      * @see #getLDAPSchemaConnection()
@@ -17602,8 +16665,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReferrals <em>Referrals</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Referrals</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReferrals()
      * @see #getLDAPSchemaConnection()
@@ -17613,8 +16675,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getCountLimit <em>Count Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Count Limit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getCountLimit()
      * @see #getLDAPSchemaConnection()
@@ -17624,8 +16685,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getTimeOutLimit <em>Time Out Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Time Out Limit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getTimeOutLimit()
      * @see #getLDAPSchemaConnection()
@@ -17635,8 +16695,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBaseDNs <em>Base DNs</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute list '<em>Base DNs</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBaseDNs()
      * @see #getLDAPSchemaConnection()
@@ -17646,8 +16705,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isGetBaseDNsFromRoot <em>Get Base DNs From Root</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Get Base DNs From Root</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isGetBaseDNsFromRoot()
      * @see #getLDAPSchemaConnection()
@@ -17657,8 +16715,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReturnAttributes <em>Return Attributes</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute list '<em>Return Attributes</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReturnAttributes()
      * @see #getLDAPSchemaConnection()
@@ -17668,8 +16725,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSelectedDN <em>Selected DN</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Selected DN</em>'.
      * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSelectedDN()
      * @see #getLDAPSchemaConnection()
@@ -17679,8 +16735,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection <em>WSDL Schema Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>WSDL Schema Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection
      * @generated
@@ -17688,9 +16743,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getWSDLSchemaConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getWSDL <em>WSDL</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getWSDL <em>WSDL</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>WSDL</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getWSDL()
      * @see #getWSDLSchemaConnection()
@@ -17700,8 +16756,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isNeedAuth <em>Need Auth</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Need Auth</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isNeedAuth()
      * @see #getWSDLSchemaConnection()
@@ -17711,8 +16766,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getMethodName <em>Method Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Method Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getMethodName()
      * @see #getWSDLSchemaConnection()
@@ -17722,8 +16776,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameters <em>Parameters</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Parameters</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameters()
      * @see #getWSDLSchemaConnection()
@@ -17733,8 +16786,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getUserName <em>User Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>User Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getUserName()
      * @see #getWSDLSchemaConnection()
@@ -17744,8 +16796,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPassword <em>Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPassword()
      * @see #getWSDLSchemaConnection()
@@ -17755,8 +16806,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isUseProxy <em>Use Proxy</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Proxy</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isUseProxy()
      * @see #getWSDLSchemaConnection()
@@ -17766,8 +16816,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyHost <em>Proxy Host</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Host</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyHost()
      * @see #getWSDLSchemaConnection()
@@ -17777,8 +16826,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPort <em>Proxy Port</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Port</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPort()
      * @see #getWSDLSchemaConnection()
@@ -17788,8 +16836,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyUser <em>Proxy User</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy User</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyUser()
      * @see #getWSDLSchemaConnection()
@@ -17799,8 +16846,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPassword <em>Proxy Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPassword()
      * @see #getWSDLSchemaConnection()
@@ -17809,9 +16855,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getWSDLSchemaConnection_ProxyPassword();
 
     /**
-     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue <em>Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute list '
+     * {@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue <em>Value</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute list '<em>Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue()
      * @see #getWSDLSchemaConnection()
@@ -17821,8 +16868,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Endpoint URI</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI()
      * @see #getWSDLSchemaConnection()
@@ -17832,8 +16878,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Encoding</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding()
      * @see #getWSDLSchemaConnection()
@@ -17843,8 +16888,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getTimeOut <em>Time Out</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Time Out</em>'.
      * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getTimeOut()
      * @see #getWSDLSchemaConnection()
@@ -17853,9 +16897,85 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getWSDLSchemaConnection_TimeOut();
 
     /**
-     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection <em>Salesforce Schema Connection</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isIsInputModel <em>Is Input Model</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Is Input Model</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isIsInputModel()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_IsInputModel();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerNameSpace <em>Server Name Space</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server Name Space</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerNameSpace()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_ServerNameSpace();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerName <em>Server Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerName()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_ServerName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortNameSpace <em>Port Name Space</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port Name Space</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortNameSpace()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_PortNameSpace();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortName <em>Port Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortName()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_PortName();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameterValue <em>Parameter Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Parameter Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameterValue()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EReference getWSDLSchemaConnection_ParameterValue();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getOutputParameter <em>Output Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Output Parameter</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getOutputParameter()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EReference getWSDLSchemaConnection_OutputParameter();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection <em>Salesforce Schema Connection</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Salesforce Schema Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection
      * @generated
@@ -17864,8 +16984,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrl <em>Web Service Url</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Web Service Url</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getWebServiceUrl()
      * @see #getSalesforceSchemaConnection()
@@ -17875,8 +16994,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getUserName <em>User Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>User Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getUserName()
      * @see #getSalesforceSchemaConnection()
@@ -17886,8 +17004,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getPassword <em>Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getPassword()
      * @see #getSalesforceSchemaConnection()
@@ -17897,8 +17014,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModuleName <em>Module Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Module Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getModuleName()
      * @see #getSalesforceSchemaConnection()
@@ -17908,8 +17024,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getQueryCondition <em>Query Condition</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Query Condition</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getQueryCondition()
      * @see #getSalesforceSchemaConnection()
@@ -17919,8 +17034,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName <em>Use Custom Module Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Custom Module Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseCustomModuleName()
      * @see #getSalesforceSchemaConnection()
@@ -17930,8 +17044,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseProxy <em>Use Proxy</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Proxy</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseProxy()
      * @see #getSalesforceSchemaConnection()
@@ -17941,8 +17054,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyHost <em>Proxy Host</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Host</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyHost()
      * @see #getSalesforceSchemaConnection()
@@ -17952,8 +17064,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort <em>Proxy Port</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Port</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPort()
      * @see #getSalesforceSchemaConnection()
@@ -17963,8 +17074,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername <em>Proxy Username</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Username</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyUsername()
      * @see #getSalesforceSchemaConnection()
@@ -17974,8 +17084,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword <em>Proxy Password</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Proxy Password</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getProxyPassword()
      * @see #getSalesforceSchemaConnection()
@@ -17985,8 +17094,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize <em>Batch Size</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Batch Size</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getBatchSize()
      * @see #getSalesforceSchemaConnection()
@@ -17996,8 +17104,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy <em>Use Http Proxy</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Http Proxy</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseHttpProxy()
      * @see #getSalesforceSchemaConnection()
@@ -18007,8 +17114,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet <em>Use Alphbet</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Use Alphbet</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#isUseAlphbet()
      * @see #getSalesforceSchemaConnection()
@@ -18018,8 +17124,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut <em>Time Out</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Time Out</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection#getTimeOut()
      * @see #getSalesforceSchemaConnection()
@@ -18029,8 +17134,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCConnection <em>CDC Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CDC Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCConnection
      * @generated
@@ -18038,9 +17142,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getCDCConnection();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the container reference '
+     * {@link org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection <em>Connection</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the container reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCConnection#getConnection()
      * @see #getCDCConnection()
@@ -18049,9 +17154,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getCDCConnection_Connection();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.CDCConnection#getCdcTypes <em>Cdc Types</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.CDCConnection#getCdcTypes <em>Cdc Types</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Cdc Types</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCConnection#getCdcTypes()
      * @see #getCDCConnection()
@@ -18061,8 +17167,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CDCType <em>CDC Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CDC Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCType
      * @generated
@@ -18070,9 +17175,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getCDCType();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.CDCType#getLinkDB <em>Link DB</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.CDCType#getLinkDB <em>Link DB</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Link DB</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCType#getLinkDB()
      * @see #getCDCType()
@@ -18081,9 +17187,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getCDCType_LinkDB();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.CDCType#getSubscribers <em>Subscribers</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the containment reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.CDCType#getSubscribers <em>Subscribers</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the containment reference list '<em>Subscribers</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCType#getSubscribers()
      * @see #getCDCType()
@@ -18092,9 +17199,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getCDCType_Subscribers();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.CDCType#getCdcConnection <em>Cdc Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference '
+     * {@link org.talend.core.model.metadata.builder.connection.CDCType#getCdcConnection <em>Cdc Connection</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the reference '<em>Cdc Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCType#getCdcConnection()
      * @see #getCDCType()
@@ -18103,9 +17211,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getCDCType_CdcConnection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.CDCType#getJournalName <em>Journal Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.CDCType#getJournalName <em>Journal Name</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Journal Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.CDCType#getJournalName()
      * @see #getCDCType()
@@ -18115,8 +17224,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SubscriberTable <em>Subscriber Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Subscriber Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SubscriberTable
      * @generated
@@ -18124,9 +17232,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getSubscriberTable();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SubscriberTable#isSystem <em>System</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.SubscriberTable#isSystem <em>System</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>System</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SubscriberTable#isSystem()
      * @see #getSubscriberTable()
@@ -18136,8 +17245,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable <em>SAP Test Input Parameter Table</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>SAP Test Input Parameter Table</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable
      * @generated
@@ -18146,8 +17254,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable#getFunctionUnit <em>Function Unit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the container reference '<em>Function Unit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable#getFunctionUnit()
      * @see #getSAPTestInputParameterTable()
@@ -18157,8 +17264,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Concept <em>Concept</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Concept</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept
      * @generated
@@ -18167,8 +17273,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#getLoopExpression <em>Loop Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Loop Expression</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept#getLoopExpression()
      * @see #getConcept()
@@ -18177,9 +17282,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getConcept_LoopExpression();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#getLoopLimit <em>Loop Limit</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.Concept#getLoopLimit <em>Loop Limit</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Loop Limit</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept#getLoopLimit()
      * @see #getConcept()
@@ -18189,8 +17295,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Concept#getConceptTargets <em>Concept Targets</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Concept Targets</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept#getConceptTargets()
      * @see #getConcept()
@@ -18199,9 +17304,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getConcept_ConceptTargets();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.Concept#isInputModel <em>Input Model</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Input Model</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept#isInputModel()
      * @see #getConcept()
@@ -18211,8 +17317,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Concept#getGroup <em>Group</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Group</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Concept#getGroup()
      * @see #getConcept()
@@ -18244,8 +17350,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget <em>Concept Target</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Concept Target</em>'.
      * @see org.talend.core.model.metadata.builder.connection.ConceptTarget
      * @generated
@@ -18253,9 +17358,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getConceptTarget();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getSchema <em>Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the container reference '
+     * {@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getSchema <em>Schema</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the container reference '<em>Schema</em>'.
      * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getSchema()
      * @see #getConceptTarget()
@@ -18264,9 +17370,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getConceptTarget_Schema();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getTargetName <em>Target Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getTargetName <em>Target Name</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Target Name</em>'.
      * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getTargetName()
      * @see #getConceptTarget()
@@ -18276,8 +17383,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.ConceptTarget#getRelativeLoopExpression <em>Relative Loop Expression</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Relative Loop Expression</em>'.
      * @see org.talend.core.model.metadata.builder.connection.ConceptTarget#getRelativeLoopExpression()
      * @see #getConceptTarget()
@@ -18287,8 +17393,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HL7Connection <em>HL7 Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>HL7 Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7Connection
      * @generated
@@ -18296,9 +17401,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getHL7Connection();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getStartChar <em>Start Char</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7Connection#getStartChar <em>Start Char</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Start Char</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getStartChar()
      * @see #getHL7Connection()
@@ -18307,9 +17413,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7Connection_StartChar();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getEndChar <em>End Char</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7Connection#getEndChar <em>End Char</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>End Char</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getEndChar()
      * @see #getHL7Connection()
@@ -18318,9 +17425,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7Connection_EndChar();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getRoot <em>Root</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the reference list '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7Connection#getRoot <em>Root</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the reference list '<em>Root</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getRoot()
      * @see #getHL7Connection()
@@ -18330,8 +17438,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection <em>Header Footer Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Header Footer Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection
      * @generated
@@ -18340,8 +17447,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#isIsHeader <em>Is Header</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Is Header</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#isIsHeader()
      * @see #getHeaderFooterConnection()
@@ -18351,8 +17457,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getImports <em>Imports</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Imports</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getImports()
      * @see #getHeaderFooterConnection()
@@ -18362,8 +17467,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getMainCode <em>Main Code</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Main Code</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getMainCode()
      * @see #getHeaderFooterConnection()
@@ -18373,8 +17477,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getLibraries <em>Libraries</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Libraries</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HeaderFooterConnection#getLibraries()
      * @see #getHeaderFooterConnection()
@@ -18384,8 +17487,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode <em>XML File Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>XML File Node</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode
      * @generated
@@ -18393,9 +17495,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getXMLFileNode();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getXMLPath <em>XML Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getXMLPath <em>XML Path</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>XML Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getXMLPath()
      * @see #getXMLFileNode()
@@ -18405,8 +17508,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getRelatedColumn <em>Related Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Related Column</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getRelatedColumn()
      * @see #getXMLFileNode()
@@ -18416,8 +17518,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getDefaultValue <em>Default Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Default Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getDefaultValue()
      * @see #getXMLFileNode()
@@ -18426,9 +17527,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXMLFileNode_DefaultValue();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getAttribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getAttribute <em>Attribute</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Attribute</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getAttribute()
      * @see #getXMLFileNode()
@@ -18437,9 +17539,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXMLFileNode_Attribute();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getOrder <em>Order</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getOrder <em>Order</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Order</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getOrder()
      * @see #getXMLFileNode()
@@ -18449,8 +17552,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XMLFileNode#getType <em>Type</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Type</em>'.
      * @see org.talend.core.model.metadata.builder.connection.XMLFileNode#getType()
      * @see #getXMLFileNode()
@@ -18459,9 +17562,62 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXMLFileNode_Type();
 
     /**
-     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.GenericPackage <em>Generic Package</em>}'.
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.WSDLParameter <em>WSDL Parameter</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @return the meta object for class '<em>WSDL Parameter</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLParameter
+     * @generated
+     */
+    EClass getWSDLParameter();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLParameter#getElement <em>Element</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Element</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLParameter#getElement()
+     * @see #getWSDLParameter()
+     * @generated
+     */
+    EAttribute getWSDLParameter_Element();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLParameter#getSource <em>Source</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Source</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLParameter#getSource()
+     * @see #getWSDLParameter()
+     * @generated
+     */
+    EAttribute getWSDLParameter_Source();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLParameter#getColumn <em>Column</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Column</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLParameter#getColumn()
+     * @see #getWSDLParameter()
+     * @generated
+     */
+    EAttribute getWSDLParameter_Column();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLParameter#getExpression <em>Expression</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Expression</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLParameter#getExpression()
+     * @see #getWSDLParameter()
+     * @generated
+     */
+    EAttribute getWSDLParameter_Expression();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.GenericPackage <em>Generic Package</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Generic Package</em>'.
      * @see org.talend.core.model.metadata.builder.connection.GenericPackage
      * @generated
@@ -18470,8 +17626,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode <em>HL7 File Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>HL7 File Node</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode
      * @generated
@@ -18479,9 +17634,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getHL7FileNode();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getFilePath <em>File Path</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getFilePath <em>File Path</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>File Path</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getFilePath()
      * @see #getHL7FileNode()
@@ -18490,9 +17646,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7FileNode_FilePath();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getOrder <em>Order</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getOrder <em>Order</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Order</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getOrder()
      * @see #getHL7FileNode()
@@ -18501,9 +17658,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7FileNode_Order();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getAttribute <em>Attribute</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getAttribute <em>Attribute</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Attribute</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getAttribute()
      * @see #getHL7FileNode()
@@ -18513,8 +17671,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getDefaultValue <em>Default Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Default Value</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getDefaultValue()
      * @see #getHL7FileNode()
@@ -18524,8 +17681,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#getRelatedColumn <em>Related Column</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Related Column</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#getRelatedColumn()
      * @see #getHL7FileNode()
@@ -18534,9 +17690,10 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7FileNode_RelatedColumn();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7FileNode#isRepeatable <em>Repeatable</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the meta object for the attribute '
+     * {@link org.talend.core.model.metadata.builder.connection.HL7FileNode#isRepeatable <em>Repeatable</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @return the meta object for the attribute '<em>Repeatable</em>'.
      * @see org.talend.core.model.metadata.builder.connection.HL7FileNode#isRepeatable()
      * @see #getHL7FileNode()
@@ -18546,8 +17703,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>File Format</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @generated
@@ -18556,8 +17712,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Field Separator</em>'.
      * @see org.talend.core.model.metadata.builder.connection.FieldSeparator
      * @generated
@@ -18566,8 +17721,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Escape</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Escape
      * @generated
@@ -18576,8 +17730,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Row Separator</em>'.
      * @see org.talend.core.model.metadata.builder.connection.RowSeparator
      * @generated
@@ -18586,8 +17739,7 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>MDM Connection Protocol</em>'.
      * @see org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol
      * @generated
@@ -18596,8 +17748,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.util.HashMap <em>Map</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for data type '<em>Map</em>'.
      * @see java.util.HashMap
      * @model instanceClass="java.util.HashMap"
@@ -18607,8 +17759,8 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the meta object for data type '{@link java.util.ArrayList <em>List</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return the meta object for data type '<em>List</em>'.
      * @see java.util.ArrayList
      * @model instanceClass="java.util.ArrayList"
@@ -18618,21 +17770,19 @@ public interface ConnectionPackage extends EPackage {
 
     /**
      * Returns the factory that creates the instances of the model.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the factory that creates the instances of the model.
      * @generated
      */
     ConnectionFactory getConnectionFactory();
 
     /**
-     * <!-- begin-user-doc -->
-     * Defines literals for the meta objects that represent
+     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
      * <ul>
-     *   <li>each class,</li>
-     *   <li>each feature of each class,</li>
-     *   <li>each enum,</li>
-     *   <li>and each data type</li>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
      * @generated
@@ -18641,8 +17791,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataImpl <em>Metadata</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.MetadataImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadata()
          * @generated
@@ -18650,17 +17799,16 @@ public interface ConnectionPackage extends EPackage {
         EClass METADATA = eINSTANCE.getMetadata();
 
         /**
-         * The meta object literal for the '<em><b>Connections</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Connections</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference METADATA__CONNECTIONS = eINSTANCE.getMetadata_Connections();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl <em>Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConnection()
          * @generated
@@ -18669,16 +17817,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute CONNECTION__VERSION = eINSTANCE.getConnection_Version();
 
         /**
          * The meta object literal for the '<em><b>Queries</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference CONNECTION__QUERIES = eINSTANCE.getConnection_Queries();
@@ -18693,16 +17841,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Context Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute CONNECTION__CONTEXT_ID = eINSTANCE.getConnection_ContextId();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl <em>Metadata Column</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadataColumn()
          * @generated
@@ -18711,8 +17858,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Source Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_COLUMN__SOURCE_TYPE = eINSTANCE.getMetadataColumn_SourceType();
@@ -18727,32 +17874,32 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Talend Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_COLUMN__TALEND_TYPE = eINSTANCE.getMetadataColumn_TalendType();
 
         /**
          * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_COLUMN__KEY = eINSTANCE.getMetadataColumn_Key();
 
         /**
          * The meta object literal for the '<em><b>Nullable</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_COLUMN__NULLABLE = eINSTANCE.getMetadataColumn_Nullable();
 
         /**
          * The meta object literal for the '<em><b>Table</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference METADATA_COLUMN__TABLE = eINSTANCE.getMetadataColumn_Table();
@@ -18767,8 +17914,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Pattern</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_COLUMN__PATTERN = eINSTANCE.getMetadataColumn_Pattern();
@@ -18783,8 +17930,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl <em>Abstract Metadata Object</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getAbstractMetadataObject()
          * @generated
@@ -18793,40 +17939,40 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Properties</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute ABSTRACT_METADATA_OBJECT__PROPERTIES = eINSTANCE.getAbstractMetadataObject_Properties();
 
         /**
          * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute ABSTRACT_METADATA_OBJECT__ID = eINSTANCE.getAbstractMetadataObject_Id();
 
         /**
          * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute ABSTRACT_METADATA_OBJECT__COMMENT = eINSTANCE.getAbstractMetadataObject_Comment();
 
         /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute ABSTRACT_METADATA_OBJECT__LABEL = eINSTANCE.getAbstractMetadataObject_Label();
 
         /**
          * The meta object literal for the '<em><b>Read Only</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute ABSTRACT_METADATA_OBJECT__READ_ONLY = eINSTANCE.getAbstractMetadataObject_ReadOnly();
@@ -18841,16 +17987,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Divergency</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute ABSTRACT_METADATA_OBJECT__DIVERGENCY = eINSTANCE.getAbstractMetadataObject_Divergency();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadataTable()
          * @generated
@@ -18859,16 +18004,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Source Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_TABLE__SOURCE_NAME = eINSTANCE.getMetadataTable_SourceName();
 
         /**
          * The meta object literal for the '<em><b>Table Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute METADATA_TABLE__TABLE_TYPE = eINSTANCE.getMetadataTable_TableType();
@@ -18899,16 +18044,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference METADATA_TABLE__CONNECTION = eINSTANCE.getMetadataTable_Connection();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileConnection()
          * @generated
@@ -18917,56 +18061,56 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Server</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__SERVER = eINSTANCE.getFileConnection_Server();
 
         /**
          * The meta object literal for the '<em><b>File Path</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__FILE_PATH = eINSTANCE.getFileConnection_FilePath();
 
         /**
          * The meta object literal for the '<em><b>Format</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__FORMAT = eINSTANCE.getFileConnection_Format();
 
         /**
          * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__ENCODING = eINSTANCE.getFileConnection_Encoding();
 
         /**
-         * The meta object literal for the '<em><b>Field Separator Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Field Separator Value</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute FILE_CONNECTION__FIELD_SEPARATOR_VALUE = eINSTANCE.getFileConnection_FieldSeparatorValue();
 
         /**
          * The meta object literal for the '<em><b>Row Separator Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__ROW_SEPARATOR_TYPE = eINSTANCE.getFileConnection_RowSeparatorType();
 
         /**
          * The meta object literal for the '<em><b>Row Separator Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__ROW_SEPARATOR_VALUE = eINSTANCE.getFileConnection_RowSeparatorValue();
@@ -18981,8 +18125,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Use Header</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__USE_HEADER = eINSTANCE.getFileConnection_UseHeader();
@@ -18997,8 +18141,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Use Footer</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__USE_FOOTER = eINSTANCE.getFileConnection_UseFooter();
@@ -19013,24 +18157,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Use Limit</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__USE_LIMIT = eINSTANCE.getFileConnection_UseLimit();
 
         /**
          * The meta object literal for the '<em><b>Limit Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__LIMIT_VALUE = eINSTANCE.getFileConnection_LimitValue();
 
         /**
          * The meta object literal for the '<em><b>First Line Caption</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__FIRST_LINE_CAPTION = eINSTANCE.getFileConnection_FirstLineCaption();
@@ -19045,16 +18189,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Escape Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__ESCAPE_TYPE = eINSTANCE.getFileConnection_EscapeType();
 
         /**
          * The meta object literal for the '<em><b>Escape Char</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__ESCAPE_CHAR = eINSTANCE.getFileConnection_EscapeChar();
@@ -19069,16 +18213,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Csv Option</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_CONNECTION__CSV_OPTION = eINSTANCE.getFileConnection_CsvOption();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl <em>Delimited File Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDelimitedFileConnection()
          * @generated
@@ -19087,8 +18230,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Field Separator Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE = eINSTANCE.getDelimitedFileConnection_FieldSeparatorType();
@@ -19103,8 +18246,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.PositionalFileConnectionImpl <em>Positional File Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.PositionalFileConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getPositionalFileConnection()
          * @generated
@@ -19113,8 +18255,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl <em>Ebcdic Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.EbcdicConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEbcdicConnection()
          * @generated
@@ -19123,24 +18264,23 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Mid File</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute EBCDIC_CONNECTION__MID_FILE = eINSTANCE.getEbcdicConnection_MidFile();
 
         /**
          * The meta object literal for the '<em><b>Data File</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute EBCDIC_CONNECTION__DATA_FILE = eINSTANCE.getEbcdicConnection_DataFile();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl <em>MDM Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.MDMConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnection()
          * @generated
@@ -19149,88 +18289,87 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__USERNAME = eINSTANCE.getMDMConnection_Username();
 
         /**
          * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__PASSWORD = eINSTANCE.getMDMConnection_Password();
 
         /**
          * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__PORT = eINSTANCE.getMDMConnection_Port();
 
         /**
          * The meta object literal for the '<em><b>Server</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__SERVER = eINSTANCE.getMDMConnection_Server();
 
         /**
          * The meta object literal for the '<em><b>Universe</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__UNIVERSE = eINSTANCE.getMDMConnection_Universe();
 
         /**
          * The meta object literal for the '<em><b>Datamodel</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__DATAMODEL = eINSTANCE.getMDMConnection_Datamodel();
 
         /**
          * The meta object literal for the '<em><b>Datacluster</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__DATACLUSTER = eINSTANCE.getMDMConnection_Datacluster();
 
         /**
-         * The meta object literal for the '<em><b>Schemas</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Schemas</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference MDM_CONNECTION__SCHEMAS = eINSTANCE.getMDMConnection_Schemas();
 
         /**
          * The meta object literal for the '<em><b>Protocol</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__PROTOCOL = eINSTANCE.getMDMConnection_Protocol();
 
         /**
          * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute MDM_CONNECTION__CONTEXT = eINSTANCE.getMDMConnection_Context();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl <em>Database Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseConnection()
          * @generated
@@ -19263,48 +18402,48 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>URL</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__URL = eINSTANCE.getDatabaseConnection_URL();
 
         /**
          * The meta object literal for the '<em><b>Db Version String</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__DB_VERSION_STRING = eINSTANCE.getDatabaseConnection_DbVersionString();
 
         /**
          * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__PORT = eINSTANCE.getDatabaseConnection_Port();
 
         /**
          * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__USERNAME = eINSTANCE.getDatabaseConnection_Username();
 
         /**
          * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__PASSWORD = eINSTANCE.getDatabaseConnection_Password();
 
         /**
          * The meta object literal for the '<em><b>Server Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__SERVER_NAME = eINSTANCE.getDatabaseConnection_ServerName();
@@ -19327,16 +18466,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>SID</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__SID = eINSTANCE.getDatabaseConnection_SID();
 
         /**
          * The meta object literal for the '<em><b>Sql Synthax</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__SQL_SYNTHAX = eINSTANCE.getDatabaseConnection_SqlSynthax();
@@ -19351,24 +18490,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Null Char</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__NULL_CHAR = eINSTANCE.getDatabaseConnection_NullChar();
 
         /**
          * The meta object literal for the '<em><b>Dbms Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__DBMS_ID = eINSTANCE.getDatabaseConnection_DbmsId();
 
         /**
          * The meta object literal for the '<em><b>Product Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__PRODUCT_ID = eINSTANCE.getDatabaseConnection_ProductId();
@@ -19383,8 +18522,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Additional Params</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__ADDITIONAL_PARAMS = eINSTANCE.getDatabaseConnection_AdditionalParams();
@@ -19399,16 +18538,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>System SQL</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__SYSTEM_SQL = eINSTANCE.getDatabaseConnection_SystemSQL();
 
         /**
-         * The meta object literal for the '<em><b>Cdc Conns</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Cdc Conns</b></em>' containment reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference DATABASE_CONNECTION__CDC_CONNS = eINSTANCE.getDatabaseConnection_CdcConns();
@@ -19423,24 +18562,23 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>SQL Mode</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__SQL_MODE = eINSTANCE.getDatabaseConnection_SQLMode();
 
         /**
          * The meta object literal for the '<em><b>Ui Schema</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute DATABASE_CONNECTION__UI_SCHEMA = eINSTANCE.getDatabaseConnection_UiSchema();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl <em>SAP Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPConnection()
          * @generated
@@ -19449,32 +18587,32 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_CONNECTION__HOST = eINSTANCE.getSAPConnection_Host();
 
         /**
          * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_CONNECTION__USERNAME = eINSTANCE.getSAPConnection_Username();
 
         /**
          * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_CONNECTION__PASSWORD = eINSTANCE.getSAPConnection_Password();
 
         /**
          * The meta object literal for the '<em><b>Client</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_CONNECTION__CLIENT = eINSTANCE.getSAPConnection_Client();
@@ -19489,16 +18627,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_CONNECTION__LANGUAGE = eINSTANCE.getSAPConnection_Language();
 
         /**
-         * The meta object literal for the '<em><b>Funtions</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Funtions</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_CONNECTION__FUNTIONS = eINSTANCE.getSAPConnection_Funtions();
@@ -19512,17 +18650,16 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SAP_CONNECTION__CURRENT_FUCNTION = eINSTANCE.getSAPConnection_CurrentFucntion();
 
         /**
-         * The meta object literal for the '<em><b>IDocs</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>IDocs</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_CONNECTION__IDOCS = eINSTANCE.getSAPConnection_IDocs();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl <em>SAP Function Unit</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionUnitImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionUnit()
          * @generated
@@ -19531,72 +18668,70 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Output Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_FUNCTION_UNIT__OUTPUT_TYPE = eINSTANCE.getSAPFunctionUnit_OutputType();
 
         /**
          * The meta object literal for the '<em><b>Output Table Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SAP_FUNCTION_UNIT__OUTPUT_TABLE_NAME = eINSTANCE.getSAPFunctionUnit_OutputTableName();
 
         /**
-         * The meta object literal for the '<em><b>Input Parameter Table</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Input Parameter Table</b></em>' containment reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__INPUT_PARAMETER_TABLE = eINSTANCE.getSAPFunctionUnit_InputParameterTable();
 
         /**
-         * The meta object literal for the '<em><b>Output Parameter Table</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Output Parameter Table</b></em>' containment reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__OUTPUT_PARAMETER_TABLE = eINSTANCE.getSAPFunctionUnit_OutputParameterTable();
 
         /**
-         * The meta object literal for the '<em><b>Metadata Table</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Metadata Table</b></em>' containment reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__METADATA_TABLE = eINSTANCE.getSAPFunctionUnit_MetadataTable();
 
         /**
          * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__CONNECTION = eINSTANCE.getSAPFunctionUnit_Connection();
 
         /**
-         * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Tables</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__TABLES = eINSTANCE.getSAPFunctionUnit_Tables();
 
         /**
          * The meta object literal for the '<em><b>Test Input Parameter Table</b></em>' containment reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @generated
          */
         EReference SAP_FUNCTION_UNIT__TEST_INPUT_PARAMETER_TABLE = eINSTANCE.getSAPFunctionUnit_TestInputParameterTable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl <em>SAPI Doc Unit</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPIDocUnitImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPIDocUnit()
          * @generated
@@ -19605,16 +18740,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference SAPI_DOC_UNIT__CONNECTION = eINSTANCE.getSAPIDocUnit_Connection();
 
         /**
          * The meta object literal for the '<em><b>Program Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAPI_DOC_UNIT__PROGRAM_ID = eINSTANCE.getSAPIDocUnit_ProgramId();
@@ -19637,8 +18772,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Xml File</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAPI_DOC_UNIT__XML_FILE = eINSTANCE.getSAPIDocUnit_XmlFile();
@@ -19653,16 +18788,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Html File</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAPI_DOC_UNIT__HTML_FILE = eINSTANCE.getSAPIDocUnit_HtmlFile();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl <em>SAP Function Parameter Column</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterColumnImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterColumn()
          * @generated
@@ -19678,9 +18812,9 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TYPE = eINSTANCE.getSAPFunctionParameterColumn_ParameterType();
 
         /**
-         * The meta object literal for the '<em><b>Structure Or Table Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Structure Or Table Name</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute SAP_FUNCTION_PARAMETER_COLUMN__STRUCTURE_OR_TABLE_NAME = eINSTANCE
@@ -19688,40 +18822,39 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Data Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_FUNCTION_PARAMETER_COLUMN__DATA_TYPE = eINSTANCE.getSAPFunctionParameterColumn_DataType();
 
         /**
          * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_FUNCTION_PARAMETER_COLUMN__LENGTH = eINSTANCE.getSAPFunctionParameterColumn_Length();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SAP_FUNCTION_PARAMETER_COLUMN__VALUE = eINSTANCE.getSAPFunctionParameterColumn_Value();
 
         /**
-         * The meta object literal for the '<em><b>Parameter Table</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Parameter Table</b></em>' container reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_FUNCTION_PARAMETER_COLUMN__PARAMETER_TABLE = eINSTANCE.getSAPFunctionParameterColumn_ParameterTable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterTableImpl <em>SAP Function Parameter Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterTableImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPFunctionParameterTable()
          * @generated
@@ -19729,17 +18862,16 @@ public interface ConnectionPackage extends EPackage {
         EClass SAP_FUNCTION_PARAMETER_TABLE = eINSTANCE.getSAPFunctionParameterTable();
 
         /**
-         * The meta object literal for the '<em><b>Columns</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Columns</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_FUNCTION_PARAMETER_TABLE__COLUMNS = eINSTANCE.getSAPFunctionParameterTable_Columns();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.InputSAPFunctionParameterTableImpl <em>Input SAP Function Parameter Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.InputSAPFunctionParameterTableImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getInputSAPFunctionParameterTable()
          * @generated
@@ -19747,17 +18879,16 @@ public interface ConnectionPackage extends EPackage {
         EClass INPUT_SAP_FUNCTION_PARAMETER_TABLE = eINSTANCE.getInputSAPFunctionParameterTable();
 
         /**
-         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference INPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT = eINSTANCE.getInputSAPFunctionParameterTable_FunctionUnit();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.OutputSAPFunctionParameterTableImpl <em>Output SAP Function Parameter Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.OutputSAPFunctionParameterTableImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getOutputSAPFunctionParameterTable()
          * @generated
@@ -19765,9 +18896,9 @@ public interface ConnectionPackage extends EPackage {
         EClass OUTPUT_SAP_FUNCTION_PARAMETER_TABLE = eINSTANCE.getOutputSAPFunctionParameterTable();
 
         /**
-         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference OUTPUT_SAP_FUNCTION_PARAMETER_TABLE__FUNCTION_UNIT = eINSTANCE
@@ -19775,8 +18906,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRegexpFileConnection()
          * @generated
@@ -19785,16 +18915,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Field Separator Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute REGEXP_FILE_CONNECTION__FIELD_SEPARATOR_TYPE = eINSTANCE.getRegexpFileConnection_FieldSeparatorType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl <em>Xml File Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlFileConnection()
          * @generated
@@ -19819,8 +18948,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Guess</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_CONNECTION__GUESS = eINSTANCE.getXmlFileConnection_Guess();
@@ -19834,49 +18963,49 @@ public interface ConnectionPackage extends EPackage {
         EAttribute XML_FILE_CONNECTION__MASK_XPATTERN = eINSTANCE.getXmlFileConnection_MaskXPattern();
 
         /**
-         * The meta object literal for the '<em><b>Schema</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Schema</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference XML_FILE_CONNECTION__SCHEMA = eINSTANCE.getXmlFileConnection_Schema();
 
         /**
          * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_CONNECTION__ENCODING = eINSTANCE.getXmlFileConnection_Encoding();
 
         /**
-         * The meta object literal for the '<em><b>Group</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Group</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference XML_FILE_CONNECTION__GROUP = eINSTANCE.getXmlFileConnection_Group();
 
         /**
-         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference XML_FILE_CONNECTION__ROOT = eINSTANCE.getXmlFileConnection_Root();
 
         /**
-         * The meta object literal for the '<em><b>Loop</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Loop</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference XML_FILE_CONNECTION__LOOP = eINSTANCE.getXmlFileConnection_Loop();
 
         /**
          * The meta object literal for the '<em><b>Input Model</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_CONNECTION__INPUT_MODEL = eINSTANCE.getXmlFileConnection_InputModel();
@@ -19891,8 +19020,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
          * @generated
@@ -19901,16 +19029,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Relative XPath Query</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute SCHEMA_TARGET__RELATIVE_XPATH_QUERY = eINSTANCE.getSchemaTarget_RelativeXPathQuery();
 
         /**
          * The meta object literal for the '<em><b>Tag Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SCHEMA_TARGET__TAG_NAME = eINSTANCE.getSchemaTarget_TagName();
@@ -19925,8 +19053,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.QueriesConnectionImpl <em>Queries Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.QueriesConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
          * @generated
@@ -19935,24 +19062,23 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference QUERIES_CONNECTION__CONNECTION = eINSTANCE.getQueriesConnection_Connection();
 
         /**
-         * The meta object literal for the '<em><b>Query</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Query</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference QUERIES_CONNECTION__QUERY = eINSTANCE.getQueriesConnection_Query();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl <em>Query</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.QueryImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
          * @generated
@@ -19961,16 +19087,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute QUERY__VALUE = eINSTANCE.getQuery_Value();
 
         /**
          * The meta object literal for the '<em><b>Queries</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference QUERY__QUERIES = eINSTANCE.getQuery_Queries();
@@ -19985,8 +19111,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
          * @generated
@@ -19995,48 +19120,47 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__VALUE = eINSTANCE.getLdifFileConnection_Value();
 
         /**
          * The meta object literal for the '<em><b>File Path</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__FILE_PATH = eINSTANCE.getLdifFileConnection_FilePath();
 
         /**
          * The meta object literal for the '<em><b>Limit Entry</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__LIMIT_ENTRY = eINSTANCE.getLdifFileConnection_LimitEntry();
 
         /**
          * The meta object literal for the '<em><b>Use Limit</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__USE_LIMIT = eINSTANCE.getLdifFileConnection_UseLimit();
 
         /**
          * The meta object literal for the '<em><b>Server</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__SERVER = eINSTANCE.getLdifFileConnection_Server();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl <em>File Excel Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.FileExcelConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileExcelConnection()
          * @generated
@@ -20045,16 +19169,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Sheet Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__SHEET_NAME = eINSTANCE.getFileExcelConnection_SheetName();
 
         /**
          * The meta object literal for the '<em><b>Sheet Columns</b></em>' attribute list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__SHEET_COLUMNS = eINSTANCE.getFileExcelConnection_SheetColumns();
@@ -20069,56 +19193,55 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Last Column</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__LAST_COLUMN = eINSTANCE.getFileExcelConnection_LastColumn();
 
         /**
          * The meta object literal for the '<em><b>Thousand Separator</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__THOUSAND_SEPARATOR = eINSTANCE.getFileExcelConnection_ThousandSeparator();
 
         /**
          * The meta object literal for the '<em><b>Decimal Separator</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__DECIMAL_SEPARATOR = eINSTANCE.getFileExcelConnection_DecimalSeparator();
 
         /**
          * The meta object literal for the '<em><b>Advanced Spearator</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__ADVANCED_SPEARATOR = eINSTANCE.getFileExcelConnection_AdvancedSpearator();
 
         /**
          * The meta object literal for the '<em><b>Select All Sheets</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__SELECT_ALL_SHEETS = eINSTANCE.getFileExcelConnection_SelectAllSheets();
 
         /**
          * The meta object literal for the '<em><b>Sheet List</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute FILE_EXCEL_CONNECTION__SHEET_LIST = eINSTANCE.getFileExcelConnection_SheetList();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
          * @generated
@@ -20135,32 +19258,31 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Absolute XPath Query</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY = eINSTANCE.getXmlXPathLoopDescriptor_AbsoluteXPathQuery();
 
         /**
          * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference XML_XPATH_LOOP_DESCRIPTOR__CONNECTION = eINSTANCE.getXmlXPathLoopDescriptor_Connection();
 
         /**
-         * The meta object literal for the '<em><b>Schema Targets</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Schema Targets</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS = eINSTANCE.getXmlXPathLoopDescriptor_SchemaTargets();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.GenericSchemaConnectionImpl <em>Generic Schema Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.GenericSchemaConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
          * @generated
@@ -20169,8 +19291,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Mapping Type Used</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EAttribute GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_USED = eINSTANCE.getGenericSchemaConnection_MappingTypeUsed();
@@ -20185,8 +19307,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl <em>LDAP Schema Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
          * @generated
@@ -20195,40 +19316,40 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__HOST = eINSTANCE.getLDAPSchemaConnection_Host();
 
         /**
          * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__PORT = eINSTANCE.getLDAPSchemaConnection_Port();
 
         /**
          * The meta object literal for the '<em><b>Protocol</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__PROTOCOL = eINSTANCE.getLDAPSchemaConnection_Protocol();
 
         /**
          * The meta object literal for the '<em><b>Filter</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__FILTER = eINSTANCE.getLDAPSchemaConnection_Filter();
 
         /**
          * The meta object literal for the '<em><b>Separator</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__SEPARATOR = eINSTANCE.getLDAPSchemaConnection_Separator();
@@ -20243,24 +19364,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Store Path</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__STORE_PATH = eINSTANCE.getLDAPSchemaConnection_StorePath();
 
         /**
          * The meta object literal for the '<em><b>Use Limit</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__USE_LIMIT = eINSTANCE.getLDAPSchemaConnection_UseLimit();
 
         /**
          * The meta object literal for the '<em><b>Use Authen</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__USE_AUTHEN = eINSTANCE.getLDAPSchemaConnection_UseAuthen();
@@ -20283,24 +19404,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Limit Value</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__LIMIT_VALUE = eINSTANCE.getLDAPSchemaConnection_LimitValue();
 
         /**
-         * The meta object literal for the '<em><b>Encryption Method Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Encryption Method Name</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME = eINSTANCE.getLDAPSchemaConnection_EncryptionMethodName();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__VALUE = eINSTANCE.getLDAPSchemaConnection_Value();
@@ -20315,24 +19436,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Aliases</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__ALIASES = eINSTANCE.getLDAPSchemaConnection_Aliases();
 
         /**
          * The meta object literal for the '<em><b>Referrals</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__REFERRALS = eINSTANCE.getLDAPSchemaConnection_Referrals();
 
         /**
          * The meta object literal for the '<em><b>Count Limit</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__COUNT_LIMIT = eINSTANCE.getLDAPSchemaConnection_CountLimit();
@@ -20354,33 +19475,32 @@ public interface ConnectionPackage extends EPackage {
         EAttribute LDAP_SCHEMA_CONNECTION__BASE_DNS = eINSTANCE.getLDAPSchemaConnection_BaseDNs();
 
         /**
-         * The meta object literal for the '<em><b>Get Base DNs From Root</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Get Base DNs From Root</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT = eINSTANCE.getLDAPSchemaConnection_GetBaseDNsFromRoot();
 
         /**
-         * The meta object literal for the '<em><b>Return Attributes</b></em>' attribute list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Return Attributes</b></em>' attribute list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES = eINSTANCE.getLDAPSchemaConnection_ReturnAttributes();
 
         /**
          * The meta object literal for the '<em><b>Selected DN</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__SELECTED_DN = eINSTANCE.getLDAPSchemaConnection_SelectedDN();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl <em>WSDL Schema Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
          * @generated
@@ -20389,80 +19509,80 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>WSDL</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__WSDL = eINSTANCE.getWSDLSchemaConnection_WSDL();
 
         /**
          * The meta object literal for the '<em><b>Need Auth</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__NEED_AUTH = eINSTANCE.getWSDLSchemaConnection_NeedAuth();
 
         /**
          * The meta object literal for the '<em><b>Method Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__METHOD_NAME = eINSTANCE.getWSDLSchemaConnection_MethodName();
 
         /**
          * The meta object literal for the '<em><b>Parameters</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__PARAMETERS = eINSTANCE.getWSDLSchemaConnection_Parameters();
 
         /**
          * The meta object literal for the '<em><b>User Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__USER_NAME = eINSTANCE.getWSDLSchemaConnection_UserName();
 
         /**
          * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__PASSWORD = eINSTANCE.getWSDLSchemaConnection_Password();
 
         /**
          * The meta object literal for the '<em><b>Use Proxy</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__USE_PROXY = eINSTANCE.getWSDLSchemaConnection_UseProxy();
 
         /**
          * The meta object literal for the '<em><b>Proxy Host</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__PROXY_HOST = eINSTANCE.getWSDLSchemaConnection_ProxyHost();
 
         /**
          * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__PROXY_PORT = eINSTANCE.getWSDLSchemaConnection_ProxyPort();
 
         /**
          * The meta object literal for the '<em><b>Proxy User</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__PROXY_USER = eINSTANCE.getWSDLSchemaConnection_ProxyUser();
@@ -20477,8 +19597,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__VALUE = eINSTANCE.getWSDLSchemaConnection_Value();
@@ -20493,24 +19613,79 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__ENCODING = eINSTANCE.getWSDLSchemaConnection_Encoding();
 
         /**
          * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__TIME_OUT = eINSTANCE.getWSDLSchemaConnection_TimeOut();
 
         /**
-         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl <em>Salesforce Schema Connection</em>}' class.
+         * The meta object literal for the '<em><b>Is Input Model</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL = eINSTANCE.getWSDLSchemaConnection_IsInputModel();
+
+        /**
+         * The meta object literal for the '<em><b>Server Name Space</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE = eINSTANCE.getWSDLSchemaConnection_ServerNameSpace();
+
+        /**
+         * The meta object literal for the '<em><b>Server Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__SERVER_NAME = eINSTANCE.getWSDLSchemaConnection_ServerName();
+
+        /**
+         * The meta object literal for the '<em><b>Port Name Space</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE = eINSTANCE.getWSDLSchemaConnection_PortNameSpace();
+
+        /**
+         * The meta object literal for the '<em><b>Port Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PORT_NAME = eINSTANCE.getWSDLSchemaConnection_PortName();
+
+        /**
+         * The meta object literal for the '<em><b>Parameter Value</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE = eINSTANCE.getWSDLSchemaConnection_ParameterValue();
+
+        /**
+         * The meta object literal for the '<em><b>Output Parameter</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER = eINSTANCE.getWSDLSchemaConnection_OutputParameter();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl <em>Salesforce Schema Connection</em>}' class.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SalesforceSchemaConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSalesforceSchemaConnection()
          * @generated
@@ -20527,24 +19702,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>User Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USER_NAME = eINSTANCE.getSalesforceSchemaConnection_UserName();
 
         /**
          * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__PASSWORD = eINSTANCE.getSalesforceSchemaConnection_Password();
 
         /**
          * The meta object literal for the '<em><b>Module Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__MODULE_NAME = eINSTANCE.getSalesforceSchemaConnection_ModuleName();
@@ -20558,9 +19733,9 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SALESFORCE_SCHEMA_CONNECTION__QUERY_CONDITION = eINSTANCE.getSalesforceSchemaConnection_QueryCondition();
 
         /**
-         * The meta object literal for the '<em><b>Use Custom Module Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Use Custom Module Name</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_CUSTOM_MODULE_NAME = eINSTANCE
@@ -20568,24 +19743,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Use Proxy</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_PROXY = eINSTANCE.getSalesforceSchemaConnection_UseProxy();
 
         /**
          * The meta object literal for the '<em><b>Proxy Host</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__PROXY_HOST = eINSTANCE.getSalesforceSchemaConnection_ProxyHost();
 
         /**
          * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__PROXY_PORT = eINSTANCE.getSalesforceSchemaConnection_ProxyPort();
@@ -20608,8 +19783,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Batch Size</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__BATCH_SIZE = eINSTANCE.getSalesforceSchemaConnection_BatchSize();
@@ -20624,24 +19799,23 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Use Alphbet</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__USE_ALPHBET = eINSTANCE.getSalesforceSchemaConnection_UseAlphbet();
 
         /**
          * The meta object literal for the '<em><b>Time Out</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SALESFORCE_SCHEMA_CONNECTION__TIME_OUT = eINSTANCE.getSalesforceSchemaConnection_TimeOut();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl <em>CDC Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.CDCConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCConnection()
          * @generated
@@ -20650,24 +19824,23 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
          * @generated
          */
         EReference CDC_CONNECTION__CONNECTION = eINSTANCE.getCDCConnection_Connection();
 
         /**
-         * The meta object literal for the '<em><b>Cdc Types</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Cdc Types</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CDC_CONNECTION__CDC_TYPES = eINSTANCE.getCDCConnection_CdcTypes();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl <em>CDC Type</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.CDCTypeImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCDCType()
          * @generated
@@ -20676,16 +19849,16 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Link DB</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute CDC_TYPE__LINK_DB = eINSTANCE.getCDCType_LinkDB();
 
         /**
-         * The meta object literal for the '<em><b>Subscribers</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Subscribers</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CDC_TYPE__SUBSCRIBERS = eINSTANCE.getCDCType_Subscribers();
@@ -20708,8 +19881,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl <em>Subscriber Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SubscriberTableImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSubscriberTable()
          * @generated
@@ -20718,16 +19890,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>System</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute SUBSCRIBER_TABLE__SYSTEM = eINSTANCE.getSubscriberTable_System();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl <em>SAP Test Input Parameter Table</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SAPTestInputParameterTableImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSAPTestInputParameterTable()
          * @generated
@@ -20735,17 +19906,16 @@ public interface ConnectionPackage extends EPackage {
         EClass SAP_TEST_INPUT_PARAMETER_TABLE = eINSTANCE.getSAPTestInputParameterTable();
 
         /**
-         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Function Unit</b></em>' container reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference SAP_TEST_INPUT_PARAMETER_TABLE__FUNCTION_UNIT = eINSTANCE.getSAPTestInputParameterTable_FunctionUnit();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptImpl <em>Concept</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.ConceptImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConcept()
          * @generated
@@ -20762,56 +19932,55 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Loop Limit</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute CONCEPT__LOOP_LIMIT = eINSTANCE.getConcept_LoopLimit();
 
         /**
-         * The meta object literal for the '<em><b>Concept Targets</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Concept Targets</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CONCEPT__CONCEPT_TARGETS = eINSTANCE.getConcept_ConceptTargets();
 
         /**
          * The meta object literal for the '<em><b>Input Model</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute CONCEPT__INPUT_MODEL = eINSTANCE.getConcept_InputModel();
 
         /**
-         * The meta object literal for the '<em><b>Group</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Group</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CONCEPT__GROUP = eINSTANCE.getConcept_Group();
 
         /**
-         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CONCEPT__ROOT = eINSTANCE.getConcept_Root();
 
         /**
-         * The meta object literal for the '<em><b>Loop</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Loop</b></em>' containment reference list feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EReference CONCEPT__LOOP = eINSTANCE.getConcept_Loop();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl <em>Concept Target</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.ConceptTargetImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getConceptTarget()
          * @generated
@@ -20828,24 +19997,23 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Target Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute CONCEPT_TARGET__TARGET_NAME = eINSTANCE.getConceptTarget_TargetName();
 
         /**
-         * The meta object literal for the '<em><b>Relative Loop Expression</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * The meta object literal for the '<em><b>Relative Loop Expression</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         * 
          * @generated
          */
         EAttribute CONCEPT_TARGET__RELATIVE_LOOP_EXPRESSION = eINSTANCE.getConceptTarget_RelativeLoopExpression();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl <em>HL7 Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7Connection()
          * @generated
@@ -20854,32 +20022,31 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Start Char</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HL7_CONNECTION__START_CHAR = eINSTANCE.getHL7Connection_StartChar();
 
         /**
          * The meta object literal for the '<em><b>End Char</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HL7_CONNECTION__END_CHAR = eINSTANCE.getHL7Connection_EndChar();
 
         /**
          * The meta object literal for the '<em><b>Root</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EReference HL7_CONNECTION__ROOT = eINSTANCE.getHL7Connection_Root();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHeaderFooterConnection()
          * @generated
@@ -20888,40 +20055,39 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Is Header</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HEADER_FOOTER_CONNECTION__IS_HEADER = eINSTANCE.getHeaderFooterConnection_IsHeader();
 
         /**
          * The meta object literal for the '<em><b>Imports</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HEADER_FOOTER_CONNECTION__IMPORTS = eINSTANCE.getHeaderFooterConnection_Imports();
 
         /**
          * The meta object literal for the '<em><b>Main Code</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HEADER_FOOTER_CONNECTION__MAIN_CODE = eINSTANCE.getHeaderFooterConnection_MainCode();
 
         /**
          * The meta object literal for the '<em><b>Libraries</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HEADER_FOOTER_CONNECTION__LIBRARIES = eINSTANCE.getHeaderFooterConnection_Libraries();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl <em>XML File Node</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.XMLFileNodeImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXMLFileNode()
          * @generated
@@ -20930,8 +20096,8 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>XML Path</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_NODE__XML_PATH = eINSTANCE.getXMLFileNode_XMLPath();
@@ -20954,32 +20120,73 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Attribute</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_NODE__ATTRIBUTE = eINSTANCE.getXMLFileNode_Attribute();
 
         /**
          * The meta object literal for the '<em><b>Order</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_NODE__ORDER = eINSTANCE.getXMLFileNode_Order();
 
         /**
          * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute XML_FILE_NODE__TYPE = eINSTANCE.getXMLFileNode_Type();
 
         /**
-         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.GenericPackageImpl <em>Generic Package</em>}' class.
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl <em>WSDL Parameter</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLParameter()
+         * @generated
+         */
+        EClass WSDL_PARAMETER = eINSTANCE.getWSDLParameter();
+
+        /**
+         * The meta object literal for the '<em><b>Element</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_PARAMETER__ELEMENT = eINSTANCE.getWSDLParameter_Element();
+
+        /**
+         * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_PARAMETER__SOURCE = eINSTANCE.getWSDLParameter_Source();
+
+        /**
+         * The meta object literal for the '<em><b>Column</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_PARAMETER__COLUMN = eINSTANCE.getWSDLParameter_Column();
+
+        /**
+         * The meta object literal for the '<em><b>Expression</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_PARAMETER__EXPRESSION = eINSTANCE.getWSDLParameter_Expression();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.GenericPackageImpl <em>Generic Package</em>}' class.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.GenericPackageImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericPackage()
          * @generated
@@ -20988,8 +20195,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl <em>HL7 File Node</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.HL7FileNodeImpl
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getHL7FileNode()
          * @generated
@@ -20998,24 +20204,24 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>File Path</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HL7_FILE_NODE__FILE_PATH = eINSTANCE.getHL7FileNode_FilePath();
 
         /**
          * The meta object literal for the '<em><b>Order</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HL7_FILE_NODE__ORDER = eINSTANCE.getHL7FileNode_Order();
 
         /**
          * The meta object literal for the '<em><b>Attribute</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HL7_FILE_NODE__ATTRIBUTE = eINSTANCE.getHL7FileNode_Attribute();
@@ -21038,16 +20244,15 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em><b>Repeatable</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!--
+         * end-user-doc -->
          * @generated
          */
         EAttribute HL7_FILE_NODE__REPEATABLE = eINSTANCE.getHL7FileNode_Repeatable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.FileFormat
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
          * @generated
@@ -21056,8 +20261,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.FieldSeparator
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
          * @generated
@@ -21066,8 +20270,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.Escape
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
          * @generated
@@ -21076,8 +20279,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.RowSeparator
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
          * @generated
@@ -21086,8 +20288,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
          * @generated
@@ -21096,8 +20297,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em>Map</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see java.util.HashMap
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
          * @generated
@@ -21106,8 +20306,7 @@ public interface ConnectionPackage extends EPackage {
 
         /**
          * The meta object literal for the '<em>List</em>' data type.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see java.util.ArrayList
          * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
          * @generated
@@ -21116,4 +20315,4 @@ public interface ConnectionPackage extends EPackage {
 
     }
 
-} //ConnectionPackage
+} // ConnectionPackage

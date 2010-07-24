@@ -45,6 +45,18 @@ public class WSDLSchemaBean {
 
     private int timeOut;
 
+    private String serverName;
+
+    private String serverNS;
+
+    private String portName;
+
+    private String portNS;
+
+    private Boolean isInputModel;
+
+    private ArrayList outParameters;
+
     /**
      * Getter for wslUrl.
      * 
@@ -277,6 +289,54 @@ public class WSDLSchemaBean {
      */
     public void setEndpointURI(String endpointURI) {
         this.endpointURI = endpointURI;
+    }
+
+    public String getServerName() {
+        return this.serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
+    public String getServerNS() {
+        return this.serverNS;
+    }
+
+    public void setServerNS(String serverNS) {
+        this.serverNS = serverNS;
+    }
+
+    public String getPortName() {
+        return this.portName;
+    }
+
+    public void setPortName(String portName) {
+        this.portName = portName;
+    }
+
+    public String getPortNS() {
+        return this.portNS;
+    }
+
+    public void setPortNS(String portNS) {
+        this.portNS = portNS;
+    }
+
+    public Boolean getIsInputModel() {
+        return this.isInputModel;
+    }
+
+    public void setIsInputModel(Boolean isInputModel) {
+        this.isInputModel = isInputModel;
+    }
+
+    public ArrayList getOutParameters() {
+        return this.outParameters;
+    }
+
+    public void setOutParameters(ArrayList outParameters) {
+        this.outParameters = outParameters;
     }
 
 }

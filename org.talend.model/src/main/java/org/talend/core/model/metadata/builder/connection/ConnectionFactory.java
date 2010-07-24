@@ -326,6 +326,14 @@ public interface ConnectionFactory extends EFactory {
     XMLFileNode createXMLFileNode();
 
     /**
+     * Returns a new object of class '<em>WSDL Parameter</em>'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @return a new object of class '<em>WSDL Parameter</em>'.
+     * @generated
+     */
+    WSDLParameter createWSDLParameter();
+
+    /**
      * Returns a new object of class '<em>Generic Package</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Generic Package</em>'.
@@ -335,8 +343,7 @@ public interface ConnectionFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>HL7 File Node</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>HL7 File Node</em>'.
      * @generated
      */

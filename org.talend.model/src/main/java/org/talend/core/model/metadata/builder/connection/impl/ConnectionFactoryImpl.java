@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.FileFormat;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
+import org.talend.core.model.metadata.builder.connection.HL7FileNode;
 import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 import org.talend.core.model.metadata.builder.connection.InputSAPFunctionParameterTable;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
@@ -57,6 +58,7 @@ import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTa
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.SubscriberTable;
+import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -181,6 +183,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createHeaderFooterConnection();
         case ConnectionPackage.XML_FILE_NODE:
             return createXMLFileNode();
+        case ConnectionPackage.WSDL_PARAMETER:
+            return createWSDLParameter();
         case ConnectionPackage.GENERIC_PACKAGE:
             return createGenericPackage();
         case ConnectionPackage.HL7_FILE_NODE:
@@ -580,14 +584,22 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    public WSDLParameter createWSDLParameter() {
+        WSDLParameterImpl wsdlParameter = new WSDLParameterImpl();
+        return wsdlParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public GenericPackage createGenericPackage() {
         GenericPackageImpl genericPackage = new GenericPackageImpl();
         return genericPackage;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public HL7FileNode createHL7FileNode() {

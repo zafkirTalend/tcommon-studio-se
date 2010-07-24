@@ -117,8 +117,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/Datacluster"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//MDMConnection/schemas"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/protocol"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/connectionString"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MDMConnection/context"/>
+      <genOperations ecoreOperation="metadata.ecore#//MDMConnection/getConnectionString"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DatabaseConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DatabaseType"/>
@@ -179,7 +179,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/xmlFile"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/useHtmlOutput"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/htmlFile"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPIDocUnit/name"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPFunctionParameterColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPFunctionParameterColumn/ParameterType"/>
@@ -300,6 +299,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/EndpointURI"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Encoding"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/timeOut"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/isInputModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/serverNameSpace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/serverName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/portNameSpace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/portName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//WSDLSchemaConnection/parameterValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//WSDLSchemaConnection/outputParameter"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SalesforceSchemaConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SalesforceSchemaConnection/webServiceUrl"/>
@@ -351,6 +357,7 @@
     <genClasses ecoreClass="metadata.ecore#//HL7Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/StartChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/EndChar"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//HL7Connection/root"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//HeaderFooterConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/isHeader"/>
@@ -366,7 +373,21 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Order"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XMLFileNode/Type"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//WSDLParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/Element"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/Column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/Expression"/>
+    </genClasses>
     <genClasses ecoreClass="metadata.ecore#//GenericPackage"/>
+    <genClasses ecoreClass="metadata.ecore#//HL7FileNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/FilePath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Order"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/DefaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/RelatedColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7FileNode/Repeatable"/>
+    </genClasses>
     <nestedGenPackages prefix="cwm" basePackage="org.talend" disposableProviderFactory="true"
         ecorePackage="metadata.ecore#//cwm">
       <nestedGenPackages prefix="Relational" basePackage="org.talend.cwm" disposableProviderFactory="true"

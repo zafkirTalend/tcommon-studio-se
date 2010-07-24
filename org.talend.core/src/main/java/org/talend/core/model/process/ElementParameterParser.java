@@ -205,6 +205,18 @@ public final class ElementParameterParser {
                         } else {
                             newLine.put(items[i], ""); //$NON-NLS-1$
                         }
+                    } else if (param.getElement() != null && param.getElement() instanceof INode
+                            && ((INode) param.getElement()).getComponent().getName().equals("tWebService")) {
+                        String replacedValue = (String) o;
+                        if (items[i].equals("EXPRESSION")) {
+                            String inputRow = "row1";
+                            List connList = ((INode) param.getElement()).getIncomingConnections();
+                            if (connList.size() > 0) {
+                                inputRow = ((IConnection) connList.get(0)).getName();
+                                replacedValue = replacedValue.replace("input.", inputRow + ".");
+                            }
+                        }
+                        newLine.put(items[i], replacedValue);
                     } else {
                         newLine.put(items[i], (String) o);
                     }

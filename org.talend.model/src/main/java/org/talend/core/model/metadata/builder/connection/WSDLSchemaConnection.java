@@ -6,14 +6,12 @@
 package org.talend.core.model.metadata.builder.connection;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import org.eclipse.emf.common.util.EList;
-import java.util.List;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>WSDL Schema Connection</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>WSDL Schema Connection</b></em>'. <!--
+ * end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -33,6 +31,13 @@ import java.util.List;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getTimeOut <em>Time Out</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isIsInputModel <em>Is Input Model</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerNameSpace <em>Server Name Space</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerName <em>Server Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortNameSpace <em>Port Name Space</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortName <em>Port Name</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameterValue <em>Parameter Value</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getOutputParameter <em>Output Parameter</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,8 +51,7 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>WSDL</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>WSDL</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>WSDL</em>' attribute isn't clear, there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>WSDL</em>' attribute.
@@ -60,8 +64,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getWSDL <em>WSDL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>WSDL</em>' attribute.
      * @see #getWSDL()
      * @generated
@@ -72,8 +75,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Need Auth</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Need Auth</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Need Auth</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Need Auth</em>' attribute.
@@ -86,8 +89,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isNeedAuth <em>Need Auth</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Need Auth</em>' attribute.
      * @see #isNeedAuth()
      * @generated
@@ -98,8 +100,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Method Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Method Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Method Name</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Method Name</em>' attribute.
@@ -112,8 +114,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getMethodName <em>Method Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Method Name</em>' attribute.
      * @see #getMethodName()
      * @generated
@@ -121,14 +122,14 @@ public interface WSDLSchemaConnection extends Connection {
     void setMethodName(String value);
 
     /**
-     * Returns the value of the '<em><b>Parameters</b></em>' attribute.
-     * The default value is <code>""</code>.
-     * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Parameters</b></em>' attribute. The default value is <code>""</code>. <!--
+     * begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Parameters</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Parameters</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
+     * 
      * @return the value of the '<em>Parameters</em>' attribute.
      * @see #setParameters(ArrayList)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_Parameters()
@@ -139,8 +140,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameters <em>Parameters</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Parameters</em>' attribute.
      * @see #getParameters()
      * @generated
@@ -151,8 +151,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>User Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>User Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>User Name</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>User Name</em>' attribute.
@@ -165,8 +165,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getUserName <em>User Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>User Name</em>' attribute.
      * @see #getUserName()
      * @generated
@@ -177,8 +176,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Password</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Password</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Password</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Password</em>' attribute.
@@ -191,8 +190,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPassword <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Password</em>' attribute.
      * @see #getPassword()
      * @generated
@@ -203,8 +201,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Use Proxy</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Use Proxy</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Use Proxy</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Use Proxy</em>' attribute.
@@ -217,8 +215,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isUseProxy <em>Use Proxy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Use Proxy</em>' attribute.
      * @see #isUseProxy()
      * @generated
@@ -229,8 +226,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Proxy Host</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Proxy Host</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Proxy Host</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Proxy Host</em>' attribute.
@@ -243,8 +240,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyHost <em>Proxy Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Proxy Host</em>' attribute.
      * @see #getProxyHost()
      * @generated
@@ -255,8 +251,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Proxy Port</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Proxy Port</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Proxy Port</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Proxy Port</em>' attribute.
@@ -269,8 +265,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPort <em>Proxy Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Proxy Port</em>' attribute.
      * @see #getProxyPort()
      * @generated
@@ -281,8 +276,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Proxy User</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Proxy User</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Proxy User</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Proxy User</em>' attribute.
@@ -295,8 +290,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyUser <em>Proxy User</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Proxy User</em>' attribute.
      * @see #getProxyUser()
      * @generated
@@ -307,8 +301,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Proxy Password</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Proxy Password</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Proxy Password</em>' attribute isn't clear, there really should be more of a
+     * description here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Proxy Password</em>' attribute.
@@ -321,8 +315,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPassword <em>Proxy Password</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Proxy Password</em>' attribute.
      * @see #getProxyPassword()
      * @generated
@@ -334,8 +327,8 @@ public interface WSDLSchemaConnection extends Connection {
      * The list contents are of type {@link java.lang.String}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Value</em>' attribute list isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Value</em>' attribute list isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Value</em>' attribute list.
@@ -349,8 +342,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Endpoint URI</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Endpoint URI</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Endpoint URI</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Endpoint URI</em>' attribute.
@@ -363,8 +356,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Endpoint URI</em>' attribute.
      * @see #getEndpointURI()
      * @generated
@@ -375,8 +367,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Encoding</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Encoding</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Encoding</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Encoding</em>' attribute.
@@ -389,8 +381,7 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Encoding</em>' attribute.
      * @see #getEncoding()
      * @generated
@@ -401,8 +392,8 @@ public interface WSDLSchemaConnection extends Connection {
      * Returns the value of the '<em><b>Time Out</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Time Out</em>' attribute isn't clear,
-     * there really should be more of a description here...
+     * If the meaning of the '<em>Time Out</em>' attribute isn't clear, there really should be more of a description
+     * here...
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Time Out</em>' attribute.
@@ -415,12 +406,109 @@ public interface WSDLSchemaConnection extends Connection {
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getTimeOut <em>Time Out</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Time Out</em>' attribute.
      * @see #getTimeOut()
      * @generated
      */
     void setTimeOut(int value);
 
+    /**
+     * Returns the value of the '<em><b>Is Input Model</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Is Input Model</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Is Input Model</em>' attribute.
+     * @see #setIsInputModel(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_IsInputModel()
+     * @model default="true"
+     * @generated
+     */
+    boolean isIsInputModel();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isIsInputModel <em>Is Input Model</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Is Input Model</em>' attribute.
+     * @see #isIsInputModel()
+     * @generated
+     */
+    void setIsInputModel(boolean value);
+
+    Boolean isWSDLModel();
+
+    void setWSDLModel(Boolean value);
+
+    /**
+     * DOC Administrator Comment method "setPortName".
+     * 
+     * @param portName
+     */
+    void setPortName(String portName);
+
+    /**
+     * Returns the value of the '<em><b>Parameter Value</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.WSDLParameter}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Parameter Value</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Parameter Value</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_ParameterValue()
+     * @model containment="true" resolveProxies="true"
+     * @generated
+     */
+    EList<WSDLParameter> getParameterValue();
+
+    /**
+     * Returns the value of the '<em><b>Output Parameter</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.WSDLParameter}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Output Parameter</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Output Parameter</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_OutputParameter()
+     * @model containment="true" resolveProxies="true"
+     * @generated
+     */
+    EList<WSDLParameter> getOutputParameter();
+
+    String getPortName();
+
+    /**
+     * DOC Administrator Comment method "setServerNameSpace".
+     * 
+     * @param serverNameSpace
+     */
+    void setServerNameSpace(String serverNameSpace);
+
+    String getServerNameSpace();
+
+    /**
+     * DOC Administrator Comment method "setServerName".
+     * 
+     * @param serverName
+     */
+    void setServerName(String serverName);
+
+    String getServerName();
+
+    /**
+     * DOC Administrator Comment method "setPortNameSpace".
+     * 
+     * @param serverNameSpace
+     */
+    void setPortNameSpace(String serverNameSpace);
+
+    String getPortNameSpace();
 } // WSDLSchemaConnection

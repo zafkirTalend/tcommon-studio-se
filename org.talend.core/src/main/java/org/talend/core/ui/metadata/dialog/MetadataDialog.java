@@ -182,79 +182,84 @@ public class MetadataDialog extends Dialog {
     public static void initializeMetadataTableView(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
         boolean dbComponent = false;
         boolean hasMappingType = false;
-        boolean eltComponent = node.getComponent().getOriginalFamilyName().startsWith(ELT_LABEL);
-
+        boolean eltComponent = false;
         boolean hasRepositoryDbSchema = false;
-        if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent) {
-            dbComponent = true;
-            for (IElementParameter currentParam : node.getElementParameters()) {
-                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
-                    metaView.setCurrentDbms((String) currentParam.getValue());
-                    hasMappingType = true;
+        if (node != null && node.getComponent() != null) {
+            eltComponent = node.getComponent().getOriginalFamilyName().startsWith(ELT_LABEL);
+            if (node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL) || eltComponent) {
+                dbComponent = true;
+                for (IElementParameter currentParam : node.getElementParameters()) {
+                    if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
+                        metaView.setCurrentDbms((String) currentParam.getValue());
+                        hasMappingType = true;
+                    }
                 }
-            }
 
-            IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE"); //$NON-NLS-1$
-            if (!hasMappingType && schemaParam != null) { // if there is no
-                // mapping type,
-                // then check if a
-                // db
-                // repository schema is used
-                String schemaType = (String) schemaParam.getValue();
-                if (schemaType.equals("REPOSITORY")) { //$NON-NLS-1$
-                    // repository mode
-                    String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue(); //$NON-NLS-1$
-                    Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
+                IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE"); //$NON-NLS-1$
+                if (!hasMappingType && schemaParam != null) { // if there is no
+                    // mapping type,
+                    // then check if a
+                    // db
+                    // repository schema is used
+                    String schemaType = (String) schemaParam.getValue();
+                    if (schemaType.equals("REPOSITORY")) { //$NON-NLS-1$
+                        // repository mode
+                        String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue(); //$NON-NLS-1$
+                        Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
 
-                    boolean isDatabaseConnection = connection instanceof DatabaseConnection;
-                    boolean isGenericSchemaConnection = connection instanceof GenericSchemaConnection;
-                    if (isDatabaseConnection || isGenericSchemaConnection) {
-                        hasRepositoryDbSchema = true;
+                        boolean isDatabaseConnection = connection instanceof DatabaseConnection;
+                        boolean isGenericSchemaConnection = connection instanceof GenericSchemaConnection;
+                        if (isDatabaseConnection || isGenericSchemaConnection) {
+                            hasRepositoryDbSchema = true;
 
-                        for (IMetadataColumn column : metadataTable.getListColumns()) {
-                            if ((column.getType() == "") || (column.getType() == null)) { //$NON-NLS-1$
-                                hasRepositoryDbSchema = false;
-                            }
-                        }
-                        String componentDbType = ""; //$NON-NLS-1$
-                        for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
-                            if (param.getRepositoryValue() != null) {
-                                if (param.getRepositoryValue().equals("TYPE")) { //$NON-NLS-1$
-                                    componentDbType = (String) param.getValue();
+                            for (IMetadataColumn column : metadataTable.getListColumns()) {
+                                if ((column.getType() == "") || (column.getType() == null)) { //$NON-NLS-1$
+                                    hasRepositoryDbSchema = false;
                                 }
                             }
-                        }
-
-                        // if we don't support yet the db type for the mapping
-                        // type, then don't display.
-                        if (!EDatabaseTypeName.supportDbType(componentDbType)) {
-                            hasRepositoryDbSchema = false;
-                        }
-                        String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
-                        String connectionProduct = null;
-                        if (isDatabaseConnection) {
-                            connectionProduct = ((DatabaseConnection) connection).getProductId();
-                            if (!componentProduct.equals(connectionProduct)) {
-                                hasRepositoryDbSchema = false;
-                                // the component don't support this product so don't
-                                // display.
-                            } else {
-                                metaView.setCurrentDbms(((DatabaseConnection) connection).getDbmsId());
+                            String componentDbType = ""; //$NON-NLS-1$
+                            for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
+                                if (param.getRepositoryValue() != null) {
+                                    if (param.getRepositoryValue().equals("TYPE")) { //$NON-NLS-1$
+                                        componentDbType = (String) param.getValue();
+                                    }
+                                }
                             }
-                        }
 
-                        else if (isGenericSchemaConnection) {
-                            String mappingTypeId = ((GenericSchemaConnection) connection).getMappingTypeId();
+                            // if we don't support yet the db type for the mapping
+                            // type, then don't display.
+                            if (!EDatabaseTypeName.supportDbType(componentDbType)) {
+                                hasRepositoryDbSchema = false;
+                            }
+                            String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
+                            String connectionProduct = null;
+                            if (isDatabaseConnection) {
+                                connectionProduct = ((DatabaseConnection) connection).getProductId();
+                                if (!componentProduct.equals(connectionProduct)) {
+                                    hasRepositoryDbSchema = false;
+                                    // the component don't support this product so don't
+                                    // display.
+                                } else {
+                                    metaView.setCurrentDbms(((DatabaseConnection) connection).getDbmsId());
+                                }
+                            }
 
-                            if (mappingTypeId != null) {
-                                connectionProduct = mappingTypeId;
-                                metaView.setCurrentDbms(connectionProduct);
+                            else if (isGenericSchemaConnection) {
+                                String mappingTypeId = ((GenericSchemaConnection) connection).getMappingTypeId();
+
+                                if (mappingTypeId != null) {
+                                    connectionProduct = mappingTypeId;
+                                    metaView.setCurrentDbms(connectionProduct);
+                                }
                             }
                         }
                     }
                 }
             }
+        } else {
+            eltComponent = false;
         }
+
         metaView.setShowDbTypeColumn(hasMappingType || eltComponent, false, hasMappingType
                 || (dbComponent && !hasRepositoryDbSchema));
         metaView.setShowDbColumnName(dbComponent && (!eltComponent), hasMappingType || (dbComponent && !hasRepositoryDbSchema));
@@ -597,7 +602,7 @@ public class MetadataDialog extends Dialog {
             for (IMetadataColumn column : outputTable.getListColumns()) {
                 IMetadataColumn inputColumn = inputTable.getColumn(column.getLabel());
                 if (inputColumn != null) {
-                
+
                     inputColumn.setOriginalDbColumnName(column.getOriginalDbColumnName());
                 }
             }

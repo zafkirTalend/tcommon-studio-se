@@ -22,6 +22,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.ui.IWebService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.components.IComponentsLocalProviderService;
@@ -180,4 +181,7 @@ public class CorePlugin extends AbstractUIPlugin {
         return (IDesignerMapperService) GlobalServiceRegister.getDefault().getService(IDesignerMapperService.class);
     }
 
+    public IWebService getWebService() {
+        return (IWebService) GlobalServiceRegister.getDefault().getService(IWebService.class);
+    }
 }

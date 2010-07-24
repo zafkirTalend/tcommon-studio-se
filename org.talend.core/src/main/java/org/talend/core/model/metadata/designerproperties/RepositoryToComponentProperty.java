@@ -60,6 +60,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameterTab
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -390,6 +391,9 @@ public class RepositoryToComponentProperty {
      */
     private static Object getWSDLValue(WSDLSchemaConnection connection, String value) {
         if ("ENDPOINT".equals(value)) { //$NON-NLS-1$
+            if (!connection.isIsInputModel()) {
+                return connection.getWSDL();
+            }
             if (isContextMode(connection, connection.getWSDL())) {
                 return connection.getWSDL();
             } else {
@@ -436,6 +440,9 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(connection.getProxyPassword());
             }
         } else if ("METHOD".equals(value)) { //$NON-NLS-1$
+            if (!connection.isIsInputModel()) {
+                return connection.getMethodName();
+            }
             if (isContextMode(connection, connection.getMethodName())) {
                 return connection.getMethodName();
             } else {
@@ -463,8 +470,35 @@ public class RepositoryToComponentProperty {
             }
         } else if ("PARAMS".equals(value)) {
             return connection.getParameters();
+        } else if ("SERVICE_NS".equals(value)) {
+            return connection.getServerNameSpace();
+        } else if ("SERVICE_NAME".equals(value)) {
+            return connection.getServerName();
+        } else if ("PORT_NS".equals(value)) {
+            return connection.getPortNameSpace();
+        } else if ("PORT_NAME".equals(value)) {
+            return connection.getPortName();
+        } else if ("INPUT_PARAMS".equals(value)) {
+            return getOutputWSDLValue(connection.getParameterValue());
+        } else if ("OUTPUT_PARAMS".equals(value)) {
+            return getOutputWSDLValue(connection.getOutputParameter());
         }
         return null;
+    }
+
+    public static List<Map<String, String>> getOutputWSDLValue(EList list) {
+        List<Map<String, String>> newList = new ArrayList<Map<String, String>>();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<String, String>();
+            WSDLParameter node = (WSDLParameter) list.get(i);
+            map.put("EXPRESSION", node.getExpression());
+            map.put("COLUMN", node.getColumn());
+            map.put("SOURCE", node.getSource());
+            map.put("ELEMENT", node.getElement());
+            newList.add(map);
+        }
+        return newList;
+
     }
 
     /**

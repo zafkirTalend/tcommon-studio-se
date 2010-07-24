@@ -57,6 +57,8 @@ public class PluginChecker {
 
     private static final String DEBUG_PLUGIN_ID = "org.talend.designer.runprocess.debug";
 
+    private static final String WEBSERVICE_PLUGIN_ID = "org.talend.designer.webservice";
+
     /**
      * Check if specific plug-in is loaded.
      * 
@@ -165,5 +167,9 @@ public class PluginChecker {
 
     public static boolean isDebugTisPluginLocaed() {
         return isPluginLoaded(DEBUG_PLUGIN_ID);
+    }
+
+    public static boolean isWebServicePluginLocaed() {
+        return isPluginLoaded(WEBSERVICE_PLUGIN_ID);
     }
 }

@@ -7,15 +7,20 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
 import java.util.HashMap;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
+import org.talend.core.model.metadata.builder.connection.WSDLParameter;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 
 /**
@@ -24,32 +29,63 @@ import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getWSDL <em>WSDL</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#isNeedAuth <em>Need Auth</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getMethodName <em>Method Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getUserName <em>User Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getPassword <em>Password</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#isUseProxy <em>Use Proxy</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyHost <em>Proxy Host</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyPort <em>Proxy Port</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyUser <em>Proxy User</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyPassword <em>Proxy Password</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getEndpointURI <em>Endpoint URI</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getEncoding <em>Encoding</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getTimeOut <em>Time Out</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getWSDL <em>WSDL</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#isNeedAuth <em>Need Auth
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getMethodName <em>Method
+ * Name</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getParameters <em>
+ * Parameters</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getUserName <em>User Name
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getPassword <em>Password
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#isUseProxy <em>Use Proxy
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyHost <em>Proxy
+ * Host</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyPort <em>Proxy
+ * Port</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyUser <em>Proxy
+ * User</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getProxyPassword <em>Proxy
+ * Password</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getValue <em>Value</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getEndpointURI <em>
+ * Endpoint URI</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getEncoding <em>Encoding
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getTimeOut <em>Time Out
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#isIsInputModel <em>Is
+ * Input Model</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getServerNameSpace <em>
+ * Server Name Space</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getServerName <em>Server
+ * Name</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getPortNameSpace <em>Port
+ * Name Space</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getPortName <em>Port Name
+ * </em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getParameterValue <em>
+ * Parameter Value</em>}</li>
+ * <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl#getOutputParameter <em>
+ * Output Parameter</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSchemaConnection {
 
     /**
-     * The default value of the '{@link #getWSDL() <em>WSDL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getWSDL() <em>WSDL</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * 
+     * 
+     * 
+     * The default value of the '{@link #getWSDL() <em>WSDL</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getWSDL()
      * @generated
      * @ordered
@@ -57,9 +93,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String WSDL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getWSDL() <em>WSDL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getWSDL() <em>WSDL</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getWSDL()
      * @generated
      * @ordered
@@ -67,9 +103,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String wsdl = WSDL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isNeedAuth() <em>Need Auth</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isNeedAuth() <em>Need Auth</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isNeedAuth()
      * @generated
      * @ordered
@@ -77,9 +113,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final boolean NEED_AUTH_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isNeedAuth() <em>Need Auth</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isNeedAuth() <em>Need Auth</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isNeedAuth()
      * @generated
      * @ordered
@@ -87,9 +123,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected boolean needAuth = NEED_AUTH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getMethodName() <em>Method Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getMethodName() <em>Method Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getMethodName()
      * @generated
      * @ordered
@@ -97,19 +133,27 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String METHOD_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getMethodName() <em>Method Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getMethodName() <em>Method Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getMethodName()
      * @generated
      * @ordered
      */
     protected String methodName = METHOD_NAME_EDEFAULT;
 
+    protected static final String PORT_NAME = null;
+
+    protected static final String SERVER_NAMESPACE = null;
+
+    protected static final String SERVER_NAME = null;
+
+    protected static final String PORT_NAMESPACE = null;
+
     /**
-     * The default value of the '{@link #getParameters() <em>Parameters</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getParameters() <em>Parameters</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getParameters()
      * @generated
      * @ordered
@@ -118,19 +162,23 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
             ConnectionPackage.eINSTANCE.getList(), "");
 
     /**
-     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getParameters()
      * @generated
      * @ordered
      */
     protected ArrayList parameters = PARAMETERS_EDEFAULT;
 
+    protected static final boolean INPUT_MODEL_EDEFAULT = true;
+
+    protected boolean isWSDL = INPUT_MODEL_EDEFAULT;
+
     /**
-     * The default value of the '{@link #getUserName() <em>User Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getUserName() <em>User Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getUserName()
      * @generated
      * @ordered
@@ -138,9 +186,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String USER_NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getUserName() <em>User Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getUserName() <em>User Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getUserName()
      * @generated
      * @ordered
@@ -148,9 +196,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String userName = USER_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getPassword() <em>Password</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getPassword()
      * @generated
      * @ordered
@@ -158,9 +206,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String PASSWORD_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getPassword()
      * @generated
      * @ordered
@@ -168,9 +216,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String password = PASSWORD_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isUseProxy()
      * @generated
      * @ordered
@@ -178,9 +226,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final boolean USE_PROXY_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isUseProxy() <em>Use Proxy</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isUseProxy()
      * @generated
      * @ordered
@@ -188,9 +236,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected boolean useProxy = USE_PROXY_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getProxyHost()
      * @generated
      * @ordered
@@ -198,9 +246,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String PROXY_HOST_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getProxyHost() <em>Proxy Host</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getProxyHost()
      * @generated
      * @ordered
@@ -208,9 +256,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String proxyHost = PROXY_HOST_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getProxyPort()
      * @generated
      * @ordered
@@ -218,9 +266,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String PROXY_PORT_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getProxyPort() <em>Proxy Port</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getProxyPort()
      * @generated
      * @ordered
@@ -228,9 +276,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String proxyPort = PROXY_PORT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getProxyUser() <em>Proxy User</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getProxyUser() <em>Proxy User</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getProxyUser()
      * @generated
      * @ordered
@@ -238,9 +286,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String PROXY_USER_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getProxyUser() <em>Proxy User</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getProxyUser() <em>Proxy User</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getProxyUser()
      * @generated
      * @ordered
@@ -248,9 +296,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String proxyUser = PROXY_USER_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The default value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getProxyPassword()
      * @generated
      * @ordered
@@ -258,9 +306,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String PROXY_PASSWORD_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getProxyPassword() <em>Proxy Password</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getProxyPassword()
      * @generated
      * @ordered
@@ -268,9 +316,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String proxyPassword = PROXY_PASSWORD_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getValue()
      * @generated
      * @ordered
@@ -278,9 +326,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected EList<String> value;
 
     /**
-     * The default value of the '{@link #getEndpointURI() <em>Endpoint URI</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The default value of the '{@link #getEndpointURI() <em>Endpoint URI</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getEndpointURI()
      * @generated
      * @ordered
@@ -288,9 +336,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String ENDPOINT_URI_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getEndpointURI() <em>Endpoint URI</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getEndpointURI() <em>Endpoint URI</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getEndpointURI()
      * @generated
      * @ordered
@@ -298,9 +346,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String endpointURI = ENDPOINT_URI_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getEncoding() <em>Encoding</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getEncoding()
      * @generated
      * @ordered
@@ -308,9 +356,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final String ENCODING_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getEncoding() <em>Encoding</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getEncoding()
      * @generated
      * @ordered
@@ -318,9 +366,9 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected String encoding = ENCODING_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getTimeOut()
      * @generated
      * @ordered
@@ -328,14 +376,102 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     protected static final int TIME_OUT_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getTimeOut() <em>Time Out</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getTimeOut()
      * @generated
      * @ordered
      */
     protected int timeOut = TIME_OUT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isIsInputModel() <em>Is Input Model</em>}' attribute. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
+     * @see #isIsInputModel()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean IS_INPUT_MODEL_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isIsInputModel() <em>Is Input Model</em>}' attribute. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
+     * @see #isIsInputModel()
+     * @generated
+     * @ordered
+     */
+    protected boolean isInputModel = IS_INPUT_MODEL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getServerNameSpace() <em>Server Name Space</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getServerNameSpace()
+     * @generated
+     * @ordered
+     */
+    protected static final String SERVER_NAME_SPACE_EDEFAULT = "";
+
+    protected String serverNameSpace = SERVER_NAMESPACE;
+
+    /**
+     * The default value of the '{@link #getServerName() <em>Server Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @see #getServerName()
+     * @generated
+     * @ordered
+     */
+    protected static final String SERVER_NAME_EDEFAULT = null;
+
+    protected String serverName = SERVER_NAME;
+
+    /**
+     * The default value of the '{@link #getPortNameSpace() <em>Port Name Space</em>}' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
+     * @see #getPortNameSpace()
+     * @generated
+     * @ordered
+     */
+    protected static final String PORT_NAME_SPACE_EDEFAULT = null;
+
+    protected String portNameSpace = PORT_NAMESPACE;
+
+    /**
+     * The default value of the '{@link #getPortName() <em>Port Name</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @see #getPortName()
+     * @generated
+     * @ordered
+     */
+    protected static final String PORT_NAME_EDEFAULT = null;
+
+    protected String portName = PORT_NAME;
+
+    /**
+     * The cached value of the '{@link #getParameterValue() <em>Parameter Value</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getParameterValue()
+     * @generated
+     * @ordered
+     */
+    protected EList<WSDLParameter> parameterValue;
+
+    /**
+     * The cached value of the '{@link #getOutputParameter() <em>Output Parameter</em>}' containment reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getOutputParameter()
+     * @generated
+     * @ordered
+     */
+    protected EList<WSDLParameter> outputParameter;
 
     /**
      * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute. <!-- begin-user-doc --> <!--
@@ -349,6 +485,7 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected WSDLSchemaConnectionImpl() {
@@ -357,6 +494,7 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -365,8 +503,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getWSDL() {
@@ -374,8 +512,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setWSDL(String newWSDL) {
@@ -386,8 +524,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isNeedAuth() {
@@ -395,8 +533,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setNeedAuth(boolean newNeedAuth) {
@@ -408,8 +546,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getMethodName() {
@@ -417,8 +555,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setMethodName(String newMethodName) {
@@ -430,8 +568,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public ArrayList getParameters() {
@@ -439,8 +577,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setParameters(ArrayList newParameters) {
@@ -452,8 +590,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getUserName() {
@@ -461,8 +599,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setUserName(String newUserName) {
@@ -474,8 +612,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getPassword() {
@@ -483,8 +621,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setPassword(String newPassword) {
@@ -496,8 +634,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isUseProxy() {
@@ -505,8 +643,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setUseProxy(boolean newUseProxy) {
@@ -518,8 +656,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getProxyHost() {
@@ -527,8 +665,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setProxyHost(String newProxyHost) {
@@ -540,8 +678,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getProxyPort() {
@@ -549,8 +687,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setProxyPort(String newProxyPort) {
@@ -562,8 +700,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getProxyUser() {
@@ -571,8 +709,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setProxyUser(String newProxyUser) {
@@ -584,8 +722,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getProxyPassword() {
@@ -593,8 +731,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setProxyPassword(String newProxyPassword) {
@@ -606,8 +744,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public EList<String> getValue() {
@@ -618,8 +756,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getEndpointURI() {
@@ -627,8 +765,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setEndpointURI(String newEndpointURI) {
@@ -640,8 +778,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getEncoding() {
@@ -649,8 +787,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setEncoding(String newEncoding) {
@@ -662,8 +800,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public int getTimeOut() {
@@ -671,8 +809,8 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setTimeOut(int newTimeOut) {
@@ -684,8 +822,30 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public boolean isIsInputModel() {
+        return isInputModel;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public void setIsInputModel(boolean newIsInputModel) {
+        boolean oldIsInputModel = isInputModel;
+        isInputModel = newIsInputModel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL,
+                    oldIsInputModel, isInputModel));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -721,13 +881,27 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
             return getEncoding();
         case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
             return getTimeOut();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL:
+            return isIsInputModel();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE:
+            return getServerNameSpace();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME:
+            return getServerName();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE:
+            return getPortNameSpace();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME:
+            return getPortName();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE:
+            return getParameterValue();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER:
+            return getOutputParameter();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -780,13 +954,36 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
             setTimeOut((Integer) newValue);
             return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL:
+            setIsInputModel((Boolean) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE:
+            setServerNameSpace((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME:
+            setServerName((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE:
+            setPortNameSpace((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME:
+            setPortName((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE:
+            getParameterValue().clear();
+            getParameterValue().addAll((Collection<? extends WSDLParameter>) newValue);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER:
+            getOutputParameter().clear();
+            getOutputParameter().addAll((Collection<? extends WSDLParameter>) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -837,13 +1034,34 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
             setTimeOut(TIME_OUT_EDEFAULT);
             return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL:
+            setIsInputModel(IS_INPUT_MODEL_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE:
+            setServerNameSpace(SERVER_NAME_SPACE_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME:
+            setServerName(SERVER_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE:
+            setPortNameSpace(PORT_NAME_SPACE_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME:
+            setPortName(PORT_NAME_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE:
+            getParameterValue().clear();
+            return;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER:
+            getOutputParameter().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -879,13 +1097,28 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
             return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
         case ConnectionPackage.WSDL_SCHEMA_CONNECTION__TIME_OUT:
             return timeOut != TIME_OUT_EDEFAULT;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL:
+            return isInputModel != IS_INPUT_MODEL_EDEFAULT;
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE:
+            return SERVER_NAME_SPACE_EDEFAULT == null ? serverNameSpace != null : !SERVER_NAME_SPACE_EDEFAULT
+                    .equals(serverNameSpace);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME:
+            return SERVER_NAME_EDEFAULT == null ? serverName != null : !SERVER_NAME_EDEFAULT.equals(serverName);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE:
+            return PORT_NAME_SPACE_EDEFAULT == null ? portNameSpace != null : !PORT_NAME_SPACE_EDEFAULT.equals(portNameSpace);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME:
+            return PORT_NAME_EDEFAULT == null ? portName != null : !PORT_NAME_EDEFAULT.equals(portName);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE:
+            return parameterValue != null && !parameterValue.isEmpty();
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER:
+            return outputParameter != null && !outputParameter.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -924,8 +1157,175 @@ public class WSDLSchemaConnectionImpl extends ConnectionImpl implements WSDLSche
         result.append(encoding);
         result.append(", timeOut: ");
         result.append(timeOut);
+        result.append(", isInputModel: ");
+        result.append(isInputModel);
+        result.append(", serverNameSpace: ");
+        result.append(serverNameSpace);
+        result.append(", serverName: ");
+        result.append(serverName);
+        result.append(", portNameSpace: ");
+        result.append(portNameSpace);
+        result.append(", portName: ");
+        result.append(portName);
         result.append(')');
         return result.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isWSDLModel(boolean)
+     */
+    @Override
+    public Boolean isWSDLModel() {
+        // TODO Auto-generated method stub
+        return isWSDL;
+    }
+
+    public void setWSDLModel(Boolean newInputModel) {
+        boolean oldInputModel = isWSDL;
+        isWSDL = newInputModel;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__IS_INPUT_MODEL,
+                    oldInputModel, isWSDL));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#setPortName(java.lang.String)
+     */
+    @Override
+    public void setPortName(String newPortName) {
+        // TODO Auto-generated method stub
+        String oldPortName = portName;
+        this.portName = newPortName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME,
+                    oldPortName, portName));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EList<WSDLParameter> getParameterValue() {
+        if (parameterValue == null) {
+            parameterValue = new EObjectContainmentEList.Resolving<WSDLParameter>(WSDLParameter.class, this,
+                    ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE);
+        }
+        return parameterValue;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EList<WSDLParameter> getOutputParameter() {
+        if (outputParameter == null) {
+            outputParameter = new EObjectContainmentEList.Resolving<WSDLParameter>(WSDLParameter.class, this,
+                    ConnectionPackage.WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER);
+        }
+        return outputParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__PARAMETER_VALUE:
+            return ((InternalEList<?>) getParameterValue()).basicRemove(otherEnd, msgs);
+        case ConnectionPackage.WSDL_SCHEMA_CONNECTION__OUTPUT_PARAMETER:
+            return ((InternalEList<?>) getOutputParameter()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    public String getPortName() {
+        return portName;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPortNameSpace()
+     */
+    @Override
+    public String getPortNameSpace() {
+        // TODO Auto-generated method stub
+        return portNameSpace;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerName()
+     */
+    @Override
+    public String getServerName() {
+        // TODO Auto-generated method stub
+        return serverName;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getServerNameSpace()
+     */
+    @Override
+    public String getServerNameSpace() {
+        // TODO Auto-generated method stub
+        return serverNameSpace;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#setPortNameSpace(java.lang.String)
+     */
+    @Override
+    public void setPortNameSpace(String newServerNameSpace) {
+        // TODO Auto-generated method stub
+        String oldPortName = portNameSpace;
+        this.portNameSpace = newServerNameSpace;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__PORT_NAME_SPACE,
+                    oldPortName, portNameSpace));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#setServerName(java.lang.String)
+     */
+    @Override
+    public void setServerName(String newServerName) {
+        // TODO Auto-generated method stub
+        String oldPortName = serverName;
+        this.serverName = newServerName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME,
+                    oldPortName, serverName));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#setServerNameSpace(java.lang.String)
+     */
+    @Override
+    public void setServerNameSpace(String newServerNameSpace) {
+        // TODO Auto-generated method stub
+        String oldPortName = serverNameSpace;
+        this.serverNameSpace = newServerNameSpace;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_SCHEMA_CONNECTION__SERVER_NAME_SPACE,
+                    oldPortName, serverNameSpace));
+    }
 } // WSDLSchemaConnectionImpl
