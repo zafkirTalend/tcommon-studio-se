@@ -60,6 +60,7 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
 
             addStartCharPropertyDescriptor(object);
             addEndCharPropertyDescriptor(object);
+            addRootPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -90,6 +91,19 @@ public class HL7ConnectionItemProvider extends FileConnectionItemProvider implem
                 "_UI_PropertyDescriptor_description", "_UI_HL7Connection_EndChar_feature", "_UI_HL7Connection_type"),
                 ConnectionPackage.Literals.HL7_CONNECTION__END_CHAR, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Root feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addRootPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HL7Connection_root_feature"), getString(
+                "_UI_PropertyDescriptor_description", "_UI_HL7Connection_root_feature", "_UI_HL7Connection_type"),
+                ConnectionPackage.Literals.HL7_CONNECTION__ROOT, true, false, true, null, null, null));
     }
 
     /**

@@ -345,6 +345,29 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected SAPIDocUnitItemProvider sapiDocUnitItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.SAPIDocUnit}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createSAPIDocUnitAdapter() {
+        if (sapiDocUnitItemProvider == null) {
+            sapiDocUnitItemProvider = new SAPIDocUnitItemProvider(this);
+        }
+
+        return sapiDocUnitItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameterColumn} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -874,6 +897,52 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected HeaderFooterConnectionItemProvider headerFooterConnectionItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createHeaderFooterConnectionAdapter() {
+        if (headerFooterConnectionItemProvider == null) {
+            headerFooterConnectionItemProvider = new HeaderFooterConnectionItemProvider(this);
+        }
+
+        return headerFooterConnectionItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.XMLFileNode} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected XMLFileNodeItemProvider xmlFileNodeItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.XMLFileNode}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createXMLFileNodeAdapter() {
+        if (xmlFileNodeItemProvider == null) {
+            xmlFileNodeItemProvider = new XMLFileNodeItemProvider(this);
+        }
+
+        return xmlFileNodeItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.GenericPackage} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -894,6 +963,29 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
         }
 
         return genericPackageItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.metadata.builder.connection.HL7FileNode} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected HL7FileNodeItemProvider hl7FileNodeItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.metadata.builder.connection.HL7FileNode}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createHL7FileNodeAdapter() {
+        if (hl7FileNodeItemProvider == null) {
+            hl7FileNodeItemProvider = new HL7FileNodeItemProvider(this);
+        }
+
+        return hl7FileNodeItemProvider;
     }
 
     /**
@@ -1044,6 +1136,8 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
             sapConnectionItemProvider.dispose();
         if (sapFunctionUnitItemProvider != null)
             sapFunctionUnitItemProvider.dispose();
+        if (sapiDocUnitItemProvider != null)
+            sapiDocUnitItemProvider.dispose();
         if (sapFunctionParameterColumnItemProvider != null)
             sapFunctionParameterColumnItemProvider.dispose();
         if (sapFunctionParameterTableItemProvider != null)
@@ -1090,8 +1184,14 @@ public class ConnectionItemProviderAdapterFactory extends ConnectionAdapterFacto
             conceptTargetItemProvider.dispose();
         if (hl7ConnectionItemProvider != null)
             hl7ConnectionItemProvider.dispose();
+        if (headerFooterConnectionItemProvider != null)
+            headerFooterConnectionItemProvider.dispose();
+        if (xmlFileNodeItemProvider != null)
+            xmlFileNodeItemProvider.dispose();
         if (genericPackageItemProvider != null)
             genericPackageItemProvider.dispose();
+        if (hl7FileNodeItemProvider != null)
+            hl7FileNodeItemProvider.dispose();
     }
 
 }

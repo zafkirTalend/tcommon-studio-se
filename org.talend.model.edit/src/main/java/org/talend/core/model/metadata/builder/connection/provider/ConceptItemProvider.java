@@ -66,6 +66,7 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
 
             addLoopExpressionPropertyDescriptor(object);
             addLoopLimitPropertyDescriptor(object);
+            addInputModelPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -99,6 +100,20 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
     }
 
     /**
+     * This adds a property descriptor for the Input Model feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInputModelPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_Concept_inputModel_feature"), getString(
+                "_UI_PropertyDescriptor_description", "_UI_Concept_inputModel_feature", "_UI_Concept_type"),
+                ConnectionPackage.Literals.CONCEPT__INPUT_MODEL, true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                null, null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -111,6 +126,9 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
             childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__CONCEPT_TARGETS);
+            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__GROUP);
+            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__ROOT);
+            childrenFeatures.add(ConnectionPackage.Literals.CONCEPT__LOOP);
         }
         return childrenFeatures;
     }
@@ -165,9 +183,13 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
         switch (notification.getFeatureID(Concept.class)) {
         case ConnectionPackage.CONCEPT__LOOP_EXPRESSION:
         case ConnectionPackage.CONCEPT__LOOP_LIMIT:
+        case ConnectionPackage.CONCEPT__INPUT_MODEL:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         case ConnectionPackage.CONCEPT__CONCEPT_TARGETS:
+        case ConnectionPackage.CONCEPT__GROUP:
+        case ConnectionPackage.CONCEPT__ROOT:
+        case ConnectionPackage.CONCEPT__LOOP:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
             return;
         }
@@ -187,6 +209,15 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
 
         newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__CONCEPT_TARGETS,
                 ConnectionFactory.eINSTANCE.createConceptTarget()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__GROUP, ConnectionFactory.eINSTANCE
+                .createXMLFileNode()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__ROOT, ConnectionFactory.eINSTANCE
+                .createXMLFileNode()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.CONCEPT__LOOP, ConnectionFactory.eINSTANCE
+                .createXMLFileNode()));
     }
 
     /**
@@ -202,7 +233,10 @@ public class ConceptItemProvider extends TdTableItemProvider implements IEditing
 
         boolean qualify = childFeature == CorePackage.Literals.NAMESPACE__OWNED_ELEMENT
                 || childFeature == CorePackage.Literals.CLASSIFIER__FEATURE
-                || childFeature == ConnectionPackage.Literals.METADATA_TABLE__COLUMNS;
+                || childFeature == ConnectionPackage.Literals.METADATA_TABLE__COLUMNS
+                || childFeature == ConnectionPackage.Literals.CONCEPT__GROUP
+                || childFeature == ConnectionPackage.Literals.CONCEPT__ROOT
+                || childFeature == ConnectionPackage.Literals.CONCEPT__LOOP;
 
         if (qualify) {
             return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject), getFeatureText(childFeature),

@@ -186,6 +186,9 @@ public class TdXMLDocumentItemProvider extends DocumentItemProvider implements I
                 .createSAPFunctionUnit()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
+                .createSAPIDocUnit()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createSAPFunctionParameterColumn()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
@@ -238,6 +241,9 @@ public class TdXMLDocumentItemProvider extends DocumentItemProvider implements I
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createHL7Connection()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
+                .createHeaderFooterConnection()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createGenericPackage()));

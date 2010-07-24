@@ -160,6 +160,9 @@ public class TdSoftwareSystemItemProvider extends SoftwareSystemItemProvider imp
                 .createSAPFunctionUnit()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
+                .createSAPIDocUnit()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createSAPFunctionParameterColumn()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
@@ -212,6 +215,9 @@ public class TdSoftwareSystemItemProvider extends SoftwareSystemItemProvider imp
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createHL7Connection()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
+                .createHeaderFooterConnection()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createGenericPackage()));

@@ -68,6 +68,7 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
             addSystemNumberPropertyDescriptor(object);
             addLanguagePropertyDescriptor(object);
             addCurrentFucntionPropertyDescriptor(object);
+            addIDocsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -168,6 +169,19 @@ public class SAPConnectionItemProvider extends ConnectionItemProvider implements
                 getString("_UI_PropertyDescriptor_description", "_UI_SAPConnection_currentFucntion_feature",
                         "_UI_SAPConnection_type"), ConnectionPackage.Literals.SAP_CONNECTION__CURRENT_FUCNTION, true, false,
                 false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the IDocs feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addIDocsPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_SAPConnection_IDocs_feature"), getString(
+                "_UI_PropertyDescriptor_description", "_UI_SAPConnection_IDocs_feature", "_UI_SAPConnection_type"),
+                ConnectionPackage.Literals.SAP_CONNECTION__IDOCS, true, false, true, null, null, null));
     }
 
     /**

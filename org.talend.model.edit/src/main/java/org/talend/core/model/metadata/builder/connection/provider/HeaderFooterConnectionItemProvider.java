@@ -22,19 +22,19 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
+import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 
 import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
 
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
- * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection} object.
+ * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvider implements IEditingDomainItemProvider,
+public class HeaderFooterConnectionItemProvider extends ConnectionItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -43,7 +43,7 @@ public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvi
      * <!-- end-user-doc -->
      * @generated
      */
-    public DelimitedFileConnectionItemProvider(AdapterFactory adapterFactory) {
+    public HeaderFooterConnectionItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -58,51 +58,79 @@ public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvi
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addFieldSeparatorTypePropertyDescriptor(object);
-            addSplitRecordPropertyDescriptor(object);
+            addIsHeaderPropertyDescriptor(object);
+            addImportsPropertyDescriptor(object);
+            addMainCodePropertyDescriptor(object);
+            addLibrariesPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Field Separator Type feature.
+     * This adds a property descriptor for the Is Header feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addFieldSeparatorTypePropertyDescriptor(Object object) {
+    protected void addIsHeaderPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(),
-                getString("_UI_DelimitedFileConnection_FieldSeparatorType_feature"), getString(
-                        "_UI_PropertyDescriptor_description", "_UI_DelimitedFileConnection_FieldSeparatorType_feature",
-                        "_UI_DelimitedFileConnection_type"),
-                ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, true, false, false,
-                ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_isHeader_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_isHeader_feature",
+                        "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__IS_HEADER, true,
+                false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This adds a property descriptor for the Split Record feature.
+     * This adds a property descriptor for the Imports feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addSplitRecordPropertyDescriptor(Object object) {
+    protected void addImportsPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_DelimitedFileConnection_splitRecord_feature"),
-                getString("_UI_PropertyDescriptor_description", "_UI_DelimitedFileConnection_splitRecord_feature",
-                        "_UI_DelimitedFileConnection_type"), ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION__SPLIT_RECORD,
-                true, false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_imports_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_imports_feature",
+                        "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__IMPORTS, true,
+                false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
     /**
-     * This returns DelimitedFileConnection.gif.
+     * This adds a property descriptor for the Main Code feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addMainCodePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_mainCode_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_mainCode_feature",
+                        "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__MAIN_CODE, true,
+                false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Libraries feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addLibrariesPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_HeaderFooterConnection_libraries_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_HeaderFooterConnection_libraries_feature",
+                        "_UI_HeaderFooterConnection_type"), ConnectionPackage.Literals.HEADER_FOOTER_CONNECTION__LIBRARIES, true,
+                false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This returns HeaderFooterConnection.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/DelimitedFileConnection"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/HeaderFooterConnection"));
     }
 
     /**
@@ -113,9 +141,9 @@ public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvi
      */
     @Override
     public String getText(Object object) {
-        String label = ((DelimitedFileConnection) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_DelimitedFileConnection_type")
-                : getString("_UI_DelimitedFileConnection_type") + " " + label;
+        String label = ((HeaderFooterConnection) object).getName();
+        return label == null || label.length() == 0 ? getString("_UI_HeaderFooterConnection_type")
+                : getString("_UI_HeaderFooterConnection_type") + " " + label;
     }
 
     /**
@@ -129,9 +157,11 @@ public class DelimitedFileConnectionItemProvider extends FileConnectionItemProvi
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(DelimitedFileConnection.class)) {
-        case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-        case ConnectionPackage.DELIMITED_FILE_CONNECTION__SPLIT_RECORD:
+        switch (notification.getFeatureID(HeaderFooterConnection.class)) {
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IS_HEADER:
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__IMPORTS:
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__MAIN_CODE:
+        case ConnectionPackage.HEADER_FOOTER_CONNECTION__LIBRARIES:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }

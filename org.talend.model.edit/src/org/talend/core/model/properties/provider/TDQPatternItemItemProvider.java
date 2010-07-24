@@ -1,9 +1,11 @@
 /**
- * <copyright> </copyright>
- * 
+ * <copyright>
+ * </copyright>
+ *
  * $Id$
  */
-package org.talend.core.model.metadata.builder.connection.provider;
+package org.talend.core.model.properties.provider;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -13,30 +15,33 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
-import org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable;
+import org.talend.core.model.properties.TDQPatternItem;
 
 /**
- * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.SAPTestInputParameterTable} object.
+ * This is the item provider adapter for a {@link org.talend.core.model.properties.TDQPatternItem} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SAPTestInputParameterTableItemProvider extends SAPFunctionParameterTableItemProvider implements
-        IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+public class TDQPatternItemItemProvider
+    extends TDQItemItemProvider
+    implements
+        IEditingDomainItemProvider,
+        IStructuredItemContentProvider,
+        ITreeItemContentProvider,
+        IItemLabelProvider,
         IItemPropertySource {
-
     /**
      * This constructs an instance from a factory and a notifier.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public SAPTestInputParameterTableItemProvider(AdapterFactory adapterFactory) {
+    public TDQPatternItemItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -46,8 +51,7 @@ public class SAPTestInputParameterTableItemProvider extends SAPFunctionParameter
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
-    public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+    public List getPropertyDescriptors(Object object) {
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
@@ -56,14 +60,13 @@ public class SAPTestInputParameterTableItemProvider extends SAPFunctionParameter
     }
 
     /**
-     * This returns SAPTestInputParameterTable.gif.
+     * This returns TDQPatternItem.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/SAPTestInputParameterTable"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/TDQPatternItem"));
     }
 
     /**
@@ -72,11 +75,11 @@ public class SAPTestInputParameterTableItemProvider extends SAPFunctionParameter
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public String getText(Object object) {
-        String label = ((SAPTestInputParameterTable) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_SAPTestInputParameterTable_type")
-                : getString("_UI_SAPTestInputParameterTable_type") + " " + label;
+        String label = ((TDQPatternItem)object).getFilename();
+        return label == null || label.length() == 0 ?
+            getString("_UI_TDQPatternItem_type") :
+            getString("_UI_TDQPatternItem_type") + " " + label;
     }
 
     /**
@@ -86,7 +89,6 @@ public class SAPTestInputParameterTableItemProvider extends SAPFunctionParameter
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
         super.notifyChanged(notification);
@@ -99,8 +101,7 @@ public class SAPTestInputParameterTableItemProvider extends SAPFunctionParameter
      * <!-- end-user-doc -->
      * @generated
      */
-    @Override
-    protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+    protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
     }
 

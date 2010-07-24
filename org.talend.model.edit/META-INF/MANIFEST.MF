@@ -7,7 +7,11 @@ Bundle-ClassPath: .
 Bundle-Activator: org.talend.designer.business.model.business.provider.BusinessEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.talend.designer.business.model.business.provider
+Export-Package: org.talend.core.model.metadata.builder.connection.provider,
+ org.talend.cwm.relational.provider,
+ org.talend.cwm.softwaredeployment.provider,
+ org.talend.cwm.xml.provider,
+ org.talend.designer.business.model.business.provider
 Require-Bundle: org.talend.core,
  org.talend.commons.ui,
  org.eclipse.core.runtime,

@@ -192,6 +192,9 @@ public class MetadataItemProvider extends AbstractMetadataObjectItemProvider imp
 
         newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.METADATA__CONNECTIONS,
                 ConnectionFactory.eINSTANCE.createHL7Connection()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.METADATA__CONNECTIONS,
+                ConnectionFactory.eINSTANCE.createHeaderFooterConnection()));
     }
 
 }

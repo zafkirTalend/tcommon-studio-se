@@ -66,6 +66,8 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
             addGuessPropertyDescriptor(object);
             addMaskXPatternPropertyDescriptor(object);
             addEncodingPropertyDescriptor(object);
+            addInputModelPropertyDescriptor(object);
+            addOutputFilePathPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -141,6 +143,34 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
     }
 
     /**
+     * This adds a property descriptor for the Input Model feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInputModelPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_inputModel_feature"), getString(
+                "_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_inputModel_feature", "_UI_XmlFileConnection_type"),
+                ConnectionPackage.Literals.XML_FILE_CONNECTION__INPUT_MODEL, true, false, false,
+                ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Output File Path feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOutputFilePathPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_XmlFileConnection_outputFilePath_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_XmlFileConnection_outputFilePath_feature",
+                        "_UI_XmlFileConnection_type"), ConnectionPackage.Literals.XML_FILE_CONNECTION__OUTPUT_FILE_PATH, true,
+                false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -153,6 +183,9 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
             childrenFeatures.add(ConnectionPackage.Literals.XML_FILE_CONNECTION__SCHEMA);
+            childrenFeatures.add(ConnectionPackage.Literals.XML_FILE_CONNECTION__GROUP);
+            childrenFeatures.add(ConnectionPackage.Literals.XML_FILE_CONNECTION__ROOT);
+            childrenFeatures.add(ConnectionPackage.Literals.XML_FILE_CONNECTION__LOOP);
         }
         return childrenFeatures;
     }
@@ -211,9 +244,14 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
         case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
         case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
         case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+        case ConnectionPackage.XML_FILE_CONNECTION__INPUT_MODEL:
+        case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
+        case ConnectionPackage.XML_FILE_CONNECTION__GROUP:
+        case ConnectionPackage.XML_FILE_CONNECTION__ROOT:
+        case ConnectionPackage.XML_FILE_CONNECTION__LOOP:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
             return;
         }
@@ -233,6 +271,15 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
 
         newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.XML_FILE_CONNECTION__SCHEMA,
                 ConnectionFactory.eINSTANCE.createXmlXPathLoopDescriptor()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.XML_FILE_CONNECTION__GROUP,
+                ConnectionFactory.eINSTANCE.createXMLFileNode()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.XML_FILE_CONNECTION__ROOT,
+                ConnectionFactory.eINSTANCE.createXMLFileNode()));
+
+        newChildDescriptors.add(createChildParameter(ConnectionPackage.Literals.XML_FILE_CONNECTION__LOOP,
+                ConnectionFactory.eINSTANCE.createXMLFileNode()));
     }
 
     /**
@@ -247,7 +294,10 @@ public class XmlFileConnectionItemProvider extends ConnectionItemProvider implem
         Object childObject = child;
 
         boolean qualify = childFeature == CorePackage.Literals.NAMESPACE__OWNED_ELEMENT
-                || childFeature == SoftwaredeploymentPackage.Literals.DATA_PROVIDER__RESOURCE_CONNECTION;
+                || childFeature == SoftwaredeploymentPackage.Literals.DATA_PROVIDER__RESOURCE_CONNECTION
+                || childFeature == ConnectionPackage.Literals.XML_FILE_CONNECTION__GROUP
+                || childFeature == ConnectionPackage.Literals.XML_FILE_CONNECTION__ROOT
+                || childFeature == ConnectionPackage.Literals.XML_FILE_CONNECTION__LOOP;
 
         if (qualify) {
             return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject), getFeatureText(childFeature),
