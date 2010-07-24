@@ -1,28 +1,19 @@
-/**
- * <copyright> </copyright>
- * 
- * $Id$
- */
 package org.talend.cwm.relational.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl;
-
+import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
+import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Td Column</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Td Column</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,9 +26,9 @@ import org.talend.cwm.relational.TdSqlDataType;
 public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
 
     /**
-     * The cached value of the '{@link #getSqlDataType() <em>Sql Data Type</em>}' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getSqlDataType() <em>Sql Data Type</em>}' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getSqlDataType()
      * @generated
      * @ordered
@@ -45,8 +36,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     protected TdSqlDataType sqlDataType;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected TdColumnImpl() {
@@ -54,8 +44,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -64,8 +53,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TdSqlDataType getSqlDataType() {
@@ -91,8 +79,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public TdSqlDataType basicGetSqlDataType() {
@@ -100,8 +87,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public NotificationChain basicSetSqlDataType(TdSqlDataType newSqlDataType, NotificationChain msgs) {
@@ -119,8 +105,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setSqlDataType(TdSqlDataType newSqlDataType) {
@@ -141,41 +126,38 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public void setContentType(String contentType) {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        TaggedValueHelper.setTaggedValue(this, TaggedValueHelper.DATA_CONTENT_TYPE_TAGGED_VAL, contentType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public String getContentType() {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        TaggedValue tv = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DATA_CONTENT_TYPE_TAGGED_VAL, this.getTaggedValue());
+        if (tv == null) {
+            return "";
+        }
+        return tv.getValue();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     public int getJavaType() {
-        // TODO: implement this method
-        // Ensure that you remove @generated or mark it @generated NOT
-        throw new UnsupportedOperationException();
+        return getSqlDataType().getJavaDataType();
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -188,8 +170,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -204,8 +185,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -219,8 +199,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -234,8 +213,7 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     @Override
@@ -247,4 +225,4 @@ public class TdColumnImpl extends MetadataColumnImpl implements TdColumn {
         return super.eIsSet(featureID);
     }
 
-} //TdColumnImpl
+} // TdColumnImpl
