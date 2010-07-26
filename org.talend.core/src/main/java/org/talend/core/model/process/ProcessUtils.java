@@ -285,13 +285,12 @@ public final class ProcessUtils {
                                 } else {
                                     List<IRepositoryViewObject> allVersion = factory.getAllVersion(repositoryProcessId);
                                     if (allVersion != null && !allVersion.isEmpty()) {
-                                        String lastVersion = VersionUtils.DEFAULT_VERSION;
                                         for (IRepositoryViewObject object : allVersion) {
-                                            if (VersionUtils.compareTo(object.getVersion(), lastVersion) >= 0) {
+                                            if (VersionUtils.compareTo(object.getVersion(), repositoryProcessVersion) == 0) {
                                                 foundObject = object;
+                                                break;
                                             }
                                         }
-
                                     }
                                 }
                                 if (foundObject != null) {
