@@ -67,5 +67,6 @@ Export-Package: org.talend.commons.exception,
  org.talend.commons.utils.threading,
  org.talend.commons.utils.workbench.gef,
  org.talend.commons.utils.workbench.preferences,
+ org.talend.core.ui.images,
  org.talend.expressionbuilder,
  org.talend.expressionbuilder.ui

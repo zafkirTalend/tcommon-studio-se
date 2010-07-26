@@ -5,7 +5,6 @@
  */
 package org.talend.designer.business.model.business.provider;
 
-import java.io.ByteArrayInputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,15 +16,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.ImageData;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.CorePlugin;
-import org.talend.core.model.properties.ByteArray;
-import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.JobletProcessItem;
-import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.ui.images.ECoreImage;
-import org.talend.designer.business.model.business.Joblet;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.Joblet} object. <!--
@@ -65,25 +56,25 @@ public class JobletItemProvider extends TalendItemItemProvider implements IEditi
      */
     public Object getImage(Object object) {
 
-        try {
-            IRepositoryViewObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
-                    ((Joblet) object).getId());
-            if (obj != null) {
-                Item item = obj.getProperty().getItem();
-                if (item instanceof JobletProcessItem) {
-                    JobletProcessItem jobletItem = (JobletProcessItem) item;
-                    ByteArray icon = jobletItem.getIcon();
-                    if (icon != null) {
-                        ByteArrayInputStream bis = new ByteArrayInputStream(icon.getInnerContent());
-                        ImageData imageData = new ImageData(bis);
-                        return ImageDescriptor.createFromImageData(imageData.scaledTo(16, 16));
-                    }
-
-                }
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
+        // try {
+        // IRepositoryViewObject obj = CorePlugin.getDefault().getProxyRepositoryFactory().getLastVersion(
+        // ((Joblet) object).getId());
+        // if (obj != null) {
+        // Item item = obj.getProperty().getItem();
+        // if (item instanceof JobletProcessItem) {
+        // JobletProcessItem jobletItem = (JobletProcessItem) item;
+        // ByteArray icon = jobletItem.getIcon();
+        // if (icon != null) {
+        // ByteArrayInputStream bis = new ByteArrayInputStream(icon.getInnerContent());
+        // ImageData imageData = new ImageData(bis);
+        // return ImageDescriptor.createFromImageData(imageData.scaledTo(16, 16));
+        // }
+        //
+        // }
+        // }
+        // } catch (Exception e) {
+        // ExceptionHandler.process(e);
+        // }
 
         return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.JOBLET_ICON.getPath()).createImage();
     }
