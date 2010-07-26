@@ -18,8 +18,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,6 +40,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -117,6 +120,7 @@ import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode.EProperties;
+import org.talend.repository.utils.FileCopyUtils;
 
 /**
  */
@@ -361,7 +365,7 @@ public class ImportItemUtil {
                         }
                     }
                 }
-                //deploy routines Jar
+                // deploy routines Jar
                 if (!getRoutineExtModulesMap().isEmpty()) {
                     Set<String> extRoutines = new HashSet<String>();
                     for (String id : getRoutineExtModulesMap().keySet()) {
@@ -491,7 +495,9 @@ public class ImportItemUtil {
                 if (!(obj instanceof PropertiesProjectResourceImpl)) {
                     if (obj instanceof XMIResourceImpl) {
                         num++;
-                        if (num > 1) {
+                        if (num > 2) {// The is no explanation for this value and what is this loop for to I increased
+                            // it to
+                            // 2 so that metadata migration for 4.1 works
                             try {
                                 throw new InvocationTargetException(new PersistenceException("The source file of "
                                         + itemRecord.getLabel() + " has error,Please check it!"));
@@ -612,7 +618,38 @@ public class ImportItemUtil {
                         }
                     }
                     if (lastVersion == null) {
+                        boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
+                        // import has not been developed to cope with migration in mind
+                        // so some model may not be able to load like the ConnectionItems
+                        // in that case items needs to be copied before migration
+                        // here we check that the loading of the item failed before calling the create method
+                        boolean isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
+                                && ((ConnectionItem) tmpItem).getConnection().getDataPackage().isEmpty()
+                                && !itemRecord.getMigrationTasksToApply().isEmpty();
                         repFactory.create(tmpItem, path, true);
+                        if (isConnectionEmptyBeforeMigration) {// copy the file before migration, this is bad because it
+                            // should not refer to Filesytem
+                            // but this is a quick hack and anyway the migration task only works on files
+                            // IPath itemPath = itemRecord.getPath().removeFileExtension().addFileExtension(
+                            // FileConstants.ITEM_EXTENSION);
+
+                            InputStream is = manager.getStream(itemRecord.getPath().removeFileExtension().addFileExtension(
+                                    FileConstants.ITEM_EXTENSION));
+                            try {
+                                URI relativePlateformDestUri = EcoreUtil.getURI(((ConnectionItem) tmpItem).getConnection());
+                                URL fileURL = FileLocator.toFileURL(new java.net.URL(
+                                        "platform:/resource" + relativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
+                                OutputStream os = new FileOutputStream(fileURL.getFile());
+                                try {
+                                    FileCopyUtils.copyStreams(is, os);
+                                } finally {
+                                    os.close();
+                                }
+                            } finally {
+                                is.close();
+                            }
+                        }
+
                         itemRecord.setImportPath(path.toPortableString());
                         itemRecord.setRepositoryType(itemType);
                         itemRecord.setItemId(itemRecord.getProperty().getId());
@@ -647,7 +684,6 @@ public class ImportItemUtil {
                 resource.unload();
             }
         }
-       
 
     }
 
