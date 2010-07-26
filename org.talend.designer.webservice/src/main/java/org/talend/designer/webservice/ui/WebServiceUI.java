@@ -1354,11 +1354,7 @@ public class WebServiceUI extends AbstractWebService {
                     } else if (currentPortName == null && allPortNames != null) {
                         currentPortName = allPortNames.get(0);
                         connection.setPortName(currentPortName.getPortName());
-                    } else {
-                        connection.setPortName("");
                     }
-
-                    listTable.setSelection(listTable.getItem(0));
                     if (currentFunction != null) {
                         if (currentFunction.getName() != null) {
                             connection.setMethodName(currentFunction.getName());
