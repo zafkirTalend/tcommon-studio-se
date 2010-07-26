@@ -624,7 +624,7 @@ public class ImportItemUtil {
                         // in that case items needs to be copied before migration
                         // here we check that the loading of the item failed before calling the create method
                         boolean isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
-                                && ((ConnectionItem) tmpItem).getConnection().getDataPackage().isEmpty()
+                                && ((ConnectionItem) tmpItem).getConnection().eResource() == null
                                 && !itemRecord.getMigrationTasksToApply().isEmpty();
                         repFactory.create(tmpItem, path, true);
                         if (isConnectionEmptyBeforeMigration) {// copy the file before migration, this is bad because it
