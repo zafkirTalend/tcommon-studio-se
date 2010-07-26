@@ -4240,7 +4240,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getHL7Connection_EndChar(), ecorePackage.getEString(), "EndChar", null, 0, 1, HL7Connection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getHL7Connection_Root(), this.getHL7FileNode(), null, "root", null, 0, -1, HL7Connection.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, !IS_ORDERED);
 
         initEClass(headerFooterConnectionEClass, HeaderFooterConnection.class, "HeaderFooterConnection", !IS_ABSTRACT,

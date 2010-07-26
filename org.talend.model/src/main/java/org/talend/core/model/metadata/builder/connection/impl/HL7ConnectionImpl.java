@@ -8,11 +8,15 @@ package org.talend.core.model.metadata.builder.connection.impl;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
@@ -76,7 +80,7 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
     protected String endChar = END_CHAR_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getRoot() <em>Root</em>}' reference list.
+     * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getRoot()
@@ -154,9 +158,24 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
      */
     public EList<HL7FileNode> getRoot() {
         if (root == null) {
-            root = new EObjectResolvingEList<HL7FileNode>(HL7FileNode.class, this, ConnectionPackage.HL7_CONNECTION__ROOT);
+            root = new EObjectContainmentEList.Resolving<HL7FileNode>(HL7FileNode.class, this,
+                    ConnectionPackage.HL7_CONNECTION__ROOT);
         }
         return root;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+        case ConnectionPackage.HL7_CONNECTION__ROOT:
+            return ((InternalEList<?>) getRoot()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**

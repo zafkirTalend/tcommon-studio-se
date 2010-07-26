@@ -80,7 +80,7 @@ public interface HL7Connection extends FileConnection {
     void setEndChar(String value);
 
     /**
-     * Returns the value of the '<em><b>Root</b></em>' reference list.
+     * Returns the value of the '<em><b>Root</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.HL7FileNode}.
      * <!-- begin-user-doc -->
      * <p>
@@ -88,9 +88,9 @@ public interface HL7Connection extends FileConnection {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Root</em>' reference list.
+     * @return the value of the '<em>Root</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getHL7Connection_Root()
-     * @model ordered="false"
+     * @model containment="true" resolveProxies="true" ordered="false"
      * @generated
      */
     EList<HL7FileNode> getRoot();
