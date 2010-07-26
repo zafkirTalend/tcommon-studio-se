@@ -244,9 +244,6 @@ public class WebServiceDialog extends Dialog implements WebServiceEventListener 
             currePortName = allPortNames.get(0);
             IElementParameter Port_Name = wenCom.getElementParameter("PORT_NAME");
             Port_Name.setValue(currePortName.getPortName());
-        } else {
-            IElementParameter Port_Name = wenCom.getElementParameter("PORT_NAME");
-            Port_Name.setValue("");
         }
 
         if (function != null) {

@@ -223,6 +223,8 @@ public class WebServiceUI extends AbstractWebService {
 
     private List<OutPutMappingData> outPutcolumnList = new ArrayList<OutPutMappingData>();
 
+    private List<OutPutMappingData> outputColumnCompareList = new ArrayList<OutPutMappingData>();
+
     private String URLValue;
 
     private InputMappingData currentInputMappingData;
@@ -752,13 +754,6 @@ public class WebServiceUI extends AbstractWebService {
                 }
                 data.setParameterName(exp);
                 // org.talend.core.model.metadata.MetadataColumn
-                if (outPutcolumnList.isEmpty()) {
-                    String columnName = map.get("COLUMN");
-                    org.talend.core.model.metadata.MetadataColumn column = new org.talend.core.model.metadata.MetadataColumn();
-                    column.setLabel(columnName);
-                    data.setMetadataColumn(column);
-                    data.setOutputColumnValue(columnName);
-                }
                 // Set<String> expList = webParser.parseOutTableEntryLocations(exp);
                 for (OutPutMappingData outMappingData : outParaList) {
                     ParameterInfo outInfo = outMappingData.getParameter();
@@ -777,12 +772,18 @@ public class WebServiceUI extends AbstractWebService {
                     // }
                 }
 
-                if (data != null && data.getParameterName() != null) {
-                    list.add(data);
-                }
-
             }
-
+            if (map.get("COLUMN") != null && map.get("COLUMN") instanceof String) {
+                String columnName = map.get("COLUMN");
+                org.talend.core.model.metadata.MetadataColumn column = new org.talend.core.model.metadata.MetadataColumn();
+                column.setLabel(columnName);
+                data.setMetadataColumn(column);
+                data.setOutputColumnValue(columnName);
+                outputColumnCompareList.add(data);
+            }
+            if (data != null && data.getParameterName() != null) {
+                list.add(data);
+            }
         }
         for (int i = 0; i < list.size(); i++) {
             OutPutMappingData outData = list.get(i);
@@ -2738,6 +2739,21 @@ public class WebServiceUI extends AbstractWebService {
                                 }
 
                             }
+                            for (int i = 0; i < outputColumnCompareList.size(); i++) {
+                                OutPutMappingData outcol = outputColumnCompareList.get(i);
+                                IMetadataColumn oldCol = outcol.getMetadataColumn();
+                                if (isDelete(oldCol, outNewColumn)) {
+                                    for (int j = 0; j < schemaMetadataColumn.size(); j++) {
+                                        MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
+                                        if (mcolumn.getLabel().equals(oldCol.getLabel())) {
+                                            System.out.println(oldCol.getLabel());
+                                            schemaMetadataColumn.remove(mcolumn);
+                                            j--;
+                                        }
+                                    }
+                                }
+                                // i--;
+                            }
                         }
                         temOutputMetadata = outputMetaCopy.clone();
                         expressoutPutTableView.getTableViewerCreator().getTableViewer().refresh();
@@ -3216,11 +3232,9 @@ public class WebServiceUI extends AbstractWebService {
             }
             if (currentPortName != null) {
                 connection.setPortName(currentPortName.getPortName());
-            } else if (currentPortName == null && allPortNames != null) {
+            } else if (currentPortName == null && !allPortNames.isEmpty()) {
                 currentPortName = allPortNames.get(0);
                 connection.setPortName(currentPortName.getPortName());
-            } else {
-                connection.setPortName("");
             }
         }
         EList inputValue = connection.getParameterValue();
