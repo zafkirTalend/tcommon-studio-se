@@ -1,9 +1,11 @@
 import i18n.Messages;
 
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
+import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
@@ -16,7 +18,7 @@ import org.junit.runner.RunWith;
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class Test01 {
 
-    private static SWTWorkbenchBot bot;
+    private static SWTGefBot bot;
 
     private static SWTBotShell shell;
 
@@ -24,13 +26,33 @@ public class Test01 {
 
     private static SWTBotTree tree;
 
+    private static SWTBotEditor botEditor;
+
+    private static SWTBotGefEditor gefEditor;
+
+    private static String JOBNAME = "test01";
+
+    private static String DBTYPE = "mysql";
+
+    private static String DBNAME = "test_mssql";
+
+    private static String DBLOGIN = "root";
+
+    private static String DBPASSWORD = "123456";
+
+    private static String DBSERVER = "localhost";
+
+    private static String DB = "mytest";
+
+    private static String VERSION = "0.1";
+
     @BeforeClass
     public static void before() {
         /**
          * Initialization
          */
 
-        bot = new SWTWorkbenchBot();
+        bot = new SWTGefBot();
 
         bot.waitUntil(Conditions.shellIsActive(Messages.getString("CodeGeneratorEmittersPoolFactory.initMessage")));
 
@@ -67,11 +89,11 @@ public class Test01 {
         shell = bot.shell(Messages.getString("NewProcessWizard.title"));
         shell.activate();
 
-        bot.textWithLabel(Messages.getString("PropertiesWizardPage.Name")).setText("test01");
+        bot.textWithLabel(Messages.getString("PropertiesWizardPage.Name")).setText(JOBNAME);
 
         bot.button("Finish").click();
 
-        bot.cTabItem(Messages.getString("MultiPageTalendEditor.Job", "test01", "0.1")).close();
+        bot.cTabItem(Messages.getString("MultiPageTalendEditor.Job", JOBNAME, VERSION)).close();
     }
 
     @Test
@@ -81,7 +103,7 @@ public class Test01 {
          * Copy job ----------------------------------------------------
          */
 
-        tree.expandNode(Messages.getString("repository.process")).getNode("test01 0.1").contextMenu(
+        tree.expandNode(Messages.getString("repository.process")).getNode(JOBNAME + " " + VERSION).contextMenu(
                 Messages.getString("CopyAction.thisText.copy")).click();
 
         /**
@@ -95,10 +117,10 @@ public class Test01 {
          * Delete job ----------------------------------------------------
          */
 
-        tree.expandNode(Messages.getString("repository.process")).getNode("test01 0.1").contextMenu(
+        tree.expandNode(Messages.getString("repository.process")).getNode(JOBNAME + " " + VERSION).contextMenu(
                 Messages.getString("DeleteAction.action.logicalTitle")).click();
 
-        tree.expandNode(Messages.getString("repository.recyclebin")).getNode("test01 0.1 ()").contextMenu(
+        tree.expandNode(Messages.getString("repository.recyclebin")).getNode(JOBNAME + " " + VERSION + " ()").contextMenu(
                 Messages.getString("DeleteAction.action.foreverTitle")).click();
 
         shell = bot.shell(Messages.getString("DeleteAction.action.foreverTitle"));
@@ -122,39 +144,37 @@ public class Test01 {
         bot.button("OK").click();
         bot.shell(Messages.getString("DatabaseWizard.windowTitle")).activate();
 
-        bot.textWithLabel(Messages.getString("PropertiesWizardPage.Name")).setText("test_mssql");
+        bot.textWithLabel(Messages.getString("PropertiesWizardPage.Name")).setText(DBNAME);
 
         bot.button("Next >").click();
 
-        // bot.comboBoxWithLabel(Messages.getString("MetadataTableEditorView.DBTypeTitle")).setSelection("MySQL");
-        // bot.comboBoxWithLabel("必须选择 DB 类型").setSelection("MySQL");
-        bot.comboBox(0).setSelection("MySQL");
+        bot.comboBox(0).setSelection(DBTYPE);
 
-        bot.textWithLabel(Messages.getString("DatabaseForm.login")).setText("root");
+        bot.textWithLabel(Messages.getString("DatabaseForm.login")).setText(DBLOGIN);
 
-        bot.textWithLabel(Messages.getString("DatabaseForm.password")).setText("123456");
+        bot.textWithLabel(Messages.getString("DatabaseForm.password")).setText(DBPASSWORD);
 
-        bot.textWithLabel(Messages.getString("DatabaseForm.server")).setText("localhost");
+        bot.textWithLabel(Messages.getString("DatabaseForm.server")).setText(DBSERVER);
 
-        bot.textWithLabel("DataBase").setText("mytest");
+        bot.textWithLabel("DataBase").setText(DB);
 
         bot.button(Messages.getString("DatabaseForm.check")).click();
-        bot.waitUntil(Conditions.shellIsActive(Messages.getString("DatabaseForm.checkConnectionTitle")));
 
-        if (bot.activeShell().getText().equals(Messages.getString("DatabaseForm.checkConnectionTitle"))) {
-            bot.button("OK").click();
-        }
+        bot.waitUntil(Conditions.shellIsActive(Messages.getString("DatabaseForm.checkConnectionTitle")));
+        shell = bot.shell(Messages.getString("DatabaseForm.checkConnectionTitle"));
+        shell.activate();
+        bot.button("OK").click();
+        bot.waitUntil(Conditions.shellCloses(shell));
 
         bot.button("Finish").click();
 
         tree.expandNode(Messages.getString("repository.metadata")).expandNode(
-                Messages.getString("repository.metadataConnections")).expandNode("test_mssql 0.1");
+                Messages.getString("repository.metadataConnections")).expandNode(DBNAME + " " + VERSION);
     }
 
     @Test
     public void OpenJob() {
-        tree.expandNode(Messages.getString("repository.process")).getNode("Copy_of_test01 0.1").doubleClick();
-
+        tree.expandNode(Messages.getString("repository.process")).getNode("Copy_of_" + JOBNAME + " " + VERSION).doubleClick();
     }
 
     @AfterClass
