@@ -32,6 +32,7 @@ import orgomg.cwm.foundation.softwaredeployment.DataManager;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
 import orgomg.cwm.objectmodel.core.Package;
+import orgomg.cwm.objectmodel.core.StructuralFeature;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.ColumnSet;
 import orgomg.cwm.resource.relational.ForeignKey;
@@ -116,10 +117,28 @@ public final class TableHelper extends SubItemHelper {
      * @param table
      * @param pk the primary key of the table
      */
-    public static boolean addPrimaryKey(Table table, PrimaryKey pk) {
+    public static PrimaryKey addPrimaryKey(TdTable table, PrimaryKey pk) {
         assert table != null;
         assert pk != null;
-        return table.getOwnedElement().add(pk);
+        PrimaryKey primaryKey = getPrimaryKey(table);
+        // PrimaryKey thePrimaryKey = getPrimaryKey(table);
+        // MOD zshen for bug 12842
+        String newPrimaryKeyName = pk.getName();
+        if (primaryKey != null) {
+            if (primaryKey.getName().equals(newPrimaryKeyName))
+                primaryKey.getFeature().addAll(pk.getFeature());
+            StructuralFeature[] structuralFeaturethe = primaryKey.getFeature().toArray(
+                    new StructuralFeature[primaryKey.getFeature().size()]);
+            for (StructuralFeature primaryKeyColumn : structuralFeaturethe) {
+                TdColumn theColumn = (TdColumn) (primaryKeyColumn);
+                theColumn.getUniqueKey().clear();
+                theColumn.getUniqueKey().add(primaryKey);
+            }
+            return primaryKey;
+
+        }
+        table.getOwnedElement().add(pk);
+        return pk;
     }
 
     /**
@@ -179,10 +198,13 @@ public final class TableHelper extends SubItemHelper {
      * @param primaryKeys the primary keys of the table.
      * @deprecated caus there can only be one PrimaryKey and only on tables, so use addPrimaryKey instead
      */
-    public static boolean addPrimaryKeys(ColumnSet table, List<PrimaryKey> primaryKeys) {
+    public static void addPrimaryKeys(ColumnSet table, List<PrimaryKey> primaryKeys) {
         assert table != null;
         assert primaryKeys != null;
-        return table.getOwnedElement().addAll(primaryKeys);
+        for (PrimaryKey primaryKey : primaryKeys) {
+            addPrimaryKey((TdTable) table, primaryKey);
+        }
+
     }
 
     /**
@@ -191,10 +213,26 @@ public final class TableHelper extends SubItemHelper {
      * @param table
      * @param foreignKey the foreign key of the given table
      */
-    public static boolean addForeignKey(TdTable table, ForeignKey foreignKey) {
+    public static ForeignKey addForeignKey(TdTable table, ForeignKey foreignKey) {
         assert table != null;
         assert foreignKey != null;
-        return table.getOwnedElement().add(foreignKey);
+        List<ForeignKey> foreignKeyList = getForeignKeys(table);
+        String newForeignKeyName = foreignKey.getName();
+        for (ForeignKey theForeignKey : foreignKeyList) {
+            if (theForeignKey.getName().equals(newForeignKeyName)) {
+                theForeignKey.getFeature().addAll(foreignKey.getFeature());
+                StructuralFeature[] structuralFeaturethe = theForeignKey.getFeature().toArray(
+                        new StructuralFeature[theForeignKey.getFeature().size()]);
+                for (StructuralFeature foreignKeyColumn : structuralFeaturethe) {
+                    TdColumn theColumn = (TdColumn) (foreignKeyColumn);
+                    theColumn.getKeyRelationship().remove(foreignKey);
+                    theColumn.getKeyRelationship().add(theForeignKey);
+                }
+                return theForeignKey;
+            }
+        }
+        table.getOwnedElement().add(foreignKey);
+        return foreignKey;
     }
 
     /**
@@ -204,10 +242,13 @@ public final class TableHelper extends SubItemHelper {
      * @param foreignKeys the foreign keys of this table
      * @deprecated cause only working on TdTable and not on ColumnSet use addForeignKeys(Table, List<ForeignKey>)
      */
-    public static boolean addForeignKeys(ColumnSet table, List<ForeignKey> foreignKeys) {
+    public static void addForeignKeys(ColumnSet table, List<ForeignKey> foreignKeys) {
         assert table != null;
         assert foreignKeys != null;
-        return table.getOwnedElement().addAll(foreignKeys);
+        for (ForeignKey foreignKey : foreignKeys) {
+            addForeignKey((TdTable) table, foreignKey);
+        }
+
     }
 
     /**

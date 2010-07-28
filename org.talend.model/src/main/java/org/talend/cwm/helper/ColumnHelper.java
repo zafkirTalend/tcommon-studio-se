@@ -15,6 +15,7 @@ package org.talend.cwm.helper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -298,7 +299,7 @@ public final class ColumnHelper {
      */
     public static boolean isForeignKey(TdColumn column) {
         assert column != null;
-        return getForeignKey(column) != null;
+        return getForeignKey(column) != null && getForeignKey(column).size() > 0;
     }
 
     /**
@@ -308,18 +309,19 @@ public final class ColumnHelper {
      * @param column
      * @return
      */
-    public static ForeignKey getForeignKey(TdColumn column) {
+    public static Set<ForeignKey> getForeignKey(TdColumn column) {
         assert column != null;
         EList<KeyRelationship> foreignKeys = column.getKeyRelationship();
+        Set<ForeignKey> foreignKeySet = new HashSet<ForeignKey>();
         for (KeyRelationship foreignKey : foreignKeys) {
             if (foreignKey != null) {
                 ForeignKey fk = SwitchHelpers.FOREIGN_KEY_SWITCH.doSwitch(foreignKey);
                 if (fk != null) {
-                    return fk;
+                    foreignKeySet.add(fk);
                 }
             }
         }
-        return null;
+        return foreignKeySet;
     }
 
     /**
@@ -328,12 +330,15 @@ public final class ColumnHelper {
      * @param column
      * @return the removed Foreign key or null
      */
-    public static ForeignKey removeForeignKey(TdColumn column) {
+    public static Set<ForeignKey> removeForeignKey(TdColumn column) {
         assert column != null;
-        ForeignKey foreignKey = getForeignKey(column);
-        if (foreignKey != null) {
-            column.getKeyRelationship().remove(foreignKey);
-            return foreignKey;
+        Set<ForeignKey> foreignKeySet = getForeignKey(column);
+        if (foreignKeySet != null) {
+            for (ForeignKey foreignKey : foreignKeySet) {
+                column.getKeyRelationship().remove(foreignKey);
+            }
+            return foreignKeySet;
+
         }
         // else
         return null;
@@ -496,13 +501,17 @@ public final class ColumnHelper {
         TdTable table = getColumnOwnerAsTdTable(column);
         assert table != null;
         if (isForeignKey(column)) {
-            ForeignKey foreignKey = getForeignKey(column);
-            removeKeyFromColumn(foreignKey, column);
-            // check if key was only related to this column
-            List<TdColumn> primaryKeyColumns = KeyHelper.getKeyRelatedColumns(foreignKey);
-            if (primaryKeyColumns.size() == 0) {
-                TableHelper.removeTableKey(table, foreignKey);
-            } // else key is linked to other columns so do nothing
+            Set<ForeignKey> foreignKeySet = getForeignKey(column);
+            Iterator<ForeignKey> iter = foreignKeySet.iterator();
+            while (iter.hasNext()) {
+                ForeignKey foreignKey = iter.next();
+                removeKeyFromColumn(foreignKey, column);
+                // check if key was only related to this column
+                List<TdColumn> primaryKeyColumns = KeyHelper.getKeyRelatedColumns(foreignKey);
+                if (primaryKeyColumns.size() == 0) {
+                    TableHelper.removeTableKey(table, foreignKey);
+                } // else key is linked to other columns so do nothing
+            }
         } // else nothing to remove caus column is not a primaryKey
     }
 

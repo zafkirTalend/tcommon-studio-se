@@ -31,6 +31,7 @@ import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
+import orgomg.cwm.resource.relational.ForeignKey;
 import orgomg.cwm.resource.relational.QueryColumnSet;
 import orgomg.cwm.resource.relational.Schema;
 import orgomg.cwm.resource.relational.Table;
@@ -73,7 +74,14 @@ public final class ColumnSetHelper {
 
         // remove foreign key if it exists
         if (ColumnHelper.isForeignKey(column)) {
-            ColumnHelper.removeColumnFromTableForeignKey(column);
+            Set<ForeignKey> foreignKeySet = ColumnHelper.removeForeignKey(column);
+            if (foreignKeySet != null) {
+                for (ForeignKey foreignKey : foreignKeySet) {
+                    if (foreignKey != null && foreignKey.getFeature().size() <= 0) {
+                        TableHelper.removeForeignKey((Table) columnSet, foreignKey);
+                    }
+                }
+            }
         }
         columnSet.getFeature().remove(column);
     }
