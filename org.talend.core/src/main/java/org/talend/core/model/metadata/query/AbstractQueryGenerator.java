@@ -41,9 +41,9 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
 
     private IMetadataTable metadataTable;
 
-    private String schema;
+    protected String schema;
 
-    private String realTableName;
+    protected String realTableName;
 
     protected final boolean originalSqlQuoteSetting;
 
@@ -387,9 +387,17 @@ public abstract class AbstractQueryGenerator implements IQueryGenerator {
 
     protected String generateQueryDelegate() {
         if (getMetadataTable() != null && !getMetadataTable().getListColumns().isEmpty()) {
-            final String dbName = getDBName(getElement());
-            final String tableName = getDBTableName(getElement());
-            final String schemaName = getSchema(getElement());
+            String dbName = null;
+            String tableName = null;
+            String schemaName = null;
+            if (getElement() != null) {
+                dbName = getDBName(getElement());
+                tableName = getDBTableName(getElement());
+                schemaName = getSchema(getElement());
+            } else {
+                tableName = realTableName;
+                schemaName = schema;
+            }
             final String tableNameWithDBAndSchema = getTableNameWithDBAndSchema(dbName, schemaName, tableName);
 
             StringBuffer sql = new StringBuffer(100);
