@@ -907,9 +907,6 @@ class ExportItemWizardPage extends WizardPage {
             ExportItemUtil exportItemUtil = new ExportItemUtil();
             // MOD sgandon 31/03/2010 bug 12229: moved getAllVersion into ExportItemUtil.exportitems() method.
             exportItemUtil.exportItems(new File(lastPath), selectedItems, true, new NullProgressMonitor());
-            if (exportItemUtil.getExporter() != null) {
-                exportItemUtil.getExporter().finished();
-            }
 
         } catch (Exception e) {
             MessageBoxExceptionHandler.process(e);
