@@ -10,11 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -22,10 +19,8 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.talend.core.model.metadata.builder.connection.provider.MetadataColumnItemProvider;
 import org.talend.core.model.metadata.builder.connection.provider.MetadataEditPlugin;
-
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdColumn;
@@ -106,16 +101,16 @@ public class TdColumnItemProvider extends MetadataColumnItemProvider implements 
     }
 
     /**
-     * This returns the label text for the adapted class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
+     * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated NOT
      */
     @Override
     public String getText(Object object) {
-        String label = ((TdColumn) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_TdColumn_type") : getString("_UI_TdColumn_type") + " "
-                + label;
+        TdColumn tdColumn = ((TdColumn) object);
+        String label = tdColumn.getName();
+        return label == null || label.length() == 0 ? getString("_UI_TdColumn_type") : getString("_UI_TdColumn_type") + label
+                + " (" + tdColumn.getSqlDataType().getName() + ")";
     }
 
     /**
