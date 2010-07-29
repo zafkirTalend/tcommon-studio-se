@@ -43,6 +43,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.update.UpdateResult;
 import org.talend.core.utils.CsvArray;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.runprocess.ProcessorException;
 
 /**
@@ -166,4 +167,5 @@ public interface IDesignerCoreService extends IService {
 
     public void addProblems(Problem problem);
 
+    public void reloadParamFromProjectSettings(ParametersType processType, String paramName);
 }

@@ -601,22 +601,57 @@ public class ImportItemUtil {
                         hasJoblets = true;
                     }
 
-                    // for commanline import project setting
-                    if (itemRecord.isRemoveProjectStatslog() && tmpItem instanceof ProcessItem) {
+                    if (tmpItem instanceof ProcessItem) {
                         ProcessItem processItem = (ProcessItem) tmpItem;
                         ParametersType paType = processItem.getProcess().getParameters();
-                        if (paType != null) {
-                            String paramName = "STATANDLOG_USE_PROJECT_SETTINGS";
-                            EList listParamType = paType.getElementParameter();
-                            for (int j = 0; j < listParamType.size(); j++) {
-                                ElementParameterType pType = (ElementParameterType) listParamType.get(j);
-                                if (pType != null && paramName.equals(pType.getName())) {
-                                    pType.setValue(Boolean.FALSE.toString());
+                        boolean statsPSettingRemoved = false;
+
+                        // for commanline import project setting
+                        if (itemRecord.isRemoveProjectStatslog()) {
+                            if (paType != null) {
+                                String paramName = "STATANDLOG_USE_PROJECT_SETTINGS";
+                                EList listParamType = paType.getElementParameter();
+                                for (int j = 0; j < listParamType.size(); j++) {
+                                    ElementParameterType pType = (ElementParameterType) listParamType.get(j);
+                                    if (pType != null && paramName.equals(pType.getName())) {
+                                        pType.setValue(Boolean.FALSE.toString());
+                                        statsPSettingRemoved = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // 14446: item apply project setting param if use project setting
+                        String statslogUsePSetting = null;
+                        String implicitUsePSetting = null;
+                        EList listParamType = paType.getElementParameter();
+                        for (int j = 0; j < listParamType.size(); j++) {
+                            ElementParameterType pType = (ElementParameterType) listParamType.get(j);
+                            if (pType != null) {
+                                if (!statsPSettingRemoved && "STATANDLOG_USE_PROJECT_SETTINGS".equals(pType.getName())) {
+                                    statslogUsePSetting = pType.getValue();
+                                }
+                                if ("IMPLICITCONTEXT_USE_PROJECT_SETTINGS".equals(pType.getName())) {
+                                    implicitUsePSetting = pType.getValue();
+                                }
+                                if (statsPSettingRemoved && implicitUsePSetting != null || !statsPSettingRemoved
+                                        && implicitUsePSetting != null && statslogUsePSetting != null) {
                                     break;
                                 }
                             }
                         }
+                        if (statslogUsePSetting != null && Boolean.parseBoolean(statslogUsePSetting)) {
+                            CorePlugin.getDefault().getDesignerCoreService().reloadParamFromProjectSettings(paType,
+                                    "STATANDLOG_USE_PROJECT_SETTINGS");
+                        }
+                        if (implicitUsePSetting != null && Boolean.parseBoolean(implicitUsePSetting)) {
+                            CorePlugin.getDefault().getDesignerCoreService().reloadParamFromProjectSettings(paType,
+                                    "IMPLICITCONTEXT_USE_PROJECT_SETTINGS");
+                        }
+
                     }
+
                     if (lastVersion == null) {
                         boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
                         // import has not been developed to cope with migration in mind
