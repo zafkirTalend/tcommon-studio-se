@@ -3701,13 +3701,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_PLAN_PART_JOB_PRM__NAME = 3;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * The feature id for the '<em><b>Custom Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_PART_JOB_PRM__VALUE = 4;
+    int EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE = 4;
+
+    /**
+     * The feature id for the '<em><b>Part Custom Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE = 5;
 
     /**
      * The number of structural features of the '<em>Execution Plan Part Job Prm</em>' class.
@@ -3716,7 +3725,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_PLAN_PART_JOB_PRM_FEATURE_COUNT = 5;
+    int EXECUTION_PLAN_PART_JOB_PRM_FEATURE_COUNT = 6;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -11949,15 +11958,26 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionPlanPartJobPrm_Name();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue <em>Value</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getCustomValue <em>Custom Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Value</em>'.
-     * @see org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue()
+     * @return the meta object for the attribute '<em>Custom Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPartJobPrm#getCustomValue()
      * @see #getExecutionPlanPartJobPrm()
      * @generated
      */
-    EAttribute getExecutionPlanPartJobPrm_Value();
+    EAttribute getExecutionPlanPartJobPrm_CustomValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getPartCustomValue <em>Part Custom Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Part Custom Value</em>'.
+     * @see org.talend.core.model.properties.ExecutionPlanPartJobPrm#getPartCustomValue()
+     * @see #getExecutionPlanPartJobPrm()
+     * @generated
+     */
+    EAttribute getExecutionPlanPartJobPrm_PartCustomValue();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.LinkRulesItem#getExtension <em>Extension</em>}'.
@@ -16377,12 +16397,20 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_PLAN_PART_JOB_PRM__NAME = eINSTANCE.getExecutionPlanPartJobPrm_Name();
 
         /**
-         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Custom Value</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_PLAN_PART_JOB_PRM__VALUE = eINSTANCE.getExecutionPlanPartJobPrm_Value();
+        EAttribute EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE = eINSTANCE.getExecutionPlanPartJobPrm_CustomValue();
+
+        /**
+         * The meta object literal for the '<em><b>Part Custom Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE = eINSTANCE.getExecutionPlanPartJobPrm_PartCustomValue();
 
         /**
          * The meta object literal for the '<em><b>Extension</b></em>' attribute feature.

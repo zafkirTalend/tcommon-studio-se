@@ -29,7 +29,8 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getExecutionPlanPart <em>Execution Plan Part</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#isOverride <em>Override</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getCustomValue <em>Custom Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionPlanPartJobPrmImpl#getPartCustomValue <em>Part Custom Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,24 +108,44 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+     * The default value of the '{@link #getCustomValue() <em>Custom Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getValue()
+     * @see #getCustomValue()
      * @generated
      * @ordered
      */
-    protected static final String VALUE_EDEFAULT = null;
+    protected static final String CUSTOM_VALUE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+     * The cached value of the '{@link #getCustomValue() <em>Custom Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getValue()
+     * @see #getCustomValue()
      * @generated
      * @ordered
      */
-    protected String value = VALUE_EDEFAULT;
+    protected String customValue = CUSTOM_VALUE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getPartCustomValue() <em>Part Custom Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPartCustomValue()
+     * @generated
+     * @ordered
+     */
+    protected static final String PART_CUSTOM_VALUE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getPartCustomValue() <em>Part Custom Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPartCustomValue()
+     * @generated
+     * @ordered
+     */
+    protected String partCustomValue = PART_CUSTOM_VALUE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -250,8 +271,8 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getValue() {
-        return value;
+    public String getCustomValue() {
+        return customValue;
     }
 
     /**
@@ -259,11 +280,32 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setValue(String newValue) {
-        String oldValue = value;
-        value = newValue;
+    public void setCustomValue(String newCustomValue) {
+        String oldCustomValue = customValue;
+        customValue = newCustomValue;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE, oldValue, value));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE, oldCustomValue, customValue));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getPartCustomValue() {
+        return partCustomValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPartCustomValue(String newPartCustomValue) {
+        String oldPartCustomValue = partCustomValue;
+        partCustomValue = newPartCustomValue;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE, oldPartCustomValue, partCustomValue));
     }
 
     /**
@@ -282,8 +324,10 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return isOverride() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 return getName();
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
-                return getValue();
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE:
+                return getCustomValue();
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
+                return getPartCustomValue();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -307,8 +351,11 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 setName((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
-                setValue((String)newValue);
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE:
+                setCustomValue((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
+                setPartCustomValue((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -333,8 +380,11 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
-                setValue(VALUE_EDEFAULT);
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE:
+                setCustomValue(CUSTOM_VALUE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
+                setPartCustomValue(PART_CUSTOM_VALUE_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -355,8 +405,10 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
                 return override != OVERRIDE_EDEFAULT;
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
-                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE:
+                return CUSTOM_VALUE_EDEFAULT == null ? customValue != null : !CUSTOM_VALUE_EDEFAULT.equals(customValue);
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
+                return PART_CUSTOM_VALUE_EDEFAULT == null ? partCustomValue != null : !PART_CUSTOM_VALUE_EDEFAULT.equals(partCustomValue);
         }
         return super.eIsSet(featureID);
     }
@@ -376,8 +428,10 @@ public class ExecutionPlanPartJobPrmImpl extends EObjectImpl implements Executio
         result.append(override);
         result.append(", name: ");
         result.append(name);
-        result.append(", value: ");
-        result.append(value);
+        result.append(", customValue: ");
+        result.append(customValue);
+        result.append(", partCustomValue: ");
+        result.append(partCustomValue);
         result.append(')');
         return result.toString();
     }

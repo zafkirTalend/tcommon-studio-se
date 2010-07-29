@@ -20,7 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getExecutionPlanPart <em>Execution Plan Part</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#isOverride <em>Override</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getName <em>Name</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getCustomValue <em>Custom Value</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getPartCustomValue <em>Part Custom Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -134,29 +135,55 @@ public interface ExecutionPlanPartJobPrm extends EObject {
     void setName(String value);
 
     /**
-     * Returns the value of the '<em><b>Value</b></em>' attribute.
+     * Returns the value of the '<em><b>Custom Value</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Value</em>' attribute isn't clear,
+     * If the meaning of the '<em>Custom Value</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Value</em>' attribute.
-     * @see #setValue(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_Value()
+     * @return the value of the '<em>Custom Value</em>' attribute.
+     * @see #setCustomValue(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_CustomValue()
      * @model
      * @generated
      */
-    String getValue();
+    String getCustomValue();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getValue <em>Value</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getCustomValue <em>Custom Value</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Value</em>' attribute.
-     * @see #getValue()
+     * @param value the new value of the '<em>Custom Value</em>' attribute.
+     * @see #getCustomValue()
      * @generated
      */
-    void setValue(String value);
+    void setCustomValue(String value);
+
+    /**
+     * Returns the value of the '<em><b>Part Custom Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Part Custom Value</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Part Custom Value</em>' attribute.
+     * @see #setPartCustomValue(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionPlanPartJobPrm_PartCustomValue()
+     * @model
+     * @generated
+     */
+    String getPartCustomValue();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionPlanPartJobPrm#getPartCustomValue <em>Part Custom Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Part Custom Value</em>' attribute.
+     * @see #getPartCustomValue()
+     * @generated
+     */
+    void setPartCustomValue(String value);
 
 } // ExecutionPlanPartJobPrm

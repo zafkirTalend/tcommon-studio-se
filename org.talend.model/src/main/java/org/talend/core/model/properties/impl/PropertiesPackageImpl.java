@@ -4244,11 +4244,21 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getExecutionPlanPartJobPrm_Value() {
+    public EAttribute getExecutionPlanPartJobPrm_CustomValue() {
         return (EAttribute)executionPlanPartJobPrmEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionPlanPartJobPrm_PartCustomValue() {
+        return (EAttribute)executionPlanPartJobPrmEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -5238,7 +5248,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(executionPlanPartJobPrmEClass, EXECUTION_PLAN_PART_JOB_PRM__EXECUTION_PLAN_PART);
         createEAttribute(executionPlanPartJobPrmEClass, EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE);
         createEAttribute(executionPlanPartJobPrmEClass, EXECUTION_PLAN_PART_JOB_PRM__NAME);
-        createEAttribute(executionPlanPartJobPrmEClass, EXECUTION_PLAN_PART_JOB_PRM__VALUE);
+        createEAttribute(executionPlanPartJobPrmEClass, EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE);
+        createEAttribute(executionPlanPartJobPrmEClass, EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE);
 
         executionTaskEClass = createEClass(EXECUTION_TASK);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__LABEL);
@@ -5934,7 +5945,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getExecutionPlanPartJobPrm_ExecutionPlanPart(), this.getExecutionPlanPart(), null, "executionPlanPart", null, 0, 1, ExecutionPlanPartJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlanPartJobPrm_Override(), theEcorePackage.getEBoolean(), "override", null, 0, 1, ExecutionPlanPartJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionPlanPartJobPrm_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExecutionPlanPartJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getExecutionPlanPartJobPrm_Value(), theEcorePackage.getEString(), "value", null, 0, 1, ExecutionPlanPartJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionPlanPartJobPrm_CustomValue(), theEcorePackage.getEString(), "customValue", null, 0, 1, ExecutionPlanPartJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionPlanPartJobPrm_PartCustomValue(), theEcorePackage.getEString(), "partCustomValue", null, 0, 1, ExecutionPlanPartJobPrm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionTaskEClass, ExecutionTask.class, "ExecutionTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionTask_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
