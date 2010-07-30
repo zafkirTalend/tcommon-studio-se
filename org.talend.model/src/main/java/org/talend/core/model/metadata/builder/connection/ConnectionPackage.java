@@ -13651,13 +13651,22 @@ public interface ConnectionPackage extends EPackage {
     int HL7_CONNECTION__ROOT = FILE_CONNECTION_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Output File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HL7_CONNECTION__OUTPUT_FILE_PATH = FILE_CONNECTION_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>HL7 Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int HL7_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 3;
+    int HL7_CONNECTION_FEATURE_COUNT = FILE_CONNECTION_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.
@@ -17425,6 +17434,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getHL7Connection_Root();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.HL7Connection#getOutputFilePath <em>Output File Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Output File Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.HL7Connection#getOutputFilePath()
+     * @see #getHL7Connection()
+     * @generated
+     */
+    EAttribute getHL7Connection_OutputFilePath();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.HeaderFooterConnection <em>Header Footer Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Header Footer Connection</em>'.
@@ -20034,6 +20054,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference HL7_CONNECTION__ROOT = eINSTANCE.getHL7Connection_Root();
+
+        /**
+         * The meta object literal for the '<em><b>Output File Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HL7_CONNECTION__OUTPUT_FILE_PATH = eINSTANCE.getHL7Connection_OutputFilePath();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.HeaderFooterConnectionImpl <em>Header Footer Connection</em>}' class.

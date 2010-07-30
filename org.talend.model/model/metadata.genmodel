@@ -358,6 +358,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/StartChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/EndChar"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metadata.ecore#//HL7Connection/root"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HL7Connection/outputFilePath"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//HeaderFooterConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//HeaderFooterConnection/isHeader"/>

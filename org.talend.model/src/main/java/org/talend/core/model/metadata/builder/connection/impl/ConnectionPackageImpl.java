@@ -2740,6 +2740,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHL7Connection_OutputFilePath() {
+        return (EAttribute) hl7ConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3336,6 +3345,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__START_CHAR);
         createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__END_CHAR);
         createEReference(hl7ConnectionEClass, HL7_CONNECTION__ROOT);
+        createEAttribute(hl7ConnectionEClass, HL7_CONNECTION__OUTPUT_FILE_PATH);
 
         headerFooterConnectionEClass = createEClass(HEADER_FOOTER_CONNECTION);
         createEAttribute(headerFooterConnectionEClass, HEADER_FOOTER_CONNECTION__IS_HEADER);
@@ -4242,6 +4252,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getHL7Connection_Root(), this.getHL7FileNode(), null, "root", null, 0, -1, HL7Connection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
                 !IS_DERIVED, !IS_ORDERED);
+        initEAttribute(getHL7Connection_OutputFilePath(), ecorePackage.getEString(), "outputFilePath", null, 0, 1,
+                HL7Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
         initEClass(headerFooterConnectionEClass, HeaderFooterConnection.class, "HeaderFooterConnection", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

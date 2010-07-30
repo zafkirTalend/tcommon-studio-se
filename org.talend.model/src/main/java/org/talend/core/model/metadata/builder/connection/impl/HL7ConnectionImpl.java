@@ -32,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.HL7FileNode;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getStartChar <em>Start Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getEndChar <em>End Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.HL7ConnectionImpl#getOutputFilePath <em>Output File Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,6 +89,26 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
      * @ordered
      */
     protected EList<HL7FileNode> root;
+
+    /**
+     * The default value of the '{@link #getOutputFilePath() <em>Output File Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputFilePath()
+     * @generated
+     * @ordered
+     */
+    protected static final String OUTPUT_FILE_PATH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOutputFilePath() <em>Output File Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputFilePath()
+     * @generated
+     * @ordered
+     */
+    protected String outputFilePath = OUTPUT_FILE_PATH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -169,6 +190,28 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getOutputFilePath() {
+        return outputFilePath;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOutputFilePath(String newOutputFilePath) {
+        String oldOutputFilePath = outputFilePath;
+        outputFilePath = newOutputFilePath;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.HL7_CONNECTION__OUTPUT_FILE_PATH,
+                    oldOutputFilePath, outputFilePath));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -192,6 +235,8 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
             return getEndChar();
         case ConnectionPackage.HL7_CONNECTION__ROOT:
             return getRoot();
+        case ConnectionPackage.HL7_CONNECTION__OUTPUT_FILE_PATH:
+            return getOutputFilePath();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -215,6 +260,9 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
             getRoot().clear();
             getRoot().addAll((Collection<? extends HL7FileNode>) newValue);
             return;
+        case ConnectionPackage.HL7_CONNECTION__OUTPUT_FILE_PATH:
+            setOutputFilePath((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -236,6 +284,9 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
         case ConnectionPackage.HL7_CONNECTION__ROOT:
             getRoot().clear();
             return;
+        case ConnectionPackage.HL7_CONNECTION__OUTPUT_FILE_PATH:
+            setOutputFilePath(OUTPUT_FILE_PATH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -254,6 +305,8 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
             return END_CHAR_EDEFAULT == null ? endChar != null : !END_CHAR_EDEFAULT.equals(endChar);
         case ConnectionPackage.HL7_CONNECTION__ROOT:
             return root != null && !root.isEmpty();
+        case ConnectionPackage.HL7_CONNECTION__OUTPUT_FILE_PATH:
+            return OUTPUT_FILE_PATH_EDEFAULT == null ? outputFilePath != null : !OUTPUT_FILE_PATH_EDEFAULT.equals(outputFilePath);
         }
         return super.eIsSet(featureID);
     }
@@ -273,6 +326,8 @@ public class HL7ConnectionImpl extends FileConnectionImpl implements HL7Connecti
         result.append(startChar);
         result.append(", EndChar: ");
         result.append(endChar);
+        result.append(", outputFilePath: ");
+        result.append(outputFilePath);
         result.append(')');
         return result.toString();
     }
