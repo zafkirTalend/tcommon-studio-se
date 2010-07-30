@@ -78,6 +78,18 @@ public class FilesUtils {
 
     public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
             final FileFilter sourceFileFilter, boolean copyFolder, IProgressMonitor... monitorWrap) throws IOException {
+        copyFolder(source, target, target.getAbsolutePath(), emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
+                copyFolder, monitorWrap);
+    }
+
+    public static void copyFolder(File source, File target, String targetBaseFolder, boolean emptyTargetBeforeCopy,
+            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder,
+            IProgressMonitor... monitorWrap) throws IOException {
+        // cf bug 14658
+        boolean needAvoidCopyItself = false;
+        if (targetBaseFolder.equals(source.getAbsolutePath())) {
+            needAvoidCopyItself = true;
+        }
         IProgressMonitor monitor = null;
         if (monitorWrap != null && monitorWrap.length == 1) {
             monitor = monitorWrap[0];
@@ -106,16 +118,19 @@ public class FilesUtils {
 
         };
 
-        for (File current : source.listFiles(folderFilter)) {
-            if (monitor != null && monitor.isCanceled()) {
-                throw new OperationCanceledException(Messages.getString("FilesUtils.operationCanceled")); //$NON-NLS-1$
-            }
-            if (copyFolder) {
-                File newFolder = new File(target, current.getName());
-                newFolder.mkdir();
-                copyFolder(current, newFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
-            } else {
-                copyFolder(current, target, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+        if (copyFolder && !needAvoidCopyItself) {
+            for (File current : source.listFiles(folderFilter)) {
+                if (monitor != null && monitor.isCanceled()) {
+                    throw new OperationCanceledException(Messages.getString("FilesUtils.operationCanceled")); //$NON-NLS-1$
+                }
+                if (copyFolder) {
+                    File newFolder = new File(target, current.getName());
+                    newFolder.mkdir();
+                    copyFolder(current, newFolder, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
+                            copyFolder);
+                } else {
+                    copyFolder(current, target, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+                }
             }
         }
 
