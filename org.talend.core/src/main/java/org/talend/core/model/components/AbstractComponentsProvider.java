@@ -13,6 +13,7 @@
 package org.talend.core.model.components;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 
@@ -55,17 +56,23 @@ public abstract class AbstractComponentsProvider {
     public void preComponentsLoad() throws IOException {
         File installationFolder = getInstallationFolder();
 
-        // clean folder
-        if (installationFolder.exists()) {
-            FilesUtils.removeFolder(installationFolder, true);
-        }
         FilesUtils.createFoldersIfNotExists(installationFolder.getAbsolutePath(), false);
 
         File externalComponentsLocation = getExternalComponentsLocation();
         if (externalComponentsLocation != null) {
             if (externalComponentsLocation.exists()) {
                 try {
-                    FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, null, null, true);
+                    FileFilter ff = new FileFilter() {
+
+                        public boolean accept(File pathname) {
+                            if (pathname.getName().equals(".svn")) {
+                                return false;
+                            }
+                            return true;
+                        }
+
+                    };
+                    FilesUtils.copyFolder(externalComponentsLocation, installationFolder, false, ff, null, true, true);
                 } catch (IOException e) {
                     ExceptionHandler.process(e);
                 }

@@ -26,7 +26,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -76,14 +78,44 @@ public class FilesUtils {
         return false;
     }
 
+    /**
+     * @param source
+     * @param target
+     * @param emptyTargetBeforeCopy
+     * @param sourceFolderFilter
+     * @param sourceFileFilter
+     * @param copyFolder
+     * @param synchronize if set to true, synchronize source and target, remove non existing folders/files.
+     * @param monitorWrap
+     * @throws IOException
+     */
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
+            final FileFilter sourceFileFilter, boolean copyFolder, boolean synchronize, IProgressMonitor... monitorWrap)
+            throws IOException {
+        copyFolder(source, target, target.getAbsolutePath(), emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
+                copyFolder, synchronize, monitorWrap);
+    }
+
+    /**
+     * DOC nrousseau Comment method "copyFolder".
+     * 
+     * @param source
+     * @param target
+     * @param emptyTargetBeforeCopy
+     * @param sourceFolderFilter
+     * @param sourceFileFilter
+     * @param copyFolder
+     * @param monitorWrap
+     * @throws IOException
+     */
     public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
             final FileFilter sourceFileFilter, boolean copyFolder, IProgressMonitor... monitorWrap) throws IOException {
         copyFolder(source, target, target.getAbsolutePath(), emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
-                copyFolder, monitorWrap);
+                copyFolder, false, monitorWrap);
     }
 
-    public static void copyFolder(File source, File target, String targetBaseFolder, boolean emptyTargetBeforeCopy,
-            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder,
+    private static void copyFolder(File source, File target, String targetBaseFolder, boolean emptyTargetBeforeCopy,
+            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder, boolean synchronize,
             IProgressMonitor... monitorWrap) throws IOException {
         // cf bug 14658
         boolean needAvoidCopyItself = false;
@@ -118,8 +150,19 @@ public class FilesUtils {
 
         };
 
-        if (copyFolder && !needAvoidCopyItself) {
+        if (!copyFolder || (copyFolder && !needAvoidCopyItself)) {
+            Map<String, File> foldersToDelete = new HashMap<String, File>();
+            if (synchronize) {
+                for (File file : target.listFiles()) {
+                    if (file.isDirectory()) {
+                        foldersToDelete.put(file.getName(), file);
+                    }
+                }
+            }
             for (File current : source.listFiles(folderFilter)) {
+                if (foldersToDelete.keySet().contains(current.getName())) {
+                    foldersToDelete.remove(current.getName());
+                }
                 if (monitor != null && monitor.isCanceled()) {
                     throw new OperationCanceledException(Messages.getString("FilesUtils.operationCanceled")); //$NON-NLS-1$
                 }
@@ -127,20 +170,44 @@ public class FilesUtils {
                     File newFolder = new File(target, current.getName());
                     newFolder.mkdir();
                     copyFolder(current, newFolder, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
-                            copyFolder);
+                            copyFolder, synchronize);
                 } else {
-                    copyFolder(current, target, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+                    copyFolder(current, target, targetBaseFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter,
+                            copyFolder, synchronize);
+                }
+            }
+            if (synchronize) {
+                for (File file : foldersToDelete.values()) {
+                    removeFolder(file, true);
                 }
             }
         }
 
+        Map<String, File> filesToDelete = new HashMap<String, File>();
+        if (synchronize) {
+            for (File file : target.listFiles()) {
+                if (!file.isDirectory()) {
+                    filesToDelete.put(file.getName(), file);
+                }
+            }
+        }
         for (File current : source.listFiles(fileFilter)) {
+            if (filesToDelete.keySet().contains(current.getName())) {
+                filesToDelete.remove(current.getName());
+            }
+
             if (monitor != null && monitor.isCanceled()) {
                 throw new OperationCanceledException(""); //$NON-NLS-1$
             }
             File out = new File(target, current.getName());
             copyFile(current, out);
         }
+        if (synchronize) {
+            for (File file : filesToDelete.values()) {
+                file.delete();
+            }
+        }
+
     }
 
     private static void emptyFolder(File toEmpty) {
