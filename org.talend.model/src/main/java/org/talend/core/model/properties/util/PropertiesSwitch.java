@@ -525,6 +525,7 @@ public class PropertiesSwitch {
             case PropertiesPackage.PLAN_EXECUTION_HISTORY: {
                 PlanExecutionHistory planExecutionHistory = (PlanExecutionHistory)theEObject;
                 Object result = casePlanExecutionHistory(planExecutionHistory);
+                if (result == null) result = caseTaskExecutionHistory(planExecutionHistory);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }

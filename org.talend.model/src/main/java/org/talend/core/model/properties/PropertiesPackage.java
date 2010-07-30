@@ -4612,16 +4612,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Parent Task Exec Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PLAN_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = 1;
+    int PLAN_EXECUTION_HISTORY__ID = TASK_EXECUTION_HISTORY__ID;
 
     /**
      * The feature id for the '<em><b>Basic Status</b></em>' attribute.
@@ -4630,52 +4621,187 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__BASIC_STATUS = 2;
+    int PLAN_EXECUTION_HISTORY__BASIC_STATUS = TASK_EXECUTION_HISTORY__BASIC_STATUS;
 
     /**
-     * The feature id for the '<em><b>Original Label</b></em>' attribute.
+     * The feature id for the '<em><b>Detailed Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__ORIGINAL_LABEL = 3;
+    int PLAN_EXECUTION_HISTORY__DETAILED_STATUS = TASK_EXECUTION_HISTORY__DETAILED_STATUS;
 
     /**
-     * The feature id for the '<em><b>Current Label</b></em>' attribute.
+     * The feature id for the '<em><b>Task Label</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__CURRENT_LABEL = 4;
+    int PLAN_EXECUTION_HISTORY__TASK_LABEL = TASK_EXECUTION_HISTORY__TASK_LABEL;
 
     /**
-     * The feature id for the '<em><b>Start Date</b></em>' attribute.
+     * The feature id for the '<em><b>Task Description</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__START_DATE = 5;
+    int PLAN_EXECUTION_HISTORY__TASK_DESCRIPTION = TASK_EXECUTION_HISTORY__TASK_DESCRIPTION;
 
     /**
-     * The feature id for the '<em><b>End Date</b></em>' attribute.
+     * The feature id for the '<em><b>Project Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__END_DATE = 6;
+    int PLAN_EXECUTION_HISTORY__PROJECT_NAME = TASK_EXECUTION_HISTORY__PROJECT_NAME;
 
     /**
-     * The feature id for the '<em><b>Parameters</b></em>' attribute.
+     * The feature id for the '<em><b>Talend Job Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__PARAMETERS = 7;
+    int PLAN_EXECUTION_HISTORY__TALEND_JOB_NAME = TASK_EXECUTION_HISTORY__TALEND_JOB_NAME;
+
+    /**
+     * The feature id for the '<em><b>Talend Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TALEND_JOB_ID = TASK_EXECUTION_HISTORY__TALEND_JOB_ID;
+
+    /**
+     * The feature id for the '<em><b>Talend Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TALEND_JOB_VERSION = TASK_EXECUTION_HISTORY__TALEND_JOB_VERSION;
+
+    /**
+     * The feature id for the '<em><b>Context Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__CONTEXT_NAME = TASK_EXECUTION_HISTORY__CONTEXT_NAME;
+
+    /**
+     * The feature id for the '<em><b>Virtual Server Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME = TASK_EXECUTION_HISTORY__VIRTUAL_SERVER_NAME;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__EXECUTION_SERVER_NAME = TASK_EXECUTION_HISTORY__EXECUTION_SERVER_NAME;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__EXECUTION_SERVER_HOST = TASK_EXECUTION_HISTORY__EXECUTION_SERVER_HOST;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Cmd Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT = TASK_EXECUTION_HISTORY__EXECUTION_SERVER_CMD_PORT;
+
+    /**
+     * The feature id for the '<em><b>Execution Server File Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT = TASK_EXECUTION_HISTORY__EXECUTION_SERVER_FILE_PORT;
+
+    /**
+     * The feature id for the '<em><b>Execution Server Monitoring Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT = TASK_EXECUTION_HISTORY__EXECUTION_SERVER_MONITORING_PORT;
+
+    /**
+     * The feature id for the '<em><b>Apply Context To Children</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN = TASK_EXECUTION_HISTORY__APPLY_CONTEXT_TO_CHILDREN;
+
+    /**
+     * The feature id for the '<em><b>Triggered By</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TRIGGERED_BY = TASK_EXECUTION_HISTORY__TRIGGERED_BY;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TRIGGER_TYPE = TASK_EXECUTION_HISTORY__TRIGGER_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Trigger Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TRIGGER_NAME = TASK_EXECUTION_HISTORY__TRIGGER_NAME;
+
+    /**
+     * The feature id for the '<em><b>Trigger Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TRIGGER_DESCRIPTION = TASK_EXECUTION_HISTORY__TRIGGER_DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Task Error Stack Trace</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE = TASK_EXECUTION_HISTORY__TASK_ERROR_STACK_TRACE;
 
     /**
      * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
@@ -4684,16 +4810,223 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = 8;
+    int PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = TASK_EXECUTION_HISTORY__ID_QUARTZ_JOB;
 
     /**
-     * The feature id for the '<em><b>Error Stack Trace</b></em>' attribute.
+     * The feature id for the '<em><b>Id Quartz Trigger</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE = 9;
+    int PLAN_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER = TASK_EXECUTION_HISTORY__ID_QUARTZ_TRIGGER;
+
+    /**
+     * The feature id for the '<em><b>Last Job Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE = TASK_EXECUTION_HISTORY__LAST_JOB_GENERATION_DATE;
+
+    /**
+     * The feature id for the '<em><b>Job Archive Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME = TASK_EXECUTION_HISTORY__JOB_ARCHIVE_FILENAME;
+
+    /**
+     * The feature id for the '<em><b>File Trigger File Mask</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK = TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_MASK;
+
+    /**
+     * The feature id for the '<em><b>File Trigger File Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME = TASK_EXECUTION_HISTORY__FILE_TRIGGER_FILE_NAME;
+
+    /**
+     * The feature id for the '<em><b>File Trigger Folder Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH = TASK_EXECUTION_HISTORY__FILE_TRIGGER_FOLDER_PATH;
+
+    /**
+     * The feature id for the '<em><b>File Trigger Triggered File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH = TASK_EXECUTION_HISTORY__FILE_TRIGGER_TRIGGERED_FILE_PATH;
+
+    /**
+     * The feature id for the '<em><b>Expected Triggering Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE = TASK_EXECUTION_HISTORY__EXPECTED_TRIGGERING_DATE;
+
+    /**
+     * The feature id for the '<em><b>Task Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TASK_START_DATE = TASK_EXECUTION_HISTORY__TASK_START_DATE;
+
+    /**
+     * The feature id for the '<em><b>Task End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__TASK_END_DATE = TASK_EXECUTION_HISTORY__TASK_END_DATE;
+
+    /**
+     * The feature id for the '<em><b>Admin Job Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ADMIN_JOB_START_DATE = TASK_EXECUTION_HISTORY__ADMIN_JOB_START_DATE;
+
+    /**
+     * The feature id for the '<em><b>Admin Job End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ADMIN_JOB_END_DATE = TASK_EXECUTION_HISTORY__ADMIN_JOB_END_DATE;
+
+    /**
+     * The feature id for the '<em><b>Server Job Start Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__SERVER_JOB_START_DATE = TASK_EXECUTION_HISTORY__SERVER_JOB_START_DATE;
+
+    /**
+     * The feature id for the '<em><b>Server Job End Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__SERVER_JOB_END_DATE = TASK_EXECUTION_HISTORY__SERVER_JOB_END_DATE;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ID_REMOTE_JOB = TASK_EXECUTION_HISTORY__ID_REMOTE_JOB;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION = TASK_EXECUTION_HISTORY__ID_REMOTE_JOB_EXECUTION;
+
+    /**
+     * The feature id for the '<em><b>Request Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__REQUEST_ID = TASK_EXECUTION_HISTORY__REQUEST_ID;
+
+    /**
+     * The feature id for the '<em><b>Resuming Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__RESUMING_MODE = TASK_EXECUTION_HISTORY__RESUMING_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Values</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__CONTEXT_VALUES = TASK_EXECUTION_HISTORY__CONTEXT_VALUES;
+
+    /**
+     * The feature id for the '<em><b>Jvm Values</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__JVM_VALUES = TASK_EXECUTION_HISTORY__JVM_VALUES;
+
+    /**
+     * The feature id for the '<em><b>Parent Task Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID;
+
+    /**
+     * The feature id for the '<em><b>Parent Plan Exec Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID = TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID;
+
+    /**
+     * The feature id for the '<em><b>Original Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__ORIGINAL_LABEL = TASK_EXECUTION_HISTORY_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Current Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLAN_EXECUTION_HISTORY__CURRENT_LABEL = TASK_EXECUTION_HISTORY_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Plan Execution History</em>' class.
@@ -4702,7 +5035,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PLAN_EXECUTION_HISTORY_FEATURE_COUNT = 10;
+    int PLAN_EXECUTION_HISTORY_FEATURE_COUNT = TASK_EXECUTION_HISTORY_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -12170,39 +12503,6 @@ public interface PropertiesPackage extends EPackage {
     EClass getPlanExecutionHistory();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getId <em>Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getId()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_Id();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getParentTaskExecId <em>Parent Task Exec Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Parent Task Exec Id</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getParentTaskExecId()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_ParentTaskExecId();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getBasicStatus <em>Basic Status</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Basic Status</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getBasicStatus()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_BasicStatus();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getOriginalLabel <em>Original Label</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -12223,61 +12523,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getPlanExecutionHistory_CurrentLabel();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getStartDate <em>Start Date</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Start Date</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getStartDate()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_StartDate();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getEndDate <em>End Date</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>End Date</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getEndDate()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_EndDate();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getParameters <em>Parameters</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Parameters</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getParameters()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_Parameters();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getIdQuartzJob <em>Id Quartz Job</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id Quartz Job</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getIdQuartzJob()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_IdQuartzJob();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.PlanExecutionHistory#getErrorStackTrace <em>Error Stack Trace</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Error Stack Trace</em>'.
-     * @see org.talend.core.model.properties.PlanExecutionHistory#getErrorStackTrace()
-     * @see #getPlanExecutionHistory()
-     * @generated
-     */
-    EAttribute getPlanExecutionHistory_ErrorStackTrace();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TaskExecutionHistory#getVirtualServerName <em>Virtual Server Name</em>}'.
@@ -16552,30 +16797,6 @@ public interface PropertiesPackage extends EPackage {
         EClass PLAN_EXECUTION_HISTORY = eINSTANCE.getPlanExecutionHistory();
 
         /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__ID = eINSTANCE.getPlanExecutionHistory_Id();
-
-        /**
-         * The meta object literal for the '<em><b>Parent Task Exec Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID = eINSTANCE.getPlanExecutionHistory_ParentTaskExecId();
-
-        /**
-         * The meta object literal for the '<em><b>Basic Status</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__BASIC_STATUS = eINSTANCE.getPlanExecutionHistory_BasicStatus();
-
-        /**
          * The meta object literal for the '<em><b>Original Label</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -16590,46 +16811,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PLAN_EXECUTION_HISTORY__CURRENT_LABEL = eINSTANCE.getPlanExecutionHistory_CurrentLabel();
-
-        /**
-         * The meta object literal for the '<em><b>Start Date</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__START_DATE = eINSTANCE.getPlanExecutionHistory_StartDate();
-
-        /**
-         * The meta object literal for the '<em><b>End Date</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__END_DATE = eINSTANCE.getPlanExecutionHistory_EndDate();
-
-        /**
-         * The meta object literal for the '<em><b>Parameters</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__PARAMETERS = eINSTANCE.getPlanExecutionHistory_Parameters();
-
-        /**
-         * The meta object literal for the '<em><b>Id Quartz Job</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__ID_QUARTZ_JOB = eINSTANCE.getPlanExecutionHistory_IdQuartzJob();
-
-        /**
-         * The meta object literal for the '<em><b>Error Stack Trace</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute PLAN_EXECUTION_HISTORY__ERROR_STACK_TRACE = eINSTANCE.getPlanExecutionHistory_ErrorStackTrace();
 
         /**
          * The meta object literal for the '<em><b>Virtual Server Name</b></em>' attribute feature.
