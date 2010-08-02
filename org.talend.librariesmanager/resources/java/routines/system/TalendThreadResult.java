@@ -18,6 +18,16 @@ public class TalendThreadResult {
 
     private String status = ""; //$NON-NLS-1$
 
+    private Exception exception = null;
+
+    public Exception getException() {
+        return this.exception;
+    }
+
+    public void setException(Exception exception) {
+        this.exception = exception;
+    }
+
     public Integer getErrorCode() {
         return errorCode;
     }
