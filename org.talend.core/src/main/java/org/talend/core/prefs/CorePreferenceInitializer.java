@@ -29,6 +29,7 @@ import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 
@@ -153,6 +154,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         //
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_WARNING, true);
+
+        CorePlugin.getDefault().getPreferenceStore().setDefault(
+                IRepositoryPrefConstants.ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS, false);
     }
 
     // unused method : call remove for 2.3

@@ -42,4 +42,6 @@ public interface IRepositoryPrefConstants {
     public static final String USE_FILTER = "use_filter";
 
     public static final String USE_EXPORT_SAVE = "use_export_save_for_jobscript";
+
+    public static final String ALLOW_SPECIFIC_CHARACTERS_FOR_SCHEMA_COLUMNS = "allow_specific_characters_for_schema_columns";
 }

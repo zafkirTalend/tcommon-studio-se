@@ -89,7 +89,7 @@ public final class ConvertionHelper {
         result.setDescription(old.getComment());
         result.setId(old.getId());
         result.setLabel(old.getLabel());
-        String sourceName = old.getSourceName();
+        String sourceName = old.getName();
         if (sourceName == null) {
             sourceName = old.getLabel();
         }
@@ -121,7 +121,7 @@ public final class ConvertionHelper {
             }
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
-            if (column.getOriginalField() == null || column.getOriginalField().equals("")) { //$NON-NLS-1$
+            if (column.getName() == null || column.getName().equals("")) { //$NON-NLS-1$
                 String label = label2;
                 if (label != null && label.length() > 0) {
                     String substring = label.substring(1);
@@ -131,7 +131,7 @@ public final class ConvertionHelper {
                 }
                 newColumn.setOriginalDbColumnName(label);
             } else {
-                newColumn.setOriginalDbColumnName(column.getOriginalField());
+                newColumn.setOriginalDbColumnName(column.getName());
             }
             // columns.add(convertToIMetaDataColumn(column));
         }
@@ -160,9 +160,9 @@ public final class ConvertionHelper {
         newColumn.setTalendType(column.getTalendType());
         newColumn.setSourceType(column.getType());
         if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) { //$NON-NLS-1$
-            newColumn.setOriginalField(column.getLabel());
+            newColumn.setName(column.getLabel());
         } else {
-            newColumn.setOriginalField(column.getOriginalDbColumnName());
+            newColumn.setName(column.getOriginalDbColumnName());
         }
         return newColumn;
     }
@@ -187,10 +187,10 @@ public final class ConvertionHelper {
         }
         newColumn.setTalendType(column.getTalendType());
         newColumn.setType(column.getSourceType());
-        if (column.getOriginalField() == null || column.getOriginalField().equals("")) { //$NON-NLS-1$
+        if (column.getName() == null || column.getName().equals("")) { //$NON-NLS-1$
             newColumn.setOriginalDbColumnName(column.getLabel());
         } else {
-            newColumn.setOriginalDbColumnName(column.getOriginalField());
+            newColumn.setOriginalDbColumnName(column.getName());
         }
         return newColumn;
     }
@@ -233,9 +233,9 @@ public final class ConvertionHelper {
             newColumn.setTalendType(column.getTalendType());
             newColumn.setSourceType(column.getType());
             if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) { //$NON-NLS-1$
-                newColumn.setOriginalField(column.getLabel());
+                newColumn.setName(column.getLabel());
             } else {
-                newColumn.setOriginalField(column.getOriginalDbColumnName());
+                newColumn.setName(column.getOriginalDbColumnName());
             }
             // columns.add(convertToMetaDataColumn(column));
         }
