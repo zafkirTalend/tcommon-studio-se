@@ -1183,7 +1183,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
 
-        itemResource.getContents().add(item.getConnection());
+        // itemResource.getContents().add(item.getConnection());
         MetadataManager.addPackges(item, itemResource); // hywang 13221
 
         return itemResource;
@@ -1937,7 +1937,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        if (currentProject != null && currentProject.isLocal()) {
+        if (currentProject != null && currentProject.isLocal() && !workUnit.isAvoidUnloadResources()) { // 14969 avoid
+                                                                                                        // reload before
+                                                                                                        // create
             unloadUnlockedResources();
         }
         super.executeRepositoryWorkUnit(workUnit);
