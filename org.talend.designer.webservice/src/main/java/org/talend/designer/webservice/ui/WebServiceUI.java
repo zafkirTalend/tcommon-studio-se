@@ -22,6 +22,9 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -277,6 +280,12 @@ public class WebServiceUI extends AbstractWebService {
 
     private WSDLSchemaConnection connection = null;
 
+    private List<Function> funList = new ArrayList<Function>();
+
+    private List<PortNames> portNameList = new ArrayList<PortNames>();
+
+    private String url = "";
+
     public WebServiceUI(Composite uiParent, WebServiceComponentMain webServiceMain) {
         super();
         this.uiParent = uiParent;
@@ -341,9 +350,54 @@ public class WebServiceUI extends AbstractWebService {
         if (currentURL != null && !currentURL.equals("")) {
             isFirst = false;
             // getLastFunction();
+            Function fun = new Function(currentURL);
+            IElementParameter METHODPara = this.connector.getElementParameter("METHOD");
+            Object obj = METHODPara.getValue();
+            if (obj == null) {
+                return;
+            }
+            if (obj instanceof String) {
+                String str = (String) obj;
+                fun.setName(str);
+            }
+            // fun.se
             ParameterInfo para = new ParameterInfo();
             IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS"); //$NON-NLS-1$
             List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
+            List<ParameterInfo> paraoutList = new ArrayList<ParameterInfo>();
+            ParameterInfo paraout = new ParameterInfo();
+            for (Map<String, String> map : outputMap) {
+                if (map.get("PARAMETERINFO") != null && map.get("PARAMETERINFO") instanceof String) {
+                    String ele = (String) map.get("PARAMETERINFO"); //$NON-NLS-1$
+                    if (!ele.equals("")) {
+                        if (!map.get("PARAPARENT").equals("")) {
+                            String paraParent = map.get("PARAPARENT");
+                            if (paraParent.equals(ele)) {
+                                ParameterInfo parain = new ParameterInfo();
+                                parain.setName(ele);
+                            } else {
+                                for (int i = 0; i < paraoutList.size(); i++) {
+                                    ParameterInfo para2 = paraoutList.get(i);
+                                    if (paraParent.equals(para2.getName())) {
+                                        // para.setParent(para2);
+                                        ParameterInfo parain = new ParameterInfo();
+                                        parain.setName(ele);
+                                        para2.getParameterInfos().add(parain);
+                                        parain.setParent(para2);
+                                        paraoutList.add(parain);
+                                    }
+                                }
+                            }
+                        } else {
+                            paraout = new ParameterInfo();
+                            paraout.setName(ele);
+                            paraoutList.add(paraout);
+                        }
+
+                    }
+                }
+            }
+            fun.setInputParameters(paraoutList);
             for (Map<String, String> map : outputMap) {
                 if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String) {
                     String ele = (String) map.get("ELEMENT"); //$NON-NLS-1$
@@ -352,7 +406,11 @@ public class WebServiceUI extends AbstractWebService {
                         if (para.getName() == null) {
                             para.setName(ele);
                             para.getParameterInfos().add(new ParameterInfo());
-                            data.setParameter(para);
+                            if (!paraoutList.isEmpty()) {
+                                data.setParameter(paraoutList.get(0));
+                            } else {
+                                data.setParameter(new ParameterInfo());
+                            }
                             data.setParameterName(ele);
                         } else {
                             ParameterInfo para2 = new ParameterInfo();
@@ -369,21 +427,61 @@ public class WebServiceUI extends AbstractWebService {
                     }
                 }
             }
+
             ParameterInfo inpara = new ParameterInfo();
+            List<ParameterInfo> paraList = new ArrayList<ParameterInfo>();
+            ParameterInfo paraiun = new ParameterInfo();
             IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS"); //$NON-NLS-1$
             List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
+            for (Map<String, String> map : inputparaValue) {
+                if (map.get("PARAMETERINFO") != null && map.get("PARAMETERINFO") instanceof String) {
+                    String ele = (String) map.get("PARAMETERINFO"); //$NON-NLS-1$
+                    if (!ele.equals("")) {
+                        if (!map.get("PARAPARENT").equals("")) {
+                            String paraParent = map.get("PARAPARENT");
+                            if (paraParent.equals(ele)) {
+                                ParameterInfo parain = new ParameterInfo();
+                                parain.setName(ele);
+                            } else {
+                                for (int i = 0; i < paraList.size(); i++) {
+                                    ParameterInfo para2 = paraList.get(i);
+                                    if (paraParent.equals(para2.getName())) {
+                                        // para.setParent(para2);
+                                        ParameterInfo parain = new ParameterInfo();
+                                        parain.setName(ele);
+                                        para2.getParameterInfos().add(parain);
+                                        parain.setParent(para2);
+                                        paraList.add(parain);
+                                    }
+                                }
+                            }
+                        } else {
+                            paraiun = new ParameterInfo();
+                            paraiun.setName(ele);
+                            paraList.add(paraiun);
+                        }
+
+                    }
+                }
+            }
+            fun.setOutputParameters(paraList);
             for (Map<String, String> map : inputparaValue) {
                 InputMappingData data = new InputMappingData();
                 if (map.get("EXPRESSION") != null && map.get("EXPRESSION") instanceof String) {
                     String expr = (String) map.get("EXPRESSION");
                     data.setInputColumnValue(expr);
                 }
+
                 if (map.get("ELEMENT") != null && map.get("ELEMENT") instanceof String && !map.get("ELEMENT").equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
                     String paraName = map.get("ELEMENT");
                     if (inpara.getName() == null) {
                         inpara.setName(paraName);
                         inpara.getParameterInfos().add(new ParameterInfo());
-                        data.setParameter(inpara);
+                        if (!paraList.isEmpty()) {
+                            data.setParameter(paraList.get(0));
+                        } else {
+                            data.setParameter(new ParameterInfo());
+                        }
                         data.setParameterName(paraName);
                     } else {
                         ParameterInfo para2 = new ParameterInfo();
@@ -401,6 +499,7 @@ public class WebServiceUI extends AbstractWebService {
             }
             getInputElementList();
             getOutputElementList();
+            currentFunction = fun;
         }
     }
 
@@ -1016,11 +1115,6 @@ public class WebServiceUI extends AbstractWebService {
                         webServiceDialog.setNextButtonCanuse();
                     }
                 }
-
-                if (connection != null) {
-                    saveInputValue();
-                    saveOutPutValue();
-                }
                 ExtendedTableModel<InputMappingData> inputModel = expressinPutTableView.getExtendedTableModel();
                 boolean removeLinksIn = true;
                 goin: for (InputMappingData indata : inputModel.getBeansList()) {
@@ -1221,22 +1315,49 @@ public class WebServiceUI extends AbstractWebService {
         refreshbut.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
+                final Job job = new Job("t") {
+
+                    @Override
+                    protected IStatus run(IProgressMonitor monitor) {
+                        // TODO Auto-generated method stub
+                        // monitor.setCanceled(true);
+                        monitor.beginTask("Retrieve WSDL parameter from net.", IProgressMonitor.UNKNOWN);
+                        getDataFromNet();
+                        monitor.done();
+                        return Status.OK_STATUS;
+                    }
+                };
+                job.setSystem(true);
+                job.schedule();
                 ProgressMonitorDialog progressDialog = new ProgressMonitorDialog(PlatformUI.getWorkbench().getDisplay()
                         .getActiveShell().getShell());
                 IRunnableWithProgress runnable = new IRunnableWithProgress() {
 
                     public void run(final IProgressMonitor monitor) {
                         monitor.beginTask("Retrieve WSDL parameter from net.", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
-
-                        Display.getDefault().syncExec(new Runnable() {
-
-                            public void run() {
-                                getDataFromNet();
+                        boolean f = true;
+                        // TODO Auto-generated method stub
+                        while (f) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
                             }
-                        });
-                        monitor.done();
+                            if (monitor.isCanceled()) {
+                                job.done(Status.OK_STATUS);
+                                job.cancel();
+                            }
+                            if (job.getResult() != null && job.getResult().isOK()) {
+                                monitor.done();
+                                f = false;
+                            }
+                        }
+
+                        // monitor.done();
                     }
                 };
+
                 try {
                     progressDialog.run(true, true, runnable);
                 } catch (InvocationTargetException e1) {
@@ -1246,8 +1367,11 @@ public class WebServiceUI extends AbstractWebService {
                 } catch (WebServiceCancelException e1) {
                     return;
                 }
+
                 if (connection != null) {
-                    listTable.setSelection(listTable.getItem(0));
+                    if (listTable.getItemCount() > 0) {
+                        listTable.setSelection(listTable.getItem(0));
+                    }
                     if (currentFunction != null) {
                         if (currentFunction.getName() != null) {
                             connection.setMethodName(currentFunction.getName());
@@ -1265,7 +1389,7 @@ public class WebServiceUI extends AbstractWebService {
                     if (currentPortName != null) {
                         connection.setPortName(currentPortName.getPortName());
 
-                    } else if (currentPortName == null && allPortNames != null) {
+                    } else if (currentPortName == null && !allPortNames.isEmpty()) {
                         currentPortName = allPortNames.get(0);
                         connection.setPortName(currentPortName.getPortName());
                     }
@@ -1408,9 +1532,17 @@ public class WebServiceUI extends AbstractWebService {
     }
 
     private void getDataFromNet() {
-        List<Function> funList = new ArrayList<Function>();
-        List<PortNames> portNameList = new ArrayList<PortNames>();
-        URLValue = wsdlField.getText();
+        funList.clear();
+        portNameList.clear();
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                // TODO Auto-generated method stub
+                URLValue = wsdlField.getText();
+            }
+
+        });
+
         if (URLValue == null) {
             URLValue = ""; //$NON-NLS-1$
         }
@@ -1457,40 +1589,68 @@ public class WebServiceUI extends AbstractWebService {
                 }
             }
         }
-        ExtendedTableModel<Function> listModel = listTableView.getExtendedTableModel();
-        ExtendedTableModel<PortNames> portListModel = portListTableView.getExtendedTableModel();
-        listModel.removeAll();
-        listModel.addAll(funList);
-        // allfunList.clear();
-        // allfunList.addAll(funList);
-        // getInputElementList();
-        // getOutputElementList();
-        portListModel.removeAll();
-        portListModel.addAll(portNameList);
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                // TODO Auto-generated method stub
+                ExtendedTableModel<Function> listModel = listTableView.getExtendedTableModel();
+                ExtendedTableModel<PortNames> portListModel = portListTableView.getExtendedTableModel();
+                listModel.removeAll();
+                listModel.addAll(funList);
+                // allfunList.clear();
+                // allfunList.addAll(funList);
+                // getInputElementList();
+                // getOutputElementList();
+                portListModel.removeAll();
+                portListModel.addAll(portNameList);
+            }
+
+        });
+
     }
 
-    private String parseContextParameter(String contextValue) {
-        String url = "";
-        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-        IContextManager contextManager = null;
-        if (connector.getProcess() == null) {
-            // contextManager = contextModeManager.getSelectedContextType().getContextParameter(); // connection.get
-            // IContextManager contextManager
-            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection);
-            url = ConnectionContextHelper.getOriginalValue(contextType, contextValue);
-        } else {
-            contextManager = connector.getProcess().getContextManager();
-            String currentDefaultName = contextManager.getDefaultContext().getName();
-            List contextList = contextManager.getListContext();
-            if (!contextList.isEmpty() && contextList.size() > 1) {
-                currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+    private String parseContextParameter(final String contextValue) {
+
+        Display.getDefault().syncExec(new Runnable() {
+
+            public void run() {
+                String url = "";
+                // TODO Auto-generated method stub
+                Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+                IContextManager contextManager = null;
+                if (connector.getProcess() == null) {
+                    // contextManager = contextModeManager.getSelectedContextType().getContextParameter(); //
+                    // connection.get
+                    // IContextManager contextManager
+                    ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection);
+                    url = ConnectionContextHelper.getOriginalValue(contextType, contextValue);
+                } else {
+                    contextManager = connector.getProcess().getContextManager();
+                    String currentDefaultName = contextManager.getDefaultContext().getName();
+                    List contextList = contextManager.getListContext();
+                    if (!contextList.isEmpty() && contextList.size() > 1) {
+                        currentDefaultName = ConnectionContextHelper.getContextTypeForJob(shell, contextManager, false);
+                    }
+                    // ContextSetsSelectionDialog cssd=new ContextSetsSelectionDialog(shell,,false);
+                    // ContextType contextType=ConnectionContextHelper.getContextTypeForContextMode(connector);
+                    IContext context = contextManager.getContext(currentDefaultName);
+                    url = ContextParameterUtils.parseScriptContextCode(contextValue, context);
+
+                }
+                setParseURL(url);
             }
-            // ContextSetsSelectionDialog cssd=new ContextSetsSelectionDialog(shell,,false);
-            // ContextType contextType=ConnectionContextHelper.getContextTypeForContextMode(connector);
-            IContext context = contextManager.getContext(currentDefaultName);
-            url = ContextParameterUtils.parseScriptContextCode(contextValue, context);
-        }
+
+        });
+
+        return getparseURL();
+    }
+
+    private String getparseURL() {
         return url;
+    }
+
+    private void setParseURL(String url) {
+        this.url = url;
     }
 
     private Composite createInputMappingStatus() {
@@ -2742,7 +2902,6 @@ public class WebServiceUI extends AbstractWebService {
                                     for (int j = 0; j < schemaMetadataColumn.size(); j++) {
                                         MetadataColumn mcolumn = (MetadataColumn) schemaMetadataColumn.get(j);
                                         if (mcolumn.getLabel().equals(oldCol.getLabel())) {
-                                            System.out.println(oldCol.getLabel());
                                             schemaMetadataColumn.remove(mcolumn);
                                             j--;
                                         }
@@ -3234,6 +3393,8 @@ public class WebServiceUI extends AbstractWebService {
             }
         }
         EList inputValue = connection.getParameterValue();
+
+        List<ParameterInfo> ls = new ArrayList();
         IElementParameter INPUT_PARAMSPara = connector.getElementParameter("INPUT_PARAMS");
         List<Map<String, String>> inputparaValue = (List<Map<String, String>>) INPUT_PARAMSPara.getValue();
         if (inputparaValue != null) {
@@ -3261,6 +3422,39 @@ public class WebServiceUI extends AbstractWebService {
 
                 inputValue.add(parameter);
             }
+            if (currentFunction != null) {
+                List inputParameter = currentFunction.getInputParameters();
+                if (inputParameter != null) {
+                    for (int i = 0; i < inputParameter.size(); i++) {
+                        boolean mark = true;
+                        goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                            ParameterInfo element = (ParameterInfo) iterator2.next();
+                            WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                            parameter.setParameterInfo(element.getName());
+                            if (element.getParent() == null) {
+                                parameter.setParameterInfoParent("");
+                            } else {
+                                parameter.setParameterInfoParent(element.getParent().getName());
+                            }
+                            inputValue.add(parameter);
+                            // System.out.println(element.getParent() + " ppp");
+                            mark = false;
+                            if (!element.getParameterInfos().isEmpty()) {
+                                ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                            }
+                            break goin;
+                        }
+                        if (!mark) {
+                            for (ParameterInfo para : ls) {
+                                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                                parameter.setParameterInfo(para.getName());
+                                parameter.setParameterInfoParent(para.getParent().getName());
+                                inputValue.add(parameter);
+                            }
+                        }
+                    }
+                }
+            }
             for (IMetadataColumn column : getInputValue()) {
                 WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
                 if (column.getLabel() != null) {
@@ -3284,6 +3478,7 @@ public class WebServiceUI extends AbstractWebService {
         // save output
         EList outPutValue = connection.getOutputParameter();
 
+        List<ParameterInfo> ls = new ArrayList();
         IElementParameter OUTPUT_PARAMSPara = connector.getElementParameter("OUTPUT_PARAMS");
         List<Map<String, String>> outputMap = (List<Map<String, String>>) OUTPUT_PARAMSPara.getValue();
         if (outputMap != null) {
@@ -3305,7 +3500,39 @@ public class WebServiceUI extends AbstractWebService {
                 }
                 outPutValue.add(parameter);
             }
-
+            if (currentFunction != null) {
+                List inputParameter = currentFunction.getOutputParameters();
+                if (inputParameter != null) {
+                    for (int i = 0; i < inputParameter.size(); i++) {
+                        boolean mark = true;
+                        goin: for (Iterator iterator2 = inputParameter.iterator(); iterator2.hasNext();) {
+                            ParameterInfo element = (ParameterInfo) iterator2.next();
+                            WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                            parameter.setParameterInfo(element.getName());
+                            if (element.getParent() == null) {
+                                parameter.setParameterInfoParent("");
+                            } else {
+                                parameter.setParameterInfoParent(element.getParent().getName());
+                            }
+                            outPutValue.add(parameter);
+                            // System.out.println(element.getParent() + " ppp");
+                            mark = false;
+                            if (!element.getParameterInfos().isEmpty()) {
+                                ls.addAll(new ParameterInfoUtil().getAllChildren(element));
+                            }
+                            break goin;
+                        }
+                        if (!mark) {
+                            for (ParameterInfo para : ls) {
+                                WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
+                                parameter.setParameterInfo(para.getName());
+                                parameter.setParameterInfoParent(para.getParent().getName());
+                                outPutValue.add(parameter);
+                            }
+                        }
+                    }
+                }
+            }
             for (OutPutMappingData data : getOutputParams()) {
                 WSDLParameter parameter = ConnectionFactory.eINSTANCE.createWSDLParameter();
                 Map<String, String> dataMap = new HashMap<String, String>(2);

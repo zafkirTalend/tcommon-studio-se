@@ -14,15 +14,19 @@ package org.talend.designer.webservice.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -36,6 +40,7 @@ import org.talend.core.ui.webService.WebServiceSaveManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.WebServiceComponentMain;
+import org.talend.designer.webservice.ui.wizard.WebServiceSchemaWizardPage;
 import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
@@ -121,6 +126,11 @@ public class WebServiceHelper implements IWebService {
                         inputMap.put("COLUMN", parameter.getColumn());
                         inputparaValue.add(inputMap);
                     }
+                    if (parameter.getParameterInfo() != null) {
+                        inputMap.put("PARAMETERINFO", parameter.getParameterInfo());
+                        inputMap.put("PARAPARENT", parameter.getParameterInfoParent());
+                        inputparaValue.add(inputMap);
+                    }
                 }
 
             }
@@ -149,6 +159,11 @@ public class WebServiceHelper implements IWebService {
                         eleMap.put("SOURCE", parameter.getSource());
                         outputMap.add(eleMap);
                     }
+                    if (parameter.getParameterInfo() != null) {
+                        eleMap.put("PARAMETERINFO", parameter.getParameterInfo());
+                        eleMap.put("PARAPARENT", parameter.getParameterInfoParent());
+                        outputMap.add(eleMap);
+                    }
                 }
             }
         }
@@ -161,31 +176,42 @@ public class WebServiceHelper implements IWebService {
             outputMetadaTable = new MetadataTable();
             outputMetadaTable.setAttachedConnector("OUTPUT");
             WSDLSchemaConnection connection = (WSDLSchemaConnection) connectionItem.getConnection();
-            EList schemaMetadataColumn = ((org.talend.core.model.metadata.builder.connection.MetadataTable) ConnectionHelper
-                    .getTables(connection).toArray()[0]).getColumns();
-            for (int i = 0; i < schemaMetadataColumn.size(); i++) {
-                org.talend.core.model.metadata.builder.connection.MetadataColumn col = (MetadataColumn) schemaMetadataColumn
-                        .get(i);
-                org.talend.core.model.metadata.MetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
-                newColumn.setLabel(col.getLabel());
-                newColumn.setTalendType(col.getTalendType());
-                newColumn.setOriginalDbColumnName(col.getLabel());
-                newColumnList.add(newColumn);
+            Set<org.talend.core.model.metadata.builder.connection.MetadataTable> tables = ConnectionHelper.getTables(connection);
+            //
+            // EList<MetadataColumn> schemaMetadataColumn =
+            // ((org.talend.core.model.metadata.builder.connection.MetadataTable) ConnectionHelper
+            // .getTables(connection).toArray()[0]).getColumns();
+            Iterator it = tables.iterator();
+            while (it.hasNext()) {
+                org.talend.core.model.metadata.builder.connection.MetadataTable metadatatable = (org.talend.core.model.metadata.builder.connection.MetadataTable) it
+                        .next();
+                if (metadatatable.getLabel().equals("OutPut")) {
+                    for (int i = 0; i < metadatatable.getColumns().size(); i++) {
+                        org.talend.core.model.metadata.builder.connection.MetadataColumn col = (MetadataColumn) metadatatable
+                                .getColumns().get(i);
+                        org.talend.core.model.metadata.MetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
+                        newColumn.setLabel(col.getLabel());
+                        newColumn.setTalendType(col.getTalendType());
+                        newColumn.setOriginalDbColumnName(col.getLabel());
+                        newColumnList.add(newColumn);
+                    }
+                    outputMetadaTable.setListColumns(newColumnList);
+                } else {
+                    // EList inschemaMetadataColumn = ((org.talend.core.model.metadata.builder.connection.MetadataTable)
+                    // ConnectionHelper
+                    // .getTables(connection).toArray()[1]).getColumns();
+                    for (int i = 0; i < metadatatable.getColumns().size(); i++) {
+                        org.talend.core.model.metadata.builder.connection.MetadataColumn col = (MetadataColumn) metadatatable
+                                .getColumns().get(i);
+                        org.talend.core.model.metadata.MetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
+                        newColumn.setLabel(col.getLabel());
+                        newColumn.setTalendType(col.getTalendType());
+                        newColumn.setOriginalDbColumnName(col.getLabel());
+                        newInputColumnList.add(newColumn);
+                    }
+                    inputMetadata.setListColumns(newInputColumnList);
+                }
             }
-            outputMetadaTable.setListColumns(newColumnList);
-
-            EList inschemaMetadataColumn = ((org.talend.core.model.metadata.builder.connection.MetadataTable) ConnectionHelper
-                    .getTables(connection).toArray()[1]).getColumns();
-            for (int i = 0; i < inschemaMetadataColumn.size(); i++) {
-                org.talend.core.model.metadata.builder.connection.MetadataColumn col = (MetadataColumn) inschemaMetadataColumn
-                        .get(i);
-                org.talend.core.model.metadata.MetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
-                newColumn.setLabel(col.getLabel());
-                newColumn.setTalendType(col.getTalendType());
-                newColumn.setOriginalDbColumnName(col.getLabel());
-                newInputColumnList.add(newColumn);
-            }
-            inputMetadata.setListColumns(newInputColumnList);
         } else {
             outputMetadaTable = new MetadataTable();
             outputMetadaTable.setAttachedConnector("OUTPUT");
@@ -249,5 +275,17 @@ public class WebServiceHelper implements IWebService {
 
     public LabelledFileField getWSDLLabel(Boolean b) {
         return webServiceUI.getWSDLLabel(b);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.IWebService#getWebServiceUI()
+     */
+    public WizardPage getWebServiceUI(boolean creation, int step, ConnectionItem connectionItem,
+            boolean isRepositoryObjectEditable, String[] existingNames, IMetadataContextModeManager contextModeManager) {
+        // TODO Auto-generated method stub
+        return new WebServiceSchemaWizardPage(creation, step, connectionItem, isRepositoryObjectEditable, null,
+                contextModeManager);
     }
 }

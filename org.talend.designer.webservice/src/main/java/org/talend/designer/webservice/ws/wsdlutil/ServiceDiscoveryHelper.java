@@ -9,9 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.wsdl.Definition;
-import javax.wsdl.Types;
 import javax.wsdl.WSDLException;
-import javax.wsdl.extensions.ExtensibilityElement;
 import javax.wsdl.extensions.schema.Schema;
 import javax.wsdl.extensions.schema.SchemaImport;
 import javax.wsdl.factory.WSDLFactory;
@@ -61,7 +59,6 @@ public class ServiceDiscoveryHelper {
 
         newWSDLReader.setExtensionRegistry(wsdlFactory.newPopulatedExtensionRegistry());
         // newWSDLReader.getExtensionRegistry()
-
         newWSDLReader.setFeature(com.ibm.wsdl.Constants.FEATURE_VERBOSE, false);
         if (configuration == null) {
             definition = newWSDLReader.readWSDL(wsdlUri);
@@ -72,20 +69,20 @@ public class ServiceDiscoveryHelper {
 
         schemaCollection.setBaseUri(definition.getDocumentBaseURI());// bchen for bug 8674
 
-        Types types = definition.getTypes();
-        if (types != null) {
-            List<ExtensibilityElement> extensibilityElements = types.getExtensibilityElements();
-            for (ExtensibilityElement el : extensibilityElements) {
-                if (el instanceof Schema) {
-                    Schema schema = (Schema) el;
-
-                    // validateSchemaTargetNamespace(schema);
-                    // validateImportSchemaLocation(schema);
-
-                    // schemaCollection.read(schema.getElement());
-                }
-            }
-        }
+        // Types types = definition.getTypes();
+        // if (types != null) {
+        // List<ExtensibilityElement> extensibilityElements = types.getExtensibilityElements();
+        // for (ExtensibilityElement el : extensibilityElements) {
+        // if (el instanceof Schema) {
+        // Schema schema = (Schema) el;
+        //
+        // // validateSchemaTargetNamespace(schema);
+        // // validateImportSchemaLocation(schema);
+        //
+        // // schemaCollection.read(schema.getElement());
+        // }
+        // }
+        // }
         // localWsdl = File.createTempFile("service-", ".wsdl");
         // localWsdl.deleteOnExit();
         //
