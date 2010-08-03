@@ -495,6 +495,8 @@ public class RepositoryToComponentProperty {
             map.put("COLUMN", node.getColumn());
             map.put("SOURCE", node.getSource());
             map.put("ELEMENT", node.getElement());
+            map.put("PARAMETERINFO", node.getParameterInfo());
+            map.put("PARAPARENT", node.getParameterInfoParent());
             newList.add(map);
         }
         return newList;

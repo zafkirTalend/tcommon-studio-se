@@ -2941,6 +2941,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLParameter_ParameterInfo() {
+        return (EAttribute) wsdlParameterEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLParameter_ParameterInfoParent() {
+        return (EAttribute) wsdlParameterEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc --> ======= <!-- begin-user-doc --> <!-- end-user-doc --> >>>>>>>
      * .r45916
      * 
@@ -3366,6 +3384,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(wsdlParameterEClass, WSDL_PARAMETER__SOURCE);
         createEAttribute(wsdlParameterEClass, WSDL_PARAMETER__COLUMN);
         createEAttribute(wsdlParameterEClass, WSDL_PARAMETER__EXPRESSION);
+        createEAttribute(wsdlParameterEClass, WSDL_PARAMETER__PARAMETER_INFO);
+        createEAttribute(wsdlParameterEClass, WSDL_PARAMETER__PARAMETER_INFO_PARENT);
 
         genericPackageEClass = createEClass(GENERIC_PACKAGE);
 
@@ -4295,6 +4315,12 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         initEAttribute(getWSDLParameter_Expression(), ecorePackage.getEString(), "Expression", null, 0, 1, WSDLParameter.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLParameter_ParameterInfo(), ecorePackage.getEString(), "ParameterInfo", null, 0, 1,
+                WSDLParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getWSDLParameter_ParameterInfoParent(), ecorePackage.getEString(), "ParameterInfoParent", null, 0, 1,
+                WSDLParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
         initEClass(genericPackageEClass, GenericPackage.class, "GenericPackage", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);

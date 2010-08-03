@@ -379,6 +379,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/source"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/Column"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/Expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/ParameterInfo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLParameter/ParameterInfoParent"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//GenericPackage"/>
     <genClasses ecoreClass="metadata.ecore#//HL7FileNode">

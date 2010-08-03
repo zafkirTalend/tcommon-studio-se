@@ -21,6 +21,8 @@ import org.talend.core.model.metadata.builder.connection.WSDLParameter;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl#getColumn <em>Column</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl#getParameterInfo <em>Parameter Info</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.WSDLParameterImpl#getParameterInfoParent <em>Parameter Info Parent</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +109,46 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
      * @ordered
      */
     protected String expression = EXPRESSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getParameterInfo() <em>Parameter Info</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParameterInfo()
+     * @generated
+     * @ordered
+     */
+    protected static final String PARAMETER_INFO_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getParameterInfo() <em>Parameter Info</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParameterInfo()
+     * @generated
+     * @ordered
+     */
+    protected String parameterInfo = PARAMETER_INFO_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getParameterInfoParent() <em>Parameter Info Parent</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParameterInfoParent()
+     * @generated
+     * @ordered
+     */
+    protected static final String PARAMETER_INFO_PARENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getParameterInfoParent() <em>Parameter Info Parent</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParameterInfoParent()
+     * @generated
+     * @ordered
+     */
+    protected String parameterInfoParent = PARAMETER_INFO_PARENT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -203,6 +245,50 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getParameterInfo() {
+        return parameterInfo;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParameterInfo(String newParameterInfo) {
+        String oldParameterInfo = parameterInfo;
+        parameterInfo = newParameterInfo;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO,
+                    oldParameterInfo, parameterInfo));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getParameterInfoParent() {
+        return parameterInfoParent;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParameterInfoParent(String newParameterInfoParent) {
+        String oldParameterInfoParent = parameterInfoParent;
+        parameterInfoParent = newParameterInfoParent;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO_PARENT,
+                    oldParameterInfoParent, parameterInfoParent));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -217,6 +303,10 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
             return getColumn();
         case ConnectionPackage.WSDL_PARAMETER__EXPRESSION:
             return getExpression();
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO:
+            return getParameterInfo();
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO_PARENT:
+            return getParameterInfoParent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -239,6 +329,12 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
             return;
         case ConnectionPackage.WSDL_PARAMETER__EXPRESSION:
             setExpression((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO:
+            setParameterInfo((String) newValue);
+            return;
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO_PARENT:
+            setParameterInfoParent((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -263,6 +359,12 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
         case ConnectionPackage.WSDL_PARAMETER__EXPRESSION:
             setExpression(EXPRESSION_EDEFAULT);
             return;
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO:
+            setParameterInfo(PARAMETER_INFO_EDEFAULT);
+            return;
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO_PARENT:
+            setParameterInfoParent(PARAMETER_INFO_PARENT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -282,6 +384,11 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
             return COLUMN_EDEFAULT == null ? column != null : !COLUMN_EDEFAULT.equals(column);
         case ConnectionPackage.WSDL_PARAMETER__EXPRESSION:
             return EXPRESSION_EDEFAULT == null ? expression != null : !EXPRESSION_EDEFAULT.equals(expression);
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO:
+            return PARAMETER_INFO_EDEFAULT == null ? parameterInfo != null : !PARAMETER_INFO_EDEFAULT.equals(parameterInfo);
+        case ConnectionPackage.WSDL_PARAMETER__PARAMETER_INFO_PARENT:
+            return PARAMETER_INFO_PARENT_EDEFAULT == null ? parameterInfoParent != null : !PARAMETER_INFO_PARENT_EDEFAULT
+                    .equals(parameterInfoParent);
         }
         return super.eIsSet(featureID);
     }
@@ -304,6 +411,10 @@ public class WSDLParameterImpl extends EObjectImpl implements WSDLParameter {
         result.append(column);
         result.append(", Expression: ");
         result.append(expression);
+        result.append(", ParameterInfo: ");
+        result.append(parameterInfo);
+        result.append(", ParameterInfoParent: ");
+        result.append(parameterInfoParent);
         result.append(')');
         return result.toString();
     }
