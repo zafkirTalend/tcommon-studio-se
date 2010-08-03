@@ -1929,7 +1929,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return uptodateProperty;
     }
 
-    protected void reloadProject(Project project) throws PersistenceException {
+    public void reloadProject(Project project) throws PersistenceException {
         IProject pproject = getPhysicalProject(project);
         project.setEmfProject(xmiResourceManager.loadProject(pproject));
     }
@@ -1938,8 +1938,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void executeRepositoryWorkUnit(RepositoryWorkUnit workUnit) {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         if (currentProject != null && currentProject.isLocal() && !workUnit.isAvoidUnloadResources()) { // 14969 avoid
-                                                                                                        // reload before
-                                                                                                        // create
+            // reload before
+            // create
             unloadUnlockedResources();
         }
         super.executeRepositoryWorkUnit(workUnit);
