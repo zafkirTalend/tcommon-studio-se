@@ -20,13 +20,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.core.model.components.IComponent;
-import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -40,7 +38,6 @@ import org.talend.core.ui.webService.WebServiceSaveManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.webservice.WebServiceComponent;
 import org.talend.designer.webservice.WebServiceComponentMain;
-import org.talend.designer.webservice.ui.wizard.WebServiceSchemaWizardPage;
 import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
@@ -277,15 +274,4 @@ public class WebServiceHelper implements IWebService {
         return webServiceUI.getWSDLLabel(b);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.IWebService#getWebServiceUI()
-     */
-    public WizardPage getWebServiceUI(boolean creation, int step, ConnectionItem connectionItem,
-            boolean isRepositoryObjectEditable, String[] existingNames, IMetadataContextModeManager contextModeManager) {
-        // TODO Auto-generated method stub
-        return new WebServiceSchemaWizardPage(creation, step, connectionItem, isRepositoryObjectEditable, null,
-                contextModeManager);
-    }
 }
