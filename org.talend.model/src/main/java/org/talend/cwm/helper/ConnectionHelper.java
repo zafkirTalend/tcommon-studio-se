@@ -437,6 +437,20 @@ public class ConnectionHelper {
     }
 
     /**
+     * DOC zshen Comment method "getDataFilter".
+     * 
+     * @param element
+     * @return
+     */
+    public static String getDataFilter(Connection element) {
+        TaggedValue taggedValue = TaggedValueHelper.getTaggedValue(TaggedValueHelper.DATA_FILTER, element.getTaggedValue());
+        if (taggedValue == null) {
+            return "";
+        }
+        return taggedValue.getValue();
+    }
+
+    /**
      * DOC xqliu Comment method "setUniverse".
      * 
      * @param universe
@@ -796,6 +810,7 @@ public class ConnectionHelper {
             mdmConn.setPort(port);
         }
     }
+
     /**
      * DOC xqliu Comment method "getSID".
      * 

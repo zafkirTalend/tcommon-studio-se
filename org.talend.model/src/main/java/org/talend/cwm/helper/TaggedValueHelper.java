@@ -89,6 +89,8 @@ public final class TaggedValueHelper {
 
     public static final String RETRIEVE_ALL = "RETRIEVE_ALL";
 
+    public static final String DATA_FILTER = "data filter";
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     // report tagged values
@@ -225,7 +227,7 @@ public final class TaggedValueHelper {
             try {
                 result = Integer.parseInt(docuValue);
             } catch (Exception e) { // if conversion fail return default value
-            //MOD sgandon 1/04/2010 bug 11760 : change error to warning cause there is a fallback
+                // MOD sgandon 1/04/2010 bug 11760 : change error to warning cause there is a fallback
                 log.warn("Could not get max size for tag " + tag, e);
             }
         } // else return default value
