@@ -47,6 +47,40 @@ public class Numeric {
     }
 
     /**
+     * create a sequence if not exists and put a new startValue
+     * 
+     * {Category} Numeric
+     * 
+     * {param} string("s1") sequence identifier
+     * 
+     * {param} int(1) start value
+     * 
+     * {example} sequence("s1", 1)
+     * 
+     */
+
+    public static void resetSequence(String seqName, int startValue) {
+        seq_Hash.put(seqName, startValue);
+    }
+
+    /**
+     * remove a sequence
+     * 
+     * {Category} Numeric
+     * 
+     * {param} string("s1") sequence identifier
+     * 
+     * {example} sequence("s1")
+     * 
+     */
+
+    public static void removeSequence(String seqName) {
+        if (seq_Hash.get(seqName) != null) {
+            seq_Hash.remove(seqName);
+        }
+    }
+
+    /**
      * return a random int between min and max
      * 
      * {Category} Numeric
