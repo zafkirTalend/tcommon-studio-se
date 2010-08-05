@@ -75,7 +75,7 @@ public class Numeric {
      */
 
     public static void removeSequence(String seqName) {
-        if (seq_Hash.get(seqName) != null) {
+        if (seq_Hash.containsKey(seqName)) {
             seq_Hash.remove(seqName);
         }
     }
