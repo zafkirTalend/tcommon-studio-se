@@ -41,6 +41,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
+import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.runprocess.ItemCacheManager;
@@ -78,6 +79,8 @@ public class RelationshipItemBuilder {
     public static final String CONTEXT_RELATION = "context"; //$NON-NLS-1$
 
     public static final String SQLPATTERN_RELATION = "sqlPattern"; //$NON-NLS-1$
+
+    public static final String ROUTINE_RELATION = "routine"; //$NON-NLS-1$
 
     public static RelationshipItemBuilder instance;
 
@@ -224,6 +227,10 @@ public class RelationshipItemBuilder {
     }
 
     private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type) {
+        addRelationShip(baseItem, relatedId, relatedVersion, type, false);
+    }
+
+    private void addRelationShip(Item baseItem, String relatedId, String relatedVersion, String type, boolean relatedInSystem) {
         Relation relation = new Relation();
         relation.setId(baseItem.getProperty().getId());
         relation.setType(getTypeFromItem(baseItem));
@@ -233,6 +240,7 @@ public class RelationshipItemBuilder {
         addedRelation.setId(relatedId);
         addedRelation.setType(type);
         addedRelation.setVersion(relatedVersion);
+        addedRelation.setSystem(relatedInSystem);
 
         if (!itemsRelations.containsKey(relation)) {
             itemsRelations.put(relation, new ArrayList<Relation>());
@@ -323,7 +331,11 @@ public class RelationshipItemBuilder {
                     }
                 }
             }
-
+            for (Object o : processType.getRoutinesDependencies()) {
+                ItemInforType itemInfor = (ItemInforType) o;
+                addRelationShip(item, itemInfor.getIdOrName(), ItemCacheManager.LATEST_VERSION, ROUTINE_RELATION, itemInfor
+                        .isSystem());
+            }
             for (Object o : processType.getParameters().getElementParameter()) {
                 if (o instanceof ElementParameterType) {
                     ElementParameterType param = (ElementParameterType) o;
@@ -494,6 +506,8 @@ public class RelationshipItemBuilder {
 
         private String version;
 
+        private boolean system;
+
         public String getType() {
             return type;
         }
@@ -517,6 +531,7 @@ public class RelationshipItemBuilder {
             result = prime * result + ((id == null) ? 0 : id.hashCode());
             result = prime * result + ((type == null) ? 0 : type.hashCode());
             result = prime * result + ((version == null) ? 0 : version.hashCode());
+            result = prime * result + (system ? 0 : 1);
             return result;
         }
 
@@ -544,6 +559,9 @@ public class RelationshipItemBuilder {
                     return false;
             } else if (!version.equals(other.version))
                 return false;
+            if (other.isSystem() != this.isSystem()) {
+                return false;
+            }
             return true;
         }
 
@@ -553,6 +571,14 @@ public class RelationshipItemBuilder {
 
         public void setVersion(String version) {
             this.version = version;
+        }
+
+        public boolean isSystem() {
+            return this.system;
+        }
+
+        public void setSystem(boolean system) {
+            this.system = system;
         }
 
     }
