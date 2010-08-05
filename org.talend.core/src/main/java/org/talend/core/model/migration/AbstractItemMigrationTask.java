@@ -54,10 +54,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
             for (IRepositoryViewObject object : list) {
                 ExecutionResult execute = null;
                 Item item = object.getProperty().getItem();
-
                 execute = execute(item);
-                // reload the propoerty in case the item resources have changed
-                factory.reload(object.getProperty());
                 if (execute == ExecutionResult.FAILURE) {
                     log.warn(Messages.getString(
                             "AbstractItemMigrationTask.taskFailed", this.getName(), item.getProperty().getLabel())); //$NON-NLS-1$
