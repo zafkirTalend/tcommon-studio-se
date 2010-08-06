@@ -224,6 +224,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.TDQ_INDICATOR_ITEM: return createTDQIndicatorItem();
             case PropertiesPackage.TDQ_BUSINESS_RULE_ITEM: return createTDQBusinessRuleItem();
             case PropertiesPackage.TDQ_PATTERN_ITEM: return createTDQPatternItem();
+            case PropertiesPackage.TDQ_JRXML_ITEM: return createTDQJrxmlItem();
             case PropertiesPackage.LINK_RULES_ITEM: return createLinkRulesItem();
             case PropertiesPackage.ITEM_RELATIONS: return createItemRelations();
             case PropertiesPackage.ITEM_RELATION: return createItemRelation();
@@ -959,6 +960,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public TDQPatternItem createTDQPatternItem() {
         TDQPatternItemImpl tdqPatternItem = new TDQPatternItemImpl();
         return tdqPatternItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TDQJrxmlItem createTDQJrxmlItem() {
+        TDQJrxmlItemImpl tdqJrxmlItem = new TDQJrxmlItemImpl();
+        return tdqJrxmlItem;
     }
 
     /**

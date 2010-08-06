@@ -70,6 +70,7 @@ public class ExecutionServerItemProvider
             addFileTransfertPortPropertyDescriptor(object);
             addActivePropertyDescriptor(object);
             addMonitoringPortPropertyDescriptor(object);
+            addTimeoutUnknownStatePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -251,6 +252,28 @@ public class ExecutionServerItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Timeout Unknown State feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addTimeoutUnknownStatePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionServer_timeoutUnknownState_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionServer_timeoutUnknownState_feature", "_UI_ExecutionServer_type"),
+                 PropertiesPackage.Literals.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns ExecutionServer.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -290,6 +313,7 @@ public class ExecutionServerItemProvider
             case PropertiesPackage.EXECUTION_SERVER__FILE_TRANSFERT_PORT:
             case PropertiesPackage.EXECUTION_SERVER__ACTIVE:
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
+            case PropertiesPackage.EXECUTION_SERVER__TIMEOUT_UNKNOWN_STATE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

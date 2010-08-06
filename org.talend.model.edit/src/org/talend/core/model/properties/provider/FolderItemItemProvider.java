@@ -361,12 +361,27 @@ public class FolderItemItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
+                 PropertiesFactory.eINSTANCE.createTDQPatternItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
+                 PropertiesFactory.eINSTANCE.createTDQJrxmlItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
                  PropertiesFactory.eINSTANCE.createLinkRulesItem()));
 
         newChildDescriptors.add
             (createChildParameter
                 (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
                  PropertiesFactory.eINSTANCE.createHL7ConnectionItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
+                 PropertiesFactory.eINSTANCE.createHeaderFooterConnectionItem()));
     }
 
 }

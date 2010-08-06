@@ -64,10 +64,10 @@ public class ExecutionTaskJobPrmItemProvider
 
             addIdPropertyDescriptor(object);
             addLabelPropertyDescriptor(object);
-            addDefaultValuePropertyDescriptor(object);
             addOverridePropertyDescriptor(object);
             addExecutionTaskPropertyDescriptor(object);
             addOriginalValuePropertyDescriptor(object);
+            addDefaultValuePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -238,9 +238,9 @@ public class ExecutionTaskJobPrmItemProvider
         switch (notification.getFeatureID(ExecutionTaskJobPrm.class)) {
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ID:
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__LABEL:
-            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__OVERRIDE:
             case PropertiesPackage.EXECUTION_TASK_JOB_PRM__ORIGINAL_VALUE:
+            case PropertiesPackage.EXECUTION_TASK_JOB_PRM__DEFAULT_VALUE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

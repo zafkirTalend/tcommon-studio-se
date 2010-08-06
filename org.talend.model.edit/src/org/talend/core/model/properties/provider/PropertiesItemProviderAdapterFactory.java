@@ -978,6 +978,116 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.ExecutionPlan} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ExecutionPlanItemProvider executionPlanItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.ExecutionPlan}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createExecutionPlanAdapter() {
+        if (executionPlanItemProvider == null) {
+            executionPlanItemProvider = new ExecutionPlanItemProvider(this);
+        }
+
+        return executionPlanItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.ExecutionPlanPart} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ExecutionPlanPartItemProvider executionPlanPartItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.ExecutionPlanPart}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createExecutionPlanPartAdapter() {
+        if (executionPlanPartItemProvider == null) {
+            executionPlanPartItemProvider = new ExecutionPlanPartItemProvider(this);
+        }
+
+        return executionPlanPartItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.ExecutionPlanPrm} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ExecutionPlanPrmItemProvider executionPlanPrmItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.ExecutionPlanPrm}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createExecutionPlanPrmAdapter() {
+        if (executionPlanPrmItemProvider == null) {
+            executionPlanPrmItemProvider = new ExecutionPlanPrmItemProvider(this);
+        }
+
+        return executionPlanPrmItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.ExecutionPlanPartCmdPrm} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ExecutionPlanPartCmdPrmItemProvider executionPlanPartCmdPrmItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.ExecutionPlanPartCmdPrm}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createExecutionPlanPartCmdPrmAdapter() {
+        if (executionPlanPartCmdPrmItemProvider == null) {
+            executionPlanPartCmdPrmItemProvider = new ExecutionPlanPartCmdPrmItemProvider(this);
+        }
+
+        return executionPlanPartCmdPrmItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.ExecutionPlanPartJobPrm} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ExecutionPlanPartJobPrmItemProvider executionPlanPartJobPrmItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.ExecutionPlanPartJobPrm}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createExecutionPlanPartJobPrmAdapter() {
+        if (executionPlanPartJobPrmItemProvider == null) {
+            executionPlanPartJobPrmItemProvider = new ExecutionPlanPartJobPrmItemProvider(this);
+        }
+
+        return executionPlanPartJobPrmItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.ExecutionServer} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1085,6 +1195,28 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         }
 
         return taskExecutionHistoryItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.PlanExecutionHistory} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected PlanExecutionHistoryItemProvider planExecutionHistoryItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.PlanExecutionHistory}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createPlanExecutionHistoryAdapter() {
+        if (planExecutionHistoryItemProvider == null) {
+            planExecutionHistoryItemProvider = new PlanExecutionHistoryItemProvider(this);
+        }
+
+        return planExecutionHistoryItemProvider;
     }
 
     /**
@@ -1770,6 +1902,50 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.TDQPatternItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TDQPatternItemItemProvider tdqPatternItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.TDQPatternItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createTDQPatternItemAdapter() {
+        if (tdqPatternItemItemProvider == null) {
+            tdqPatternItemItemProvider = new TDQPatternItemItemProvider(this);
+        }
+
+        return tdqPatternItemItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.TDQJrxmlItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TDQJrxmlItemItemProvider tdqJrxmlItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.TDQJrxmlItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createTDQJrxmlItemAdapter() {
+        if (tdqJrxmlItemItemProvider == null) {
+            tdqJrxmlItemItemProvider = new TDQJrxmlItemItemProvider(this);
+        }
+
+        return tdqJrxmlItemItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.LinkRulesItem} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1877,6 +2053,50 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         }
 
         return hl7ConnectionItemItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.UserRoleReference} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected UserRoleReferenceItemProvider userRoleReferenceItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.UserRoleReference}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createUserRoleReferenceAdapter() {
+        if (userRoleReferenceItemProvider == null) {
+            userRoleReferenceItemProvider = new UserRoleReferenceItemProvider(this);
+        }
+
+        return userRoleReferenceItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.HeaderFooterConnectionItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected HeaderFooterConnectionItemItemProvider headerFooterConnectionItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.HeaderFooterConnectionItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createHeaderFooterConnectionItemAdapter() {
+        if (headerFooterConnectionItemItemProvider == null) {
+            headerFooterConnectionItemItemProvider = new HeaderFooterConnectionItemItemProvider(this);
+        }
+
+        return headerFooterConnectionItemItemProvider;
     }
 
     /**
@@ -2016,18 +2236,24 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         if (ldapSchemaConnectionItemItemProvider != null) ldapSchemaConnectionItemItemProvider.dispose();
         if (salesforceSchemaConnectionItemItemProvider != null) salesforceSchemaConnectionItemItemProvider.dispose();
         if (dashboardConnectionItemProvider != null) dashboardConnectionItemProvider.dispose();
-        if (executionServerItemProvider != null) executionServerItemProvider.dispose();
+        if (executionPlanItemProvider != null) executionPlanItemProvider.dispose();
+        if (executionPlanPartItemProvider != null) executionPlanPartItemProvider.dispose();
+        if (executionPlanPrmItemProvider != null) executionPlanPrmItemProvider.dispose();
+        if (executionPlanPartCmdPrmItemProvider != null) executionPlanPartCmdPrmItemProvider.dispose();
+        if (executionPlanPartJobPrmItemProvider != null) executionPlanPartJobPrmItemProvider.dispose();
         if (executionTaskItemProvider != null) executionTaskItemProvider.dispose();
         if (executionTaskCmdPrmItemProvider != null) executionTaskCmdPrmItemProvider.dispose();
         if (executionTaskJobPrmItemProvider != null) executionTaskJobPrmItemProvider.dispose();
         if (taskExecutionHistoryItemProvider != null) taskExecutionHistoryItemProvider.dispose();
+        if (planExecutionHistoryItemProvider != null) planExecutionHistoryItemProvider.dispose();
         if (talendTriggerItemProvider != null) talendTriggerItemProvider.dispose();
         if (cronTalendTriggerItemProvider != null) cronTalendTriggerItemProvider.dispose();
         if (cronUITalendTriggerItemProvider != null) cronUITalendTriggerItemProvider.dispose();
         if (simpleTalendTriggerItemProvider != null) simpleTalendTriggerItemProvider.dispose();
-        if (executionVirtualServerItemProvider != null) executionVirtualServerItemProvider.dispose();
         if (fileTriggerItemProvider != null) fileTriggerItemProvider.dispose();
         if (fileTriggerMaskItemProvider != null) fileTriggerMaskItemProvider.dispose();
+        if (executionServerItemProvider != null) executionServerItemProvider.dispose();
+        if (executionVirtualServerItemProvider != null) executionVirtualServerItemProvider.dispose();
         if (jobletProcessItemItemProvider != null) jobletProcessItemItemProvider.dispose();
         if (jobDocumentationItemItemProvider != null) jobDocumentationItemItemProvider.dispose();
         if (jobletDocumentationItemItemProvider != null) jobletDocumentationItemItemProvider.dispose();
@@ -2052,11 +2278,15 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         if (tdqmdmConnectionItemItemProvider != null) tdqmdmConnectionItemItemProvider.dispose();
         if (tdqIndicatorItemItemProvider != null) tdqIndicatorItemItemProvider.dispose();
         if (tdqBusinessRuleItemItemProvider != null) tdqBusinessRuleItemItemProvider.dispose();
+        if (tdqPatternItemItemProvider != null) tdqPatternItemItemProvider.dispose();
+        if (tdqJrxmlItemItemProvider != null) tdqJrxmlItemItemProvider.dispose();
         if (linkRulesItemItemProvider != null) linkRulesItemItemProvider.dispose();
         if (itemRelationsItemProvider != null) itemRelationsItemProvider.dispose();
         if (itemRelationItemProvider != null) itemRelationItemProvider.dispose();
         if (notificationItemProvider != null) notificationItemProvider.dispose();
         if (hl7ConnectionItemItemProvider != null) hl7ConnectionItemItemProvider.dispose();
+        if (userRoleReferenceItemProvider != null) userRoleReferenceItemProvider.dispose();
+        if (headerFooterConnectionItemItemProvider != null) headerFooterConnectionItemItemProvider.dispose();
     }
 
 }

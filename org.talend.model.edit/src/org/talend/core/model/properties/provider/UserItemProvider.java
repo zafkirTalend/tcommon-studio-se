@@ -72,7 +72,6 @@ public class UserItemProvider
             addDeletedPropertyDescriptor(object);
             addAllowedToModifyComponentsPropertyDescriptor(object);
             addCommentPropertyDescriptor(object);
-            addRolePropertyDescriptor(object);
             addProjectAuthorizationPropertyDescriptor(object);
             addModuleAuthorizationPropertyDescriptor(object);
             addPreferredDashboardConnectionPropertyDescriptor(object);
@@ -85,6 +84,7 @@ public class UserItemProvider
             addAuthenticationInfoPropertyDescriptor(object);
             addLdapIdPropertyDescriptor(object);
             addLanguagePropertyDescriptor(object);
+            addRolePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }

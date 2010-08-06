@@ -64,8 +64,10 @@ public class ExecutionPlanPartJobPrmItemProvider
 
             addIdPropertyDescriptor(object);
             addExecutionPlanPartPropertyDescriptor(object);
+            addOverridePropertyDescriptor(object);
             addNamePropertyDescriptor(object);
-            addValuePropertyDescriptor(object);
+            addCustomValuePropertyDescriptor(object);
+            addPartCustomValuePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -115,6 +117,28 @@ public class ExecutionPlanPartJobPrmItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Override feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOverridePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionPlanPartJobPrm_override_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionPlanPartJobPrm_override_feature", "_UI_ExecutionPlanPartJobPrm_type"),
+                 PropertiesPackage.Literals.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This adds a property descriptor for the Name feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -137,19 +161,41 @@ public class ExecutionPlanPartJobPrmItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Value feature.
+     * This adds a property descriptor for the Custom Value feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addValuePropertyDescriptor(Object object) {
+    protected void addCustomValuePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionPlanPartJobPrm_value_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionPlanPartJobPrm_value_feature", "_UI_ExecutionPlanPartJobPrm_type"),
-                 PropertiesPackage.Literals.EXECUTION_PLAN_PART_JOB_PRM__VALUE,
+                 getString("_UI_ExecutionPlanPartJobPrm_customValue_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionPlanPartJobPrm_customValue_feature", "_UI_ExecutionPlanPartJobPrm_type"),
+                 PropertiesPackage.Literals.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Part Custom Value feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addPartCustomValuePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionPlanPartJobPrm_partCustomValue_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionPlanPartJobPrm_partCustomValue_feature", "_UI_ExecutionPlanPartJobPrm_type"),
+                 PropertiesPackage.Literals.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE,
                  true,
                  false,
                  false,
@@ -193,8 +239,10 @@ public class ExecutionPlanPartJobPrmItemProvider
 
         switch (notification.getFeatureID(ExecutionPlanPartJobPrm.class)) {
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__ID:
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__OVERRIDE:
             case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__NAME:
-            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__VALUE:
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__CUSTOM_VALUE:
+            case PropertiesPackage.EXECUTION_PLAN_PART_JOB_PRM__PART_CUSTOM_VALUE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

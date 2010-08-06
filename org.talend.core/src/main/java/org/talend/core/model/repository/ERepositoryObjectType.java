@@ -52,6 +52,7 @@ import org.talend.core.model.properties.TDQBusinessRuleItem;
 import org.talend.core.model.properties.TDQDBConnectionItem;
 import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
+import org.talend.core.model.properties.TDQJrxmlItem;
 import org.talend.core.model.properties.TDQMDMConnectionItem;
 import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
@@ -121,6 +122,9 @@ public enum ERepositoryObjectType {
     TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern"), //$NON-NLS-1$ //$NON-NLS-2$
+
+    // MOD zqin feature 14507
+    TDQ_JRAXML_ELEMENT("repository.tdqelement.jrxml", "repository.tdqelement.jrxml"),
     // MOD mzhao feature 9207
     TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"), //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -268,7 +272,9 @@ public enum ERepositoryObjectType {
         case TDQ_INDICATOR_ELEMENT:
             return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
         case TDQ_PATTERN_ELEMENT:
-            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$              
+            return "TDQ_Libraries/Patterns"; //$NON-NLS-1$ 
+        case TDQ_JRAXML_ELEMENT:
+            return "TDQ_Libraries/JRXML Template";
         case TDQ_MDMCONNECTION_ELEMENT:
             return "TDQ_Metadata/MDM Connections"; //$NON-NLS-1$
         case TDQ_REPORT_ELEMENT:
@@ -496,6 +502,11 @@ public enum ERepositoryObjectType {
             }
 
             @Override
+            public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
+                return TDQ_JRAXML_ELEMENT;
+            }
+
+            @Override
             public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
                 return TDQ_MDMCONNECTION_ELEMENT;
             }
@@ -554,6 +565,7 @@ public enum ERepositoryObjectType {
         case TDQ_INDICATOR_ELEMENT:
         case TDQ_MDMCONNECTION_ELEMENT:
         case TDQ_REPORT_ELEMENT:
+        case TDQ_JRAXML_ELEMENT:
             return TDQ_ELEMENT;
         default:
             return null;

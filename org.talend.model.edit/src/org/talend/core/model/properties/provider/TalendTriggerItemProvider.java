@@ -67,7 +67,6 @@ public class TalendTriggerItemProvider
             addLabelPropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
             addTriggerTypePropertyDescriptor(object);
-            addExecutionTaskPropertyDescriptor(object);
             addStartTimePropertyDescriptor(object);
             addEndTimePropertyDescriptor(object);
             addPreviousFireTimePropertyDescriptor(object);
@@ -185,28 +184,6 @@ public class TalendTriggerItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Execution Task feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addExecutionTaskPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_TalendTrigger_executionTask_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendTrigger_executionTask_feature", "_UI_TalendTrigger_type"),
-                 PropertiesPackage.Literals.TALEND_TRIGGER__EXECUTION_TASK,
-                 true,
-                 false,
-                 true,
-                 null,
                  null,
                  null));
     }

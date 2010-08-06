@@ -23,6 +23,7 @@ import org.talend.designer.core.model.utils.emf.component.provider.componentEdit
 import org.talend.designer.core.model.utils.emf.talendfile.provider.TalendFileEditPlugin;
 
 import org.talend.designer.joblet.model.provider.JobletEditPlugin;
+import orgomg.cwm.objectmodel.core.provider.Cwm_mipEditPlugin;
 
 /**
  * This is the central singleton for the Properties edit plugin.
@@ -58,6 +59,7 @@ public final class PropertiesEditPlugin extends EMFPlugin {
           (new ResourceLocator [] {
              BusinessEditPlugin.INSTANCE,
              componentEditPlugin.INSTANCE,
+             Cwm_mipEditPlugin.INSTANCE,
              EcoreEditPlugin.INSTANCE,
              JobletEditPlugin.INSTANCE,
              MetadataEditPlugin.INSTANCE,

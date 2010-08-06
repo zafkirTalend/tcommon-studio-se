@@ -66,6 +66,7 @@ public class LicenseItemProvider
             addCustomerNamePropertyDescriptor(object);
             addParamsPropertyDescriptor(object);
             addTokenPropertyDescriptor(object);
+            addDateTokenCheckPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -159,6 +160,28 @@ public class LicenseItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Date Token Check feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDateTokenCheckPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_License_dateTokenCheck_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_License_dateTokenCheck_feature", "_UI_License_type"),
+                 PropertiesPackage.Literals.LICENSE__DATE_TOKEN_CHECK,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns License.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -196,6 +219,7 @@ public class LicenseItemProvider
             case PropertiesPackage.LICENSE__CUSTOMER_NAME:
             case PropertiesPackage.LICENSE__PARAMS:
             case PropertiesPackage.LICENSE__TOKEN:
+            case PropertiesPackage.LICENSE__DATE_TOKEN_CHECK:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

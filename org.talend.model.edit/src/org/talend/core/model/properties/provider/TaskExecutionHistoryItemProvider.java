@@ -105,6 +105,8 @@ public class TaskExecutionHistoryItemProvider
             addResumingModePropertyDescriptor(object);
             addContextValuesPropertyDescriptor(object);
             addJvmValuesPropertyDescriptor(object);
+            addParentTaskExecIdPropertyDescriptor(object);
+            addParentPlanExecIdPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -1056,6 +1058,50 @@ public class TaskExecutionHistoryItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Parent Task Exec Id feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addParentTaskExecIdPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_TaskExecutionHistory_parentTaskExecId_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_TaskExecutionHistory_parentTaskExecId_feature", "_UI_TaskExecutionHistory_type"),
+                 PropertiesPackage.Literals.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Parent Plan Exec Id feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addParentPlanExecIdPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_TaskExecutionHistory_parentPlanExecId_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_TaskExecutionHistory_parentPlanExecId_feature", "_UI_TaskExecutionHistory_type"),
+                 PropertiesPackage.Literals.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns TaskExecutionHistory.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1130,6 +1176,8 @@ public class TaskExecutionHistoryItemProvider
             case PropertiesPackage.TASK_EXECUTION_HISTORY__RESUMING_MODE:
             case PropertiesPackage.TASK_EXECUTION_HISTORY__CONTEXT_VALUES:
             case PropertiesPackage.TASK_EXECUTION_HISTORY__JVM_VALUES:
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_TASK_EXEC_ID:
+            case PropertiesPackage.TASK_EXECUTION_HISTORY__PARENT_PLAN_EXEC_ID:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

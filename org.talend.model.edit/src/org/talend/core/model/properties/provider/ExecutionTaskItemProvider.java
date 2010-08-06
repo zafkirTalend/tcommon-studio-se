@@ -66,6 +66,11 @@ public class ExecutionTaskItemProvider
             super.getPropertyDescriptors(object);
 
             addIdPropertyDescriptor(object);
+            addIdQuartzJobPropertyDescriptor(object);
+            addStatusPropertyDescriptor(object);
+            addErrorStatusPropertyDescriptor(object);
+            addConcurrentExecutionPropertyDescriptor(object);
+            addProcessingStatePropertyDescriptor(object);
             addLabelPropertyDescriptor(object);
             addDescriptionPropertyDescriptor(object);
             addExecutionServerPropertyDescriptor(object);
@@ -73,32 +78,31 @@ public class ExecutionTaskItemProvider
             addBranchPropertyDescriptor(object);
             addContextPropertyDescriptor(object);
             addJobVersionPropertyDescriptor(object);
+            addRegenerateJobOnChangePropertyDescriptor(object);
             addActivePropertyDescriptor(object);
-            addIdQuartzJobPropertyDescriptor(object);
             addLastScriptGenerationDatePropertyDescriptor(object);
             addGeneratedSvnRevisionPropertyDescriptor(object);
             addIdRemoteJobPropertyDescriptor(object);
             addIdRemoteJobExecutionPropertyDescriptor(object);
             addChecksumArchivePropertyDescriptor(object);
             addJobScriptArchiveFilenamePropertyDescriptor(object);
-            addStatusPropertyDescriptor(object);
-            addProcessingStatePropertyDescriptor(object);
-            addErrorStatusPropertyDescriptor(object);
             addLastRunDatePropertyDescriptor(object);
             addLastDeploymentDatePropertyDescriptor(object);
             addLastEndedRunDatePropertyDescriptor(object);
             addJobIdPropertyDescriptor(object);
             addVirtualServerPropertyDescriptor(object);
-            addConcurrentExecutionPropertyDescriptor(object);
             addMaxConcurrentExecutionsPropertyDescriptor(object);
             addGeneratedProjectNamePropertyDescriptor(object);
             addGeneratedJobNamePropertyDescriptor(object);
+            addGeneratedJobVersionPropertyDescriptor(object);
             addApplyContextToChildrenPropertyDescriptor(object);
             addErrorStackTracePropertyDescriptor(object);
             addLastTriggeringDatePropertyDescriptor(object);
             addExecStatisticsEnabledPropertyDescriptor(object);
             addAddStatisticsCodeEnabledPropertyDescriptor(object);
             addOwnerSchedulerInstanceIdPropertyDescriptor(object);
+            addOnUnknownStateJobPropertyDescriptor(object);
+            addUseLatestVersionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -114,9 +118,9 @@ public class ExecutionTaskItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionTask_id_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_id_feature", "_UI_ExecutionTask_type"),
-                 PropertiesPackage.Literals.EXECUTION_TASK__ID,
+                 getString("_UI_ExecutionTriggerable_id_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTriggerable_id_feature", "_UI_ExecutionTriggerable_type"),
+                 PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__ID,
                  true,
                  false,
                  false,
@@ -280,6 +284,28 @@ public class ExecutionTaskItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Regenerate Job On Change feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addRegenerateJobOnChangePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionTask_regenerateJobOnChange_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_regenerateJobOnChange_feature", "_UI_ExecutionTask_type"),
+                 PropertiesPackage.Literals.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This adds a property descriptor for the Active feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -312,9 +338,9 @@ public class ExecutionTaskItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionTask_idQuartzJob_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_idQuartzJob_feature", "_UI_ExecutionTask_type"),
-                 PropertiesPackage.Literals.EXECUTION_TASK__ID_QUARTZ_JOB,
+                 getString("_UI_ExecutionTriggerable_idQuartzJob_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTriggerable_idQuartzJob_feature", "_UI_ExecutionTriggerable_type"),
+                 PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__ID_QUARTZ_JOB,
                  true,
                  false,
                  false,
@@ -466,9 +492,9 @@ public class ExecutionTaskItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionTask_status_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_status_feature", "_UI_ExecutionTask_type"),
-                 PropertiesPackage.Literals.EXECUTION_TASK__STATUS,
+                 getString("_UI_ExecutionTriggerable_status_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTriggerable_status_feature", "_UI_ExecutionTriggerable_type"),
+                 PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__STATUS,
                  true,
                  false,
                  false,
@@ -488,9 +514,9 @@ public class ExecutionTaskItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionTask_processingState_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_processingState_feature", "_UI_ExecutionTask_type"),
-                 PropertiesPackage.Literals.EXECUTION_TASK__PROCESSING_STATE,
+                 getString("_UI_ExecutionTriggerable_processingState_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTriggerable_processingState_feature", "_UI_ExecutionTriggerable_type"),
+                 PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__PROCESSING_STATE,
                  true,
                  false,
                  false,
@@ -510,9 +536,9 @@ public class ExecutionTaskItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionTask_errorStatus_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_errorStatus_feature", "_UI_ExecutionTask_type"),
-                 PropertiesPackage.Literals.EXECUTION_TASK__ERROR_STATUS,
+                 getString("_UI_ExecutionTriggerable_errorStatus_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTriggerable_errorStatus_feature", "_UI_ExecutionTriggerable_type"),
+                 PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__ERROR_STATUS,
                  true,
                  false,
                  false,
@@ -642,9 +668,9 @@ public class ExecutionTaskItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_ExecutionTask_concurrentExecution_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_concurrentExecution_feature", "_UI_ExecutionTask_type"),
-                 PropertiesPackage.Literals.EXECUTION_TASK__CONCURRENT_EXECUTION,
+                 getString("_UI_ExecutionTriggerable_concurrentExecution_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTriggerable_concurrentExecution_feature", "_UI_ExecutionTriggerable_type"),
+                 PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__CONCURRENT_EXECUTION,
                  true,
                  false,
                  false,
@@ -711,6 +737,28 @@ public class ExecutionTaskItemProvider
                  getString("_UI_ExecutionTask_generatedJobName_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_generatedJobName_feature", "_UI_ExecutionTask_type"),
                  PropertiesPackage.Literals.EXECUTION_TASK__GENERATED_JOB_NAME,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Generated Job Version feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addGeneratedJobVersionPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionTask_generatedJobVersion_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_generatedJobVersion_feature", "_UI_ExecutionTask_type"),
+                 PropertiesPackage.Literals.EXECUTION_TASK__GENERATED_JOB_VERSION,
                  true,
                  false,
                  false,
@@ -852,6 +900,50 @@ public class ExecutionTaskItemProvider
     }
 
     /**
+     * This adds a property descriptor for the On Unknown State Job feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOnUnknownStateJobPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionTask_onUnknownStateJob_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_onUnknownStateJob_feature", "_UI_ExecutionTask_type"),
+                 PropertiesPackage.Literals.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Use Latest Version feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addUseLatestVersionPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_ExecutionTask_useLatestVersion_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_ExecutionTask_useLatestVersion_feature", "_UI_ExecutionTask_type"),
+                 PropertiesPackage.Literals.EXECUTION_TASK__USE_LATEST_VERSION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -862,7 +954,7 @@ public class ExecutionTaskItemProvider
     public Collection getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(PropertiesPackage.Literals.EXECUTION_TASK__TRIGGERS);
+            childrenFeatures.add(PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__TRIGGERS);
             childrenFeatures.add(PropertiesPackage.Literals.EXECUTION_TASK__CMD_PRMS);
             childrenFeatures.add(PropertiesPackage.Literals.EXECUTION_TASK__JOB_PRMS);
         }
@@ -914,36 +1006,40 @@ public class ExecutionTaskItemProvider
 
         switch (notification.getFeatureID(ExecutionTask.class)) {
             case PropertiesPackage.EXECUTION_TASK__ID:
+            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
+            case PropertiesPackage.EXECUTION_TASK__STATUS:
+            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
             case PropertiesPackage.EXECUTION_TASK__LABEL:
             case PropertiesPackage.EXECUTION_TASK__DESCRIPTION:
             case PropertiesPackage.EXECUTION_TASK__BRANCH:
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
+            case PropertiesPackage.EXECUTION_TASK__REGENERATE_JOB_ON_CHANGE:
             case PropertiesPackage.EXECUTION_TASK__ACTIVE:
-            case PropertiesPackage.EXECUTION_TASK__ID_QUARTZ_JOB:
             case PropertiesPackage.EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE:
             case PropertiesPackage.EXECUTION_TASK__GENERATED_SVN_REVISION:
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB:
             case PropertiesPackage.EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION:
             case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
             case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
-            case PropertiesPackage.EXECUTION_TASK__STATUS:
-            case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
-            case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
             case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
             case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
             case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
-            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
             case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
             case PropertiesPackage.EXECUTION_TASK__GENERATED_PROJECT_NAME:
             case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_NAME:
+            case PropertiesPackage.EXECUTION_TASK__GENERATED_JOB_VERSION:
             case PropertiesPackage.EXECUTION_TASK__APPLY_CONTEXT_TO_CHILDREN:
             case PropertiesPackage.EXECUTION_TASK__ERROR_STACK_TRACE:
             case PropertiesPackage.EXECUTION_TASK__LAST_TRIGGERING_DATE:
             case PropertiesPackage.EXECUTION_TASK__EXEC_STATISTICS_ENABLED:
             case PropertiesPackage.EXECUTION_TASK__ADD_STATISTICS_CODE_ENABLED:
             case PropertiesPackage.EXECUTION_TASK__OWNER_SCHEDULER_INSTANCE_ID:
+            case PropertiesPackage.EXECUTION_TASK__ON_UNKNOWN_STATE_JOB:
+            case PropertiesPackage.EXECUTION_TASK__USE_LATEST_VERSION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -967,27 +1063,27 @@ public class ExecutionTaskItemProvider
 
         newChildDescriptors.add
             (createChildParameter
-                (PropertiesPackage.Literals.EXECUTION_TASK__TRIGGERS,
+                (PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__TRIGGERS,
                  PropertiesFactory.eINSTANCE.createTalendTrigger()));
 
         newChildDescriptors.add
             (createChildParameter
-                (PropertiesPackage.Literals.EXECUTION_TASK__TRIGGERS,
+                (PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__TRIGGERS,
                  PropertiesFactory.eINSTANCE.createCronTalendTrigger()));
 
         newChildDescriptors.add
             (createChildParameter
-                (PropertiesPackage.Literals.EXECUTION_TASK__TRIGGERS,
+                (PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__TRIGGERS,
                  PropertiesFactory.eINSTANCE.createCronUITalendTrigger()));
 
         newChildDescriptors.add
             (createChildParameter
-                (PropertiesPackage.Literals.EXECUTION_TASK__TRIGGERS,
+                (PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__TRIGGERS,
                  PropertiesFactory.eINSTANCE.createSimpleTalendTrigger()));
 
         newChildDescriptors.add
             (createChildParameter
-                (PropertiesPackage.Literals.EXECUTION_TASK__TRIGGERS,
+                (PropertiesPackage.Literals.EXECUTION_TRIGGERABLE__TRIGGERS,
                  PropertiesFactory.eINSTANCE.createFileTrigger()));
 
         newChildDescriptors.add

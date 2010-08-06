@@ -642,6 +642,15 @@ public interface PropertiesFactory extends EFactory {
     TDQPatternItem createTDQPatternItem();
 
     /**
+     * Returns a new object of class '<em>TDQ Jrxml Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>TDQ Jrxml Item</em>'.
+     * @generated
+     */
+    TDQJrxmlItem createTDQJrxmlItem();
+
+    /**
      * Returns a new object of class '<em>Link Rules Item</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Link Rules Item</em>'.
