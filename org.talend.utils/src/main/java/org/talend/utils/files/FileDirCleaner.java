@@ -46,7 +46,7 @@ public class FileDirCleaner {
 
     private boolean doAction = false;
 
-    boolean maxTimes;
+    boolean isCleanLibs;
 
     /**
      * 
@@ -151,7 +151,7 @@ public class FileDirCleaner {
     }
 
     public FileDirCleaner(boolean doAction, STRATEGY strategy, int maxEntriesByDirectory, long cleanAfterThisDuration,
-            boolean maxTimes) {
+            boolean isCleanLibs) {
         super();
         this.doAction = doAction;
         this.maxEntriesByDirectoryAndByType = maxEntriesByDirectory;
@@ -159,7 +159,7 @@ public class FileDirCleaner {
         this.cleanDirectories = strategy.isCleanDirectories();
         this.cleanFiles = strategy.isCleanFiles();
         this.recursively = strategy.isRecursively();
-        this.maxTimes = maxTimes;
+        this.isCleanLibs = isCleanLibs;
     }
 
     final Comparator<File> datComparatorFiles = new Comparator<File>() {
@@ -246,9 +246,9 @@ public class FileDirCleaner {
                 boolean timeExceeded = maxDurationBeforeCleaning > 0
                         && currentTime - fileDirJob.lastModified() > maxDurationBeforeCleaning * 1000;
                 try {
-                    if (timeExceeded || tooManyDirs || tooManyFiles || maxTimes) {
+                    if (timeExceeded || tooManyDirs || tooManyFiles) {
                         if (isDirectory) {
-                            if (maxTimes)
+                            if (isCleanLibs)
                                 dirMatches = !fileDirName.matches(directoriesRegExpPattern);
                             else
                                 dirMatches = directoriesRegExpPattern == null || fileDirName.matches(directoriesRegExpPattern);
