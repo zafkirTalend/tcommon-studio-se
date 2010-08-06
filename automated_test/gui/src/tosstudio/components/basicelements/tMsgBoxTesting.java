@@ -1,4 +1,4 @@
-package components.basicelements;
+package tosstudio.components.basicelements;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
