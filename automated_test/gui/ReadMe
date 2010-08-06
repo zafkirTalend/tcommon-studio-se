@@ -12,7 +12,7 @@ Configure Targe Platform
 Run the SWTBot JUnit Test
 
 	1.Right click on the test in the editor Run As>Run Configurations… 
-	2.Select the Main tab and set the product as org.talend.rcp.branding.tos.product and set the Location as "E:/workspaces/runtime_test_nologindialog" and check Clear box
+	2.Select the Main tab and set the product as org.talend.rcp.branding.tos.product and set the Location as "E:/workspaces/runtime_test_nologindialog" and check Clear box if you want
 	3.Select the Arguments tab and add "--disableLoginDialog -project TEST_NOLOGIN -language java -login a@b.c -data E:/workspaces/runtime_test_nologindialog" to the Program arguments
 	4.You may also set VM arguments as "-Xms256m -Xmx512m -XX:MaxNewSize=256m -XX:MaxPermSize=512m"
-	5.Click Run to run the test. If all goes well, you should see a green bar. 
+	5.Click Run to run the test. If all are running correctly, you should see a green bar. 
