@@ -91,6 +91,13 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
         return Arrays.asList(process);
     }
 
+    public List<ExportFileResource> getExportResourcesWithCss(ExportFileResource[] process, String cssFile) {
+        for (int i = 0; i < process.length; i++) {
+            docGenerator.generateHTMLFile(process[i], cssFile);// added path
+        }
+        return Arrays.asList(process);
+    }
+
     /*
      * (non-Javadoc)
      * 

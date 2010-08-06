@@ -94,4 +94,8 @@ public interface ITalendCorePrefConstants {
     String ADD_SYSTEM_ROUTINES = "add_system_routines";
 
     String ADD_USER_ROUTINES = "add_user_routines";
+
+    String USE_CSS_TEMPLATE = "use_css_template";
+
+    String CSS_FILE_PATH = "css_file_path";
 }

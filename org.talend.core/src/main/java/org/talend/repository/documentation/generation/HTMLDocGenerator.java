@@ -31,6 +31,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -60,6 +70,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.model.PasswordEncryptUtil;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.genhtml.CSSParserUtils;
 import org.talend.core.model.genhtml.FileCopyUtils;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.HTMLHandler;
@@ -97,6 +108,9 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.ExportFileResource;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.css.CSSRuleList;
+import org.xml.sax.SAXException;
 
 /**
  * This class is used for generating HTML file.
@@ -148,6 +162,10 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         return this.repositoryObjectType;
     }
 
+    public void generateHTMLFile(ExportFileResource resource) {
+        generateHTMLFile(resource, null);
+    }
+
     /*
      * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code> (non-Javadoc)
      * 
@@ -155,7 +173,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
      * org.talend.repository.documentation.generation.IDocumentationGenerator#generateHTMLFile(org.talend.repository
      * .documentation.ExportFileResource)
      */
-    public void generateHTMLFile(ExportFileResource resource) {
+    public void generateHTMLFile(ExportFileResource resource, String cssFile) {
         try {
 
             // Store all pictures' path.
@@ -185,6 +203,20 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
             // String logoFilePath = logoFileUrl.getPath();
             // FileCopyUtils.copy(logoFilePath, picFolderPath + File.separatorChar
             // + IHTMLDocConstants.TALEND_LOGO_FILE_NAME);
+
+            // if import a css template, generate a new xsl file
+            String temXslPath = null;
+            File file = new File(xslFilePath);
+            temXslPath = HTMLDocUtils.getTmpFolder() + File.separator + file.getName();
+            generateXslFile(xslFilePath, temXslPath, cssFile, tempFolderPath);
+            // if no new xls generated, use default xsl
+            File temFile = new File(temXslPath);
+            if (!temFile.exists()) {
+                temXslPath = null;
+            }
+            if (temXslPath == null) {
+                temXslPath = xslFilePath;
+            }
 
             picList.add(logoFile.toURL());
 
@@ -229,7 +261,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                 }
             }
 
-            List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName + "_" + jobVersion, xslFilePath); //$NON-NLS-1$
+            List<URL> resultFiles = parseXML2HTML(tempFolderPath, jobName + "_" + jobVersion, temXslPath); //$NON-NLS-1$
 
             addResources(resource, resultFiles);
 
@@ -246,6 +278,58 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
 
         targetConnectionMap = null;
         sourceConnectionMap = null;
+    }
+
+    private void generateXslFile(String resource, String xslfile, String cssfile, String folder) {
+        try {
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            org.w3c.dom.Document document = builder.parse(new File(resource));
+            org.w3c.dom.Element rootElement = document.getDocumentElement();
+
+            NodeList list = rootElement.getElementsByTagName("style");
+            org.w3c.dom.Element element = (org.w3c.dom.Element) list.item(0);
+            String value = element.getChildNodes().item(0).getNodeValue();
+            if (value != null) {
+                CSSParserUtils.createCssFile(value, folder + File.separator + "default.css");
+                if (cssfile != null && !cssfile.equals("")) {
+                    String cssName = new File(cssfile).getName();
+                    if (cssName.equalsIgnoreCase("default.css")) {
+                        cssName = "User_" + cssName;
+                    }
+                    File file = new File(folder + File.separator + cssName);
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+                    FileCopyUtils.copy(cssfile, folder + File.separator + cssName);
+                    CSSRuleList ruleList = CSSParserUtils.parserCSSSelectors(null, cssfile);
+                    if (ruleList == null) {
+                        return;
+                    } else {
+                        String newValue = CSSParserUtils.generateCssStyle(cssfile, ruleList, value);
+                        element.getChildNodes().item(0).setNodeValue(newValue);
+                        // replace the old value and generate a new xsl file
+                        DOMSource ds = new DOMSource(document);
+                        StreamResult sr = new StreamResult(new File(xslfile));
+                        TransformerFactory.newInstance().newTransformer().transform(ds, sr);
+                    }
+                }
+            }
+
+        } catch (ParserConfigurationException e) {
+            ExceptionHandler.process(e);
+        } catch (SAXException e) {
+            ExceptionHandler.process(e);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (TransformerConfigurationException e) {
+            ExceptionHandler.process(e);
+        } catch (TransformerException e) {
+            ExceptionHandler.process(e);
+        } catch (TransformerFactoryConfigurationError e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     /*

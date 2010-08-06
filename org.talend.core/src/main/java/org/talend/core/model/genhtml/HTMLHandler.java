@@ -162,6 +162,8 @@ public class HTMLHandler {
 
             javax.xml.transform.Result result = new javax.xml.transform.stream.StreamResult(writer);
 
+            // clear cache, otherwise won't change style if have the same path as last
+            transformerCache.clear();
             // get transformer from cache
             javax.xml.transform.Transformer trans = transformerCache.get(xslFilePath);
             if (trans == null) {
