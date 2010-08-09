@@ -13,10 +13,13 @@
 package org.talend.commons.utils.io;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +35,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -51,6 +55,8 @@ import org.talend.commons.i18n.internal.Messages;
 public class FilesUtils {
 
     public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
+
+    private static final String MIGRATION_FILE_EXT = ".mig"; //$NON-NLS-1$
 
     public static boolean isSVNFolder(String name) {
         if (name != null) {
@@ -580,5 +586,78 @@ public class FilesUtils {
         for (File folder : allFolders) {
             getAllFilesFromFolder(folder, fileList, filenameFilter);
         }
+    }
+
+    /**
+     * DOC according to the replace string map to migrate files of given folders from old content to new ones.
+     * 
+     * @param migFolder folder to migrate
+     * @param acceptFileExtentionNames extention name of the files which should to be migrated
+     * @param replaceStringMap the replace string map {key=oldString, value=newString}
+     * @param log logger to record logs
+     * @return true if success, false if get exceptions
+     */
+    public static boolean migrateFolder(File migFolder, final String[] acceptFileExtentionNames,
+            Map<String, String> replaceStringMap, Logger log) {
+        boolean result = true;
+
+        ArrayList<File> fileList = new ArrayList<File>();
+        getAllFilesFromFolder(migFolder, fileList, new FilenameFilter() {
+
+            public boolean accept(File dir, String name) {
+                for (String extName : acceptFileExtentionNames) {
+                    if (name.endsWith(extName)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        log.info("-------------- Migrating " + fileList.size() + " files");
+
+        int counter = 0;
+        int errorCounter = 0;
+        Throwable error = null;
+
+        for (File sample : fileList) {
+            log.info("-------------- Migrating (" + counter++ + ") : " + sample.getAbsolutePath());
+            try {
+                BufferedReader fileReader = new BufferedReader(new FileReader(sample));
+                BufferedWriter fileWriter = new BufferedWriter(new FileWriter(new File(sample.getAbsolutePath()
+                        + MIGRATION_FILE_EXT)));
+
+                while (fileReader.ready()) {
+                    String line = fileReader.readLine();
+                    for (String key : replaceStringMap.keySet()) {
+                        line = line.replaceAll(key, replaceStringMap.get(key));
+                    }
+                    fileWriter.append(line);
+                    fileWriter.newLine();
+                }
+
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (Exception e) {
+                error = e;
+                errorCounter++;
+                log.error("!!!!!!!!!!!  Error transforming (" + sample.getAbsolutePath() + ")\n" + e.getMessage(), e);
+            }
+            log.info("-------------- Migration done of " + counter + " files"
+                    + (errorCounter != 0 ? (",  there are " + errorCounter + " files in error.") : "."));
+        }
+
+        if (error != null) {
+            result = false;
+        } else {
+            // remove original files and rename new ones to old ones
+            for (File sample : fileList) {
+                boolean isDeleted = sample.delete();
+                log.info(sample.getAbsolutePath() + (isDeleted ? " is deleted." : " failed to delete."));
+                boolean isrenamed = new File(sample.getAbsolutePath() + MIGRATION_FILE_EXT).renameTo(sample); //$NON-NLS-1$
+                log.info(sample.getAbsolutePath() + MIGRATION_FILE_EXT + (isrenamed ? " is renamed." : " failed to rename."));
+            }
+        }
+
+        return result;
     }
 }
