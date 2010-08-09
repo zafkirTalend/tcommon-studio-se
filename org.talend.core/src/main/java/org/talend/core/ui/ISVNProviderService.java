@@ -46,4 +46,6 @@ public interface ISVNProviderService extends IService {
 
     public void svnEclipseHandlerCommit(IProject eclipseProject, Project currentProject);
 
+    public void svnEclipseHandlerDelete(IProject eclipseProject, Project currentProject, String filePath);
+
 }

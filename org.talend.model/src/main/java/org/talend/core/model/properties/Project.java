@@ -47,6 +47,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#isHidePassword <em>Hide Password</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getItemsRelations <em>Items Relations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#isReference <em>Reference</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
  * </ul>
  * </p>
  *
@@ -532,6 +533,22 @@ public interface Project extends EObject {
      * @generated
      */
     void setReference(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Custom Component Settings</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.CustomComponentSetting}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Custom Component Settings</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Custom Component Settings</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_CustomComponentSettings()
+     * @model type="org.talend.core.model.properties.CustomComponentSetting" containment="true" ordered="false"
+     * @generated
+     */
+    EList getCustomComponentSettings();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

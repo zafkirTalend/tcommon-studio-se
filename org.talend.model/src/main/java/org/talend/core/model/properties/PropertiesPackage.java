@@ -311,12 +311,21 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__REFERENCE = 27;
 
     /**
+     * The feature id for the '<em><b>Custom Component Settings</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__CUSTOM_COMPONENT_SETTINGS = 28;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 28;
+    int PROJECT_FEATURE_COUNT = 29;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.PropertyImpl <em>Property</em>}' class.
@@ -7752,6 +7761,43 @@ public interface PropertiesPackage extends EPackage {
     int FTP_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.CustomComponentSettingImpl <em>Custom Component Setting</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.CustomComponentSettingImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCustomComponentSetting()
+     * @generated
+     */
+    int CUSTOM_COMPONENT_SETTING = 96;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CUSTOM_COMPONENT_SETTING__NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Share</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CUSTOM_COMPONENT_SETTING__SHARE = 1;
+
+    /**
+     * The number of structural features of the '<em>Custom Component Setting</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CUSTOM_COMPONENT_SETTING_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7759,7 +7805,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 96;
+    int FOLDER_TYPE = 97;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7768,7 +7814,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 97;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 98;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7777,7 +7823,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 98;
+    int USER_MODULE_AUTHORIZATION_TYPE = 99;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7786,7 +7832,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 99;
+    int INFORMATION_LEVEL = 100;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -8066,6 +8112,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_Reference();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Project#getCustomComponentSettings <em>Custom Component Settings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Custom Component Settings</em>'.
+     * @see org.talend.core.model.properties.Project#getCustomComponentSettings()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_CustomComponentSettings();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
@@ -12085,6 +12142,38 @@ public interface PropertiesPackage extends EPackage {
     EClass getFTPConnectionItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.CustomComponentSetting <em>Custom Component Setting</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Custom Component Setting</em>'.
+     * @see org.talend.core.model.properties.CustomComponentSetting
+     * @generated
+     */
+    EClass getCustomComponentSetting();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CustomComponentSetting#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.core.model.properties.CustomComponentSetting#getName()
+     * @see #getCustomComponentSetting()
+     * @generated
+     */
+    EAttribute getCustomComponentSetting_Name();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CustomComponentSetting#isShare <em>Share</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Share</em>'.
+     * @see org.talend.core.model.properties.CustomComponentSetting#isShare()
+     * @see #getCustomComponentSetting()
+     * @generated
+     */
+    EAttribute getCustomComponentSetting_Share();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -13306,6 +13395,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__REFERENCE = eINSTANCE.getProject_Reference();
+
+        /**
+         * The meta object literal for the '<em><b>Custom Component Settings</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__CUSTOM_COMPONENT_SETTINGS = eINSTANCE.getProject_CustomComponentSettings();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
@@ -16532,6 +16629,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass FTP_CONNECTION_ITEM = eINSTANCE.getFTPConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.CustomComponentSettingImpl <em>Custom Component Setting</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.CustomComponentSettingImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCustomComponentSetting()
+         * @generated
+         */
+        EClass CUSTOM_COMPONENT_SETTING = eINSTANCE.getCustomComponentSetting();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CUSTOM_COMPONENT_SETTING__NAME = eINSTANCE.getCustomComponentSetting_Name();
+
+        /**
+         * The meta object literal for the '<em><b>Share</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CUSTOM_COMPONENT_SETTING__SHARE = eINSTANCE.getCustomComponentSetting_Share();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

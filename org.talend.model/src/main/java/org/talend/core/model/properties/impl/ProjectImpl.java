@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ComponentSetting;
+import org.talend.core.model.properties.CustomComponentSetting;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.ItemRelations;
@@ -68,6 +69,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isHidePassword <em>Hide Password</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getItemsRelations <em>Items Relations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isReference <em>Reference</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCustomComponentSettings <em>Custom Component Settings</em>}</li>
  * </ul>
  * </p>
  *
@@ -491,6 +493,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected boolean reference = REFERENCE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getCustomComponentSettings() <em>Custom Component Settings</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCustomComponentSettings()
+     * @generated
+     * @ordered
+     */
+    protected EList customComponentSettings;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -921,6 +933,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getCustomComponentSettings() {
+        if (customComponentSettings == null) {
+            customComponentSettings = new EObjectContainmentEList(CustomComponentSetting.class, this, PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS);
+        }
+        return customComponentSettings;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1072,6 +1096,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return basicSetImplicitContextSettings(null, msgs);
             case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
                 return ((InternalEList)getItemsRelations()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
+                return ((InternalEList)getCustomComponentSettings()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -1139,6 +1165,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getItemsRelations();
             case PropertiesPackage.PROJECT__REFERENCE:
                 return isReference() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
+                return getCustomComponentSettings();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1244,6 +1272,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__REFERENCE:
                 setReference(((Boolean)newValue).booleanValue());
                 return;
+            case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
+                getCustomComponentSettings().clear();
+                getCustomComponentSettings().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1338,6 +1370,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__REFERENCE:
                 setReference(REFERENCE_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
+                getCustomComponentSettings().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1404,6 +1439,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return itemsRelations != null && !itemsRelations.isEmpty();
             case PropertiesPackage.PROJECT__REFERENCE:
                 return reference != REFERENCE_EDEFAULT;
+            case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
+                return customComponentSettings != null && !customComponentSettings.isEmpty();
         }
         return super.eIsSet(featureID);
     }

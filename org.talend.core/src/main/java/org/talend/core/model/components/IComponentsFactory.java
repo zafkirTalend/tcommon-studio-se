@@ -42,6 +42,8 @@ public interface IComponentsFactory {
 
     public List<IComponent> getComponents();
 
+    public List<IComponent> getCustomComponents();
+
     public IComponent get(String name);
 
     public URL getComponentPath() throws IOException;

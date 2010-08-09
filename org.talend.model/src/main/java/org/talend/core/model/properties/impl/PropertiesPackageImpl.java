@@ -24,6 +24,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.CronTalendTrigger;
 import org.talend.core.model.properties.CronUITalendTrigger;
+import org.talend.core.model.properties.CustomComponentSetting;
 import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
@@ -661,6 +662,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass ftpConnectionItemEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass customComponentSettingEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1005,6 +1013,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getProject_Reference() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(27);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_CustomComponentSettings() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(28);
     }
 
     /**
@@ -4017,6 +4034,33 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCustomComponentSetting() {
+        return customComponentSettingEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCustomComponentSetting_Name() {
+        return (EAttribute)customComponentSettingEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCustomComponentSetting_Share() {
+        return (EAttribute)customComponentSettingEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4955,6 +4999,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(projectEClass, PROJECT__HIDE_PASSWORD);
         createEReference(projectEClass, PROJECT__ITEMS_RELATIONS);
         createEAttribute(projectEClass, PROJECT__REFERENCE);
+        createEReference(projectEClass, PROJECT__CUSTOM_COMPONENT_SETTINGS);
 
         projectComponentAuthorisationEClass = createEClass(PROJECT_COMPONENT_AUTHORISATION);
         createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__PROJECT);
@@ -5528,6 +5573,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         ftpConnectionItemEClass = createEClass(FTP_CONNECTION_ITEM);
 
+        customComponentSettingEClass = createEClass(CUSTOM_COMPONENT_SETTING);
+        createEAttribute(customComponentSettingEClass, CUSTOM_COMPONENT_SETTING__NAME);
+        createEAttribute(customComponentSettingEClass, CUSTOM_COMPONENT_SETTING__SHARE);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5651,6 +5700,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getProject_HidePassword(), ecorePackage.getEBoolean(), "hidePassword", "true", 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_ItemsRelations(), this.getItemRelations(), null, "ItemsRelations", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Reference(), ecorePackage.getEBoolean(), "reference", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_CustomComponentSettings(), this.getCustomComponentSetting(), null, "customComponentSettings", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
         initEClass(projectComponentAuthorisationEClass, ProjectComponentAuthorisation.class, "ProjectComponentAuthorisation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProjectComponentAuthorisation_Project(), this.getProject(), this.getProject_AllowedComponents(), "project", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -6223,6 +6273,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(headerFooterConnectionItemEClass, HeaderFooterConnectionItem.class, "HeaderFooterConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(ftpConnectionItemEClass, FTPConnectionItem.class, "FTPConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(customComponentSettingEClass, CustomComponentSetting.class, "CustomComponentSetting", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCustomComponentSetting_Name(), theEcorePackage.getEString(), "name", null, 0, 1, CustomComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCustomComponentSetting_Share(), theEcorePackage.getEBoolean(), "share", null, 0, 1, CustomComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

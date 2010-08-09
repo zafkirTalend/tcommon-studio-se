@@ -55,6 +55,8 @@
         eType="#//ItemRelations" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customComponentSettings"
+        ordered="false" upperBound="-1" eType="#//CustomComponentSetting" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
@@ -755,4 +757,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HeaderFooterConnectionItem" eSuperTypes="#//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FTPConnectionItem" eSuperTypes="#//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomComponentSetting">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="share" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
 </ecore:EPackage>

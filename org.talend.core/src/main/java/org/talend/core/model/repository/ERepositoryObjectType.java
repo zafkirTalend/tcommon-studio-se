@@ -131,8 +131,7 @@ public enum ERepositoryObjectType {
     TDQ_ELEMENT("repository.tdqelement", "repository.tdqelement"), //$NON-NLS-1$ //$NON-NLS-2$
 
     METADATA_HEADER_FOOTER("repository.headerFooterConnections", "repository.headerFooterConnections.alias"), //$NON-NLS-1$
-
-    ;
+    COMPONENTS("repository.components");//$NON-NLS-1$
 
     private String key;
 
@@ -286,6 +285,8 @@ public enum ERepositoryObjectType {
             // MOD mzhao feature 9207
         case TDQ_ELEMENT:
             return "";//$NON-NLS-1$
+        case COMPONENTS:
+            return "components";
         default:
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {

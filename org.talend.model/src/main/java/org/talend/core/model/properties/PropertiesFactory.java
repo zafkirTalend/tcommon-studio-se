@@ -718,6 +718,15 @@ public interface PropertiesFactory extends EFactory {
     FTPConnectionItem createFTPConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Custom Component Setting</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Custom Component Setting</em>'.
+     * @generated
+     */
+    CustomComponentSetting createCustomComponentSetting();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
