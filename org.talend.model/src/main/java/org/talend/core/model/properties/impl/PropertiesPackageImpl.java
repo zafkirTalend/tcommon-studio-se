@@ -41,6 +41,7 @@ import org.talend.core.model.properties.ExecutionTaskCmdPrm;
 import org.talend.core.model.properties.ExecutionTaskJobPrm;
 import org.talend.core.model.properties.ExecutionTriggerable;
 import org.talend.core.model.properties.ExecutionVirtualServer;
+import org.talend.core.model.properties.FTPConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FileTrigger;
 import org.talend.core.model.properties.FileTriggerMask;
@@ -651,6 +652,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass headerFooterConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ftpConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4000,6 +4008,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFTPConnectionItem() {
+        return ftpConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5509,6 +5526,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         headerFooterConnectionItemEClass = createEClass(HEADER_FOOTER_CONNECTION_ITEM);
 
+        ftpConnectionItemEClass = createEClass(FTP_CONNECTION_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5600,6 +5619,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         linkRulesItemEClass.getESuperTypes().add(this.getItem());
         hl7ConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         headerFooterConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        ftpConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6201,6 +6221,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getUserRoleReference_Role(), this.getUserRole(), null, "role", null, 1, 1, UserRoleReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(headerFooterConnectionItemEClass, HeaderFooterConnectionItem.class, "HeaderFooterConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(ftpConnectionItemEClass, FTPConnectionItem.class, "FTPConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

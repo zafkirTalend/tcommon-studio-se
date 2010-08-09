@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseProperties;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
 import org.talend.core.model.metadata.builder.connection.Escape;
+import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
@@ -363,6 +364,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass hl7FileNodeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ftpConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2969,6 +2977,159 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFTPConnection() {
+        return ftpConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Host() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Port() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Username() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Password() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Mode() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Ecoding() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_SFTP() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_FTPS() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Method() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_KeystoreFile() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_KeystorePassword() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Usesocks() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Proxyhost() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Proxyport() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Proxyuser() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_Proxypassword() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3397,6 +3558,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__RELATED_COLUMN);
         createEAttribute(hl7FileNodeEClass, HL7_FILE_NODE__REPEATABLE);
 
+        ftpConnectionEClass = createEClass(FTP_CONNECTION);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__HOST);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PORT);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__USERNAME);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PASSWORD);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__MODE);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__ECODING);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__SFTP);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__FTPS);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__METHOD);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__KEYSTORE_FILE);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__KEYSTORE_PASSWORD);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__USESOCKS);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYHOST);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYPORT);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYUSER);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYPASSWORD);
+
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
         fieldSeparatorEEnum = createEEnum(FIELD_SEPARATOR);
@@ -3493,6 +3672,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         hl7ConnectionEClass.getESuperTypes().add(this.getFileConnection());
         headerFooterConnectionEClass.getESuperTypes().add(this.getConnection());
         genericPackageEClass.getESuperTypes().add(theCorePackage.getPackage());
+        ftpConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4338,6 +4518,44 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHL7FileNode_Repeatable(), ecorePackage.getEBoolean(), "Repeatable", null, 0, 1, HL7FileNode.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(ftpConnectionEClass, FTPConnection.class, "FTPConnection", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFTPConnection_Host(), ecorePackage.getEString(), "Host", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Port(), ecorePackage.getEString(), "Port", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Username(), ecorePackage.getEString(), "Username", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Mode(), ecorePackage.getEString(), "Mode", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Ecoding(), ecorePackage.getEString(), "Ecoding", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_SFTP(), ecorePackage.getEBoolean(), "SFTP", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_FTPS(), ecorePackage.getEBoolean(), "FTPS", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Method(), ecorePackage.getEString(), "Method", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_KeystoreFile(), ecorePackage.getEString(), "KeystoreFile", null, 0, 1,
+                FTPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFTPConnection_KeystorePassword(), ecorePackage.getEString(), "KeystorePassword", null, 0, 1,
+                FTPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFTPConnection_Usesocks(), ecorePackage.getEBoolean(), "Usesocks", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Proxyhost(), ecorePackage.getEString(), "Proxyhost", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Proxyport(), ecorePackage.getEString(), "Proxyport", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Proxyuser(), ecorePackage.getEString(), "Proxyuser", null, 0, 1, FTPConnection.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFTPConnection_Proxypassword(), ecorePackage.getEString(), "Proxypassword", null, 0, 1,
+                FTPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(fileFormatEEnum, FileFormat.class, "FileFormat");

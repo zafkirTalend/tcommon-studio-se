@@ -189,6 +189,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             return createGenericPackage();
         case ConnectionPackage.HL7_FILE_NODE:
             return createHL7FileNode();
+        case ConnectionPackage.FTP_CONNECTION:
+            return createFTPConnection();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -605,6 +607,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public HL7FileNode createHL7FileNode() {
         HL7FileNodeImpl hl7FileNode = new HL7FileNodeImpl();
         return hl7FileNode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FTPConnection createFTPConnection() {
+        FTPConnectionImpl ftpConnection = new FTPConnectionImpl();
+        return ftpConnection;
     }
 
     /**

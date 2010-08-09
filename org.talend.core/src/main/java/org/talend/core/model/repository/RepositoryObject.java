@@ -37,6 +37,7 @@ import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
+import org.talend.core.model.properties.FTPConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
 import org.talend.core.model.properties.HeaderFooterConnectionItem;
@@ -261,6 +262,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             @Override
             public Object caseEbcdicConnectionItem(EbcdicConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_EBCDIC;
+            }
+
+            public Object caseFTPConnectionItem(FTPConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_FTP;
             }
 
             public Object caseMDMConnectionItem(MDMConnectionItem object) {

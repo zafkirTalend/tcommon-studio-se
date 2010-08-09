@@ -571,6 +571,7 @@
     <genClasses ecoreClass="properties.ecore#//TDQIndicatorItem"/>
     <genClasses ecoreClass="properties.ecore#//TDQBusinessRuleItem"/>
     <genClasses ecoreClass="properties.ecore#//TDQPatternItem"/>
+    <genClasses ecoreClass="properties.ecore#//TDQJrxmlItem"/>
     <genClasses ecoreClass="properties.ecore#//LinkRulesItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//LinkRulesItem/extension"/>
@@ -597,5 +598,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//UserRoleReference/role"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//HeaderFooterConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//FTPConnectionItem"/>
   </genPackages>
 </genmodel:GenModel>

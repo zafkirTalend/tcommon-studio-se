@@ -906,6 +906,31 @@ public class ConnectionSwitch<T> {
                 result = defaultCase(theEObject);
             return result;
         }
+        case ConnectionPackage.FTP_CONNECTION: {
+            FTPConnection ftpConnection = (FTPConnection) theEObject;
+            T result = caseFTPConnection(ftpConnection);
+            if (result == null)
+                result = caseConnection(ftpConnection);
+            if (result == null)
+                result = caseAbstractMetadataObject(ftpConnection);
+            if (result == null)
+                result = caseDataProvider(ftpConnection);
+            if (result == null)
+                result = caseDataManager(ftpConnection);
+            if (result == null)
+                result = caseElement(ftpConnection);
+            if (result == null)
+                result = caseDeployedComponent(ftpConnection);
+            if (result == null)
+                result = casePackage(ftpConnection);
+            if (result == null)
+                result = caseNamespace(ftpConnection);
+            if (result == null)
+                result = caseModelElement(ftpConnection);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         default:
             return defaultCase(theEObject);
         }
@@ -1444,6 +1469,21 @@ public class ConnectionSwitch<T> {
      * @generated
      */
     public T caseHL7FileNode(HL7FileNode object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>FTP Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>FTP Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseFTPConnection(FTPConnection object) {
         return null;
     }
 

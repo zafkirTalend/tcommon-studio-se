@@ -23,6 +23,7 @@ import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
+import org.talend.core.model.properties.FTPConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
@@ -94,6 +95,7 @@ public enum ERepositoryObjectType {
     SQLPATTERNS("repository.metadataSQLPatterns", "repository.metadataSQLPatterns.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_EBCDIC("repository.metadataFileEDCDIC", "repository.metadataFileEDCDIC.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_HL7("repository.metadataFileHL7", "repository.metadataFileHL7.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_FTP("repository.metadataFileFTP", "repository.metadataFileFTP.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_MDMCONNECTION("repository.metadataMDMConnections", "repository.metadataMDMConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -234,6 +236,8 @@ public enum ERepositoryObjectType {
             return "metadata/fileEBCDIC"; //$NON-NLS-1$
         case METADATA_FILE_HL7:
             return "metadata/fileHL7"; //$NON-NLS-1$
+        case METADATA_FILE_FTP:
+            return "metadata/FTPconnections"; //$NON-NLS-1$
         case METADATA_MDMCONNECTION:
             return "metadata/MDMconnections"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
@@ -460,6 +464,10 @@ public enum ERepositoryObjectType {
 
             public Object caseHL7ConnectionItem(HL7ConnectionItem object) {
                 return METADATA_FILE_HL7;
+            }
+
+            public Object caseFTPConnectionItem(FTPConnectionItem object) {
+                return METADATA_FILE_FTP;
             }
 
             public Object caseMDMConnectionItem(MDMConnectionItem object) {

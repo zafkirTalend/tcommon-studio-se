@@ -709,6 +709,15 @@ public interface PropertiesFactory extends EFactory {
     HeaderFooterConnectionItem createHeaderFooterConnectionItem();
 
     /**
+     * Returns a new object of class '<em>FTP Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>FTP Connection Item</em>'.
+     * @generated
+     */
+    FTPConnectionItem createFTPConnectionItem();
+
+    /**
      * Returns a new object of class '<em>Execution Plan</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

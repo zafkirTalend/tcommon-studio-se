@@ -14482,13 +14482,545 @@ public interface ConnectionPackage extends EPackage {
     int HL7_FILE_NODE_FEATURE_COUNT = 6;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl <em>FTP Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFTPConnection()
+     * @generated
+     */
+    int FTP_CONNECTION = 42;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__NAME = CONNECTION__NAME;
+
+    /**
+     * The feature id for the '<em><b>Visibility</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__VISIBILITY = CONNECTION__VISIBILITY;
+
+    /**
+     * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CLIENT_DEPENDENCY = CONNECTION__CLIENT_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__SUPPLIER_DEPENDENCY = CONNECTION__SUPPLIER_DEPENDENCY;
+
+    /**
+     * The feature id for the '<em><b>Constraint</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CONSTRAINT = CONNECTION__CONSTRAINT;
+
+    /**
+     * The feature id for the '<em><b>Namespace</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__NAMESPACE = CONNECTION__NAMESPACE;
+
+    /**
+     * The feature id for the '<em><b>Importer</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__IMPORTER = CONNECTION__IMPORTER;
+
+    /**
+     * The feature id for the '<em><b>Stereotype</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__STEREOTYPE = CONNECTION__STEREOTYPE;
+
+    /**
+     * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__TAGGED_VALUE = CONNECTION__TAGGED_VALUE;
+
+    /**
+     * The feature id for the '<em><b>Document</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DOCUMENT = CONNECTION__DOCUMENT;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DESCRIPTION = CONNECTION__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__RESPONSIBLE_PARTY = CONNECTION__RESPONSIBLE_PARTY;
+
+    /**
+     * The feature id for the '<em><b>Element Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__ELEMENT_NODE = CONNECTION__ELEMENT_NODE;
+
+    /**
+     * The feature id for the '<em><b>Set</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__SET = CONNECTION__SET;
+
+    /**
+     * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__RENDERED_OBJECT = CONNECTION__RENDERED_OBJECT;
+
+    /**
+     * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__VOCABULARY_ELEMENT = CONNECTION__VOCABULARY_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Measurement</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__MEASUREMENT = CONNECTION__MEASUREMENT;
+
+    /**
+     * The feature id for the '<em><b>Change Request</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CHANGE_REQUEST = CONNECTION__CHANGE_REQUEST;
+
+    /**
+     * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DASDL_PROPERTY = CONNECTION__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__OWNED_ELEMENT = CONNECTION__OWNED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Imported Element</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__IMPORTED_ELEMENT = CONNECTION__IMPORTED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Data Manager</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DATA_MANAGER = CONNECTION__DATA_MANAGER;
+
+    /**
+     * The feature id for the '<em><b>Pathname</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PATHNAME = CONNECTION__PATHNAME;
+
+    /**
+     * The feature id for the '<em><b>Machine</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__MACHINE = CONNECTION__MACHINE;
+
+    /**
+     * The feature id for the '<em><b>Deployed Software System</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DEPLOYED_SOFTWARE_SYSTEM = CONNECTION__DEPLOYED_SOFTWARE_SYSTEM;
+
+    /**
+     * The feature id for the '<em><b>Component</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__COMPONENT = CONNECTION__COMPONENT;
+
+    /**
+     * The feature id for the '<em><b>Is Case Sensitive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__IS_CASE_SENSITIVE = CONNECTION__IS_CASE_SENSITIVE;
+
+    /**
+     * The feature id for the '<em><b>Client Connection</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CLIENT_CONNECTION = CONNECTION__CLIENT_CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Data Package</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__DATA_PACKAGE = CONNECTION__DATA_PACKAGE;
+
+    /**
+     * The feature id for the '<em><b>Resource Connection</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__RESOURCE_CONNECTION = CONNECTION__RESOURCE_CONNECTION;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Context Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CONTEXT_MODE = CONNECTION__CONTEXT_MODE;
+
+    /**
+     * The feature id for the '<em><b>Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CONTEXT_ID = CONNECTION__CONTEXT_ID;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__HOST = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PORT = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__USERNAME = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PASSWORD = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Mode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__MODE = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Ecoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__ECODING = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>SFTP</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__SFTP = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>FTPS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__FTPS = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Method</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__METHOD = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Keystore File</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__KEYSTORE_FILE = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Keystore Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__KEYSTORE_PASSWORD = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
+     * The feature id for the '<em><b>Usesocks</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__USESOCKS = CONNECTION_FEATURE_COUNT + 11;
+
+    /**
+     * The feature id for the '<em><b>Proxyhost</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PROXYHOST = CONNECTION_FEATURE_COUNT + 12;
+
+    /**
+     * The feature id for the '<em><b>Proxyport</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PROXYPORT = CONNECTION_FEATURE_COUNT + 13;
+
+    /**
+     * The feature id for the '<em><b>Proxyuser</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PROXYUSER = CONNECTION_FEATURE_COUNT + 14;
+
+    /**
+     * The feature id for the '<em><b>Proxypassword</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__PROXYPASSWORD = CONNECTION_FEATURE_COUNT + 15;
+
+    /**
+     * The number of structural features of the '<em>FTP Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.FileFormat
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 42;
+    int FILE_FORMAT = 43;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -14497,7 +15029,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 43;
+    int FIELD_SEPARATOR = 44;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -14506,7 +15038,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 44;
+    int ESCAPE = 45;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -14515,7 +15047,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 45;
+    int ROW_SEPARATOR = 46;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.MDMConnectionProtocol <em>MDM Connection Protocol</em>}' enum.
@@ -14524,7 +15056,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMDMConnectionProtocol()
      * @generated
      */
-    int MDM_CONNECTION_PROTOCOL = 46;
+    int MDM_CONNECTION_PROTOCOL = 47;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -14533,7 +15065,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 47;
+    int MAP = 48;
 
     /**
      * The meta object id for the '<em>List</em>' data type.
@@ -14542,7 +15074,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
      * @generated
      */
-    int LIST = 48;
+    int LIST = 49;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -17762,6 +18294,192 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getHL7FileNode_Repeatable();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.FTPConnection <em>FTP Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>FTP Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection
+     * @generated
+     */
+    EClass getFTPConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getHost <em>Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Host</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getHost()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Host();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getPort()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Port();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getUsername <em>Username</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Username</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getUsername()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Username();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getPassword()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getMode <em>Mode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getMode()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Mode();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getEcoding <em>Ecoding</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Ecoding</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getEcoding()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Ecoding();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#isSFTP <em>SFTP</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SFTP</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#isSFTP()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_SFTP();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#isFTPS <em>FTPS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>FTPS</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#isFTPS()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_FTPS();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getMethod <em>Method</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Method</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getMethod()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Method();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getKeystoreFile <em>Keystore File</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Keystore File</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getKeystoreFile()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_KeystoreFile();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getKeystorePassword <em>Keystore Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Keystore Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getKeystorePassword()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_KeystorePassword();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#isUsesocks <em>Usesocks</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Usesocks</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#isUsesocks()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Usesocks();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getProxyhost <em>Proxyhost</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxyhost</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getProxyhost()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Proxyhost();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getProxyport <em>Proxyport</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxyport</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getProxyport()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Proxyport();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getProxyuser <em>Proxyuser</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxyuser</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getProxyuser()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Proxyuser();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getProxypassword <em>Proxypassword</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxypassword</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getProxypassword()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_Proxypassword();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>File Format</em>'.
@@ -20332,6 +21050,144 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute HL7_FILE_NODE__REPEATABLE = eINSTANCE.getHL7FileNode_Repeatable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl <em>FTP Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFTPConnection()
+         * @generated
+         */
+        EClass FTP_CONNECTION = eINSTANCE.getFTPConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__HOST = eINSTANCE.getFTPConnection_Host();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__PORT = eINSTANCE.getFTPConnection_Port();
+
+        /**
+         * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__USERNAME = eINSTANCE.getFTPConnection_Username();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__PASSWORD = eINSTANCE.getFTPConnection_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Mode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__MODE = eINSTANCE.getFTPConnection_Mode();
+
+        /**
+         * The meta object literal for the '<em><b>Ecoding</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__ECODING = eINSTANCE.getFTPConnection_Ecoding();
+
+        /**
+         * The meta object literal for the '<em><b>SFTP</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__SFTP = eINSTANCE.getFTPConnection_SFTP();
+
+        /**
+         * The meta object literal for the '<em><b>FTPS</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__FTPS = eINSTANCE.getFTPConnection_FTPS();
+
+        /**
+         * The meta object literal for the '<em><b>Method</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__METHOD = eINSTANCE.getFTPConnection_Method();
+
+        /**
+         * The meta object literal for the '<em><b>Keystore File</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__KEYSTORE_FILE = eINSTANCE.getFTPConnection_KeystoreFile();
+
+        /**
+         * The meta object literal for the '<em><b>Keystore Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__KEYSTORE_PASSWORD = eINSTANCE.getFTPConnection_KeystorePassword();
+
+        /**
+         * The meta object literal for the '<em><b>Usesocks</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__USESOCKS = eINSTANCE.getFTPConnection_Usesocks();
+
+        /**
+         * The meta object literal for the '<em><b>Proxyhost</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__PROXYHOST = eINSTANCE.getFTPConnection_Proxyhost();
+
+        /**
+         * The meta object literal for the '<em><b>Proxyport</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__PROXYPORT = eINSTANCE.getFTPConnection_Proxyport();
+
+        /**
+         * The meta object literal for the '<em><b>Proxyuser</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__PROXYUSER = eINSTANCE.getFTPConnection_Proxyuser();
+
+        /**
+         * The meta object literal for the '<em><b>Proxypassword</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__PROXYPASSWORD = eINSTANCE.getFTPConnection_Proxypassword();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.

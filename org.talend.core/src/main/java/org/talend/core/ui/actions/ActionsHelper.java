@@ -52,16 +52,18 @@ public class ActionsHelper {
                 try {
                     int level = Integer.parseInt(current.getAttribute("level")); //$NON-NLS-1$
                     currentAction.setLevel(level);
+                } catch (NumberFormatException e) {
+                    currentAction.setLevel(1000);
+                } finally {
                     currentAction.setReadAction("true".equals(current.getAttribute("isReadAction"))); //$NON-NLS-1$ //$NON-NLS-2$
                     currentAction.setEditAction("true".equals(current.getAttribute("isEditAction"))); //$NON-NLS-1$ //$NON-NLS-2$
                     currentAction.setPropertiesAction("true".equals(current.getAttribute("isPropertiesAction"))); //$NON-NLS-1$ //$NON-NLS-2$
                     if (!"".equals(current.getAttribute("groupId")) && current.getAttribute("groupId") != null) {//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                         currentAction.setGroupId(current.getAttribute("groupId"));
                     }
-                } catch (NumberFormatException e) {
-                    currentAction.setLevel(1000);
+
+                    toReturn.add(currentAction);
                 }
-                toReturn.add(currentAction);
             } catch (CoreException e) {
                 // e.printStackTrace();
                 ExceptionHandler.process(e);

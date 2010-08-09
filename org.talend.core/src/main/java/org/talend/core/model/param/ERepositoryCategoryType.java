@@ -31,6 +31,7 @@ public enum ERepositoryCategoryType {
     SAPIDOC,
     EBCDIC,
     HL7,
+    FTP,
     MDM,
     RULE,
     CDC(DATABASE),

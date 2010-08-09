@@ -817,6 +817,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.FTP_CONNECTION_ITEM: {
+                FTPConnectionItem ftpConnectionItem = (FTPConnectionItem)theEObject;
+                Object result = caseFTPConnectionItem(ftpConnectionItem);
+                if (result == null) result = caseConnectionItem(ftpConnectionItem);
+                if (result == null) result = caseItem(ftpConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -2027,6 +2035,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>FTP Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>FTP Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseFTPConnectionItem(FTPConnectionItem object) {
         return null;
     }
 

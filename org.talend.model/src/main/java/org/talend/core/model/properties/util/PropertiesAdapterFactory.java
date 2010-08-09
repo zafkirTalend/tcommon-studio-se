@@ -431,6 +431,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseHeaderFooterConnectionItem(HeaderFooterConnectionItem object) {
                 return createHeaderFooterConnectionItemAdapter();
             }
+            public Object caseFTPConnectionItem(FTPConnectionItem object) {
+                return createFTPConnectionItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -1607,6 +1610,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createHeaderFooterConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.FTPConnectionItem <em>FTP Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.FTPConnectionItem
+     * @generated
+     */
+    public Adapter createFTPConnectionItemAdapter() {
         return null;
     }
 

@@ -350,6 +350,15 @@ public interface ConnectionFactory extends EFactory {
     HL7FileNode createHL7FileNode();
 
     /**
+     * Returns a new object of class '<em>FTP Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>FTP Connection</em>'.
+     * @generated
+     */
+    FTPConnection createFTPConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

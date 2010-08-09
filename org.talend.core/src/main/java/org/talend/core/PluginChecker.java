@@ -36,6 +36,8 @@ public class PluginChecker {
 
     private static final String EBCDIC_PLUGIN_ID = "org.talend.repository.ebcdic"; //$NON-NLS-1$
 
+    private static final String FTP_PLUGIN_ID = "org.talend.repository.ftp"; //$NON-NLS-1$
+
     private static final String MDM_PLUGIN_ID = "org.talend.repository.mdm"; //$NON-NLS-1$
 
     private static final String REF_PROJECT_PLUGIN_ID = "org.talend.repository.refproject"; //$NON-NLS-1$
@@ -87,6 +89,10 @@ public class PluginChecker {
 
     public static boolean isWSDLPluginLoaded() {
         return isPluginLoaded(WSDL_PLUGIN_ID);
+    }
+
+    public static boolean isFTPPluginLoaded() {
+        return isPluginLoaded(FTP_PLUGIN_ID);
     }
 
     /**

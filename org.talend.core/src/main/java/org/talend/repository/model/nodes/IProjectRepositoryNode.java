@@ -133,6 +133,8 @@ public interface IProjectRepositoryNode {
 
     public RepositoryNode getMetadataHL7ConnectionNode();
 
+    public RepositoryNode getMetadataFTPConnectionNode();
+
     public RepositoryNode getMetadataMDMConnectionNode();
 
     public RepositoryNode getMetadataRulesNode();

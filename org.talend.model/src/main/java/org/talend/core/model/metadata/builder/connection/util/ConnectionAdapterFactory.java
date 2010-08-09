@@ -332,6 +332,11 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter caseFTPConnection(FTPConnection object) {
+            return createFTPConnectionAdapter();
+        }
+
+        @Override
         public Adapter caseElement(Element object) {
             return createElementAdapter();
         }
@@ -994,6 +999,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createHL7FileNodeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.FTPConnection <em>FTP Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection
+     * @generated
+     */
+    public Adapter createFTPConnectionAdapter() {
         return null;
     }
 

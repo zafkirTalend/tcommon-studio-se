@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
+import org.talend.core.model.metadata.builder.connection.FTPConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
 import org.talend.core.model.metadata.builder.connection.HL7Connection;
@@ -94,6 +95,11 @@ public class RepositoryToComponentProperty {
         if (connection instanceof DatabaseConnection) {
             return getDatabaseValue((DatabaseConnection) connection, value);
         }
+
+        if (connection instanceof FTPConnection) {
+            return getFTPValue((FTPConnection) connection, value);
+        }
+
         if (connection instanceof LDAPSchemaConnection) {
             return getLDAPValue((LDAPSchemaConnection) connection, value);
         }
@@ -1691,6 +1697,116 @@ public class RepositoryToComponentProperty {
 
             }
             return maps;
+        }
+        return null;
+    }
+
+    private static Object getFTPValue(FTPConnection connection, String value) {
+
+        if (value.equals("SERVER_NAME")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getHost())) {
+                return connection.getHost();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getHost());
+            }
+        }
+        if (value.equals("PORT")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getPort())) {
+                return connection.getPort();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getPort());
+            }
+        }
+        if (value.equals("USERNAME")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getUsername())) {
+                return connection.getUsername();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getUsername());
+            }
+        }
+        if (value.equals("PASSWORD")) { //$NON-NLS-1$
+            if (isContextMode(connection, connection.getPassword())) {
+                return connection.getPassword();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getPassword());
+            }
+        }
+        if (value.equals("KEYSTORE_FILE")) {
+            if (isContextMode(connection, connection.getKeystoreFile())) {
+                return connection.getKeystoreFile();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getKeystoreFile());
+            }
+        }
+
+        if (value.equals("KEYSTROE_PASS")) {
+            if (isContextMode(connection, connection.getKeystorePassword())) {
+                return connection.getKeystorePassword();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getKeystorePassword());
+            }
+        }
+        if (value.equals("AUTH_METHOD")) {
+            if (isContextMode(connection, connection.getMethod())) {
+                return connection.getMethod();
+            } else {
+                if (connection.getMethod().equals("Public key")) {
+                    return "PUBLICKEY";
+                } else if (connection.getMethod().equals("Password")) {
+                    return "PASSWORD";
+                }
+                return TalendTextUtils.addQuotes(connection.getMethod());
+            }
+        }
+        if (value.equals("SFTP")) {
+            return connection.isSFTP();
+        }
+        if (value.equals("FTPS")) {
+            return connection.isFTPS();
+        }
+        if (value.equals("CONNECT_MODE")) {
+            if (connection.getMode() == null) {
+                return "";
+            }
+            return connection.getMode().toUpperCase();
+        }
+        if (value.equals("ENCODING")) {
+            if (isContextMode(connection, connection.getEcoding())) {
+                return connection.getEcoding();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getEcoding());
+            }
+        }
+        if (value.equals("USE_PROXY")) {
+            return connection.isUsesocks();
+        }
+        if (value.equals("PROXY_HOST")) {
+            if (isContextMode(connection, connection.getProxyhost())) {
+                return connection.getProxyhost();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyhost());
+            }
+        }
+        if (value.equals("PROXY_PORT")) {
+            if (isContextMode(connection, connection.getProxyport())) {
+                return connection.getProxyport();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyport());
+            }
+        }
+        if (value.equals("PROXY_USERNAME")) {
+            if (isContextMode(connection, connection.getProxyuser())) {
+                return connection.getProxyuser();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxyuser());
+            }
+        }
+        if (value.equals("PROXY_PASSWORD")) {
+            if (isContextMode(connection, connection.getProxypassword())) {
+                return connection.getProxypassword();
+            } else {
+                return TalendTextUtils.addQuotes(connection.getProxypassword());
+            }
         }
         return null;
     }

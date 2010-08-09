@@ -232,6 +232,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.HL7_CONNECTION_ITEM: return createHL7ConnectionItem();
             case PropertiesPackage.USER_ROLE_REFERENCE: return createUserRoleReference();
             case PropertiesPackage.HEADER_FOOTER_CONNECTION_ITEM: return createHeaderFooterConnectionItem();
+            case PropertiesPackage.FTP_CONNECTION_ITEM: return createFTPConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -1035,6 +1036,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public HeaderFooterConnectionItem createHeaderFooterConnectionItem() {
         HeaderFooterConnectionItemImpl headerFooterConnectionItem = new HeaderFooterConnectionItemImpl();
         return headerFooterConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FTPConnectionItem createFTPConnectionItem() {
+        FTPConnectionItemImpl ftpConnectionItem = new FTPConnectionItemImpl();
+        return ftpConnectionItem;
     }
 
     /**

@@ -84,6 +84,7 @@ public class StatusHelper {
             case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.EBCDIC_CONNECTION_ITEM:
             case PropertiesPackage.HL7_CONNECTION_ITEM:
+            case PropertiesPackage.FTP_CONNECTION_ITEM:
             case PropertiesPackage.MDM_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
