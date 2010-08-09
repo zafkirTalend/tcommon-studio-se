@@ -60,12 +60,12 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
     @Override
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-        case XmlPackage.TD_XML_ELEMENT:
-            return createTdXMLElement();
+        case XmlPackage.TD_XML_ELEMENT_TYPE:
+            return createTdXmlElementType();
         case XmlPackage.TD_XML_CONTENT:
-            return createTdXMLContent();
-        case XmlPackage.TD_XML_DOCUMENT:
-            return createTdXMLDocument();
+            return createTdXmlContent();
+        case XmlPackage.TD_XML_SCHEMA:
+            return createTdXmlSchema();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -76,9 +76,9 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLElement createTdXMLElement() {
-        TdXMLElementImpl tdXMLElement = new TdXMLElementImpl();
-        return tdXMLElement;
+    public TdXmlElementType createTdXmlElementType() {
+        TdXmlElementTypeImpl tdXmlElementType = new TdXmlElementTypeImpl();
+        return tdXmlElementType;
     }
 
     /**
@@ -86,9 +86,9 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLContent createTdXMLContent() {
-        TdXMLContentImpl tdXMLContent = new TdXMLContentImpl();
-        return tdXMLContent;
+    public TdXmlContent createTdXmlContent() {
+        TdXmlContentImpl tdXmlContent = new TdXmlContentImpl();
+        return tdXmlContent;
     }
 
     /**
@@ -96,9 +96,9 @@ public class XmlFactoryImpl extends EFactoryImpl implements XmlFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLDocument createTdXMLDocument() {
-        TdXMLDocumentImpl tdXMLDocument = new TdXMLDocumentImpl();
-        return tdXMLDocument;
+    public TdXmlSchema createTdXmlSchema() {
+        TdXmlSchemaImpl tdXmlSchema = new TdXmlSchemaImpl();
+        return tdXmlSchema;
     }
 
     /**

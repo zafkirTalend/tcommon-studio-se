@@ -69,7 +69,7 @@ import org.talend.core.model.metadata.builder.connection.XMLFileNode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
-import org.talend.cwm.xml.TdXMLDocument;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.repository.mdm.ui.wizard.dnd.MDMSchema2TreeLinker;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -845,12 +845,12 @@ public class MDMOutputSchemaForm extends AbstractMDMFileStepForm {
         // getConnection().getTables().add(metadataTable);
         // }
         if (!ConnectionHelper.getTables(getConnection()).contains(metadataTable)) {
-            TdXMLDocument d = (TdXMLDocument) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
-                    .getDatacluster(), connectionItem.getConnection(), TdXMLDocument.class);
+            TdXmlSchema d = (TdXmlSchema) ConnectionHelper.getPackage(((MDMConnection) connectionItem.getConnection())
+                    .getDatacluster(), connectionItem.getConnection(), TdXmlSchema.class);
             if (d != null) {
                 d.getOwnedElement().add(metadataTable);
             } else {
-                TdXMLDocument newXmlDoc = XmlFactory.eINSTANCE.createTdXMLDocument();
+                TdXmlSchema newXmlDoc = XmlFactory.eINSTANCE.createTdXmlSchema();
                 newXmlDoc.setName(((MDMConnection) connectionItem.getConnection()).getDatacluster());
                 ConnectionHelper.addPackage(newXmlDoc, connectionItem.getConnection());
                 PackageHelper.addMetadataTable(metadataTable, newXmlDoc);

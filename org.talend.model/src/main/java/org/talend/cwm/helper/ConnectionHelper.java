@@ -29,8 +29,8 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
-import org.talend.cwm.xml.TdXMLDocument;
-import org.talend.cwm.xml.TdXMLElement;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.utils.security.CryptoHelper;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -245,7 +245,7 @@ public class ConnectionHelper {
      * @param xmlElement
      * @return
      */
-    public static Connection getConnection(TdXMLElement xmlElement) {
+    public static Connection getConnection(TdXmlElementType xmlElement) {
         return getConnection(xmlElement.getOwnedDocument());
     }
 
@@ -330,7 +330,7 @@ public class ConnectionHelper {
     }
 
     // MOD mzhao feature 10238
-    public static boolean addXMLDocuments(Collection<TdXMLDocument> xmlDocuments, Connection dataProvider) {
+    public static boolean addXMLDocuments(Collection<TdXmlSchema> xmlDocuments, Connection dataProvider) {
         return addPackages(xmlDocuments, dataProvider);
     }
 
@@ -418,7 +418,7 @@ public class ConnectionHelper {
      * @param dataProvider
      * @return
      */
-    public static List<TdXMLDocument> getTdXmlDocument(Connection dataProvider) {
+    public static List<TdXmlSchema> getTdXmlDocument(Connection dataProvider) {
         return XmlSchemaHelper.getDocuments(dataProvider.getDataPackage());
     }
 

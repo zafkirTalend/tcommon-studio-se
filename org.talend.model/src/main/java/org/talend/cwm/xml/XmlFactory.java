@@ -26,31 +26,31 @@ public interface XmlFactory extends EFactory {
     XmlFactory eINSTANCE = org.talend.cwm.xml.impl.XmlFactoryImpl.init();
 
     /**
-     * Returns a new object of class '<em>Td XML Element</em>'.
+     * Returns a new object of class '<em>Td Xml Element Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Td XML Element</em>'.
+     * @return a new object of class '<em>Td Xml Element Type</em>'.
      * @generated
      */
-    TdXMLElement createTdXMLElement();
+    TdXmlElementType createTdXmlElementType();
 
     /**
-     * Returns a new object of class '<em>Td XML Content</em>'.
+     * Returns a new object of class '<em>Td Xml Content</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Td XML Content</em>'.
+     * @return a new object of class '<em>Td Xml Content</em>'.
      * @generated
      */
-    TdXMLContent createTdXMLContent();
+    TdXmlContent createTdXmlContent();
 
     /**
-     * Returns a new object of class '<em>Td XML Document</em>'.
+     * Returns a new object of class '<em>Td Xml Schema</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Td XML Document</em>'.
+     * @return a new object of class '<em>Td Xml Schema</em>'.
      * @generated
      */
-    TdXMLDocument createTdXMLDocument();
+    TdXmlSchema createTdXmlSchema();
 
     /**
      * Returns the package supported by this factory.

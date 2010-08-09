@@ -60,14 +60,14 @@ public interface XmlPackage extends EPackage {
     XmlPackage eINSTANCE = org.talend.cwm.xml.impl.XmlPackageImpl.init();
 
     /**
-     * The meta object id for the '{@link org.talend.cwm.xml.impl.TdXMLElementImpl <em>Td XML Element</em>}' class.
+     * The meta object id for the '{@link org.talend.cwm.xml.impl.TdXmlElementTypeImpl <em>Td Xml Element Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.cwm.xml.impl.TdXMLElementImpl
-     * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXMLElement()
+     * @see org.talend.cwm.xml.impl.TdXmlElementTypeImpl
+     * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXmlElementType()
      * @generated
      */
-    int TD_XML_ELEMENT = 0;
+    int TD_XML_ELEMENT_TYPE = 0;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -76,7 +76,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__NAME = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__NAME;
+    int TD_XML_ELEMENT_TYPE__NAME = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -85,7 +85,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__VISIBILITY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__VISIBILITY;
+    int TD_XML_ELEMENT_TYPE__VISIBILITY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -94,7 +94,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__CLIENT_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__CLIENT_DEPENDENCY;
+    int TD_XML_ELEMENT_TYPE__CLIENT_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -103,7 +103,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__SUPPLIER_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__SUPPLIER_DEPENDENCY;
+    int TD_XML_ELEMENT_TYPE__SUPPLIER_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -112,7 +112,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__CONSTRAINT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__CONSTRAINT;
+    int TD_XML_ELEMENT_TYPE__CONSTRAINT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -121,7 +121,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__NAMESPACE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__NAMESPACE;
+    int TD_XML_ELEMENT_TYPE__NAMESPACE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -130,7 +130,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__IMPORTER = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__IMPORTER;
+    int TD_XML_ELEMENT_TYPE__IMPORTER = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -139,7 +139,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__STEREOTYPE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__STEREOTYPE;
+    int TD_XML_ELEMENT_TYPE__STEREOTYPE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -148,7 +148,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__TAGGED_VALUE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__TAGGED_VALUE;
+    int TD_XML_ELEMENT_TYPE__TAGGED_VALUE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -157,7 +157,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__DOCUMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__DOCUMENT;
+    int TD_XML_ELEMENT_TYPE__DOCUMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -166,7 +166,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__DESCRIPTION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__DESCRIPTION;
+    int TD_XML_ELEMENT_TYPE__DESCRIPTION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -175,7 +175,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__RESPONSIBLE_PARTY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__RESPONSIBLE_PARTY;
+    int TD_XML_ELEMENT_TYPE__RESPONSIBLE_PARTY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -184,7 +184,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__ELEMENT_NODE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__ELEMENT_NODE;
+    int TD_XML_ELEMENT_TYPE__ELEMENT_NODE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -193,7 +193,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__SET = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__SET;
+    int TD_XML_ELEMENT_TYPE__SET = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -202,7 +202,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__RENDERED_OBJECT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__RENDERED_OBJECT;
+    int TD_XML_ELEMENT_TYPE__RENDERED_OBJECT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -211,7 +211,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__VOCABULARY_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__VOCABULARY_ELEMENT;
+    int TD_XML_ELEMENT_TYPE__VOCABULARY_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -220,7 +220,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__MEASUREMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__MEASUREMENT;
+    int TD_XML_ELEMENT_TYPE__MEASUREMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -229,7 +229,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__CHANGE_REQUEST = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__CHANGE_REQUEST;
+    int TD_XML_ELEMENT_TYPE__CHANGE_REQUEST = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -238,34 +238,169 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__DASDL_PROPERTY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__DASDL_PROPERTY;
+    int TD_XML_ELEMENT_TYPE__DASDL_PROPERTY = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__DASDL_PROPERTY;
 
     /**
-     * The feature id for the '<em><b>Value Slot</b></em>' reference list.
+     * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__VALUE_SLOT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__VALUE_SLOT;
+    int TD_XML_ELEMENT_TYPE__OWNED_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__OWNED_ELEMENT;
 
     /**
-     * The feature id for the '<em><b>Classifier</b></em>' reference.
+     * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__CLASSIFIER = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__CLASSIFIER;
+    int TD_XML_ELEMENT_TYPE__IS_ABSTRACT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__IS_ABSTRACT;
 
     /**
-     * The feature id for the '<em><b>Slot</b></em>' containment reference list.
+     * The feature id for the '<em><b>Feature</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__SLOT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT__SLOT;
+    int TD_XML_ELEMENT_TYPE__FEATURE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Structural Feature</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__STRUCTURAL_FEATURE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__STRUCTURAL_FEATURE;
+
+    /**
+     * The feature id for the '<em><b>Parameter</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__PARAMETER = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__PARAMETER;
+
+    /**
+     * The feature id for the '<em><b>Generalization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__GENERALIZATION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__GENERALIZATION;
+
+    /**
+     * The feature id for the '<em><b>Specialization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__SPECIALIZATION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__SPECIALIZATION;
+
+    /**
+     * The feature id for the '<em><b>Instance</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__INSTANCE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__INSTANCE;
+
+    /**
+     * The feature id for the '<em><b>Alias</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__ALIAS = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__ALIAS;
+
+    /**
+     * The feature id for the '<em><b>Expression Node</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__EXPRESSION_NODE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__EXPRESSION_NODE;
+
+    /**
+     * The feature id for the '<em><b>Mapping From</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__MAPPING_FROM = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__MAPPING_FROM;
+
+    /**
+     * The feature id for the '<em><b>Mapping To</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__MAPPING_TO = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__MAPPING_TO;
+
+    /**
+     * The feature id for the '<em><b>Classifier Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__CLASSIFIER_MAP = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__CLASSIFIER_MAP;
+
+    /**
+     * The feature id for the '<em><b>Cf Map</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__CF_MAP = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__CF_MAP;
+
+    /**
+     * The feature id for the '<em><b>Domain</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__DOMAIN = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__DOMAIN;
+
+    /**
+     * The feature id for the '<em><b>Simple Dimension</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__SIMPLE_DIMENSION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__SIMPLE_DIMENSION;
+
+    /**
+     * The feature id for the '<em><b>Index</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__INDEX = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__INDEX;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_ELEMENT_TYPE__CONTENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE__CONTENT;
 
     /**
      * The feature id for the '<em><b>Xsd Element Declaration</b></em>' reference.
@@ -274,7 +409,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_FEATURE_COUNT + 0;
+    int TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Owned Document</b></em>' reference.
@@ -283,7 +418,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__OWNED_DOCUMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_FEATURE_COUNT + 1;
+    int TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Java Type</b></em>' attribute.
@@ -292,7 +427,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__JAVA_TYPE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_FEATURE_COUNT + 2;
+    int TD_XML_ELEMENT_TYPE__JAVA_TYPE = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Xml Content</b></em>' containment reference.
@@ -301,23 +436,23 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT__XML_CONTENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_FEATURE_COUNT + 3;
+    int TD_XML_ELEMENT_TYPE__XML_CONTENT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE_FEATURE_COUNT + 3;
 
     /**
-     * The number of structural features of the '<em>Td XML Element</em>' class.
+     * The number of structural features of the '<em>Td Xml Element Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_XML_ELEMENT_FEATURE_COUNT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_FEATURE_COUNT + 4;
+    int TD_XML_ELEMENT_TYPE_FEATURE_COUNT = orgomg.cwm.resource.xml.XmlPackage.ELEMENT_TYPE_FEATURE_COUNT + 4;
 
     /**
-     * The meta object id for the '{@link org.talend.cwm.xml.impl.TdXMLContentImpl <em>Td XML Content</em>}' class.
+     * The meta object id for the '{@link org.talend.cwm.xml.impl.TdXmlContentImpl <em>Td Xml Content</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.cwm.xml.impl.TdXMLContentImpl
-     * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXMLContent()
+     * @see org.talend.cwm.xml.impl.TdXmlContentImpl
+     * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXmlContent()
      * @generated
      */
     int TD_XML_CONTENT = 1;
@@ -539,7 +674,7 @@ public interface XmlPackage extends EPackage {
     int TD_XML_CONTENT__XML_ELEMENTS = orgomg.cwm.resource.xml.XmlPackage.CONTENT_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Td XML Content</em>' class.
+     * The number of structural features of the '<em>Td Xml Content</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -548,14 +683,14 @@ public interface XmlPackage extends EPackage {
     int TD_XML_CONTENT_FEATURE_COUNT = orgomg.cwm.resource.xml.XmlPackage.CONTENT_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link org.talend.cwm.xml.impl.TdXMLDocumentImpl <em>Td XML Document</em>}' class.
+     * The meta object id for the '{@link org.talend.cwm.xml.impl.TdXmlSchemaImpl <em>Td Xml Schema</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.cwm.xml.impl.TdXMLDocumentImpl
-     * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXMLDocument()
+     * @see org.talend.cwm.xml.impl.TdXmlSchemaImpl
+     * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXmlSchema()
      * @generated
      */
-    int TD_XML_DOCUMENT = 2;
+    int TD_XML_SCHEMA = 2;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -564,7 +699,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__NAME = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__NAME;
+    int TD_XML_SCHEMA__NAME = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__NAME;
 
     /**
      * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -573,7 +708,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__VISIBILITY = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__VISIBILITY;
+    int TD_XML_SCHEMA__VISIBILITY = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__VISIBILITY;
 
     /**
      * The feature id for the '<em><b>Client Dependency</b></em>' reference list.
@@ -582,7 +717,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__CLIENT_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__CLIENT_DEPENDENCY;
+    int TD_XML_SCHEMA__CLIENT_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__CLIENT_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Supplier Dependency</b></em>' reference list.
@@ -591,7 +726,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__SUPPLIER_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__SUPPLIER_DEPENDENCY;
+    int TD_XML_SCHEMA__SUPPLIER_DEPENDENCY = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__SUPPLIER_DEPENDENCY;
 
     /**
      * The feature id for the '<em><b>Constraint</b></em>' reference list.
@@ -600,7 +735,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__CONSTRAINT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__CONSTRAINT;
+    int TD_XML_SCHEMA__CONSTRAINT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__CONSTRAINT;
 
     /**
      * The feature id for the '<em><b>Namespace</b></em>' container reference.
@@ -609,7 +744,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__NAMESPACE = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__NAMESPACE;
+    int TD_XML_SCHEMA__NAMESPACE = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Importer</b></em>' reference list.
@@ -618,7 +753,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__IMPORTER = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__IMPORTER;
+    int TD_XML_SCHEMA__IMPORTER = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__IMPORTER;
 
     /**
      * The feature id for the '<em><b>Stereotype</b></em>' reference.
@@ -627,7 +762,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__STEREOTYPE = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__STEREOTYPE;
+    int TD_XML_SCHEMA__STEREOTYPE = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__STEREOTYPE;
 
     /**
      * The feature id for the '<em><b>Tagged Value</b></em>' containment reference list.
@@ -636,7 +771,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__TAGGED_VALUE = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__TAGGED_VALUE;
+    int TD_XML_SCHEMA__TAGGED_VALUE = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__TAGGED_VALUE;
 
     /**
      * The feature id for the '<em><b>Document</b></em>' reference list.
@@ -645,7 +780,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__DOCUMENT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__DOCUMENT;
+    int TD_XML_SCHEMA__DOCUMENT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__DOCUMENT;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' reference list.
@@ -654,7 +789,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__DESCRIPTION = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__DESCRIPTION;
+    int TD_XML_SCHEMA__DESCRIPTION = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__DESCRIPTION;
 
     /**
      * The feature id for the '<em><b>Responsible Party</b></em>' reference list.
@@ -663,7 +798,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__RESPONSIBLE_PARTY = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__RESPONSIBLE_PARTY;
+    int TD_XML_SCHEMA__RESPONSIBLE_PARTY = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__RESPONSIBLE_PARTY;
 
     /**
      * The feature id for the '<em><b>Element Node</b></em>' reference list.
@@ -672,7 +807,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__ELEMENT_NODE = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__ELEMENT_NODE;
+    int TD_XML_SCHEMA__ELEMENT_NODE = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__ELEMENT_NODE;
 
     /**
      * The feature id for the '<em><b>Set</b></em>' reference list.
@@ -681,7 +816,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__SET = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__SET;
+    int TD_XML_SCHEMA__SET = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__SET;
 
     /**
      * The feature id for the '<em><b>Rendered Object</b></em>' reference list.
@@ -690,7 +825,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__RENDERED_OBJECT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__RENDERED_OBJECT;
+    int TD_XML_SCHEMA__RENDERED_OBJECT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__RENDERED_OBJECT;
 
     /**
      * The feature id for the '<em><b>Vocabulary Element</b></em>' reference list.
@@ -699,7 +834,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__VOCABULARY_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__VOCABULARY_ELEMENT;
+    int TD_XML_SCHEMA__VOCABULARY_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__VOCABULARY_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Measurement</b></em>' reference list.
@@ -708,7 +843,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__MEASUREMENT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__MEASUREMENT;
+    int TD_XML_SCHEMA__MEASUREMENT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__MEASUREMENT;
 
     /**
      * The feature id for the '<em><b>Change Request</b></em>' reference list.
@@ -717,7 +852,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__CHANGE_REQUEST = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__CHANGE_REQUEST;
+    int TD_XML_SCHEMA__CHANGE_REQUEST = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__CHANGE_REQUEST;
 
     /**
      * The feature id for the '<em><b>Dasdl Property</b></em>' reference list.
@@ -726,7 +861,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__DASDL_PROPERTY = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__DASDL_PROPERTY;
+    int TD_XML_SCHEMA__DASDL_PROPERTY = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__DASDL_PROPERTY;
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -735,7 +870,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__OWNED_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__OWNED_ELEMENT;
+    int TD_XML_SCHEMA__OWNED_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__OWNED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Imported Element</b></em>' reference list.
@@ -744,7 +879,7 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__IMPORTED_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__IMPORTED_ELEMENT;
+    int TD_XML_SCHEMA__IMPORTED_ELEMENT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__IMPORTED_ELEMENT;
 
     /**
      * The feature id for the '<em><b>Data Manager</b></em>' reference list.
@@ -753,7 +888,25 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__DATA_MANAGER = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT__DATA_MANAGER;
+    int TD_XML_SCHEMA__DATA_MANAGER = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__DATA_MANAGER;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_SCHEMA__VERSION = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Xml Namespace</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TD_XML_SCHEMA__XML_NAMESPACE = orgomg.cwm.resource.xml.XmlPackage.SCHEMA__XML_NAMESPACE;
 
     /**
      * The feature id for the '<em><b>Xsd File Path</b></em>' attribute.
@@ -762,112 +915,112 @@ public interface XmlPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT__XSD_FILE_PATH = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT_FEATURE_COUNT + 0;
+    int TD_XML_SCHEMA__XSD_FILE_PATH = orgomg.cwm.resource.xml.XmlPackage.SCHEMA_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Td XML Document</em>' class.
+     * The number of structural features of the '<em>Td Xml Schema</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TD_XML_DOCUMENT_FEATURE_COUNT = orgomg.cwm.resource.xml.XmlPackage.DOCUMENT_FEATURE_COUNT + 1;
+    int TD_XML_SCHEMA_FEATURE_COUNT = orgomg.cwm.resource.xml.XmlPackage.SCHEMA_FEATURE_COUNT + 1;
 
     /**
-     * Returns the meta object for class '{@link org.talend.cwm.xml.TdXMLElement <em>Td XML Element</em>}'.
+     * Returns the meta object for class '{@link org.talend.cwm.xml.TdXmlElementType <em>Td Xml Element Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Td XML Element</em>'.
-     * @see org.talend.cwm.xml.TdXMLElement
+     * @return the meta object for class '<em>Td Xml Element Type</em>'.
+     * @see org.talend.cwm.xml.TdXmlElementType
      * @generated
      */
-    EClass getTdXMLElement();
+    EClass getTdXmlElementType();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.cwm.xml.TdXMLElement#getXsdElementDeclaration <em>Xsd Element Declaration</em>}'.
+     * Returns the meta object for the reference '{@link org.talend.cwm.xml.TdXmlElementType#getXsdElementDeclaration <em>Xsd Element Declaration</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Xsd Element Declaration</em>'.
-     * @see org.talend.cwm.xml.TdXMLElement#getXsdElementDeclaration()
-     * @see #getTdXMLElement()
+     * @see org.talend.cwm.xml.TdXmlElementType#getXsdElementDeclaration()
+     * @see #getTdXmlElementType()
      * @generated
      */
-    EReference getTdXMLElement_XsdElementDeclaration();
+    EReference getTdXmlElementType_XsdElementDeclaration();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.cwm.xml.TdXMLElement#getOwnedDocument <em>Owned Document</em>}'.
+     * Returns the meta object for the reference '{@link org.talend.cwm.xml.TdXmlElementType#getOwnedDocument <em>Owned Document</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Owned Document</em>'.
-     * @see org.talend.cwm.xml.TdXMLElement#getOwnedDocument()
-     * @see #getTdXMLElement()
+     * @see org.talend.cwm.xml.TdXmlElementType#getOwnedDocument()
+     * @see #getTdXmlElementType()
      * @generated
      */
-    EReference getTdXMLElement_OwnedDocument();
+    EReference getTdXmlElementType_OwnedDocument();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.cwm.xml.TdXMLElement#getJavaType <em>Java Type</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.cwm.xml.TdXmlElementType#getJavaType <em>Java Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Java Type</em>'.
-     * @see org.talend.cwm.xml.TdXMLElement#getJavaType()
-     * @see #getTdXMLElement()
+     * @see org.talend.cwm.xml.TdXmlElementType#getJavaType()
+     * @see #getTdXmlElementType()
      * @generated
      */
-    EAttribute getTdXMLElement_JavaType();
+    EAttribute getTdXmlElementType_JavaType();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.talend.cwm.xml.TdXMLElement#getXmlContent <em>Xml Content</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.cwm.xml.TdXmlElementType#getXmlContent <em>Xml Content</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the containment reference '<em>Xml Content</em>'.
-     * @see org.talend.cwm.xml.TdXMLElement#getXmlContent()
-     * @see #getTdXMLElement()
+     * @see org.talend.cwm.xml.TdXmlElementType#getXmlContent()
+     * @see #getTdXmlElementType()
      * @generated
      */
-    EReference getTdXMLElement_XmlContent();
+    EReference getTdXmlElementType_XmlContent();
 
     /**
-     * Returns the meta object for class '{@link org.talend.cwm.xml.TdXMLContent <em>Td XML Content</em>}'.
+     * Returns the meta object for class '{@link org.talend.cwm.xml.TdXmlContent <em>Td Xml Content</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Td XML Content</em>'.
-     * @see org.talend.cwm.xml.TdXMLContent
+     * @return the meta object for class '<em>Td Xml Content</em>'.
+     * @see org.talend.cwm.xml.TdXmlContent
      * @generated
      */
-    EClass getTdXMLContent();
+    EClass getTdXmlContent();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.cwm.xml.TdXMLContent#getXmlElements <em>Xml Elements</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.cwm.xml.TdXmlContent#getXmlElements <em>Xml Elements</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Xml Elements</em>'.
-     * @see org.talend.cwm.xml.TdXMLContent#getXmlElements()
-     * @see #getTdXMLContent()
+     * @see org.talend.cwm.xml.TdXmlContent#getXmlElements()
+     * @see #getTdXmlContent()
      * @generated
      */
-    EReference getTdXMLContent_XmlElements();
+    EReference getTdXmlContent_XmlElements();
 
     /**
-     * Returns the meta object for class '{@link org.talend.cwm.xml.TdXMLDocument <em>Td XML Document</em>}'.
+     * Returns the meta object for class '{@link org.talend.cwm.xml.TdXmlSchema <em>Td Xml Schema</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Td XML Document</em>'.
-     * @see org.talend.cwm.xml.TdXMLDocument
+     * @return the meta object for class '<em>Td Xml Schema</em>'.
+     * @see org.talend.cwm.xml.TdXmlSchema
      * @generated
      */
-    EClass getTdXMLDocument();
+    EClass getTdXmlSchema();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.cwm.xml.TdXMLDocument#getXsdFilePath <em>Xsd File Path</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.cwm.xml.TdXmlSchema#getXsdFilePath <em>Xsd File Path</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Xsd File Path</em>'.
-     * @see org.talend.cwm.xml.TdXMLDocument#getXsdFilePath()
-     * @see #getTdXMLDocument()
+     * @see org.talend.cwm.xml.TdXmlSchema#getXsdFilePath()
+     * @see #getTdXmlSchema()
      * @generated
      */
-    EAttribute getTdXMLDocument_XsdFilePath();
+    EAttribute getTdXmlSchema_XsdFilePath();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -893,14 +1046,14 @@ public interface XmlPackage extends EPackage {
     interface Literals {
 
         /**
-         * The meta object literal for the '{@link org.talend.cwm.xml.impl.TdXMLElementImpl <em>Td XML Element</em>}' class.
+         * The meta object literal for the '{@link org.talend.cwm.xml.impl.TdXmlElementTypeImpl <em>Td Xml Element Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.cwm.xml.impl.TdXMLElementImpl
-         * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXMLElement()
+         * @see org.talend.cwm.xml.impl.TdXmlElementTypeImpl
+         * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXmlElementType()
          * @generated
          */
-        EClass TD_XML_ELEMENT = eINSTANCE.getTdXMLElement();
+        EClass TD_XML_ELEMENT_TYPE = eINSTANCE.getTdXmlElementType();
 
         /**
          * The meta object literal for the '<em><b>Xsd Element Declaration</b></em>' reference feature.
@@ -908,7 +1061,7 @@ public interface XmlPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION = eINSTANCE.getTdXMLElement_XsdElementDeclaration();
+        EReference TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION = eINSTANCE.getTdXmlElementType_XsdElementDeclaration();
 
         /**
          * The meta object literal for the '<em><b>Owned Document</b></em>' reference feature.
@@ -916,7 +1069,7 @@ public interface XmlPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference TD_XML_ELEMENT__OWNED_DOCUMENT = eINSTANCE.getTdXMLElement_OwnedDocument();
+        EReference TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT = eINSTANCE.getTdXmlElementType_OwnedDocument();
 
         /**
          * The meta object literal for the '<em><b>Java Type</b></em>' attribute feature.
@@ -924,7 +1077,7 @@ public interface XmlPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute TD_XML_ELEMENT__JAVA_TYPE = eINSTANCE.getTdXMLElement_JavaType();
+        EAttribute TD_XML_ELEMENT_TYPE__JAVA_TYPE = eINSTANCE.getTdXmlElementType_JavaType();
 
         /**
          * The meta object literal for the '<em><b>Xml Content</b></em>' containment reference feature.
@@ -932,17 +1085,17 @@ public interface XmlPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference TD_XML_ELEMENT__XML_CONTENT = eINSTANCE.getTdXMLElement_XmlContent();
+        EReference TD_XML_ELEMENT_TYPE__XML_CONTENT = eINSTANCE.getTdXmlElementType_XmlContent();
 
         /**
-         * The meta object literal for the '{@link org.talend.cwm.xml.impl.TdXMLContentImpl <em>Td XML Content</em>}' class.
+         * The meta object literal for the '{@link org.talend.cwm.xml.impl.TdXmlContentImpl <em>Td Xml Content</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.cwm.xml.impl.TdXMLContentImpl
-         * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXMLContent()
+         * @see org.talend.cwm.xml.impl.TdXmlContentImpl
+         * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXmlContent()
          * @generated
          */
-        EClass TD_XML_CONTENT = eINSTANCE.getTdXMLContent();
+        EClass TD_XML_CONTENT = eINSTANCE.getTdXmlContent();
 
         /**
          * The meta object literal for the '<em><b>Xml Elements</b></em>' containment reference list feature.
@@ -950,17 +1103,17 @@ public interface XmlPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference TD_XML_CONTENT__XML_ELEMENTS = eINSTANCE.getTdXMLContent_XmlElements();
+        EReference TD_XML_CONTENT__XML_ELEMENTS = eINSTANCE.getTdXmlContent_XmlElements();
 
         /**
-         * The meta object literal for the '{@link org.talend.cwm.xml.impl.TdXMLDocumentImpl <em>Td XML Document</em>}' class.
+         * The meta object literal for the '{@link org.talend.cwm.xml.impl.TdXmlSchemaImpl <em>Td Xml Schema</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.cwm.xml.impl.TdXMLDocumentImpl
-         * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXMLDocument()
+         * @see org.talend.cwm.xml.impl.TdXmlSchemaImpl
+         * @see org.talend.cwm.xml.impl.XmlPackageImpl#getTdXmlSchema()
          * @generated
          */
-        EClass TD_XML_DOCUMENT = eINSTANCE.getTdXMLDocument();
+        EClass TD_XML_SCHEMA = eINSTANCE.getTdXmlSchema();
 
         /**
          * The meta object literal for the '<em><b>Xsd File Path</b></em>' attribute feature.
@@ -968,7 +1121,7 @@ public interface XmlPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute TD_XML_DOCUMENT__XSD_FILE_PATH = eINSTANCE.getTdXMLDocument_XsdFilePath();
+        EAttribute TD_XML_SCHEMA__XSD_FILE_PATH = eINSTANCE.getTdXmlSchema_XsdFilePath();
 
     }
 

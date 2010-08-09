@@ -432,23 +432,23 @@
       </nestedGenPackages>
       <nestedGenPackages prefix="Xml" basePackage="org.talend.cwm" disposableProviderFactory="true"
           ecorePackage="metadata.ecore#//cwm/xml">
-        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXMLElement">
+        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXmlElementType">
           <genFeatures notify="false" createChild="false" propertySortChoices="true"
-              ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLElement/xsdElementDeclaration"/>
+              ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXmlElementType/xsdElementDeclaration"/>
           <genFeatures notify="false" createChild="false" propertySortChoices="true"
-              ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLElement/ownedDocument"/>
-          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/xml/TdXMLElement/javaType"/>
-          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLElement/xmlContent"/>
-          <genOperations ecoreOperation="metadata.ecore#//cwm/xml/TdXMLElement/setContentType">
-            <genParameters ecoreParameter="metadata.ecore#//cwm/xml/TdXMLElement/setContentType/contentType"/>
+              ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXmlElementType/ownedDocument"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/xml/TdXmlElementType/javaType"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXmlElementType/xmlContent"/>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/xml/TdXmlElementType/setContentType">
+            <genParameters ecoreParameter="metadata.ecore#//cwm/xml/TdXmlElementType/setContentType/contentType"/>
           </genOperations>
-          <genOperations ecoreOperation="metadata.ecore#//cwm/xml/TdXMLElement/getContentType"/>
+          <genOperations ecoreOperation="metadata.ecore#//cwm/xml/TdXmlElementType/getContentType"/>
         </genClasses>
-        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXMLContent">
-          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXMLContent/xmlElements"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXmlContent">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//cwm/xml/TdXmlContent/xmlElements"/>
         </genClasses>
-        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXMLDocument">
-          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/xml/TdXMLDocument/xsdFilePath"/>
+        <genClasses ecoreClass="metadata.ecore#//cwm/xml/TdXmlSchema">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//cwm/xml/TdXmlSchema/xsdFilePath"/>
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>

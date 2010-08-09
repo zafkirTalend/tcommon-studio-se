@@ -12,30 +12,30 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.cwm.xml.TdXMLContent;
-import org.talend.cwm.xml.TdXMLDocument;
-import org.talend.cwm.xml.TdXMLElement;
+import org.talend.cwm.xml.TdXmlContent;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlPackage;
 import orgomg.cwm.objectmodel.core.TaggedValue;
-import orgomg.cwm.resource.xml.impl.ElementImpl;
+import orgomg.cwm.resource.xml.impl.ElementTypeImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Td XML Element</b></em>'.
+ * An implementation of the model object '<em><b>Td Xml Element Type</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.cwm.xml.impl.TdXMLElementImpl#getXsdElementDeclaration <em>Xsd Element Declaration</em>}</li>
- *   <li>{@link org.talend.cwm.xml.impl.TdXMLElementImpl#getOwnedDocument <em>Owned Document</em>}</li>
- *   <li>{@link org.talend.cwm.xml.impl.TdXMLElementImpl#getJavaType <em>Java Type</em>}</li>
- *   <li>{@link org.talend.cwm.xml.impl.TdXMLElementImpl#getXmlContent <em>Xml Content</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.impl.TdXmlElementTypeImpl#getXsdElementDeclaration <em>Xsd Element Declaration</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.impl.TdXmlElementTypeImpl#getOwnedDocument <em>Owned Document</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.impl.TdXmlElementTypeImpl#getJavaType <em>Java Type</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.impl.TdXmlElementTypeImpl#getXmlContent <em>Xml Content</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
+public class TdXmlElementTypeImpl extends ElementTypeImpl implements TdXmlElementType {
 
     /**
      * The cached value of the '{@link #getXsdElementDeclaration() <em>Xsd Element Declaration</em>}' reference.
@@ -55,7 +55,7 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * @generated
      * @ordered
      */
-    protected TdXMLDocument ownedDocument;
+    protected TdXmlSchema ownedDocument;
 
     /**
      * The default value of the '{@link #getJavaType() <em>Java Type</em>}' attribute.
@@ -85,14 +85,14 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * @generated
      * @ordered
      */
-    protected TdXMLContent xmlContent;
+    protected TdXmlContent xmlContent;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected TdXMLElementImpl() {
+    protected TdXmlElementTypeImpl() {
         super();
     }
 
@@ -103,7 +103,7 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      */
     @Override
     protected EClass eStaticClass() {
-        return XmlPackage.Literals.TD_XML_ELEMENT;
+        return XmlPackage.Literals.TD_XML_ELEMENT_TYPE;
     }
 
     /**
@@ -117,8 +117,9 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
             xsdElementDeclaration = eResolveProxy(oldXsdElementDeclaration);
             if (xsdElementDeclaration != oldXsdElementDeclaration) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, XmlPackage.TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION,
-                            oldXsdElementDeclaration, xsdElementDeclaration));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                            XmlPackage.TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION, oldXsdElementDeclaration,
+                            xsdElementDeclaration));
             }
         }
         return xsdElementDeclaration;
@@ -142,7 +143,7 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
         EObject oldXsdElementDeclaration = xsdElementDeclaration;
         xsdElementDeclaration = newXsdElementDeclaration;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION,
+            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION,
                     oldXsdElementDeclaration, xsdElementDeclaration));
     }
 
@@ -151,13 +152,13 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLDocument getOwnedDocument() {
+    public TdXmlSchema getOwnedDocument() {
         if (ownedDocument != null && ownedDocument.eIsProxy()) {
             InternalEObject oldOwnedDocument = (InternalEObject) ownedDocument;
-            ownedDocument = (TdXMLDocument) eResolveProxy(oldOwnedDocument);
+            ownedDocument = (TdXmlSchema) eResolveProxy(oldOwnedDocument);
             if (ownedDocument != oldOwnedDocument) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, XmlPackage.TD_XML_ELEMENT__OWNED_DOCUMENT,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, XmlPackage.TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT,
                             oldOwnedDocument, ownedDocument));
             }
         }
@@ -169,7 +170,7 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLDocument basicGetOwnedDocument() {
+    public TdXmlSchema basicGetOwnedDocument() {
         return ownedDocument;
     }
 
@@ -178,12 +179,12 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setOwnedDocument(TdXMLDocument newOwnedDocument) {
-        TdXMLDocument oldOwnedDocument = ownedDocument;
+    public void setOwnedDocument(TdXmlSchema newOwnedDocument) {
+        TdXmlSchema oldOwnedDocument = ownedDocument;
         ownedDocument = newOwnedDocument;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT__OWNED_DOCUMENT, oldOwnedDocument,
-                    ownedDocument));
+            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT,
+                    oldOwnedDocument, ownedDocument));
     }
 
     /**
@@ -204,7 +205,8 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
         String oldJavaType = javaType;
         javaType = newJavaType;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT__JAVA_TYPE, oldJavaType, javaType));
+            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT_TYPE__JAVA_TYPE, oldJavaType,
+                    javaType));
     }
 
     /**
@@ -212,22 +214,22 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLContent getXmlContent() {
+    public TdXmlContent getXmlContent() {
         if (xmlContent != null && xmlContent.eIsProxy()) {
             InternalEObject oldXmlContent = (InternalEObject) xmlContent;
-            xmlContent = (TdXMLContent) eResolveProxy(oldXmlContent);
+            xmlContent = (TdXmlContent) eResolveProxy(oldXmlContent);
             if (xmlContent != oldXmlContent) {
                 InternalEObject newXmlContent = (InternalEObject) xmlContent;
                 NotificationChain msgs = oldXmlContent.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-                        - XmlPackage.TD_XML_ELEMENT__XML_CONTENT, null, null);
+                        - XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT, null, null);
                 if (newXmlContent.eInternalContainer() == null) {
-                    msgs = newXmlContent.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XmlPackage.TD_XML_ELEMENT__XML_CONTENT, null,
-                            msgs);
+                    msgs = newXmlContent.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT,
+                            null, msgs);
                 }
                 if (msgs != null)
                     msgs.dispatch();
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, XmlPackage.TD_XML_ELEMENT__XML_CONTENT,
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT,
                             oldXmlContent, xmlContent));
             }
         }
@@ -239,7 +241,7 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLContent basicGetXmlContent() {
+    public TdXmlContent basicGetXmlContent() {
         return xmlContent;
     }
 
@@ -248,12 +250,12 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetXmlContent(TdXMLContent newXmlContent, NotificationChain msgs) {
-        TdXMLContent oldXmlContent = xmlContent;
+    public NotificationChain basicSetXmlContent(TdXmlContent newXmlContent, NotificationChain msgs) {
+        TdXmlContent oldXmlContent = xmlContent;
         xmlContent = newXmlContent;
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-                    XmlPackage.TD_XML_ELEMENT__XML_CONTENT, oldXmlContent, newXmlContent);
+                    XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT, oldXmlContent, newXmlContent);
             if (msgs == null)
                 msgs = notification;
             else
@@ -267,20 +269,20 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setXmlContent(TdXMLContent newXmlContent) {
+    public void setXmlContent(TdXmlContent newXmlContent) {
         if (newXmlContent != xmlContent) {
             NotificationChain msgs = null;
             if (xmlContent != null)
                 msgs = ((InternalEObject) xmlContent).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-                        - XmlPackage.TD_XML_ELEMENT__XML_CONTENT, null, msgs);
+                        - XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT, null, msgs);
             if (newXmlContent != null)
                 msgs = ((InternalEObject) newXmlContent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-                        - XmlPackage.TD_XML_ELEMENT__XML_CONTENT, null, msgs);
+                        - XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT, null, msgs);
             msgs = basicSetXmlContent(newXmlContent, msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT__XML_CONTENT, newXmlContent,
+            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT, newXmlContent,
                     newXmlContent));
     }
 
@@ -314,7 +316,7 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case XmlPackage.TD_XML_ELEMENT__XML_CONTENT:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT:
             return basicSetXmlContent(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -328,17 +330,17 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case XmlPackage.TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION:
             if (resolve)
                 return getXsdElementDeclaration();
             return basicGetXsdElementDeclaration();
-        case XmlPackage.TD_XML_ELEMENT__OWNED_DOCUMENT:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT:
             if (resolve)
                 return getOwnedDocument();
             return basicGetOwnedDocument();
-        case XmlPackage.TD_XML_ELEMENT__JAVA_TYPE:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__JAVA_TYPE:
             return getJavaType();
-        case XmlPackage.TD_XML_ELEMENT__XML_CONTENT:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT:
             if (resolve)
                 return getXmlContent();
             return basicGetXmlContent();
@@ -354,17 +356,17 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case XmlPackage.TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION:
             setXsdElementDeclaration((EObject) newValue);
             return;
-        case XmlPackage.TD_XML_ELEMENT__OWNED_DOCUMENT:
-            setOwnedDocument((TdXMLDocument) newValue);
+        case XmlPackage.TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT:
+            setOwnedDocument((TdXmlSchema) newValue);
             return;
-        case XmlPackage.TD_XML_ELEMENT__JAVA_TYPE:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__JAVA_TYPE:
             setJavaType((String) newValue);
             return;
-        case XmlPackage.TD_XML_ELEMENT__XML_CONTENT:
-            setXmlContent((TdXMLContent) newValue);
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT:
+            setXmlContent((TdXmlContent) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -378,17 +380,17 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case XmlPackage.TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION:
             setXsdElementDeclaration((EObject) null);
             return;
-        case XmlPackage.TD_XML_ELEMENT__OWNED_DOCUMENT:
-            setOwnedDocument((TdXMLDocument) null);
+        case XmlPackage.TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT:
+            setOwnedDocument((TdXmlSchema) null);
             return;
-        case XmlPackage.TD_XML_ELEMENT__JAVA_TYPE:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__JAVA_TYPE:
             setJavaType(JAVA_TYPE_EDEFAULT);
             return;
-        case XmlPackage.TD_XML_ELEMENT__XML_CONTENT:
-            setXmlContent((TdXMLContent) null);
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT:
+            setXmlContent((TdXmlContent) null);
             return;
         }
         super.eUnset(featureID);
@@ -402,13 +404,13 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case XmlPackage.TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION:
             return xsdElementDeclaration != null;
-        case XmlPackage.TD_XML_ELEMENT__OWNED_DOCUMENT:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT:
             return ownedDocument != null;
-        case XmlPackage.TD_XML_ELEMENT__JAVA_TYPE:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__JAVA_TYPE:
             return JAVA_TYPE_EDEFAULT == null ? javaType != null : !JAVA_TYPE_EDEFAULT.equals(javaType);
-        case XmlPackage.TD_XML_ELEMENT__XML_CONTENT:
+        case XmlPackage.TD_XML_ELEMENT_TYPE__XML_CONTENT:
             return xmlContent != null;
         }
         return super.eIsSet(featureID);
@@ -431,4 +433,4 @@ public class TdXMLElementImpl extends ElementImpl implements TdXMLElement {
         return result.toString();
     }
 
-} //TdXMLElementImpl
+} //TdXmlElementTypeImpl

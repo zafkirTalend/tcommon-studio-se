@@ -25,19 +25,19 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.talend.core.model.metadata.builder.connection.provider.MetadataEditPlugin;
 
-import org.talend.cwm.xml.TdXMLContent;
+import org.talend.cwm.xml.TdXmlContent;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.cwm.xml.XmlPackage;
 
 import orgomg.cwm.resource.xml.provider.ContentItemProvider;
 
 /**
- * This is the item provider adapter for a {@link org.talend.cwm.xml.TdXMLContent} object.
+ * This is the item provider adapter for a {@link org.talend.cwm.xml.TdXmlContent} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TdXMLContentItemProvider extends ContentItemProvider implements IEditingDomainItemProvider,
+public class TdXmlContentItemProvider extends ContentItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -46,7 +46,7 @@ public class TdXMLContentItemProvider extends ContentItemProvider implements IEd
      * <!-- end-user-doc -->
      * @generated
      */
-    public TdXMLContentItemProvider(AdapterFactory adapterFactory) {
+    public TdXmlContentItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -96,14 +96,14 @@ public class TdXMLContentItemProvider extends ContentItemProvider implements IEd
     }
 
     /**
-     * This returns TdXMLContent.gif.
+     * This returns TdXmlContent.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/TdXMLContent"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/TdXmlContent"));
     }
 
     /**
@@ -114,8 +114,8 @@ public class TdXMLContentItemProvider extends ContentItemProvider implements IEd
      */
     @Override
     public String getText(Object object) {
-        String label = ((TdXMLContent) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_TdXMLContent_type") : getString("_UI_TdXMLContent_type")
+        String label = ((TdXmlContent) object).getName();
+        return label == null || label.length() == 0 ? getString("_UI_TdXmlContent_type") : getString("_UI_TdXmlContent_type")
                 + " " + label;
     }
 
@@ -130,7 +130,7 @@ public class TdXMLContentItemProvider extends ContentItemProvider implements IEd
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(TdXMLContent.class)) {
+        switch (notification.getFeatureID(TdXmlContent.class)) {
         case XmlPackage.TD_XML_CONTENT__XML_ELEMENTS:
             fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
             return;
@@ -150,7 +150,7 @@ public class TdXMLContentItemProvider extends ContentItemProvider implements IEd
         super.collectNewChildDescriptors(newChildDescriptors, object);
 
         newChildDescriptors.add(createChildParameter(XmlPackage.Literals.TD_XML_CONTENT__XML_ELEMENTS, XmlFactory.eINSTANCE
-                .createTdXMLElement()));
+                .createTdXmlElementType()));
     }
 
     /**

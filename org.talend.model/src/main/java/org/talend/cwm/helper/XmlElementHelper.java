@@ -21,9 +21,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xsd.XSDElementDeclaration;
 import org.eclipse.xsd.XSDSimpleTypeDefinition;
 import org.eclipse.xsd.XSDTypeDefinition;
-import org.talend.cwm.xml.TdXMLContent;
-import org.talend.cwm.xml.TdXMLDocument;
-import org.talend.cwm.xml.TdXMLElement;
+import org.talend.cwm.xml.TdXmlContent;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -44,7 +44,7 @@ public final class XmlElementHelper {
      * @param element
      * @return
      */
-    public static boolean isLeafNode(TdXMLElement element) {
+    public static boolean isLeafNode(TdXmlElementType element) {
         boolean leafNode = false;
         XSDElementDeclaration xsdElementDeclearation = (XSDElementDeclaration) element.getXsdElementDeclaration();
         if (xsdElementDeclearation != null) {
@@ -62,17 +62,17 @@ public final class XmlElementHelper {
      * @param xmlElements
      * @return
      */
-    public static boolean isFromSameTable(List<TdXMLElement> xmlElements) {
+    public static boolean isFromSameTable(List<TdXmlElementType> xmlElements) {
         assert xmlElements != null;
 
         Set<String> modelElementNames = new HashSet<String>();
-        for (TdXMLElement xmlElement : xmlElements) {
+        for (TdXmlElementType xmlElement : xmlElements) {
             ModelElement parentElement = getParentElement(xmlElement);
             String fullName = "";
-            if (parentElement instanceof TdXMLDocument) {
+            if (parentElement instanceof TdXmlSchema) {
                 fullName = DOUBLE_SLASH + parentElement.getName();
-            } else if (parentElement instanceof TdXMLElement) {
-                fullName = getFullName((TdXMLElement) parentElement);
+            } else if (parentElement instanceof TdXmlElementType) {
+                fullName = getFullName((TdXmlElementType) parentElement);
             }
             modelElementNames.add(fullName);
         }
@@ -85,7 +85,7 @@ public final class XmlElementHelper {
      * @param xmlElement
      * @return
      */
-    public static String getFullName(TdXMLElement xmlElement) {
+    public static String getFullName(TdXmlElementType xmlElement) {
         ModelElement parentElement = getParentElement(xmlElement);
         if (parentElement != null) {
             return DOUBLE_SLASH + parentElement.getName() + SLASH + xmlElement.getName();
@@ -99,14 +99,14 @@ public final class XmlElementHelper {
      * @param xmlElement
      * @return
      */
-    public static ModelElement getParentElement(TdXMLElement xmlElement) {
+    public static ModelElement getParentElement(TdXmlElementType xmlElement) {
         EObject temp = xmlElement.eContainer();
-        if (temp instanceof TdXMLContent) {
+        if (temp instanceof TdXmlContent) {
             EObject eContainer = temp.eContainer();
-            if (eContainer instanceof TdXMLElement || eContainer instanceof TdXMLDocument) {
+            if (eContainer instanceof TdXmlElementType || eContainer instanceof TdXmlSchema) {
                 return (ModelElement) eContainer;
             }
-        } else if (temp instanceof TdXMLElement || temp instanceof TdXMLDocument) {
+        } else if (temp instanceof TdXmlElementType || temp instanceof TdXmlSchema) {
             return (ModelElement) temp;
         }
         return null;
@@ -118,7 +118,7 @@ public final class XmlElementHelper {
      * @param xmlElement
      * @return
      */
-    public static String getParentElementName(TdXMLElement xmlElement) {
+    public static String getParentElementName(TdXmlElementType xmlElement) {
         ModelElement parentElement = getParentElement(xmlElement);
         return parentElement == null ? "" : parentElement.getName();
     }
@@ -132,8 +132,8 @@ public final class XmlElementHelper {
     public static List<ModelElement> clearLeafNode(List<? extends ModelElement> modelElements) {
         List<ModelElement> result = new ArrayList<ModelElement>();
         for (ModelElement me : modelElements) {
-            if (me instanceof TdXMLElement) {
-                if (!isLeafNode((TdXMLElement) me)) {
+            if (me instanceof TdXmlElementType) {
+                if (!isLeafNode((TdXmlElementType) me)) {
                     result.add(me);
                 }
             } else {
@@ -149,11 +149,11 @@ public final class XmlElementHelper {
      * @param modelElements
      * @return
      */
-    public static List<TdXMLElement> getLeafNode(List<? extends ModelElement> modelElements) {
-        List<TdXMLElement> result = new ArrayList<TdXMLElement>();
+    public static List<TdXmlElementType> getLeafNode(List<? extends ModelElement> modelElements) {
+        List<TdXmlElementType> result = new ArrayList<TdXmlElementType>();
         for (ModelElement me : modelElements) {
-            if (me instanceof TdXMLElement && isLeafNode((TdXMLElement) me)) {
-                result.add((TdXMLElement) me);
+            if (me instanceof TdXmlElementType && isLeafNode((TdXmlElementType) me)) {
+                result.add((TdXmlElementType) me);
             }
         }
         return result;

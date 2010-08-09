@@ -5,25 +5,25 @@
  */
 package org.talend.cwm.xml;
 
-import orgomg.cwm.resource.xml.Document;
+import orgomg.cwm.resource.xml.Schema;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Td XML Document</b></em>'.
+ * A representation of the model object '<em><b>Td Xml Schema</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.cwm.xml.TdXMLDocument#getXsdFilePath <em>Xsd File Path</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.TdXmlSchema#getXsdFilePath <em>Xsd File Path</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.talend.cwm.xml.XmlPackage#getTdXMLDocument()
+ * @see org.talend.cwm.xml.XmlPackage#getTdXmlSchema()
  * @model
  * @generated
  */
-public interface TdXMLDocument extends Document {
+public interface TdXmlSchema extends Schema {
 
     /**
      * Returns the value of the '<em><b>Xsd File Path</b></em>' attribute.
@@ -36,14 +36,14 @@ public interface TdXMLDocument extends Document {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Xsd File Path</em>' attribute.
      * @see #setXsdFilePath(String)
-     * @see org.talend.cwm.xml.XmlPackage#getTdXMLDocument_XsdFilePath()
+     * @see org.talend.cwm.xml.XmlPackage#getTdXmlSchema_XsdFilePath()
      * @model default="" dataType="orgomg.cwm.objectmodel.core.String"
      * @generated
      */
     String getXsdFilePath();
 
     /**
-     * Sets the value of the '{@link org.talend.cwm.xml.TdXMLDocument#getXsdFilePath <em>Xsd File Path</em>}' attribute.
+     * Sets the value of the '{@link org.talend.cwm.xml.TdXmlSchema#getXsdFilePath <em>Xsd File Path</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Xsd File Path</em>' attribute.
@@ -52,4 +52,4 @@ public interface TdXMLDocument extends Document {
      */
     void setXsdFilePath(String value);
 
-} // TdXMLDocument
+} // TdXmlSchema

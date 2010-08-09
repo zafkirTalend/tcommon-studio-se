@@ -11,25 +11,25 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.talend.cwm.xml.TdXMLDocument;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlPackage;
 
-import orgomg.cwm.resource.xml.impl.DocumentImpl;
+import orgomg.cwm.resource.xml.impl.SchemaImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Td XML Document</b></em>'.
+ * An implementation of the model object '<em><b>Td Xml Schema</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.cwm.xml.impl.TdXMLDocumentImpl#getXsdFilePath <em>Xsd File Path</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.impl.TdXmlSchemaImpl#getXsdFilePath <em>Xsd File Path</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
+public class TdXmlSchemaImpl extends SchemaImpl implements TdXmlSchema {
 
     /**
      * The default value of the '{@link #getXsdFilePath() <em>Xsd File Path</em>}' attribute.
@@ -56,7 +56,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected TdXMLDocumentImpl() {
+    protected TdXmlSchemaImpl() {
         super();
     }
 
@@ -67,7 +67,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
      */
     @Override
     protected EClass eStaticClass() {
-        return XmlPackage.Literals.TD_XML_DOCUMENT;
+        return XmlPackage.Literals.TD_XML_SCHEMA;
     }
 
     /**
@@ -88,7 +88,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
         String oldXsdFilePath = xsdFilePath;
         xsdFilePath = newXsdFilePath;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_DOCUMENT__XSD_FILE_PATH, oldXsdFilePath,
+            eNotify(new ENotificationImpl(this, Notification.SET, XmlPackage.TD_XML_SCHEMA__XSD_FILE_PATH, oldXsdFilePath,
                     xsdFilePath));
     }
 
@@ -100,7 +100,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case XmlPackage.TD_XML_DOCUMENT__XSD_FILE_PATH:
+        case XmlPackage.TD_XML_SCHEMA__XSD_FILE_PATH:
             return getXsdFilePath();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -114,7 +114,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case XmlPackage.TD_XML_DOCUMENT__XSD_FILE_PATH:
+        case XmlPackage.TD_XML_SCHEMA__XSD_FILE_PATH:
             setXsdFilePath((String) newValue);
             return;
         }
@@ -129,7 +129,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case XmlPackage.TD_XML_DOCUMENT__XSD_FILE_PATH:
+        case XmlPackage.TD_XML_SCHEMA__XSD_FILE_PATH:
             setXsdFilePath(XSD_FILE_PATH_EDEFAULT);
             return;
         }
@@ -144,7 +144,7 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case XmlPackage.TD_XML_DOCUMENT__XSD_FILE_PATH:
+        case XmlPackage.TD_XML_SCHEMA__XSD_FILE_PATH:
             return XSD_FILE_PATH_EDEFAULT == null ? xsdFilePath != null : !XSD_FILE_PATH_EDEFAULT.equals(xsdFilePath);
         }
         return super.eIsSet(featureID);
@@ -167,4 +167,4 @@ public class TdXMLDocumentImpl extends DocumentImpl implements TdXMLDocument {
         return result.toString();
     }
 
-} //TdXMLDocumentImpl
+} //TdXmlSchemaImpl

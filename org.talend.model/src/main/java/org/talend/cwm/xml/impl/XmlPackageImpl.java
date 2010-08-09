@@ -10,85 +10,47 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-
 import org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl;
-
 import org.talend.cwm.constants.ConstantsPackage;
-
 import org.talend.cwm.constants.impl.ConstantsPackageImpl;
-
 import org.talend.cwm.relational.impl.RelationalPackageImpl;
-
 import org.talend.cwm.softwaredeployment.impl.SoftwaredeploymentPackageImpl;
-
-import org.talend.cwm.xml.TdXMLContent;
-import org.talend.cwm.xml.TdXMLDocument;
-import org.talend.cwm.xml.TdXMLElement;
+import org.talend.cwm.xml.TdXmlContent;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
 import org.talend.cwm.xml.XmlPackage;
-
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
-
 import orgomg.cwm.analysis.datamining.DataminingPackage;
-
 import orgomg.cwm.analysis.informationvisualization.InformationvisualizationPackage;
-
 import orgomg.cwm.analysis.olap.OlapPackage;
-
 import orgomg.cwm.analysis.transformation.TransformationPackage;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
-
 import orgomg.cwm.foundation.datatypes.DatatypesPackage;
-
 import orgomg.cwm.foundation.expressions.ExpressionsPackage;
-
 import orgomg.cwm.foundation.keysindexes.KeysindexesPackage;
-
 import orgomg.cwm.foundation.softwaredeployment.SoftwaredeploymentPackage;
-
 import orgomg.cwm.foundation.typemapping.TypemappingPackage;
-
 import orgomg.cwm.management.warehouseoperation.WarehouseoperationPackage;
-
 import orgomg.cwm.management.warehouseprocess.WarehouseprocessPackage;
-
 import orgomg.cwm.objectmodel.behavioral.BehavioralPackage;
-
 import orgomg.cwm.objectmodel.core.CorePackage;
-
 import orgomg.cwm.objectmodel.instance.InstancePackage;
-
 import orgomg.cwm.objectmodel.relationships.RelationshipsPackage;
-
 import orgomg.cwm.resource.multidimensional.MultidimensionalPackage;
-
 import orgomg.cwm.resource.record.RecordPackage;
-
 import orgomg.cwm.resource.relational.RelationalPackage;
-
 import orgomg.cwmmip.CwmmipPackage;
-
 import orgomg.cwmx.analysis.informationreporting.InformationreportingPackage;
-
 import orgomg.cwmx.analysis.informationset.InformationsetPackage;
-
 import orgomg.cwmx.foundation.er.ErPackage;
-
 import orgomg.cwmx.resource.coboldata.CoboldataPackage;
-
 import orgomg.cwmx.resource.dmsii.DmsiiPackage;
-
 import orgomg.cwmx.resource.essbase.EssbasePackage;
-
 import orgomg.cwmx.resource.express.ExpressPackage;
-
 import orgomg.cwmx.resource.imsdatabase.ImsdatabasePackage;
-
 import orgomg.mof.model.ModelPackage;
 
 /**
@@ -104,21 +66,21 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass tdXMLElementEClass = null;
+    private EClass tdXmlElementTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass tdXMLContentEClass = null;
+    private EClass tdXmlContentEClass = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass tdXMLDocumentEClass = null;
+    private EClass tdXmlSchemaEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -245,8 +207,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTdXMLElement() {
-        return tdXMLElementEClass;
+    public EClass getTdXmlElementType() {
+        return tdXmlElementTypeEClass;
     }
 
     /**
@@ -254,8 +216,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTdXMLElement_XsdElementDeclaration() {
-        return (EReference) tdXMLElementEClass.getEStructuralFeatures().get(0);
+    public EReference getTdXmlElementType_XsdElementDeclaration() {
+        return (EReference) tdXmlElementTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -263,8 +225,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTdXMLElement_OwnedDocument() {
-        return (EReference) tdXMLElementEClass.getEStructuralFeatures().get(1);
+    public EReference getTdXmlElementType_OwnedDocument() {
+        return (EReference) tdXmlElementTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -272,8 +234,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTdXMLElement_JavaType() {
-        return (EAttribute) tdXMLElementEClass.getEStructuralFeatures().get(2);
+    public EAttribute getTdXmlElementType_JavaType() {
+        return (EAttribute) tdXmlElementTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -281,8 +243,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTdXMLElement_XmlContent() {
-        return (EReference) tdXMLElementEClass.getEStructuralFeatures().get(3);
+    public EReference getTdXmlElementType_XmlContent() {
+        return (EReference) tdXmlElementTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -290,8 +252,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTdXMLContent() {
-        return tdXMLContentEClass;
+    public EClass getTdXmlContent() {
+        return tdXmlContentEClass;
     }
 
     /**
@@ -299,8 +261,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getTdXMLContent_XmlElements() {
-        return (EReference) tdXMLContentEClass.getEStructuralFeatures().get(0);
+    public EReference getTdXmlContent_XmlElements() {
+        return (EReference) tdXmlContentEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -308,8 +270,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTdXMLDocument() {
-        return tdXMLDocumentEClass;
+    public EClass getTdXmlSchema() {
+        return tdXmlSchemaEClass;
     }
 
     /**
@@ -317,8 +279,8 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTdXMLDocument_XsdFilePath() {
-        return (EAttribute) tdXMLDocumentEClass.getEStructuralFeatures().get(0);
+    public EAttribute getTdXmlSchema_XsdFilePath() {
+        return (EAttribute) tdXmlSchemaEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -350,17 +312,17 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
         isCreated = true;
 
         // Create classes and their features
-        tdXMLElementEClass = createEClass(TD_XML_ELEMENT);
-        createEReference(tdXMLElementEClass, TD_XML_ELEMENT__XSD_ELEMENT_DECLARATION);
-        createEReference(tdXMLElementEClass, TD_XML_ELEMENT__OWNED_DOCUMENT);
-        createEAttribute(tdXMLElementEClass, TD_XML_ELEMENT__JAVA_TYPE);
-        createEReference(tdXMLElementEClass, TD_XML_ELEMENT__XML_CONTENT);
+        tdXmlElementTypeEClass = createEClass(TD_XML_ELEMENT_TYPE);
+        createEReference(tdXmlElementTypeEClass, TD_XML_ELEMENT_TYPE__XSD_ELEMENT_DECLARATION);
+        createEReference(tdXmlElementTypeEClass, TD_XML_ELEMENT_TYPE__OWNED_DOCUMENT);
+        createEAttribute(tdXmlElementTypeEClass, TD_XML_ELEMENT_TYPE__JAVA_TYPE);
+        createEReference(tdXmlElementTypeEClass, TD_XML_ELEMENT_TYPE__XML_CONTENT);
 
-        tdXMLContentEClass = createEClass(TD_XML_CONTENT);
-        createEReference(tdXMLContentEClass, TD_XML_CONTENT__XML_ELEMENTS);
+        tdXmlContentEClass = createEClass(TD_XML_CONTENT);
+        createEReference(tdXmlContentEClass, TD_XML_CONTENT__XML_ELEMENTS);
 
-        tdXMLDocumentEClass = createEClass(TD_XML_DOCUMENT);
-        createEAttribute(tdXMLDocumentEClass, TD_XML_DOCUMENT__XSD_FILE_PATH);
+        tdXmlSchemaEClass = createEClass(TD_XML_SCHEMA);
+        createEAttribute(tdXmlSchemaEClass, TD_XML_SCHEMA__XSD_FILE_PATH);
     }
 
     /**
@@ -397,39 +359,39 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        tdXMLElementEClass.getESuperTypes().add(theXmlPackage_1.getElement());
-        tdXMLContentEClass.getESuperTypes().add(theXmlPackage_1.getContent());
-        tdXMLDocumentEClass.getESuperTypes().add(theXmlPackage_1.getDocument());
+        tdXmlElementTypeEClass.getESuperTypes().add(theXmlPackage_1.getElementType());
+        tdXmlContentEClass.getESuperTypes().add(theXmlPackage_1.getContent());
+        tdXmlSchemaEClass.getESuperTypes().add(theXmlPackage_1.getSchema());
 
         // Initialize classes and features; add operations and parameters
-        initEClass(tdXMLElementEClass, TdXMLElement.class, "TdXMLElement", !IS_ABSTRACT, !IS_INTERFACE,
+        initEClass(tdXmlElementTypeEClass, TdXmlElementType.class, "TdXmlElementType", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getTdXMLElement_XsdElementDeclaration(), ecorePackage.getEObject(), null, "xsdElementDeclaration", null,
-                0, 1, TdXMLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+        initEReference(getTdXmlElementType_XsdElementDeclaration(), ecorePackage.getEObject(), null, "xsdElementDeclaration",
+                null, 0, 1, TdXmlElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTdXmlElementType_OwnedDocument(), this.getTdXmlSchema(), null, "ownedDocument", null, 0, 1,
+                TdXmlElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTdXMLElement_OwnedDocument(), this.getTdXMLDocument(), null, "ownedDocument", null, 0, 1,
-                TdXMLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTdXMLElement_JavaType(), theCorePackage.getString(), "javaType", null, 0, 1, TdXMLElement.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getTdXMLElement_XmlContent(), this.getTdXMLContent(), null, "xmlContent", null, 0, 1, TdXMLElement.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+        initEAttribute(getTdXmlElementType_JavaType(), theCorePackage.getString(), "javaType", null, 0, 1,
+                TdXmlElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
+        initEReference(getTdXmlElementType_XmlContent(), this.getTdXmlContent(), null, "xmlContent", null, 0, 1,
+                TdXmlElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        EOperation op = addEOperation(tdXMLElementEClass, null, "setContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
+        EOperation op = addEOperation(tdXmlElementTypeEClass, null, "setContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, theCorePackage.getString(), "contentType", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        addEOperation(tdXMLElementEClass, theCorePackage.getString(), "getContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEOperation(tdXmlElementTypeEClass, theCorePackage.getString(), "getContentType", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-        initEClass(tdXMLContentEClass, TdXMLContent.class, "TdXMLContent", !IS_ABSTRACT, !IS_INTERFACE,
+        initEClass(tdXmlContentEClass, TdXmlContent.class, "TdXmlContent", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getTdXMLContent_XmlElements(), this.getTdXMLElement(), null, "xmlElements", null, 0, -1,
-                TdXMLContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+        initEReference(getTdXmlContent_XmlElements(), this.getTdXmlElementType(), null, "xmlElements", null, 0, -1,
+                TdXmlContent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
                 IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(tdXMLDocumentEClass, TdXMLDocument.class, "TdXMLDocument", !IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getTdXMLDocument_XsdFilePath(), theCorePackage.getString(), "xsdFilePath", "", 0, 1, TdXMLDocument.class,
+        initEClass(tdXmlSchemaEClass, TdXmlSchema.class, "TdXmlSchema", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTdXmlSchema_XsdFilePath(), theCorePackage.getString(), "xsdFilePath", "", 0, 1, TdXmlSchema.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create annotations
@@ -446,13 +408,13 @@ public class XmlPackageImpl extends EPackageImpl implements XmlPackage {
     protected void createGenModelAnnotations() {
         String source = "http://www.eclipse.org/emf/2002/GenModel";
         addAnnotation(
-                tdXMLElementEClass.getEOperations().get(0),
+                tdXmlElementTypeEClass.getEOperations().get(0),
                 source,
                 new String[] {
                         "documentation",
                         "The type of the content of the xml element. This type is a meta-information either set by the user who knows what type of data is contained in the xml element, or infered from the data." });
         addAnnotation(
-                tdXMLElementEClass.getEOperations().get(1),
+                tdXmlElementTypeEClass.getEOperations().get(1),
                 source,
                 new String[] {
                         "documentation",

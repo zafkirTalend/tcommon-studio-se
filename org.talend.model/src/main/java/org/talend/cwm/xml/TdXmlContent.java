@@ -11,25 +11,25 @@ import orgomg.cwm.resource.xml.Content;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Td XML Content</b></em>'.
+ * A representation of the model object '<em><b>Td Xml Content</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.cwm.xml.TdXMLContent#getXmlElements <em>Xml Elements</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.TdXmlContent#getXmlElements <em>Xml Elements</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.talend.cwm.xml.XmlPackage#getTdXMLContent()
+ * @see org.talend.cwm.xml.XmlPackage#getTdXmlContent()
  * @model
  * @generated
  */
-public interface TdXMLContent extends Content {
+public interface TdXmlContent extends Content {
 
     /**
      * Returns the value of the '<em><b>Xml Elements</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.cwm.xml.TdXMLElement}.
+     * The list contents are of type {@link org.talend.cwm.xml.TdXmlElementType}.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Xml Elements</em>' containment reference list isn't clear,
@@ -37,10 +37,10 @@ public interface TdXMLContent extends Content {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Xml Elements</em>' containment reference list.
-     * @see org.talend.cwm.xml.XmlPackage#getTdXMLContent_XmlElements()
+     * @see org.talend.cwm.xml.XmlPackage#getTdXmlContent_XmlElements()
      * @model containment="true" resolveProxies="true"
      * @generated
      */
-    EList<TdXMLElement> getXmlElements();
+    EList<TdXmlElementType> getXmlElements();
 
-} // TdXMLContent
+} // TdXmlContent

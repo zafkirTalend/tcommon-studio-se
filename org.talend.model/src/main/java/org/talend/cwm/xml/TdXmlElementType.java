@@ -7,28 +7,28 @@ package org.talend.cwm.xml;
 
 import org.eclipse.emf.ecore.EObject;
 
-import orgomg.cwm.resource.xml.Element;
+import orgomg.cwm.resource.xml.ElementType;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Td XML Element</b></em>'.
+ * A representation of the model object '<em><b>Td Xml Element Type</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.cwm.xml.TdXMLElement#getXsdElementDeclaration <em>Xsd Element Declaration</em>}</li>
- *   <li>{@link org.talend.cwm.xml.TdXMLElement#getOwnedDocument <em>Owned Document</em>}</li>
- *   <li>{@link org.talend.cwm.xml.TdXMLElement#getJavaType <em>Java Type</em>}</li>
- *   <li>{@link org.talend.cwm.xml.TdXMLElement#getXmlContent <em>Xml Content</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.TdXmlElementType#getXsdElementDeclaration <em>Xsd Element Declaration</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.TdXmlElementType#getOwnedDocument <em>Owned Document</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.TdXmlElementType#getJavaType <em>Java Type</em>}</li>
+ *   <li>{@link org.talend.cwm.xml.TdXmlElementType#getXmlContent <em>Xml Content</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.talend.cwm.xml.XmlPackage#getTdXMLElement()
+ * @see org.talend.cwm.xml.XmlPackage#getTdXmlElementType()
  * @model
  * @generated
  */
-public interface TdXMLElement extends Element {
+public interface TdXmlElementType extends ElementType {
 
     /**
      * Returns the value of the '<em><b>Xsd Element Declaration</b></em>' reference.
@@ -40,14 +40,14 @@ public interface TdXMLElement extends Element {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Xsd Element Declaration</em>' reference.
      * @see #setXsdElementDeclaration(EObject)
-     * @see org.talend.cwm.xml.XmlPackage#getTdXMLElement_XsdElementDeclaration()
+     * @see org.talend.cwm.xml.XmlPackage#getTdXmlElementType_XsdElementDeclaration()
      * @model
      * @generated
      */
     EObject getXsdElementDeclaration();
 
     /**
-     * Sets the value of the '{@link org.talend.cwm.xml.TdXMLElement#getXsdElementDeclaration <em>Xsd Element Declaration</em>}' reference.
+     * Sets the value of the '{@link org.talend.cwm.xml.TdXmlElementType#getXsdElementDeclaration <em>Xsd Element Declaration</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Xsd Element Declaration</em>' reference.
@@ -65,22 +65,22 @@ public interface TdXMLElement extends Element {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Owned Document</em>' reference.
-     * @see #setOwnedDocument(TdXMLDocument)
-     * @see org.talend.cwm.xml.XmlPackage#getTdXMLElement_OwnedDocument()
+     * @see #setOwnedDocument(TdXmlSchema)
+     * @see org.talend.cwm.xml.XmlPackage#getTdXmlElementType_OwnedDocument()
      * @model
      * @generated
      */
-    TdXMLDocument getOwnedDocument();
+    TdXmlSchema getOwnedDocument();
 
     /**
-     * Sets the value of the '{@link org.talend.cwm.xml.TdXMLElement#getOwnedDocument <em>Owned Document</em>}' reference.
+     * Sets the value of the '{@link org.talend.cwm.xml.TdXmlElementType#getOwnedDocument <em>Owned Document</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Owned Document</em>' reference.
      * @see #getOwnedDocument()
      * @generated
      */
-    void setOwnedDocument(TdXMLDocument value);
+    void setOwnedDocument(TdXmlSchema value);
 
     /**
      * Returns the value of the '<em><b>Java Type</b></em>' attribute.
@@ -92,14 +92,14 @@ public interface TdXMLElement extends Element {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Java Type</em>' attribute.
      * @see #setJavaType(String)
-     * @see org.talend.cwm.xml.XmlPackage#getTdXMLElement_JavaType()
+     * @see org.talend.cwm.xml.XmlPackage#getTdXmlElementType_JavaType()
      * @model dataType="orgomg.cwm.objectmodel.core.String"
      * @generated
      */
     String getJavaType();
 
     /**
-     * Sets the value of the '{@link org.talend.cwm.xml.TdXMLElement#getJavaType <em>Java Type</em>}' attribute.
+     * Sets the value of the '{@link org.talend.cwm.xml.TdXmlElementType#getJavaType <em>Java Type</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Java Type</em>' attribute.
@@ -117,22 +117,22 @@ public interface TdXMLElement extends Element {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Xml Content</em>' containment reference.
-     * @see #setXmlContent(TdXMLContent)
-     * @see org.talend.cwm.xml.XmlPackage#getTdXMLElement_XmlContent()
+     * @see #setXmlContent(TdXmlContent)
+     * @see org.talend.cwm.xml.XmlPackage#getTdXmlElementType_XmlContent()
      * @model containment="true" resolveProxies="true"
      * @generated
      */
-    TdXMLContent getXmlContent();
+    TdXmlContent getXmlContent();
 
     /**
-     * Sets the value of the '{@link org.talend.cwm.xml.TdXMLElement#getXmlContent <em>Xml Content</em>}' containment reference.
+     * Sets the value of the '{@link org.talend.cwm.xml.TdXmlElementType#getXmlContent <em>Xml Content</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Xml Content</em>' containment reference.
      * @see #getXmlContent()
      * @generated
      */
-    void setXmlContent(TdXMLContent value);
+    void setXmlContent(TdXmlContent value);
 
     /**
      * <!-- begin-user-doc -->
@@ -156,4 +156,4 @@ public interface TdXMLElement extends Element {
      */
     String getContentType();
 
-} // TdXMLElement
+} // TdXmlElementType

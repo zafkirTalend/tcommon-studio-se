@@ -20,7 +20,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.cwm.relational.TdColumn;
-import org.talend.cwm.xml.TdXMLElement;
+import org.talend.cwm.xml.TdXmlElementType;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationFactory;
 import orgomg.cwm.foundation.businessinformation.Description;
 import orgomg.cwm.foundation.businessinformation.Document;
@@ -181,10 +181,10 @@ public final class ModelElementHelper {
                 columns.add((TdColumn) element);
             }
             return ColumnHelper.isFromSameTable(columns);
-        } else if (modelElement instanceof TdXMLElement) {
-            List<TdXMLElement> xmlElements = new ArrayList<TdXMLElement>();
+        } else if (modelElement instanceof TdXmlElementType) {
+            List<TdXmlElementType> xmlElements = new ArrayList<TdXmlElementType>();
             for (ModelElement element : elements) {
-                xmlElements.add((TdXMLElement) element);
+                xmlElements.add((TdXmlElementType) element);
             }
             return XmlElementHelper.isFromSameTable(xmlElements);
         }
@@ -195,8 +195,8 @@ public final class ModelElementHelper {
         if (element instanceof TdColumn) {
             return DataProviderHelper.getConnection((TdColumn) element);
         }
-        if (element instanceof TdXMLElement) {
-            return DataProviderHelper.getConnection((TdXMLElement) element);
+        if (element instanceof TdXmlElementType) {
+            return DataProviderHelper.getConnection((TdXmlElementType) element);
         }
         return null;
     }
@@ -210,8 +210,8 @@ public final class ModelElementHelper {
     public static ModelElement getContainer(ModelElement modelElement) {
         if (modelElement instanceof TdColumn) {
             return ColumnHelper.getColumnSetOwner((TdColumn) modelElement);
-        } else if (modelElement instanceof TdXMLElement) {
-            return XmlElementHelper.getParentElement((TdXMLElement) modelElement);
+        } else if (modelElement instanceof TdXmlElementType) {
+            return XmlElementHelper.getParentElement((TdXmlElementType) modelElement);
         }
         return null;
     }
@@ -252,8 +252,8 @@ public final class ModelElementHelper {
         if (element instanceof TdColumn) {
             return DataProviderHelper.getTdDataProvider((TdColumn) element);
         }
-        if (element instanceof TdXMLElement) {
-            return DataProviderHelper.getTdDataProvider(((TdXMLElement) element).getOwnedDocument());
+        if (element instanceof TdXmlElementType) {
+            return DataProviderHelper.getTdDataProvider(((TdXmlElementType) element).getOwnedDocument());
         }
         return null;
     }

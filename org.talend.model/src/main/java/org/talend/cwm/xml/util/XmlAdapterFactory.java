@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.talend.cwm.xml.*;
 
+import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.Element;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
@@ -22,6 +23,8 @@ import orgomg.cwm.objectmodel.instance.Extent;
 import orgomg.cwm.objectmodel.instance.Instance;
 
 import orgomg.cwm.resource.xml.Content;
+import orgomg.cwm.resource.xml.ElementType;
+import orgomg.cwm.resource.xml.Schema;
 import orgomg.cwm.resource.xml.Document;
 
 /**
@@ -82,18 +85,18 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
     protected XmlSwitch<Adapter> modelSwitch = new XmlSwitch<Adapter>() {
 
         @Override
-        public Adapter caseTdXMLElement(TdXMLElement object) {
-            return createTdXMLElementAdapter();
+        public Adapter caseTdXmlElementType(TdXmlElementType object) {
+            return createTdXmlElementTypeAdapter();
         }
 
         @Override
-        public Adapter caseTdXMLContent(TdXMLContent object) {
-            return createTdXMLContentAdapter();
+        public Adapter caseTdXmlContent(TdXmlContent object) {
+            return createTdXmlContentAdapter();
         }
 
         @Override
-        public Adapter caseTdXMLDocument(TdXMLDocument object) {
-            return createTdXMLDocumentAdapter();
+        public Adapter caseTdXmlSchema(TdXmlSchema object) {
+            return createTdXmlSchemaAdapter();
         }
 
         @Override
@@ -107,18 +110,23 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseInstance(Instance object) {
-            return createInstanceAdapter();
+        public Adapter caseNamespace(Namespace object) {
+            return createNamespaceAdapter();
         }
 
         @Override
-        public Adapter caseObject(orgomg.cwm.objectmodel.instance.Object object) {
-            return createObjectAdapter();
+        public Adapter caseClassifier(Classifier object) {
+            return createClassifierAdapter();
         }
 
         @Override
-        public Adapter caseXml_Element(orgomg.cwm.resource.xml.Element object) {
-            return createXml_ElementAdapter();
+        public Adapter caseClass(orgomg.cwm.objectmodel.core.Class object) {
+            return createClassAdapter();
+        }
+
+        @Override
+        public Adapter caseElementType(ElementType object) {
+            return createElementTypeAdapter();
         }
 
         @Override
@@ -127,23 +135,13 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseNamespace(Namespace object) {
-            return createNamespaceAdapter();
-        }
-
-        @Override
         public Adapter casePackage(orgomg.cwm.objectmodel.core.Package object) {
             return createPackageAdapter();
         }
 
         @Override
-        public Adapter caseExtent(Extent object) {
-            return createExtentAdapter();
-        }
-
-        @Override
-        public Adapter caseDocument(Document object) {
-            return createDocumentAdapter();
+        public Adapter caseSchema(Schema object) {
+            return createSchemaAdapter();
         }
 
         @Override
@@ -166,44 +164,44 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.cwm.xml.TdXMLElement <em>Td XML Element</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.xml.TdXmlElementType <em>Td Xml Element Type</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see org.talend.cwm.xml.TdXMLElement
+     * @see org.talend.cwm.xml.TdXmlElementType
      * @generated
      */
-    public Adapter createTdXMLElementAdapter() {
+    public Adapter createTdXmlElementTypeAdapter() {
         return null;
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.cwm.xml.TdXMLContent <em>Td XML Content</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.xml.TdXmlContent <em>Td Xml Content</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see org.talend.cwm.xml.TdXMLContent
+     * @see org.talend.cwm.xml.TdXmlContent
      * @generated
      */
-    public Adapter createTdXMLContentAdapter() {
+    public Adapter createTdXmlContentAdapter() {
         return null;
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.cwm.xml.TdXMLDocument <em>Td XML Document</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.cwm.xml.TdXmlSchema <em>Td Xml Schema</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see org.talend.cwm.xml.TdXMLDocument
+     * @see org.talend.cwm.xml.TdXmlSchema
      * @generated
      */
-    public Adapter createTdXMLDocumentAdapter() {
+    public Adapter createTdXmlSchemaAdapter() {
         return null;
     }
 
@@ -236,48 +234,6 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.Instance <em>Instance</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see orgomg.cwm.objectmodel.instance.Instance
-     * @generated
-     */
-    public Adapter createInstanceAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.Object <em>Object</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see orgomg.cwm.objectmodel.instance.Object
-     * @generated
-     */
-    public Adapter createObjectAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.xml.Element <em>Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see orgomg.cwm.resource.xml.Element
-     * @generated
-     */
-    public Adapter createXml_ElementAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.xml.Content <em>Content</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -306,6 +262,48 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Classifier <em>Classifier</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Classifier
+     * @generated
+     */
+    public Adapter createClassifierAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Class <em>Class</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.objectmodel.core.Class
+     * @generated
+     */
+    public Adapter createClassAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.xml.ElementType <em>Element Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see orgomg.cwm.resource.xml.ElementType
+     * @generated
+     */
+    public Adapter createElementTypeAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.core.Package <em>Package</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -320,30 +318,16 @@ public class XmlAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.objectmodel.instance.Extent <em>Extent</em>}'.
+     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.xml.Schema <em>Schema</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see orgomg.cwm.objectmodel.instance.Extent
+     * @see orgomg.cwm.resource.xml.Schema
      * @generated
      */
-    public Adapter createExtentAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link orgomg.cwm.resource.xml.Document <em>Document</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see orgomg.cwm.resource.xml.Document
-     * @generated
-     */
-    public Adapter createDocumentAdapter() {
+    public Adapter createSchemaAdapter() {
         return null;
     }
 

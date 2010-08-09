@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.talend.cwm.xml.TdXMLDocument;
+import org.talend.cwm.xml.TdXmlSchema;
 
 /**
  * DOC mzhao class global comment. Detailled comment
@@ -27,10 +27,11 @@ public final class XmlSchemaHelper {
     private XmlSchemaHelper() {
 
     }
-    public static List<TdXMLDocument> getDocuments(Collection<? extends EObject> elements) {
-        List<TdXMLDocument> documents = new ArrayList<TdXMLDocument>();
+
+    public static List<TdXmlSchema> getDocuments(Collection<? extends EObject> elements) {
+        List<TdXmlSchema> documents = new ArrayList<TdXmlSchema>();
         for (EObject modelElement : elements) {
-            TdXMLDocument document = SwitchHelpers.XMLDOCUMENT_SWITCH.doSwitch(modelElement);
+            TdXmlSchema document = SwitchHelpers.XMLSCHEMA_SWITCH.doSwitch(modelElement);
             if (document != null) {
                 documents.add(document);
             }

@@ -3,36 +3,49 @@
  * 
  * $Id$
  */
-package org.talend.core.model.metadata.builder.connection.provider;
+package org.talend.cwm.xml.provider;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.IChildCreationExtender;
+
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-import org.talend.core.model.metadata.builder.connection.GenericPackage;
+
+import org.talend.core.model.metadata.builder.connection.provider.MetadataEditPlugin;
+
 import org.talend.cwm.relational.RelationalFactory;
+
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
+
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.XmlFactory;
+import org.talend.cwm.xml.XmlPackage;
+
 import orgomg.cwm.objectmodel.core.CorePackage;
-import orgomg.cwm.objectmodel.core.provider.PackageItemProvider;
+
+import orgomg.cwm.resource.xml.provider.SchemaItemProvider;
 
 /**
- * This is the item provider adapter for a {@link org.talend.core.model.metadata.builder.connection.GenericPackage} object.
+ * This is the item provider adapter for a {@link org.talend.cwm.xml.TdXmlSchema} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenericPackageItemProvider extends PackageItemProvider implements IEditingDomainItemProvider,
+public class TdXmlSchemaItemProvider extends SchemaItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -41,7 +54,7 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
      * <!-- end-user-doc -->
      * @generated
      */
-    public GenericPackageItemProvider(AdapterFactory adapterFactory) {
+    public TdXmlSchemaItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -56,19 +69,34 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
+            addXsdFilePathPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This returns GenericPackage.gif.
+     * This adds a property descriptor for the Xsd File Path feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addXsdFilePathPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+                .getRootAdapterFactory(), getResourceLocator(), getString("_UI_TdXmlSchema_xsdFilePath_feature"), getString(
+                "_UI_PropertyDescriptor_description", "_UI_TdXmlSchema_xsdFilePath_feature", "_UI_TdXmlSchema_type"),
+                XmlPackage.Literals.TD_XML_SCHEMA__XSD_FILE_PATH, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                null, null));
+    }
+
+    /**
+     * This returns TdXmlSchema.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/GenericPackage"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/TdXmlSchema"));
     }
 
     /**
@@ -79,9 +107,9 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
      */
     @Override
     public String getText(Object object) {
-        String label = ((GenericPackage) object).getName();
-        return label == null || label.length() == 0 ? getString("_UI_GenericPackage_type") : getString("_UI_GenericPackage_type")
-                + " " + label;
+        String label = ((TdXmlSchema) object).getName();
+        return label == null || label.length() == 0 ? getString("_UI_TdXmlSchema_type") : getString("_UI_TdXmlSchema_type") + " "
+                + label;
     }
 
     /**
@@ -94,6 +122,12 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
     @Override
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(TdXmlSchema.class)) {
+        case XmlPackage.TD_XML_SCHEMA__XSD_FILE_PATH:
+            fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+            return;
+        }
         super.notifyChanged(notification);
     }
 
@@ -107,6 +141,15 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
+                .createTdXmlElementType()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
+                .createTdXmlContent()));
+
+        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
+                .createTdXmlSchema()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, ConnectionFactory.eINSTANCE
                 .createMetadata()));
@@ -230,15 +273,6 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT,
                 SoftwaredeploymentFactory.eINSTANCE.createTdMachine()));
-
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXmlElementType()));
-
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXmlContent()));
-
-        newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXmlSchema()));
     }
 
     /**
@@ -249,7 +283,7 @@ public class GenericPackageItemProvider extends PackageItemProvider implements I
      */
     @Override
     public ResourceLocator getResourceLocator() {
-        return ((IChildCreationExtender) adapterFactory).getResourceLocator();
+        return MetadataEditPlugin.INSTANCE;
     }
 
 }

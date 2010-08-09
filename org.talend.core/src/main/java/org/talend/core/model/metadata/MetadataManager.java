@@ -24,7 +24,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.EPackageType;
 import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.cwm.xml.TdXMLDocument;
+import org.talend.cwm.xml.TdXmlSchema;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -119,8 +119,8 @@ public class MetadataManager {
 			break;
 		case XML_Schema: // for mdm
 			for (int i = 0; i < item.getConnection().getDataPackage().size(); i++) {
-				if (item.getConnection().getDataPackage().get(i) instanceof TdXMLDocument) {
-					TdXMLDocument xml = (TdXMLDocument) item.getConnection()
+                if (item.getConnection().getDataPackage().get(i) instanceof TdXmlSchema) {
+                    TdXmlSchema xml = (TdXmlSchema) item.getConnection()
 							.getDataPackage().get(i);
 					returnlist.add(xml);
 				}

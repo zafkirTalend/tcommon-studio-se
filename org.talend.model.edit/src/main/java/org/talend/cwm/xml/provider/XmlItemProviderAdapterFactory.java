@@ -77,72 +77,72 @@ public class XmlItemProviderAdapterFactory extends XmlAdapterFactory implements 
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link org.talend.cwm.xml.TdXMLElement} instances.
+     * This keeps track of the one adapter used for all {@link org.talend.cwm.xml.TdXmlElementType} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected TdXMLElementItemProvider tdXMLElementItemProvider;
+    protected TdXmlElementTypeItemProvider tdXmlElementTypeItemProvider;
 
     /**
-     * This creates an adapter for a {@link org.talend.cwm.xml.TdXMLElement}.
+     * This creates an adapter for a {@link org.talend.cwm.xml.TdXmlElementType}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createTdXMLElementAdapter() {
-        if (tdXMLElementItemProvider == null) {
-            tdXMLElementItemProvider = new TdXMLElementItemProvider(this);
+    public Adapter createTdXmlElementTypeAdapter() {
+        if (tdXmlElementTypeItemProvider == null) {
+            tdXmlElementTypeItemProvider = new TdXmlElementTypeItemProvider(this);
         }
 
-        return tdXMLElementItemProvider;
+        return tdXmlElementTypeItemProvider;
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link org.talend.cwm.xml.TdXMLContent} instances.
+     * This keeps track of the one adapter used for all {@link org.talend.cwm.xml.TdXmlContent} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected TdXMLContentItemProvider tdXMLContentItemProvider;
+    protected TdXmlContentItemProvider tdXmlContentItemProvider;
 
     /**
-     * This creates an adapter for a {@link org.talend.cwm.xml.TdXMLContent}.
+     * This creates an adapter for a {@link org.talend.cwm.xml.TdXmlContent}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createTdXMLContentAdapter() {
-        if (tdXMLContentItemProvider == null) {
-            tdXMLContentItemProvider = new TdXMLContentItemProvider(this);
+    public Adapter createTdXmlContentAdapter() {
+        if (tdXmlContentItemProvider == null) {
+            tdXmlContentItemProvider = new TdXmlContentItemProvider(this);
         }
 
-        return tdXMLContentItemProvider;
+        return tdXmlContentItemProvider;
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link org.talend.cwm.xml.TdXMLDocument} instances.
+     * This keeps track of the one adapter used for all {@link org.talend.cwm.xml.TdXmlSchema} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected TdXMLDocumentItemProvider tdXMLDocumentItemProvider;
+    protected TdXmlSchemaItemProvider tdXmlSchemaItemProvider;
 
     /**
-     * This creates an adapter for a {@link org.talend.cwm.xml.TdXMLDocument}.
+     * This creates an adapter for a {@link org.talend.cwm.xml.TdXmlSchema}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createTdXMLDocumentAdapter() {
-        if (tdXMLDocumentItemProvider == null) {
-            tdXMLDocumentItemProvider = new TdXMLDocumentItemProvider(this);
+    public Adapter createTdXmlSchemaAdapter() {
+        if (tdXmlSchemaItemProvider == null) {
+            tdXmlSchemaItemProvider = new TdXmlSchemaItemProvider(this);
         }
 
-        return tdXMLDocumentItemProvider;
+        return tdXmlSchemaItemProvider;
     }
 
     /**
@@ -244,12 +244,12 @@ public class XmlItemProviderAdapterFactory extends XmlAdapterFactory implements 
      * @generated
      */
     public void dispose() {
-        if (tdXMLElementItemProvider != null)
-            tdXMLElementItemProvider.dispose();
-        if (tdXMLContentItemProvider != null)
-            tdXMLContentItemProvider.dispose();
-        if (tdXMLDocumentItemProvider != null)
-            tdXMLDocumentItemProvider.dispose();
+        if (tdXmlElementTypeItemProvider != null)
+            tdXmlElementTypeItemProvider.dispose();
+        if (tdXmlContentItemProvider != null)
+            tdXmlContentItemProvider.dispose();
+        if (tdXmlSchemaItemProvider != null)
+            tdXmlSchemaItemProvider.dispose();
     }
 
 }

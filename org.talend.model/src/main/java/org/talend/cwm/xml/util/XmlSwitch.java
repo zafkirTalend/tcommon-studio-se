@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.talend.cwm.xml.*;
 
+import orgomg.cwm.objectmodel.core.Classifier;
 import orgomg.cwm.objectmodel.core.Element;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Namespace;
@@ -20,6 +21,8 @@ import orgomg.cwm.objectmodel.instance.Extent;
 import orgomg.cwm.objectmodel.instance.Instance;
 
 import orgomg.cwm.resource.xml.Content;
+import orgomg.cwm.resource.xml.ElementType;
+import orgomg.cwm.resource.xml.Schema;
 import orgomg.cwm.resource.xml.Document;
 
 /**
@@ -93,51 +96,51 @@ public class XmlSwitch<T> {
      */
     protected T doSwitch(int classifierID, EObject theEObject) {
         switch (classifierID) {
-        case XmlPackage.TD_XML_ELEMENT: {
-            TdXMLElement tdXMLElement = (TdXMLElement) theEObject;
-            T result = caseTdXMLElement(tdXMLElement);
+        case XmlPackage.TD_XML_ELEMENT_TYPE: {
+            TdXmlElementType tdXmlElementType = (TdXmlElementType) theEObject;
+            T result = caseTdXmlElementType(tdXmlElementType);
             if (result == null)
-                result = caseXml_Element(tdXMLElement);
+                result = caseElementType(tdXmlElementType);
             if (result == null)
-                result = caseObject(tdXMLElement);
+                result = caseClass(tdXmlElementType);
             if (result == null)
-                result = caseInstance(tdXMLElement);
+                result = caseClassifier(tdXmlElementType);
             if (result == null)
-                result = caseModelElement(tdXMLElement);
+                result = caseNamespace(tdXmlElementType);
             if (result == null)
-                result = caseElement(tdXMLElement);
+                result = caseModelElement(tdXmlElementType);
+            if (result == null)
+                result = caseElement(tdXmlElementType);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
         case XmlPackage.TD_XML_CONTENT: {
-            TdXMLContent tdXMLContent = (TdXMLContent) theEObject;
-            T result = caseTdXMLContent(tdXMLContent);
+            TdXmlContent tdXmlContent = (TdXmlContent) theEObject;
+            T result = caseTdXmlContent(tdXmlContent);
             if (result == null)
-                result = caseContent(tdXMLContent);
+                result = caseContent(tdXmlContent);
             if (result == null)
-                result = caseModelElement(tdXMLContent);
+                result = caseModelElement(tdXmlContent);
             if (result == null)
-                result = caseElement(tdXMLContent);
+                result = caseElement(tdXmlContent);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
         }
-        case XmlPackage.TD_XML_DOCUMENT: {
-            TdXMLDocument tdXMLDocument = (TdXMLDocument) theEObject;
-            T result = caseTdXMLDocument(tdXMLDocument);
+        case XmlPackage.TD_XML_SCHEMA: {
+            TdXmlSchema tdXmlSchema = (TdXmlSchema) theEObject;
+            T result = caseTdXmlSchema(tdXmlSchema);
             if (result == null)
-                result = caseDocument(tdXMLDocument);
+                result = caseSchema(tdXmlSchema);
             if (result == null)
-                result = caseExtent(tdXMLDocument);
+                result = casePackage(tdXmlSchema);
             if (result == null)
-                result = casePackage(tdXMLDocument);
+                result = caseNamespace(tdXmlSchema);
             if (result == null)
-                result = caseNamespace(tdXMLDocument);
+                result = caseModelElement(tdXmlSchema);
             if (result == null)
-                result = caseModelElement(tdXMLDocument);
-            if (result == null)
-                result = caseElement(tdXMLDocument);
+                result = caseElement(tdXmlSchema);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -148,47 +151,47 @@ public class XmlSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Td XML Element</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Td Xml Element Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Td XML Element</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Td Xml Element Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseTdXMLElement(TdXMLElement object) {
+    public T caseTdXmlElementType(TdXmlElementType object) {
         return null;
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Td XML Content</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Td Xml Content</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Td XML Content</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Td Xml Content</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseTdXMLContent(TdXMLContent object) {
+    public T caseTdXmlContent(TdXmlContent object) {
         return null;
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Td XML Document</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Td Xml Schema</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Td XML Document</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Td Xml Schema</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseTdXMLDocument(TdXMLDocument object) {
+    public T caseTdXmlSchema(TdXmlSchema object) {
         return null;
     }
 
@@ -223,51 +226,6 @@ public class XmlSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Instance</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Instance</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseInstance(Instance object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Object</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Object</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseObject(orgomg.cwm.objectmodel.instance.Object object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Element</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseXml_Element(orgomg.cwm.resource.xml.Element object) {
-        return null;
-    }
-
-    /**
      * Returns the result of interpreting the object as an instance of '<em>Content</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -298,6 +256,51 @@ public class XmlSwitch<T> {
     }
 
     /**
+     * Returns the result of interpreting the object as an instance of '<em>Classifier</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Classifier</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseClassifier(Classifier object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Class</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseClass(orgomg.cwm.objectmodel.core.Class object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Element Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Element Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseElementType(ElementType object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>Package</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -313,32 +316,17 @@ public class XmlSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Extent</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Schema</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Extent</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Schema</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseExtent(Extent object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Document</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Document</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseDocument(Document object) {
+    public T caseSchema(Schema object) {
         return null;
     }
 

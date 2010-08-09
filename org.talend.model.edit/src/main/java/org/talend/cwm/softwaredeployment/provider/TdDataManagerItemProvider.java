@@ -10,29 +10,20 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-
 import org.talend.core.model.metadata.builder.connection.provider.MetadataEditPlugin;
-
 import org.talend.cwm.relational.RelationalFactory;
-
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdDataManager;
-
 import org.talend.cwm.xml.XmlFactory;
-
 import orgomg.cwm.foundation.softwaredeployment.provider.DataManagerItemProvider;
-
 import orgomg.cwm.objectmodel.core.CorePackage;
 
 /**
@@ -241,13 +232,13 @@ public class TdDataManagerItemProvider extends DataManagerItemProvider implement
                 .createTdProcedure()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXMLElement()));
+                .createTdXmlElementType()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXMLContent()));
+                .createTdXmlContent()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXMLDocument()));
+                .createTdXmlSchema()));
     }
 
     /**

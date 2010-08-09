@@ -23,8 +23,8 @@ import org.talend.cwm.relational.TdView;
 import org.talend.cwm.relational.util.RelationalSwitch;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.cwm.softwaredeployment.util.SoftwaredeploymentSwitch;
-import org.talend.cwm.xml.TdXMLDocument;
-import org.talend.cwm.xml.TdXMLElement;
+import org.talend.cwm.xml.TdXmlElementType;
+import org.talend.cwm.xml.TdXmlSchema;
 import org.talend.cwm.xml.util.XmlSwitch;
 import orgomg.cwm.foundation.softwaredeployment.Component;
 import orgomg.cwm.objectmodel.core.Package;
@@ -103,19 +103,19 @@ public final class SwitchHelpers {
     };
     
 
-    public static final XmlSwitch<TdXMLDocument> XMLDOCUMENT_SWITCH = new XmlSwitch<TdXMLDocument>() {
+    public static final XmlSwitch<TdXmlSchema> XMLSCHEMA_SWITCH = new XmlSwitch<TdXmlSchema>() {
 
         @Override
-        public TdXMLDocument caseTdXMLDocument(TdXMLDocument object) {
+        public TdXmlSchema caseTdXmlSchema(TdXmlSchema object) {
             return object;
         }
 
     };
 
-    public static final XmlSwitch<TdXMLElement> XMLELEMENT_SWITCH = new XmlSwitch<TdXMLElement>() {
+    public static final XmlSwitch<TdXmlElementType> XMLELEMENTTYPE_SWITCH = new XmlSwitch<TdXmlElementType>() {
 
         @Override
-        public TdXMLElement caseTdXMLElement(TdXMLElement object) {
+        public TdXmlElementType caseTdXmlElementType(TdXmlElementType object) {
             return object;
         }
     };

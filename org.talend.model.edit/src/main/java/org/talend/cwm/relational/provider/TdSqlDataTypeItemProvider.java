@@ -10,9 +10,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,21 +20,14 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-
 import org.talend.core.model.metadata.builder.connection.provider.MetadataEditPlugin;
-
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdSqlDataType;
-
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
-
 import org.talend.cwm.xml.XmlFactory;
-
 import orgomg.cwm.objectmodel.core.CorePackage;
-
 import orgomg.cwm.resource.relational.provider.SQLSimpleTypeItemProvider;
 
 /**
@@ -362,13 +353,13 @@ public class TdSqlDataTypeItemProvider extends SQLSimpleTypeItemProvider impleme
                 SoftwaredeploymentFactory.eINSTANCE.createTdMachine()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXMLElement()));
+                .createTdXmlElementType()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXMLContent()));
+                .createTdXmlContent()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.NAMESPACE__OWNED_ELEMENT, XmlFactory.eINSTANCE
-                .createTdXMLDocument()));
+                .createTdXmlSchema()));
 
         newChildDescriptors.add(createChildParameter(CorePackage.Literals.CLASSIFIER__FEATURE, RelationalFactory.eINSTANCE
                 .createTdColumn()));
