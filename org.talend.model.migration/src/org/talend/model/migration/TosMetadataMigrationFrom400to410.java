@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.m2m.atl.common.ATLLogger;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.eclipse.m2m.atl.core.IModel;
 import org.eclipse.m2m.atl.core.IReferenceModel;
@@ -63,9 +64,7 @@ public class TosMetadataMigrationFrom400to410 {
     public TosMetadataMigrationFrom400to410() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl()); //$NON-NLS-1$
         // suppress the warning from the output console
-        java.util.logging.Logger atlLogger = java.util.logging.Logger.getLogger("org.eclipse.m2m.atl"); //$NON-NLS-1$
-        atlLogger.setUseParentHandlers(false);
-        atlLogger.setLevel(Level.OFF);
+        ATLLogger.getLogger().setLevel(Level.OFF);
         try {
             createMetamodels();
         } catch (ATLCoreException e) {

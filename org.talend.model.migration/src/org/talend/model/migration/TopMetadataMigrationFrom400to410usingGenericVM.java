@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.m2m.atl.common.ATLLogger;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.eclipse.m2m.atl.core.IModel;
 import org.eclipse.m2m.atl.core.IReferenceModel;
@@ -73,9 +74,7 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
     public TopMetadataMigrationFrom400to410usingGenericVM() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl()); //$NON-NLS-1$
         // suppress the warning from the output console
-        java.util.logging.Logger atlLogger = java.util.logging.Logger.getLogger("org.eclipse.m2m.atl"); //$NON-NLS-1$
-        atlLogger.setUseParentHandlers(false);
-        atlLogger.setLevel(Level.OFF);
+        ATLLogger.getLogger().setLevel(Level.OFF);
         try {
             createMetamodels();
         } catch (ATLCoreException e) {
@@ -149,7 +148,7 @@ public class TopMetadataMigrationFrom400to410usingGenericVM {
         launcher.initialize(Collections.EMPTY_MAP);
         // input model
         inModelHM.remove(ASMFactory.OPTION_MODEL_PATH);// removes the key if it was added at previous call of this
-                                                       // method
+        // method
         inModelHM.put(ASMFactory.OPTION_MODEL_PATH, inUri);
         inModel = factory.newModel(inmodelMetamodel, inModelHM);
         injector.inject(inModel, inUri);
