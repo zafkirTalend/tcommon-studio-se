@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.talend.core.model.properties.*;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -19,23 +18,32 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.CronTalendTrigger;
 import org.talend.core.model.properties.CronUITalendTrigger;
+import org.talend.core.model.properties.CustomComponentSetting;
 import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
+import org.talend.core.model.properties.ExecutionPlan;
+import org.talend.core.model.properties.ExecutionPlanPart;
+import org.talend.core.model.properties.ExecutionPlanPartCmdPrm;
+import org.talend.core.model.properties.ExecutionPlanPartJobPrm;
+import org.talend.core.model.properties.ExecutionPlanPrm;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskCmdPrm;
 import org.talend.core.model.properties.ExecutionTaskJobPrm;
+import org.talend.core.model.properties.ExecutionTriggerable;
 import org.talend.core.model.properties.ExecutionVirtualServer;
+import org.talend.core.model.properties.FTPConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FileTrigger;
 import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.Item;
@@ -54,6 +62,7 @@ import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.Notification;
+import org.talend.core.model.properties.PlanExecutionHistory;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -81,10 +90,10 @@ import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TDQAnalysisItem;
 import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQDBConnectionItem;
 import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQMDMConnectionItem;
+import org.talend.core.model.properties.TDQJrxmlItem;
+import org.talend.core.model.properties.TDQPatternItem;
 import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
@@ -93,6 +102,7 @@ import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorization;
 import org.talend.core.model.properties.UserRight;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.UserRoleReference;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 
@@ -717,24 +727,6 @@ public class PropertiesSwitch {
                 Object result = caseTDQReportItem(tdqReportItem);
                 if (result == null) result = caseTDQItem(tdqReportItem);
                 if (result == null) result = caseItem(tdqReportItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQDB_CONNECTION_ITEM: {
-                TDQDBConnectionItem tdqdbConnectionItem = (TDQDBConnectionItem)theEObject;
-                Object result = caseTDQDBConnectionItem(tdqdbConnectionItem);
-                if (result == null) result = caseTDQItem(tdqdbConnectionItem);
-                if (result == null) result = caseConnectionItem(tdqdbConnectionItem);
-                if (result == null) result = caseItem(tdqdbConnectionItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQMDM_CONNECTION_ITEM: {
-                TDQMDMConnectionItem tdqmdmConnectionItem = (TDQMDMConnectionItem)theEObject;
-                Object result = caseTDQMDMConnectionItem(tdqmdmConnectionItem);
-                if (result == null) result = caseTDQItem(tdqmdmConnectionItem);
-                if (result == null) result = caseConnectionItem(tdqmdmConnectionItem);
-                if (result == null) result = caseItem(tdqmdmConnectionItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1857,34 +1849,6 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseTDQReportItem(TDQReportItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQDB Connection Item</em>'. <!--
-     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
-     * end-user-doc -->
-     * 
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQDB Connection Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQDBConnectionItem(TDQDBConnectionItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQMDM Connection Item</em>'. <!--
-     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
-     * end-user-doc -->
-     * 
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQMDM Connection Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
         return null;
     }
 

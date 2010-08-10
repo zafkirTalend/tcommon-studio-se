@@ -99,11 +99,9 @@ import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TDQAnalysisItem;
 import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQDBConnectionItem;
 import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.TDQJrxmlItem;
-import org.talend.core.model.properties.TDQMDMConnectionItem;
 import org.talend.core.model.properties.TDQPatternItem;
 import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
@@ -118,6 +116,7 @@ import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.UserRoleReference;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
+import org.talend.core.model.properties.*;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
@@ -572,18 +571,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass tdqReportItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqdbConnectionItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqmdmConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4390,22 +4377,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTDQDBConnectionItem() {
-        return tdqdbConnectionItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQMDMConnectionItem() {
-        return tdqmdmConnectionItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getTDQIndicatorItem() {
         return tdqIndicatorItemEClass;
     }
@@ -5531,10 +5502,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         tdqReportItemEClass = createEClass(TDQ_REPORT_ITEM);
 
-        tdqdbConnectionItemEClass = createEClass(TDQDB_CONNECTION_ITEM);
-
-        tdqmdmConnectionItemEClass = createEClass(TDQMDM_CONNECTION_ITEM);
-
         tdqIndicatorItemEClass = createEClass(TDQ_INDICATOR_ITEM);
 
         tdqBusinessRuleItemEClass = createEClass(TDQ_BUSINESS_RULE_ITEM);
@@ -5657,10 +5624,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         tdqItemEClass.getESuperTypes().add(this.getItem());
         tdqAnalysisItemEClass.getESuperTypes().add(this.getTDQItem());
         tdqReportItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqdbConnectionItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqdbConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
-        tdqmdmConnectionItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqmdmConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         tdqIndicatorItemEClass.getESuperTypes().add(this.getTDQItem());
         tdqBusinessRuleItemEClass.getESuperTypes().add(this.getTDQItem());
         tdqPatternItemEClass.getESuperTypes().add(this.getTDQItem());
@@ -6231,10 +6194,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(tdqAnalysisItemEClass, TDQAnalysisItem.class, "TDQAnalysisItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(tdqReportItemEClass, TDQReportItem.class, "TDQReportItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqdbConnectionItemEClass, TDQDBConnectionItem.class, "TDQDBConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqmdmConnectionItemEClass, TDQMDMConnectionItem.class, "TDQMDMConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(tdqIndicatorItemEClass, TDQIndicatorItem.class, "TDQIndicatorItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

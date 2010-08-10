@@ -50,11 +50,9 @@ import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
 import org.talend.core.model.properties.TDQAnalysisItem;
 import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQDBConnectionItem;
 import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.TDQJrxmlItem;
-import org.talend.core.model.properties.TDQMDMConnectionItem;
 import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
@@ -119,8 +117,6 @@ public enum ERepositoryObjectType {
     // MOD mzhao feature 13114, 2010-05-19
     TDQ_ANALYSIS_ELEMENT("repository.tdqelement.analysis", "repository.tdqelement.analysis"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_REPORT_ELEMENT("repository.tdqelement.report", "repository.tdqelement.report"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_DBCONNECTION_ELEMENT("repository.tdqelement.dbconnection", "repository.tdqelement.dbconnection"), //$NON-NLS-1$ //$NON-NLS-2$
-    TDQ_MDMCONNECTION_ELEMENT("repository.tdqelement.mdmconnection", "repository.tdqelement.mdmconnection"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_BUSINESSRULE_ELEMENT("repository.tdqelement.businessrule", "repository.tdqelement.businessrule"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_INDICATOR_ELEMENT("repository.tdqelement.indicator", "repository.tdqelement.indicator"), //$NON-NLS-1$ //$NON-NLS-2$
     TDQ_PATTERN_ELEMENT("repository.tdqelement.pattern", "repository.tdqelement.pattern"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -270,16 +266,12 @@ public enum ERepositoryObjectType {
             return "TDQ_Data Profiling/Analyses"; //$NON-NLS-1$
         case TDQ_BUSINESSRULE_ELEMENT:
             return "TDQ_Libraries/Rules"; //$NON-NLS-1$
-        case TDQ_DBCONNECTION_ELEMENT:
-            return "DQ_Metadata/DB Connections"; //$NON-NLS-1$
         case TDQ_INDICATOR_ELEMENT:
             return "TDQ_Libraries/Indicators"; //$NON-NLS-1$
         case TDQ_PATTERN_ELEMENT:
             return "TDQ_Libraries/Patterns"; //$NON-NLS-1$ 
         case TDQ_JRAXML_ELEMENT:
             return "TDQ_Libraries/JRXML Template";
-        case TDQ_MDMCONNECTION_ELEMENT:
-            return "TDQ_Metadata/MDM Connections"; //$NON-NLS-1$
         case TDQ_REPORT_ELEMENT:
             return "TDQ_Data Profiling/Reports"; //$NON-NLS-1$
             // MOD mzhao feature 9207
@@ -495,10 +487,6 @@ public enum ERepositoryObjectType {
                 return TDQ_BUSINESSRULE_ELEMENT;
             }
 
-            @Override
-            public Object caseTDQDBConnectionItem(TDQDBConnectionItem object) {
-                return TDQ_DBCONNECTION_ELEMENT;
-            }
 
             @Override
             public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
@@ -513,11 +501,6 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
                 return TDQ_JRAXML_ELEMENT;
-            }
-
-            @Override
-            public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
-                return TDQ_MDMCONNECTION_ELEMENT;
             }
 
             @Override
@@ -570,9 +553,9 @@ public enum ERepositoryObjectType {
         case TDQ_PATTERN_ELEMENT:
         case TDQ_ANALYSIS_ELEMENT:
         case TDQ_BUSINESSRULE_ELEMENT:
-        case TDQ_DBCONNECTION_ELEMENT:
         case TDQ_INDICATOR_ELEMENT:
-        case TDQ_MDMCONNECTION_ELEMENT:
+        case METADATA_CONNECTIONS:
+        case METADATA_MDMCONNECTION:
         case TDQ_REPORT_ELEMENT:
         case TDQ_JRAXML_ELEMENT:
             return TDQ_ELEMENT;

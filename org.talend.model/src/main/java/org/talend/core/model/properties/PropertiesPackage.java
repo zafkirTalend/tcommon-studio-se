@@ -3242,26 +3242,6 @@ public interface PropertiesPackage extends EPackage {
     int TDQ_REPORT_ITEM = 81;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQDBConnectionItemImpl <em>TDQDB Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.TDQDBConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQDBConnectionItem()
-     * @generated
-     */
-    int TDQDB_CONNECTION_ITEM = 82;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl <em>TDQMDM Connection Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQMDMConnectionItem()
-     * @generated
-     */
-    int TDQMDM_CONNECTION_ITEM = 83;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQIndicatorItemImpl <em>TDQ Indicator Item</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3269,7 +3249,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQIndicatorItem()
      * @generated
      */
-    int TDQ_INDICATOR_ITEM = 84;
+    int TDQ_INDICATOR_ITEM = 82;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQBusinessRuleItemImpl <em>TDQ Business Rule Item</em>}' class.
@@ -3279,7 +3259,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQBusinessRuleItem()
      * @generated
      */
-    int TDQ_BUSINESS_RULE_ITEM = 85;
+    int TDQ_BUSINESS_RULE_ITEM = 83;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LinkRulesItemImpl <em>Link Rules Item</em>}' class.
@@ -3288,7 +3268,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLinkRulesItem()
      * @generated
      */
-    int LINK_RULES_ITEM = 88;
+    int LINK_RULES_ITEM = 86;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ItemRelationsImpl <em>Item Relations</em>}' class.
@@ -3297,7 +3277,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelations()
      * @generated
      */
-    int ITEM_RELATIONS = 89;
+    int ITEM_RELATIONS = 87;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ItemRelationImpl <em>Item Relation</em>}' class.
@@ -3306,7 +3286,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getItemRelation()
      * @generated
      */
-    int ITEM_RELATION = 90;
+    int ITEM_RELATION = 88;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.NotificationImpl <em>Notification</em>}' class.
@@ -3315,7 +3295,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotification()
      * @generated
      */
-    int NOTIFICATION = 91;
+    int NOTIFICATION = 89;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.HL7ConnectionItemImpl <em>HL7 Connection Item</em>}' class.
@@ -3324,7 +3304,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHL7ConnectionItem()
      * @generated
      */
-    int HL7_CONNECTION_ITEM = 92;
+    int HL7_CONNECTION_ITEM = 90;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.
@@ -7111,114 +7091,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TDQDB_CONNECTION_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQDB_CONNECTION_ITEM__STATE = TDQ_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQDB_CONNECTION_ITEM__PARENT = TDQ_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Filename</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQDB_CONNECTION_ITEM__FILENAME = TDQ_ITEM__FILENAME;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQDB_CONNECTION_ITEM__CONNECTION = TDQ_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>TDQDB Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQDB_CONNECTION_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQMDM_CONNECTION_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQMDM_CONNECTION_ITEM__STATE = TDQ_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Parent</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQMDM_CONNECTION_ITEM__PARENT = TDQ_ITEM__PARENT;
-
-    /**
-     * The feature id for the '<em><b>Filename</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQMDM_CONNECTION_ITEM__FILENAME = TDQ_ITEM__FILENAME;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQMDM_CONNECTION_ITEM__CONNECTION = TDQ_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>TDQMDM Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TDQMDM_CONNECTION_ITEM_FEATURE_COUNT = TDQ_ITEM_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
     int TDQ_INDICATOR_ITEM__PROPERTY = TDQ_ITEM__PROPERTY;
 
     /**
@@ -7310,7 +7182,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQPatternItem()
      * @generated
      */
-    int TDQ_PATTERN_ITEM = 86;
+    int TDQ_PATTERN_ITEM = 84;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7365,7 +7237,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQJrxmlItem()
      * @generated
      */
-    int TDQ_JRXML_ITEM = 87;
+    int TDQ_JRXML_ITEM = 85;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7621,7 +7493,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserRoleReference()
      * @generated
      */
-    int USER_ROLE_REFERENCE = 93;
+    int USER_ROLE_REFERENCE = 91;
 
     /**
      * The feature id for the '<em><b>User</b></em>' reference.
@@ -7658,7 +7530,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHeaderFooterConnectionItem()
      * @generated
      */
-    int HEADER_FOOTER_CONNECTION_ITEM = 94;
+    int HEADER_FOOTER_CONNECTION_ITEM = 92;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7713,7 +7585,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFTPConnectionItem()
      * @generated
      */
-    int FTP_CONNECTION_ITEM = 95;
+    int FTP_CONNECTION_ITEM = 93;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -7768,7 +7640,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCustomComponentSetting()
      * @generated
      */
-    int CUSTOM_COMPONENT_SETTING = 96;
+    int CUSTOM_COMPONENT_SETTING = 94;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7805,7 +7677,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 97;
+    int FOLDER_TYPE = 95;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7814,7 +7686,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 98;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 96;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7823,7 +7695,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 99;
+    int USER_MODULE_AUTHORIZATION_TYPE = 97;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7832,7 +7704,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 100;
+    int INFORMATION_LEVEL = 98;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -11870,26 +11742,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getTDQReportItem();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQDBConnectionItem <em>TDQDB Connection Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>TDQDB Connection Item</em>'.
-     * @see org.talend.core.model.properties.TDQDBConnectionItem
-     * @generated
-     */
-    EClass getTDQDBConnectionItem();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQMDMConnectionItem <em>TDQMDM Connection Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>TDQMDM Connection Item</em>'.
-     * @see org.talend.core.model.properties.TDQMDMConnectionItem
-     * @generated
-     */
-    EClass getTDQMDMConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TDQIndicatorItem <em>TDQ Indicator Item</em>}'.
@@ -16390,26 +16242,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass TDQ_REPORT_ITEM = eINSTANCE.getTDQReportItem();
-
-        /**
-         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQDBConnectionItemImpl <em>TDQDB Connection Item</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.core.model.properties.impl.TDQDBConnectionItemImpl
-         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQDBConnectionItem()
-         * @generated
-         */
-        EClass TDQDB_CONNECTION_ITEM = eINSTANCE.getTDQDBConnectionItem();
-
-        /**
-         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl <em>TDQMDM Connection Item</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.core.model.properties.impl.TDQMDMConnectionItemImpl
-         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQMDMConnectionItem()
-         * @generated
-         */
-        EClass TDQMDM_CONNECTION_ITEM = eINSTANCE.getTDQMDMConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQIndicatorItemImpl <em>TDQ Indicator Item</em>}' class.

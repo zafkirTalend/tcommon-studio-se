@@ -12,94 +12,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.talend.core.model.properties.*;
-import org.talend.core.model.properties.BusinessProcessItem;
-import org.talend.core.model.properties.ByteArray;
-import org.talend.core.model.properties.CSVFileConnectionItem;
-import org.talend.core.model.properties.Component;
-import org.talend.core.model.properties.ComponentSetting;
-import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.ContextItem;
-import org.talend.core.model.properties.CronTalendTrigger;
-import org.talend.core.model.properties.CronUITalendTrigger;
-import org.talend.core.model.properties.DashboardConnection;
-import org.talend.core.model.properties.DatabaseConnectionItem;
-import org.talend.core.model.properties.DelimitedFileConnectionItem;
-import org.talend.core.model.properties.DocumentationItem;
-import org.talend.core.model.properties.EbcdicConnectionItem;
-import org.talend.core.model.properties.ExcelFileConnectionItem;
-import org.talend.core.model.properties.ExecutionServer;
-import org.talend.core.model.properties.ExecutionTask;
-import org.talend.core.model.properties.ExecutionTaskCmdPrm;
-import org.talend.core.model.properties.ExecutionTaskJobPrm;
-import org.talend.core.model.properties.ExecutionVirtualServer;
-import org.talend.core.model.properties.FileTrigger;
-import org.talend.core.model.properties.FileTriggerMask;
-import org.talend.core.model.properties.FolderItem;
-import org.talend.core.model.properties.FolderType;
-import org.talend.core.model.properties.GenericSchemaConnectionItem;
-import org.talend.core.model.properties.HL7ConnectionItem;
-import org.talend.core.model.properties.ImplicitContextSettings;
-import org.talend.core.model.properties.Information;
-import org.talend.core.model.properties.InformationLevel;
-import org.talend.core.model.properties.ItemRelation;
-import org.talend.core.model.properties.ItemRelations;
-import org.talend.core.model.properties.ItemState;
-import org.talend.core.model.properties.JobDocumentationItem;
-import org.talend.core.model.properties.JobletDocumentationItem;
-import org.talend.core.model.properties.JobletProcessItem;
-import org.talend.core.model.properties.LDAPSchemaConnectionItem;
-import org.talend.core.model.properties.LdifFileConnectionItem;
-import org.talend.core.model.properties.License;
-import org.talend.core.model.properties.LinkDocumentationItem;
-import org.talend.core.model.properties.LinkRulesItem;
-import org.talend.core.model.properties.LinkType;
-import org.talend.core.model.properties.MDMConnectionItem;
-import org.talend.core.model.properties.NotationHolder;
-import org.talend.core.model.properties.Notification;
-import org.talend.core.model.properties.PositionalFileConnectionItem;
-import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.Project;
-import org.talend.core.model.properties.ProjectComponentAuthorisation;
-import org.talend.core.model.properties.ProjectReference;
-import org.talend.core.model.properties.PropertiesFactory;
-import org.talend.core.model.properties.PropertiesPackage;
-import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.RegExFileConnectionItem;
-import org.talend.core.model.properties.RoleRight;
-import org.talend.core.model.properties.RoutineItem;
-import org.talend.core.model.properties.RulesItem;
-import org.talend.core.model.properties.SAPConnectionItem;
-import org.talend.core.model.properties.SQLPatternItem;
-import org.talend.core.model.properties.SVGBusinessProcessItem;
-import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
-import org.talend.core.model.properties.SchemaInformation;
-import org.talend.core.model.properties.SimpleTalendTrigger;
-import org.talend.core.model.properties.SnippetItem;
-import org.talend.core.model.properties.SnippetVariable;
-import org.talend.core.model.properties.SoaInputParameter;
-import org.talend.core.model.properties.SoaOperation;
-import org.talend.core.model.properties.SoaService;
-import org.talend.core.model.properties.SpagoBiServer;
-import org.talend.core.model.properties.StatAndLogsSettings;
-import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.TDQAnalysisItem;
-import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQDBConnectionItem;
-import org.talend.core.model.properties.TDQIndicatorItem;
-import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQMDMConnectionItem;
-import org.talend.core.model.properties.TDQReportItem;
-import org.talend.core.model.properties.TalendTrigger;
-import org.talend.core.model.properties.TaskExecutionHistory;
-import org.talend.core.model.properties.User;
-import org.talend.core.model.properties.UserModuleAuthorization;
-import org.talend.core.model.properties.UserModuleAuthorizationType;
-import org.talend.core.model.properties.UserProjectAuthorization;
-import org.talend.core.model.properties.UserProjectAuthorizationType;
-import org.talend.core.model.properties.UserRight;
-import org.talend.core.model.properties.UserRole;
-import org.talend.core.model.properties.WSDLSchemaConnectionItem;
-import org.talend.core.model.properties.XmlFileConnectionItem;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -219,8 +131,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.TDQ_ITEM: return createTDQItem();
             case PropertiesPackage.TDQ_ANALYSIS_ITEM: return createTDQAnalysisItem();
             case PropertiesPackage.TDQ_REPORT_ITEM: return createTDQReportItem();
-            case PropertiesPackage.TDQDB_CONNECTION_ITEM: return createTDQDBConnectionItem();
-            case PropertiesPackage.TDQMDM_CONNECTION_ITEM: return createTDQMDMConnectionItem();
             case PropertiesPackage.TDQ_INDICATOR_ITEM: return createTDQIndicatorItem();
             case PropertiesPackage.TDQ_BUSINESS_RULE_ITEM: return createTDQBusinessRuleItem();
             case PropertiesPackage.TDQ_PATTERN_ITEM: return createTDQPatternItem();
@@ -916,24 +826,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public TDQReportItem createTDQReportItem() {
         TDQReportItemImpl tdqReportItem = new TDQReportItemImpl();
         return tdqReportItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public TDQDBConnectionItem createTDQDBConnectionItem() {
-        TDQDBConnectionItemImpl tdqdbConnectionItem = new TDQDBConnectionItemImpl();
-        return tdqdbConnectionItem;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public TDQMDMConnectionItem createTDQMDMConnectionItem() {
-        TDQMDMConnectionItemImpl tdqmdmConnectionItem = new TDQMDMConnectionItemImpl();
-        return tdqmdmConnectionItem;
     }
 
     /**

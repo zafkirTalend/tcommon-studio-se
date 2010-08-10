@@ -600,21 +600,6 @@ public interface PropertiesFactory extends EFactory {
      */
     TDQReportItem createTDQReportItem();
 
-    /**
-     * Returns a new object of class '<em>TDQDB Connection Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQDB Connection Item</em>'.
-     * @generated
-     */
-    TDQDBConnectionItem createTDQDBConnectionItem();
-
-    /**
-     * Returns a new object of class '<em>TDQMDM Connection Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQMDM Connection Item</em>'.
-     * @generated
-     */
-    TDQMDMConnectionItem createTDQMDMConnectionItem();
 
     /**
      * Returns a new object of class '<em>TDQ Indicator Item</em>'.

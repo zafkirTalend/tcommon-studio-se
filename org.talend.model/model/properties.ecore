@@ -721,8 +721,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TDQAnalysisItem" eSuperTypes="#//TDQItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="TDQReportItem" eSuperTypes="#//TDQItem"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TDQDBConnectionItem" eSuperTypes="#//TDQItem #//ConnectionItem"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TDQMDMConnectionItem" eSuperTypes="#//TDQItem #//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="TDQIndicatorItem" eSuperTypes="#//TDQItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="TDQBusinessRuleItem" eSuperTypes="#//TDQItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="TDQPatternItem" eSuperTypes="#//TDQItem"/>

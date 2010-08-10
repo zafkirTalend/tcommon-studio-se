@@ -341,16 +341,6 @@ public class FolderItemItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQDBConnectionItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQMDMConnectionItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
                  PropertiesFactory.eINSTANCE.createTDQIndicatorItem()));
 
         newChildDescriptors.add
@@ -382,6 +372,11 @@ public class FolderItemItemProvider
             (createChildParameter
                 (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
                  PropertiesFactory.eINSTANCE.createHeaderFooterConnectionItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
+                 PropertiesFactory.eINSTANCE.createFTPConnectionItem()));
     }
 
 }

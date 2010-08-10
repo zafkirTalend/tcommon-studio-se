@@ -9,7 +9,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.talend.core.model.properties.*;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -19,23 +18,32 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.CronTalendTrigger;
 import org.talend.core.model.properties.CronUITalendTrigger;
+import org.talend.core.model.properties.CustomComponentSetting;
 import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.EbcdicConnectionItem;
 import org.talend.core.model.properties.ExcelFileConnectionItem;
+import org.talend.core.model.properties.ExecutionPlan;
+import org.talend.core.model.properties.ExecutionPlanPart;
+import org.talend.core.model.properties.ExecutionPlanPartCmdPrm;
+import org.talend.core.model.properties.ExecutionPlanPartJobPrm;
+import org.talend.core.model.properties.ExecutionPlanPrm;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionTaskCmdPrm;
 import org.talend.core.model.properties.ExecutionTaskJobPrm;
+import org.talend.core.model.properties.ExecutionTriggerable;
 import org.talend.core.model.properties.ExecutionVirtualServer;
+import org.talend.core.model.properties.FTPConnectionItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FileTrigger;
 import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HL7ConnectionItem;
+import org.talend.core.model.properties.HeaderFooterConnectionItem;
 import org.talend.core.model.properties.ImplicitContextSettings;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.Item;
@@ -54,6 +62,7 @@ import org.talend.core.model.properties.LinkType;
 import org.talend.core.model.properties.MDMConnectionItem;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.Notification;
+import org.talend.core.model.properties.PlanExecutionHistory;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -81,10 +90,10 @@ import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TDQAnalysisItem;
 import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQDBConnectionItem;
 import org.talend.core.model.properties.TDQIndicatorItem;
 import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQMDMConnectionItem;
+import org.talend.core.model.properties.TDQJrxmlItem;
+import org.talend.core.model.properties.TDQPatternItem;
 import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
@@ -93,6 +102,7 @@ import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorization;
 import org.talend.core.model.properties.UserRight;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.UserRoleReference;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 
@@ -391,12 +401,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseTDQReportItem(TDQReportItem object) {
                 return createTDQReportItemAdapter();
-            }
-            public Object caseTDQDBConnectionItem(TDQDBConnectionItem object) {
-                return createTDQDBConnectionItemAdapter();
-            }
-            public Object caseTDQMDMConnectionItem(TDQMDMConnectionItem object) {
-                return createTDQMDMConnectionItemAdapter();
             }
             public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
                 return createTDQIndicatorItemAdapter();
@@ -1437,32 +1441,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createTDQReportItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQDBConnectionItem <em>TDQDB Connection Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can
-     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQDBConnectionItem
-     * @generated
-     */
-    public Adapter createTDQDBConnectionItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQMDMConnectionItem <em>TDQMDM Connection Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we
-     * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQMDMConnectionItem
-     * @generated
-     */
-    public Adapter createTDQMDMConnectionItemAdapter() {
         return null;
     }
 

@@ -1814,50 +1814,6 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.TDQDBConnectionItem} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected TDQDBConnectionItemItemProvider tdqdbConnectionItemItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.core.model.properties.TDQDBConnectionItem}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Adapter createTDQDBConnectionItemAdapter() {
-        if (tdqdbConnectionItemItemProvider == null) {
-            tdqdbConnectionItemItemProvider = new TDQDBConnectionItemItemProvider(this);
-        }
-
-        return tdqdbConnectionItemItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.TDQMDMConnectionItem} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected TDQMDMConnectionItemItemProvider tdqmdmConnectionItemItemProvider;
-
-    /**
-     * This creates an adapter for a {@link org.talend.core.model.properties.TDQMDMConnectionItem}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public Adapter createTDQMDMConnectionItemAdapter() {
-        if (tdqmdmConnectionItemItemProvider == null) {
-            tdqmdmConnectionItemItemProvider = new TDQMDMConnectionItemItemProvider(this);
-        }
-
-        return tdqmdmConnectionItemItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.TDQIndicatorItem} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2100,6 +2056,50 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.FTPConnectionItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected FTPConnectionItemItemProvider ftpConnectionItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.FTPConnectionItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createFTPConnectionItemAdapter() {
+        if (ftpConnectionItemItemProvider == null) {
+            ftpConnectionItemItemProvider = new FTPConnectionItemItemProvider(this);
+        }
+
+        return ftpConnectionItemItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.CustomComponentSetting} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected CustomComponentSettingItemProvider customComponentSettingItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.CustomComponentSetting}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createCustomComponentSettingAdapter() {
+        if (customComponentSettingItemProvider == null) {
+            customComponentSettingItemProvider = new CustomComponentSettingItemProvider(this);
+        }
+
+        return customComponentSettingItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2274,8 +2274,6 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         if (tdqItemItemProvider != null) tdqItemItemProvider.dispose();
         if (tdqAnalysisItemItemProvider != null) tdqAnalysisItemItemProvider.dispose();
         if (tdqReportItemItemProvider != null) tdqReportItemItemProvider.dispose();
-        if (tdqdbConnectionItemItemProvider != null) tdqdbConnectionItemItemProvider.dispose();
-        if (tdqmdmConnectionItemItemProvider != null) tdqmdmConnectionItemItemProvider.dispose();
         if (tdqIndicatorItemItemProvider != null) tdqIndicatorItemItemProvider.dispose();
         if (tdqBusinessRuleItemItemProvider != null) tdqBusinessRuleItemItemProvider.dispose();
         if (tdqPatternItemItemProvider != null) tdqPatternItemItemProvider.dispose();
@@ -2287,6 +2285,8 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         if (hl7ConnectionItemItemProvider != null) hl7ConnectionItemItemProvider.dispose();
         if (userRoleReferenceItemProvider != null) userRoleReferenceItemProvider.dispose();
         if (headerFooterConnectionItemItemProvider != null) headerFooterConnectionItemItemProvider.dispose();
+        if (ftpConnectionItemItemProvider != null) ftpConnectionItemItemProvider.dispose();
+        if (customComponentSettingItemProvider != null) customComponentSettingItemProvider.dispose();
     }
 
 }

@@ -592,6 +592,7 @@ public class ProjectItemProvider
             childrenFeatures.add(PropertiesPackage.Literals.PROJECT__SPAGO_BI_SERVER);
             childrenFeatures.add(PropertiesPackage.Literals.PROJECT__COMPONENTS_SETTINGS);
             childrenFeatures.add(PropertiesPackage.Literals.PROJECT__ITEMS_RELATIONS);
+            childrenFeatures.add(PropertiesPackage.Literals.PROJECT__CUSTOM_COMPONENT_SETTINGS);
         }
         return childrenFeatures;
     }
@@ -664,6 +665,7 @@ public class ProjectItemProvider
             case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
             case PropertiesPackage.PROJECT__COMPONENTS_SETTINGS:
             case PropertiesPackage.PROJECT__ITEMS_RELATIONS:
+            case PropertiesPackage.PROJECT__CUSTOM_COMPONENT_SETTINGS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -709,6 +711,11 @@ public class ProjectItemProvider
             (createChildParameter
                 (PropertiesPackage.Literals.PROJECT__ITEMS_RELATIONS,
                  PropertiesFactory.eINSTANCE.createItemRelations()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (PropertiesPackage.Literals.PROJECT__CUSTOM_COMPONENT_SETTINGS,
+                 PropertiesFactory.eINSTANCE.createCustomComponentSetting()));
     }
 
     /**
