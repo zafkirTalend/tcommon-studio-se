@@ -52,9 +52,12 @@ import org.talend.commons.i18n.internal.Messages;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class FilesUtils {
+public final class FilesUtils {
 
-    public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
+    private FilesUtils() {
+    }
+
+    public static final String[] SVN_FOLDER_NAMES = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
 
     private static final String MIGRATION_FILE_EXT = ".mig"; //$NON-NLS-1$
 
