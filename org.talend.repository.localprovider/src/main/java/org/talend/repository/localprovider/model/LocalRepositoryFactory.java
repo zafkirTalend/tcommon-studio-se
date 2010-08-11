@@ -502,10 +502,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public Project createProject(String label, String description, ECodeLanguage language, User author)
             throws PersistenceException {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        // for bug 11214
-        while (label.endsWith(" ")) {//$NON-NLS-1$
-            label = label.substring(0, label.length() - 1);
-        }
+
         String technicalLabel = Project.createTechnicalName(label);
         IProject prj = root.getProject(technicalLabel);
 
@@ -1949,4 +1946,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         super.executeRepositoryWorkUnit(workUnit);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#enableSandboxProject()
+     */
+    public boolean enableSandboxProject() {
+        return false; // don't support in local model
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project,
+     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
+    public boolean createSandboxProject(Project newProject, String svnUrl, String svnLogin, String svnPass, String userSvnLogin,
+            String userSvnPass) throws PersistenceException {
+        // don't support in local model
+        throw new UnsupportedOperationException();
+    }
+
 }

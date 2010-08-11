@@ -171,6 +171,10 @@ public class Project {
      * @return
      */
     public static String createTechnicalName(String name) {
+        // for bug 11214
+        while (name.endsWith(" ")) {//$NON-NLS-1$
+            name = name.substring(0, name.length() - 1);
+        }
         if (name != null) {
             name = name.toUpperCase();
             name = name.replace(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$

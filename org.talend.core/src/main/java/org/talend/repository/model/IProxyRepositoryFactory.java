@@ -724,4 +724,9 @@ public interface IProxyRepositoryFactory {
             throws PersistenceException;
 
     public FolderItem getFolderItem(Project project, ERepositoryObjectType itemType, IPath path);
+
+    public boolean enableSandboxProject() throws PersistenceException;
+
+    public boolean createSandboxProject(Project newProject, String projectSvnUrl, String projectSvnLogin, String projectSvnPass,
+            String userSvnLogin, String userSvnPass) throws PersistenceException;
 }
