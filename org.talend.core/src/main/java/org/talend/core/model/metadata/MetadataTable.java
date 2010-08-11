@@ -87,6 +87,31 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         return this.listColumns;
     }
 
+    public boolean isDynamicSchema() {
+
+        int sizeListColumns = listColumns.size();
+        boolean hasDynamic = false;
+        for (int i = 0; i < sizeListColumns; i++) {
+            if (listColumns.get(i).getTalendType().equals("id_Dynamic")) {
+                hasDynamic = true;
+                break;
+            }
+        }
+        return hasDynamic;
+
+    }
+
+    public IMetadataColumn getDynamicColumn() {
+        if (isDynamicSchema()) {
+            for (int i = 0; i < listColumns.size(); i++) {
+                if (listColumns.get(i).getTalendType().equals("id_Dynamic")) {
+                    return listColumns.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
     /*
      * (non-Javadoc)
      * 
