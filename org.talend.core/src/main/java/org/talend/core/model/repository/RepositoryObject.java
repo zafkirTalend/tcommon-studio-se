@@ -68,14 +68,17 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
+import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.cwm.helper.SchemaHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
+import orgomg.cwm.resource.relational.Schema;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -465,9 +468,25 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
                     }
                 }
                 Catalog c = (Catalog) ConnectionHelper.getPackage(conn.getSID(), (Connection) conn, Catalog.class);
+                Schema s = (Schema) ConnectionHelper.getPackage((conn.getSID()), (Connection) conn, Schema.class);
                 if (c != null) {
                     PackageHelper.addMetadataTable(newTs, c);
                     c.getOwnedElement().addAll(newTs);
+                } else if (s != null) {
+                    PackageHelper.addMetadataTable(newTs, s);
+                    s.getOwnedElement().addAll(newTs);
+                } else {
+                    if (conn.getUiSchema() != null && !"".equals(conn.getUiSchema())) {
+                        s = SchemaHelper.createSchema(conn.getUiSchema());
+                        s.getDataManager().add(conn);
+                        PackageHelper.addMetadataTable(newTs, s);
+                        ConnectionHelper.addSchema(s, conn);
+                    } else if (conn.getSID() != null && !"".equals(conn.getSID())) {
+                        c = CatalogHelper.createCatalog(conn.getSID());
+                        c.getDataManager().add(conn);
+                        PackageHelper.addMetadataTable(newTs, c);
+                        ConnectionHelper.addCatalog(c, conn);
+                    }
                 }
                 conn.setQueries(newQ);
                 // conn.getTables().addAll(newTs);
