@@ -559,6 +559,7 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                             parameter = ((ContextParameterParent) object).getParameter();
                             modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
                         }
+                        modelManager.refreshTemplateTab();
                         ContextManagerHelper.revertTreeSelection(getViewer(), beforeParam);
                         checkButtonEnableState();
                     }
