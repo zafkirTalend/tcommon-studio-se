@@ -540,8 +540,8 @@ public class TalendTabbedPropertyList extends Composite {
     }
 
     /**
-     * Returns the element with the given index from this list viewer. Returns <code>null</code> if the index is out
-     * of range.
+     * Returns the element with the given index from this list viewer. Returns <code>null</code> if the index is out of
+     * range.
      * 
      * @param index the zero-based index
      * @return the element at the given index, or <code>null</code> if the index is out of range
@@ -622,7 +622,7 @@ public class TalendTabbedPropertyList extends Composite {
      * 
      * @param index the index of the element to select.
      */
-    protected void select(int index) {
+    public void select(int index) {
 
         final int index2 = index;
 
@@ -835,8 +835,8 @@ public class TalendTabbedPropertyList extends Composite {
                 FormColors.blend(black, widgetBackground.getRGB(), 5));
 
         /*
-         * gradient in the hover tab: start colour WIDGET_BACKGROUND 100% + white 20% end colour WIDGET_BACKGROUND 100% +
-         * WIDGET_NORMAL_SHADOW 10%
+         * gradient in the hover tab: start colour WIDGET_BACKGROUND 100% + white 20% end colour WIDGET_BACKGROUND 100%
+         * + WIDGET_NORMAL_SHADOW 10%
          */
         hoverGradientStart = factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientStart", //$NON-NLS-1$
                 FormColors.blend(white, widgetBackground.getRGB(), 20));
