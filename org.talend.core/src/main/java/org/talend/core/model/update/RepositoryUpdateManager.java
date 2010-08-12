@@ -685,13 +685,7 @@ public abstract class RepositoryUpdateManager {
             }
             //
             for (EUpdateItemType type : types) {
-                List<UpdateResult> updatesNeeded = null;
-                if (type.equals(EUpdateItemType.JOB_VERSION)) {
-                    updatesNeeded = updateManager.getUpdatesNeeded(type, true);
-                } else {
-                    updatesNeeded = updateManager.getUpdatesNeeded(type, onlySimpleShow);
-                }
-
+                List<UpdateResult> updatesNeeded = updateManager.getUpdatesNeeded(type, onlySimpleShow);
                 if (updatesNeeded != null) {
                     resultList.addAll(updatesNeeded);
                 }
@@ -1440,42 +1434,6 @@ public abstract class RepositoryUpdateManager {
 
         };
         return repositoryUpdateManager.doWork();
-    }
-
-    public static boolean updateJobVersion(IRepositoryViewObject node) {
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
-        List<RelationshipItemBuilder.Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(node.getId(),
-                ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.JOB_RELATION);
-        for (RelationshipItemBuilder.Relation relation : relations) {
-            try {
-                IRepositoryViewObject obj = factory.getLastVersion(relation.getId());
-                if (obj != null) {
-                    updateList.add(obj);
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
-        JobVersionManager jobVersionManager = JobVersionManager.getInstance();
-        jobVersionManager.setNode(node);
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(null, updateList) {
-
-            @Override
-            public Set<EUpdateItemType> getTypes() {
-                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
-                // for (EUpdateItemType type : EUpdateItemType.values()) {
-                types.add(EUpdateItemType.JOB_VERSION);
-                // }
-                return types;
-            }
-
-        };
-        boolean flag = repositoryUpdateManager.doWork();
-
-        return flag;
-
     }
 
     @SuppressWarnings("unchecked")

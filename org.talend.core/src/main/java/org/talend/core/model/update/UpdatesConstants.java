@@ -60,8 +60,6 @@ public final class UpdatesConstants {
 
     public static final String JOB = Messages.getString("UpdatesConstants.Job"); //$NON-NLS-1$
 
-    public static final String JOBVERSION = Messages.getString("UpdatesConstants.JobVersion");
-
     /*
      * parameter name.
      */
