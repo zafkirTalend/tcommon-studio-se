@@ -12,7 +12,13 @@
 // ============================================================================
 package commons.utils.io;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.talend.commons.utils.io.FilesUtils;
 
 
 /**
@@ -25,17 +31,18 @@ public class FilesUtilsTest {
      */
     @Test
     public void testMigrateFolder() {
-        // File fileMdmConnection = new File(ResourceManager.getMDMConnectionFolder().getRawLocationURI());
-        //
-        // String[] mdmFileExtentionNames = { ".prv" };
-        //
-        // Map<String, String> replaceStringMap = new HashMap<String, String>();
-        // replaceStringMap.put("TdXMLDocument", "TdXmlSchema");
-        // replaceStringMap.put("TdXMLElement", "TdXmlElementType");
-        //
-        // Logger log = Logger.getLogger(FilesUtils.class);
-        //
-        // FilesUtils.migrateFolder(fileMdmConnection, mdmFileExtentionNames, replaceStringMap, log);
+        File fileMdmConnection = new File(
+                "/Talend/Talend_All_trunk/runtime/TOP_runtime/TOP_DEFAULT_PRJ/TDQ_Metadata/MDM Connections");
+
+        String[] mdmFileExtentionNames = { ".prv" };
+
+        Map<String, String> replaceStringMap = new HashMap<String, String>();
+        replaceStringMap.put("TdXMLDocument", "TdXmlSchema");
+        replaceStringMap.put("TdXMLElement", "TdXmlElementType");
+
+        Logger log = Logger.getLogger(FilesUtils.class);
+
+        FilesUtils.migrateFolder(fileMdmConnection, mdmFileExtentionNames, replaceStringMap, log);
     }
 
 }
