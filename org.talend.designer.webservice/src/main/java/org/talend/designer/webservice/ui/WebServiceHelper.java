@@ -182,7 +182,7 @@ public class WebServiceHelper implements IWebService {
             while (it.hasNext()) {
                 org.talend.core.model.metadata.builder.connection.MetadataTable metadatatable = (org.talend.core.model.metadata.builder.connection.MetadataTable) it
                         .next();
-                if (metadatatable.getLabel().equals("OutPut")) {
+                if (metadatatable.getLabel().equals("Output")) {
                     for (int i = 0; i < metadatatable.getColumns().size(); i++) {
                         org.talend.core.model.metadata.builder.connection.MetadataColumn col = (MetadataColumn) metadatatable
                                 .getColumns().get(i);
