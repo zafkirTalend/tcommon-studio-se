@@ -15005,13 +15005,22 @@ public interface ConnectionPackage extends EPackage {
     int FTP_CONNECTION__PROXYPASSWORD = CONNECTION_FEATURE_COUNT + 15;
 
     /**
+     * The feature id for the '<em><b>Custom Encode</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FTP_CONNECTION__CUSTOM_ENCODE = CONNECTION_FEATURE_COUNT + 16;
+
+    /**
      * The number of structural features of the '<em>FTP Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FTP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
+    int FTP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 17;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -18480,6 +18489,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFTPConnection_Proxypassword();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FTPConnection#getCustomEncode <em>Custom Encode</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Custom Encode</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FTPConnection#getCustomEncode()
+     * @see #getFTPConnection()
+     * @generated
+     */
+    EAttribute getFTPConnection_CustomEncode();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>File Format</em>'.
@@ -21188,6 +21208,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute FTP_CONNECTION__PROXYPASSWORD = eINSTANCE.getFTPConnection_Proxypassword();
+
+        /**
+         * The meta object literal for the '<em><b>Custom Encode</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FTP_CONNECTION__CUSTOM_ENCODE = eINSTANCE.getFTPConnection_CustomEncode();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.

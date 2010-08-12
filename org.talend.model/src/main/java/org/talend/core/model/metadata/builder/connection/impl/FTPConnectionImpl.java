@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.FTPConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl#getProxyport <em>Proxyport</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl#getProxyuser <em>Proxyuser</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl#getProxypassword <em>Proxypassword</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FTPConnectionImpl#getCustomEncode <em>Custom Encode</em>}</li>
  * </ul>
  * </p>
  *
@@ -363,6 +364,26 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
      * @ordered
      */
     protected String proxypassword = PROXYPASSWORD_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCustomEncode() <em>Custom Encode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCustomEncode()
+     * @generated
+     * @ordered
+     */
+    protected static final String CUSTOM_ENCODE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCustomEncode() <em>Custom Encode</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCustomEncode()
+     * @generated
+     * @ordered
+     */
+    protected String customEncode = CUSTOM_ENCODE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -733,6 +754,28 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getCustomEncode() {
+        return customEncode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCustomEncode(String newCustomEncode) {
+        String oldCustomEncode = customEncode;
+        customEncode = newCustomEncode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FTP_CONNECTION__CUSTOM_ENCODE,
+                    oldCustomEncode, customEncode));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
@@ -768,6 +811,8 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
             return getProxyuser();
         case ConnectionPackage.FTP_CONNECTION__PROXYPASSWORD:
             return getProxypassword();
+        case ConnectionPackage.FTP_CONNECTION__CUSTOM_ENCODE:
+            return getCustomEncode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -827,6 +872,9 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
             return;
         case ConnectionPackage.FTP_CONNECTION__PROXYPASSWORD:
             setProxypassword((String) newValue);
+            return;
+        case ConnectionPackage.FTP_CONNECTION__CUSTOM_ENCODE:
+            setCustomEncode((String) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -888,6 +936,9 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
         case ConnectionPackage.FTP_CONNECTION__PROXYPASSWORD:
             setProxypassword(PROXYPASSWORD_EDEFAULT);
             return;
+        case ConnectionPackage.FTP_CONNECTION__CUSTOM_ENCODE:
+            setCustomEncode(CUSTOM_ENCODE_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -933,6 +984,8 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
             return PROXYUSER_EDEFAULT == null ? proxyuser != null : !PROXYUSER_EDEFAULT.equals(proxyuser);
         case ConnectionPackage.FTP_CONNECTION__PROXYPASSWORD:
             return PROXYPASSWORD_EDEFAULT == null ? proxypassword != null : !PROXYPASSWORD_EDEFAULT.equals(proxypassword);
+        case ConnectionPackage.FTP_CONNECTION__CUSTOM_ENCODE:
+            return CUSTOM_ENCODE_EDEFAULT == null ? customEncode != null : !CUSTOM_ENCODE_EDEFAULT.equals(customEncode);
         }
         return super.eIsSet(featureID);
     }
@@ -980,6 +1033,8 @@ public class FTPConnectionImpl extends ConnectionImpl implements FTPConnection {
         result.append(proxyuser);
         result.append(", Proxypassword: ");
         result.append(proxypassword);
+        result.append(", CustomEncode: ");
+        result.append(customEncode);
         result.append(')');
         return result.toString();
     }

@@ -3130,6 +3130,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFTPConnection_CustomEncode() {
+        return (EAttribute) ftpConnectionEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3575,6 +3584,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYPORT);
         createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYUSER);
         createEAttribute(ftpConnectionEClass, FTP_CONNECTION__PROXYPASSWORD);
+        createEAttribute(ftpConnectionEClass, FTP_CONNECTION__CUSTOM_ENCODE);
 
         // Create enums
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -4554,6 +4564,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getFTPConnection_Proxyuser(), ecorePackage.getEString(), "Proxyuser", null, 0, 1, FTPConnection.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFTPConnection_Proxypassword(), ecorePackage.getEString(), "Proxypassword", null, 0, 1,
+                FTPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+        initEAttribute(getFTPConnection_CustomEncode(), ecorePackage.getEString(), "CustomEncode", null, 0, 1,
                 FTPConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
 

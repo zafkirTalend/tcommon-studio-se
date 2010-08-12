@@ -1771,10 +1771,14 @@ public class RepositoryToComponentProperty {
             return connection.getMode().toUpperCase();
         }
         if (value.equals("ENCODING")) {
-            if (isContextMode(connection, connection.getEcoding())) {
-                return connection.getEcoding();
+            if (isContextMode(connection, connection.getCustomEncode())) {
+                return connection.getCustomEncode();
             } else {
-                return TalendTextUtils.addQuotes(connection.getEcoding());
+                if (connection.getCustomEncode() == null) {
+                    // get the default encoding
+                    return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName()); //$NON-NLS-1$
+                } else
+                    return TalendTextUtils.addQuotes(connection.getCustomEncode());
             }
         }
         if (value.equals("USE_PROXY")) {
