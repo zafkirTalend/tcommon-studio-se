@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Property#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getInformations <em>Informations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Property#getMaxInformationLevel <em>Max Information Level</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Property#getOldStatusCode <em>Old Status Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -257,6 +258,32 @@ public interface Property extends EObject {
      * @generated
      */
     void setMaxInformationLevel(InformationLevel value);
+
+    /**
+     * Returns the value of the '<em><b>Old Status Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Old Status Code</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Old Status Code</em>' attribute.
+     * @see #setOldStatusCode(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProperty_OldStatusCode()
+     * @model
+     * @generated
+     */
+    String getOldStatusCode();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Property#getOldStatusCode <em>Old Status Code</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Old Status Code</em>' attribute.
+     * @see #getOldStatusCode()
+     * @generated
+     */
+    void setOldStatusCode(String value);
 
     /**
      * Returns the value of the '<em><b>Version</b></em>' attribute.

@@ -785,12 +785,21 @@ public interface PropertiesPackage extends EPackage {
     int PROPERTY__MAX_INFORMATION_LEVEL = 11;
 
     /**
+     * The feature id for the '<em><b>Old Status Code</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROPERTY__OLD_STATUS_CODE = 12;
+
+    /**
      * The number of structural features of the '<em>Property</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROPERTY_FEATURE_COUNT = 12;
+    int PROPERTY_FEATURE_COUNT = 13;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -8161,6 +8170,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getProperty_MaxInformationLevel();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getOldStatusCode <em>Old Status Code</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Old Status Code</em>'.
+     * @see org.talend.core.model.properties.Property#getOldStatusCode()
+     * @see #getProperty()
+     * @generated
+     */
+    EAttribute getProperty_OldStatusCode();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Property#getVersion <em>Version</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Version</em>'.
@@ -13384,6 +13404,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROPERTY__MAX_INFORMATION_LEVEL = eINSTANCE.getProperty_MaxInformationLevel();
+
+        /**
+         * The meta object literal for the '<em><b>Old Status Code</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROPERTY__OLD_STATUS_CODE = eINSTANCE.getProperty_OldStatusCode();
 
         /**
          * The meta object literal for the '<em><b>Version</b></em>' attribute feature.

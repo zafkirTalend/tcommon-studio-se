@@ -41,6 +41,7 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getInformations <em>Informations</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getMaxInformationLevel <em>Max Information Level</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.PropertyImpl#getOldStatusCode <em>Old Status Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -258,6 +259,26 @@ public class PropertyImpl extends EObjectImpl implements Property {
     protected InformationLevel maxInformationLevel = MAX_INFORMATION_LEVEL_EDEFAULT;
 
     /**
+     * The default value of the '{@link #getOldStatusCode() <em>Old Status Code</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOldStatusCode()
+     * @generated
+     * @ordered
+     */
+    protected static final String OLD_STATUS_CODE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOldStatusCode() <em>Old Status Code</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOldStatusCode()
+     * @generated
+     * @ordered
+     */
+    protected String oldStatusCode = OLD_STATUS_CODE_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -456,6 +477,27 @@ public class PropertyImpl extends EObjectImpl implements Property {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getOldStatusCode() {
+        return oldStatusCode;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOldStatusCode(String newOldStatusCode) {
+        String oldOldStatusCode = oldStatusCode;
+        oldStatusCode = newOldStatusCode;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROPERTY__OLD_STATUS_CODE, oldOldStatusCode, oldStatusCode));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -609,6 +651,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return getInformations();
             case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
                 return getMaxInformationLevel();
+            case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
+                return getOldStatusCode();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -656,6 +700,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
                 setMaxInformationLevel((InformationLevel)newValue);
                 return;
+            case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
+                setOldStatusCode((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -702,6 +749,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
             case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
                 setMaxInformationLevel(MAX_INFORMATION_LEVEL_EDEFAULT);
                 return;
+            case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
+                setOldStatusCode(OLD_STATUS_CODE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -736,6 +786,8 @@ public class PropertyImpl extends EObjectImpl implements Property {
                 return informations != null && !informations.isEmpty();
             case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
                 return maxInformationLevel != MAX_INFORMATION_LEVEL_EDEFAULT;
+            case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
+                return OLD_STATUS_CODE_EDEFAULT == null ? oldStatusCode != null : !OLD_STATUS_CODE_EDEFAULT.equals(oldStatusCode);
         }
         return super.eIsSet(featureID);
     }

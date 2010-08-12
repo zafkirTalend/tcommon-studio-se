@@ -102,6 +102,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="informations" upperBound="-1"
         eType="#//Information" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxInformationLevel" eType="#//InformationLevel"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oldStatusCode" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Item" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//Property"

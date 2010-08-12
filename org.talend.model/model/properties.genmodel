@@ -93,6 +93,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Property/author"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Property/informations"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/maxInformationLevel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/oldStatusCode"/>
     </genClasses>
     <genClasses image="false" ecoreClass="properties.ecore#//Item">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Item/property"/>
