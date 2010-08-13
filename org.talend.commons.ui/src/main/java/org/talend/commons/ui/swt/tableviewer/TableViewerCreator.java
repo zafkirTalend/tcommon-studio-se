@@ -1983,14 +1983,50 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     @SuppressWarnings("unchecked")
     public void setBeanValue(TableViewerCreatorColumn column, B currentRowObject, Object value, boolean createNewCommand) {
         boolean listened = modifiedBeanListeners.size() != 0;
-
+        boolean needChange = true;
         Object previousValue = AccessorUtils.get(currentRowObject, column);
+        if ("ID_COLUMN_LENGHT".equals(column.getId()) || "ID_COLUMN_PRECISION".equals(column.getId())) {
+            if (previousValue == null) {
+                if (value == null) {
+                    needChange = false;
+                } else {
+                    if (value instanceof Integer) {
+                        Integer intValue = (Integer) value;
+                        if (intValue == 0) {
+                            needChange = false;
+                        }
+                    }
+                }
+            } else {
+                if (previousValue instanceof Integer) {
+                    Integer integer = (Integer) previousValue;
+                    if (integer == 0) {
+                        if (value == null) {
+                            needChange = false;
+                        } else {
+                            if (value instanceof Integer) {
+                                Integer intValue = (Integer) value;
+                                if (intValue == 0) {
+                                    needChange = false;
+                                }
+                            }
+                        }
+                    } else {
+                        if (value instanceof Integer) {
+                            Integer intValue = (Integer) value;
+                            if (intValue == integer) {
+                                needChange = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!(value == null && previousValue != null || value != null && !value.equals(previousValue))) {
+            needChange = false;
+        }
 
-        // System.out.println();
-        // System.out.println("previousValue="+previousValue);
-        // System.out.println("value="+value);
-
-        if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
+        if (needChange) {
 
             AccessorUtils.set(column, currentRowObject, value);
 

@@ -145,8 +145,16 @@ public class SaveAsGenericSchemaCommand extends Command {
                 createMetadataColumn.setDefaultValue(column.getDefault());
                 createMetadataColumn.setId(column.getId() + ""); //$NON-NLS-1$
                 createMetadataColumn.setKey(column.isKey());
-                createMetadataColumn.setLength(column.getLength());
-                createMetadataColumn.setPrecision(column.getPrecision());
+                Integer length = column.getLength();
+                if (length == null) {
+                    length = 0;
+                }
+                createMetadataColumn.setLength(length);
+                Integer precision = column.getPrecision();
+                if (precision == null) {
+                    precision = 0;
+                }
+                createMetadataColumn.setPrecision(precision);
                 createMetadataColumn.setPattern(column.getPattern());
                 createMetadataColumn.setNullable(column.isNullable());
                 createMetadataColumn.setOriginalField(column.getOriginalDbColumnName());
