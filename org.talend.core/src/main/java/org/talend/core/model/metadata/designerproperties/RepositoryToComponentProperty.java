@@ -1711,11 +1711,12 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("PORT")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getPort())) {
-                return connection.getPort();
-            } else {
-                return TalendTextUtils.addQuotes(connection.getPort());
-            }
+        	return connection.getPort(); // no quote in component
+//            if (isContextMode(connection, connection.getPort())) {
+//                return connection.getPort();
+//            } else {
+//                return TalendTextUtils.addQuotes(connection.getPort());
+//            }
         }
         if (value.equals("USERNAME")) { //$NON-NLS-1$
             if (isContextMode(connection, connection.getUsername())) {
