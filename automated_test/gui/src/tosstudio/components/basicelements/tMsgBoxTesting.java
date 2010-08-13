@@ -4,16 +4,14 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.matchers.WidgetOfType;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.talend.swtbot.TalendSwtBotForTos;
 
 // ============================================================================
 //
@@ -32,13 +30,11 @@ import org.junit.runner.RunWith;
  * DOC Administrator class global comment. Detailled comment
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class tMsgBoxTesting {
-
-    private static SWTGefBot gefBot;
-
-    private static SWTBotShell shell;
+public class tMsgBoxTesting extends TalendSwtBotForTos {
 
     private static SWTBotTree tree;
+
+    private static SWTBotShell shell;
 
     private static SWTBotView view;
 
@@ -48,40 +44,20 @@ public class tMsgBoxTesting {
 
     private static String JOBNAME = "tMsgBoxTesting";
 
-    @BeforeClass
-    public static void setUp() {
-        /**
-         * Initialization
-         */
-
-        gefBot = new SWTGefBot();
-
-        gefBot.waitUntil(Conditions.shellIsActive(org.talend.designer.codegen.i18n.Messages
-                .getString("CodeGeneratorEmittersPoolFactory.initMessage")));
-
-        shell = gefBot.shell(org.talend.designer.codegen.i18n.Messages.getString("CodeGeneratorEmittersPoolFactory.initMessage"));
-        shell.activate();
-
-        gefBot.waitUntil(Conditions.shellCloses(shell), 60000 * 5);
-
-        gefBot.viewByTitle("Welcome").close();
-    }
-
     @Test
     public void createJob() {
-        view = gefBot.viewByTitle(org.talend.repository.i18n.Messages.getString("repository.title"));
+        view = gefBot.viewByTitle("Repository");
         view.setFocus();
 
         tree = new SWTBotTree((Tree) gefBot.widget(WidgetOfType.widgetOfType(Tree.class), view.getWidget()));
         tree.setFocus();
-        tree.select(org.talend.core.i18n.Messages.getString("repository.process")).contextMenu(
-                org.talend.designer.core.i18n.Messages.getString("CreateProcess.createJob")).click();
+        tree.select("Job Designs").contextMenu("Create job").click();
 
-        gefBot.waitUntil(Conditions.shellIsActive(org.talend.designer.core.i18n.Messages.getString("NewProcessWizard.title")));
-        shell = gefBot.shell(org.talend.designer.core.i18n.Messages.getString("NewProcessWizard.title"));
+        gefBot.waitUntil(Conditions.shellIsActive("New job"));
+        shell = gefBot.shell("New job");
         shell.activate();
 
-        gefBot.textWithLabel(org.talend.core.i18n.Messages.getString("PropertiesWizardPage.Name")).setText(JOBNAME);
+        gefBot.textWithLabel("Name").setText(JOBNAME);
 
         gefBot.button("Finish").click();
     }
@@ -91,18 +67,23 @@ public class tMsgBoxTesting {
         gefBot.viewByTitle("Palette").close();
         botEditor = gefBot.activeEditor();
         gefEditor = gefBot.gefEditor(botEditor.getTitle());
+
         gefEditor.activateTool("tMsgBox");
         gefEditor.click(100, 100);
 
-        gefBot.viewByTitle(
-                org.talend.designer.runprocess.i18n.Messages.getString("ProcessView.title",
-                        org.talend.designer.runprocess.i18n.Messages.getString("ProcessView.jobName") + " " + JOBNAME))
-                .setFocus();
-        gefBot.buttonWithTooltip(org.talend.designer.runprocess.i18n.Messages.getString("ProcessComposite.execHint")).click();
+        gefBot.viewByTitle("Component").setFocus();
+        gefBot.text("\"Hello world!\"").setText("\"abcdefg\"");
+
+        gefEditor.save();
     }
 
-    @AfterClass
-    public static void clearDown() {
+    @Test
+    public void runTheJob() {
+        gefBot.viewByTitle("Run (Job " + JOBNAME + ")").setFocus();
+        gefBot.button(" Run").click();
 
+        gefBot.waitUntil(Conditions.shellIsActive("Launching " + JOBNAME + " 0.1"));
+        gefBot.waitUntil(Conditions.shellCloses(gefBot.shell("Launching " + JOBNAME + " 0.1")));
     }
+
 }
