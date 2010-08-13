@@ -14,17 +14,13 @@ package org.talend.core.model.metadata.editor;
 
 import java.util.List;
 
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternCompiler;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -32,7 +28,6 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
-import org.talend.core.utils.KeywordsValidator;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -47,12 +42,6 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
     private static int indexNewColumn;
 
     public static final String VALID_CHAR_COLUMN_NAME = "a-zA-Z_0-9"; //$NON-NLS-1$
-
-    private static final PatternCompiler COMPILER = new Perl5Compiler();
-
-    public static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$"; //$NON-NLS-1$ //$NON-NLS-2$
-
-    private static Pattern validPatternColumnNameRegexp = null;
 
     private MetadataTable metadataTable;
 
@@ -120,17 +109,7 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
             return Messages.getString("MetadataEmfTableEditor.ColumnNameIsNullError"); //$NON-NLS-1$
         }
 
-        validPatternColumnNameRegexp = null;
-        if (validPatternColumnNameRegexp == null) {
-            try {
-                validPatternColumnNameRegexp = COMPILER.compile(VALID_PATTERN_COLUMN_NAME);
-            } catch (MalformedPatternException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        Perl5Matcher matcher = new Perl5Matcher();
-        boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
-        if (!match || KeywordsValidator.isKeyword(columnName)) {
+        if (!MetadataTool.isValidColumnName(columnName)) {
             return Messages.getString(("MetadataEmfTableEditor.ColumnInvalid"), columnName); //$NON-NLS-1$ //$NON-NLS-2$
         }
 

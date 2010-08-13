@@ -50,6 +50,7 @@ import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.routines.IRoutinesService;
+import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
@@ -600,24 +601,29 @@ public class MetadataTool {
         columnName = "";
         final String underLine = "_"; //$NON-NLS-1$
 
-        boolean isAllowSpecific = isAllowSpecificCharacters();
+        boolean isKeyword = KeywordsValidator.isKeyword(columnName);
 
-        for (int i = 0; i < originalColumnName.length(); i++) {
-            Character car = originalColumnName.charAt(i);
-            if (car.toString().getBytes().length == 1 || !isAllowSpecific) {
-                // first character should have only a-z or A-Z
-                // other characters should have only a-z or A-Z or 0-9
-                if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z'))
-                        || ((car >= '0') && (car <= '9') && (i != 0))) {
-                    columnName += car;
+        if (!isKeyword) {
+            boolean isAllowSpecific = isAllowSpecificCharacters();
+
+            for (int i = 0; i < originalColumnName.length(); i++) {
+                Character car = originalColumnName.charAt(i);
+                if (car.toString().getBytes().length == 1 || !isAllowSpecific) {
+                    // first character should have only a-z or A-Z
+                    // other characters should have only a-z or A-Z or 0-9
+                    if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z'))
+                            || ((car >= '0') && (car <= '9') && (i != 0))) {
+                        columnName += car;
+                    } else {
+                        columnName += underLine;
+                    }
                 } else {
-                    columnName += underLine;
+                    columnName += car;
                 }
-            } else {
-                columnName += car;
             }
         }
-        if (org.apache.commons.lang.StringUtils.countMatches(columnName, underLine) >= (originalColumnName.length() / 2)) {
+        if (isKeyword
+                || org.apache.commons.lang.StringUtils.countMatches(columnName, underLine) >= (originalColumnName.length() / 2)) {
             columnName = "Column" + index; //$NON-NLS-1$
         }
 
@@ -628,6 +634,34 @@ public class MetadataTool {
     public static boolean isValidSchemaName(String name) {
         if (name.contains(" ")) {
             return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidColumnName(String name) {
+        String originalColumnName = new String(name);
+        name = "";
+
+        if (KeywordsValidator.isKeyword(name)) {
+            return false;
+        }
+
+        boolean isAllowSpecific = isAllowSpecificCharacters();
+
+        for (int i = 0; i < originalColumnName.length(); i++) {
+            Character car = originalColumnName.charAt(i);
+            if (car.toString().getBytes().length == 1 || !isAllowSpecific) {
+                // first character should have only a-z or A-Z
+                // other characters should have only a-z or A-Z or 0-9
+                if (((car >= 'a') && (car <= 'z')) || ((car >= 'A') && (car <= 'Z'))
+                        || ((car >= '0') && (car <= '9') && (i != 0))) {
+                    name += car;
+                } else {
+                    return false;
+                }
+            } else {
+                name += car;
+            }
         }
         return true;
     }

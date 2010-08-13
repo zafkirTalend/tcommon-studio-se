@@ -14,11 +14,6 @@ package org.talend.core.model.metadata.editor;
 
 import java.util.List;
 
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternCompiler;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.CorePlugin;
@@ -28,10 +23,10 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.prefs.ui.MetadataTypeLengthConstants;
-import org.talend.core.utils.KeywordsValidator;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -40,14 +35,6 @@ import org.talend.core.utils.KeywordsValidator;
  * 
  */
 public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
-
-    // private static final String VALID_PATTERN_COLUMN_NAME = "[\\w]&&[\\D]\\w*";
-
-    private static final PatternCompiler COMPILER = new Perl5Compiler();
-
-    private static Pattern validPatternColumnNameRegexp = null;
-
-    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
 
     private IMetadataTable metadataTable;
 
@@ -102,18 +89,8 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         if (columnName == null) {
             return Messages.getString("MetadataTableEditor.ColumnNameIsNull"); //$NON-NLS-1$
         }
-        validPatternColumnNameRegexp = null;
-        if (validPatternColumnNameRegexp == null) {
-            try {
-                validPatternColumnNameRegexp = COMPILER.compile(VALID_PATTERN_COLUMN_NAME);
-            } catch (MalformedPatternException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        Perl5Matcher matcher = new Perl5Matcher();
-        boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
 
-        if (!match || KeywordsValidator.isKeyword(columnName)) {
+        if (!MetadataTool.isValidColumnName(columnName)) {
             return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] { columnName }); //$NON-NLS-1$ 
         }
 
