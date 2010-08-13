@@ -20,3 +20,20 @@ CWM400.ecore
 
 that's it.
 S.Gandon
+
+Use case : the original metadata.ecore has been changed.
+so copy it to the original_metamodels.
+compare the differences between metadata.ecore and metadata410.ecore and merge into the metadata410.ecore
+copy the merged version (you should have a new file called "copy of metadata410.ecore")
+in the copyed file replace ../../org.talend.cwm.mip/model/CWM.ecore with CWM400.ecore
+if you compare the "copy of metadata410.ecore" with the metadata410referingLocalCwm400.ecore you should find the same diff
+as the initial metadata.ecore comparison.
+So merge everything from the copy to the metadata410referingLocalCwm400.ecore
+then merge all the changes into metadata410referingLocalCwm400andAnalysis.ecore (be carefull to keep all the analysis definition at the bottom of the metadata410referingLocalCwm400andAnalysis.ecore)
+copy the metadata410referingLocalCwm400andAnalysis.ecore into the migration_metammodel
+execute the ATL script transformation/development/transform new metadata410.ecore for migration ecore.launch
+
+and of course update the top or tos transformation script
+
+About the transformation script, the generated .asm should be stored in svn if synchronizing does not show them
+just edit the file property and unchek the derived parameter

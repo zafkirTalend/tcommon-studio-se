@@ -44,8 +44,12 @@ public class Top_metadata400to410Test {
 
     @Test
     public void TestMigrationOnSamplesFolder() throws Throwable {
-        URL sampleFolderURL = FileLocator.toFileURL(new URL("platform:/plugin/org.talend.model.migration.test/samples/top400/")); //$NON-NLS-1$
-        File sampleFolder = URIUtil.toFile(sampleFolderURL.toURI());
+        URL sampleFolderUnEscapedURL = FileLocator.toFileURL(new URL(
+                "platform:/plugin/org.talend.model.migration.test/samples/top400/")); //$NON-NLS-1$
+
+        // URLEncoder.encode(MIGRATION_FILE_EXT)
+        // URI escapedURI = sampleFolderUnEscapedURL.toURI().normalize();
+        File sampleFolder = URIUtil.toFile(sampleFolderUnEscapedURL.toURI());
         TestMigrationOnAllItemsInFolder(sampleFolder, false);
     }
 
