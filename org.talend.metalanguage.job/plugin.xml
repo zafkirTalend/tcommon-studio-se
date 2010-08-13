@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+   <extension
+         point="org.talend.core.cli_command">
+         <Command
+                  description="create a job from script file"
+                  id="120"
+                  name="createJob">
+               <Argument
+                     description="job name"
+                     max="1"
+                     min="1"
+                     name="jobName">
+               </Argument>
+               <Group>
+                  <Option
+                        description="script file"
+                        longName="script-file"
+                        name="SCRIPT_FILE"
+                        shortName="sf">
+                     <Argument
+                           max="1"
+                           min="1"
+                           name="filePath">
+                     </Argument>
+                  </Option>
+               </Group>
+            </Command>
+   </extension>
+   <extension
+         point="org.talend.core.service">
+      <Service
+            class="org.talend.metalanguage.job.CreateXtextProcessService"
+            serviceId="ICreateXtextProcessService">
+      </Service>
+   </extension>
+
+
+
+</plugin>

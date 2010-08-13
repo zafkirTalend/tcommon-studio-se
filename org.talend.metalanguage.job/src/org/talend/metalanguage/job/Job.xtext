@@ -1,0 +1,148 @@
+grammar org.talend.metalanguage.job.Job with org.eclipse.xtext.common.Terminals 
+
+import "platform:/resource/org.talend.model/model/TalendFile.ecore" as talendFile
+
+import "http://www.eclipse.org/emf/2003/XMLType" as type
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+ProcessType returns talendFile::ProcessType:
+	{talendFile::ProcessType}
+		('addParameters' '{' parameters=ParametersType '}')?
+		(node+=NodeType)*
+		(connection+=ConnectionType)*
+		(note+=NoteType)*
+		(context+=ContextType)*
+    ;
+
+ParametersType returns talendFile::ParametersType:
+		elementParameter+=ElementParameterType ( "," elementParameter+=ElementParameterType)*
+    ;
+
+TMapNodeType returns talendFile::NodeType:
+	('addOutput' metadata+=MetadataType)?
+;
+
+NodeType returns talendFile::NodeType:
+	'addComponent'
+	'{'
+		'setComponentDefinition'
+		'{'
+			('TYPE:' componentName=EString',')
+			('NAME:'elementParameter+=UniqueNameType',')
+			('POSITION:' (posX=EInt ',' posY=EInt))
+    	'}'
+    	(metadata+=MetadataType)* 
+		'setSettings' 
+		'{' 
+			(elementParameter+=(SchemaElementParameterType|ElementParameterType)) 
+			( "," elementParameter+=( SchemaElementParameterType| ElementParameterType))*
+		'}' 
+		(metadata+=MetadataType)* 
+	'}'
+   ;
+   
+ContextType returns talendFile::ContextType:
+	{talendFile::ContextType}
+	'ContextType'
+	'{'
+		('NAME:' name=EString)?
+		('CONFIRMATIONNEED:' confirmationNeeded=EBoolean)?
+		(contextParameter+=ContextParameterType ( "," contextParameter+=ContextParameterType)*)?
+    '}';
+    
+ContextParameterType returns talendFile::ContextParameterType:
+	{talendFile::ContextParameterType}
+	'addContextParameter'
+	'{'
+		('NAME:' name=EString)?
+		('TYPE:' type=EString)?
+		('VALUE:' value=EString)?
+		('COMMENT:' comment=EString)?
+		('PROMPT:' prompt=EString)?
+		('PROMPTNEEDED:' promptNeeded=EBoolean)?
+		('REPOSITORYCONTEXTID:' repositoryContextId=EString)?
+    '}';
+   
+UniqueNameType returns talendFile::ElementParameterType :
+  		value=EString
+	;
+
+ConnectionType returns talendFile::ConnectionType:
+	{talendFile::ConnectionType}
+	'addConnection'
+	'{'
+		('TYPE:' connectorName=EString)
+		("," 'NAME:' label=EString)
+		("," 'LINESTYLE:' lineStyle=EInt)?
+		("," 'MERGEORDER:' mergeOrder=EInt)?
+		("," 'METANAME:' metaname=EString)?
+		("," 'OUTPUTID:' outputId=EInt)?
+		("," 'SOURCE:' source=EString)?
+		("," 'TARGET:' target=EString)?
+		(( "," elementParameter+=ElementParameterType)*)?
+    '}';
+
+NoteType returns talendFile::NoteType:
+	'addNote'
+	'{'
+		('opaque' opaque=EBoolean)?
+		('POSITION' '"' posX=EInt','posY=EInt '"')?
+		('text' text=EString)?
+		elementParameter+=ElementParameterType ( "," elementParameter+=ElementParameterType)*
+    '}';
+
+ElementParameterType returns talendFile::ElementParameterType:
+	{talendFile::ElementParameterType}
+		(name=EString ':' value=EString)
+    ;
+    
+SchemaElementParameterType returns talendFile::ElementParameterType :
+	{talendFile::ElementParameterType}
+  	(name=EString '{' elementValue+=ElementValueType ( "," elementValue+=ElementValueType)* '}' )?
+	;
+
+ElementValueType returns talendFile::ElementValueType:
+	{talendFile::ElementValueType}
+		('NAME:' elementRef=EString)
+		('VALUE:' value=EString)?
+		('TYPE:'type=EString)?
+    ;
+
+MetadataType returns talendFile::MetadataType:
+	{talendFile::MetadataType}
+	'addSchema'
+	'{'
+		('NAME:' name=EString)?
+		('TYPE:' connector=EString)?
+		('LABEL' label=EString)?
+		('COMMENT:' comment=EString)?
+		('SOURCE:' source=EString)?
+		(column+=ColumnType)*
+    '}';
+
+ColumnType returns talendFile::ColumnType:
+	{talendFile::ColumnType}
+	'addColumn'
+	'{'
+		('NAME:' name=EString)
+		(',' 'TYPE:' type=EString)?
+		(',' 'KEY:' key=EBoolean)?
+		(',' 'NULLABLE:' nullable=EBoolean)?
+		(',' 'DEFAULTVALUE:' defaultValue=EString)?
+		(',' 'LENGTH:' length=EInt)?
+		(',' 'COMMENT:' comment=EString)?
+		(',' 'originalDbColumnName' originalDbColumnName=EString)?
+		(',' 'PATTREN:' pattern=EString)?
+		(',' 'PRECISION:' precision=EInt)?
+		(',' 'SOURCETYPE:' sourceType=EString)?
+    '}';
+
+EString returns ecore::EString:
+	STRING | ID;
+	
+EInt returns ecore::EInt:
+	'-'? INT;
+	
+EBoolean returns ecore::EBoolean:
+	'true' | 'false';
