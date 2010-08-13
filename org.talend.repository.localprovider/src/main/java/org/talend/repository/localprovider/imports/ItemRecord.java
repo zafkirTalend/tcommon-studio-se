@@ -256,7 +256,7 @@ public class ItemRecord {
     }
 
     public boolean isTDQItem() {
-        return ERepositoryObjectType.getItemType(getItem()).getParent() == ERepositoryObjectType.TDQ_ELEMENT;
+        return ERepositoryObjectType.getItemType(getItem()).name().startsWith("TDQ"); //$NON-NLS-1$
     }
 
     public boolean isTOPItem() {
