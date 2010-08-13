@@ -579,15 +579,19 @@ public final class FilesUtils {
      */
     public static void getAllFilesFromFolder(File sampleFolder, ArrayList<File> fileList, FilenameFilter filenameFilter) {
         File[] folderFiles = sampleFolder.listFiles(filenameFilter);
-        Collections.addAll(fileList, folderFiles);
+        if (fileList != null && folderFiles != null) {
+            Collections.addAll(fileList, folderFiles);
+        }
         File[] allFolders = sampleFolder.listFiles(new FileFilter() {
 
             public boolean accept(File arg0) {
                 return arg0.isDirectory();
             }
         });
-        for (File folder : allFolders) {
-            getAllFilesFromFolder(folder, fileList, filenameFilter);
+        if (allFolders != null) {
+            for (File folder : allFolders) {
+                getAllFilesFromFolder(folder, fileList, filenameFilter);
+            }
         }
     }
 
