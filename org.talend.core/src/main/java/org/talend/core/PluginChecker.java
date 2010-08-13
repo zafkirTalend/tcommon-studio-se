@@ -61,6 +61,8 @@ public class PluginChecker {
 
     private static final String WEBSERVICE_PLUGIN_ID = "org.talend.designer.webservice";
 
+    private static final String CREATEXTEXTPROCESSSEIVICE_PLUGIN_ID = "org.talend.metalanguage.job.CreateXtextProcessService";
+
     /**
      * Check if specific plug-in is loaded.
      * 

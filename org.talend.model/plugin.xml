@@ -53,7 +53,7 @@
       uri="http://www.talend.org/properties" />
     <package
       class="org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage"
-      uri="platform:/resource/org.talend.designer.core/src/main/java/org/talend/designer/core/model/utils/emf/TalendFile.xsd" />
+      uri="platform:/resource/org.talend.model/model/TalendFile.xsd" />
     <package
       class="org.talend.designer.core.model.utils.emf.component.ComponentPackage"
       uri="platform:/resource/org.talend.designer.core/src/main/java/org/talend/designer/core/model/utils/emf/Component.xsd" 
