@@ -38,6 +38,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -1701,7 +1702,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void unloadUnlockedResources() {
         List<Resource> resourceToUnload = new ArrayList<Resource>();
         List<URI> possibleItemsURItoUnload = new ArrayList<URI>();
-        for (Resource resource : xmiResourceManager.resourceSet.getResources()) {
+        EList<Resource> kaka = xmiResourceManager.resourceSet.getResources();
+        for (int i = 0; i < kaka.size(); i++) {
+            Resource resource = xmiResourceManager.resourceSet.getResources().get(i);
             for (EObject object : resource.getContents()) {
                 if (object instanceof Property) {
                     if (((Property) object).getItem() instanceof FolderItem) {

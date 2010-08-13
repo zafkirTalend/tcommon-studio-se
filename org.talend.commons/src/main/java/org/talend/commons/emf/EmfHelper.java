@@ -153,6 +153,9 @@ public class EmfHelper {
         if (resource == null) {
             return;
         }
+        if (resource.getURI() == null) {
+            return;
+        }
 
         try {
             HashMap options = new HashMap(2);
