@@ -24,6 +24,14 @@ public class FormatterUtils {
         }
     }
 
+    public static String format_Date_Locale(java.util.Date date, String pattern, String locale) {
+        if (date != null) {
+            return TalendDate.formatDateLocale(pattern, date, locale);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * in order to transform the number "1234567.89" to string 123,456.89
      */
