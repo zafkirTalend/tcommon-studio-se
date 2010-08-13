@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.exception;
 
-
 /**
  * Defines business exception - Use or extends this class when a erros related to business occurs. Such problems should
  * appears in spec.<br/>
@@ -51,6 +50,7 @@ public class BusinessException extends Exception {
     }
 
     public BusinessException(Throwable cause, String key, Object... args) {
+        super(key, cause);
         this.key = key;
         this.args = args;
     }
