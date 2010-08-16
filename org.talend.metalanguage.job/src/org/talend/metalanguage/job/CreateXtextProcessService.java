@@ -65,9 +65,12 @@ public class CreateXtextProcessService implements ICreateXtextProcessService {
                 for (Object element : elementsParametersElist) {
                     org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType elementParameterType = (org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType) element;
                     // UNIQUE_NAME is not like other elementParameters. it is set in setComponentSetting.
+                    if (elementParameterType.getName() != null && elementParameterType.getElementValue().size() == 0)
+                        elementParameterType.setValue("\"" + elementParameterType.getValue() + "\"");
+
                     if (elementParameterType.getName() == null) {
                         elementParameterType.setName("UNIQUE_NAME");
-                        break;
+                        // break;
                     }
                 }
             }
