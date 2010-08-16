@@ -1,6 +1,33 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Runtime Plug-in
-Bundle-SymbolicName: org.talend.core.runtime
+Bundle-SymbolicName: org.talend.core.runtime;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: .Talend SA.
+Export-Package: org.talend.core,
+ org.talend.core.context,
+ org.talend.core.language,
+ org.talend.core.model.components,
+ org.talend.core.model.general,
+ org.talend.core.model.metadata,
+ org.talend.core.model.migration,
+ org.talend.core.model.process,
+ org.talend.core.model.process.node,
+ org.talend.core.model.repository,
+ org.talend.core.model.temp,
+ org.talend.core.runtime,
+ org.talend.core.runtime.i18n,
+ org.talend.core.ui,
+ org.talend.core.ui.branding,
+ org.talend.designer.codegen,
+ org.talend.designer.core,
+ org.talend.designer.runprocess,
+ org.talend.repository,
+ org.talend.repository.documentation,
+ org.talend.repository.model,
+ org.talend.repository.model.nodes
+Require-Bundle: org.talend.commons,
+ org.talend.model,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.talend.commons.ui
