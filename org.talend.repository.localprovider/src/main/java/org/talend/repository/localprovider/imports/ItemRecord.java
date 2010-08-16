@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.swt.graphics.Image;
-import org.talend.commons.bridge.ReponsitoryContextBridge;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
@@ -253,14 +252,6 @@ public class ItemRecord {
 
     public Project getItemProject() {
         return itemProject;
-    }
-
-    public boolean isTDQItem() {
-        return ERepositoryObjectType.getItemType(getItem()).name().startsWith("TDQ"); //$NON-NLS-1$
-    }
-
-    public boolean isTOPItem() {
-        return path != null && path.toString().indexOf(ReponsitoryContextBridge.PROJECT_DEFAULT_NAME) == 0;
     }
 
     public boolean isRemoveProjectStatslog() {

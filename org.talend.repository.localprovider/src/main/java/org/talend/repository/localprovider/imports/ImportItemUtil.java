@@ -86,13 +86,11 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SQLPatternItem;
 import org.talend.core.model.properties.SnippetItem;
-import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.tis.ITDQImportExportService;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -198,6 +196,11 @@ public class ImportItemUtil {
 
         try {
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
+
+            // zqin: Here we don't need to check the items from TOP
+            if (itemType.isDQItemType()) {
+                return false;
+            }
 
             boolean isSqlPattern = (itemType == ERepositoryObjectType.SQLPATTERNS);
             String itemPath = null;
@@ -489,23 +492,21 @@ public class ImportItemUtil {
             final Set<String> overwriteDeletedItems) {
         resolveItem(manager, itemRecord);
 
-        if (!itemRecord.isTDQItem() && !itemRecord.isTOPItem()) {
-            int num = 0;
-            for (Object obj : itemRecord.getResourceSet().getResources()) {
-                if (!(obj instanceof PropertiesProjectResourceImpl)) {
-                    if (obj instanceof XMIResourceImpl) {
-                        num++;
-                        if (num > 2) {// The is no explanation for this value and what is this loop for to I increased
-                            // it to
-                            // 2 so that metadata migration for 4.1 works
-                            try {
-                                throw new InvocationTargetException(new PersistenceException("The source file of "
-                                        + itemRecord.getLabel() + " has error,Please check it!"));
-                            } catch (InvocationTargetException e) {
-                                ExceptionHandler.process(e);
-                            }
-                            return;
+        int num = 0;
+        for (Object obj : itemRecord.getResourceSet().getResources()) {
+            if (!(obj instanceof PropertiesProjectResourceImpl)) {
+                if (obj instanceof XMIResourceImpl) {
+                    num++;
+                    if (num > 2) {// The is no explanation for this value and what is this loop for to I increased
+                        // it to
+                        // 2 so that metadata migration for 4.1 works
+                        try {
+                            throw new InvocationTargetException(new PersistenceException("The source file of "
+                                    + itemRecord.getLabel() + " has error,Please check it!"));
+                        } catch (InvocationTargetException e) {
+                            ExceptionHandler.process(e);
                         }
+                        return;
                     }
                 }
             }
@@ -527,188 +528,158 @@ public class ImportItemUtil {
                 logError(e);
                 path = new Path(""); //$NON-NLS-1$
             }
-            if (item instanceof TDQItem) { // for tdq item
-                //
-                ITDQImportExportService service = null;
-                try {
-                    service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(
-                            ITDQImportExportService.class);
-                } catch (RuntimeException e) {
-                    // nothing to do
+
+            try {
+                Item tmpItem = item;
+
+                // delete existing items before importing, this should be done
+                // once for a different id
+                String id = itemRecord.getProperty().getId();
+
+                IRepositoryViewObject lastVersion = itemRecord.getExistingItemWithSameId();
+                if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
+                        && !deletedItems.contains(id)) {
+                    if (!overwriteDeletedItems.contains(id)) { // bug 10520.
+                        ERepositoryStatus status = repFactory.getStatus(lastVersion);
+                        if (status == ERepositoryStatus.DELETED) {
+                            repFactory.restoreObject(lastVersion, path); // restore first.
+                        }
+                        overwriteDeletedItems.add(id);
+                    }
+                    repFactory.forceDeleteObjectPhysical(lastVersion, itemRecord.getProperty().getVersion());
+                    lastVersion = null;
+
+                    // List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
+                    // if (!list.isEmpty()) {
+                    // // this code will delete all version of item with same
+                    // // id
+                    // repFactory.forceDeleteObjectPhysical(list.get(0));
+                    // deletedItems.add(id);
+                    // }
                 }
-                if (service != null) {
-                    Project emfProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
 
-                    // it's initialized when create the service.
-
-                    boolean imported = service.importElement(emfProject, itemRecord.getItemProject(), itemRecord.getProperty(),
-                            itemRecord.getItemProjectVersion());
-                    if (imported) {
-                        itemRecord.setImportPath(path.toPortableString());
-                        itemRecord.setRepositoryType(itemType);
-                        itemRecord.setItemId(itemRecord.getProperty().getId());
-                        itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
-                        itemRecord.setImported(true);
-                    } else {
-                        PersistenceException e = new PersistenceException(Messages.getString("ImportItemUtil.tdqErrorInfor", //$NON-NLS-1$
-                                ((TDQItem) item).getFilename()));
-                        itemRecord.addError(e.getMessage());
-                        logError(e);
+                User author = itemRecord.getProperty().getAuthor();
+                if (author != null) {
+                    if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
+                        tmpItem.getProperty().setAuthor(null); // author will be
+                        // the logged
+                        // user in
+                        // create method
                     }
                 }
 
-            } else {
-                try {
-                    Item tmpItem = item;
+                if (item instanceof JobletProcessItem) {
+                    hasJoblets = true;
+                }
 
-                    // delete existing items before importing, this should be done
-                    // once for a different id
-                    String id = itemRecord.getProperty().getId();
+                if (tmpItem instanceof ProcessItem) {
+                    ProcessItem processItem = (ProcessItem) tmpItem;
+                    ParametersType paType = processItem.getProcess().getParameters();
+                    boolean statsPSettingRemoved = false;
 
-                    IRepositoryViewObject lastVersion = itemRecord.getExistingItemWithSameId();
-                    if (lastVersion != null && overwrite && !itemRecord.isLocked() && itemRecord.getState() == State.ID_EXISTED
-                            && !deletedItems.contains(id)) {
-                        if (!overwriteDeletedItems.contains(id)) { // bug 10520.
-                            ERepositoryStatus status = repFactory.getStatus(lastVersion);
-                            if (status == ERepositoryStatus.DELETED) {
-                                repFactory.restoreObject(lastVersion, path); // restore first.
-                            }
-                            overwriteDeletedItems.add(id);
-                        }
-                        repFactory.forceDeleteObjectPhysical(lastVersion, itemRecord.getProperty().getVersion());
-                        lastVersion = null;
-
-                        // List<IRepositoryObject> list = cache.findObjectsByItem(itemRecord);
-                        // if (!list.isEmpty()) {
-                        // // this code will delete all version of item with same
-                        // // id
-                        // repFactory.forceDeleteObjectPhysical(list.get(0));
-                        // deletedItems.add(id);
-                        // }
-                    }
-
-                    User author = itemRecord.getProperty().getAuthor();
-                    if (author != null) {
-                        if (!repFactory.setAuthorByLogin(tmpItem, author.getLogin())) {
-                            tmpItem.getProperty().setAuthor(null); // author will be
-                            // the logged
-                            // user in
-                            // create method
-                        }
-                    }
-
-                    if (item instanceof JobletProcessItem) {
-                        hasJoblets = true;
-                    }
-
-                    if (tmpItem instanceof ProcessItem) {
-                        ProcessItem processItem = (ProcessItem) tmpItem;
-                        ParametersType paType = processItem.getProcess().getParameters();
-                        boolean statsPSettingRemoved = false;
-
-                        // for commanline import project setting
-                        if (itemRecord.isRemoveProjectStatslog()) {
-                            if (paType != null) {
-                                String paramName = "STATANDLOG_USE_PROJECT_SETTINGS";
-                                EList listParamType = paType.getElementParameter();
-                                for (int j = 0; j < listParamType.size(); j++) {
-                                    ElementParameterType pType = (ElementParameterType) listParamType.get(j);
-                                    if (pType != null && paramName.equals(pType.getName())) {
-                                        pType.setValue(Boolean.FALSE.toString());
-                                        statsPSettingRemoved = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        // 14446: item apply project setting param if use project setting
-                        String statslogUsePSetting = null;
-                        String implicitUsePSetting = null;
-                        EList listParamType = paType.getElementParameter();
-                        for (int j = 0; j < listParamType.size(); j++) {
-                            ElementParameterType pType = (ElementParameterType) listParamType.get(j);
-                            if (pType != null) {
-                                if (!statsPSettingRemoved && "STATANDLOG_USE_PROJECT_SETTINGS".equals(pType.getName())) {
-                                    statslogUsePSetting = pType.getValue();
-                                }
-                                if ("IMPLICITCONTEXT_USE_PROJECT_SETTINGS".equals(pType.getName())) {
-                                    implicitUsePSetting = pType.getValue();
-                                }
-                                if (statsPSettingRemoved && implicitUsePSetting != null || !statsPSettingRemoved
-                                        && implicitUsePSetting != null && statslogUsePSetting != null) {
+                    // for commanline import project setting
+                    if (itemRecord.isRemoveProjectStatslog()) {
+                        if (paType != null) {
+                            String paramName = "STATANDLOG_USE_PROJECT_SETTINGS";
+                            EList listParamType = paType.getElementParameter();
+                            for (int j = 0; j < listParamType.size(); j++) {
+                                ElementParameterType pType = (ElementParameterType) listParamType.get(j);
+                                if (pType != null && paramName.equals(pType.getName())) {
+                                    pType.setValue(Boolean.FALSE.toString());
+                                    statsPSettingRemoved = true;
                                     break;
                                 }
                             }
                         }
-                        if (statslogUsePSetting != null && Boolean.parseBoolean(statslogUsePSetting)) {
-                            CorePlugin.getDefault().getDesignerCoreService().reloadParamFromProjectSettings(paType,
-                                    "STATANDLOG_USE_PROJECT_SETTINGS");
-                        }
-                        if (implicitUsePSetting != null && Boolean.parseBoolean(implicitUsePSetting)) {
-                            CorePlugin.getDefault().getDesignerCoreService().reloadParamFromProjectSettings(paType,
-                                    "IMPLICITCONTEXT_USE_PROJECT_SETTINGS");
-                        }
-
                     }
 
-                    if (lastVersion == null) {
-                        boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
-                        // import has not been developed to cope with migration in mind
-                        // so some model may not be able to load like the ConnectionItems
-                        // in that case items needs to be copied before migration
-                        // here we check that the loading of the item failed before calling the create method
-                        boolean isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
-                                && ((ConnectionItem) tmpItem).getConnection().eResource() == null
-                                && !itemRecord.getMigrationTasksToApply().isEmpty();
-                        repFactory.create(tmpItem, path, true);
-                        if (isConnectionEmptyBeforeMigration) {// copy the file before migration, this is bad because it
-                            // should not refer to Filesytem
-                            // but this is a quick hack and anyway the migration task only works on files
-                            // IPath itemPath = itemRecord.getPath().removeFileExtension().addFileExtension(
-                            // FileConstants.ITEM_EXTENSION);
-
-                            InputStream is = manager.getStream(itemRecord.getPath().removeFileExtension().addFileExtension(
-                                    FileConstants.ITEM_EXTENSION));
-                            try {
-                                URI relativePlateformDestUri = EcoreUtil.getURI(((ConnectionItem) tmpItem).getConnection());
-                                URL fileURL = FileLocator.toFileURL(new java.net.URL(
-                                        "platform:/resource" + relativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
-                                OutputStream os = new FileOutputStream(fileURL.getFile());
-                                try {
-                                    FileCopyUtils.copyStreams(is, os);
-                                } finally {
-                                    os.close();
-                                }
-                            } finally {
-                                is.close();
+                    // 14446: item apply project setting param if use project setting
+                    String statslogUsePSetting = null;
+                    String implicitUsePSetting = null;
+                    EList listParamType = paType.getElementParameter();
+                    for (int j = 0; j < listParamType.size(); j++) {
+                        ElementParameterType pType = (ElementParameterType) listParamType.get(j);
+                        if (pType != null) {
+                            if (!statsPSettingRemoved && "STATANDLOG_USE_PROJECT_SETTINGS".equals(pType.getName())) {
+                                statslogUsePSetting = pType.getValue();
+                            }
+                            if ("IMPLICITCONTEXT_USE_PROJECT_SETTINGS".equals(pType.getName())) {
+                                implicitUsePSetting = pType.getValue();
+                            }
+                            if (statsPSettingRemoved && implicitUsePSetting != null || !statsPSettingRemoved
+                                    && implicitUsePSetting != null && statslogUsePSetting != null) {
+                                break;
                             }
                         }
-
-                        itemRecord.setImportPath(path.toPortableString());
-                        itemRecord.setRepositoryType(itemType);
-                        itemRecord.setItemId(itemRecord.getProperty().getId());
-                        itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
-                        itemRecord.setImported(true);
-                    } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
-                        repFactory.forceCreate(tmpItem, path);
-                        itemRecord.setImportPath(path.toPortableString());
-                        itemRecord.setItemId(itemRecord.getProperty().getId());
-                        itemRecord.setRepositoryType(itemType);
-                        itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
-                        itemRecord.setImported(true);
-                    } else {
-                        PersistenceException e = new PersistenceException(Messages.getString(
-                                "ImportItemUtil.persistenceException", tmpItem.getProperty())); //$NON-NLS-1$
-                        itemRecord.addError(e.getMessage());
-                        logError(e);
+                    }
+                    if (statslogUsePSetting != null && Boolean.parseBoolean(statslogUsePSetting)) {
+                        CorePlugin.getDefault().getDesignerCoreService().reloadParamFromProjectSettings(paType,
+                                "STATANDLOG_USE_PROJECT_SETTINGS");
+                    }
+                    if (implicitUsePSetting != null && Boolean.parseBoolean(implicitUsePSetting)) {
+                        CorePlugin.getDefault().getDesignerCoreService().reloadParamFromProjectSettings(paType,
+                                "IMPLICITCONTEXT_USE_PROJECT_SETTINGS");
                     }
 
-                } catch (Exception e) {
+                }
+
+                if (lastVersion == null) {
+                    boolean originalDeleteState = tmpItem.getState().isDeleted(); // hywang add for 0008632
+                    // import has not been developed to cope with migration in mind
+                    // so some model may not be able to load like the ConnectionItems
+                    // in that case items needs to be copied before migration
+                    // here we check that the loading of the item failed before calling the create method
+                    boolean isConnectionEmptyBeforeMigration = tmpItem instanceof ConnectionItem
+                            && ((ConnectionItem) tmpItem).getConnection().eResource() == null
+                            && !itemRecord.getMigrationTasksToApply().isEmpty();
+                    repFactory.create(tmpItem, path, true);
+                    if (isConnectionEmptyBeforeMigration) {// copy the file before migration, this is bad because it
+                        // should not refer to Filesytem
+                        // but this is a quick hack and anyway the migration task only works on files
+                        // IPath itemPath = itemRecord.getPath().removeFileExtension().addFileExtension(
+                        // FileConstants.ITEM_EXTENSION);
+
+                        InputStream is = manager.getStream(itemRecord.getPath().removeFileExtension().addFileExtension(
+                                FileConstants.ITEM_EXTENSION));
+                        try {
+                            URI relativePlateformDestUri = EcoreUtil.getURI(((ConnectionItem) tmpItem).getConnection());
+                            URL fileURL = FileLocator.toFileURL(new java.net.URL(
+                                    "platform:/resource" + relativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
+                            OutputStream os = new FileOutputStream(fileURL.getFile());
+                            try {
+                                FileCopyUtils.copyStreams(is, os);
+                            } finally {
+                                os.close();
+                            }
+                        } finally {
+                            is.close();
+                        }
+                    }
+
+                    itemRecord.setImportPath(path.toPortableString());
+                    itemRecord.setRepositoryType(itemType);
+                    itemRecord.setItemId(itemRecord.getProperty().getId());
+                    itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
+                    itemRecord.setImported(true);
+                } else if (VersionUtils.compareTo(lastVersion.getProperty().getVersion(), tmpItem.getProperty().getVersion()) < 0) {
+                    repFactory.forceCreate(tmpItem, path);
+                    itemRecord.setImportPath(path.toPortableString());
+                    itemRecord.setItemId(itemRecord.getProperty().getId());
+                    itemRecord.setRepositoryType(itemType);
+                    itemRecord.setItemVersion(itemRecord.getProperty().getVersion());
+                    itemRecord.setImported(true);
+                } else {
+                    PersistenceException e = new PersistenceException(Messages.getString(
+                            "ImportItemUtil.persistenceException", tmpItem.getProperty())); //$NON-NLS-1$
                     itemRecord.addError(e.getMessage());
                     logError(e);
                 }
+
+            } catch (Exception e) {
+                itemRecord.addError(e.getMessage());
+                logError(e);
             }
+
             itemRecord.setProperty(null);
             itemRecord.setExistingItemWithSameId(null);
         }
@@ -775,78 +746,61 @@ public class ImportItemUtil {
         ITalendSynchronizer routineSynchronizer = getRoutineSynchronizer();
 
         ERepositoryObjectType repositoryType = itemRecord.getRepositoryType();
-        if (repositoryType == ERepositoryObjectType.TDQ_ELEMENT) {
-            ITDQImportExportService service = null;
-            try {
-                service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(ITDQImportExportService.class);
-            } catch (RuntimeException e) {
-                // nothing to do
-            }
-            if (service != null) {
-                Project emfProject = ProjectManager.getInstance().getCurrentProject().getEmfProject();
-                boolean migrated = service.migrateElement(emfProject, itemRecord.getProperty(), itemRecord
-                        .getItemProjectVersion());
-                if (!migrated) {
-                    log.warn(Messages.getString("ImportItemUtil.itemLogWarn", itemRecord.getItemName())); //$NON-NLS-1$
+
+        Item item = null;
+        try {
+            List<IRepositoryViewObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
+                    ProjectManager.getInstance().getCurrentProject(), itemRecord.getItemId(), itemRecord.getImportPath(),
+                    repositoryType);
+            for (IRepositoryViewObject repositoryObject : allVersion) {
+                if (repositoryObject.getProperty().getVersion().equals(itemRecord.getItemVersion())) {
+                    item = repositoryObject.getProperty().getItem();
                 }
             }
-        } else {
-            Item item = null;
-            try {
-                List<IRepositoryViewObject> allVersion = ProxyRepositoryFactory.getInstance().getAllVersion(
-                        ProjectManager.getInstance().getCurrentProject(), itemRecord.getItemId(), itemRecord.getImportPath(),
-                        repositoryType);
-                for (IRepositoryViewObject repositoryObject : allVersion) {
-                    if (repositoryObject.getProperty().getVersion().equals(itemRecord.getItemVersion())) {
-                        item = repositoryObject.getProperty().getItem();
-                    }
-                }
-            } catch (Exception e) {
-                logError(e);
-            }
+        } catch (Exception e) {
+            logError(e);
+        }
 
-            if (item == null) {
-                return;
-            }
+        if (item == null) {
+            return;
+        }
 
-            for (String taskId : itemRecord.getMigrationTasksToApply()) {
-                IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
-                if (task == null) {
-                    log.warn(Messages.getString("ImportItemUtil.taskLogWarn", taskId)); //$NON-NLS-1$
-                } else {
-                    monitor.subTask(Messages.getString("ImportItemUtil.taskMonitor", task.getName(), itemRecord.getItemName())); //$NON-NLS-1$
-                    try {
-                        if (item != null) {
-                            ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
-                            if (executionResult == ExecutionResult.FAILURE) {
-                                log.warn(Messages.getString(
-                                        "ImportItemUtil.itemLogWarn", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
-                                // TODO smallet add a warning/error to the job using
-                                // model
-                            }
+        for (String taskId : itemRecord.getMigrationTasksToApply()) {
+            IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
+            if (task == null) {
+                log.warn(Messages.getString("ImportItemUtil.taskLogWarn", taskId)); //$NON-NLS-1$
+            } else {
+                monitor.subTask(Messages.getString("ImportItemUtil.taskMonitor", task.getName(), itemRecord.getItemName())); //$NON-NLS-1$
+                try {
+                    if (item != null) {
+                        ExecutionResult executionResult = task.execute(repositoryContext.getProject(), item);
+                        if (executionResult == ExecutionResult.FAILURE) {
+                            log.warn(Messages.getString("ImportItemUtil.itemLogWarn", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
+                            // TODO smallet add a warning/error to the job using
+                            // model
                         }
-                    } catch (Exception e) {
-                        log.warn(Messages.getString("ImportItemUtil.itemLogException", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
-
                     }
-                }
-            }
-            RelationshipItemBuilder.getInstance().saveRelations();
+                } catch (Exception e) {
+                    log.warn(Messages.getString("ImportItemUtil.itemLogException", itemRecord.getItemName(), task.getName())); //$NON-NLS-1$
 
-            try {
-                if (item != null && item instanceof RoutineItem) {
-                    changeRoutinesPackage(item);
-                    RoutineItem routineItem = (RoutineItem) item;
-                    routineSynchronizer.forceSyncRoutine(routineItem);
-                    routineSynchronizer.syncRoutine(routineItem, true);
-                    routineSynchronizer.getFile(routineItem);
                 }
-                if (item.getProperty().eResource() != null) {
-                    ProxyRepositoryFactory.getInstance().unloadResources(item.getProperty());
-                }
-            } catch (Exception e) {
-                logError(e);
             }
+        }
+        RelationshipItemBuilder.getInstance().saveRelations();
+
+        try {
+            if (item != null && item instanceof RoutineItem) {
+                changeRoutinesPackage(item);
+                RoutineItem routineItem = (RoutineItem) item;
+                routineSynchronizer.forceSyncRoutine(routineItem);
+                routineSynchronizer.syncRoutine(routineItem, true);
+                routineSynchronizer.getFile(routineItem);
+            }
+            if (item.getProperty().eResource() != null) {
+                ProxyRepositoryFactory.getInstance().unloadResources(item.getProperty());
+            }
+        } catch (Exception e) {
+            logError(e);
         }
     }
 
@@ -896,22 +850,11 @@ public class ImportItemUtil {
         initTDQRepository = false;
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
-        ITDQImportExportService service = null;
-        try {
-            service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(ITDQImportExportService.class);
-        } catch (RuntimeException e) {
-            // nothing to do
-        }
-        String tdqVersion = null;
-
         int nbItems = 0;
 
         for (IPath path : collector.getPaths()) {
             if (isPropertyPath(path)) {
                 nbItems++;
-            }
-            if (service != null && tdqVersion == null) {
-                tdqVersion = service.retrieveVersionInfor(path);
             }
         }
 
@@ -926,10 +869,8 @@ public class ImportItemUtil {
                 ItemRecord itemRecord = computeItemRecord(collector, path);
                 if (itemRecord.getProperty() != null) {
                     items.add(itemRecord);
-                    if (itemRecord.isTDQItem()) {
-                        itemRecord.setItemProjectVersion(tdqVersion);
-                    }
-                    if (checkItem(itemRecord, overwrite, itemsFromRepository) && !itemRecord.isTOPItem()) {
+
+                    if (checkItem(itemRecord, overwrite, itemsFromRepository)) {
                         InternalEObject author = (InternalEObject) itemRecord.getProperty().getAuthor();
                         URI uri = null;
                         if (author != null) {
@@ -941,10 +882,7 @@ public class ImportItemUtil {
                             Project project = computeProject(collector, itemRecord, projectFilePath);
                             if (checkProject(project, itemRecord)) {
 
-                                // hide top items in import/export ui in tos.
-                                if (!itemRecord.isTDQItem()) {
-                                    treeBuilder.addItem(project, itemRecord);
-                                }
+                                treeBuilder.addItem(project, itemRecord);
 
                                 // set item project into record.
                                 itemRecord.setItemProject(project);
@@ -1120,18 +1058,6 @@ public class ImportItemUtil {
             boolean byteArray = (item instanceof FileItem);
             IPath itemPath = getItemPath(itemRecord.getPath());
 
-            if (item instanceof TDQItem) {
-                ITDQImportExportService service = null;
-                try {
-                    service = (ITDQImportExportService) GlobalServiceRegister.getDefault().getService(
-                            ITDQImportExportService.class);
-                } catch (RuntimeException e) {
-                    // nothing to do
-                }
-                if (service != null) {
-                    itemPath = service.getTDQItemPath(itemRecord.getPath(), (TDQItem) item);
-                }
-            }
             stream = manager.getStream(itemPath);
             Resource resource = createResource(itemRecord.getResourceSet(), itemPath, byteArray);
 

@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
@@ -487,7 +490,6 @@ public enum ERepositoryObjectType {
                 return TDQ_BUSINESSRULE_ELEMENT;
             }
 
-
             @Override
             public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
                 return TDQ_INDICATOR_ELEMENT;
@@ -562,6 +564,22 @@ public enum ERepositoryObjectType {
         default:
             return null;
         }
+    }
+
+    /**
+     * DOC bZhou Comment method "getAllDQItemType".
+     * 
+     * @return
+     */
+    public static ERepositoryObjectType[] getAllDQItemType() {
+        List<ERepositoryObjectType> allTypeList = new ArrayList<ERepositoryObjectType>();
+        for (ERepositoryObjectType type : values()) {
+            if (type.isDQItemType()) {
+                allTypeList.add(type);
+            }
+        }
+
+        return allTypeList.toArray(new ERepositoryObjectType[allTypeList.size()]);
     }
 
 }

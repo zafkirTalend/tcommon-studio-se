@@ -619,6 +619,10 @@ public final class FilesUtils {
                     }
                 } else {
 
+                    if (!file.getParentFile().exists()) {
+                        file.getParentFile().mkdirs();
+                    }
+
                     InputStream zin = zip.getInputStream(entry);
                     OutputStream fout = new FileOutputStream(file);
                     // check if parent folder exists
