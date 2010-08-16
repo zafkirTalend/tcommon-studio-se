@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,7 +56,8 @@ public class Tos_metadata400to410Test {
         // URI samplefolderURI = URL
         //                .create("platform:/plugin/org.talend.model.migration.test/samples/oldPositionalFileConnection.xmi");//$NON-NLS-1$
         URL sampleFolderURL = FileLocator.toFileURL(new URL("platform:/plugin/org.talend.model.migration.test/samples/tos400/")); //$NON-NLS-1$
-        File sampleFolder = URIUtil.toFile(sampleFolderURL.toURI());
+        URI escapedURI = new URI(sampleFolderURL.getProtocol(), sampleFolderURL.getPath(), sampleFolderURL.getQuery());
+        File sampleFolder = URIUtil.toFile(escapedURI);
         TestMigrationOnAllItemsInFolder(sampleFolder, false);
     }
 

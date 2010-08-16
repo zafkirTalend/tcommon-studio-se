@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,10 +47,16 @@ public class Top_metadata400to410Test {
     public void TestMigrationOnSamplesFolder() throws Throwable {
         URL sampleFolderUnEscapedURL = FileLocator.toFileURL(new URL(
                 "platform:/plugin/org.talend.model.migration.test/samples/top400/")); //$NON-NLS-1$
+        // FileLocator.toFileURL will not escape special chars when creating the URL see bug
+        // https://bugs.eclipse.org/bugs/show_bug.cgi?id=145096
+        // so we use the URI constructor to create an escaped URI
+        URI escapedUri = new URI(sampleFolderUnEscapedURL.getProtocol(), sampleFolderUnEscapedURL.getPath(), null);// calling
+                                                                                                                   // the
+                                                                                                                   // URI(String)
+        // constructor does not escape
+        // the URL
 
-        // URLEncoder.encode(MIGRATION_FILE_EXT)
-        // URI escapedURI = sampleFolderUnEscapedURL.toURI().normalize();
-        File sampleFolder = URIUtil.toFile(sampleFolderUnEscapedURL.toURI());
+        File sampleFolder = URIUtil.toFile(escapedUri);
         TestMigrationOnAllItemsInFolder(sampleFolder, false);
     }
 
