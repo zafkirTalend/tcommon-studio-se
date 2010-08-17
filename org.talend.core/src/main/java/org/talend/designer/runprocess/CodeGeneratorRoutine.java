@@ -189,7 +189,9 @@ public final class CodeGeneratorRoutine {
                                 Item item = lastVersion.getProperty().getItem();
                                 if (item instanceof RoutineItem) {
                                     String routineStr = getRoutineStr(currentProject, (RoutineItem) item);
-                                    routines.add(routineStr);
+                                    if (routineStr != null) {
+                                        routines.add(routineStr);
+                                    }
                                 }
                             }
                         }
