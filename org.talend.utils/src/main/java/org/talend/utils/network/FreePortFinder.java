@@ -14,6 +14,7 @@ package org.talend.utils.network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.Date;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -26,12 +27,6 @@ public class FreePortFinder {
 
     private static Logger log = Logger.getLogger(FreePortFinder.class);
 
-    private ServerSocket serverSocket;
-
-    private KnownBusyPorts knownBusyPorts = new KnownBusyPorts();
-
-    private boolean forceCheck;
-
     /**
      * DOC amaumont FreePortFinder constructor comment.
      * 
@@ -39,16 +34,6 @@ public class FreePortFinder {
      */
     public FreePortFinder() {
         super();
-    }
-
-    /**
-     * DOC amaumont FreePortFinder constructor comment.
-     * 
-     * @throws IOException
-     */
-    public FreePortFinder(KnownBusyPorts knownBusyPorts) {
-        super();
-        this.knownBusyPorts = knownBusyPorts;
     }
 
     /**
@@ -60,10 +45,7 @@ public class FreePortFinder {
      */
     public boolean isPortFree(int port) {
 
-        if (!forceCheck && knownBusyPorts != null && knownBusyPorts.isBusy(port)) {
-            return false;
-        }
-
+        ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(port);
         } catch (Throwable e) {
@@ -73,7 +55,6 @@ public class FreePortFinder {
             try {
                 serverSocket.close();
             } catch (Throwable e) {
-                // TODO Auto-generated catch block
                 log.debug(e.getMessage());
             }
         }
@@ -85,14 +66,11 @@ public class FreePortFinder {
      * Return true if the specified port is free.
      * 
      * @param port
-     * @return Return true if the specified port is free
+     * @return
      */
-    public ServerSocket openServerSocket(int port) {
+    protected ServerSocket openServerSocket(int port) {
 
-        if (!forceCheck && knownBusyPorts != null && knownBusyPorts.isBusy(port)) {
-            return null;
-        }
-
+        ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(port);
         } catch (Throwable e) {
@@ -120,19 +98,21 @@ public class FreePortFinder {
      * 
      * @param portRangeBound1
      * @param portRangeBound2
-     * @param randomize if true, start with a randomized port number between <code>portRangeBound1</code> and
+     * @param randomizeIndexStart if true, start with a randomized port number between <code>portRangeBound1</code> and
      * <code>portRangeBound2</code>
      * @return
      */
-    public int searchFreePort(int portRangeBound1, int portRangeBound2, boolean randomize) {
+    public int searchFreePort(int portRangeBound1, int portRangeBound2, boolean randomizeIndexStart) {
 
         int portBoundMin = portRangeBound1 < portRangeBound2 ? portRangeBound1 : portRangeBound2;
         int portBoundMax = portRangeBound1 < portRangeBound2 ? portRangeBound2 : portRangeBound1;
         int increment = 0;
-        if (randomize) {
-            Random random = new Random();
+        if (randomizeIndexStart) {
+            Random random = new Random(new Date().getTime());
             int maxRandomBound = (int) ((double) portBoundMax - (double) portBoundMin) * 3 / 4;
-            increment = random.nextInt(maxRandomBound);
+            if (maxRandomBound > 0) {
+                increment = random.nextInt(maxRandomBound);
+            }
         }
 
         int portStart = portBoundMin + increment;
@@ -146,23 +126,18 @@ public class FreePortFinder {
             if (!isFirstLoop && port == portStart) {
                 if (isFirstPass) {
                     isFirstPass = false;
-                } else if (!forceCheck) {
-                    forceCheck = true;
                 } else {
                     break;
                 }
             }
             if (isPortFree(port)) {
                 return port;
-            } else {
-                knownBusyPorts.addBusyPort(port);
             }
             // System.out.println(port);
             isFirstLoop = false;
 
         }
         return -1;
-
     }
 
     public static void main(String[] args) {
