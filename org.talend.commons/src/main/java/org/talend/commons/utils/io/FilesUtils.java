@@ -644,6 +644,10 @@ public final class FilesUtils {
 
                 fileWriter.flush();
                 fileWriter.close();
+                fileWriter = null;
+                fileReader.close();
+                fileReader = null;
+                System.gc();
             } catch (Exception e) {
                 error = e;
                 errorCounter++;
