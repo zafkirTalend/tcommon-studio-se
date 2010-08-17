@@ -28,7 +28,7 @@ public class FreePortFinder {
 
     private ServerSocket serverSocket;
 
-    private KnownBusyPorts knownBusyPorts;
+    private KnownBusyPorts knownBusyPorts = new KnownBusyPorts();
 
     private boolean forceCheck;
 
