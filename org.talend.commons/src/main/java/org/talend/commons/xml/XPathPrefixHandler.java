@@ -115,6 +115,9 @@ public class XPathPrefixHandler {
         }
 
         List<NodeInfo> list = nameNodesMap.get(node.getNodeName());
+        if (list == null) {
+            return null;
+        }
         NodeInfo info = getNodeInfo(node, list);
         String path = getQualifiedXPath(info.path);
         String expr = info.path + "/" + relativeXPathExpression; //$NON-NLS-1$

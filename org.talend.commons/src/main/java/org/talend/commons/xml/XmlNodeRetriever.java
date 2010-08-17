@@ -342,7 +342,9 @@ public class XmlNodeRetriever {
         relativeXPathExpression = simplifyXPathExpression(relativeXPathExpression);
         // relativeXPathExpression = addDefaultNS(relativeXPathExpression);
         relativeXPathExpression = prefixHandler.addXPathPrefix(relativeXPathExpression, referenceNode);
-
+        if (relativeXPathExpression == null) {
+            return null;
+        }
         List<Node> nodeList = new ArrayList<Node>();
 
         NodeList nodeListItem = (NodeList) xpath.evaluate(relativeXPathExpression, referenceNode, XPathConstants.NODESET);
