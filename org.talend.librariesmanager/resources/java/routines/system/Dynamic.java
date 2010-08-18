@@ -88,7 +88,7 @@ public class Dynamic {
         for (int i = 0; i < metadatas.size(); i++) {
             out.append((String.valueOf(values.get(i))));
             if (i != (metadatas.size() - 1))
-                out.append("|");
+                out.append(" - ");
         }
         return out.toString();
     }
