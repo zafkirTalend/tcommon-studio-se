@@ -573,16 +573,16 @@ public final class FilesUtils {
     /**
      * DOC sgandon Comment method "getAllFilesFromFolder".
      * 
-     * @param sampleFolder
-     * @param arrayList
+     * @param aFolder
+     * @param fileList
      * @param filenameFilter
      */
-    public static void getAllFilesFromFolder(File sampleFolder, ArrayList<File> fileList, FilenameFilter filenameFilter) {
-        File[] folderFiles = sampleFolder.listFiles(filenameFilter);
+    public static void getAllFilesFromFolder(File aFolder, List<File> fileList, FilenameFilter filenameFilter) {
+        File[] folderFiles = aFolder.listFiles(filenameFilter);
         if (fileList != null && folderFiles != null) {
             Collections.addAll(fileList, folderFiles);
         }
-        File[] allFolders = sampleFolder.listFiles(new FileFilter() {
+        File[] allFolders = aFolder.listFiles(new FileFilter() {
 
             public boolean accept(File arg0) {
                 return arg0.isDirectory();
