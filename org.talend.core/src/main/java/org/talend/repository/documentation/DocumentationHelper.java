@@ -38,10 +38,11 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.generation.DocumentationPathProvider;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNode.ENodeType;
-import org.talend.repository.model.RepositoryNode.EProperties;
+import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -304,17 +305,17 @@ public class DocumentationHelper {
                 + sourceNode.getObject().getProperty().getVersion();
         IRepositoryView repositoryView = (IRepositoryView) (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                 .findView(IRepositoryView.VIEW_ID));
-        RepositoryNode root = repositoryView.getRoot();
-        for (RepositoryNode node : root.getChildren()) {
+        IRepositoryNode root = repositoryView.getRoot();
+        for (IRepositoryNode node : root.getChildren()) {
             if (node == null) {
                 continue;
             }
             if (node.isBin()) {
-                for (RepositoryNode subNode : node.getChildren()) {
+                for (IRepositoryNode subNode : node.getChildren()) {
                     String nodeName = subNode.getObject().getProperty().getLabel() + "_" //$NON-NLS-1$
                             + subNode.getObject().getProperty().getVersion();
                     if (nodeName.equals(documentationNodeName)) {
-                        return subNode;
+                        return (RepositoryNode) subNode;
                     }
                 }
             }
@@ -331,10 +332,10 @@ public class DocumentationHelper {
      */
     public static RepositoryNode getCurrentDocumentationNode(final RepositoryNode selectedJobNode) {
         IRepositoryView viewPart = getViewPart();
-        RepositoryNode root = viewPart.getRoot();
+        IRepositoryNode root = viewPart.getRoot();
 
-        RepositoryNode documentationNode = null;
-        for (RepositoryNode node : root.getChildren()) {
+        IRepositoryNode documentationNode = null;
+        for (IRepositoryNode node : root.getChildren()) {
             if (node.getContentType() == ERepositoryObjectType.DOCUMENTATION) {
                 documentationNode = node;
                 break;
@@ -345,19 +346,19 @@ public class DocumentationHelper {
             return null;
         }
 
-        for (RepositoryNode node : documentationNode.getChildren()) {
+        for (IRepositoryNode node : documentationNode.getChildren()) {
             // Goto the Node "Generated";
             if (node.getContentType() != ERepositoryObjectType.GENERATED) {
                 continue;
             }
 
             // Goto the Node "Jobs";
-            for (RepositoryNode subNode : node.getChildren()) {
+            for (IRepositoryNode subNode : node.getChildren()) {
                 if (subNode.getContentType() != ERepositoryObjectType.JOBS) {
                     continue;
                 }
 
-                for (RepositoryNode grandChildNode : subNode.getChildren()) {
+                for (IRepositoryNode grandChildNode : subNode.getChildren()) {
 
                     IRepositoryViewObject object = selectedJobNode.getObject();
                     String path = ""; //$NON-NLS-1$
@@ -370,12 +371,12 @@ public class DocumentationHelper {
                         String label = grandChildNode.getObject().getProperty().getLabel();
                         String version = grandChildNode.getObject().getProperty().getVersion();
                         if (label.equals(object.getProperty().getLabel()) && version.equals(object.getProperty().getVersion())) {
-                            return grandChildNode;
+                            return (RepositoryNode) grandChildNode;
                         }
                     } else { // a/b/c
                         String[] pathArray = path.split("/"); //$NON-NLS-1$
                         int layerCount = pathArray.length;
-                        for (RepositoryNode repositoryNode : grandChildNode.getChildren()) {
+                        for (IRepositoryNode repositoryNode : grandChildNode.getChildren()) {
 
                         }
 

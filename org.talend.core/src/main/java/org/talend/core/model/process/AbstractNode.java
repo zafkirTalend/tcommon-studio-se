@@ -707,4 +707,13 @@ public abstract class AbstractNode implements INode {
     public boolean isSubProcessContainTraceBreakpoint() {
         return subProcessContainBreakpoint;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#getElementName()
+     */
+    public String getElementName() {
+        return this.getUniqueName();
+    }
 }

@@ -43,7 +43,7 @@ public class GlobalServiceRegister {
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        configurationElements = registry.getConfigurationElementsFor("org.talend.core.service"); //$NON-NLS-1$
+        configurationElements = registry.getConfigurationElementsFor("org.talend.core.runtime.service"); //$NON-NLS-1$
     }
 
     public boolean isServiceRegistered(Class klass) {

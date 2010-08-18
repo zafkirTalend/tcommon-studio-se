@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.datatools.enablement.oda.xml,
  org.talend.repository,
  org.talend.core,
- org.apache.axis
+ org.apache.axis,
+ org.talend.model
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/mdm.jar,

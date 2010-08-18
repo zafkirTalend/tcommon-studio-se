@@ -63,4 +63,14 @@ public interface IMetadataTable extends IRepositoryObject {
     public String getReadOnlyColumnPosition();
 
     public void setReadOnlyColumnPosition(String readOnlyColumnPosition);
+
+    /**
+     * used in component team; it is used to judge if the List<IMetadataColumn> has the dynamic columns.
+     * 
+     * @author wliu
+     * @return true: the List<IMetadataColumn> has dynamic column; false,not
+     */
+    public boolean isDynamicSchema();
+
+    public IMetadataColumn getDynamicColumn();
 }

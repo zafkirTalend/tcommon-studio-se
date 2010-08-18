@@ -14,7 +14,6 @@ package org.talend.core.repository;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.talend.core.context.Context;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -30,12 +29,8 @@ public class CoreRepositoryPlugin extends AbstractUIPlugin {
     // The shared instance
     private static CoreRepositoryPlugin plugin;
 
-    /** Context. */
-    private Context userContext;
-
     public CoreRepositoryPlugin() {
         plugin = this;
-        userContext = new Context();
     }
 
     /*
@@ -60,26 +55,4 @@ public class CoreRepositoryPlugin extends AbstractUIPlugin {
     public static CoreRepositoryPlugin getDefault() {
         return plugin;
     }
-
-    /**
-     * Getter for context.
-     * 
-     * @return the context
-     */
-    public Context getContext() {
-        return this.userContext;
-    }
-
-    // public IDesignerCoreService getDesignerCoreService() {
-    // return (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
-    // }
-    //
-    // public IRepositoryService getRepositoryService() {
-    // return (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-    // }
-    //
-    // public IRunProcessService getRunProcessService() {
-    // return (IRunProcessService) GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
-    // }
-
 }

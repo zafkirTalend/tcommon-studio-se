@@ -15,7 +15,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.designer.core,
  org.talend.commons.ui,
  org.eclipse.ui.forms,
- org.eclipse.core.expressions
+ org.eclipse.core.expressions,
+ org.talend.core.repository,
+ org.eclipse.ui.ide,
+ org.talend.model
 Eclipse-LazyStart: true
 Export-Package: org.talend.rcp,
  org.talend.rcp.intro

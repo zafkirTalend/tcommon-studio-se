@@ -58,13 +58,12 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
         super(parent, style, extendedTableViewer);
     }
 
-    public MetadataToolbarEditorView(Composite parent, int style, AbstractExtendedTableViewer extendedTableViewer,
-            String dbmsId) {
+    public MetadataToolbarEditorView(Composite parent, int style, AbstractExtendedTableViewer extendedTableViewer, String dbmsId) {
         super(parent, style, extendedTableViewer);
         if (dbmsId != null) {
             resetDBTypesButton = createResetDBTypesPushButton(dbmsId);
         }
-        RepositoryNode node = CorePlugin.getDefault().getRepositoryService().getRootRepositoryNode(
+        RepositoryNode node = (RepositoryNode) CorePlugin.getDefault().getRepositoryService().getRootRepositoryNode(
                 ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         if (node != null) {
             saveAsGenericSchemaButton = createSaveAsGenericSchemaButton(dbmsId);
@@ -83,8 +82,7 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
 
             @Override
             protected Object getObjectToAdd() {
-                MetadataTableEditor tableEditorModel = (MetadataTableEditor) getExtendedTableViewer()
-                        .getExtendedControlModel();
+                MetadataTableEditor tableEditorModel = (MetadataTableEditor) getExtendedTableViewer().getExtendedControlModel();
                 return tableEditorModel.createNewMetadataColumn();
             }
 
@@ -153,11 +151,11 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
     }
 
     protected SaveAsGenericSchemaPushButton createSaveAsGenericSchemaButton(final String dbmsId) {
-        return new SaveAsGenericSchemaPushButtonForExtendedTable(toolbar, extendedTableViewer,dbmsId) {
+        return new SaveAsGenericSchemaPushButtonForExtendedTable(toolbar, extendedTableViewer, dbmsId) {
 
             @Override
-            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel,String dbmsId) {
-                return new SaveAsGenericSchemaCommand(extendedTableModel,dbmsId);
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, String dbmsId) {
+                return new SaveAsGenericSchemaCommand(extendedTableModel, dbmsId);
             }
 
         };

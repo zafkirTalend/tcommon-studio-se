@@ -27,7 +27,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.rcp.i18n.Messages;
@@ -52,7 +51,10 @@ public class Application implements IApplication {
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
-            CorePlugin.getDefault().getRepositoryService().setRCPMode();
+
+            IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
+            repositoryService.setRCPMode();
 
             IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
                     IMigrationToolService.class);

@@ -57,7 +57,7 @@
          talendPerspectiveId="org.talend.rcp.DebugPerspective"/>
 </extension>
 <extension
-      point="org.talend.core.service">
+      point="org.talend.core.runtime.service">
    <Service
          class="org.talend.rcp.RcpServices"
          serviceId="IRcpService">

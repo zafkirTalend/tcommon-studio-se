@@ -12,10 +12,12 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import org.talend.core.IService;
+
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public interface IProxyRepositoryService {
+public interface IProxyRepositoryService extends IService {
 
     public IProxyRepositoryFactory getProxyRepositoryFactory();
 }

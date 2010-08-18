@@ -178,9 +178,10 @@ public class TimeMeasure {
         }
         init();
         if (!timers.containsKey(idTimer)) {
-            if (display) {
-                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
-            }
+            begin(idTimer);
+            // if (display) {
+            //                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
+            // }
             return;
         } else {
             TimeStack times = timers.get(idTimer);

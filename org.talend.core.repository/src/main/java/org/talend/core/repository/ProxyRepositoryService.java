@@ -26,7 +26,6 @@ public class ProxyRepositoryService implements IProxyRepositoryService {
      * 
      * @see org.talend.repository.model.IProxyRepositoryService#getProxyRepositoryFactory()
      */
-    @Override
     public IProxyRepositoryFactory getProxyRepositoryFactory() {
         return ProxyRepositoryFactory.getInstance();
     }

@@ -37,7 +37,7 @@ public class RepositoryFactoryProvider {
     private static List<IRepositoryFactory> list = null;
 
     public static final IExtensionPointLimiter REPOSITORY_PROVIDER = new ExtensionPointLimiterImpl(
-            "org.talend.core.repository_provider", //$NON-NLS-1$
+            "org.talend.core.repository.repository_provider", //$NON-NLS-1$
             "RepositoryFactory", 1, -1); //$NON-NLS-1$
 
     public static List<IRepositoryFactory> getAvailableRepositories() {

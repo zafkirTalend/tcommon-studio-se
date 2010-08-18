@@ -10,12 +10,19 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.repository;
+package org.talend.designer.runprocess;
+
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.talend.core.model.process.ITargetExecutionConfig;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
  */
-public interface IRepositoryWorkUnitListener {
+public interface IEclipseProcessor {
 
-    public void workUnitFinished();
+    // to use "debug", the code must be generated first.
+    // (for compatibility, if the code has never been generated, it will generated once)
+    public ILaunchConfiguration debug() throws ProcessorException;
+
+    public void setTargetExecutionConfig(ITargetExecutionConfig serverConfiguration);
 }

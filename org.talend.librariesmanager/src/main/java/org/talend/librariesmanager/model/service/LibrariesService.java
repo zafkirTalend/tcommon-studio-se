@@ -23,9 +23,9 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
-import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
 import org.talend.librariesmanager.i18n.Messages;
 
@@ -85,7 +85,7 @@ public class LibrariesService implements ILibrariesService {
         return this.getLibrariesService().getLibraryStatus(libName);
     }
 
-    public List<Problem> getProblems(INode node, Element element) {
+    public List<Problem> getProblems(INode node, IElement element) {
         return this.getLibrariesService().getProblems(node, element);
     }
 
@@ -168,7 +168,7 @@ public class LibrariesService implements ILibrariesService {
      * org.talend.core.model.general.ILibrariesService#resetModulesNeededForCurrentJob(org.talend.core.model.properties
      * .Item)
      */
-    public void updateModulesNeededForCurrentJob(IProcess2 process) {
+    public void updateModulesNeededForCurrentJob(IProcess process) {
         this.getLibrariesService().updateModulesNeededForCurrentJob(process);
 
     }

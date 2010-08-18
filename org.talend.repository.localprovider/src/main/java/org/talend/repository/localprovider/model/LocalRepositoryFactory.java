@@ -47,7 +47,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -100,13 +99,12 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
+import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
-import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.repository.localprovider.imports.ImportItemUtil;
 import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
@@ -114,9 +112,10 @@ import org.talend.repository.model.ILocalRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
-import org.talend.repository.model.URIHelper;
 import org.talend.repository.model.VersionList;
-import org.talend.repository.ui.views.RepositoryLabelProvider;
+import org.talend.repository.utils.RoutineUtils;
+import org.talend.repository.utils.URIHelper;
+import org.talend.repository.utils.XmiResourceManager;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1261,15 +1260,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Resource itemResource = xmiResourceManager.createItemResource(project, item, path, type, false);
         itemResource.getContents().add(item.getJobletProcess());
         ByteArray icon = item.getIcon();
-        if (icon == null) {
-            icon = PropertiesFactory.eINSTANCE.createByteArray();
-            item.setIcon(icon);
-            Image jobletCustomIcon = RepositoryLabelProvider.getJobletCustomIcon(item.getProperty());
-            ImageDescriptor createFromImageData = ImageDescriptor.createFromImageData(jobletCustomIcon.getImageData());
-            byte[] data = ImageUtils.saveImageToData(createFromImageData);
-            icon.setInnerContent(data);
+        if (icon != null) {
+            itemResource.getContents().add(icon);
         }
-        itemResource.getContents().add(icon);
         return itemResource;
     }
 
@@ -1778,11 +1771,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return;
         }
         try {
-            ImportItemUtil util = new ImportItemUtil();
             List<IRepositoryViewObject> allRoutines = getAll(project, ERepositoryObjectType.ROUTINES, true, true);
             for (IRepositoryViewObject object : allRoutines) {
                 Item item = object.getProperty().getItem();
-                util.changeRoutinesPackage(item);
+                RoutineUtils.changeRoutinesPackage(item);
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);

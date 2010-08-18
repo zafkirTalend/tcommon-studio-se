@@ -29,7 +29,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.tis.ICoreTisService;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * DefaultBrandingConfiguration is as TIS BrandingConfiguration(don't hide repository Nodes or Components),all other
@@ -80,9 +80,9 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
      * 
      * @see org.talend.core.ui.branding.IBrandingConfiguration#getHiddenRepositoryCategory()
      */
-    public List<RepositoryNode> getHiddenRepositoryCategory(RepositoryNode parent) {
+    public List<IRepositoryNode> getHiddenRepositoryCategory(IRepositoryNode parent) {
 
-        List<RepositoryNode> nodes = new ArrayList<RepositoryNode>();
+        List<IRepositoryNode> nodes = new ArrayList<IRepositoryNode>();
 
         // // 2.1 Joblet
         // RepositoryNode jobletNode = new RepositoryNode(null, parent, ENodeType.SYSTEM_FOLDER);

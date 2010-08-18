@@ -31,7 +31,7 @@ public class Messages extends MessagesCore {
 
     private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
-    private static final String PLUGIN_ID = "org.talend.repository"; //$NON-NLS-1$
+    private static final String PLUGIN_ID = "org.talend.core.repository"; //$NON-NLS-1$
 
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
 

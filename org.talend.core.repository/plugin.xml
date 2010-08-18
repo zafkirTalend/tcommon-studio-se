@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="repository_provider" name="Repository provider" schema="schema/repository_provider.exsd"/>
+
    <extension
          point="org.talend.core.runtime.service">
       <Service

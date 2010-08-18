@@ -38,9 +38,9 @@ import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
-import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -133,7 +133,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         fireLibrariesChanges();
     }
 
-    public List<Problem> getProblems(INode node, Element element) {
+    public List<Problem> getProblems(INode node, IElement element) {
         List<Problem> toReturn = new ArrayList<Problem>();
         List<ModuleNeeded> list = node.getComponent().getModulesNeeded();
         for (ModuleNeeded current : list) {
@@ -178,7 +178,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
      * org.talend.core.model.general.ILibrariesService#resetModulesNeededForCurrentJob(org.talend.core.model.properties
      * .Item)
      */
-    public void updateModulesNeededForCurrentJob(IProcess2 process) {
+    public void updateModulesNeededForCurrentJob(IProcess process) {
         ModulesNeededProvider.resetCurrentJobNeededModuleList(process);
         checkLibraries();
 

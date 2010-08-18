@@ -138,7 +138,7 @@ public final class RepositoryManager {
         if (repositoryView != null) {
             if ((isRefreshManually() || !isRefreshCreated()) && !type.isSubItem()) {
                 if (projectNode != null) {
-                    RepositoryNode rootNode = projectNode.getRootRepositoryNode(type);
+                    RepositoryNode rootNode = (RepositoryNode) projectNode.getRootRepositoryNode(type);
                     repositoryView.refreshAllChildNodes(rootNode);
                 } else {
                     // main project

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-	<extension-point id="global_actions" name="Global actions" schema="schema/global_actions.exsd"/>
-	<extension-point id="filepreview_provider" name="File Preview Provider" schema="schema/filepreview_provider.exsd"/>
-	
-   <extension-point id="repository_provider" name="Repository provider" schema="schema/repository_provider.exsd"/>
+   <extension-point id="global_actions" name="Global actions" schema="schema/global_actions.exsd"/>
+   <extension-point id="filepreview_provider" name="File Preview Provider" schema="schema/filepreview_provider.exsd"/>
    <extension-point id="components_provider" name="Components provider" schema="schema/components_provider.exsd"/>
    <extension-point id="external_component" name="External component" schema="schema/external_component.exsd"/>
    <extension-point id="repositoryContextualsActions" name="Repository actions" schema="schema/repository_actions.exsd"/>
-   <extension-point id="service" name="Service Registration" schema="schema/service.exsd"/>
    <extension-point id="migrationTask" name="Migration tool atomic task" schema="schema/migrationTask.exsd"/>
    <extension-point id="librariesNeeded" name="Libraries needed" schema="schema/librariesNeeded.exsd"/>
    <extension-point id="talendperspectives" name="Talend Perspectives" schema="schema/talendperspectives.exsd"/>
@@ -88,6 +85,13 @@
             name="%talend.scheme"
             parentId="org.eclipse.ui.defaultAcceleratorConfiguration">
       </scheme>
+   </extension>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.core.CoreService"
+            serviceId="ICoreService">
+      </Service>
    </extension>
 
 </plugin>

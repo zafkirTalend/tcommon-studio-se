@@ -43,9 +43,10 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNode.EProperties;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 import orgomg.cwm.objectmodel.core.Package;
 
@@ -203,19 +204,19 @@ public class SaveAsGenericSchemaCommand extends Command {
     }
 
     public RepositoryNode getGenericSchemaNode() {
-        List<RepositoryNode> children = getRepositoryView().getRoot().getChildren();
+        List<IRepositoryNode> children = getRepositoryView().getRoot().getChildren();
         boolean isGenericSchema = false;
-        for (RepositoryNode node : children) {
+        for (IRepositoryNode node : children) {
             isGenericSchema = node.getObjectType() == ERepositoryObjectType.METADATA_GENERIC_SCHEMA;
             if (isGenericSchema) {
-                return node;
+                return (RepositoryNode) node;
             } else {
                 for (int i = 0; i < node.getChildren().size(); i++) {
-                    RepositoryNode repositoryNode = node.getChildren().get(i);
+                    IRepositoryNode repositoryNode = node.getChildren().get(i);
                     Object properties = repositoryNode.getProperties(EProperties.CONTENT_TYPE);
                     isGenericSchema = properties == ERepositoryObjectType.METADATA_GENERIC_SCHEMA;
                     if (isGenericSchema) {
-                        return repositoryNode;
+                        return (RepositoryNode) repositoryNode;
                     }
                 }
             }

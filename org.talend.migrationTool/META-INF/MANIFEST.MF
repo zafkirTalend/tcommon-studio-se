@@ -7,6 +7,7 @@ Bundle-Activator: org.talend.migrationtool.MigrationToolPlugin
 Bundle-Vendor: .Talend SA.
 Require-Bundle: org.eclipse.core.runtime,
  org.talend.core,
- org.talend.commons.ui
+ org.talend.commons.ui,
+ org.talend.model
 Eclipse-LazyStart: true
 Export-Package: org.talend.migrationtool.model

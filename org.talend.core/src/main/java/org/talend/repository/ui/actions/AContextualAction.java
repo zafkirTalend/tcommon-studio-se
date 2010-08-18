@@ -55,10 +55,11 @@ import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.designer.core.ui.views.properties.IJobSettingsView;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNode.ENodeType;
-import org.talend.repository.model.RepositoryNode.EProperties;
+import org.talend.repository.model.IRepositoryNode.ENodeType;
+import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -393,20 +394,20 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return searchRepositoryNode(repositoryView.getRoot(), type);
     }
 
-    private RepositoryNode searchRepositoryNode(RepositoryNode root, ERepositoryObjectType type) {
+    private RepositoryNode searchRepositoryNode(IRepositoryNode root, ERepositoryObjectType type) {
         if (root == null || type == null) {
             return null;
         }
-        RepositoryNode foundNode = null;
-        List<RepositoryNode> chindren = root.getChildren();
-        for (RepositoryNode repositoryNode : chindren) {
+        IRepositoryNode foundNode = null;
+        List<IRepositoryNode> chindren = root.getChildren();
+        for (IRepositoryNode repositoryNode : chindren) {
             if (repositoryNode.getContentType() == type) {
                 foundNode = repositoryNode;
             } else {
-                foundNode = searchRepositoryNode(repositoryNode, type);
+                foundNode = searchRepositoryNode((RepositoryNode) repositoryNode, type);
             }
             if (foundNode != null) {
-                return foundNode;
+                return (RepositoryNode) foundNode;
             }
         }
         return null;

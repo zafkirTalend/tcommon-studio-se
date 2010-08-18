@@ -18,7 +18,7 @@ import java.util.List;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.repository.model.ERepositoryStatus;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.IRepositoryNode;
 
 /**
  * Defines a empty repository object. <br/>
@@ -217,7 +217,7 @@ public class EmptyRepositoryObject implements IRepositoryObject {
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getRepositoryNode()
      */
-    public RepositoryNode getRepositoryNode() {
+    public IRepositoryNode getRepositoryNode() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -228,7 +228,7 @@ public class EmptyRepositoryObject implements IRepositoryObject {
      * @see
      * org.talend.core.model.repository.IRepositoryObject#setRepositoryNode(org.talend.repository.model.RepositoryNode)
      */
-    public void setRepositoryNode(RepositoryNode node) {
+    public void setRepositoryNode(IRepositoryNode node) {
         // TODO Auto-generated method stub
 
     }

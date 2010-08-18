@@ -15,6 +15,7 @@ package org.talend.repository.localprovider.model;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
+import org.talend.repository.model.PropertiesProjectResourceImpl;
 
 /**
  * 

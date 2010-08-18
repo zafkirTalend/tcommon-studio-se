@@ -17,6 +17,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.RepositoryManager;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -115,9 +116,9 @@ public class RepositoryEditorInput extends FileEditorInput {
      * 
      * @param node
      */
-    public void setRepositoryNode(RepositoryNode repositoryNode) {
+    public void setRepositoryNode(IRepositoryNode repositoryNode) {
         if (repositoryNode != null) {
-            this.repositoryNode = repositoryNode;
+            this.repositoryNode = (RepositoryNode) repositoryNode;
         } else {
             // IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
             // IRepositoryObject repositoryObject = null;
@@ -142,7 +143,7 @@ public class RepositoryEditorInput extends FileEditorInput {
             // }
 
             // see bug 0005256: All folders got expanded after job creation in a folder
-            this.repositoryNode = CorePlugin.getDefault().getRepositoryService().getRepositoryNode(
+            this.repositoryNode = (RepositoryNode) CorePlugin.getDefault().getRepositoryService().getRepositoryNode(
                     getItem().getProperty().getId(), false);
         }
     }

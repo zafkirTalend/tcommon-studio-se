@@ -22,6 +22,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.ICreateXtextProcessService;
 import org.talend.core.ui.IWebService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
@@ -54,12 +55,8 @@ public class CorePlugin extends AbstractUIPlugin {
     // The shared instance
     private static CorePlugin plugin;
 
-    /** Context. */
-    private final Context context;
-
     public CorePlugin() {
         plugin = this;
-        context = new Context();
 
     }
 
@@ -100,7 +97,7 @@ public class CorePlugin extends AbstractUIPlugin {
      * @return the context
      */
     public static Context getContext() {
-        return getDefault().context;
+        return CoreRuntimePlugin.getInstance().getContext();
     }
 
     /**

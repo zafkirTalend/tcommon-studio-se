@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.IViewPart;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -49,7 +50,7 @@ public interface IRepositoryView extends IViewPart {
 
     public boolean getExpandedState(Object object);
 
-    public RepositoryNode getRoot();
+    public IRepositoryNode getRoot();
 
     public List<IRepositoryViewObject> getAll(ERepositoryObjectType type);
 

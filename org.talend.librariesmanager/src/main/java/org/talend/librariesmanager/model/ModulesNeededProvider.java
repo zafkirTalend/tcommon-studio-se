@@ -34,7 +34,7 @@ import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
@@ -131,7 +131,7 @@ public class ModulesNeededProvider {
      * 
      * @param process
      */
-    public static void resetCurrentJobNeededModuleList(IProcess2 process) {
+    public static void resetCurrentJobNeededModuleList(IProcess process) {
         // Step 1: remove all modules for current job;
         List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
         for (ModuleNeeded module : componentImportNeedsList) {

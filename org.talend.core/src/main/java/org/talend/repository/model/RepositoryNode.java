@@ -32,44 +32,9 @@ import org.talend.repository.model.nodes.IProjectRepositoryNode;
  * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
  * 
  */
-public class RepositoryNode {
+public class RepositoryNode implements IRepositoryNode {
 
     public static final String NO_ID = "-1"; //$NON-NLS-1$
-
-    /**
-     * Represents differents type of node.<br/>
-     * 
-     * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
-     * 
-     */
-    public enum ENodeType {
-        SYSTEM_FOLDER,
-        // Represents a folder created by the system (Process, Documentation). Thoses folders cannot be removed, moved
-        // or rename by users.
-        STABLE_SYSTEM_FOLDER,
-        // Same as SYSTEM_FOLDER, but users cannot create sub-folders.
-        SIMPLE_FOLDER,
-        // Represents a folder created by a user. Those folders can be rename, moved or removed.
-        REPOSITORY_ELEMENT,
-        // Represents an object such as a process or a table.
-        REFERENCED_PROJECT,
-        // Represents a referenced project;
-        RELATED_FOLDER;
-        // Represents a folder related with others;
-
-    }
-
-    /**
-     * 
-     * Represents available properties on a node.<br/>
-     * 
-     * $Id: RepositoryNode.java 914 2006-12-08 08:28:53 +0000 (星期五, 08 �??二月 2006) bqian $
-     * 
-     */
-    public enum EProperties {
-        LABEL,
-        CONTENT_TYPE;
-    }
 
     private String id;
 
@@ -77,7 +42,7 @@ public class RepositoryNode {
 
     private RepositoryNode parent;
 
-    private List<RepositoryNode> children = new ArrayList<RepositoryNode>();
+    private List<IRepositoryNode> children = new ArrayList<IRepositoryNode>();
 
     protected ENodeType type;
 
@@ -165,7 +130,7 @@ public class RepositoryNode {
      * 
      * @see org.talend.repository.model.RepositoryNode#getChildren()
      */
-    public List<RepositoryNode> getChildren() {
+    public List<IRepositoryNode> getChildren() {
         if (true) {
             // FIXME SML Remove when mhelleboid attach item to folders
             return children;
@@ -174,7 +139,7 @@ public class RepositoryNode {
             return children;
         }
 
-        List<RepositoryNode> toReturn = new ArrayList<RepositoryNode>();
+        List<IRepositoryNode> toReturn = new ArrayList<IRepositoryNode>();
 
         for (IRepositoryViewObject currentChild : getObject().getChildren()) {
             RepositoryNode repositoryNode = new RepositoryNode(currentChild, this, ENodeType.REPOSITORY_ELEMENT);

@@ -254,4 +254,13 @@ public abstract class AbstractConnection implements IConnection {
     public Map<String, String> getTraceData() {
         return null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElement#getElementName()
+     */
+    public String getElementName() {
+        return this.getUniqueName();
+    }
 }

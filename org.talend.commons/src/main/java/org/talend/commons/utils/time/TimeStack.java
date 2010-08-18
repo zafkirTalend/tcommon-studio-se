@@ -87,12 +87,12 @@ class TimeStack {
 
     public void resume() {
         long currentTime = getCurrentTime();
-        if (!isPaused) {
-            new Exception("Resume can't be done").printStackTrace();
-        } else {
-            previousStepTime = previousTimeResume = currentTime;
-            isPaused = false;
-        }
+        // if (!isPaused) {
+        // new Exception("Resume can't be done").printStackTrace();
+        // } else {
+        previousStepTime = previousTimeResume = currentTime;
+        isPaused = false;
+        // }
     }
 
     public void addStep() {

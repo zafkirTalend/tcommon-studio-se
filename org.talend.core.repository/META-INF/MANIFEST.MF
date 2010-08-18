@@ -1,9 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Repository
+Bundle-Name: Core Repository
 Bundle-SymbolicName: org.talend.core.repository;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.talend.commons,
@@ -13,10 +12,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi,
  org.talend.core.runtime,
  org.talend.model
-Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.talend.core.repository,
  org.talend.core.repository.constants,
- org.talend.core.repository.i18n,
  org.talend.repository.model,
  org.talend.repository.utils
+Bundle-Activator: org.talend.core.repository.CoreRepositoryPlugin
+Bundle-ActivationPolicy: lazy

@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.SourceField;
@@ -147,8 +148,14 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + id++ + ".java"; //$NON-NLS-1$
         IPackageFragment packageFragment;
         try {
-            packageFragment = CorePlugin.getDefault().getRunProcessService().getJavaProject().findPackageFragment(packagePath);
-            compilationUnit = packageFragment.createCompilationUnit(filename, document.get(), false, new NullProgressMonitor());
+
+            if (CorePlugin.getDefault().getRunProcessService().getJavaProject() instanceof IJavaProject) {
+
+                packageFragment = ((IJavaProject) CorePlugin.getDefault().getRunProcessService().getJavaProject())
+                        .findPackageFragment(packagePath);
+                compilationUnit = packageFragment.createCompilationUnit(filename, document.get(), false,
+                        new NullProgressMonitor());
+            }
         } catch (JavaModelException e) {
             ExceptionHandler.process(e);
         } catch (CoreException e) {
