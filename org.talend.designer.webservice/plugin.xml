@@ -8,7 +8,7 @@
       </ExternalComponent>
    </extension>
    <extension
-         point="org.talend.core.service">
+         point="org.talend.core.runtime.service">
       <Service
             class="org.talend.designer.webservice.ui.WebServiceHelper"
             serviceId="IWebService">
