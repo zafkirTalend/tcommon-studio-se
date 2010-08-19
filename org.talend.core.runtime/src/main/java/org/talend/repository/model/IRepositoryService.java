@@ -95,7 +95,7 @@ public interface IRepositoryService extends IService {
 
     public void setRCPMode();
 
-    public void openMetadataConnection(IRepositoryViewObject o);
+    public void openMetadataConnection(IRepositoryViewObject o, INode node);
 
     public ConnectionItem openMetadataConnection(boolean creation, IRepositoryNode realNode, INode node);
 
