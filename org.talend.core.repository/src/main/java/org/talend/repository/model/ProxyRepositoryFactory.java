@@ -2115,14 +2115,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.model.IProxyRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project,
-     * java.lang.String, java.lang.String, java.lang.String, org.talend.core.model.properties.User, java.lang.String,
-     * java.lang.String)
+     * org.talend.repository.model.IProxyRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project)
      */
-    public boolean createSandboxProject(Project newProject, String projectSvnUrl, String projectSvnLogin, String projectSvnPass,
-            String userSvnLogin, String userSvnPass) throws PersistenceException {
-        return repositoryFactoryFromProvider.createSandboxProject(newProject, projectSvnUrl, projectSvnLogin, projectSvnPass,
-                userSvnLogin, userSvnPass);
+    public boolean createSandboxProject(Project newProject) throws PersistenceException {
+        return repositoryFactoryFromProvider.createSandboxProject(newProject);
 
     }
 

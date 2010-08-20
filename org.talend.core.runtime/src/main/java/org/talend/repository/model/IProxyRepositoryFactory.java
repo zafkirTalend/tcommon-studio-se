@@ -727,6 +727,5 @@ public interface IProxyRepositoryFactory {
 
     public boolean enableSandboxProject() throws PersistenceException;
 
-    public boolean createSandboxProject(Project newProject, String projectSvnUrl, String projectSvnLogin, String projectSvnPass,
-            String userSvnLogin, String userSvnPass) throws PersistenceException;
+    public boolean createSandboxProject(Project newProject) throws PersistenceException;
 }

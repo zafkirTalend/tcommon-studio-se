@@ -1954,11 +1954,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project,
-     * java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     * @see org.talend.repository.model.IRepositoryFactory#createSandboxProject(org.talend.core.model.general.Project)
      */
-    public boolean createSandboxProject(Project newProject, String svnUrl, String svnLogin, String svnPass, String userSvnLogin,
-            String userSvnPass) throws PersistenceException {
+    public boolean createSandboxProject(Project newProject) throws PersistenceException {
         // don't support in local model
         throw new UnsupportedOperationException();
     }
