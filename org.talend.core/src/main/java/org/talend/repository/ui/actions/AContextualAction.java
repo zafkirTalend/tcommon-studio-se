@@ -86,6 +86,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     private String neededVersion;
 
+    private boolean avoidUnloadResources;
+
     public boolean isEditAction() {
         return editAction;
     }
@@ -506,6 +508,10 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     protected void updateNodeToLastVersion() {
     }
 
+    public void setAvoidUnloadResources(boolean avoidUnloadResources) {
+        this.avoidUnloadResources = avoidUnloadResources;
+    }
+
     @Override
     public void run() {
         String name = "User action : " + getText(); //$NON-NLS-1$
@@ -517,6 +523,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
                 doRun();
             }
         };
+        repositoryWorkUnit.setAvoidUnloadResources(avoidUnloadResources);
         CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
     }
 

@@ -71,9 +71,8 @@ public interface IDiagramModelService extends IService {
 
     public void openBusinessDiagramEditor(IWorkbenchPage page, IEditorInput input) throws PartInitException;
 
-    public IFile getDiagramFile(IWorkbenchPage page);
+    public IFile getDiagramFileAndUpdateResource(IWorkbenchPage page, BusinessProcessItem businessProcessItem);
 
     public void addDeleteAssignmentAction(IMenuManager mgr, ISelection selection);
 
-    public void updateProcessFromResource(BusinessProcessItem processItem);
 }
