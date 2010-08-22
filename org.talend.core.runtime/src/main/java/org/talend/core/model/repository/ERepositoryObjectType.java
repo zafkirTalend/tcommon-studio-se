@@ -50,16 +50,17 @@ import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
-import org.talend.core.model.properties.TDQAnalysisItem;
-import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQIndicatorItem;
-import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQJrxmlItem;
-import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.dataquality.properties.TDQAnalysisItem;
+import org.talend.dataquality.properties.TDQBusinessRuleItem;
+import org.talend.dataquality.properties.TDQIndicatorDefinitionItem;
+import org.talend.dataquality.properties.TDQItem;
+import org.talend.dataquality.properties.TDQJrxmlItem;
+import org.talend.dataquality.properties.TDQPatternItem;
+import org.talend.dataquality.properties.TDQReportItem;
 
 /**
  * This enum represents all objects types that can be store in the repository.<br/>
@@ -306,6 +307,11 @@ public enum ERepositoryObjectType {
     }
 
     public static ERepositoryObjectType getItemType(Item item) {
+
+        ERepositoryObjectType repObjType = getTDQRepObjType(item);
+        if (repObjType != null) {
+            return repObjType;
+        }
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
             @Override
@@ -479,6 +485,16 @@ public enum ERepositoryObjectType {
                 return METADATA_HEADER_FOOTER;
             }
 
+            public Object defaultCase(EObject object) {
+                throw new IllegalStateException();
+            }
+        }.doSwitch(item);
+
+    }
+
+    private static ERepositoryObjectType getTDQRepObjType(Item item) {
+        return (ERepositoryObjectType) new org.talend.dataquality.properties.util.PropertiesSwitch() {
+
             // MOD mzhao feature 13114, 2010-05-19
             @Override
             public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
@@ -491,12 +507,12 @@ public enum ERepositoryObjectType {
             }
 
             @Override
-            public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
+            public Object caseTDQIndicatorDefinitionItem(TDQIndicatorDefinitionItem object) {
                 return TDQ_INDICATOR_ELEMENT;
             }
 
             @Override
-            public Object caseTDQPatternItem(org.talend.core.model.properties.TDQPatternItem object) {
+            public Object caseTDQPatternItem(TDQPatternItem object) {
                 return TDQ_PATTERN_ELEMENT;
             }
 
@@ -517,7 +533,7 @@ public enum ERepositoryObjectType {
             }
 
             public Object defaultCase(EObject object) {
-                throw new IllegalStateException();
+                return null;
             }
         }.doSwitch(item);
     }

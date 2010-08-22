@@ -97,13 +97,6 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.TDQAnalysisItem;
-import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQIndicatorItem;
-import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQJrxmlItem;
-import org.talend.core.model.properties.TDQPatternItem;
-import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -116,7 +109,6 @@ import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.UserRoleReference;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
-import org.talend.core.model.properties.*;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
@@ -553,50 +545,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass svgBusinessProcessItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqAnalysisItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqReportItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqIndicatorItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqBusinessRuleItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqPatternItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass tdqJrxmlItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4354,72 +4302,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EClass getTDQItem() {
-        return tdqItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getTDQItem_Filename() {
-        return (EAttribute)tdqItemEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQAnalysisItem() {
-        return tdqAnalysisItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQReportItem() {
-        return tdqReportItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQIndicatorItem() {
-        return tdqIndicatorItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQBusinessRuleItem() {
-        return tdqBusinessRuleItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQPatternItem() {
-        return tdqPatternItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getTDQJrxmlItem() {
-        return tdqJrxmlItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getLinkRulesItem() {
         return linkRulesItemEClass;
     }
@@ -5505,21 +5387,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         svgBusinessProcessItemEClass = createEClass(SVG_BUSINESS_PROCESS_ITEM);
         createEReference(svgBusinessProcessItemEClass, SVG_BUSINESS_PROCESS_ITEM__BUSINESS_PROCESS_ITEM);
 
-        tdqItemEClass = createEClass(TDQ_ITEM);
-        createEAttribute(tdqItemEClass, TDQ_ITEM__FILENAME);
-
-        tdqAnalysisItemEClass = createEClass(TDQ_ANALYSIS_ITEM);
-
-        tdqReportItemEClass = createEClass(TDQ_REPORT_ITEM);
-
-        tdqIndicatorItemEClass = createEClass(TDQ_INDICATOR_ITEM);
-
-        tdqBusinessRuleItemEClass = createEClass(TDQ_BUSINESS_RULE_ITEM);
-
-        tdqPatternItemEClass = createEClass(TDQ_PATTERN_ITEM);
-
-        tdqJrxmlItemEClass = createEClass(TDQ_JRXML_ITEM);
-
         linkRulesItemEClass = createEClass(LINK_RULES_ITEM);
         createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__NAME);
         createEAttribute(linkRulesItemEClass, LINK_RULES_ITEM__EXTENSION);
@@ -5631,13 +5498,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         sqlPatternItemEClass.getESuperTypes().add(this.getFileItem());
         rulesItemEClass.getESuperTypes().add(this.getFileItem());
         svgBusinessProcessItemEClass.getESuperTypes().add(this.getFileItem());
-        tdqItemEClass.getESuperTypes().add(this.getItem());
-        tdqAnalysisItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqReportItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqIndicatorItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqBusinessRuleItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqPatternItemEClass.getESuperTypes().add(this.getTDQItem());
-        tdqJrxmlItemEClass.getESuperTypes().add(this.getTDQItem());
         linkRulesItemEClass.getESuperTypes().add(this.getItem());
         hl7ConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         headerFooterConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
@@ -6198,21 +6058,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(svgBusinessProcessItemEClass, SVGBusinessProcessItem.class, "SVGBusinessProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getSVGBusinessProcessItem_BusinessProcessItem(), this.getBusinessProcessItem(), this.getBusinessProcessItem_SvgBusinessProcessItem(), "businessProcessItem", null, 0, 1, SVGBusinessProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(tdqItemEClass, TDQItem.class, "TDQItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getTDQItem_Filename(), ecorePackage.getEString(), "filename", null, 0, 1, TDQItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(tdqAnalysisItemEClass, TDQAnalysisItem.class, "TDQAnalysisItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqReportItemEClass, TDQReportItem.class, "TDQReportItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqIndicatorItemEClass, TDQIndicatorItem.class, "TDQIndicatorItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqBusinessRuleItemEClass, TDQBusinessRuleItem.class, "TDQBusinessRuleItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqPatternItemEClass, TDQPatternItem.class, "TDQPatternItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(tdqJrxmlItemEClass, TDQJrxmlItem.class, "TDQJrxmlItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(linkRulesItemEClass, LinkRulesItem.class, "LinkRulesItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLinkRulesItem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, LinkRulesItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -326,41 +326,6 @@ public class FolderItemItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQAnalysisItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQReportItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQIndicatorItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQBusinessRuleItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQPatternItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
-                 PropertiesFactory.eINSTANCE.createTDQJrxmlItem()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
                  PropertiesFactory.eINSTANCE.createLinkRulesItem()));
 
         newChildDescriptors.add

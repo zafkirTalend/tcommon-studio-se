@@ -577,65 +577,6 @@ public interface PropertiesFactory extends EFactory {
     SVGBusinessProcessItem createSVGBusinessProcessItem();
 
     /**
-     * Returns a new object of class '<em>TDQ Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Item</em>'.
-     * @generated
-     */
-    TDQItem createTDQItem();
-
-    /**
-     * Returns a new object of class '<em>TDQ Analysis Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Analysis Item</em>'.
-     * @generated
-     */
-    TDQAnalysisItem createTDQAnalysisItem();
-
-    /**
-     * Returns a new object of class '<em>TDQ Report Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Report Item</em>'.
-     * @generated
-     */
-    TDQReportItem createTDQReportItem();
-
-
-    /**
-     * Returns a new object of class '<em>TDQ Indicator Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Indicator Item</em>'.
-     * @generated
-     */
-    TDQIndicatorItem createTDQIndicatorItem();
-
-    /**
-     * Returns a new object of class '<em>TDQ Business Rule Item</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Business Rule Item</em>'.
-     * @generated
-     */
-    TDQBusinessRuleItem createTDQBusinessRuleItem();
-
-    /**
-     * Returns a new object of class '<em>TDQ Pattern Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Pattern Item</em>'.
-     * @generated
-     */
-    TDQPatternItem createTDQPatternItem();
-
-    /**
-     * Returns a new object of class '<em>TDQ Jrxml Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>TDQ Jrxml Item</em>'.
-     * @generated
-     */
-    TDQJrxmlItem createTDQJrxmlItem();
-
-    /**
      * Returns a new object of class '<em>Link Rules Item</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Link Rules Item</em>'.

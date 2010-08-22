@@ -76,6 +76,7 @@ public class PropertyItemProvider
             addItemPropertyDescriptor(object);
             addAuthorPropertyDescriptor(object);
             addMaxInformationLevelPropertyDescriptor(object);
+            addOldStatusCodePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -323,6 +324,28 @@ public class PropertyItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Old Status Code feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOldStatusCodePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Property_oldStatusCode_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Property_oldStatusCode_feature", "_UI_Property_type"),
+                 PropertiesPackage.Literals.PROPERTY__OLD_STATUS_CODE,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -392,6 +415,7 @@ public class PropertyItemProvider
             case PropertiesPackage.PROPERTY__MODIFICATION_DATE:
             case PropertiesPackage.PROPERTY__STATUS_CODE:
             case PropertiesPackage.PROPERTY__MAX_INFORMATION_LEVEL:
+            case PropertiesPackage.PROPERTY__OLD_STATUS_CODE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case PropertiesPackage.PROPERTY__INFORMATIONS:

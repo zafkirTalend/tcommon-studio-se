@@ -88,13 +88,6 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.TDQAnalysisItem;
-import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQIndicatorItem;
-import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQJrxmlItem;
-import org.talend.core.model.properties.TDQPatternItem;
-import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -704,61 +697,6 @@ public class PropertiesSwitch {
                 Object result = caseSVGBusinessProcessItem(svgBusinessProcessItem);
                 if (result == null) result = caseFileItem(svgBusinessProcessItem);
                 if (result == null) result = caseItem(svgBusinessProcessItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_ITEM: {
-                TDQItem tdqItem = (TDQItem)theEObject;
-                Object result = caseTDQItem(tdqItem);
-                if (result == null) result = caseItem(tdqItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_ANALYSIS_ITEM: {
-                TDQAnalysisItem tdqAnalysisItem = (TDQAnalysisItem)theEObject;
-                Object result = caseTDQAnalysisItem(tdqAnalysisItem);
-                if (result == null) result = caseTDQItem(tdqAnalysisItem);
-                if (result == null) result = caseItem(tdqAnalysisItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_REPORT_ITEM: {
-                TDQReportItem tdqReportItem = (TDQReportItem)theEObject;
-                Object result = caseTDQReportItem(tdqReportItem);
-                if (result == null) result = caseTDQItem(tdqReportItem);
-                if (result == null) result = caseItem(tdqReportItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_INDICATOR_ITEM: {
-                TDQIndicatorItem tdqIndicatorItem = (TDQIndicatorItem)theEObject;
-                Object result = caseTDQIndicatorItem(tdqIndicatorItem);
-                if (result == null) result = caseTDQItem(tdqIndicatorItem);
-                if (result == null) result = caseItem(tdqIndicatorItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_BUSINESS_RULE_ITEM: {
-                TDQBusinessRuleItem tdqBusinessRuleItem = (TDQBusinessRuleItem)theEObject;
-                Object result = caseTDQBusinessRuleItem(tdqBusinessRuleItem);
-                if (result == null) result = caseTDQItem(tdqBusinessRuleItem);
-                if (result == null) result = caseItem(tdqBusinessRuleItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_PATTERN_ITEM: {
-                TDQPatternItem tdqPatternItem = (TDQPatternItem)theEObject;
-                Object result = caseTDQPatternItem(tdqPatternItem);
-                if (result == null) result = caseTDQItem(tdqPatternItem);
-                if (result == null) result = caseItem(tdqPatternItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.TDQ_JRXML_ITEM: {
-                TDQJrxmlItem tdqJrxmlItem = (TDQJrxmlItem)theEObject;
-                Object result = caseTDQJrxmlItem(tdqJrxmlItem);
-                if (result == null) result = caseTDQItem(tdqJrxmlItem);
-                if (result == null) result = caseItem(tdqJrxmlItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1808,105 +1746,6 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Item</em>'.
-     * <!-- begin-user-doc --> This
-     * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQItem(TDQItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Analysis Item</em>'. <!-- begin-user-doc
-     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
-     * -->
-     * 
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Analysis Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Report Item</em>'. <!-- begin-user-doc
-     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc
-     * -->
-     * 
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Report Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQReportItem(TDQReportItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Indicator Item</em>'. <!--
-     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
-     * end-user-doc -->
-     * 
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Indicator Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Business Rule Item</em>'. <!--
-     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
-     * end-user-doc -->
-     * 
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Business Rule Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Pattern Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Pattern Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQPatternItem(TDQPatternItem object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>TDQ Jrxml Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>TDQ Jrxml Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
         return null;
     }
 

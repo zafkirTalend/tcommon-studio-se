@@ -88,13 +88,6 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
-import org.talend.core.model.properties.TDQAnalysisItem;
-import org.talend.core.model.properties.TDQBusinessRuleItem;
-import org.talend.core.model.properties.TDQIndicatorItem;
-import org.talend.core.model.properties.TDQItem;
-import org.talend.core.model.properties.TDQJrxmlItem;
-import org.talend.core.model.properties.TDQPatternItem;
-import org.talend.core.model.properties.TDQReportItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -392,27 +385,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseSVGBusinessProcessItem(SVGBusinessProcessItem object) {
                 return createSVGBusinessProcessItemAdapter();
-            }
-            public Object caseTDQItem(TDQItem object) {
-                return createTDQItemAdapter();
-            }
-            public Object caseTDQAnalysisItem(TDQAnalysisItem object) {
-                return createTDQAnalysisItemAdapter();
-            }
-            public Object caseTDQReportItem(TDQReportItem object) {
-                return createTDQReportItemAdapter();
-            }
-            public Object caseTDQIndicatorItem(TDQIndicatorItem object) {
-                return createTDQIndicatorItemAdapter();
-            }
-            public Object caseTDQBusinessRuleItem(TDQBusinessRuleItem object) {
-                return createTDQBusinessRuleItemAdapter();
-            }
-            public Object caseTDQPatternItem(TDQPatternItem object) {
-                return createTDQPatternItemAdapter();
-            }
-            public Object caseTDQJrxmlItem(TDQJrxmlItem object) {
-                return createTDQJrxmlItemAdapter();
             }
             public Object caseLinkRulesItem(LinkRulesItem object) {
                 return createLinkRulesItemAdapter();
@@ -1403,98 +1375,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSVGBusinessProcessItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQItem <em>TDQ Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
-     * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQItem
-     * @generated
-     */
-    public Adapter createTDQItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQAnalysisItem <em>TDQ Analysis Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can
-     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQAnalysisItem
-     * @generated
-     */
-    public Adapter createTDQAnalysisItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQReportItem <em>TDQ Report Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can
-     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQReportItem
-     * @generated
-     */
-    public Adapter createTDQReportItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQIndicatorItem <em>TDQ Indicator Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we can
-     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQIndicatorItem
-     * @generated
-     */
-    public Adapter createTDQIndicatorItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQBusinessRuleItem <em>TDQ Business Rule Item</em>}'.
-     * <!-- begin-user-doc --> This default implementation returns null so that we
-     * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQBusinessRuleItem
-     * @generated
-     */
-    public Adapter createTDQBusinessRuleItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQPatternItem <em>TDQ Pattern Item</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQPatternItem
-     * @generated
-     */
-    public Adapter createTDQPatternItemAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TDQJrxmlItem <em>TDQ Jrxml Item</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.TDQJrxmlItem
-     * @generated
-     */
-    public Adapter createTDQJrxmlItemAdapter() {
         return null;
     }
 
