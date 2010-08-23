@@ -19,8 +19,8 @@ import java.util.Map;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.dataquality.properties.TDQItem;
 
 /**
  * DOC bZhou class global comment. Detailled comment

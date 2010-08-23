@@ -342,6 +342,11 @@ public class FolderItemItemProvider
             (createChildParameter
                 (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
                  PropertiesFactory.eINSTANCE.createFTPConnectionItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (PropertiesPackage.Literals.FOLDER_ITEM__CHILDREN,
+                 PropertiesFactory.eINSTANCE.createTDQItem()));
     }
 
 }

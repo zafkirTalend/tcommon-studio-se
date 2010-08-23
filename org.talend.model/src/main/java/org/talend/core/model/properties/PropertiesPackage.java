@@ -7299,6 +7299,61 @@ public interface PropertiesPackage extends EPackage {
     int CUSTOM_COMPONENT_SETTING_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TDQItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
+     * @generated
+     */
+    int TDQ_ITEM = 88;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Parent</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__PARENT = ITEM__PARENT;
+
+    /**
+     * The feature id for the '<em><b>Filename</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM__FILENAME = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>TDQ Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TDQ_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7306,7 +7361,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 88;
+    int FOLDER_TYPE = 89;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -7315,7 +7370,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 89;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 90;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
@@ -7324,7 +7379,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 90;
+    int USER_MODULE_AUTHORIZATION_TYPE = 91;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.InformationLevel <em>Information Level</em>}' enum.
@@ -7333,7 +7388,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getInformationLevel()
      * @generated
      */
-    int INFORMATION_LEVEL = 91;
+    int INFORMATION_LEVEL = 92;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -11584,6 +11639,27 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getCustomComponentSetting_Share();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TDQItem <em>TDQ Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TDQ Item</em>'.
+     * @see org.talend.core.model.properties.TDQItem
+     * @generated
+     */
+    EClass getTDQItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TDQItem#getFilename <em>Filename</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Filename</em>'.
+     * @see org.talend.core.model.properties.TDQItem#getFilename()
+     * @see #getTDQItem()
+     * @generated
+     */
+    EAttribute getTDQItem_Filename();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionPlan <em>Execution Plan</em>}'.
@@ -15978,6 +16054,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute CUSTOM_COMPONENT_SETTING__SHARE = eINSTANCE.getCustomComponentSetting_Share();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TDQItemImpl <em>TDQ Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TDQItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTDQItem()
+         * @generated
+         */
+        EClass TDQ_ITEM = eINSTANCE.getTDQItem();
+
+        /**
+         * The meta object literal for the '<em><b>Filename</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TDQ_ITEM__FILENAME = eINSTANCE.getTDQItem_Filename();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionPlanImpl <em>Execution Plan</em>}' class.

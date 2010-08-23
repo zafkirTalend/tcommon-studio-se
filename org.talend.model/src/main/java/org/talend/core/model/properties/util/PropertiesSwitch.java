@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.model.properties.*;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -758,6 +759,13 @@ public class PropertiesSwitch {
             case PropertiesPackage.CUSTOM_COMPONENT_SETTING: {
                 CustomComponentSetting customComponentSetting = (CustomComponentSetting)theEObject;
                 Object result = caseCustomComponentSetting(customComponentSetting);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.TDQ_ITEM: {
+                TDQItem tdqItem = (TDQItem)theEObject;
+                Object result = caseTDQItem(tdqItem);
+                if (result == null) result = caseItem(tdqItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1874,6 +1882,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseCustomComponentSetting(CustomComponentSetting object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>TDQ Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>TDQ Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTDQItem(TDQItem object) {
         return null;
     }
 

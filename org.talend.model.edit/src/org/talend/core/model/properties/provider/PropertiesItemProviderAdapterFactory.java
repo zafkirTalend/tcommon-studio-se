@@ -1946,6 +1946,28 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.core.model.properties.TDQItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected TDQItemItemProvider tdqItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.core.model.properties.TDQItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createTDQItemAdapter() {
+        if (tdqItemItemProvider == null) {
+            tdqItemItemProvider = new TDQItemItemProvider(this);
+        }
+
+        return tdqItemItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2126,6 +2148,7 @@ public class PropertiesItemProviderAdapterFactory extends PropertiesAdapterFacto
         if (headerFooterConnectionItemItemProvider != null) headerFooterConnectionItemItemProvider.dispose();
         if (ftpConnectionItemItemProvider != null) ftpConnectionItemItemProvider.dispose();
         if (customComponentSettingItemProvider != null) customComponentSettingItemProvider.dispose();
+        if (tdqItemItemProvider != null) tdqItemItemProvider.dispose();
     }
 
 }

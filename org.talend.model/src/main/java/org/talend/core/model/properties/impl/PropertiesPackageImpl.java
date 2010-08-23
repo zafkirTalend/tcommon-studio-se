@@ -97,6 +97,7 @@ import org.talend.core.model.properties.SoaService;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.StatAndLogsSettings;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.TaskExecutionHistory;
 import org.talend.core.model.properties.User;
@@ -602,6 +603,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass customComponentSettingEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass tdqItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -4005,6 +4013,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTDQItem() {
+        return tdqItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTDQItem_Filename() {
+        return (EAttribute)tdqItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -5421,6 +5447,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(customComponentSettingEClass, CUSTOM_COMPONENT_SETTING__NAME);
         createEAttribute(customComponentSettingEClass, CUSTOM_COMPONENT_SETTING__SHARE);
 
+        tdqItemEClass = createEClass(TDQ_ITEM);
+        createEAttribute(tdqItemEClass, TDQ_ITEM__FILENAME);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -5502,6 +5531,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         hl7ConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         headerFooterConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ftpConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        tdqItemEClass.getESuperTypes().add(this.getItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -6092,6 +6122,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(customComponentSettingEClass, CustomComponentSetting.class, "CustomComponentSetting", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getCustomComponentSetting_Name(), theEcorePackage.getEString(), "name", null, 0, 1, CustomComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCustomComponentSetting_Share(), theEcorePackage.getEBoolean(), "share", null, 0, 1, CustomComponentSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(tdqItemEClass, TDQItem.class, "TDQItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTDQItem_Filename(), theEcorePackage.getEString(), "filename", null, 0, 1, TDQItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

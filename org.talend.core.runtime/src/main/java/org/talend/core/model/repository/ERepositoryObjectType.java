@@ -50,6 +50,7 @@ import org.talend.core.model.properties.SVGBusinessProcessItem;
 import org.talend.core.model.properties.SalesforceSchemaConnectionItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
+import org.talend.core.model.properties.TDQItem;
 import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
@@ -57,7 +58,6 @@ import org.talend.core.runtime.i18n.Messages;
 import org.talend.dataquality.properties.TDQAnalysisItem;
 import org.talend.dataquality.properties.TDQBusinessRuleItem;
 import org.talend.dataquality.properties.TDQIndicatorDefinitionItem;
-import org.talend.dataquality.properties.TDQItem;
 import org.talend.dataquality.properties.TDQJrxmlItem;
 import org.talend.dataquality.properties.TDQPatternItem;
 import org.talend.dataquality.properties.TDQReportItem;
@@ -485,6 +485,12 @@ public enum ERepositoryObjectType {
                 return METADATA_HEADER_FOOTER;
             }
 
+            // MOD mzhao feature 9207
+            @Override
+            public Object caseTDQItem(TDQItem object) {
+                return TDQ_ELEMENT;
+            }
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
@@ -524,12 +530,6 @@ public enum ERepositoryObjectType {
             @Override
             public Object caseTDQReportItem(TDQReportItem object) {
                 return TDQ_REPORT_ELEMENT;
-            }
-
-            // MOD mzhao feature 9207
-            @Override
-            public Object caseTDQItem(TDQItem object) {
-                return TDQ_ELEMENT;
             }
 
             public Object defaultCase(EObject object) {
