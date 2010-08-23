@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.designer.webservice.ui;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1034,6 +1036,34 @@ public class WebServiceUI extends AbstractWebService {
             System.setProperty("javax.net.ssl.keyStore", keyStore);
             System.setProperty("javax.net.ssl.keyStoreType", clienceTruststore);
             System.setProperty("javax.net.ssl.keyStorePassword", keyPasswd);
+
+            String wsdlUrl = (String) connector.getElementParameter("ENDPOINT").getValue();
+            java.net.URL url = null;
+            try {
+                url = new java.net.URL(wsdlUrl.replaceAll("\"", ""));
+            } catch (MalformedURLException e1) {
+                System.out.println("Erreur");
+                e1.printStackTrace();
+            }
+            javax.net.ssl.HttpsURLConnection httpsCon = null;
+            try {
+                httpsCon = (javax.net.ssl.HttpsURLConnection) url.openConnection();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            httpsCon.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+
+                public boolean verify(String arg0, javax.net.ssl.SSLSession arg1) {
+                    return true;
+                }
+            });
+            try {
+                httpsCon.connect();
+            } catch (IOException e) {
+                System.out.println("Erreur");
+                e.printStackTrace();
+            }
         }
     }
 
