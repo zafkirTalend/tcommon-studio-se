@@ -937,8 +937,8 @@ public class WebServiceUI extends AbstractWebService {
         if (serverConfig == null) {
             serverConfig = new ServiceHelperConfiguration();
         }
-        serverConfig.setUsername(proxyHost);
-        serverConfig.setPassword(proxyPort);
+        serverConfig.setProxyServer(proxyHost);
+        serverConfig.setProxyPort(Integer.parseInt(proxyPort));
         serverConfig.setUsername(proxyUser);
         serverConfig.setPassword(proxyPassword);
 
@@ -980,14 +980,15 @@ public class WebServiceUI extends AbstractWebService {
      * @return
      */
     private void useSSL() {
-
         String trustStoreFile = "";
-        String trustStorePassword = "";
 
+        String trustStorePassword = "";
+        String trustStore = "";
         IElementParameter trustserverFileParameter = webServiceManager.getWebServiceComponent().getElementParameter(
                 "SSL_TRUSTSERVER_TRUSTSTORE");
         IElementParameter trustserverPasswordParameter = webServiceManager.getWebServiceComponent().getElementParameter(
                 "SSL_TRUSTSERVER_PASSWORD");
+        IElementParameter truststoreParameter = webServiceManager.getWebServiceComponent().getElementParameter("TRUSTSTORE_TYPE");
         if (trustserverFileParameter.getValue() != null) {
             trustStoreFile = trustserverFileParameter.getValue().toString();
             trustStoreFile = TalendTextUtils.removeQuotes(trustStoreFile);
@@ -996,11 +997,44 @@ public class WebServiceUI extends AbstractWebService {
             trustStorePassword = trustserverPasswordParameter.getValue().toString();
             trustStorePassword = TalendTextUtils.removeQuotes(trustStorePassword);
         }
+        if (truststoreParameter.getValue() != null) {
+            trustStore = truststoreParameter.getValue().toString();
 
-        System.setProperty("java.protocol.handler.pkgs", "com.sun.net.ssl.internal.www.protocol");
+        }
+
+        // System.setProperty("javax.net.ssl.trustStoreType", trustStore);
+
+        System.clearProperty("javax.net.ssl.trustStore");
         System.setProperty("javax.net.ssl.trustStore", trustStoreFile);
-        System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
+        // System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
+        boolean useClience = webServiceManager.getWebServiceComponent().getElementParameter("NEED_CLIENT_AUTH").getValue()
+                .toString().equals("true");
+        if (useClience) {
+            String keyStore = "";
+            String keyPasswd = "";
+            String clienceTruststore = "";
+            IElementParameter clienceKeyStoreFileParameter = webServiceManager.getWebServiceComponent().getElementParameter(
+                    "SSL_KEYSTORE");
 
+            IElementParameter clienceKeyStorePasswdParameter = webServiceManager.getWebServiceComponent().getElementParameter(
+                    "SSL_KEYSTORE_PASSWORD");
+
+            IElementParameter clienceKeyStoreTypeParameter = webServiceManager.getWebServiceComponent().getElementParameter(
+                    "KEYSTORE_TYPE");
+            if (clienceKeyStoreFileParameter.getValue() != null) {
+                keyStore = clienceKeyStoreFileParameter.getValue().toString();
+                keyStore = TalendTextUtils.removeQuotes(keyStore);
+            }
+
+            if (clienceKeyStorePasswdParameter.getValue() != null) {
+                keyPasswd = clienceKeyStorePasswdParameter.getValue().toString();
+                keyPasswd = TalendTextUtils.removeQuotes(keyPasswd);
+            }
+            clienceTruststore = clienceKeyStoreTypeParameter.getValue().toString();
+            System.setProperty("javax.net.ssl.keyStore", keyStore);
+            System.setProperty("javax.net.ssl.keyStoreType", clienceTruststore);
+            System.setProperty("javax.net.ssl.keyStorePassword", keyPasswd);
+        }
     }
 
     /**
@@ -1143,7 +1177,6 @@ public class WebServiceUI extends AbstractWebService {
     }
 
     private Composite createWSDLStatus() {
-
         wsdlComposite = new Composite(tabFolder, SWT.NONE);
         GridLayout layout = new GridLayout();
         layout.marginWidth = 20;
