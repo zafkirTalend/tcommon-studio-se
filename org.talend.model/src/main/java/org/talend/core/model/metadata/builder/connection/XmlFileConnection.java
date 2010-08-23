@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getLoop <em>Loop</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isInputModel <em>Input Model</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getOutputFilePath <em>Output File Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getFileContent <em>File Content</em>}</li>
  * </ul>
  * </p>
  *
@@ -283,5 +284,31 @@ public interface XmlFileConnection extends Connection {
      * @generated
      */
     void setOutputFilePath(String value);
+
+    /**
+     * Returns the value of the '<em><b>File Content</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>File Content</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>File Content</em>' attribute.
+     * @see #setFileContent(byte[])
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_FileContent()
+     * @model
+     * @generated
+     */
+    byte[] getFileContent();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getFileContent <em>File Content</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>File Content</em>' attribute.
+     * @see #getFileContent()
+     * @generated
+     */
+    void setFileContent(byte[] value);
 
 } // XmlFileConnection

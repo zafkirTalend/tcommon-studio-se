@@ -1740,6 +1740,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getXmlFileConnection_FileContent() {
+        return (EAttribute) xmlFileConnectionEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -3390,6 +3399,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(xmlFileConnectionEClass, XML_FILE_CONNECTION__LOOP);
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__INPUT_MODEL);
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__OUTPUT_FILE_PATH);
+        createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__FILE_CONTENT);
 
         schemaTargetEClass = createEClass(SCHEMA_TARGET);
         createEAttribute(schemaTargetEClass, SCHEMA_TARGET__RELATIVE_XPATH_QUERY);
@@ -4102,6 +4112,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXmlFileConnection_OutputFilePath(), ecorePackage.getEString(), "outputFilePath", null, 0, 1,
+                XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_FileContent(), ecorePackage.getEByteArray(), "fileContent", null, 0, 1,
                 XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
 

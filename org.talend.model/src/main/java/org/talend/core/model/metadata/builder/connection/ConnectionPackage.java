@@ -8099,13 +8099,22 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__OUTPUT_FILE_PATH = CONNECTION_FEATURE_COUNT + 10;
 
     /**
+     * The feature id for the '<em><b>File Content</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__FILE_CONTENT = CONNECTION_FEATURE_COUNT + 11;
+
+    /**
      * The number of structural features of the '<em>Xml File Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 11;
+    int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 12;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
@@ -16693,6 +16702,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXmlFileConnection_OutputFilePath();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getFileContent <em>File Content</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Content</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getFileContent()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EAttribute getXmlFileConnection_FileContent();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema Target</em>'.
@@ -19815,6 +19835,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute XML_FILE_CONNECTION__OUTPUT_FILE_PATH = eINSTANCE.getXmlFileConnection_OutputFilePath();
+
+        /**
+         * The meta object literal for the '<em><b>File Content</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_CONNECTION__FILE_CONTENT = eINSTANCE.getXmlFileConnection_FileContent();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.

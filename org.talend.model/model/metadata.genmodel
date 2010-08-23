@@ -215,6 +215,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlFileConnection/loop"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/inputModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/outputFilePath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/fileContent"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SchemaTarget">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/RelativeXPathQuery"/>

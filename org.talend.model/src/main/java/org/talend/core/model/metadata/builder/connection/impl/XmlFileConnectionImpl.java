@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getLoop <em>Loop</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#isInputModel <em>Input Model</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getOutputFilePath <em>Output File Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getFileContent <em>File Content</em>}</li>
  * </ul>
  * </p>
  *
@@ -227,6 +228,26 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @ordered
      */
     protected String outputFilePath = OUTPUT_FILE_PATH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getFileContent() <em>File Content</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileContent()
+     * @generated
+     * @ordered
+     */
+    protected static final byte[] FILE_CONTENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFileContent() <em>File Content</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileContent()
+     * @generated
+     * @ordered
+     */
+    protected byte[] fileContent = FILE_CONTENT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -456,6 +477,28 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    public byte[] getFileContent() {
+        return fileContent;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFileContent(byte[] newFileContent) {
+        byte[] oldFileContent = fileContent;
+        fileContent = newFileContent;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__FILE_CONTENT,
+                    oldFileContent, fileContent));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -516,6 +559,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
             return isInputModel();
         case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
             return getOutputFilePath();
+        case ConnectionPackage.XML_FILE_CONNECTION__FILE_CONTENT:
+            return getFileContent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -566,6 +611,9 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
             setOutputFilePath((String) newValue);
             return;
+        case ConnectionPackage.XML_FILE_CONNECTION__FILE_CONTENT:
+            setFileContent((byte[]) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -611,6 +659,9 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
             setOutputFilePath(OUTPUT_FILE_PATH_EDEFAULT);
             return;
+        case ConnectionPackage.XML_FILE_CONNECTION__FILE_CONTENT:
+            setFileContent(FILE_CONTENT_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -645,6 +696,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
             return inputModel != INPUT_MODEL_EDEFAULT;
         case ConnectionPackage.XML_FILE_CONNECTION__OUTPUT_FILE_PATH:
             return OUTPUT_FILE_PATH_EDEFAULT == null ? outputFilePath != null : !OUTPUT_FILE_PATH_EDEFAULT.equals(outputFilePath);
+        case ConnectionPackage.XML_FILE_CONNECTION__FILE_CONTENT:
+            return FILE_CONTENT_EDEFAULT == null ? fileContent != null : !FILE_CONTENT_EDEFAULT.equals(fileContent);
         }
         return super.eIsSet(featureID);
     }
@@ -674,6 +727,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         result.append(inputModel);
         result.append(", outputFilePath: ");
         result.append(outputFilePath);
+        result.append(", fileContent: ");
+        result.append(fileContent);
         result.append(')');
         return result.toString();
     }
