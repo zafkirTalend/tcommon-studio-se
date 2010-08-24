@@ -26,10 +26,10 @@
 //
 package routines.system;
 
-import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Locale;
 import java.text.DecimalFormatSymbols;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Vector;
 
 /**
  * PrintfFormat allows the formatting of an array of objects embedded within a string. Primitive types must be passed

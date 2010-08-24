@@ -994,7 +994,7 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
         int x = 0, y = 0, width = 0, height = 0;
         for (INode node : allComponentsList) {
             if (node.getLocation() != null) {
-                Point point = node.getLocation();
+                Point point = (Point) node.getLocation();
                 x = point.x + screenshotOffset.x;
                 y = point.y + screenshotOffset.y;
             }

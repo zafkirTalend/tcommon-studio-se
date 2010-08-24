@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IMultipleComponentManager;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -357,7 +356,7 @@ public abstract class AbstractNode implements INode {
      * 
      * @see org.talend.core.model.process.INode#getLocation()
      */
-    public Point getLocation() {
+    public Object getLocation() {
         return null;
     }
 

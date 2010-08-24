@@ -15,7 +15,6 @@ package org.talend.core.model.process;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -166,7 +165,7 @@ public interface INode extends IElement {
      * 
      * @return
      */
-    public Point getLocation();
+    public Object getLocation();
 
     public boolean isThereLinkWithHash();
 
