@@ -15,11 +15,9 @@ package org.talend.core.model.update;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -39,6 +37,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -649,30 +648,33 @@ public abstract class RepositoryUpdateManager {
                 jobContextManager.setRepositoryRenamedMap(getContextRenamedMap());
                 jobContextManager.setNewParametersMap(getNewParametersMap());
                 Map<ContextItem, List<IContext>> repositoryAddGroupContext = getRepositoryAddGroupContext();
-                Collection<List<IContext>> values = repositoryAddGroupContext.values();
-                Iterator<List<IContext>> iterator = values.iterator();
+
                 List<IContext> listIContext = new ArrayList<IContext>();
-                if (iterator != null && iterator.hasNext()) {
-                    List<IContext> next = iterator.next();
-                    // for bug 7769 the jobContextManager size > context size, for add context group
-                    if (next.listIterator().hasNext()) {
-                        ListIterator<IContext> contextList = next.listIterator();
-                        while (contextList.hasNext()) {
-                            IContext context = contextList.next();
-                            for (int i = 0; i < jobContextManager.getDefaultContext().getContextParameterList().size(); i++) {
-                                String name = jobContextManager.getDefaultContext().getContextParameterList().get(i).getName();
-                                for (int j = 0; j < context.getContextParameterList().size(); j++) {
-                                    String contextName = context.getContextParameterList().get(j).getName();
-                                    if (!name.equals(contextName)) {
-                                        context.getContextParameterList().remove(j);
-                                        j--;
-                                    }
-                                }
+                for (ContextItem item : repositoryAddGroupContext.keySet()) {
+                    List<IContext> list = repositoryAddGroupContext.get(item);
+                    ListIterator<IContext> listIterator = list.listIterator();
+                    while (listIterator.hasNext()) {
+                        IContext context = listIterator.next();
+                        JobContext newJobContext = new JobContext(context.getName());
+                        List<IContextParameter> existedParameters = new ArrayList<IContextParameter>();
+
+                        for (int j = 0; j < context.getContextParameterList().size(); j++) {
+                            IContextParameter param = context.getContextParameterList().get(j);
+                            IContextParameter contextParameter = jobContextManager.getDefaultContext().getContextParameter(
+                                    param.getName());
+                            if (contextParameter != null && param.getName().equals(contextParameter.getName())
+                                    && item.getProperty().getId().equals(contextParameter.getSource())) { // found
+                                IContextParameter clone = param.clone();
+                                clone.setContext(newJobContext);
+                                existedParameters.add(clone);
                             }
                         }
-
+                        if (!existedParameters.isEmpty()) {
+                            newJobContext.setContextParameterList(existedParameters);
+                            listIContext.add(newJobContext);
+                        }
                     }
-                    listIContext.addAll(next);
+
                 }
                 jobContextManager.setAddGroupContext(listIContext);
                 jobContextManager.setAddContextGroupMap(repositoryAddGroupContext);

@@ -540,8 +540,14 @@ public class ContextTemplateComposite extends AbstractContextTabEditComposite {
                                  */
                                 Set<String> paramNamesFromBuiltIn = new HashSet<String>();
                                 for (Object o : obj) {
-                                    parameter = ((ContextParameterSortedParent) o).getParameter();
-                                    paramNamesFromBuiltIn.add(parameter.getName());
+                                    if (o instanceof ContextParameterSortedParent) {
+                                        parameter = ((ContextParameterSortedParent) o).getParameter();
+                                    } else if (o instanceof ContextParameterSortedSon) {
+                                        parameter = ((ContextParameterSortedSon) o).getParameter();
+                                    }
+                                    if (parameter != null) {
+                                        paramNamesFromBuiltIn.add(parameter.getName());
+                                    }
                                 }
                                 modelManager.onContextRemoveParameter(getContextManager(), paramNamesFromBuiltIn);
                             } else {
