@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DOC yyi 2010-07-02
+ * DOC yyi 2010-07-02.
  * 
  * This class contains the data type regisited in XSDTypeRegister and XSDTypeExtendRegister <br>
  * To convert W3C data types to JDBC types <a>http://www.w3.org/TR/xmlschema-2/#built-in-datatypes</a>
@@ -25,7 +25,7 @@ import java.util.Map;
  * @link org.eclipse.xsd.impl.type.XSDTypeRegister
  * @link org.talend.cwm.management.api.XSDTypeExtendRegister
  */
-public class XSDDataTypeConvertor {
+public final class XSDDataTypeConvertor {
 
     private XSDDataTypeConvertor() {
     }
@@ -33,7 +33,7 @@ public class XSDDataTypeConvertor {
     private static Map<String, Integer> map;
 
     /**
-     * DOC get the map yyi 2010-07-01
+     * DOC get the map yyi 2010-07-01.
      * 
      * @link org.eclipse.xsd.impl.type.XSDTypeRegister
      * @link org.talend.cwm.management.api.XSDTypeExtendRegister
@@ -80,7 +80,7 @@ public class XSDDataTypeConvertor {
     }
 
     /**
-     * DOC yyi convert W3C data types to JDBC types <a>http://www.w3.org/TR/xmlschema-2/#built-in-datatypes</a>
+     * DOC yyi convert W3C data types to JDBC types <a>http://www.w3.org/TR/xmlschema-2/#built-in-datatypes</a>.
      * 
      * @param xsdDataType
      * @return java.sql.Types
