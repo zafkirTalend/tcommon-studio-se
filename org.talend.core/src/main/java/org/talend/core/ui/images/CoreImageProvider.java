@@ -20,7 +20,6 @@ import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.image.ImageUtils.ICON_SIZE;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
@@ -128,11 +127,6 @@ public class CoreImageProvider {
             } else {
                 image = (Image) componentCachedImages.get(name, iconSize);
             }
-            // see bug 15062. fix a problem when drag a joblet to job editor, the icon will be always the same even edit
-            // again.
-            if (component.getComponentType().equals(EComponentType.JOBLET)) {
-                image = null;
-            }
             if (image == null || image.isDisposed()) {
                 ImageDescriptor icon = null;
                 switch (iconSize) {
@@ -154,5 +148,13 @@ public class CoreImageProvider {
             return image;
         }
         return null;
+    }
+
+    public static void removeComponentImage(String name) {
+        if (name != null && !name.equals("")) {
+            componentCachedImages.remove(name, ICON_SIZE.ICON_16);
+            componentCachedImages.remove(name, ICON_SIZE.ICON_24);
+            componentCachedImages.remove(name, ICON_SIZE.ICON_32);
+        }
     }
 }
