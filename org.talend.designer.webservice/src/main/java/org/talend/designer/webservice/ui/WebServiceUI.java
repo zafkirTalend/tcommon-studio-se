@@ -1041,28 +1041,21 @@ public class WebServiceUI extends AbstractWebService {
             java.net.URL url = null;
             try {
                 url = new java.net.URL(wsdlUrl.replaceAll("\"", ""));
-            } catch (MalformedURLException e1) {
-                System.out.println("Erreur");
-                e1.printStackTrace();
-            }
-            javax.net.ssl.HttpsURLConnection httpsCon = null;
-            try {
-                httpsCon = (javax.net.ssl.HttpsURLConnection) url.openConnection();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            httpsCon.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
 
-                public boolean verify(String arg0, javax.net.ssl.SSLSession arg1) {
-                    return true;
-                }
-            });
-            try {
+                javax.net.ssl.HttpsURLConnection httpsCon = null;
+                httpsCon = (javax.net.ssl.HttpsURLConnection) url.openConnection();
+
+                httpsCon.setHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+
+                    public boolean verify(String arg0, javax.net.ssl.SSLSession arg1) {
+                        return true;
+                    }
+                });
                 httpsCon.connect();
+            } catch (MalformedURLException e1) {
+                ExceptionHandler.process(e1);
             } catch (IOException e) {
-                System.out.println("Erreur");
-                e.printStackTrace();
+                ExceptionHandler.process(e);
             }
         }
     }
